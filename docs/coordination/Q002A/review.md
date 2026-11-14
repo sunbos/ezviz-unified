@@ -1,0 +1,9 @@
+# Q002A验收
+
+采纳最小修补：timeout浮点转换溢出统一为ValueError；外部provider的明确异步invalidate在构造时拒绝；AsyncClient在实际取token时检查awaitable结果，仍不提前调用getter。
+
+主导方拒绝两个候选细节：强制get_token必须async def会破坏返回Future的合法协议；遍历sys.modules寻找任意Operation会让测试依赖加载顺序及响应策略。最终保留8项针对本次问题的回归，并运行现有client/provider/transport重试和生命周期测试。
+
+8项中7项在修补前失败，合法Future用例原本通过且修补后继续通过。与相关发行和核心测试合计191项通过；完整结果见[集中审查](../Q001/review.md)。
+
+一个中间纯文本修订会话尝试调用工具，输出被拒绝；没有采用候选或切换模型。最终代码来自初始合格候选与后续合格纯文本修订，均由Codex核对并执行测试。

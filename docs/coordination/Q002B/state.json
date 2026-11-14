@@ -1,0 +1,35 @@
+{
+  "task_id": "Q002B",
+  "status": "accepted",
+  "requested_model": "devin/swe-2",
+  "effort_requested": "max",
+  "runs": [
+    {
+      "task": "Q002B",
+      "observed_models": [
+        "devin/swe-2"
+      ],
+      "tools": [],
+      "tool_use_attempts": 0,
+      "prompt_sha256": "fbcbc76d72b513d6a999f8032ebbaaeb7530f492d542ce5bf7b5f73ba1ec2a95",
+      "output_sha256": "861d6342fce9d9a35dbb9e8a22874dfd69226731a76339edb639428c263bfeec"
+    },
+    {
+      "task": "Q002B-review",
+      "observed_models": [
+        "devin/swe-2"
+      ],
+      "tools": [],
+      "tool_use_attempts": 0,
+      "prompt_sha256": "6462d028cffa21203ede813a3ed3d941d82e74a2937f43e2943a3d674298930e",
+      "output_sha256": "932706ac60ddd5b803355b5bf3fb9cfd7990bfa06300f3cf720b03868b958f76"
+    }
+  ],
+  "verification": {
+    "full_tests": 2281,
+    "subtests": 11,
+    "wire_contracts": 177,
+    "wire_executions": 1448,
+    "real_api_used": false
+  }
+}
