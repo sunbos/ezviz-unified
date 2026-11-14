@@ -1,6 +1,6 @@
 # 发行准备与验证
 
-当前版本为未发布的 `0.1.0a1`，发行名 `ezviz-unified`，导入名 `ezviz_unified`，要求 Python 3.12+，与旧 `ezviz-openapi-utils` 独立。仓库为 `sunbos/ezviz-unified`；独立仓库已公开并通过交接CI，旧库已归档，PyPI尚未发布。每次发行仍须核对拟发布提交的实际checks。发布前先阅读[官方契约覆盖](../contracts/coverage.json)及[真实验证记录](validation/live/2026-11-14/README.md)。源代码与官方资料来源见[来源记录](provenance.md)。
+当前版本为未发布的 `0.1.0a1`，发行名 `ezviz-unified`，导入名 `ezviz_unified`，要求 Python 3.12+，与旧 `ezviz-openapi-utils` 独立。仓库为 `sunbos/ezviz-unified`；独立仓库已公开并通过交接CI，旧库已归档，PyPI尚未发布。每次发行仍须核对拟发布提交的实际checks。发布前先阅读[官方契约覆盖](../contracts/coverage.json)及[真实验证记录](validation/live/README.md)。源代码与官方资料来源见[来源记录](provenance.md)。
 
 ## 构建与检查
 
@@ -16,7 +16,7 @@ python tools/release/check_artifacts.py
 python -m twine check dist/*
 ```
 
-确保dist中只有本次版本的一份wheel和一份sdist。检查器核对名称、版本、Python要求、MIT许可证、Markdown说明、类型标记及归档边界，并拒绝路径穿越、链接成员、重复条目和混入维护/私密文件。该步骤不替代安装或功能测试。
+确保dist中只有本次版本的一份wheel和一份sdist。检查器核对名称、版本、Python要求、MIT许可证、Markdown说明、类型标记，并按明确布局边界核对归档：wheel顶层只允许SDK导入包目录和唯一且经名称/版本校验的dist-info目录；sdist根项只允许LICENSE、MANIFEST.in、PKG-INFO、README.md、pyproject.toml、setup.cfg（及常规setup.py）、src、tests，其中src下只含SDK包与对应egg-info，tests下只含扁平的conftest.py、test_offline_policy.py与test_sdk*.py，且sdist必须实际包含这三类测试文件。同时拒绝路径穿越、链接成员、重复条目及上述边界外的任何条目。该步骤只校验元数据与布局存在性，不执行测试、不替代安装或功能验证，也不做内容级秘密扫描。
 
 wheel仅含SDK；sdist还含SDK测试。完整文档采集、维护harness和相关测试保留在Git仓库，不进入发行文件。开发这些工具时请使用Git检出目录。
 
