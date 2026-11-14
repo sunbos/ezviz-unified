@@ -1,0 +1,8 @@
+{
+  "task": "R005",
+  "state": "accepted",
+  "scope": "local validation; remote checks authoritative on PR",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "note": "接受复用评估与固定版本指南。pyEzvizApi 2.4.0 wheel中的167个包内文件与固定Git树一致；未安装、导入或进行真实账号测试。仅提供调用方持有上游客户端的集成说明，可选adapter、跨源身份映射与异步生命周期封装仍待验证。已修正不实的能力排他性和API名称。"
+}

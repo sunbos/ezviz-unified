@@ -1,0 +1,8 @@
+{
+  "task": "D002A",
+  "state": "accepted",
+  "scope": "local validation; remote checks authoritative on PR",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "note": "接受本地实现。修正重新构造门面导致绕过借用client对象的问题，新增独立两项回归先失败后通过。保留五项逻辑调用边界、AuthenticationError与取消传播；标准依赖保持HTTPX。"
+}

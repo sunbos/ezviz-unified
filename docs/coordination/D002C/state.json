@@ -1,0 +1,8 @@
+{
+  "task": "D002C",
+  "state": "accepted",
+  "scope": "local validation; remote checks authoritative on PR",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "note": "接受示例。98项离线测试通过；长整数字符串在创建client前归类配置错误，新增两项回归先失败后通过。同步/异步覆盖国内/海外与部分失败；CI扩大Ruff示例测试glob。新例未做真实账号验收。"
+}
