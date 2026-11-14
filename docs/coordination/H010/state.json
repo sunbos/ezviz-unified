@@ -1,0 +1,49 @@
+{
+  "task_id": "H010",
+  "status": "accepted",
+  "requested_model": "devin/swe-2",
+  "effort_requested": "max",
+  "execution_cwd": "current_repository",
+  "runs": [
+    {
+      "task": "H010",
+      "observed_models": [
+        "devin/swe-2"
+      ],
+      "tools": [],
+      "tool_use_attempts": 0,
+      "prompt_sha256": "e058a5b987a5854cf57565b7e5ea32a03ad73456ebce4cded105c2a711bd7e95",
+      "output_sha256": "21e6a10da86ae26c36f5569eb228552b5806589f8d8ac8ad523728f79fde4d7b"
+    },
+    {
+      "task": "H010-review",
+      "observed_models": [
+        "devin/swe-2"
+      ],
+      "tools": [],
+      "tool_use_attempts": 0,
+      "prompt_sha256": "21e93f82084489624ede91b0b1dc449b9020e162d6a6d7c1b62950198680d43a",
+      "output_sha256": "d1fbd5b16377208c7d278213501f1b28a2f58871a0fc0ef3551599d03a9a8c46"
+    },
+    {
+      "task": "H010-final",
+      "observed_models": [
+        "devin/swe-2"
+      ],
+      "tools": [],
+      "tool_use_attempts": 0,
+      "prompt_sha256": "8508fc601bdee959c0d724f3b559995950ee4a21b1ae7749c7db8c696a6fb980",
+      "output_sha256": "8662cff8038236af8a8a5522264057c1ee5dc77e1f1c13e63522a269873c30dd"
+    }
+  ],
+  "verification": {
+    "message_tests": 110,
+    "candidate_input_tests": 66,
+    "full_tests": 2457,
+    "subtests": 11,
+    "sdk_typechecked_files": 35,
+    "wire_contracts": 177,
+    "wire_executions": 1448,
+    "real_ezviz_api_used": false
+  }
+}

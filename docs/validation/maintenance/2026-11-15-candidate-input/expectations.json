@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "expectations": [
+    {
+      "case_id": "H010_STORAGE_COMMENT_ONLY",
+      "decision": "no_contract_change",
+      "changes": [],
+      "uncertainties": []
+    }
+  ]
+}
