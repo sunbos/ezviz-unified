@@ -1,5 +1,9 @@
 # 文档维护 harness
 
+## 维护模型语义评测
+
+`python -m harness.maintenance_eval --cases evals/maintenance/cases.json --expectations evals/maintenance/expectations.json --answers <answers.json>` 对独立会话产出的候选判断评分。它比较字段、JSON类型、证据行和不确定项，漏答保持总分母；不调用模型、不执行补丁、不授予发布权限。数据协议及范围见[公开合成基准](../evals/maintenance/README.md)，第一次真实模型调用的[8案例结果](../docs/validation/maintenance/2026-11-15-swe2-semantic/README.md)只证明该次语义提取表现。
+
 ## 一次生成维护审查任务包
 
 ```sh
