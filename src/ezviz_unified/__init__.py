@@ -8,6 +8,7 @@ from .auth import AsyncTokenManager, TokenManager
 from .auth_models import RegionConfig, Token, parse_token
 from .client import AsyncClient, Client
 from .cloud_recording import AsyncCloudRecording, CloudRecording
+from .cloud_recording_plans import CloudRecordingDevice
 from .cloud_storage import AsyncCloudStorage, CloudStorage, StorageOrderOptions
 from .cruise import AsyncCruise, Cruise, CruisePeriod
 from .devices import AsyncDevices, Devices
@@ -88,6 +89,7 @@ __all__ = [
     "Storage",
     "StorageFileQuery",
     "CloudRecording",
+    "CloudRecordingDevice",
     "Cruise",
     "CruisePeriod",
     "DeviceError",

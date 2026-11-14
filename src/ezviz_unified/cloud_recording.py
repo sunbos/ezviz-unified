@@ -1,11 +1,14 @@
-"""Cloud Recording 2.0 read-only queries for the unified EZVIZ client (sync and async).
+"""Cloud Recording 2.0 queries and explicit plan writes for the unified EZVIZ client (sync and async).
 
-All operations are documented for the domestic region only and are read-only:
-no plan/task creation or termination, no recording start/stop, and no media
-download or playback address handling. Pagination cursors are returned
-verbatim; the SDK never auto-pages. The HLS listing operation is documented as
-backed by open_vod and unsupported for managed or sub accounts; the SDK does
-not infer provider identity and simply performs the reviewed request.
+All operations are documented for the domestic region only. The read-only
+queries are unchanged; the write surface is limited to the explicit one-off
+and instant plan calls (create, update, stop, delete) defined in
+cloud_recording_plans. There is still no recording start/stop outside those
+calls, no media download or playback address handling, no polling, and no
+replay of write operations. Pagination cursors are returned verbatim; the SDK
+never auto-pages. The HLS listing operation is documented as backed by
+open_vod and unsupported for managed or sub accounts; the SDK does not infer
+provider identity and simply performs the reviewed request.
 """
 
 from __future__ import annotations
@@ -14,6 +17,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 from typing import TYPE_CHECKING, Literal
 
+from .cloud_recording_plans import AsyncCloudRecordingPlans, CloudRecordingPlans
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -381,7 +385,7 @@ def _templates_request(
     return _Request(_OP_TEMPLATES, params, None, {})
 
 
-class CloudRecording:
+class CloudRecording(CloudRecordingPlans):
     """Synchronous facade over the reviewed cloud recording 2.0 queries."""
 
     __slots__ = ("_client",)
@@ -538,7 +542,7 @@ class CloudRecording:
         return self._call(request)
 
 
-class AsyncCloudRecording:
+class AsyncCloudRecording(AsyncCloudRecordingPlans):
     """Asynchronous facade over the reviewed cloud recording 2.0 queries."""
 
     __slots__ = ("_client",)

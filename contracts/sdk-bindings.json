@@ -2342,6 +2342,71 @@
       "public_entry": "storage.delete_space",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording.create_one_off_plan",
+      "region": "domestic",
+      "source_doc_id": "2045",
+      "module": "src/ezviz_unified/cloud_recording_plans.py",
+      "symbols": [
+        "CloudRecordingPlans.create_one_off_plan",
+        "AsyncCloudRecordingPlans.create_one_off_plan"
+      ],
+      "public_entry": "cloud_recording.create_one_off_plan",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording.update_one_off_plan",
+      "region": "domestic",
+      "source_doc_id": "2050",
+      "module": "src/ezviz_unified/cloud_recording_plans.py",
+      "symbols": [
+        "CloudRecordingPlans.update_one_off_plan",
+        "AsyncCloudRecordingPlans.update_one_off_plan"
+      ],
+      "public_entry": "cloud_recording.update_one_off_plan",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording.stop_one_off_plan",
+      "region": "domestic",
+      "source_doc_id": "2046",
+      "module": "src/ezviz_unified/cloud_recording_plans.py",
+      "symbols": [
+        "CloudRecordingPlans.stop_one_off_plan",
+        "AsyncCloudRecordingPlans.stop_one_off_plan"
+      ],
+      "public_entry": "cloud_recording.stop_one_off_plan",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording.delete_one_off_plan",
+      "region": "domestic",
+      "source_doc_id": "2049",
+      "module": "src/ezviz_unified/cloud_recording_plans.py",
+      "symbols": [
+        "CloudRecordingPlans.delete_one_off_plan",
+        "AsyncCloudRecordingPlans.delete_one_off_plan"
+      ],
+      "public_entry": "cloud_recording.delete_one_off_plan",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording.create_instant_plan",
+      "region": "domestic",
+      "source_doc_id": "2062",
+      "module": "src/ezviz_unified/cloud_recording_plans.py",
+      "symbols": [
+        "CloudRecordingPlans.create_instant_plan",
+        "AsyncCloudRecordingPlans.create_instant_plan"
+      ],
+      "public_entry": "cloud_recording.create_instant_plan",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

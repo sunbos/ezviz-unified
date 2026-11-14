@@ -60,6 +60,7 @@ _SENSITIVE_KEYS = (
     "lastSpaceId",
     "oneOffPlanId",
     "planId",
+    "planName",
     "templateId",
     "templateName",
 )

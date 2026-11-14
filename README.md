@@ -45,7 +45,7 @@ with Client(
 
 ## 云录制2.0
 
-云录制2.0单列为`client.cloud_recording`，提供空间/一次性计划/任务查询、录像日历、片段与HLS信息、模板列表等10个只读入口，目前仅国内。时间使用整秒naive datetime；不自动翻页、下载或操作录制。详见[云录制约束](docs/research/2026-11-14-cloud-recording.md)，不等同于设备云存储套餐或本地录像。
+云录制2.0单列为`client.cloud_recording`，提供空间/一次性计划/任务查询、录像日历、片段与HLS信息、模板列表等10个只读入口，另有一次性计划创建/更新/停止/删除与即时计划创建共5个写入口，目前仅国内。时间使用整秒naive datetime；不自动翻页、下载、轮询或串联写操作；写接口需显式调用，可能创建真实录制并消耗套餐。详见[云录制约束](docs/research/2026-11-14-cloud-recording.md)与[计划管理写接口](docs/research/2026-11-15-cloud-recording-plans.md)，不等同于设备云存储套餐或本地录像。
 
 ## 播放地址与抓拍
 

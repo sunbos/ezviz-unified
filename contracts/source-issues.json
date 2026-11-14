@@ -536,6 +536,66 @@
       "description": "Optional field table lists defaults, while FAQ says omitted update fields retain their current values.",
       "status": "unresolved_source_semantics",
       "sdk_handling": "Omit None values without injecting creation defaults; actual server preservation remains unverified."
+    },
+    {
+      "id": "cn.cloud_recording.plan_time_timezone",
+      "region": "domestic",
+      "source_doc_id": "2045",
+      "source_url": "https://open.ys7.com/help/2045",
+      "source_content_sha256": "5bdbf08b2ac581a5b09fdbf2d5d0e7aedfdbdb623f385f33f92eecb93d3b49fd",
+      "description": "startTime/endTime 要求 yyyyMMddHHmmss 格式，但 2045/2050 均未声明时区。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "接受 naive datetime 并原样格式化为 yyyyMMddHHmmss，不做时区猜测或转换。"
+    },
+    {
+      "id": "cn.cloud_recording.end_time_requirement_diff",
+      "region": "domestic",
+      "source_doc_id": "2050",
+      "source_url": "https://open.ys7.com/help/2050",
+      "source_content_sha256": "a5288165da448b8d90f19f5834105b4b4e2b03564eacfa1be7c766401ba0a27e",
+      "description": "同一路径上 2045(POST) 将 endTime 标为可选（specifiedEndTime=false 时可不传），2050(PUT) 将 endTime 标为必填(Y)；specifiedEndTime=false 时更新是否仍需 endTime 未说明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "create_one_off_plan 仅在 specified_end_time 显式为 False 时允许省略 end_time；update_one_off_plan 按参数表强制 end_time，差异保留不抹平。"
+    },
+    {
+      "id": "cn.cloud_recording.instant_limits_undeclared",
+      "region": "domestic",
+      "source_doc_id": "2062",
+      "source_url": "https://open.ys7.com/help/2062",
+      "source_content_sha256": "67e2f5c51ae12643514546196f660fd69a2100255854b362a7869ddac59bd6a5",
+      "description": "2062 未声明 planName 长度/字符集与 devIndexInfos 数量上下限；FAQ 仅称 hours '根据套餐限制，一般 ≤24h'，同空间并发即时计划上限亦未量化。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "不套用一次性计划的 1-32 名称与 1-1000 通道限制；hours 仅由 SDK 校验为正整数，不把 '一般≤24h' 当无条件硬上限。"
+    },
+    {
+      "id": "cn.cloud_recording.instant_device_fields",
+      "region": "domestic",
+      "source_doc_id": "2062",
+      "source_url": "https://open.ys7.com/help/2062",
+      "source_content_sha256": "67e2f5c51ae12643514546196f660fd69a2100255854b362a7869ddac59bd6a5",
+      "description": "2062 参数表未列 devIndexInfos 嵌套字段；deviceSerial/localIndex 仅见于请求示例，validateCode 全文档未提及，未建立即时接口该字段的来源证据。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "复用 CloudRecordingDevice，但 instant 方法仅序列化 deviceSerial/localIndex；validate_code 非 None 时在客户端前置拒绝，不静默丢弃、不推定服务端支持。"
+    },
+    {
+      "id": "cn.cloud_recording.error_code_layering",
+      "region": "domestic",
+      "source_doc_id": "2045",
+      "source_url": "https://open.ys7.com/help/2045",
+      "source_content_sha256": "5bdbf08b2ac581a5b09fdbf2d5d0e7aedfdbdb623f385f33f92eecb93d3b49fd",
+      "description": "2045/2046/2049/2050 错误码表仅列 400/404/406/412/500 等 HTTP 语义码，未给出具体错误响应示例或语义码与传输层的映射说明（语义码不等同于 HTTP status）。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "成功判定仅按响应体 meta.code 值匹配；错误语义码与 HTTP status 分层处理，不互相映射、不混用。"
+    },
+    {
+      "id": "cn.cloud_recording.stop_form_bool",
+      "region": "domestic",
+      "source_doc_id": "2046",
+      "source_url": "https://open.ys7.com/help/2046",
+      "source_content_sha256": "5b8ee1b0db231d57afea5fb35c5bd9e0b1eff80562f50c9f59e8e0230b286e6f",
+      "description": "2046 的 onlyStopPreview 类型为 Boolean，但 curl 示例仅展示 oneOffPlanId，Boolean 在 application/x-www-form-urlencoded 中的序列化写法未明示。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "only_stop_preview 非 None 时按小写字符串 'true'/'false' 序列化入表单；data 按可缺失字段读取，源未返回时为 None。"
     }
   ]
 }

@@ -4122,6 +4122,172 @@
       "kwargs": {},
       "fields": {},
       "data": null
+    },
+    {
+      "operation_id": "cn.cloud_recording.create_one_off_plan",
+      "args": [],
+      "kwargs": {
+        "plan_name": "EVAL_PLAN_1",
+        "space_id": 42,
+        "start_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T03:04:05"
+        },
+        "devices": [
+          {
+            "$type": "CloudRecordingDevice",
+            "kwargs": {
+              "device_serial": "EVAL_DEVICE",
+              "local_index": "2",
+              "validate_code": "EVAL_VERIFY"
+            }
+          }
+        ],
+        "end_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T04:04:05"
+        },
+        "template_id": 6,
+        "stream_type": 2,
+        "specified_end_time": true,
+        "auto_delete": false
+      },
+      "fields": {
+        "planName": "EVAL_PLAN_1",
+        "spaceId": 42,
+        "startTime": "20260102030405",
+        "endTime": "20260102040405",
+        "devIndexInfos": [
+          {
+            "deviceSerial": "EVAL_DEVICE",
+            "localIndex": "2",
+            "validateCode": "EVAL_VERIFY"
+          }
+        ],
+        "templateId": 6,
+        "streamType": 2,
+        "specifiedEndTime": true,
+        "autoDelete": false
+      },
+      "data": {
+        "oneOffPlanId": 590,
+        "planStatus": 3
+      }
+    },
+    {
+      "operation_id": "cn.cloud_recording.update_one_off_plan",
+      "args": [
+        42
+      ],
+      "kwargs": {
+        "plan_name": "EVAL_PLAN_2",
+        "space_id": 43,
+        "start_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T03:04:05"
+        },
+        "end_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T05:04:05"
+        },
+        "devices": [
+          {
+            "$type": "CloudRecordingDevice",
+            "kwargs": {
+              "device_serial": "EVAL_DEVICE",
+              "local_index": "2",
+              "validate_code": "EVAL_VERIFY"
+            }
+          }
+        ],
+        "template_id": 6,
+        "stream_type": 1,
+        "specified_end_time": true
+      },
+      "fields": {
+        "oneOffPlanId": 42,
+        "planName": "EVAL_PLAN_2",
+        "spaceId": 43,
+        "startTime": "20260102030405",
+        "endTime": "20260102050405",
+        "devIndexInfos": [
+          {
+            "deviceSerial": "EVAL_DEVICE",
+            "localIndex": "2",
+            "validateCode": "EVAL_VERIFY"
+          }
+        ],
+        "streamType": 1,
+        "templateId": 6,
+        "specifiedEndTime": true
+      },
+      "data": {
+        "oneOffPlanId": 42,
+        "planName": "EVAL_PLAN_2",
+        "planStatus": 1
+      }
+    },
+    {
+      "operation_id": "cn.cloud_recording.stop_one_off_plan",
+      "args": [
+        42
+      ],
+      "kwargs": {
+        "only_stop_preview": true
+      },
+      "fields": {
+        "oneOffPlanId": "42",
+        "onlyStopPreview": "true"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.cloud_recording.delete_one_off_plan",
+      "args": [
+        43
+      ],
+      "kwargs": {},
+      "fields": {
+        "oneOffPlanId": "43"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.cloud_recording.create_instant_plan",
+      "args": [],
+      "kwargs": {
+        "plan_name": "EVAL_PLAN_3",
+        "space_id": 42,
+        "hours": 2,
+        "devices": [
+          {
+            "$type": "CloudRecordingDevice",
+            "kwargs": {
+              "device_serial": "EVAL_DEVICE",
+              "local_index": "2"
+            }
+          }
+        ],
+        "template_id": 6,
+        "stream_type": 1
+      },
+      "fields": {
+        "planName": "EVAL_PLAN_3",
+        "spaceId": 42,
+        "hours": 2,
+        "devIndexInfos": [
+          {
+            "deviceSerial": "EVAL_DEVICE",
+            "localIndex": "2"
+          }
+        ],
+        "templateId": 6,
+        "streamType": 1
+      },
+      "data": {
+        "planId": 88001,
+        "planStatus": 2
+      }
     }
   ]
 }
