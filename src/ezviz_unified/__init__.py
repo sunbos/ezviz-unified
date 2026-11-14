@@ -47,6 +47,12 @@ from .storage_models import StorageFileQuery
 from .subaccounts import AsyncSubaccounts, Subaccounts
 from .transport import AsyncTransport, SyncTransport
 from .video import AsyncVideo, PreviewEncoding, Video, VideoSwitch
+from .webhooks import (
+    WebhookMessage,
+    parse_unverified_webhook,
+    parse_webhook,
+    verify_webhook_signature,
+)
 
 __version__ = version("ezviz-unified")
 
@@ -127,8 +133,12 @@ __all__ = [
     "TransportError",
     "Video",
     "VideoSwitch",
+    "WebhookMessage",
     "__version__",
     "decode_response",
     "parse_token",
+    "parse_unverified_webhook",
+    "parse_webhook",
     "ram_password_digest",
+    "verify_webhook_signature",
 ]

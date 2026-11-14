@@ -1,0 +1,39 @@
+{
+  "task_id": "S021B",
+  "status": "accepted",
+  "requested_model": "devin/swe-2",
+  "effort_requested": "max",
+  "execution_cwd": "current_repository",
+  "runs": [
+    {
+      "task": "S021B",
+      "observed_models": [
+        "devin/swe-2"
+      ],
+      "tools": [],
+      "tool_use_attempts": 0,
+      "prompt_sha256": "521876df8ef7c97bc0cdd62ffa97dd4f705028277b8439fe80b14e1b32e849fb",
+      "output_sha256": "b2a0f249f68ecf03d42c0e2290631d0881c20935a2e8936313ef8760dac9941b"
+    },
+    {
+      "task": "S021B-review",
+      "observed_models": [
+        "devin/swe-2"
+      ],
+      "tools": [],
+      "tool_use_attempts": 0,
+      "prompt_sha256": "fe6b193e7b3807ec0eb82855c9fdd6507ff3090e4810635c379d23c2531a1d37",
+      "output_sha256": "15da533be1aeca60ebb6b63ebc7213b7191eed20932c09f214da5d0f7e09df76"
+    }
+  ],
+  "verification": {
+    "message_tests": 110,
+    "candidate_input_tests": 66,
+    "full_tests": 2457,
+    "subtests": 11,
+    "sdk_typechecked_files": 35,
+    "wire_contracts": 177,
+    "wire_executions": 1448,
+    "real_ezviz_api_used": false
+  }
+}

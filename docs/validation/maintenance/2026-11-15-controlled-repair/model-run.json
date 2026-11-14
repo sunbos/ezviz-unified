@@ -1,0 +1,33 @@
+{
+  "exit_code": 0,
+  "requested_model": "devin/swe-2",
+  "requested_effort": "max",
+  "observed_models": [
+    "devin/swe-2"
+  ],
+  "tools": [],
+  "tool_calls": 0,
+  "prompt_sha256": "c28063b9baf7752dd04ef64a6b4288b3a1e530130bb96ca2d164c5655f87aad5",
+  "usage": {
+    "input_tokens": 9550,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 1448,
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard",
+    "fallback_credit": null
+  }
+}

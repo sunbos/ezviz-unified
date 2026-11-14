@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "case_id": "H010_STORAGE_COMMENT_ONLY",
+      "synthetic": true,
+      "region": "domestic",
+      "operation_id": "cn.storage.spaces",
+      "question": "依据完整候选输入包中前后HTML与当前契约，判断是否存在接口契约变化。正文引用before_html/after_html分别指向packet.documents[0]的对应html_content；不要因为synthetic标记就预设结论。",
+      "fields": [
+        "method",
+        "path",
+        "token_location",
+        "request.pageSize.maximum",
+        "request.pageSize.default",
+        "request.startTime.format",
+        "request.endTime.format",
+        "request.window.maximum_days",
+        "response.success.value"
+      ],
+      "before_status": "archived",
+      "after_status": "archived",
+      "before": [
+        {
+          "id": "before_html",
+          "text": "packet.documents[0].before.html_content; sha256=15c63a8d00d55432b946b18f36b62034800d80e17041507c1b2a570c8290edf3"
+        }
+      ],
+      "after": [
+        {
+          "id": "after_html",
+          "text": "packet.documents[0].after.html_content; sha256=1c861b461f4071dda01d50fa6ff9fb45653b42309842701cfd00bbd43a35b43e"
+        }
+      ]
+    }
+  ]
+}

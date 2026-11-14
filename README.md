@@ -39,6 +39,10 @@ with Client(
 
 `client.alarms.list(AlarmQuery(status=2))`查询全部状态告警，`for_device(serial, query)`按设备查询；不自动翻页、标记已读或下载图片。省略status时由平台默认查询未读。`client.cloud_storage.info`默认国内v2、海外v1，另有套餐类型、开通状态查询及显式开通/兑换/暂停/试用/转移方法。服务变更不自动重放，也不自动轮询或更换付款方式。版本、时间、权限和原文缺项见[告警与云存储说明](docs/research/2026-11-14-alarms-cloud-storage.md)，未产生实际订单或服务变更。
 
+## 消息回调
+
+模块级`parse_webhook`使用原始UTF-8正文、`t`、`Signature`与单独配置的`webhook_secret`先核验MAC再解析；`parse_unverified_webhook`是显式不做认证的入口。返回值保留未知body字段与类型，`ack()`只构造messageId字典，HTTP响应和去重由应用负责。签名匹配不证明当前发送者身份或消息新鲜度；本批依据国内归档协议离线验证，未接收真实回调，也不自动使用AppSecret、配置消息服务或下载媒体。详见[消息助手](docs/research/2026-11-15-webhook-helpers.md)及[源资料差异](docs/research/2026-11-15-message-ingestion.md)。
+
 ## 统一存储
 
 统一存储入口为`client.storage`，提供空间列表/创建/更新/删除、文件搜索/保留期修改及签名下载地址查询，目前仅国内。文件查询使用`StorageFileQuery`，保留官方选择器优先级；`None`不发送，更新不注入创建默认值。统一存储永久保留使用`-1`，与旧云录制空间的`0`不同。下载地址仅返回，不获取媒体；[完整规则与来源限制](docs/research/2026-11-14-unified-storage.md)列明单位、编码推导及权限，全部新能力仍为离线验证。
@@ -173,6 +177,7 @@ uv pip install --python .venv/bin/python -e '.[dev]' -r tools/documents/requirem
 - [主导与执行分工](docs/coordination/workflow.md)：执行模型产出候选，主导方核对来源、代码和测试后集成。
 - [维护harness](harness/README.md)：用`python -m harness.review`组合快照完整性、来源关联、静态登记和[离线传输评测](evals/contracts/README.md)，输出待审查任务；当前不自动改代码或发布。
 - [维护语义评测](evals/maintenance/README.md)：独立评分文档变化判断，保留字段类型、证据与不确定性；已有一次真实模型的8个公开合成案例记录，尚不代表补丁正确性或自动维护完成。
+- [受控补丁演练](docs/validation/maintenance/2026-11-15-controlled-repair/README.md)：模型生成提案，经哈希、修改范围与独立Oracle检查后，仅在macOS隔离副本验证；单个合成分页案例通过1,978项回归，生产SDK与契约登记不变，不自动合入或发布。
 - [发行检查](docs/releasing.md)：核验独立包的wheel/sdist、官方契约及实际验证范围。
 
 `ezviz-unified` 是独立产品：不依赖旧 `ezviz-openapi-utils`，不提供旧导入路径、方法别名或兼容适配层。API按官方契约和当前使用场景设计，旧方法数量不作为范围或发布门槛。独立仓库已公开并完成安装与CI交接；旧 `ezviz-openapi-utils` 已归档，只读保留历史。来源与验收边界见[交接记录](docs/provenance.md)。

@@ -1,0 +1,13 @@
+--- a/src/ezviz_unified/storage_models.py
++++ b/src/ezviz_unified/storage_models.py
+@@ -181,8 +181,8 @@
+         query["lastSpaceId"] = _integer("last_space_id", last_space_id)
+     if page_size is not None:
+         size = _integer("page_size", page_size)
+-        if not 1 <= size <= 50:
+-            raise ValueError("page_size must be within 1..50")
++        if not 1 <= size <= 20:
++            raise ValueError("page_size must be within 1..20")
+         query["pageSize"] = size
+     if biz_type is not None:
+         query["bizTypeList"] = _biz_type(biz_type)

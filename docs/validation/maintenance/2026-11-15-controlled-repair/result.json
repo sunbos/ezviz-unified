@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "case_id": "R001",
+  "synthetic": true,
+  "baseline_commit": "1ff16eb21ee5ec1305d35b460319e053956e4616",
+  "input_sha256": "58369e89189083b3c471dd7be8f9c6d010065799c327c3635e526f3eee60f72d",
+  "allowed_paths": [
+    "src/ezviz_unified/storage_models.py"
+  ],
+  "base_source_sha256": "29f0798d82c8acca2b87c6414ef7a02e92597320ef833f40d5a286775afddada",
+  "candidate_source_sha256": "2c11a1f0d1703a7b882bf5a9443aad68a5a163bd1f1b14a2d8eab9aa4c0f085a",
+  "production_source_sha256_after_run": "29f0798d82c8acca2b87c6414ef7a02e92597320ef833f40d5a286775afddada",
+  "scope_check": "exact_independent_AST_change_passed",
+  "baseline_oracle": {
+    "failed": 4,
+    "passed": 11,
+    "reason": "21 and 50 accepted by original max50; required synthetic max20"
+  },
+  "patched_regression": {
+    "passed": 1978,
+    "sdk_and_offline_policy_tests": 1963,
+    "independent_oracle_tests": 15,
+    "exit_code": 0,
+    "timed_out": false
+  },
+  "sdk_import_provenance": "isolated scratch repo/src/ezviz_unified",
+  "production_patch_applied": false,
+  "scratch_patch_applied": true,
+  "real_api_used": false,
+  "publication_authorized": false,
+  "registry_promoted": false,
+  "profile_sha256_executed": "d2fbfdc7cda981c5a935219f5ba82efe924b716e04ef7be6d83a5ee9fcde3b03",
+  "profile_template_note": "Paths replaced by placeholders; build_profile regenerates actual paths. Not directly executable.",
+  "trusted_files_sha256": {
+    "harness/patch_proposal.py": "82a8e96dc15f023aa8b8c4d04df792a59fc8b6405c324d769bcd71683ee289d1",
+    "harness/macos_sandbox.py": "c42973c66cbdfc8228166d76b41ef34fcc62cacf71ad1e0ee6cb9bc291dcc640",
+    "evals/maintenance/repair_cases/page_size_limit/oracle.py": "edf1edaaf61046b188dc48dac55532b40bf5bc4d7817c2e90ddc4d7602cb2f8f"
+  },
+  "local_offline_tests": {
+    "passed": 2677,
+    "subtests_passed": 11
+  }
+}

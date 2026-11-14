@@ -1,0 +1,26 @@
+{
+  "evidence": "synthetic_maintenance_semantic_evaluation_only",
+  "inputs_sha256": {
+    "answers": "e9b4ca40156db74822ef6af0520a58d256c55130eaf6ee1fc2abd919b8532b64",
+    "cases": "29ebf46ec26ff84876ba0803eafa7abf836a93099a06ba3286d29a702e2c9bdb",
+    "expectations": "b69ceefe7aff09bd518d2d905d92da71bcca9c7b17ca3156fa3f8dcb4dcf0178"
+  },
+  "passed": true,
+  "patch_applied": false,
+  "publication_authorized": false,
+  "real_api_used": false,
+  "results": [
+    {
+      "case_id": "H010_STORAGE_COMMENT_ONLY",
+      "passed": true,
+      "problems": []
+    }
+  ],
+  "schema_version": 1,
+  "summary": {
+    "answered_cases": 1,
+    "failed_cases": 0,
+    "passed_cases": 1,
+    "total_cases": 1
+  }
+}
