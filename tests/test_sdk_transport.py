@@ -10,6 +10,47 @@ import httpx
 import pytest
 
 
+@pytest.mark.parametrize("kind", ["sync", "async"])
+@pytest.mark.parametrize(
+    "key,value,parts",
+    [
+        ("fileNodeIds", "PRIVATE_NODE_A,PRIVATE_NODE_B", ("PRIVATE_NODE_A", "PRIVATE_NODE_B")),
+        ("spaceIds", "111111,222222", ("111111", "222222")),
+        ("spaceName", "PRIVATE_SPACE", ("PRIVATE_SPACE",)),
+        ("tagId", "PRIVATE_TAG", ("PRIVATE_TAG",)),
+        ("lastId", "PRIVATE_CURSOR", ("PRIVATE_CURSOR",)),
+    ],
+)
+def test_storage_identifiers_are_redacted_individually_without_changing_wire(
+    sdk, kind, key, value, parts, caplog
+):
+    caplog.set_level(logging.INFO, logger="httpx")
+    calls = []
+
+    def handler(request):
+        calls.append(request)
+        return httpx.Response(200, json={"code": "60020", "msg": "missing " + " and ".join(parts)})
+
+    async def run():
+        if kind == "sync":
+            with sdk.SyncTransport(
+                "https://api.example.test", transport=httpx.MockTransport(handler)
+            ) as transport:
+                transport.request("GET", "/resource", params={key: value})
+        else:
+            async with sdk.AsyncTransport(
+                "https://api.example.test", transport=httpx.MockTransport(handler)
+            ) as transport:
+                await transport.request("GET", "/resource", params={key: value})
+
+    with pytest.raises(sdk.ApiError) as captured:
+        asyncio.run(run())
+    assert len(calls) == 1 and calls[0].url.params[key] == value
+    for part in parts:
+        assert part not in str(captured.value)
+        assert part not in caplog.text
+
+
 @pytest.fixture
 def sdk():
     module = importlib.import_module("ezviz_unified")
