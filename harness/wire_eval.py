@@ -86,10 +86,12 @@ _DTO_WHITELIST = frozenset(
     {
         "AlarmQuery",
         "ArmingSchedule",
+        "CloudRecordingDevice",
         "CruisePeriod",
         "PlaybackOptions",
         "PreviewEncoding",
         "StorageOrderOptions",
+        "StorageFileQuery",
         "RamStatement",
     }
 )

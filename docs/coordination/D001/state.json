@@ -1,0 +1,32 @@
+{
+  "task_id": "D001",
+  "status": "accepted",
+  "execution_mode": "tool_free_explicit_inline_input",
+  "worker_model_requested": "devin/swe-2",
+  "effort_requested": "max",
+  "models_observed": [
+    "devin/swe-2"
+  ],
+  "tools_advertised": [],
+  "tool_calls_observed": 0,
+  "worker_rounds": 3,
+  "prompt_sha256": [
+    "0afb1ec42c6d8faf3c60057c1d7be84d607c3cdcc69ff53ba1a00946a95be92b",
+    "e183448024b899f7219cdd85b3e12e98bd74ad781b038508609961615d564776",
+    "d68d73a6be655cc27fa38b82ba625411b8e0567464c77d797b8ebee486f89a9c"
+  ],
+  "candidate_sha256": {
+    "D001-candidate.md": "df5e58e3fe74a4dcfd4fb3e5b1e8d3f427a4618ef29a1c04bef142f46927f8a4",
+    "D001-revised.md": "c229ba54b8fd5171d8fd9da090961e21ced86b9199ecdb18f260552039af6c55",
+    "D001-final-edits.md": "880c02acefd30765fe55d41f12d9a9063646872e5b95b6fd4f335dd06fe590b6"
+  },
+  "verification": {
+    "final_example_tests": 54,
+    "full_suite_tests_before_final_test_cleanup": 2014,
+    "subtests": 11,
+    "ruff_files": 105,
+    "built_wheel_and_sdist": true,
+    "real_api_used": false
+  },
+  "remote_ci": "See full commit SHA checks on pull request; not inferred from local results."
+}

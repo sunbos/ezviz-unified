@@ -1,0 +1,28 @@
+{
+  "task_id": "S020A",
+  "status": "accepted",
+  "requested_model": "devin/swe-2",
+  "effort": "max",
+  "observed_models": [
+    "devin/swe-2"
+  ],
+  "tools_advertised": [],
+  "tool_calls_observed": 0,
+  "prompt_sha256": [
+    "01ad7fc0b8d7fe5ee48787351388b45fbb4059a1ca3355112923ddef6bc95216",
+    "478f51460a23dd9653b861f13006c618483dc0a852ca66296b865357fca9f5dd"
+  ],
+  "candidate_sha256": {
+    "S020A": "47632ba65f0fc5984a1dc79a072c0b8dcc8f98e8c302c3d67fb0279d2d7da614",
+    "S020A-review": "655ec337cdc9c5290f7405b1c00c85acaa3d48e60e010d307c0e4cefb936bc04"
+  },
+  "verification": {
+    "new_sdk_tests": 191,
+    "cloud_recording_tests": 337,
+    "repository_tests": 2245,
+    "subtests": 11,
+    "registered_contracts": 177,
+    "wire_executions": 1448,
+    "real_api_used": false
+  }
+}

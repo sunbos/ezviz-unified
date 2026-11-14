@@ -16,6 +16,23 @@ def test_shared_entry_selector_is_preserved_without_mutating_binding():
     assert selected["argument_constants"] == {"switch": "wifi_prompt"}
 
 
+@pytest.mark.parametrize("value", [0, False, None, "", " "])
+def test_registry_supported_scalar_selectors_are_preserved(value):
+    selected = binding()
+    selected["argument_constants"] = {"selector": value}
+    result = impact([event()], [selected])
+    actual = result["affected"][0]["argument_constants"]["selector"]
+    assert type(actual) is type(value) and actual == value
+
+
+@pytest.mark.parametrize("value", [1.0, [], {}])
+def test_non_registry_selector_types_are_rejected(value):
+    selected = binding()
+    selected["argument_constants"] = {"selector": value}
+    with pytest.raises(ValueError):
+        impact([event()], [selected])
+
+
 def event(doc="1", changes=None):
     return {"region": "domestic", "doc_id": doc, "changes": changes or ["content_changed"]}
 

@@ -1,0 +1,21 @@
+{
+  "task_id": "H009",
+  "status": "accepted",
+  "worker_model_requested": "devin/swe-2",
+  "effort_requested": "max",
+  "models_observed": [
+    "devin/swe-2"
+  ],
+  "tools_advertised": [],
+  "tool_calls_observed": 0,
+  "generation_rounds": 2,
+  "verification": {
+    "evaluator_tests": 40,
+    "repository_tests": 2054,
+    "subtests": 11,
+    "real_model_cases": 8,
+    "real_model_passed_cases": 8,
+    "real_ezviz_api_used": false
+  },
+  "real_model_evidence": "docs/validation/maintenance/2026-11-15-swe2-semantic/run.json"
+}

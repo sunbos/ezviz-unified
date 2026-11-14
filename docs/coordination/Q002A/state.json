@@ -1,0 +1,45 @@
+{
+  "task_id": "Q002A",
+  "status": "accepted",
+  "requested_model": "devin/swe-2",
+  "effort_requested": "max",
+  "runs": [
+    {
+      "task": "Q002A",
+      "observed_models": [
+        "devin/swe-2"
+      ],
+      "tools": [],
+      "tool_use_attempts": 0,
+      "prompt_sha256": "bbf5b82bce4692290b701254883af73e7b8800c05ab09e177d415e5dc62d54f7",
+      "output_sha256": "fb9e479d74389f94ab1c9fc509492cf56c429c855ce43b441769ca35d08a2d87"
+    },
+    {
+      "task": "Q002A-text",
+      "observed_models": [
+        "devin/swe-2"
+      ],
+      "tools": [],
+      "tool_use_attempts": 0,
+      "prompt_sha256": "d595513ac9f11171126d568e5d43a0ba7a0b5f362d55602b0ec4e913dd7f4908",
+      "output_sha256": "b8771c10aaf13d658e0657e92468ed5005ca24ab1f70347b26f0076da2483615"
+    }
+  ],
+  "verification": {
+    "full_tests": 2281,
+    "subtests": 11,
+    "wire_contracts": 177,
+    "wire_executions": 1448,
+    "real_api_used": false
+  },
+  "rejected_attempt": {
+    "task_id": "Q002A-review",
+    "status": "rejected",
+    "reason": "two_tool_use_attempts_in_tool_free_mode",
+    "model_observed": "devin/swe-2",
+    "advertised_tools": [],
+    "tool_use_attempts": 2,
+    "candidate_applied": false,
+    "core_source_unchanged": true
+  }
+}

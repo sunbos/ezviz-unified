@@ -1,5 +1,27 @@
 # 文档维护 harness
 
+## 维护模型语义评测
+
+`python -m harness.maintenance_eval --cases evals/maintenance/cases.json --expectations evals/maintenance/expectations.json --answers <answers.json>` 对独立会话产出的候选判断评分。它比较字段、JSON类型、证据行和不确定项，漏答保持总分母；不调用模型、不执行补丁、不授予发布权限。数据协议及范围见[公开合成基准](../evals/maintenance/README.md)，第一次真实模型调用的[8案例结果](../docs/validation/maintenance/2026-11-15-swe2-semantic/README.md)只证明该次语义提取表现。
+
+## 一次生成维护审查任务包
+
+```sh
+python -m harness.review --repo . \
+  --before data/official-docs/BASELINE \
+  --after data/official-docs/CURRENT > review-packet.json
+```
+
+两个目录均须包含采集、派生后的门户快照。before必须与当前审核契约的来源URL和正文hash一致；after可以有新增、移除或变化，但不能先改登记来掩盖基线失配。工具按顺序验证原始归档与派生索引、审计登记/AST、规划变化任务，再运行完整的合成SDK契约基线。登记、案例、SDK源码或快照索引在过程中发生可检测变化时，报告作废。
+
+决策为`no_document_review`（未发现本轮文档差异）、`metadata_only`（标题/导航变化，需单独评估生命周期等信息）、`review_required`（来源/正文/可用性变化）或`baseline_failed`（SDK基线失败/覆盖不足）。前三项退出0只表示报告生成成功，baseline_failed退出1，输入/完整性/期限/版本错误退出2。标题和导航不自动产生协议补丁；完整前后导航保留在报告中。
+
+每页任务保留全部直接绑定及选择参数、相关来源问题；认证等共享核心会提示扩大回归范围，不冒充完整调用图。源页面缺失不自动删除SDK，新增文章也不直接判为新API。任务包不生成候选、不修改文件、不抓网、不调用真实业务API或发布。SDK基线仍执行在既有子进程防护中，它不是OS安全沙箱。
+
+本命令目前只比较门户catalog，未比较静态SDK参考库或附件内容，也不运行完整pytest。归档一致性不证明上游无缺失或语义正确，基线通过不证明未来候选正确；报告始终标明`publication_authorized=false`。快照目录应保持不变，后续读取原文仍须重验记录的hash。
+
+下列独立工具仍可用于逐阶段排查。
+
 当前实现门户目录差异检测、直接绑定的影响定位、静态登记校验与离线传输评测，不调用模型、不修改SDK、不自动发布。正式输入先用 `tools/documents/verify.py` 验证原始归档，再运行：
 
 ```sh

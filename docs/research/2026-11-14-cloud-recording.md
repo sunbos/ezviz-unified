@@ -25,7 +25,7 @@ plans/templates返回顶层字符串`code="200"`；其他八项返回整数`meta
 
 时间用无时区、无微秒的datetime，显式表达服务器wall time；来源未声明时区，不自动补北京时间或UTC。plans/running_tasks发送`yyyyMMddHHmmss`，recordings/HLS发送`yyyy-MM-dd HH:mm:ss`；开始不得晚于结束，窗口上限包含端点。返回时间保持源字符串。
 
-String ID保留为非空字符串；Long ID使用int并拒绝bool，不推断源未声明的编号范围。通道接受非空字符串或int，按Header/query所需发送字符串。可选过滤项为None时省略。分页和游标由调用者显式推进；不下载媒体、不生成播放器、不创建或终止计划。
+String ID保留为非空字符串；Long ID使用int并拒绝bool，不推断源未声明的编号范围。通道接受非空字符串或int，按Header/query所需发送字符串。可选过滤项为None时省略。分页和游标由调用者显式推进；本批查询入口不下载媒体、不生成播放器，自身仍不创建或终止计划。计划创建/更新/停止/删除与即时计划创建属另一批写接口，见[云录制计划管理](2026-11-15-cloud-recording-plans.md)。
 
 ## 原文问题与证据边界
 

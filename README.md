@@ -2,11 +2,15 @@
 
 面向萤石国内与海外平台的第三方 Python SDK，目标是统一调用体验、明确地区与权限边界，并以可验证的契约持续维护。
 
+项目遵循[优先复用官方生态的边界](docs/research/2026-11-15-official-ecosystem-reuse.md)：服务端接入与维护验证是主要投入方向；播放、编解码和RTC由适用的官方组件承担。官方已有海外播放器、Token工具和接入skills，新增能力须证明具体使用价值。
+
 当前为开发中的 `0.1.0a1`：发行名 `ezviz-unified`，导入名 `ezviz_unified`，要求 Python 3.12+，仓库为 [sunbos/ezviz-unified](https://github.com/sunbos/ezviz-unified)，尚未发布到 PyPI。已有同步/异步客户端、区域认证、设备查询和诊断脱敏；各业务域按[实施路线](docs/plans/2026-11-14-delivery-roadmap.md)逐域推进。
 
-本地录像、云台、巡航、诊断、设备开关、管理、图像参数、视频配置、播放地址、抓拍、告警、云存储、RAM子账户、维护、补光、加密/布撤防和单步确权接口已加入，国内/海外共用入口并保留协议差异；当前登记数量、地区分布与验证状态见[机器生成的覆盖清单](contracts/coverage.json)，真实支持情况另列。
+本地录像、云台、巡航、诊断、设备开关、管理、图像参数、视频配置、播放地址、抓拍、告警、云存储、统一存储、RAM子账户、维护、补光、加密/布撤防和单步确权接口已加入，国内/海外共用入口并保留协议差异；当前登记数量、地区分布与验证状态见[机器生成的覆盖清单](contracts/coverage.json)，真实支持情况另列。
 
 ## 设备查询
+
+首次使用请按[接入指南](docs/getting-started.md)安装并运行同步/异步示例；示例显式选择地区，仅查询首个分页，默认不输出设备身份信息。
 
 ```python
 import os
@@ -25,9 +29,9 @@ with Client(
 
 客户端按契约携带token，复用当前区域的连接。仅明确只读的操作遇到平台 `10002` 时刷新并重发一次；写操作、网络失败、一般HTTP401及设备层错误不自动重放。自定义接口可用 `Operation` 和 `client.request(...)`，其 `read_only` 默认False。禁止调用方覆盖受管token或Host。
 
-国内分页页码不超过400；海外文档未声明相同限制。每页1–50条。国内 `channels`/`status` 要求序列号英文字母大写。SDK不自动翻页，不自行解释有文档矛盾的海外状态字段。当前设备方法已做离线契约验证；[国内记录](docs/validation/live/2026-11-14/README.md)与[新加坡记录](docs/validation/live/2026-11-14-overseas/README.md)证明对应账号的认证和空设备列表成功，设备详情及其他海外集群仍未验证。
+国内分页页码不超过400；海外文档未声明相同限制。每页1–50条。国内 `channels`/`status` 要求序列号英文字母大写。SDK不自动翻页，不自行解释有文档矛盾的海外状态字段。[国内单设备记录](docs/validation/live/2026-11-14-domestic-device/README.md)已验证基础信息、通道和状态查询；[新加坡记录](docs/validation/live/2026-11-14-overseas/README.md)仍仅证明对应账号认证和空列表成功。结果不推广到所有型号或其他海外集群。
 
-国内托管设备使用 `client.devices.list_managed(page_start=0, page_size=10)`；与普通列表分开，不套用400页上限。最新[范围复核](docs/validation/live/2026-11-14-managed/README.md)中，当前开发者token的两个列表均成功且为空，其他授权主体仍未验证。
+国内托管设备使用 `client.devices.list_managed(page_start=0, page_size=10)`；与普通列表分开，不套用400页上限。接入设备后的[范围复核](docs/validation/live/2026-11-14-domestic-device/README.md)中，普通列表首个分页返回一条，托管列表分页为空；这不代表全量设备计数，其他授权主体仍未验证。
 
 `client.devices`另提供bind/unbind、rename/rename_channel、link_ipc/unlink_ipc、set_channel_visible、cameras和connection_info；写请求不会自动重放。仅国内提供rename_channel/set_channel_visible/connection_info，后者不支持子账户和托管权限。`client.ownership`提供国内三步确权调用，不自动串联、操控设备上下线或修改安全设置；具体约束见[管理与确权说明](docs/research/2026-11-14-management-ownership.md)。这些变更操作仍未实测。
 
@@ -35,9 +39,13 @@ with Client(
 
 `client.alarms.list(AlarmQuery(status=2))`查询全部状态告警，`for_device(serial, query)`按设备查询；不自动翻页、标记已读或下载图片。省略status时由平台默认查询未读。`client.cloud_storage.info`默认国内v2、海外v1，另有套餐类型、开通状态查询及显式开通/兑换/暂停/试用/转移方法。服务变更不自动重放，也不自动轮询或更换付款方式。版本、时间、权限和原文缺项见[告警与云存储说明](docs/research/2026-11-14-alarms-cloud-storage.md)，未产生实际订单或服务变更。
 
+## 统一存储
+
+统一存储入口为`client.storage`，提供空间列表/创建/更新/删除、文件搜索/保留期修改及签名下载地址查询，目前仅国内。文件查询使用`StorageFileQuery`，保留官方选择器优先级；`None`不发送，更新不注入创建默认值。统一存储永久保留使用`-1`，与旧云录制空间的`0`不同。下载地址仅返回，不获取媒体；[完整规则与来源限制](docs/research/2026-11-14-unified-storage.md)列明单位、编码推导及权限，全部新能力仍为离线验证。
+
 ## 云录制2.0
 
-云录制2.0单列为`client.cloud_recording`，提供空间/一次性计划/任务查询、录像日历、片段与HLS信息、模板列表等10个只读入口，目前仅国内。时间使用整秒naive datetime；不自动翻页、下载或操作录制。详见[云录制约束](docs/research/2026-11-14-cloud-recording.md)，不等同于设备云存储套餐或本地录像。
+云录制2.0单列为`client.cloud_recording`，提供空间/一次性计划/任务查询、录像日历、片段与HLS信息、模板列表等10个只读入口，另有一次性计划创建/更新/停止/删除与即时计划创建共5个写入口，目前仅国内。时间使用整秒naive datetime；不自动翻页、下载、轮询或串联写操作；写接口需显式调用，可能创建真实录制并消耗套餐。详见[云录制约束](docs/research/2026-11-14-cloud-recording.md)与[计划管理写接口](docs/research/2026-11-15-cloud-recording-plans.md)，不等同于设备云存储套餐或本地录像。
 
 ## 播放地址与抓拍
 
@@ -69,7 +77,7 @@ with Client(
 
 ## 设备诊断
 
-诊断入口为 `client.diagnostics`：protocol_support、search、channel_status、capabilities、version、storage_status、disk_capacity。protocol_support需显式app_key；capabilities可传channel。仅capabilities/version/storage_status有海外契约，其他仅国内。字段和响应差异见[诊断说明](docs/research/2026-11-14-diagnostics.md)；不自动升级、格式化或关闭加密。公开型号查询本次实测返回HTTP500，其余诊断未实测。
+诊断入口为 `client.diagnostics`：protocol_support、search、channel_status、capabilities、version、storage_status、disk_capacity。protocol_support需显式app_key；capabilities可传channel。仅capabilities/version/storage_status有海外契约，其他仅国内。字段和响应差异见[诊断说明](docs/research/2026-11-14-diagnostics.md)；不自动升级、格式化或关闭加密。公开型号查询曾实测返回HTTP500；[国内单设备能力和版本查询](docs/validation/live/2026-11-14-domestic-diagnostics/README.md)随后成功，其余诊断保持未验证。
 
 ## 加密与布撤防
 
@@ -96,7 +104,7 @@ print(response.data)
 
 `SyncTransport` 与 `AsyncTransport` 提供显式的 query/form/JSON/header 请求入口，默认各 HTTPX I/O 阶段超时为10秒，不自动重试或跟随重定向，支持上下文管理关闭。该超时不是整个请求的总时限；有限认证重试由上面的客户端层控制。
 
-SDK请求期间会对HTTPX请求日志脱敏，不改变应用日志等级或handler。自定义transport中的编程错误原样传播；网络失败不会被表述为“远端肯定没有执行”。
+SDK仅对自身请求上下文内的httpx logger请求日志记录脱敏，不改变应用日志等级或handler，也不添加全局日志钩子；用户自行记录的原始响应及其他依赖库的调试输出不在此脱敏保证范围内。自定义transport中的编程错误原样传播；网络失败不会被表述为“远端肯定没有执行”。
 
 ## 区域与认证
 
@@ -151,7 +159,7 @@ uv venv .venv --python 3.12
 uv pip install --python .venv/bin/python -e '.[dev]' -r tools/documents/requirements.txt
 .venv/bin/python -m pytest -q
 .venv/bin/python -m mypy src/ezviz_unified
-.venv/bin/python -m ruff check src/ezviz_unified harness tests/test_sdk*.py tests/test_harness*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py
+.venv/bin/python -m ruff check src/ezviz_unified harness examples tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_examples.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py
 .venv/bin/python -m build
 ```
 
@@ -163,7 +171,8 @@ uv pip install --python .venv/bin/python -e '.[dev]' -r tools/documents/requirem
 - [已审核传输契约](contracts/reviewed-transport-contracts.json)：文档层面的证据，不表示已进行真实 API 验证。
 - [官方目录关联](docs/research/2026-11-14-official-scope.md)：按地区和分类定位未关联文档；文档数量不等于接口总数或支持率。
 - [主导与执行分工](docs/coordination/workflow.md)：执行模型产出候选，主导方核对来源、代码和测试后集成。
-- [维护harness](harness/README.md)：检查文档差异、契约与源码绑定，执行[离线传输评测](evals/contracts/README.md)；当前不自动改代码或发布。
+- [维护harness](harness/README.md)：用`python -m harness.review`组合快照完整性、来源关联、静态登记和[离线传输评测](evals/contracts/README.md)，输出待审查任务；当前不自动改代码或发布。
+- [维护语义评测](evals/maintenance/README.md)：独立评分文档变化判断，保留字段类型、证据与不确定性；已有一次真实模型的8个公开合成案例记录，尚不代表补丁正确性或自动维护完成。
 - [发行检查](docs/releasing.md)：核验独立包的wheel/sdist、官方契约及实际验证范围。
 
 `ezviz-unified` 是独立产品：不依赖旧 `ezviz-openapi-utils`，不提供旧导入路径、方法别名或兼容适配层。API按官方契约和当前使用场景设计，旧方法数量不作为范围或发布门槛。独立仓库已公开并完成安装与CI交接；旧 `ezviz-openapi-utils` 已归档，只读保留历史。来源与验收边界见[交接记录](docs/provenance.md)。

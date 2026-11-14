@@ -1,0 +1,50 @@
+{
+  "artifacts": {
+    "artifacts": [
+      {
+        "filename": "ezviz_unified-0.1.0a1-py3-none-any.whl",
+        "kind": "wheel",
+        "member_count": 40,
+        "sha256": "3ba73e417fa7f2f4e2603983d066ce938bb4847d2849f9c67f69d8ec28b22b8c"
+      },
+      {
+        "filename": "ezviz_unified-0.1.0a1.tar.gz",
+        "kind": "sdist",
+        "member_count": 89,
+        "sha256": "e4bf1862efcde20badaa62d45de3ca69c5ef01f2790578ada8b0f5a32ffb3fae"
+      }
+    ],
+    "name": "ezviz-unified",
+    "validation": "metadata_and_contents_only",
+    "version": "0.1.0a1"
+  },
+  "installations": {
+    "installer": "uv",
+    "name": "ezviz-unified",
+    "offline": true,
+    "python": "3.12.13",
+    "real_api_used": false,
+    "results": [
+      {
+        "artifact_sha256": "3ba73e417fa7f2f4e2603983d066ce938bb4847d2849f9c67f69d8ec28b22b8c",
+        "clean_install": true,
+        "filename": "ezviz_unified-0.1.0a1-py3-none-any.whl",
+        "install_offline": true,
+        "kind": "wheel",
+        "smoke": "Installed SDK sync/async mock smoke passed"
+      },
+      {
+        "artifact_sha256": "e4bf1862efcde20badaa62d45de3ca69c5ef01f2790578ada8b0f5a32ffb3fae",
+        "clean_install": true,
+        "filename": "ezviz_unified-0.1.0a1.tar.gz",
+        "install_offline": true,
+        "kind": "sdist",
+        "smoke": "Installed SDK sync/async mock smoke passed",
+        "source_archive_tests": "1845 passed in 6.37s"
+      }
+    ],
+    "source_tests": true,
+    "validation": "clean_install_and_offline_smoke",
+    "version": "0.1.0a1"
+  }
+}

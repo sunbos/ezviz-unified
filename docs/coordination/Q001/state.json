@@ -1,0 +1,45 @@
+{
+  "task_id": "Q001",
+  "status": "accepted",
+  "requested_model": "devin/swe-2",
+  "effort_requested": "max",
+  "runs": [
+    {
+      "task": "Q001A",
+      "observed_models": [
+        "devin/swe-2"
+      ],
+      "tools": [],
+      "tool_use_attempts": 0,
+      "prompt_sha256": "7ae7f5d217335ecd6fea8848f5a311eb3bce00793f31fa66dae872f92f4cf36d",
+      "output_sha256": "a267d92c0cefabcfbaf8f148c5f1a59ada714b05541e1dec7472737b6e5b68cd"
+    },
+    {
+      "task": "Q001B",
+      "observed_models": [
+        "devin/swe-2"
+      ],
+      "tools": [],
+      "tool_use_attempts": 0,
+      "prompt_sha256": "1eaff62ad21198ef961f4847c2127d47cfd1d6162fbc4f8acecaad51ce28786f",
+      "output_sha256": "0ef1d32211082cb28e8341ac062793e8e9f00f7bad7b8f55a4608c5d8ea755d6"
+    },
+    {
+      "task": "Q001C",
+      "observed_models": [
+        "devin/swe-2"
+      ],
+      "tools": [],
+      "tool_use_attempts": 0,
+      "prompt_sha256": "17dace4eddadfb9878b1572b98dc9199cd4157a74f04844661d95c76f77f2a5d",
+      "output_sha256": "2052bc15db16e841560fa6e6c9073fdbe3b6c9c14e4171b65b899acff8192565"
+    }
+  ],
+  "verification": {
+    "full_tests": 2281,
+    "subtests": 11,
+    "wire_contracts": 177,
+    "wire_executions": 1448,
+    "real_api_used": false
+  }
+}

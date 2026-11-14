@@ -1,0 +1,170 @@
+{
+  "evidence": "existing_snapshot_and_controlled_synthetic_change",
+  "upstream_change_claimed": false,
+  "reports": {
+    "H008B-self-review": {
+      "decision": "no_document_review",
+      "snapshot_integrity": {
+        "before": {
+          "passed": true,
+          "scope_coverage": {
+            "kind": "official_help",
+            "required_documents": 2149,
+            "present_documents": 2149,
+            "supplemental_entry_ids": [
+              "452",
+              "5287"
+            ]
+          },
+          "documents": 2269,
+          "archived_bodies": 2221,
+          "all_discovered_bodies_available": false,
+          "missing_body_classifications": {
+            "supplement_or_body_reference_with_no_body": 22,
+            "numeric_branch_with_no_body": 4,
+            "menu_leaf_with_no_body": 22
+          },
+          "encoding_warning_count": 0,
+          "reference_edges_checked": 2800
+        },
+        "after": {
+          "passed": true,
+          "scope_coverage": {
+            "kind": "official_help",
+            "required_documents": 2149,
+            "present_documents": 2149,
+            "supplemental_entry_ids": [
+              "452",
+              "5287"
+            ]
+          },
+          "documents": 2269,
+          "archived_bodies": 2221,
+          "all_discovered_bodies_available": false,
+          "missing_body_classifications": {
+            "supplement_or_body_reference_with_no_body": 22,
+            "numeric_branch_with_no_body": 4,
+            "menu_leaf_with_no_body": 22
+          },
+          "encoding_warning_count": 0,
+          "reference_edges_checked": 2800
+        }
+      },
+      "conformance": {
+        "evidence": "offline_contract_conformance_only",
+        "passed": true,
+        "coverage_complete": true,
+        "summary": {
+          "contracts": 172,
+          "cases": 172,
+          "executions": 1408,
+          "passed_executions": 1408,
+          "failed_executions": 0
+        },
+        "guard_failure": null,
+        "failed_operations": []
+      },
+      "inputs_sha256": {
+        "before_catalog": "7befa1e5ba706e2ff897a5da512f821874a8054252a1bb3dd6be870d5941e406",
+        "before_derivation": "7a24f62a1af795813a0a549b4d676e4be4278f41e5dacbe407ab04ec6f0584e3",
+        "after_catalog": "7befa1e5ba706e2ff897a5da512f821874a8054252a1bb3dd6be870d5941e406",
+        "after_derivation": "7a24f62a1af795813a0a549b4d676e4be4278f41e5dacbe407ab04ec6f0584e3",
+        "contracts": "910a0749e2be405dbf27eb3d238affd1d98c60bb0d449ff6a6082d2d12c34880",
+        "bindings": "0f5723dd0182bf502ef53f708b54edc4626409eba48df777044f8bb8fa3308a4",
+        "issues": "f16283589cc5eb85d01325d0d4965abb354a9a0efde13e87ad15c574a5a82ed3",
+        "cases": "e80ff70941ce920534246f5f23ed1fe02a02f5afd074d9b159e6be0ca5bf0a0b"
+      },
+      "task_ids": [],
+      "operations": [],
+      "publication_authorized": false,
+      "candidate_generated": false,
+      "patch_applied": false,
+      "real_api_used": false,
+      "report_sha256": "494e0ea65e10e4f4480576db575dc166f45dfa08afa1c2fbdf0029532882b4df"
+    },
+    "H008B-synthetic-review": {
+      "decision": "review_required",
+      "snapshot_integrity": {
+        "before": {
+          "passed": true,
+          "scope_coverage": {
+            "kind": "official_help",
+            "required_documents": 2149,
+            "present_documents": 2149,
+            "supplemental_entry_ids": [
+              "452",
+              "5287"
+            ]
+          },
+          "documents": 2269,
+          "archived_bodies": 2221,
+          "all_discovered_bodies_available": false,
+          "missing_body_classifications": {
+            "supplement_or_body_reference_with_no_body": 22,
+            "numeric_branch_with_no_body": 4,
+            "menu_leaf_with_no_body": 22
+          },
+          "encoding_warning_count": 0,
+          "reference_edges_checked": 2800
+        },
+        "after": {
+          "passed": true,
+          "scope_coverage": {
+            "kind": "official_help",
+            "required_documents": 2149,
+            "present_documents": 2149,
+            "supplemental_entry_ids": [
+              "452",
+              "5287"
+            ]
+          },
+          "documents": 2269,
+          "archived_bodies": 2221,
+          "all_discovered_bodies_available": false,
+          "missing_body_classifications": {
+            "supplement_or_body_reference_with_no_body": 22,
+            "numeric_branch_with_no_body": 4,
+            "menu_leaf_with_no_body": 22
+          },
+          "encoding_warning_count": 0,
+          "reference_edges_checked": 2800
+        }
+      },
+      "conformance": {
+        "evidence": "offline_contract_conformance_only",
+        "passed": true,
+        "coverage_complete": true,
+        "summary": {
+          "contracts": 172,
+          "cases": 172,
+          "executions": 1408,
+          "passed_executions": 1408,
+          "failed_executions": 0
+        },
+        "guard_failure": null,
+        "failed_operations": []
+      },
+      "inputs_sha256": {
+        "before_catalog": "7befa1e5ba706e2ff897a5da512f821874a8054252a1bb3dd6be870d5941e406",
+        "before_derivation": "7a24f62a1af795813a0a549b4d676e4be4278f41e5dacbe407ab04ec6f0584e3",
+        "after_catalog": "2fd4d97cb406b0b8c26428e1786e0b0e92c653554b97d463e087f61bd6040be6",
+        "after_derivation": "2b8400003104be6bd37fd2ff55b779a8ac1c2f0d826f83e14b7f24bc7c6f08ac",
+        "contracts": "910a0749e2be405dbf27eb3d238affd1d98c60bb0d449ff6a6082d2d12c34880",
+        "bindings": "0f5723dd0182bf502ef53f708b54edc4626409eba48df777044f8bb8fa3308a4",
+        "issues": "f16283589cc5eb85d01325d0d4965abb354a9a0efde13e87ad15c574a5a82ed3",
+        "cases": "e80ff70941ce920534246f5f23ed1fe02a02f5afd074d9b159e6be0ca5bf0a0b"
+      },
+      "task_ids": [
+        "domestic:5230"
+      ],
+      "operations": [
+        "cn.storage.spaces"
+      ],
+      "publication_authorized": false,
+      "candidate_generated": false,
+      "patch_applied": false,
+      "real_api_used": false,
+      "report_sha256": "e0c7e8bb62adf1da920e018022f8eb82b50ac30d4440e1c2ecac766b184da097"
+    }
+  }
+}

@@ -43,6 +43,7 @@ from .recordings import AsyncRecordings, Recordings
 from .security import AsyncSecurity, Security
 from .settings import AsyncSettings, Settings
 from .snapshots import AsyncSnapshots, Snapshots
+from .storage import AsyncStorage, Storage
 from .subaccounts import AsyncSubaccounts, Subaccounts
 from .transport import AsyncTransport, ParamMapping, SyncTransport
 from .video import AsyncVideo, Video
@@ -67,7 +68,10 @@ class _Prepared(NamedTuple):
 def _validate_timeout(timeout: object) -> float:
     if isinstance(timeout, bool) or not isinstance(timeout, (int, float)):
         raise ValueError("timeout must be a finite positive number of seconds")
-    value = float(timeout)
+    try:
+        value = float(timeout)
+    except OverflowError:
+        raise ValueError("timeout must be a finite positive number of seconds") from None
     if not math.isfinite(value) or value <= 0:
         raise ValueError("timeout must be a finite positive number of seconds")
     return value
@@ -210,8 +214,10 @@ class Client:
                 or not callable(token_provider.invalidate)
             ):
                 raise TypeError("token_provider must implement TokenProvider")
-            if not isinstance(token_provider.can_refresh, bool) or inspect.iscoroutinefunction(
-                token_provider.get_token
+            if (
+                not isinstance(token_provider.can_refresh, bool)
+                or inspect.iscoroutinefunction(token_provider.get_token)
+                or inspect.iscoroutinefunction(token_provider.invalidate)
             ):
                 raise TypeError("invalid synchronous token_provider")
             self._manager = token_provider
@@ -245,6 +251,7 @@ class Client:
         self.snapshots = Snapshots(self)
         self.alarms = Alarms(self)
         self.cloud_storage = CloudStorage(self)
+        self.storage = Storage(self)
         self.cloud_recording = CloudRecording(self)
         self.subaccounts = Subaccounts(self)
         self.maintenance = Maintenance(self)
@@ -423,6 +430,8 @@ class AsyncClient:
                 raise TypeError("token_provider must implement AsyncTokenProvider")
             if not isinstance(token_provider.can_refresh, bool):
                 raise TypeError("provider can_refresh must be bool")
+            if inspect.iscoroutinefunction(token_provider.invalidate):
+                raise TypeError("provider invalidate must be synchronous")
             self._manager = token_provider
             self._secrets = ()
         else:
@@ -455,6 +464,7 @@ class AsyncClient:
         self.snapshots = AsyncSnapshots(self)
         self.alarms = AsyncAlarms(self)
         self.cloud_storage = AsyncCloudStorage(self)
+        self.storage = AsyncStorage(self)
         self.cloud_recording = AsyncCloudRecording(self)
         self.subaccounts = AsyncSubaccounts(self)
         self.maintenance = AsyncMaintenance(self)
@@ -508,7 +518,10 @@ class AsyncClient:
     async def _execute(self, operation: Operation, prepared: _Prepared) -> ApiResponse:
         retried = False
         while True:
-            supplied = await self._manager.get_token()  # provider errors never retry
+            awaitable = self._manager.get_token()  # provider errors never retry
+            if not inspect.isawaitable(awaitable):
+                raise TypeError("async token_provider get_token must return an awaitable")
+            supplied = await awaitable
             token = validate_provider_token(supplied, region=self._region, now=self._clock())
             transport = self._transport_for(token)
             bound = _inject(operation, prepared, token)

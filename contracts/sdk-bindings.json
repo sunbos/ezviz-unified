@@ -25,8 +25,10 @@
         "AsyncDevices.status"
       ],
       "offline_status": "passed",
-      "live_status": "not_verified",
-      "public_entry": "devices.status"
+      "live_status": "single_device_readonly_response_checked",
+      "public_entry": "devices.status",
+      "live_evidence": "docs/validation/live/2026-11-14-domestic-device/domestic.json",
+      "live_notes": "One page (page_size=1), first ordinary device; basic response shapes checked. Device status queried default channel 1. Not all hardware behavior verified."
     },
     {
       "operation_id": "global.device.status",
@@ -64,9 +66,10 @@
         "AsyncDevices.list"
       ],
       "offline_status": "passed",
-      "live_status": "empty_list_succeeded",
-      "live_evidence": "docs/validation/live/2026-11-14/domestic.json",
-      "public_entry": "devices.list"
+      "live_status": "single_device_readonly_response_checked",
+      "live_evidence": "docs/validation/live/2026-11-14-domestic-device/domestic.json",
+      "public_entry": "devices.list",
+      "live_notes": "One page (page_size=1), first ordinary device; basic response shapes checked. Device status queried default channel 1. Not all hardware behavior verified."
     },
     {
       "operation_id": "cn.devices.get",
@@ -78,8 +81,10 @@
         "AsyncDevices.get"
       ],
       "offline_status": "passed",
-      "live_status": "not_verified",
-      "public_entry": "devices.get"
+      "live_status": "single_device_readonly_response_checked",
+      "public_entry": "devices.get",
+      "live_evidence": "docs/validation/live/2026-11-14-domestic-device/domestic.json",
+      "live_notes": "One page (page_size=1), first ordinary device; basic response shapes checked. Device status queried default channel 1. Not all hardware behavior verified."
     },
     {
       "operation_id": "cn.devices.channels",
@@ -91,8 +96,10 @@
         "AsyncDevices.channels"
       ],
       "offline_status": "passed",
-      "live_status": "not_verified",
-      "public_entry": "devices.channels"
+      "live_status": "single_device_readonly_response_checked",
+      "public_entry": "devices.channels",
+      "live_evidence": "docs/validation/live/2026-11-14-domestic-device/domestic.json",
+      "live_notes": "One page (page_size=1), first ordinary device; basic response shapes checked. Device status queried default channel 1. Not all hardware behavior verified."
     },
     {
       "operation_id": "global.devices.list",
@@ -407,8 +414,9 @@
       ],
       "offline_status": "passed",
       "live_status": "empty_list_succeeded_application_token",
-      "live_evidence": "docs/validation/live/2026-11-14-managed/domestic.json",
-      "public_entry": "devices.list_managed"
+      "live_evidence": "docs/validation/live/2026-11-14-domestic-device/domestic.json",
+      "public_entry": "devices.list_managed",
+      "live_notes": "One managed page returned zero; only this developer-token scope was checked."
     },
     {
       "operation_id": "cn.diagnostics.protocol_support",
@@ -460,8 +468,10 @@
         "AsyncDiagnostics.capabilities"
       ],
       "offline_status": "passed",
-      "live_status": "not_verified",
-      "public_entry": "diagnostics.capabilities"
+      "live_status": "single_device_readonly_response_checked",
+      "public_entry": "diagnostics.capabilities",
+      "live_evidence": "docs/validation/live/2026-11-14-domestic-diagnostics/domestic.json",
+      "live_notes": "Successful readonly request and basic data shape; reported capabilities are not proof that the corresponding physical actions work. Detailed device state is not published."
     },
     {
       "operation_id": "global.diagnostics.capabilities",
@@ -486,8 +496,10 @@
         "AsyncDiagnostics.version"
       ],
       "offline_status": "passed",
-      "live_status": "not_verified",
-      "public_entry": "diagnostics.version"
+      "live_status": "single_device_readonly_response_checked",
+      "public_entry": "diagnostics.version",
+      "live_evidence": "docs/validation/live/2026-11-14-domestic-diagnostics/domestic.json",
+      "live_notes": "Successful readonly request and basic data shape; reported capabilities are not proof that the corresponding physical actions work. Detailed device state is not published."
     },
     {
       "operation_id": "global.diagnostics.version",
@@ -2237,6 +2249,162 @@
         "AsyncCloudRecording.templates"
       ],
       "public_entry": "cloud_recording.templates",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.spaces",
+      "region": "domestic",
+      "source_doc_id": "5230",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.spaces",
+        "AsyncStorage.spaces"
+      ],
+      "public_entry": "storage.spaces",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.set_file_retention",
+      "region": "domestic",
+      "source_doc_id": "5232",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.set_file_retention",
+        "AsyncStorage.set_file_retention"
+      ],
+      "public_entry": "storage.set_file_retention",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.search_files",
+      "region": "domestic",
+      "source_doc_id": "5233",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.search_files",
+        "AsyncStorage.search_files"
+      ],
+      "public_entry": "storage.search_files",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.download_urls",
+      "region": "domestic",
+      "source_doc_id": "5234",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.download_urls",
+        "AsyncStorage.download_urls"
+      ],
+      "public_entry": "storage.download_urls",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.create_space",
+      "region": "domestic",
+      "source_doc_id": "5236",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.create_space",
+        "AsyncStorage.create_space"
+      ],
+      "public_entry": "storage.create_space",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.update_space",
+      "region": "domestic",
+      "source_doc_id": "5237",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.update_space",
+        "AsyncStorage.update_space"
+      ],
+      "public_entry": "storage.update_space",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.delete_space",
+      "region": "domestic",
+      "source_doc_id": "5238",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.delete_space",
+        "AsyncStorage.delete_space"
+      ],
+      "public_entry": "storage.delete_space",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording.create_one_off_plan",
+      "region": "domestic",
+      "source_doc_id": "2045",
+      "module": "src/ezviz_unified/cloud_recording_plans.py",
+      "symbols": [
+        "CloudRecordingPlans.create_one_off_plan",
+        "AsyncCloudRecordingPlans.create_one_off_plan"
+      ],
+      "public_entry": "cloud_recording.create_one_off_plan",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording.update_one_off_plan",
+      "region": "domestic",
+      "source_doc_id": "2050",
+      "module": "src/ezviz_unified/cloud_recording_plans.py",
+      "symbols": [
+        "CloudRecordingPlans.update_one_off_plan",
+        "AsyncCloudRecordingPlans.update_one_off_plan"
+      ],
+      "public_entry": "cloud_recording.update_one_off_plan",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording.stop_one_off_plan",
+      "region": "domestic",
+      "source_doc_id": "2046",
+      "module": "src/ezviz_unified/cloud_recording_plans.py",
+      "symbols": [
+        "CloudRecordingPlans.stop_one_off_plan",
+        "AsyncCloudRecordingPlans.stop_one_off_plan"
+      ],
+      "public_entry": "cloud_recording.stop_one_off_plan",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording.delete_one_off_plan",
+      "region": "domestic",
+      "source_doc_id": "2049",
+      "module": "src/ezviz_unified/cloud_recording_plans.py",
+      "symbols": [
+        "CloudRecordingPlans.delete_one_off_plan",
+        "AsyncCloudRecordingPlans.delete_one_off_plan"
+      ],
+      "public_entry": "cloud_recording.delete_one_off_plan",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording.create_instant_plan",
+      "region": "domestic",
+      "source_doc_id": "2062",
+      "module": "src/ezviz_unified/cloud_recording_plans.py",
+      "symbols": [
+        "CloudRecordingPlans.create_instant_plan",
+        "AsyncCloudRecordingPlans.create_instant_plan"
+      ],
+      "public_entry": "cloud_recording.create_instant_plan",
       "offline_status": "passed",
       "live_status": "not_verified"
     }

@@ -8,6 +8,7 @@ from .auth import AsyncTokenManager, TokenManager
 from .auth_models import RegionConfig, Token, parse_token
 from .client import AsyncClient, Client
 from .cloud_recording import AsyncCloudRecording, CloudRecording
+from .cloud_recording_plans import CloudRecordingDevice
 from .cloud_storage import AsyncCloudStorage, CloudStorage, StorageOrderOptions
 from .cruise import AsyncCruise, Cruise, CruisePeriod
 from .devices import AsyncDevices, Devices
@@ -41,6 +42,8 @@ from .response import decode_response
 from .security import AsyncSecurity, Security
 from .settings import AsyncSettings, DeviceSwitch, Settings
 from .snapshots import AsyncSnapshots, Snapshots
+from .storage import AsyncStorage, Storage
+from .storage_models import StorageFileQuery
 from .subaccounts import AsyncSubaccounts, Subaccounts
 from .transport import AsyncTransport, SyncTransport
 from .video import AsyncVideo, PreviewEncoding, Video, VideoSwitch
@@ -58,6 +61,7 @@ __all__ = [
     "Alarms",
     "AsyncAlarms",
     "AsyncCloudStorage",
+    "AsyncStorage",
     "AsyncCloudRecording",
     "AsyncSubaccounts",
     "AsyncIllumination",
@@ -82,7 +86,10 @@ __all__ = [
     "AuthenticationError",
     "Client",
     "CloudStorage",
+    "Storage",
+    "StorageFileQuery",
     "CloudRecording",
+    "CloudRecordingDevice",
     "Cruise",
     "CruisePeriod",
     "DeviceError",

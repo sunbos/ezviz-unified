@@ -75,7 +75,10 @@ def _validate_base_url(base_url: str) -> str:
 def _validate_timeout(timeout: object) -> float:
     if isinstance(timeout, bool) or not isinstance(timeout, (int, float)):
         raise ValueError("timeout must be a finite positive number of seconds")
-    value = float(timeout)
+    try:
+        value = float(timeout)
+    except OverflowError:
+        raise ValueError("timeout must be a finite positive number of seconds") from None
     if not math.isfinite(value) or value <= 0:
         raise ValueError("timeout must be a finite positive number of seconds")
     return value
@@ -125,7 +128,14 @@ def _collect_into(node: object, out: set[str]) -> None:
                         out.add(parts[1])
                 elif key.lower() in {"policy", "statement"}:
                     _collect_policy_resources(value, out)
-            elif isinstance(key, str) and key.lower() in _SECRET_KEYS and type(value) is int:
+                elif key.lower() in {"filenodeids", "spaceids"}:
+                    out.update(part for part in value.split(",") if part)
+            elif (
+                isinstance(key, str)
+                and key.lower() in _SECRET_KEYS
+                and isinstance(value, int)
+                and not isinstance(value, bool)
+            ):
                 out.add(str(value))
             else:
                 _collect_into(value, out)

@@ -23,6 +23,15 @@ _TEST_FILE_RE = re.compile(r"(conftest\.py|test_offline_policy\.py|test_sdk[^/]*
 _ENV_RE = re.compile(r"\.env(\..*)?")
 _WHEEL_FORBIDDEN_TOPS = {"tests", "data", "docs", "harness", "tools", ".claude"}
 _SDIST_FORBIDDEN_TOPS = _WHEEL_FORBIDDEN_TOPS - {"tests"}
+_SDIST_ROOT_FILES = {
+    "LICENSE",
+    "MANIFEST.in",
+    "PKG-INFO",
+    "README.md",
+    "pyproject.toml",
+    "setup.cfg",
+    "setup.py",
+}
 
 
 def _normalize_name(name: str) -> str:
@@ -103,15 +112,19 @@ def _check_wheel(path: Path, expected: tuple[str, str, str, str], package: str) 
     with archive:
         infos = archive.infolist()
         names: set[str] = set()
+        tops: set[str] = set()
         metadata = ""
         for info in infos:
             if info.filename in names:
                 raise ValueError("duplicate archive member name")
             names.add(info.filename)
             parts = _member_parts(info.filename)
+            tops.add(parts[0])
             mode = info.external_attr >> 16
             if stat.S_IFMT(mode) not in (0, stat.S_IFREG, stat.S_IFDIR):
                 raise ValueError("unsafe wheel member type")
+            if len(parts) == 1 and not (info.is_dir() and stat.S_IFMT(mode) in (0, stat.S_IFDIR)):
+                raise ValueError("top-level wheel member must be a directory")
             if parts[0] in _WHEEL_FORBIDDEN_TOPS:
                 raise ValueError("forbidden top-level entry in wheel")
             if any(_ENV_RE.fullmatch(part) for part in parts):
@@ -120,10 +133,15 @@ def _check_wheel(path: Path, expected: tuple[str, str, str, str], package: str) 
                 if metadata:
                     raise ValueError("multiple dist-info METADATA entries")
                 metadata = info.filename
+        dist_infos = {top for top in tops if top.endswith(".dist-info")}
+        if len(dist_infos) != 1:
+            raise ValueError("wheel must contain a single dist-info directory")
+        dist_info = next(iter(dist_infos))
+        _check_distribution_stem(dist_info.removesuffix(".dist-info"), expected)
+        if tops - {package, dist_info}:
+            raise ValueError("unexpected top-level entry in wheel")
         if not metadata:
             raise ValueError("wheel missing dist-info METADATA")
-        dist_info = metadata.split("/", 1)[0]
-        _check_distribution_stem(dist_info.removesuffix(".dist-info"), expected)
         if f"{package}/py.typed" not in names:
             raise ValueError("wheel missing py.typed marker")
         if f"{dist_info}/licenses/LICENSE" not in names:
@@ -141,6 +159,7 @@ def _check_sdist(path: Path, expected: tuple[str, str, str, str], package: str) 
         members = archive.getmembers()
         names: set[str] = set()
         roots: set[str] = set()
+        test_files: set[str] = set()
         pkg_info = None
         has_license = has_py_typed = False
         for member in members:
@@ -153,18 +172,36 @@ def _check_sdist(path: Path, expected: tuple[str, str, str, str], package: str) 
             roots.add(parts[0])
             rel = parts[1:]
             if not rel:
+                if not member.isdir():
+                    raise ValueError("sdist root entry must be a directory")
                 continue
             if rel[0] in _SDIST_FORBIDDEN_TOPS:
                 raise ValueError("forbidden top-level entry in sdist")
             if any(_ENV_RE.fullmatch(part) for part in rel):
                 raise ValueError("forbidden env file in sdist")
-            if rel[0] == "tests":
-                ok = member.isdir() and rel == ("tests",)
-                ok = ok or (
+            if rel[0] in _SDIST_ROOT_FILES:
+                if not member.isfile() or len(rel) != 1:
+                    raise ValueError("unexpected sdist root entry")
+            elif rel[0] == "src":
+                if len(rel) == 1:
+                    if not member.isdir():
+                        raise ValueError("sdist src entry must be a directory")
+                elif rel[1] not in (package, f"{package}.egg-info"):
+                    raise ValueError("unexpected package under sdist src/")
+                elif len(rel) == 2 and not member.isdir():
+                    raise ValueError("sdist package entry must be a directory")
+            elif rel[0] == "tests":
+                if len(rel) == 1:
+                    if not member.isdir():
+                        raise ValueError("sdist tests entry must be a directory")
+                elif not (
                     member.isfile() and len(rel) == 2 and bool(_TEST_FILE_RE.fullmatch(rel[1]))
-                )
-                if not ok:
+                ):
                     raise ValueError("unexpected content under tests/")
+                else:
+                    test_files.add(rel[1])
+            else:
+                raise ValueError("unexpected top-level entry in sdist")
             if member.isfile() and rel == ("PKG-INFO",):
                 if pkg_info is not None:
                     raise ValueError("multiple root PKG-INFO entries")
@@ -181,6 +218,12 @@ def _check_sdist(path: Path, expected: tuple[str, str, str, str], package: str) 
             raise ValueError("sdist missing LICENSE")
         if not has_py_typed:
             raise ValueError("sdist missing py.typed marker")
+        # Layout/existence check only: required test files must be present,
+        # but this neither runs them nor scans their contents for secrets.
+        if not {"conftest.py", "test_offline_policy.py"} <= test_files:
+            raise ValueError("sdist missing required SDK test files")
+        if not any(name.startswith("test_sdk") for name in test_files):
+            raise ValueError("sdist missing required SDK test files")
         source = archive.extractfile(pkg_info)
         if source is None:
             raise ValueError("sdist PKG-INFO unreadable")

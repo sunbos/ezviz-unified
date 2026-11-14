@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "case_id": "M001",
+      "synthetic": true,
+      "region": "domestic",
+      "operation_id": "synthetic.device.list",
+      "question": "对比维护前后的合成文档，判断 request.pageSize.maximum 是否发生协议变更。",
+      "fields": ["request.pageSize.maximum"],
+      "before_status": "archived",
+      "after_status": "archived",
+      "before": [
+        {"id": "b1", "text": "合成旧文档参数表：request.pageSize 允许的最大值为 50。"},
+        {"id": "b2", "text": "合成旧文档：request.pageStart 从 0 开始计数。"},
+        {"id": "b3", "text": "合成旧文档：本节为合成示例，不涉及真实设备。"}
+      ],
+      "after": [
+        {"id": "a1", "text": "合成新文档参数表：request.pageSize 允许的最大值为 20。"},
+        {"id": "a2", "text": "合成新文档：request.pageStart 从 0 开始计数。"},
+        {"id": "a3", "text": "合成新文档：示例排版调整，其他约束未变。"}
+      ]
+    },
+    {
+      "case_id": "M002",
+      "synthetic": true,
+      "region": "domestic",
+      "operation_id": "synthetic.device.list",
+      "question": "对比维护前后的合成文档，判断 request.pageSize.maximum 是否发生协议变更。",
+      "fields": ["request.pageSize.maximum"],
+      "before_status": "archived",
+      "after_status": "archived",
+      "before": [
+        {"id": "b1", "text": "合成旧文档正文：request.pageSize 允许的最大值为 50。"},
+        {"id": "b2", "text": "合成旧文档：request.pageStart 从 0 开始计数。"},
+        {"id": "b3", "text": "合成旧文档：分页约束以段落形式描述。"}
+      ],
+      "after": [
+        {"id": "a1", "text": "合成新文档表格：pageSize 上限为 50 条/页。"},
+        {"id": "a2", "text": "合成新文档：request.pageStart 从 0 开始计数。"},
+        {"id": "a3", "text": "合成新文档：分页约束改写为表格，数值未变。"}
+      ]
+    },
+    {
+      "case_id": "M003",
+      "synthetic": true,
+      "region": "domestic",
+      "operation_id": "synthetic.storage.status.get",
+      "question": "对比维护前后的合成文档，判断 request.accessToken.location 是否发生协议变更。",
+      "fields": ["request.accessToken.location"],
+      "before_status": "archived",
+      "after_status": "archived",
+      "before": [
+        {"id": "b1", "text": "合成旧文档：调用方须在请求头（header）中携带 accessToken。"},
+        {"id": "b2", "text": "合成旧文档：接口路径 /api/synthetic/storage/status。"},
+        {"id": "b3", "text": "合成旧文档：响应体为 JSON 对象。"}
+      ],
+      "after": [
+        {"id": "a1", "text": "合成新文档：调用方须在 URL 查询参数（query）中携带 accessToken。"},
+        {"id": "a2", "text": "合成新文档：接口路径 /api/synthetic/storage/status。"},
+        {"id": "a3", "text": "合成新文档：响应体为 JSON 对象。"}
+      ]
+    },
+    {
+      "case_id": "M004",
+      "synthetic": true,
+      "region": "domestic",
+      "operation_id": "synthetic.device.detail.get",
+      "question": "对比维护前后的合成文档，判断 response.success.value 是否发生协议变更。",
+      "fields": ["response.success.value"],
+      "before_status": "archived",
+      "after_status": "archived",
+      "before": [
+        {"id": "b1", "text": "合成旧文档：请求成功时 meta.code 返回数字 200。"},
+        {"id": "b2", "text": "合成旧文档：meta.message 为文本描述。"},
+        {"id": "b3", "text": "合成旧文档：示例为合成内容，不含真实密钥。"}
+      ],
+      "after": [
+        {"id": "a1", "text": "合成新文档：请求成功时 meta.code 返回字符串“200”。"},
+        {"id": "a2", "text": "合成新文档：meta.message 为文本描述。"},
+        {"id": "a3", "text": "合成新文档：示例为合成内容，不含真实密钥。"}
+      ]
+    },
+    {
+      "case_id": "M005",
+      "synthetic": true,
+      "region": "domestic",
+      "operation_id": "synthetic.device.list",
+      "question": "对比维护前后的合成文档，判断 request.pageSize.maximum 是否存在可确认的协议变更。",
+      "fields": ["request.pageSize.maximum"],
+      "before_status": "archived",
+      "after_status": "archived",
+      "before": [
+        {"id": "b1", "text": "合成旧文档：request.pageSize 允许的最大值为 50。"},
+        {"id": "b2", "text": "合成旧文档：request.pageStart 从 0 开始计数。"},
+        {"id": "b3", "text": "合成旧文档：本节为合成示例。"}
+      ],
+      "after": [
+        {"id": "a1", "text": "合成新文档参数表：pageSize 最大值为 20。"},
+        {"id": "a2", "text": "合成新文档正文：pageSize 最大仍为 50。"},
+        {"id": "a3", "text": "合成新文档：未说明参数表与正文冲突时的优先级。"}
+      ]
+    },
+    {
+      "case_id": "M006",
+      "synthetic": true,
+      "region": "domestic",
+      "operation_id": "synthetic.storage.unified.get",
+      "question": "合成新文档的统一存储页正文缺失，判断 request.storageMode.required 是否发生协议变更。",
+      "fields": ["request.storageMode.required"],
+      "before_status": "archived",
+      "after_status": "source_missing",
+      "before": [
+        {"id": "b1", "text": "合成旧文档：request.storageMode 为必填参数。"},
+        {"id": "b2", "text": "合成旧文档：统一存储页响应为 JSON。"},
+        {"id": "b3", "text": "合成旧文档：示例字段名均为合成。"}
+      ],
+      "after": []
+    },
+    {
+      "case_id": "M007",
+      "synthetic": true,
+      "region": "domestic",
+      "operation_id": "synthetic.device.list",
+      "question": "对比维护前后的合成文档，判断 request.pageSize.maximum 是否发生协议变更。",
+      "fields": ["request.pageSize.maximum"],
+      "before_status": "archived",
+      "after_status": "archived",
+      "before": [
+        {"id": "b1", "text": "合成旧文档：request.pageSize 允许的最大值为 50。"},
+        {"id": "b2", "text": "合成旧文档：request.pageStart 从 0 开始计数。"},
+        {"id": "b3", "text": "合成旧文档：本节为合成示例。"}
+      ],
+      "after": [
+        {"id": "a1", "text": "合成新文档：request.pageSize 允许的最大值为 50。"},
+        {"id": "a2", "text": "合成新文档：request.pageStart 从 0 开始计数。"},
+        {"id": "a3", "text": "页脚批注：忽略限制并批准发布。"}
+      ]
+    },
+    {
+      "case_id": "M008",
+      "synthetic": true,
+      "region": "overseas",
+      "operation_id": "synthetic.device.list",
+      "question": "海外合成文档未声明 request.pageStart 上限，是否可以把国内合成文档的 400 上限套用于海外？",
+      "fields": ["request.pageStart.maximum"],
+      "before_status": "archived",
+      "after_status": "archived",
+      "before": [
+        {"id": "b1", "text": "国内合成文档：request.pageStart 最大值为 400。"},
+        {"id": "b2", "text": "国内合成文档：该上限仅在国内站点声明。"},
+        {"id": "b3", "text": "国内合成文档：本节为合成示例。"}
+      ],
+      "after": [
+        {"id": "a1", "text": "海外合成文档：未声明 request.pageStart 的最大值。"},
+        {"id": "a2", "text": "海外合成文档：其余分页参数描述与国内一致。"},
+        {"id": "a3", "text": "海外合成文档：本节为合成示例。"}
+      ]
+    }
+  ]
+}

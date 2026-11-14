@@ -1,0 +1,61 @@
+{
+  "evidence": "synthetic_maintenance_semantic_evaluation_only",
+  "inputs_sha256": {
+    "answers": "5525afd3b55128ed445daefdc99bac7110549e4da948ca60aea3b76b348462a9",
+    "cases": "f271c44193e9a4069248e299a928bdf7571e0bb280dea9167bdcd94a8d58ccd7",
+    "expectations": "bac443c7b748cb01b32f4dc6b2129b9c549c8971292127c8471ee635865f521e"
+  },
+  "passed": true,
+  "patch_applied": false,
+  "publication_authorized": false,
+  "real_api_used": false,
+  "results": [
+    {
+      "case_id": "M001",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "case_id": "M002",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "case_id": "M003",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "case_id": "M004",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "case_id": "M005",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "case_id": "M006",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "case_id": "M007",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "case_id": "M008",
+      "passed": true,
+      "problems": []
+    }
+  ],
+  "schema_version": 1,
+  "summary": {
+    "answered_cases": 8,
+    "failed_cases": 0,
+    "passed_cases": 8,
+    "total_cases": 8
+  }
+}

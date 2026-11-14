@@ -1,0 +1,536 @@
+{
+  "evidence": "coordinator_extraction_from_hash_verified_tables",
+  "status": "parameter_tables_and_transport_independently_verified",
+  "documents": [
+    {
+      "doc_id": "5230",
+      "source_url": "https://open.ys7.com/help/5230",
+      "source_content_sha256": "15c63a8d00d55432b946b18f36b62034800d80e17041507c1b2a570c8290edf3",
+      "request_info": {
+        "请求方法": "GET",
+        "请求路径": "/api/service/open/storage/engine/space/listById",
+        "内容类型": "查询参数（query）",
+        "鉴权方式": "accessToken（Header）",
+        "幂等性": "是（只读）",
+        "是否异步": "否"
+      },
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "source_constraints": [
+            "—",
+            "访问令牌"
+          ]
+        },
+        {
+          "name": "startTime",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "source_constraints": [
+            "yyyy-MM-dd HH:mm:ss",
+            "查询开始时间（基于 createTime）"
+          ]
+        },
+        {
+          "name": "endTime",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "source_constraints": [
+            "yyyy-MM-dd HH:mm:ss ，与 startTime 间隔 ≤30 天",
+            "查询结束时间"
+          ]
+        },
+        {
+          "name": "lastSpaceId",
+          "location": "query",
+          "type": "Long",
+          "required": false,
+          "source_constraints": [
+            "—",
+            "上一页最后空间 id（游标翻页）"
+          ]
+        },
+        {
+          "name": "pageSize",
+          "location": "query",
+          "type": "Int",
+          "required": false,
+          "source_constraints": [
+            "1-50，默认 10",
+            "分页大小"
+          ]
+        },
+        {
+          "name": "bizTypeList",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "source_constraints": [
+            "vod / record / cloudCapture / capture",
+            "空间业务类型过滤；默认查所有支持类型"
+          ]
+        },
+        {
+          "name": "sortRule",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "source_constraints": [
+            "asc / desc ，默认 desc",
+            "排序规则"
+          ]
+        },
+        {
+          "name": "sortField",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "source_constraints": [
+            "createTime / updateTime / totalSize ，默认 createTime",
+            "排序字段"
+          ]
+        }
+      ]
+    },
+    {
+      "doc_id": "5232",
+      "source_url": "https://open.ys7.com/help/5232",
+      "source_content_sha256": "ad3dbe45ddc013c3f05dd62a8f79b3665b1e5e13eba793b83637511984c492c5",
+      "request_info": {
+        "请求方法": "POST",
+        "请求路径": "/api/service/open/storage/engine/file/batchExpire",
+        "内容类型": "application/x-www-form-urlencoded",
+        "鉴权方式": "accessToken（Header）",
+        "幂等性": "是",
+        "是否异步": "否"
+      },
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "source_constraints": [
+            "—",
+            "访问令牌"
+          ]
+        },
+        {
+          "name": "fileNodeIds",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "source_constraints": [
+            "逗号分隔",
+            "文件节点 ID 集合"
+          ]
+        },
+        {
+          "name": "expireDays",
+          "location": "body",
+          "type": "Int",
+          "required": true,
+          "source_constraints": [
+            "-1=永久；1-5475",
+            "新过期天数"
+          ]
+        }
+      ]
+    },
+    {
+      "doc_id": "5233",
+      "source_url": "https://open.ys7.com/help/5233",
+      "source_content_sha256": "ab672cc55a2f01d8938db1b62144dc46f51ee24badd139ec1168eac6646c089d",
+      "request_info": {
+        "请求方法": "POST",
+        "请求路径": "/api/service/open/storage/engine/file/listById",
+        "内容类型": "application/x-www-form-urlencoded",
+        "鉴权方式": "accessToken（Header）",
+        "幂等性": "是（只读）",
+        "是否异步": "否"
+      },
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "source_constraints": [
+            "—",
+            "访问令牌"
+          ]
+        },
+        {
+          "name": "fileNodeIds",
+          "location": "body",
+          "type": "List\\ （逗号分隔）",
+          "required": false,
+          "source_constraints": [
+            "—",
+            "文件节点 id 集合（旧版本曾用 folderNodes，现统一为 fileNodeIds）。优先级最高，传入时时间参数无效"
+          ]
+        },
+        {
+          "name": "spaceIds",
+          "location": "body",
+          "type": "List\\",
+          "required": false,
+          "source_constraints": [
+            "1~5 个",
+            "空间 id 集合"
+          ]
+        },
+        {
+          "name": "startTime",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "source_constraints": [
+            "yyyy-MM-dd HH:mm:ss",
+            "开始时间；fileNodeIds 有值时无效"
+          ]
+        },
+        {
+          "name": "endTime",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "source_constraints": [
+            "yyyy-MM-dd HH:mm:ss",
+            "结束时间；fileNodeIds 有值时无效"
+          ]
+        },
+        {
+          "name": "tagId",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "source_constraints": [
+            "—",
+            "标签 id（剪辑/转封装/抽帧任务 id）；与 fileNodeIds 同传时 tagId 无效"
+          ]
+        },
+        {
+          "name": "fileType",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "source_constraints": [
+            "0图/1视/2音/3文档/4其他",
+            "文件类型"
+          ]
+        },
+        {
+          "name": "fileChildType",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "source_constraints": [
+            "00JPG/01PNG/02GIF/10MP4/13M3U8/20MP3",
+            "文件子类型"
+          ]
+        },
+        {
+          "name": "pageSize",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "source_constraints": [
+            "1-50，默认 10",
+            "每页大小"
+          ]
+        },
+        {
+          "name": "lastId",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "source_constraints": [
+            "默认空",
+            "翻页游标"
+          ]
+        },
+        {
+          "name": "sortRule",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "source_constraints": [
+            "0-倒序（默认）/1-正序",
+            "排序规则"
+          ]
+        },
+        {
+          "name": "sourceType",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "source_constraints": [
+            "默认 -1",
+            "来源类型"
+          ]
+        }
+      ]
+    },
+    {
+      "doc_id": "5234",
+      "source_url": "https://open.ys7.com/help/5234",
+      "source_content_sha256": "f1543d9082b71fc65507fe827c007958faaa4db975de9f9c6218498a79bbb88c",
+      "request_info": {
+        "请求方法": "GET",
+        "请求路径": "/api/service/open/storage/engine/file/downloadurls",
+        "内容类型": "查询参数（query）",
+        "鉴权方式": "accessToken（Query）",
+        "幂等性": "是（只读查询）",
+        "是否异步": "否"
+      },
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "source_constraints": [
+            "—",
+            "访问令牌"
+          ]
+        },
+        {
+          "name": "fileNodeIds",
+          "location": "query",
+          "type": "List\\",
+          "required": true,
+          "source_constraints": [
+            "数量 1~50（必填，不可为空）",
+            "文件节点标识集合（统一命名，勿用 folderNode）"
+          ]
+        },
+        {
+          "name": "expireSeconds",
+          "location": "query",
+          "type": "Long",
+          "required": false,
+          "source_constraints": [
+            "范围 [30, 604800] ，默认 1800",
+            "下载地址有效期（秒）。 约束与默认值由服务端强制校验"
+          ]
+        }
+      ]
+    },
+    {
+      "doc_id": "5236",
+      "source_url": "https://open.ys7.com/help/5236",
+      "source_content_sha256": "48f346ac1bb9518164950b64d106bf2e7f455daf5055cfe3aed8177cf698ddb0",
+      "request_info": {
+        "请求方法": "POST",
+        "请求路径": "/api/service/open/storage/engine/space",
+        "内容类型": "application/x-www-form-urlencoded",
+        "鉴权方式": "accessToken（Header）",
+        "幂等性": "否（重复调用创建多个空间）",
+        "是否异步": "否"
+      },
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "source_constraints": [
+            "—",
+            "访问令牌"
+          ]
+        },
+        {
+          "name": "bizType",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "source_constraints": [
+            "vod / record / cloudCapture / capture",
+            "空间业务类型：云点播/云录制2.0/04-云抓拍/设备抓图"
+          ]
+        },
+        {
+          "name": "spaceName",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "source_constraints": [
+            "中/英/数字/下划线，长度 ≤32",
+            "空间名称"
+          ]
+        },
+        {
+          "name": "storageType",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "source_constraints": [
+            "1=标准（默认）/ 2=归档",
+            "存储类型（非必填，默认 1）"
+          ]
+        },
+        {
+          "name": "expireDays",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "source_constraints": [
+            "-1=永久 ； 1-5475（15年） ；默认 7",
+            "过期天数"
+          ]
+        },
+        {
+          "name": "flowLimit",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "source_constraints": [
+            "默认 -1（不限制）",
+            "流量限制"
+          ]
+        },
+        {
+          "name": "permission",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "source_constraints": [
+            "1=读写（默认）/ 2=只读",
+            "空间权限"
+          ]
+        }
+      ]
+    },
+    {
+      "doc_id": "5237",
+      "source_url": "https://open.ys7.com/help/5237",
+      "source_content_sha256": "fca3d372cf95214bada67be40b1fc42a979a262e0e9ffaa5286216c036b1aaa7",
+      "request_info": {
+        "请求方法": "PUT",
+        "请求路径": "/api/service/open/storage/engine/space",
+        "内容类型": "application/x-www-form-urlencoded",
+        "鉴权方式": "accessToken（Header）",
+        "幂等性": "是（同参重复更新结果一致）",
+        "是否异步": "否"
+      },
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "source_constraints": [
+            "—",
+            "访问令牌"
+          ]
+        },
+        {
+          "name": "spaceId",
+          "location": "body",
+          "type": "Long",
+          "required": true,
+          "source_constraints": [
+            "—",
+            "目标空间 id"
+          ]
+        },
+        {
+          "name": "spaceName",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "source_constraints": [
+            "中/英/数字/下划线，≤32",
+            "空间名称"
+          ]
+        },
+        {
+          "name": "expireDays",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "source_constraints": [
+            "-1=永久；1-5475",
+            "过期天数（默认 7）"
+          ]
+        },
+        {
+          "name": "storageType",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "source_constraints": [
+            "1-标准（默认）/2-归档",
+            "存储类型"
+          ]
+        },
+        {
+          "name": "flowLimit",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "source_constraints": [
+            "默认 -1（不限制）",
+            "流量限制"
+          ]
+        },
+        {
+          "name": "permission",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "source_constraints": [
+            "1-读写（默认）/2-只读",
+            "权限"
+          ]
+        }
+      ]
+    },
+    {
+      "doc_id": "5238",
+      "source_url": "https://open.ys7.com/help/5238",
+      "source_content_sha256": "2424e88de5ac0edb2a10aef8464ed34445175099a8978b2e6b91e3b10013eea3",
+      "request_info": {
+        "请求方法": "DELETE",
+        "请求路径": "/api/service/open/storage/engine/space",
+        "内容类型": "application/x-www-form-urlencoded",
+        "鉴权方式": "accessToken（Header）",
+        "幂等性": "是（重复删除同一空间无副作用）",
+        "是否异步": "否"
+      },
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "source_constraints": [
+            "—",
+            "访问令牌"
+          ]
+        },
+        {
+          "name": "spaceId",
+          "location": "body",
+          "type": "Long",
+          "required": true,
+          "source_constraints": [
+            "—",
+            "空间 ID"
+          ]
+        }
+      ]
+    }
+  ],
+  "candidate_inference_rejected": {
+    "doc_id": "5234",
+    "claim": "curl does not contain independent fileNodeIds parameter",
+    "evidence": "Parsing the source curl query yields accessToken, fileNodeIds and expireSeconds."
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "recorded_at_utc": "2026-11-14T17:01:07.717656+00:00",
+  "execution_mode": "claude_code_tool_free_print",
+  "input_isolation": "fixed_prompt_and_cases_only_expectations_not_sent",
+  "dataset_visibility": "public_synthetic_not_hidden_holdout",
+  "model_observation": {
+    "exit_code": 0,
+    "requested_model": "devin/swe-2",
+    "requested_effort": "max",
+    "observed_models": [
+      "devin/swe-2"
+    ],
+    "tools": [],
+    "tool_calls": 0,
+    "prompt_sha256": "7bbf5527e4787d17975faf24d250d1f2d43e79b6b78004b6cd347f8c4d5f24cb",
+    "usage": {
+      "input_tokens": 3730,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 448,
+      "output_tokens": 2071,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    }
+  },
+  "sha256": {
+    "evals/maintenance/prompt.md": "df0cb7e138408d84e2eb551b1973023f9767306fe6f202cb4f3ceb24c73c112c",
+    "evals/maintenance/cases.json": "f271c44193e9a4069248e299a928bdf7571e0bb280dea9167bdcd94a8d58ccd7",
+    "evals/maintenance/expectations.json": "bac443c7b748cb01b32f4dc6b2129b9c549c8971292127c8471ee635865f521e",
+    "harness/maintenance_eval.py": "406b0cb86cee09a127f48c18fda3e98f9d5ad9b7260128eefbc6db4b502f6aa3",
+    "docs/validation/maintenance/2026-11-15-swe2-semantic/answers.json": "5525afd3b55128ed445daefdc99bac7110549e4da948ca60aea3b76b348462a9",
+    "docs/validation/maintenance/2026-11-15-swe2-semantic/report.json": "6056b1a5169c39a64c5887ef3a9eddd263ee8fe9ffd30ed44128033523244d5d"
+  },
+  "candidate_generated": true,
+  "candidate_kind": "semantic_decisions_only",
+  "patch_applied": false,
+  "real_api_used": false,
+  "publication_authorized": false
+}
