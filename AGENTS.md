@@ -12,7 +12,7 @@
 - `harness/`：独立于SDK的文档变化检测与契约校验；`contracts/`保存审核契约与代码绑定，`evals/`保存独立评测案例。
 - `data/official-docs/`：按采集日期保存原始证据、分类数据及缺项；不打包进 SDK。
 
-SDK代码位于 `src/ezviz_unified/`；`examples/` 尚未创建。SDK与文档工具回归均位于 `tests/`。
+SDK代码位于 `src/ezviz_unified/`；`examples/` 提供同步/异步只读接入示例，运行方式见 `docs/getting-started.md`。SDK、示例与文档工具回归均位于 `tests/`。
 
 ## 构建、测试与本地开发
 
@@ -43,6 +43,8 @@ SDK代码位于 `src/ezviz_unified/`；`examples/` 尚未创建。SDK与文档�
 ## 协作与验收
 
 Codex 负责架构、派单、关键判断和最终验收；重复性执行优先交给 Claude Code，经 Magpie 明确使用 `devin/swe-2`、effort=max。任务边界、输入和交付记录保存在 `docs/coordination/`，协作流程见其中 `workflow.md`。不得将主进程继承的其他模型配置带入任务，也不自动切换模型。执行方的完成声明必须经来源核对和必要验证后才能接受。
+
+代码实现、测试代码、候选修订与批量文档由Claude生成；Codex统筹产品与架构、检查代码并运行验收，避免双方重复生成同一实现。官方资料不完整时可自主设计实现，记录交叉核对和实测证据；复用是成本与质量判断，不是限制产品能力的硬性要求。
 
 ## 代码风格与命名
 
