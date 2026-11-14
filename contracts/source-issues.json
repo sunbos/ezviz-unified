@@ -1,0 +1,511 @@
+{
+  "schema_version": 1,
+  "issues": [
+    {
+      "id": "domestic.814.existing-conflict",
+      "region": "domestic",
+      "source_doc_id": "814",
+      "source_url": "https://open.ys7.com/help/814",
+      "source_content_sha256": "bef2279a7d844f9178b03fa4b7867c71f6fb01f191a5391247c2c3a5fb30a107",
+      "description": "traceability字段说明限制1至7位，示例使用8位；未选择其中一项替代原文。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "retain raw source; no invented correction",
+      "evidence": [
+        {
+          "raw_content_character_offset": 224,
+          "excerpt": "traceability为1到7位数字"
+        },
+        {
+          "raw_content_character_offset": 579,
+          "excerpt": "traceability=01234567"
+        }
+      ]
+    },
+    {
+      "id": "overseas.476.existing-conflict",
+      "region": "overseas",
+      "source_doc_id": "476",
+      "source_url": "https://open.ys7.com/help/en/476",
+      "source_content_sha256": "82a0152058592e8c4b5e11f4f968edce7a4e39d5e16b527db606d5957bf8f858",
+      "description": "同页状态枚举有0=Offline与0=Online的冲突，原始表格保持不变。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "retain raw source; no invented correction",
+      "evidence": [
+        {
+          "table_index": 2,
+          "row_index": 4,
+          "source_element_index": 89,
+          "description": "Online status: 0-Offline, 1-Online"
+        },
+        {
+          "table_index": 5,
+          "row_index": 4,
+          "source_element_index": 209,
+          "description": "Online status: 0 -Online, 1- Online"
+        },
+        {
+          "table_index": 8,
+          "row_index": 4,
+          "source_element_index": 343,
+          "description": "Online status: 0 -Online, 1- Online"
+        },
+        {
+          "table_index": 17,
+          "row_index": 6,
+          "source_element_index": 723,
+          "description": "Online status： 0-offline，1-online,-1-device not report"
+        }
+      ]
+    },
+    {
+      "id": "global.ptz.stop.direction",
+      "region": "overseas",
+      "source_doc_id": "479",
+      "source_url": "https://open.ys7.com/help/en/479",
+      "source_content_sha256": "982d86700b3f17d17045e9adebab2f73b422945d40d952b7669498c4a04a9f4f",
+      "description": "Stop direction is required in the table, omitted by the HTTP example.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "require direction according to the parameter table"
+    },
+    {
+      "id": "cn.cruise.enabled.code_type",
+      "region": "domestic",
+      "source_doc_id": "5063",
+      "source_url": "https://open.ys7.com/help/5063",
+      "source_content_sha256": "aaa04729ffd6a46f36b5fac152ce0d1b7dd21e4b2a029acbbfeac4558f89c14b",
+      "description": "meta.code table says string while the success example uses integer 200.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "accept both 200 and string 200"
+    },
+    {
+      "id": "cn.cruise.schedule.data_type",
+      "region": "domestic",
+      "source_doc_id": "5065",
+      "source_url": "https://open.ys7.com/help/5065",
+      "source_content_sha256": "3850d2710e669acfc8867db9ece0b0d1ef24587b87c8d49f0622956636e0495f",
+      "description": "timingPlanBasicInfos is described as string but shown as array.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "preserve the original response data"
+    },
+    {
+      "id": "cn.cruise.set_enabled.encoding",
+      "region": "domestic",
+      "source_doc_id": "5064",
+      "source_url": "https://open.ys7.com/help/5064",
+      "source_content_sha256": "7391ba55b7be7f9c5a13af7bdf5307a2d27281f5f35502e897e408de41808268",
+      "description": "enable is placed in body by the table but in query by the example; body encoding is absent.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "no set_enabled facade until verified"
+    },
+    {
+      "id": "cn.trust.token.refresh.method_encoding",
+      "region": "domestic",
+      "source_doc_id": "821",
+      "source_url": "https://open.ys7.com/help/821",
+      "source_content_sha256": "5f62bc4a8e45d7b6acdd428b76efb9176666222670ff694f597219356c8e4cb7",
+      "description": "Request method says GET while the HTTP request example says POST; parameter header label and form example also conflict.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "No built-in managed-token refresh flow; caller-owned providers must use a separately verified issuer integration."
+    },
+    {
+      "id": "global.version.request_example",
+      "region": "overseas",
+      "source_doc_id": "478",
+      "source_url": "https://open.ys7.com/help/en/478",
+      "source_content_sha256": "f22dbba0d31b65ea267b18e92019e6d1c4cdfac06a02ea653e2c37389b3be172",
+      "description": "Version-query Request Address is version/info, but its HTTP example points to encrypt/off and adds validateCode.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "use the request address and parameter table; never issue the encryption mutation"
+    },
+    {
+      "id": "cn.channel_status.list_type",
+      "region": "domestic",
+      "source_doc_id": "676",
+      "source_url": "https://open.ys7.com/help/676",
+      "source_content_sha256": "1bddb7ab738a91fa65d212543cf36908bf8bdfc9a4902ce327e985a80e208c79",
+      "description": "channelInfoList is typed Object but illustrated as an array.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "preserve raw data"
+    },
+    {
+      "id": "cn.search.support_cloud_type",
+      "region": "domestic",
+      "source_doc_id": "660",
+      "source_url": "https://open.ys7.com/help/660",
+      "source_content_sha256": "a286cf98424534621f0650f78238217d8d2116406afe046ba135e524ef754b99",
+      "description": "supportCloud is typed Int but illustrated as a string.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "preserve raw data"
+    },
+    {
+      "id": "global.sound_localization.example_path",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "description": "Sound localization request addresses use ssl while sections 1.8/1.9 HTTP examples use scene.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "use explicit ssl request addresses"
+    },
+    {
+      "id": "global.scene.feature_description",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "description": "Same scene paths are described as lens occlusion in CN706/707 and video tampering in EN477.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "retain neutral SCENE name; device behavior is unverified"
+    },
+    {
+      "id": "global.wifi_prompt.channel_type",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "description": "Wi-Fi prompt status return table declares channelNo String but example uses integer.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "preserve raw response types"
+    },
+    {
+      "id": "cn.ownership.offline_2009",
+      "region": "domestic",
+      "source_doc_id": "580",
+      "source_url": "https://open.ys7.com/help/580",
+      "source_content_sha256": "46d596ac50e61acc78851fb367147c8c6731e1b6296b928f3967531d52cbf58d",
+      "description": "Flow treats two 2009 responses as offline confirmation while the error table calls 2009 timeout.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "No automatic polling or success conversion; preserve non-200 errors."
+    },
+    {
+      "id": "cn.ownership.ssid_encoding",
+      "region": "domestic",
+      "source_doc_id": "664",
+      "source_url": "https://open.ys7.com/help/664",
+      "source_content_sha256": "5ef8a2aecda5f9a960a97e8b74ab0e557891230e954a74ca7b809ca1f68b60e7",
+      "description": "SSID is a header String but non-ASCII encoding is unspecified.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Refuse unverified encodings; do not silently move to query or collect network data."
+    },
+    {
+      "id": "cn.imaging.saturation_spelling",
+      "region": "domestic",
+      "source_doc_id": "3679",
+      "source_url": "https://open.ys7.com/help/3679",
+      "source_content_sha256": "815cb87573c600954ead7affc764ec2e0f2d9eca49e454ea2943ee1842be1745",
+      "description": "Parameter table uses saturatio; request example uses saturation.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Defer the setter; retain GET response fields exactly. Do not infer a correction or send device writes to choose a spelling."
+    },
+    {
+      "id": "cn.imaging.white_balance_manual_spelling",
+      "region": "domestic",
+      "source_doc_id": "3681",
+      "source_url": "https://open.ys7.com/help/3681",
+      "source_content_sha256": "b30b0575ac508059aec9f19ac33c5333bff9e2b9e615526774a13ba4b93e1d19",
+      "description": "Parameter table uses manul for manual mode; request example uses manual.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Defer the setter; retain GET response fields exactly. Do not infer a correction or send device writes to choose a spelling."
+    },
+    {
+      "id": "cn.video.custom_bitrate_value",
+      "region": "domestic",
+      "source_doc_id": "2297",
+      "source_url": "https://open.ys7.com/help/2297",
+      "source_content_sha256": "c3cfb7054ecbccbc4ff95998e66c72f6ef01c8978a5ea2fef18112329d47cf8e",
+      "description": "videoBitRate code 22 is described as custom, but no parameter for the custom bitrate value is documented.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Send the documented code only when explicitly supplied; do not invent a kbps field or claim arbitrary bitrate configuration."
+    },
+    {
+      "id": "cn.playback.expiry_type",
+      "region": "domestic",
+      "source_doc_id": "1414",
+      "source_url": "https://open.ys7.com/help/1414",
+      "source_content_sha256": "2bfe50f2aab9caded4b129a904011d1526b65791c15fca83c3a1605675d21df3",
+      "description": "expireTime response field is typed long but shown as a date string.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Preserve the response value without coercion or timezone inference."
+    },
+    {
+      "id": "cn.playback.response_shape",
+      "region": "domestic",
+      "source_doc_id": "1414",
+      "source_url": "https://open.ys7.com/help/1414",
+      "source_content_sha256": "2bfe50f2aab9caded4b129a904011d1526b65791c15fca83c3a1605675d21df3",
+      "description": "Response note describes per-address ret/status/exception while the example contains a single object without them.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Check data.ret only if present; preserve status/exception and raw data. Platform success is not playback readiness."
+    },
+    {
+      "id": "global.playback.invalidation_scope",
+      "region": "overseas",
+      "source_doc_id": "534",
+      "source_url": "https://open.ys7.com/help/en/534",
+      "source_content_sha256": "94f2eedda4e0e15f2f20d1d255a3e45699ebc51341851f07259d4b14ff6302dd",
+      "description": "urlId is marked optional but the effect of omission is not documented.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Require explicit url_id argument; accept explicit None only overseas without assigning a guessed scope. No default omission or automatic replay."
+    },
+    {
+      "id": "global.alarms.timestamp_units",
+      "region": "overseas",
+      "source_doc_id": "480",
+      "source_url": "https://open.ys7.com/help/en/480",
+      "source_content_sha256": "439059d7b40ad76b3790503215f1d6f70979bed17e01ffd66a721d04119c17ba",
+      "description": "Request timestamp prose says second while examples use 13-digit values.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Forward caller-supplied integer timestamps unchanged; no unit or timezone guessing."
+    },
+    {
+      "id": "global.alarms.device_example_path",
+      "region": "overseas",
+      "source_doc_id": "480",
+      "source_url": "https://open.ys7.com/help/en/480",
+      "source_content_sha256": "439059d7b40ad76b3790503215f1d6f70979bed17e01ffd66a721d04119c17ba",
+      "description": "Per-device Request Address is /api/lapp/alarm/device/list but HTTP example uses /api/lapp/alarm/list.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Use the dedicated per-device Request Address."
+    },
+    {
+      "id": "global.alarms.wifi_recovery_type",
+      "region": "overseas",
+      "source_doc_id": "480",
+      "source_url": "https://open.ys7.com/help/en/480",
+      "source_content_sha256": "439059d7b40ad76b3790503215f1d6f70979bed17e01ffd66a721d04119c17ba",
+      "description": "Original alarm enum contains :Wi-Fi Recovered with no numeric code.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Do not infer a missing number or publish a fabricated exhaustive enum; preserve raw types."
+    },
+    {
+      "id": "cn.cloud_storage.time_units",
+      "region": "domestic",
+      "source_doc_id": "1409",
+      "source_url": "https://open.ys7.com/help/1409",
+      "source_content_sha256": "61b255051d2de28e9e6c989b1bfff5def5ab57a5261e344e9f7a27c75dcd3ed1",
+      "description": "v1 startTime/expireTime are described as seconds but samples use 13-digit values.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Preserve raw response integers without datetime conversion."
+    },
+    {
+      "id": "global.cloud_storage.time_units",
+      "region": "overseas",
+      "source_doc_id": "482",
+      "source_url": "https://open.ys7.com/help/en/482",
+      "source_content_sha256": "f811cbaa2821dedb294655c342b7cbd6e76f984c600b48c80b6622dbc42f5a53",
+      "description": "v1 startTime/expireTime are described as seconds but samples use 13-digit values.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Preserve raw response integers without datetime conversion."
+    },
+    {
+      "id": "global.cloud_storage.serial_type",
+      "region": "overseas",
+      "source_doc_id": "482",
+      "source_url": "https://open.ys7.com/help/en/482",
+      "source_content_sha256": "f811cbaa2821dedb294655c342b7cbd6e76f984c600b48c80b6622dbc42f5a53",
+      "description": "Request deviceSerial is typed long while response identifiers use String and common platform APIs use string identifiers.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Keep the public SDK identifier as a string and send it unchanged in form; no numeric coercion or claimed live alphanumeric support."
+    },
+    {
+      "id": "global.cloud_storage.phone_example",
+      "region": "overseas",
+      "source_doc_id": "482",
+      "source_url": "https://open.ys7.com/help/en/482",
+      "source_content_sha256": "f811cbaa2821dedb294655c342b7cbd6e76f984c600b48c80b6622dbc42f5a53",
+      "description": "HTTP examples show a corrupted phone parameter label instead of phone.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Use the explicitly named phone parameter table field."
+    },
+    {
+      "id": "cn.ram.password_encoding",
+      "region": "domestic",
+      "source_doc_id": "649",
+      "source_url": "https://open.ys7.com/help/649",
+      "source_content_sha256": "bfdd31e3506c1242fca060a56f82da141c8cf1354ddd6c28f1221fc0debe966a",
+      "description": "MD5(AppKey#plaintext) is specified without the character encoding for its byte input.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Require explicit encoding in the local digest helper; facade accepts prepared digests only."
+    },
+    {
+      "id": "global.ram.password_encoding",
+      "region": "overseas",
+      "source_doc_id": "485",
+      "source_url": "https://open.ys7.com/help/en/485",
+      "source_content_sha256": "dafd4d066c305bfba084a2befca954a0ecdc9be4794c700a01cb8ff13001356b",
+      "description": "Create/change password specifies MD5 input concatenation but not character encoding.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Require explicit encoding; do not derive a password from client credentials."
+    },
+    {
+      "id": "global.ram.list_example_path",
+      "region": "overseas",
+      "source_doc_id": "485",
+      "source_url": "https://open.ys7.com/help/en/485",
+      "source_content_sha256": "dafd4d066c305bfba084a2befca954a0ecdc9be4794c700a01cb8ff13001356b",
+      "description": "Subaccount list Request Address uses account/list while its HTTP example uses account/get.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Use Request Address for the list operation."
+    },
+    {
+      "id": "global.ram.example_extra_equals",
+      "region": "overseas",
+      "source_doc_id": "485",
+      "source_url": "https://open.ys7.com/help/en/485",
+      "source_content_sha256": "dafd4d066c305bfba084a2befca954a0ecdc9be4794c700a01cb8ff13001356b",
+      "description": "Statement add and device permission delete examples contain an extra equals sign in form values.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Use one normal form field encoding from the parameter table."
+    },
+    {
+      "id": "global.ram.permission_case",
+      "region": "overseas",
+      "source_doc_id": "485",
+      "source_url": "https://open.ys7.com/help/en/485",
+      "source_content_sha256": "dafd4d066c305bfba084a2befca954a0ecdc9be4794c700a01cb8ff13001356b",
+      "description": "API examples use uppercase permission names whereas grammar page 487 uses mixed-case names.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Preserve caller spelling; platform determines accepted values, no automatic case conversion."
+    },
+    {
+      "id": "global.ram.token_expiry_unit",
+      "region": "overseas",
+      "source_doc_id": "485",
+      "source_url": "https://open.ys7.com/help/en/485",
+      "source_content_sha256": "dafd4d066c305bfba084a2befca954a0ecdc9be4794c700a01cb8ff13001356b",
+      "description": "Subaccount token response shows a 13-digit expireTime without an independent unit definition.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Return the raw value; no implicit TokenProvider or expiry conversion."
+    },
+    {
+      "id": "cn.ram.permission_list_difference",
+      "region": "domestic",
+      "source_doc_id": "69",
+      "source_url": "https://open.ys7.com/help/69",
+      "source_content_sha256": "6a2fcb9d6a279989e900dba8bb6fffe9177407e2cd1ee76631da0df7a6d18c2e",
+      "description": "Policy page 69 omits Alarm from its list while introduction page 68 includes it.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Do not publish a closed enum inferred from either list; validate structure and retain caller-provided permission names."
+    },
+    {
+      "id": "global.v3.response_envelope",
+      "region": "overseas",
+      "source_doc_id": "3731",
+      "source_url": "https://open.ys7.com/help/en/3731",
+      "source_content_sha256": "bb88fc4d32d6d7574da2803d4c2cd1261129ae5b325de07485227234f76c32a3",
+      "description": "Documentation shows status/body/meta while an anonymous request to the documented example API host returned root/meta with string code 10001.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Explicitly accept root/meta and body/meta, reject ambiguity, retain strict success codes and raw payload. No inference of authenticated success or user areaDomain."
+    },
+    {
+      "id": "global.maintenance.upgrade_examples",
+      "region": "overseas",
+      "source_doc_id": "478",
+      "source_url": "https://open.ys7.com/help/en/478",
+      "source_content_sha256": "f22dbba0d31b65ea267b18e92019e6d1c4cdfac06a02ea653e2c37389b3be172",
+      "description": "Firmware upgrade and upgrade-status HTTP examples use encrypt/off and validation-code fields unrelated to their Request Address tables.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Use the dedicated upgrade and upgrade/status paths and documented fields; never disable encryption as a prerequisite."
+    },
+    {
+      "id": "cn.security.disable_verification_gap",
+      "region": "domestic",
+      "source_doc_id": "697",
+      "source_url": "https://open.ys7.com/help/697",
+      "source_content_sha256": "247c0d5423c29bfae0e094e6354591b9c157a44da232ca758a58fa5876d7d64e",
+      "description": "Function description and error20010 refer to verification code, but request parameters and curl have none.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Follow the request table/example; do not infer an undocumented domestic field or claim absence of security proof."
+    },
+    {
+      "id": "cn.security.password_length",
+      "region": "domestic",
+      "source_doc_id": "699",
+      "source_url": "https://open.ys7.com/help/699",
+      "source_content_sha256": "be6535e8f4e88e66d334b6bbaf48b22c61f9676281e2356b9edbe070e24210cd",
+      "description": "New-password length text is malformed (长度大超过12字节) while the request example has six ASCII characters.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Validate nonblank UTF8 only domestically; let the service enforce its actual length rule rather than inventing a bound."
+    },
+    {
+      "id": "global.security.enable_description",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "description": "The enable-encryption section function description says Disable.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Use section title, encrypt/on path, and already-enabled60019 code; do not send encrypt/off."
+    },
+    {
+      "id": "global.security.password_example_origin",
+      "region": "overseas",
+      "source_doc_id": "2868",
+      "source_url": "https://open.ys7.com/help/en/2868",
+      "source_content_sha256": "1dfff933af774a00e1a567610b9d1cfbb6648b5abbcf7bccc156f6d9c9ce7d12",
+      "description": "Request Address uses areaDomain but the HTTP example Host is open.ys7.com.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Route only through the configured client/token areaDomain."
+    },
+    {
+      "id": "global.arming.mode_example_path",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "description": "Arming/disarming HTTP example uses encrypt/off and validateCode.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Use defence/set and isDefence from Request Address and parameter table."
+    },
+    {
+      "id": "cn.arming.active_serial_location",
+      "region": "domestic",
+      "source_doc_id": "1726",
+      "source_url": "https://open.ys7.com/help/1726",
+      "source_content_sha256": "5a48b04b4fc2de789e6ec9095a639941c56aef8e61553e3301b488299c2bb157",
+      "description": "Parameter table places deviceSerial in Header but curl puts it in form.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Use Header per table; no duplicate placement or automatic fallback."
+    },
+    {
+      "id": "cn.cloud_recording.page_size_required_default",
+      "region": "domestic",
+      "source_doc_id": "2051",
+      "source_url": "https://open.ys7.com/help/2051",
+      "source_content_sha256": "f1b5b3c7c39209df7ef73d1f49ce07eb3016fe2c300d851b1f53b1619bd60f26",
+      "description": "pageSize is both required and described as default 10.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Always send pageSize; SDK default is 10, range 1-50."
+    },
+    {
+      "id": "cn.cloud_recording.calendar_sample_month",
+      "region": "domestic",
+      "source_doc_id": "2042",
+      "source_url": "https://open.ys7.com/help/2042",
+      "source_content_sha256": "21cd36883d39b3555419ab1350dcdc344c98a75c1fd6e1785d2fb08050045b57",
+      "description": "Example response date strings do not match the request example month.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Return raw date strings; do not change dates or infer a timezone."
+    },
+    {
+      "id": "cn.cloud_recording.running_status_semantics",
+      "region": "domestic",
+      "source_doc_id": "4861",
+      "source_url": "https://open.ys7.com/help/4861",
+      "source_content_sha256": "fb811c6f0c9d2968b646370eb23676f2dcdd36161cffb75b4612fa7c7622ef08",
+      "description": "The running-task query documents all task status values, including completed and cancelled.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Preserve every returned item and status; do not filter by the method name."
+    },
+    {
+      "id": "global.token.account_specific_auth_origin",
+      "region": "overseas",
+      "source_doc_id": "473",
+      "source_url": "https://open.ys7.com/help/en/473",
+      "source_content_sha256": "9593c796fe05d711b44477ffbe13d0689f164cac329e9b3ef0165b054ce4fe14",
+      "description": "For the tested Singapore account, the documented default auth origin returned 10017 while an explicit Singapore origin succeeded. This is account-specific live evidence, not proof that the default fails for every account.",
+      "status": "observed_account_specific_routing_difference",
+      "sdk_handling": "Keep explicit regional auth_base_url configuration and returned areaDomain validation; never retry blindly across regions. Retain both live receipts."
+    }
+  ]
+}

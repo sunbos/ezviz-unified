@@ -1,0 +1,45 @@
+name: SDK checks
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13", "3.14", "3.15"]
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install development dependencies
+        run: python -m pip install -e '.[dev]' -r tools/documents/requirements.txt
+      - name: Offline tests
+        run: python -m pytest -q
+      - name: Audit reviewed registry and static bindings
+        run: python -m harness.audit --repo . --check-summary
+      - name: Evaluate all reviewed wire contracts offline
+        run: python -m harness.contract_eval --repo . --require-all
+      - name: Type check
+        run: python -m mypy src/ezviz_unified
+      - name: Lint SDK and SDK tests
+        run: python -m ruff check src/ezviz_unified harness tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py
+      - name: Check SDK formatting
+        run: python -m ruff format --check src/ezviz_unified harness tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py
+      - name: Build distribution
+        run: python -m build
+      - name: Check distribution contents and metadata
+        run: |
+          python tools/release/check_artifacts.py
+          python -m twine check dist/*
+      - name: Verify clean wheel and sdist installations
+        run: python tools/release/verify_installations.py --installer pip

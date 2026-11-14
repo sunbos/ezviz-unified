@@ -1,0 +1,19 @@
+{
+  "task_id": "R001A",
+  "session_id": "091ef075-8445-4739-a3c2-6e6e42b51a1d",
+  "worker_model": "devin/swe-2",
+  "effort_requested": "max",
+  "models_observed": [
+    "devin/swe-2"
+  ],
+  "status": "accepted",
+  "candidate_sha256": "86a2d231a1252ade5cc9ca3b32409679d2d69b766e8d11567f55f103d1cc0076",
+  "review": "README protocol sections compared unchanged; documentation updated for independent product and reviewed by Codex. Architecture packaging statements, pending RSI stage and fresh-environment build command corrected.",
+  "usage_reported_deduplicated": {
+    "output_tokens": 19010,
+    "cache_read_input_tokens": 3840,
+    "cache_creation_input_tokens": 0,
+    "input_tokens": 17005
+  },
+  "conversation_cleanup": "Accepted worker conversation removed; source and candidate hashes retained."
+}
