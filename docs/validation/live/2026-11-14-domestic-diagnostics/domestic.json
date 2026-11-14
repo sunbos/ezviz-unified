@@ -1,0 +1,47 @@
+{
+  "recorded_at_utc": "2026-11-14T15:34:06.355331+00:00",
+  "region": "domestic",
+  "auth_origin": "https://open.ys7.com",
+  "business_origins": [
+    "https://open.ys7.com"
+  ],
+  "read_only": true,
+  "results": [
+    {
+      "operation": "devices.list",
+      "status": "passed",
+      "returned_items": 1
+    },
+    {
+      "operation": "devices.get",
+      "status": "passed"
+    },
+    {
+      "operation": "devices.channels",
+      "status": "passed"
+    },
+    {
+      "operation": "devices.status",
+      "status": "passed"
+    },
+    {
+      "operation": "diagnostics.capabilities",
+      "status": "passed"
+    },
+    {
+      "operation": "diagnostics.version",
+      "status": "passed"
+    },
+    {
+      "operation": "diagnostics.storage_status",
+      "status": "not_verified",
+      "reason": "not_selected_for_this_probe"
+    },
+    {
+      "operation": "diagnostics.disk_capacity",
+      "status": "not_verified",
+      "reason": "not_selected_for_this_probe"
+    }
+  ],
+  "validation_scope": "bounded_readonly_request_and_response_shape_check"
+}

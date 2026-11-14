@@ -17,14 +17,139 @@ import httpx
 
 from ezviz_unified import Client, EzvizError, RegionConfig
 
+_READ_ROUTES = frozenset(
+    {
+        ("POST", "/api/lapp/device/list"),
+        ("POST", "/api/lapp/trust/device/list"),
+        ("POST", "/api/lapp/device/info"),
+        ("POST", "/api/lapp/device/camera/list"),
+        ("POST", "/api/lapp/device/status/get"),
+        ("POST", "/api/lapp/device/support/ezviz"),
+        ("POST", "/api/lapp/device/capacity"),
+        ("POST", "/api/lapp/device/version/info"),
+        ("GET", "/api/v3/device/format/status"),
+        ("GET", "/api/v3/device/diskCapacity"),
+    }
+)
+_CAPABILITY_FLAGS = (
+    "support_cloud",
+    "support_talk",
+    "support_capture",
+    "support_disk",
+    "support_defence",
+    "support_defenceplan",
+    "ptz_preset",
+    "ptz_top_bottom",
+    "ptz_left_right",
+    "ptz_center_mirror",
+)
+
+
+class _ReadOnlyTransport(httpx.BaseTransport):
+    def __init__(self, delegate: httpx.BaseTransport, origin: str = "https://open.ys7.com"):
+        self._delegate = delegate
+        self._origin = httpx.URL(origin)
+
+    def handle_request(self, request: httpx.Request) -> httpx.Response:
+        actual = (request.url.scheme, request.url.host, request.url.port)
+        expected = (self._origin.scheme, self._origin.host, self._origin.port)
+        if (
+            actual != expected
+            or request.url.username
+            or request.url.password
+            or (request.method, request.url.path) not in _READ_ROUTES
+        ):
+            raise ValueError("request is outside the read-only probe allowlist")
+        return self._delegate.handle_request(request)
+
+    def close(self) -> None:
+        self._delegate.close()
+
+
+def _flag(value: object) -> bool | None:
+    if (type(value) is int and value in (0, 1)) or (isinstance(value, str) and value in ("0", "1")):
+        return value in (1, "1")
+    return None
+
+
+def _diagnostic_summary(name: str, data: object) -> dict[str, object] | None:
+    if not isinstance(data, dict):
+        return None
+    if name == "capabilities":
+        return {
+            "advertised_flags": {
+                key: flag for key in _CAPABILITY_FLAGS if (flag := _flag(data.get(key))) is not None
+            }
+        }
+    if name == "version":
+        if not all(
+            isinstance(data.get(key), str) and data[key].strip()
+            for key in ("currentVersion", "latestVersion")
+        ):
+            return None
+        return {
+            "version_fields_present": True,
+            "upgrade_needed_reported": _flag(data.get("isNeedUpgrade")),
+            "upgrading_reported": _flag(data.get("isUpgrading")),
+        }
+    if name == "storage_status":
+        media = data.get("storageStatus")
+        if not isinstance(media, list) or not all(
+            isinstance(row, dict)
+            and isinstance(row.get("status"), str)
+            and row["status"] in tuple(str(i) for i in range(8))
+            for row in media
+        ):
+            return None
+        return {"media_count": len(media), "status_codes": [row["status"] for row in media]}
+    capacity = data.get("diskCapacity")
+    if not isinstance(capacity, str) or not re.fullmatch(r"-?\d+(?:,-?\d+)*", capacity):
+        return None
+    return {"capacity_entries_reported": len(capacity.split(","))}
+
+
+def _public_receipt(report: dict[str, object]) -> dict[str, object]:
+    """Persist request outcomes without publishing a device's state or capabilities."""
+    allowed = {
+        "operation",
+        "status",
+        "error_type",
+        "code",
+        "http_status",
+        "returned_items",
+        "sample_source_doc",
+        "reason",
+    }
+    result = {
+        key: report[key]
+        for key in ("recorded_at_utc", "region", "auth_origin", "business_origins", "read_only")
+        if key in report
+    }
+    rows = []
+    entries = report.get("results")
+    if not isinstance(entries, list) or not all(isinstance(row, dict) for row in entries):
+        raise ValueError("invalid probe results")
+    for row in entries:
+        public = {key: value for key, value in row.items() if key in allowed}
+        if public.get("reason") in {
+            "storage_capability_not_advertised",
+            "device_online_not_verified",
+        }:
+            public["reason"] = "not_selected_for_this_probe"
+        rows.append(public)
+    result["results"] = rows
+    result["validation_scope"] = "bounded_readonly_request_and_response_shape_check"
+    return result
+
 
 def verify(config: dict[str, str]) -> dict[str, object]:
     scope = config["region"]
     if scope not in {"domestic", "overseas"}:
         raise ValueError("invalid region")
     include_managed = config.get("include_managed") == "true"
+    include_diagnostics = config.get("include_diagnostics") == "true"
     protocol_only = config.get("protocol_only") == "true"
-    if protocol_only and (include_managed or scope != "domestic"):
+    if protocol_only and (include_managed or include_diagnostics or scope != "domestic"):
         raise ValueError("protocol probe requires domestic scope without managed inventory")
     if include_managed and scope != "domestic":
         raise ValueError("managed inventory is only documented for domestic accounts")
@@ -48,7 +173,7 @@ def verify(config: dict[str, str]) -> dict[str, object]:
 
     def transport(origin: str) -> httpx.BaseTransport:
         origins.append(origin)
-        return httpx.HTTPTransport(retries=0, trust_env=False)
+        return _ReadOnlyTransport(httpx.HTTPTransport(retries=0, trust_env=False), origin)
 
     def record_error(operation: str, error: EzvizError) -> None:
         code = str(error.code) if error.code is not None else ""
@@ -133,6 +258,7 @@ def verify(config: dict[str, str]) -> dict[str, object]:
                 {"operation": "device_details", "status": "not_verified", "reason": reason}
             )
             return report
+        online = None
         for name in ("get", "channels", "status"):
             try:
                 response = getattr(client.devices, name)(serial)
@@ -142,13 +268,58 @@ def verify(config: dict[str, str]) -> dict[str, object]:
                     if isinstance(response.data, expected_type)
                     else "unexpected_data_shape"
                 )
-                results.append({"operation": f"devices.{name}", "status": status})
+                item: dict[str, object] = {"operation": f"devices.{name}", "status": status}
+                if name == "get" and isinstance(response.data, dict):
+                    value = response.data.get("status")
+                    if type(value) is int and value in (0, 1):
+                        online = value == 1
+                        item["online"] = online
+                results.append(item)
             except EzvizError as exc:
                 record_error(f"devices.{name}", exc)
+        if include_diagnostics:
+            disk_advertised = False
+            probes = ["capabilities", "version", "storage_status"]
+            if scope == "domestic":
+                probes.append("disk_capacity")
+            for name in probes:
+                operation = f"diagnostics.{name}"
+                if name in {"storage_status", "disk_capacity"} and (
+                    online is not True or not disk_advertised
+                ):
+                    reason = (
+                        "device_online_not_verified"
+                        if online is not True
+                        else "storage_capability_not_advertised"
+                    )
+                    results.append(
+                        {"operation": operation, "status": "not_verified", "reason": reason}
+                    )
+                    continue
+                try:
+                    response = getattr(client.diagnostics, name)(serial)
+                    summary = _diagnostic_summary(name, response.data)
+                    if summary is None:
+                        results.append({"operation": operation, "status": "unexpected_data_shape"})
+                        continue
+                    results.append({"operation": operation, "status": "passed", **summary})
+                    if name == "capabilities":
+                        flags = summary.get("advertised_flags")
+                        disk_advertised = (
+                            isinstance(flags, dict) and flags.get("support_disk") is True
+                        )
+                except EzvizError as exc:
+                    record_error(operation, exc)
     return report
 
 
-def serve(output: Path, *, include_managed: bool = False, protocol_only: bool = False) -> None:
+def serve(
+    output: Path,
+    *,
+    include_managed: bool = False,
+    protocol_only: bool = False,
+    include_diagnostics: bool = False,
+) -> None:
     """Temporary loopback form lets authorized browser inputs reach the local SDK."""
     route = "/" + secrets.token_urlsafe(24)
     form = """<!doctype html><meta charset=utf-8><title>EZVIZ 只读验收</title>
@@ -175,6 +346,15 @@ def serve(output: Path, *, include_managed: bool = False, protocol_only: bool = 
         )
         form = form.replace(
             "</form>", '<input type="hidden" name="protocol_only" value="true"></form>'
+        )
+    if include_diagnostics:
+        form = form.replace(
+            "<form",
+            "<p>追加能力与版本查询；在线且报告存储能力时查询存储状态和容量。不会修改设备。</p><form",
+            1,
+        )
+        form = form.replace(
+            "</form>", '<input type="hidden" name="include_diagnostics" value="true"></form>'
         )
 
     class Handler(BaseHTTPRequestHandler):
@@ -213,7 +393,9 @@ def serve(output: Path, *, include_managed: bool = False, protocol_only: bool = 
                 return
             output.mkdir(parents=True, exist_ok=True)
             destination = output / f"{result['region']}.json"
-            destination.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
+            destination.write_text(
+                json.dumps(_public_receipt(result), ensure_ascii=False, indent=2) + "\n"
+            )
             self.reply(
                 200,
                 "<h1>只读验收结果</h1><pre>"
@@ -237,10 +419,18 @@ if __name__ == "__main__":
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--include-managed", action="store_true")
     mode.add_argument("--protocol-only", action="store_true")
+    parser.add_argument("--include-diagnostics", action="store_true")
     parser.add_argument("--output", type=Path, default=Path("docs/validation/live"))
     args = parser.parse_args()
+    if args.protocol_only and args.include_diagnostics:
+        parser.error("--protocol-only cannot be combined with --include-diagnostics")
     if args.serve:
-        serve(args.output, include_managed=args.include_managed, protocol_only=args.protocol_only)
+        serve(
+            args.output,
+            include_managed=args.include_managed,
+            protocol_only=args.protocol_only,
+            include_diagnostics=args.include_diagnostics,
+        )
     else:
         try:
             config = json.load(sys.stdin)
@@ -248,7 +438,9 @@ if __name__ == "__main__":
                 config["include_managed"] = "true"
             if args.protocol_only:
                 config["protocol_only"] = "true"
-            print(json.dumps(verify(config), ensure_ascii=False, indent=2))
+            if args.include_diagnostics:
+                config["include_diagnostics"] = "true"
+            print(json.dumps(_public_receipt(verify(config)), ensure_ascii=False, indent=2))
         except Exception as error:
             print(json.dumps({"status": "stopped", "error_type": type(error).__name__}))
             sys.exit(1)
