@@ -1,0 +1,13 @@
+{
+  "offline_tests": 2827,
+  "subtests": 11,
+  "new_sdk_tests": 52,
+  "new_example_tests": 98,
+  "mypy_files": 36,
+  "ruff_files": 126,
+  "registered_contracts": 177,
+  "mock_contract_executions": 1448,
+  "clean_install_sdk_tests": 2015,
+  "live_inspection_tested": false,
+  "new_runtime_dependencies": []
+}

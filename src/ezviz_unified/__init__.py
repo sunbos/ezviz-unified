@@ -24,6 +24,12 @@ from .errors import (
 )
 from .illumination import AsyncIllumination, FillLightMode, Illumination
 from .imaging import AsyncImaging, ImageSetting, Imaging
+from .inspection import (
+    DeviceInspection,
+    InspectionResult,
+    inspect_device,
+    inspect_device_async,
+)
 from .maintenance import AsyncMaintenance, Maintenance
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
@@ -99,6 +105,7 @@ __all__ = [
     "Cruise",
     "CruisePeriod",
     "DeviceError",
+    "DeviceInspection",
     "DeviceSwitch",
     "Devices",
     "Diagnostics",
@@ -108,6 +115,7 @@ __all__ = [
     "Illumination",
     "Maintenance",
     "Imaging",
+    "InspectionResult",
     "Operation",
     "Ownership",
     "PermissionDeniedError",
@@ -136,6 +144,8 @@ __all__ = [
     "WebhookMessage",
     "__version__",
     "decode_response",
+    "inspect_device",
+    "inspect_device_async",
     "parse_token",
     "parse_unverified_webhook",
     "parse_webhook",

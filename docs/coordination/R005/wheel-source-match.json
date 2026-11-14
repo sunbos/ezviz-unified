@@ -1,0 +1,21 @@
+{
+  "name": "pyezvizapi-2.4.0-py3-none-any.whl",
+  "sha256": "7b5b51779cf8ab7cf2c84a3ac04c9311f4b3e2dda3df80f558af5b9f50fa3dc5",
+  "pinned_commit": "8fb943e363f2052e17523b234de9ac55377c4131",
+  "selected_source_files_match": {
+    "pyezvizapi/cloud/operations/inventory.py": true,
+    "pyezvizapi/cloud/auth.py": true,
+    "pyezvizapi/exceptions.py": true,
+    "pyezvizapi/cloud/operations/snapshot.py": true,
+    "pyezvizapi/devices/snapshot.py": true
+  },
+  "wheel_downloaded": true,
+  "installed": false,
+  "executed": false,
+  "live_tested": false,
+  "packaged_files_vs_pinned_git_tree": {
+    "matched": 167,
+    "mismatched": [],
+    "not_found_in_tree": []
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "task": "R006",
+  "state": "accepted",
+  "scope": "local validation; remote checks authoritative on PR",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "note": "接受文档一致性更新。按当前机器报告刷新177项契约/137篇关联文档，保留48项门户与3项静态缺项。PR2合入树一致，main运行43647518076成功；保持全量范围及未完成阶段。"
+}

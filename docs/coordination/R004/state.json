@@ -1,0 +1,8 @@
+{
+  "task": "R004",
+  "state": "accepted",
+  "scope": "local validation; remote checks authoritative on PR",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "note": "接受并调整设计。采用单设备函数而非批量门面；固定五次逻辑调用，保留原始结果、部分失败与脱敏摘要。实际HTTP次数仍受现有认证/重试影响，不新增健康评分。"
+}
