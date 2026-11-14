@@ -1,0 +1,24 @@
+{
+  "evidence": "documentation_reviewed_not_live_verified",
+  "contracts_added": 7,
+  "parameter_tables_verified": 7,
+  "source_hashes": {
+    "5230": "15c63a8d00d55432b946b18f36b62034800d80e17041507c1b2a570c8290edf3",
+    "5232": "ad3dbe45ddc013c3f05dd62a8f79b3665b1e5e13eba793b83637511984c492c5",
+    "5233": "ab672cc55a2f01d8938db1b62144dc46f51ee24badd139ec1168eac6646c089d",
+    "5234": "f1543d9082b71fc65507fe827c007958faaa4db975de9f9c6218498a79bbb88c",
+    "5236": "48f346ac1bb9518164950b64d106bf2e7f455daf5055cfe3aed8177cf698ddb0",
+    "5237": "fca3d372cf95214bada67be40b1fc42a979a262e0e9ffaa5286216c036b1aaa7",
+    "5238": "2424e88de5ac0edb2a10aef8464ed34445175099a8978b2e6b91e3b10013eea3"
+  },
+  "rejected_candidate_claim": "Doc 5234 curl was incorrectly described as missing fileNodeIds; parsing the source query confirms accessToken/fileNodeIds/expireSeconds.",
+  "source_convention_inferences": [
+    "spaceIds CSV encoding",
+    "timezones not stated: whole-second naive datetime used"
+  ],
+  "cross_product_pages_not_in_engine_facade": {
+    "5341": "cloud recording 1.0 unfreeze by projectId/fileId",
+    "5342": "VOD metadata by fileNodeIds/space"
+  },
+  "real_api_used": false
+}

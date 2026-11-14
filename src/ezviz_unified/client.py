@@ -43,6 +43,7 @@ from .recordings import AsyncRecordings, Recordings
 from .security import AsyncSecurity, Security
 from .settings import AsyncSettings, Settings
 from .snapshots import AsyncSnapshots, Snapshots
+from .storage import AsyncStorage, Storage
 from .subaccounts import AsyncSubaccounts, Subaccounts
 from .transport import AsyncTransport, ParamMapping, SyncTransport
 from .video import AsyncVideo, Video
@@ -245,6 +246,7 @@ class Client:
         self.snapshots = Snapshots(self)
         self.alarms = Alarms(self)
         self.cloud_storage = CloudStorage(self)
+        self.storage = Storage(self)
         self.cloud_recording = CloudRecording(self)
         self.subaccounts = Subaccounts(self)
         self.maintenance = Maintenance(self)
@@ -455,6 +457,7 @@ class AsyncClient:
         self.snapshots = AsyncSnapshots(self)
         self.alarms = AsyncAlarms(self)
         self.cloud_storage = AsyncCloudStorage(self)
+        self.storage = AsyncStorage(self)
         self.cloud_recording = AsyncCloudRecording(self)
         self.subaccounts = AsyncSubaccounts(self)
         self.maintenance = AsyncMaintenance(self)

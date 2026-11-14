@@ -41,6 +41,8 @@ from .response import decode_response
 from .security import AsyncSecurity, Security
 from .settings import AsyncSettings, DeviceSwitch, Settings
 from .snapshots import AsyncSnapshots, Snapshots
+from .storage import AsyncStorage, Storage
+from .storage_models import StorageFileQuery
 from .subaccounts import AsyncSubaccounts, Subaccounts
 from .transport import AsyncTransport, SyncTransport
 from .video import AsyncVideo, PreviewEncoding, Video, VideoSwitch
@@ -58,6 +60,7 @@ __all__ = [
     "Alarms",
     "AsyncAlarms",
     "AsyncCloudStorage",
+    "AsyncStorage",
     "AsyncCloudRecording",
     "AsyncSubaccounts",
     "AsyncIllumination",
@@ -82,6 +85,8 @@ __all__ = [
     "AuthenticationError",
     "Client",
     "CloudStorage",
+    "Storage",
+    "StorageFileQuery",
     "CloudRecording",
     "Cruise",
     "CruisePeriod",

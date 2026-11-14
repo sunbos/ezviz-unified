@@ -2341,6 +2341,182 @@
       }
     },
     {
+      "operation_id": "cn.storage.create_space",
+      "args": [
+        "EVAL_SPACE"
+      ],
+      "kwargs": {
+        "biz_type": "record",
+        "expire_days": -1,
+        "storage_type": 2,
+        "flow_limit": -1,
+        "permission": 2
+      },
+      "fields": {
+        "spaceName": "EVAL_SPACE",
+        "bizType": "record",
+        "expireDays": -1,
+        "storageType": 2,
+        "flowLimit": -1,
+        "permission": 2
+      },
+      "data": 42
+    },
+    {
+      "operation_id": "cn.storage.delete_space",
+      "args": [
+        42
+      ],
+      "kwargs": {},
+      "fields": {
+        "spaceId": 42
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.storage.download_urls",
+      "args": [
+        [
+          "EVAL_NODE_A",
+          "EVAL_NODE_B"
+        ]
+      ],
+      "kwargs": {
+        "expire_seconds": 30
+      },
+      "fields": {
+        "fileNodeIds": "EVAL_NODE_A,EVAL_NODE_B",
+        "expireSeconds": 30
+      },
+      "data": {
+        "urls": {
+          "EVAL_NODE_A": "https://files.example.invalid/download?sig=SYNTHETIC"
+        },
+        "expireTime": 2000123
+      }
+    },
+    {
+      "operation_id": "cn.storage.search_files",
+      "args": [
+        {
+          "$type": "StorageFileQuery",
+          "kwargs": {
+            "file_node_ids": [
+              "EVAL_NODE_A",
+              "EVAL_NODE_B"
+            ],
+            "space_ids": [
+              42,
+              43
+            ],
+            "tag_id": "EVAL_TAG",
+            "start_time": {
+              "$type": "datetime",
+              "value": "2026-01-02T03:04:05"
+            },
+            "end_time": {
+              "$type": "datetime",
+              "value": "2026-01-02T04:04:05"
+            },
+            "file_type": 0,
+            "file_child_type": "06",
+            "page_size": 5,
+            "last_id": "",
+            "sort_rule": 0,
+            "source_type": -1
+          }
+        }
+      ],
+      "kwargs": {},
+      "fields": {
+        "fileNodeIds": "EVAL_NODE_A,EVAL_NODE_B",
+        "spaceIds": "42,43",
+        "tagId": "EVAL_TAG",
+        "startTime": "2026-01-02 03:04:05",
+        "endTime": "2026-01-02 04:04:05",
+        "fileType": "0",
+        "fileChildType": "06",
+        "pageSize": 5,
+        "lastId": "",
+        "sortRule": 0,
+        "sourceType": -1
+      },
+      "data": {
+        "result": [
+          {
+            "folderNode": "EVAL_NODE_A",
+            "fileChildType": "06"
+          }
+        ],
+        "lastId": "",
+        "hasNext": false
+      }
+    },
+    {
+      "operation_id": "cn.storage.set_file_retention",
+      "args": [
+        [
+          "EVAL_NODE_A",
+          "EVAL_NODE_B"
+        ],
+        -1
+      ],
+      "kwargs": {},
+      "fields": {
+        "fileNodeIds": "EVAL_NODE_A,EVAL_NODE_B",
+        "expireDays": -1
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.storage.spaces",
+      "args": [],
+      "kwargs": {
+        "start_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T03:04:05"
+        },
+        "end_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T04:04:05"
+        },
+        "last_space_id": 42,
+        "page_size": 2,
+        "biz_type": "record",
+        "sort_rule": "asc",
+        "sort_field": "totalSize"
+      },
+      "fields": {
+        "startTime": "2026-01-02 03:04:05",
+        "endTime": "2026-01-02 04:04:05",
+        "lastSpaceId": 42,
+        "pageSize": 2,
+        "bizTypeList": "record",
+        "sortRule": "asc",
+        "sortField": "totalSize"
+      },
+      "data": {
+        "result": [],
+        "lastId": 42,
+        "pageSize": 2,
+        "hasNext": false
+      }
+    },
+    {
+      "operation_id": "cn.storage.update_space",
+      "args": [
+        42
+      ],
+      "kwargs": {
+        "name": "EVAL_NEW_NAME"
+      },
+      "fields": {
+        "spaceId": 42,
+        "spaceName": "EVAL_NEW_NAME"
+      },
+      "data": true
+    },
+    {
       "operation_id": "cn.subaccounts.add_statement",
       "args": [
         {

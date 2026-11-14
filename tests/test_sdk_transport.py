@@ -4,10 +4,15 @@ import asyncio
 import copy
 import importlib
 import logging
+from enum import IntEnum
 from urllib.parse import parse_qs
 
 import httpx
 import pytest
+
+
+class _ResourceId(IntEnum):
+    SPACE = 444444
 
 
 @pytest.mark.parametrize("kind", ["sync", "async"])
@@ -19,6 +24,8 @@ import pytest
         ("spaceName", "PRIVATE_SPACE", ("PRIVATE_SPACE",)),
         ("tagId", "PRIVATE_TAG", ("PRIVATE_TAG",)),
         ("lastId", "PRIVATE_CURSOR", ("PRIVATE_CURSOR",)),
+        ("lastSpaceId", 333333, ("333333",)),
+        ("spaceId", _ResourceId.SPACE, ("444444",)),
     ],
 )
 def test_storage_identifiers_are_redacted_individually_without_changing_wire(
@@ -45,7 +52,7 @@ def test_storage_identifiers_are_redacted_individually_without_changing_wire(
 
     with pytest.raises(sdk.ApiError) as captured:
         asyncio.run(run())
-    assert len(calls) == 1 and calls[0].url.params[key] == value
+    assert len(calls) == 1 and calls[0].url.params[key] == str(value)
     for part in parts:
         assert part not in str(captured.value)
         assert part not in caplog.text

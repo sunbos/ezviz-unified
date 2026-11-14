@@ -57,6 +57,7 @@ _SENSITIVE_KEYS = (
     "fileNodeIds",
     "tagId",
     "lastId",
+    "lastSpaceId",
     "oneOffPlanId",
     "planId",
     "templateId",

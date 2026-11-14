@@ -506,6 +506,36 @@
       "description": "For the tested Singapore account, the documented default auth origin returned 10017 while an explicit Singapore origin succeeded. This is account-specific live evidence, not proof that the default fails for every account.",
       "status": "observed_account_specific_routing_difference",
       "sdk_handling": "Keep explicit regional auth_base_url configuration and returned areaDomain validation; never retry blindly across regions. Retain both live receipts."
+    },
+    {
+      "id": "cn.storage.business_filter_encoding",
+      "region": "domestic",
+      "source_doc_id": "5230",
+      "source_url": "https://open.ys7.com/help/5230",
+      "source_content_sha256": "15c63a8d00d55432b946b18f36b62034800d80e17041507c1b2a570c8290edf3",
+      "description": "bizTypeList is a String with listed business types but no multi-value encoding example.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Expose one documented business type; do not invent comma-separated multi-type filtering."
+    },
+    {
+      "id": "cn.storage.space_ids_encoding",
+      "region": "domestic",
+      "source_doc_id": "5233",
+      "source_url": "https://open.ys7.com/help/5233",
+      "source_content_sha256": "ab672cc55a2f01d8938db1b62144dc46f51ee24badd139ec1168eac6646c089d",
+      "description": "spaceIds is declared List but no multi-space encoding example is provided; only fileNodeIds explicitly shows CSV.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Use CSV by same-interface collection convention; retain this inference and lack of live verification."
+    },
+    {
+      "id": "cn.storage.update_defaults",
+      "region": "domestic",
+      "source_doc_id": "5237",
+      "source_url": "https://open.ys7.com/help/5237",
+      "source_content_sha256": "fca3d372cf95214bada67be40b1fc42a979a262e0e9ffaa5286216c036b1aaa7",
+      "description": "Optional field table lists defaults, while FAQ says omitted update fields retain their current values.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Omit None values without injecting creation defaults; actual server preservation remains unverified."
     }
   ]
 }

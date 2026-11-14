@@ -2239,6 +2239,97 @@
       "public_entry": "cloud_recording.templates",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.spaces",
+      "region": "domestic",
+      "source_doc_id": "5230",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.spaces",
+        "AsyncStorage.spaces"
+      ],
+      "public_entry": "storage.spaces",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.set_file_retention",
+      "region": "domestic",
+      "source_doc_id": "5232",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.set_file_retention",
+        "AsyncStorage.set_file_retention"
+      ],
+      "public_entry": "storage.set_file_retention",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.search_files",
+      "region": "domestic",
+      "source_doc_id": "5233",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.search_files",
+        "AsyncStorage.search_files"
+      ],
+      "public_entry": "storage.search_files",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.download_urls",
+      "region": "domestic",
+      "source_doc_id": "5234",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.download_urls",
+        "AsyncStorage.download_urls"
+      ],
+      "public_entry": "storage.download_urls",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.create_space",
+      "region": "domestic",
+      "source_doc_id": "5236",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.create_space",
+        "AsyncStorage.create_space"
+      ],
+      "public_entry": "storage.create_space",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.update_space",
+      "region": "domestic",
+      "source_doc_id": "5237",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.update_space",
+        "AsyncStorage.update_space"
+      ],
+      "public_entry": "storage.update_space",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.storage.delete_space",
+      "region": "domestic",
+      "source_doc_id": "5238",
+      "module": "src/ezviz_unified/storage.py",
+      "symbols": [
+        "Storage.delete_space",
+        "AsyncStorage.delete_space"
+      ],
+      "public_entry": "storage.delete_space",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "task_id": "S019A",
+  "status": "accepted",
+  "execution_mode": "tool_free_print_from_explicit_inline_input",
+  "workspace_access": "none",
+  "new_workspace_trust_granted": false,
+  "worker_model_requested": "devin/swe-2",
+  "effort_requested": "max",
+  "deadline_seconds": 900,
+  "previous_attempt": {
+    "status": "process_timed_out",
+    "deadline_seconds": 300,
+    "complete_candidate_retained": false
+  },
+  "prompt_sha256": "d719f19232fcdf452498ed3cfe473f9b085672c87ca1305250bf07d01e7a0d37",
+  "process_exit": 0,
+  "models_observed": [
+    "devin/swe-2"
+  ],
+  "tools_advertised": [],
+  "tool_calls_observed": 0,
+  "candidate_sha256": "f783dd44c6fe573c2168273a6157bdf658560a9988c58ea132d8a5e73cdd8868",
+  "verification": {
+    "pytest": 1916,
+    "subtests": 11,
+    "mypy_sdk_files": 33,
+    "ruff_files": 96,
+    "contracts": 172,
+    "offline_executions": 1408,
+    "real_api_used": false
+  },
+  "acceptance_notes": "Coordinator reviewed candidate and applied documented corrections; remote CI and distribution checks recorded separately."
+}

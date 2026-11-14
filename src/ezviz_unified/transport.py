@@ -127,7 +127,12 @@ def _collect_into(node: object, out: set[str]) -> None:
                     _collect_policy_resources(value, out)
                 elif key.lower() in {"filenodeids", "spaceids"}:
                     out.update(part for part in value.split(",") if part)
-            elif isinstance(key, str) and key.lower() in _SECRET_KEYS and type(value) is int:
+            elif (
+                isinstance(key, str)
+                and key.lower() in _SECRET_KEYS
+                and isinstance(value, int)
+                and not isinstance(value, bool)
+            ):
                 out.add(str(value))
             else:
                 _collect_into(value, out)

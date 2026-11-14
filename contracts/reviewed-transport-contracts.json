@@ -11204,6 +11204,629 @@
         "path": "Interface information and curl example",
         "encoding": null
       }
+    },
+    {
+      "operation_id": "cn.storage.spaces",
+      "region": "domestic",
+      "source_doc_id": "5230",
+      "source_url": "https://open.ys7.com/help/5230",
+      "source_content_sha256": "15c63a8d00d55432b946b18f36b62034800d80e17041507c1b2a570c8290edf3",
+      "method": "GET",
+      "path": "/api/service/open/storage/engine/space/listById",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "startTime",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "endTime",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "lastSpaceId",
+          "location": "query",
+          "type": "Long",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "pageSize",
+          "location": "query",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "bizTypeList",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "sortRule",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "sortField",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response examples and field tables"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "startTime 与 endTime 间隔 ≤30 天（基于 createTime 过滤，格式 yyyy-MM-dd HH:mm:ss）",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "pageSize 1-50，默认 10",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "翻页使用 lastSpaceId 游标（上一页最后空间 id），非页码",
+          "evidence": "Source parameter table or call restrictions"
+        }
+      ],
+      "uncertainties": [
+        "bizTypeList 参数表类型为 String 但名为 List；文档未说明多值编码方式（CSV/重复参数），无多值实例；枚举 vod/record/cloudCapture/capture 是否全集未说明",
+        "响应 expireDays=-1 表示永久（统一存储口径），与旧云录制接口 0=永久 的口径不同",
+        "错误码表 400/500 未标注属于 HTTP 状态层还是 meta.code 业务层，仅照录不转换",
+        "Timezone not specified by source; SDK uses whole-second naive datetime without timezone conversion."
+      ]
+    },
+    {
+      "operation_id": "cn.storage.set_file_retention",
+      "region": "domestic",
+      "source_doc_id": "5232",
+      "source_url": "https://open.ys7.com/help/5232",
+      "source_content_sha256": "ad3dbe45ddc013c3f05dd62a8f79b3665b1e5e13eba793b83637511984c492c5",
+      "method": "POST",
+      "path": "/api/service/open/storage/engine/file/batchExpire",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "fileNodeIds",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "expireDays",
+          "location": "body",
+          "type": "Int",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response examples and field tables"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "expireDays：-1=永久 或 1-5475",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "fileNodeIds 逗号分隔；数量限制文档仅写'见平台配置'，未给具体数值",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "FAQ：修改空间级 expireDays 不影响已有文件，仅影响之后写入；改已有文件须用本接口",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "文档标注幂等'是'",
+          "evidence": "Source parameter table or call restrictions"
+        }
+      ],
+      "uncertainties": [
+        "接口语义为批量修改（写操作），文档虽标幂等但非只读",
+        "fileNodeIds 单批数量上限由平台配置决定，不能套用 downloadurls 的 50",
+        "错误码 400/404/500 未标注 HTTP 层或 meta.code 业务层"
+      ]
+    },
+    {
+      "operation_id": "cn.storage.search_files",
+      "region": "domestic",
+      "source_doc_id": "5233",
+      "source_url": "https://open.ys7.com/help/5233",
+      "source_content_sha256": "ab672cc55a2f01d8938db1b62144dc46f51ee24badd139ec1168eac6646c089d",
+      "method": "POST",
+      "path": "/api/service/open/storage/engine/file/listById",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "fileNodeIds",
+          "location": "body",
+          "type": "List\\ （逗号分隔）",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "spaceIds",
+          "location": "body",
+          "type": "List\\",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "startTime",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "endTime",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "tagId",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "fileType",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "fileChildType",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "pageSize",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "lastId",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "sortRule",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "sourceType",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response examples and field tables"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "spaceIds 上限 1~5 个",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "pageSize 1-50，默认 10",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "翻页用 lastId 游标，默认空",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "搜索优先级固定：fileNodeIds（最高，传入时时间参数无效）> tagId（+可选时间）> spaceIds+时间范围",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "不支持托管、不支持子账号",
+          "evidence": "Source parameter table or call restrictions"
+        }
+      ],
+      "uncertainties": [
+        "fileNodeIds 类型原文为 'List\\（逗号分隔）' 带残留反斜杠；spaceIds 类型为 'List\\' 未注明分隔方式，CSV 编码仅 fileNodeIds 有明确文字，spaceIds 编码证据弱",
+        "优先级仅给出三段排序及'tagId 与 fileNodeIds 同传时 tagId 无效'；tagId 与 spaceIds 同传等其余组合未逐条细化",
+        "请求参数 fileType 标 String，响应同名字段为 Int，两端类型口径不一致",
+        "响应示例 fileChildType 值 '06' 不在参数表枚举摘录（00JPG/01PNG/02GIF/10MP4/13M3U8/20MP3）内，枚举非全集（表注'见枚举字典'）",
+        "响应字段仍返回 folderNode/folderNodeType 旧命名（称后续统一为 fileNodeId）；请求侧 folderNodes 为已废止别名，须用 fileNodeIds",
+        "错误码 400/404/412/500 未标注 HTTP 层或业务层",
+        "Timezone not specified by source; SDK uses whole-second naive datetime without timezone conversion."
+      ]
+    },
+    {
+      "operation_id": "cn.storage.download_urls",
+      "region": "domestic",
+      "source_doc_id": "5234",
+      "source_url": "https://open.ys7.com/help/5234",
+      "source_content_sha256": "f1543d9082b71fc65507fe827c007958faaa4db975de9f9c6218498a79bbb88c",
+      "method": "GET",
+      "path": "/api/service/open/storage/engine/file/downloadurls",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "fileNodeIds",
+          "location": "query",
+          "type": "List\\",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "expireSeconds",
+          "location": "query",
+          "type": "Long",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response examples and field tables"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "fileNodeIds 必填不可为空，单次数量 1~50",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "expireSeconds 范围 [30,604800] 秒，默认 1800，服务端强制校验",
+          "evidence": "Source parameter table or call restrictions"
+        }
+      ],
+      "uncertainties": [
+        "鉴权方式为 accessToken（Query），与同族接口的 Header 不同，以本页接口信息与参数表为准",
+        "请求 expireSeconds 单位为秒；响应 data.expireTime 为毫秒级时间戳，二者单位与含义不同",
+        "错误码 400/403/404/500 未标注 HTTP 层或业务层"
+      ]
+    },
+    {
+      "operation_id": "cn.storage.create_space",
+      "region": "domestic",
+      "source_doc_id": "5236",
+      "source_url": "https://open.ys7.com/help/5236",
+      "source_content_sha256": "48f346ac1bb9518164950b64d106bf2e7f455daf5055cfe3aed8177cf698ddb0",
+      "method": "POST",
+      "path": "/api/service/open/storage/engine/space",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "bizType",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "spaceName",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "storageType",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "expireDays",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "flowLimit",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "permission",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response examples and field tables"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "非幂等：重复调用会创建多个空间",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "需企业版套餐用户；主账号调用（不支持子账号/托管）",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "spaceName 仅限中/英/数字/下划线，长度 ≤32",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "expireDays：-1=永久；1-5475（15年）；默认 7",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "storageType 1=标准（默认）/2=归档；flowLimit 默认 -1（不限制）；permission 1=读写（默认）/2=只读",
+          "evidence": "Source parameter table or call restrictions"
+        }
+      ],
+      "uncertainties": [
+        "空间 expireDays 以 -1 表永久，与旧云录制接口 0=永久 的口径不同",
+        "bizType 枚举 vod/record/cloudCapture/capture 为文档列示值，是否全集未说明",
+        "响应 data 为裸 Long（spaceId），非对象",
+        "错误码表混列 400/404/412/500 与业务码 10001/10002，未标注各自层级",
+        "归档（storageType=2）空间的 expireDays 语义仅在 FAQ 提示'注意生命周期约束'，未给出细则"
+      ]
+    },
+    {
+      "operation_id": "cn.storage.update_space",
+      "region": "domestic",
+      "source_doc_id": "5237",
+      "source_url": "https://open.ys7.com/help/5237",
+      "source_content_sha256": "fca3d372cf95214bada67be40b1fc42a979a262e0e9ffaa5286216c036b1aaa7",
+      "method": "PUT",
+      "path": "/api/service/open/storage/engine/space",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "spaceId",
+          "location": "body",
+          "type": "Long",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "spaceName",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "expireDays",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "storageType",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "flowLimit",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "permission",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response examples and field tables"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "前置条件：企业版套餐用户 + accessToken；不支持托管/子账号",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "仅可修改本账号名下空间",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "FAQ：仅改名传 spaceId+spaceName 即可，其余字段不传保持原值",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "文档标注幂等（同参重复更新结果一致）",
+          "evidence": "Source parameter table or call restrictions"
+        }
+      ],
+      "uncertainties": [
+        "参数表 expireDays 注'默认 7'、flowLimit 注'默认 -1'等默认值与 FAQ'不传保持原值'并存；按 FAQ 省略字段不被重置，默认值不应套用到更新语义",
+        "expireDays -1=永久、1-5475，与旧云录制接口 0=永久 口径不同",
+        "PUT 方法配 application/x-www-form-urlencoded body 的组合以文档为准",
+        "错误码 400/404/500 未标注 HTTP 层或业务层",
+        "SDK requires at least one explicit changed field; this is a local usability guard, not an additional upstream required field."
+      ]
+    },
+    {
+      "operation_id": "cn.storage.delete_space",
+      "region": "domestic",
+      "source_doc_id": "5238",
+      "source_url": "https://open.ys7.com/help/5238",
+      "source_content_sha256": "2424e88de5ac0edb2a10aef8464ed34445175099a8978b2e6b91e3b10013eea3",
+      "method": "DELETE",
+      "path": "/api/service/open/storage/engine/space",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "spaceId",
+          "location": "body",
+          "type": "Long",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response examples and field tables"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "删除不可恢复，空间内所有文件将被清除",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "前置条件：企业版套餐用户；不支持托管/子账号",
+          "evidence": "Source parameter table or call restrictions"
+        },
+        {
+          "fact": "文档标注幂等（重复删除同一空间无副作用）",
+          "evidence": "Source parameter table or call restrictions"
+        }
+      ],
+      "uncertainties": [
+        "DELETE 携带 form-urlencoded body 传 spaceId（非 query），以文档为准，未实测",
+        "错误码 400/404/500 未标注 HTTP 层或业务层"
+      ]
     }
   ],
   "reviews": [
@@ -11277,6 +11900,10 @@
     {
       "review": "docs/validation/reviews/S018B/contracts-review.json",
       "note": "Ten domestic Cloud Recording 2.0 read operations; source table and response differences retained. No live requests."
+    },
+    {
+      "review": "docs/coordination/S019C/contracts-review.json",
+      "note": "Seven domestic unified storage engine operations; source version and cross-product boundaries retained; offline only."
     }
   ]
 }

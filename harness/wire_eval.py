@@ -90,6 +90,7 @@ _DTO_WHITELIST = frozenset(
         "PlaybackOptions",
         "PreviewEncoding",
         "StorageOrderOptions",
+        "StorageFileQuery",
         "RamStatement",
     }
 )

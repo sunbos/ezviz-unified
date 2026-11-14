@@ -1,0 +1,27 @@
+{
+  "task_id": "S019B",
+  "status": "accepted",
+  "execution_mode": "tool_free_print_from_explicit_inline_input",
+  "workspace_access": "none",
+  "new_workspace_trust_granted": false,
+  "worker_model_requested": "devin/swe-2",
+  "effort_requested": "max",
+  "prompt_sha256": "7bf897e0bf2244cb0714255b0b6f65bdd206eb73cc376d6b7b07aa4c95c50a80",
+  "process_exit": 0,
+  "models_observed": [
+    "devin/swe-2"
+  ],
+  "tools_advertised": [],
+  "tool_calls_observed": 0,
+  "candidate_sha256": "915c60a33337d4046468747c2e7f5785b887a976ecd7d08e6cde4e28acb09bf4",
+  "verification": {
+    "pytest": 1916,
+    "subtests": 11,
+    "mypy_sdk_files": 33,
+    "ruff_files": 96,
+    "contracts": 172,
+    "offline_executions": 1408,
+    "real_api_used": false
+  },
+  "acceptance_notes": "Coordinator reviewed candidate and applied documented corrections; remote CI and distribution checks recorded separately."
+}
