@@ -10,6 +10,8 @@
 
 ## 设备查询
 
+首次使用请按[接入指南](docs/getting-started.md)安装并运行同步/异步示例；示例显式选择地区，仅查询首个分页，默认不输出设备身份信息。
+
 ```python
 import os
 from ezviz_unified import Client, RegionConfig
@@ -157,7 +159,7 @@ uv venv .venv --python 3.12
 uv pip install --python .venv/bin/python -e '.[dev]' -r tools/documents/requirements.txt
 .venv/bin/python -m pytest -q
 .venv/bin/python -m mypy src/ezviz_unified
-.venv/bin/python -m ruff check src/ezviz_unified harness tests/test_sdk*.py tests/test_harness*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py
+.venv/bin/python -m ruff check src/ezviz_unified harness examples tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_examples.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py
 .venv/bin/python -m build
 ```
 
