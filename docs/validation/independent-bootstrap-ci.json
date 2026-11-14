@@ -1,0 +1,287 @@
+{
+  "commit": "c7ca421dbf5fd46dccc66bdd3f68d7a375f81a97",
+  "run_id": 43586451222,
+  "url": "https://github.com/sunbos/ezviz-unified/actions/runs/43586451222",
+  "jobs": [
+    {
+      "name": "test (3.12)",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install development dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Offline tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Audit reviewed registry and static bindings",
+          "conclusion": "success"
+        },
+        {
+          "name": "Evaluate all reviewed wire contracts offline",
+          "conclusion": "success"
+        },
+        {
+          "name": "Type check",
+          "conclusion": "success"
+        },
+        {
+          "name": "Lint SDK and SDK tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check SDK formatting",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build distribution",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check distribution contents and metadata",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify clean wheel and sdist installations",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "test (3.13)",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install development dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Offline tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Audit reviewed registry and static bindings",
+          "conclusion": "success"
+        },
+        {
+          "name": "Evaluate all reviewed wire contracts offline",
+          "conclusion": "success"
+        },
+        {
+          "name": "Type check",
+          "conclusion": "success"
+        },
+        {
+          "name": "Lint SDK and SDK tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check SDK formatting",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build distribution",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check distribution contents and metadata",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify clean wheel and sdist installations",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "test (3.14)",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install development dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Offline tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Audit reviewed registry and static bindings",
+          "conclusion": "success"
+        },
+        {
+          "name": "Evaluate all reviewed wire contracts offline",
+          "conclusion": "success"
+        },
+        {
+          "name": "Type check",
+          "conclusion": "success"
+        },
+        {
+          "name": "Lint SDK and SDK tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check SDK formatting",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build distribution",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check distribution contents and metadata",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify clean wheel and sdist installations",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "name": "test (3.15)",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install development dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Offline tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Audit reviewed registry and static bindings",
+          "conclusion": "success"
+        },
+        {
+          "name": "Evaluate all reviewed wire contracts offline",
+          "conclusion": "success"
+        },
+        {
+          "name": "Type check",
+          "conclusion": "success"
+        },
+        {
+          "name": "Lint SDK and SDK tests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check SDK formatting",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build distribution",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check distribution contents and metadata",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify clean wheel and sdist installations",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}

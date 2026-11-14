@@ -110,7 +110,18 @@
     "version": "0.1.0a1"
   },
   "limitations": [
-    "Local source validation is distinct from the new repository CI. See the matching GitHub Actions run before claiming remote verification.",
-    "No new device calls, PyPI release, public repository promotion or old repository archive in this receipt."
-  ]
+    "This receipt records bootstrap validation; later commits must have their own CI checked.",
+    "Device functionality remains unverified. No new device requests or PyPI publication occurred during handoff."
+  ],
+  "bootstrap_commit": "c7ca421dbf5fd46dccc66bdd3f68d7a375f81a97",
+  "repository_transition": {
+    "verified_at_utc": "2026-11-14T10:54:24.090208+00:00",
+    "new_visibility": "public",
+    "new_archived": false,
+    "legacy_archived": true,
+    "legacy_pr_state": "closed",
+    "legacy_pr_merged": false,
+    "user_approved_publication_and_archive": true,
+    "pypi_published": false
+  }
 }

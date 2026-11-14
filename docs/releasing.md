@@ -1,6 +1,6 @@
 # 发行准备与验证
 
-当前版本为未发布的 `0.1.0a1`，发行名 `ezviz-unified`，导入名 `ezviz_unified`，要求 Python 3.12+，与旧 `ezviz-openapi-utils` 独立。目标仓库为 `sunbos/ezviz-unified`；新仓库远端核验、旧仓库归档和 PyPI 上传均未执行，本文档随实际 checks 和交接证据更新。发布前先阅读[官方契约覆盖](../contracts/coverage.json)及[真实验证记录](validation/live/2026-11-14/README.md)。源代码与官方资料来源见[来源记录](provenance.md)。
+当前版本为未发布的 `0.1.0a1`，发行名 `ezviz-unified`，导入名 `ezviz_unified`，要求 Python 3.12+，与旧 `ezviz-openapi-utils` 独立。仓库为 `sunbos/ezviz-unified`；独立仓库已公开并通过交接CI，旧库已归档，PyPI尚未发布。每次发行仍须核对拟发布提交的实际checks。发布前先阅读[官方契约覆盖](../contracts/coverage.json)及[真实验证记录](validation/live/2026-11-14/README.md)。源代码与官方资料来源见[来源记录](provenance.md)。
 
 ## 构建与检查
 
@@ -44,7 +44,7 @@ python tools/release/verify_installations.py --installer uv --offline --output r
 
 - 冻结拟发布版本和提交，所有检查针对该版本通过。
 - 确认官方契约支持范围、来源缺项与离线评测完整性；不以旧方法映射或兼容性作为发布条件。
-- 核验 `sunbos/ezviz-unified` 的代码、文档、CI和包元数据链接后，再执行旧仓库归档；当前远端核验、归档和发布均未执行。
+- 独立仓库交接与旧库归档已完成；发布时仍核验当前提交的代码、文档、CI和包元数据链接。
 - 发布说明分别列出离线验证、真实验证和缺项；空设备列表不能证明设备接口可用。
 - 检查公开文档链接、包名归属及发布权限。当前没有自动发布workflow，也没有上传本地生成的文件。
 

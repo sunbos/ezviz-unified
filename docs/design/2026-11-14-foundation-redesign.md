@@ -1,6 +1,6 @@
 # EZVIZ Unified 基础架构设计
 
-日期：2026-11-14。状态：当前产品架构说明；实现进度与验证范围见[实施路线](../plans/2026-11-14-delivery-roadmap.md)。项目名为 EZVIZ Unified，发行包名为 `ezviz-unified`，Python 导入名为 `ezviz_unified`，仓库为 `sunbos/ezviz-unified`；PyPI 首次发布与旧仓库归档尚未执行。
+日期：2026-11-14。状态：当前产品架构说明；实现进度与验证范围见[实施路线](../plans/2026-11-14-delivery-roadmap.md)。项目名为 EZVIZ Unified，发行包名为 `ezviz-unified`，Python 导入名为 `ezviz_unified`，仓库为 `sunbos/ezviz-unified`；独立仓库已公开、旧仓库已归档，PyPI 首次发布尚未执行。
 
 参考：[平台调研](../research/2026-11-13-ezviz-api-survey.md)。
 
@@ -56,9 +56,9 @@ SDK只打包运行模块与类型标记；契约登记、维护调度、模型�
 
 新SDK使用独立发行名、导入名与API，不继承旧utils的兼容义务。旧版清单仅作历史调研；不作为新接口范围、CI输入或完成比例。
 
-新用户入口为 `ezviz-unified` / `ezviz_unified`。不提供旧导入路径、方法别名、兼容适配或默认行为保留。目标仓库为 `sunbos/ezviz-unified`；交接核验完成后，将旧 `ezviz-openapi-utils` 仓库设为只读归档，保留旧版本与历史供查阅。
+新用户入口为 `ezviz-unified` / `ezviz_unified`。不提供旧导入路径、方法别名、兼容适配或默认行为保留。仓库为 `sunbos/ezviz-unified`；交接核验已完成，旧 `ezviz-openapi-utils` 已只读归档，旧版本与历史保留供查阅。
 
-新仓库交接、旧仓库归档与PyPI首次发布属于后续交付步骤，尚未执行。
+独立仓库已完成公开与交接，旧仓库已归档。PyPI首次发布仍未执行，须按发行检查单独验收。
 
 ## 4. 请求与认证生命周期
 
