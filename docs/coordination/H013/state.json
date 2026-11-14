@@ -1,0 +1,10 @@
+{
+  "task": "H013",
+  "state": "accepted",
+  "scope": "single synthetic patch, scratch only",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "tests_passed": 1978,
+  "production_patch_applied": false,
+  "publication_authorized": false
+}

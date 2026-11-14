@@ -1,0 +1,32 @@
+{
+  "all_ok": true,
+  "checks": [
+    {
+      "detail": "denied: errno 1 (Operation not permitted)",
+      "name": "sentinel_outside_read_denied",
+      "ok": true
+    },
+    {
+      "detail": "denied: errno 1 (Operation not permitted)",
+      "name": "readonly_source_write_denied",
+      "ok": true
+    },
+    {
+      "detail": "completed",
+      "name": "run_tmp_write_allowed",
+      "ok": true
+    },
+    {
+      "detail": "connect() denied with EPERM",
+      "name": "tcp_connect_eperm_denied",
+      "ok": true
+    },
+    {
+      "detail": "completed",
+      "name": "asyncio_run_allowed",
+      "ok": true
+    }
+  ],
+  "note": "Observed behaviour of the current seatbelt policy; not a security proof.",
+  "probe": "macos-sandbox-harness"
+}

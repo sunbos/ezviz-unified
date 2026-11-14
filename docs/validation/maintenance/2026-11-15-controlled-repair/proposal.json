@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "input_sha256": "58369e89189083b3c471dd7be8f9c6d010065799c327c3635e526f3eee60f72d",
+  "edits": [
+    {
+      "path": "src/ezviz_unified/storage_models.py",
+      "base_sha256": "29f0798d82c8acca2b87c6414ef7a02e92597320ef833f40d5a286775afddada",
+      "old": "    if page_size is not None:\n        size = _integer(\"page_size\", page_size)\n        if not 1 <= size <= 50:\n            raise ValueError(\"page_size must be within 1..50\")\n        query[\"pageSize\"] = size",
+      "new": "    if page_size is not None:\n        size = _integer(\"page_size\", page_size)\n        if not 1 <= size <= 20:\n            raise ValueError(\"page_size must be within 1..20\")\n        query[\"pageSize\"] = size"
+    }
+  ]
+}

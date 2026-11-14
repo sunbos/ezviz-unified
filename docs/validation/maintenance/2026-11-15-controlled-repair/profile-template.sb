@@ -1,0 +1,50 @@
+(version 1)
+(deny default)
+
+;; Deny ALL network ops incl. unix-socket connect/bind. Only the
+;; socket() syscall stays allowed so socketpair() -- which asyncio's
+;; self-pipe needs -- still works; TCP/UDP connects get EPERM.
+(deny network*)
+(allow system-socket)
+
+;; stat/readdir metadata allowed globally; file CONTENT is not.
+(allow file-read-metadata (subpath "/"))
+
+;; Measured requirement: the macOS loader (dyld CacheFinder/ignite)
+;; opens the root directory itself at startup and aborts before
+;; main without it. Literal-dir grant on "/" only -- NOT
+;; (subpath "/"); allows no file-content reads below "/".
+(allow file-read-data (literal "/"))
+
+;; Trusted interpreter + python/system runtime, read-only + mappable.
+(allow file-read* file-map-executable (literal "${PYTHON}"))
+(allow file-read* file-map-executable (subpath "${PYTHON_BASE}"))
+(allow file-read* file-map-executable (subpath "${SCRATCH}"))
+(allow file-read* file-map-executable (subpath "/System"))
+(allow file-read* file-map-executable (subpath "/usr/lib"))
+(allow file-read* file-map-executable (subpath "/System/Volumes/Preboot"))
+(allow file-read* file-map-executable (subpath "/private/var/db/dyld"))
+(allow file-read* (subpath "/usr/share"))
+(allow file-read* (subpath "/private/var/db/timezone"))
+(allow file-read* (literal "/private/etc/localtime"))
+(allow file-read* (literal "/dev/urandom") (literal "/dev/random") (literal "/dev/zero"))
+(allow file-read* file-write* (literal "/dev/null"))
+
+;; The ONLY writable area.
+(allow file-read* file-write* (subpath "${SCRATCH}/run"))
+
+;; Only the same trusted interpreter may be re-exec'd.
+(allow process-fork)
+(allow process-exec (literal "${PYTHON}"))
+(allow signal (target self))
+(allow process-info* (target self))
+
+;; Hardware/OS introspection only -- no kern.procargs or proc info.
+(allow sysctl-read
+    (sysctl-name-prefix "hw.")
+    (sysctl-name-prefix "machdep.")
+    (sysctl-name "kern.ostype")
+    (sysctl-name "kern.osrelease")
+    (sysctl-name "kern.osversion")
+    (sysctl-name "kern.hostname")
+    (sysctl-name "kern.maxproc"))

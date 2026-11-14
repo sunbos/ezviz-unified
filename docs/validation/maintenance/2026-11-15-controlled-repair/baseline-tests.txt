@@ -1,0 +1,61 @@
+SDK_PROVENANCE=scratch_source
+......FFFF.....                                                          [100%]
+=================================== FAILURES ===================================
+__ test_spaces_out_of_contract_page_size_rejected_before_any_request[21-sync] __
+
+kind = 'sync', page_size = 21
+
+    @pytest.mark.parametrize("kind", ["sync", "async"])
+    @pytest.mark.parametrize("page_size", [0, 21, 50])
+    def test_spaces_out_of_contract_page_size_rejected_before_any_request(kind, page_size):
+        requests, authentication = [], []
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+../oracle/oracle.py:337: Failed
+_ test_spaces_out_of_contract_page_size_rejected_before_any_request[21-async] __
+
+kind = 'async', page_size = 21
+
+    @pytest.mark.parametrize("kind", ["sync", "async"])
+    @pytest.mark.parametrize("page_size", [0, 21, 50])
+    def test_spaces_out_of_contract_page_size_rejected_before_any_request(kind, page_size):
+        requests, authentication = [], []
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+../oracle/oracle.py:337: Failed
+__ test_spaces_out_of_contract_page_size_rejected_before_any_request[50-sync] __
+
+kind = 'sync', page_size = 50
+
+    @pytest.mark.parametrize("kind", ["sync", "async"])
+    @pytest.mark.parametrize("page_size", [0, 21, 50])
+    def test_spaces_out_of_contract_page_size_rejected_before_any_request(kind, page_size):
+        requests, authentication = [], []
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+../oracle/oracle.py:337: Failed
+_ test_spaces_out_of_contract_page_size_rejected_before_any_request[50-async] __
+
+kind = 'async', page_size = 50
+
+    @pytest.mark.parametrize("kind", ["sync", "async"])
+    @pytest.mark.parametrize("page_size", [0, 21, 50])
+    def test_spaces_out_of_contract_page_size_rejected_before_any_request(kind, page_size):
+        requests, authentication = [], []
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+../oracle/oracle.py:337: Failed
+=========================== short test summary info ============================
+FAILED ../oracle/oracle.py::test_spaces_out_of_contract_page_size_rejected_before_any_request[21-sync]
+FAILED ../oracle/oracle.py::test_spaces_out_of_contract_page_size_rejected_before_any_request[21-async]
+FAILED ../oracle/oracle.py::test_spaces_out_of_contract_page_size_rejected_before_any_request[50-sync]
+FAILED ../oracle/oracle.py::test_spaces_out_of_contract_page_size_rejected_before_any_request[50-async]
+4 failed, 11 passed in 0.15s

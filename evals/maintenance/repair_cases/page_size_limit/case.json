@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "case_id": "R001",
+  "synthetic": true,
+  "kind": "controlled_repair_trial",
+  "title": "Simulated contract change: cn.storage.spaces pageSize upper bound 50 -> 20",
+  "target": {
+    "operation_id": "cn.storage.spaces",
+    "region": "domestic",
+    "endpoint": {
+      "method": "GET",
+      "path": "/api/service/open/storage/engine/space/listById"
+    },
+    "parameter": "page_size",
+    "wire_name": "pageSize"
+  },
+  "allowed_paths": [
+    "src/ezviz_unified/storage_models.py"
+  ],
+  "contract_change": {
+    "current_rule": {
+      "min": 1,
+      "max": 50,
+      "error_message": "page_size must be within 1..50"
+    },
+    "required_rule": {
+      "min": 1,
+      "max": 20,
+      "error_message": "page_size must be within 1..20"
+    },
+    "unchanged": [
+      "page_size stays optional: None injects no pageSize and no default pagination is added",
+      "StorageFileQuery.page_size keeps its documented 1..50 bound",
+      "download_urls keeps its documented 1..50 fileNodeIds limit",
+      "every other validator, endpoint, message and default remains identical"
+    ]
+  },
+  "provenance": {
+    "source_url": "https://open.ys7.com/help/5230",
+    "archive_id": "doc5230",
+    "archived_on": "2026-11-14",
+    "archive_sha256": "15c63a8d00d55432b946b18f36b62034800d80e17041507c1b2a570c8290edf3",
+    "truth_note": "The archive documents the CURRENT published rule (max 50). The new max of 20 is synthetic for this drill and does NOT reflect a real change on open.ys7.com; no source-registry promotion is implied."
+  },
+  "model_input": {
+    "stage": "confirmed-contract-to-code-patch",
+    "brief": "The coordinator has pre-confirmed a synthetic new contract: domestic cn.storage.spaces pageSize accepts 1..20 instead of 1..50. The candidate receives this brief, the current contents of src/ezviz_unified/storage_models.py, and allowed_paths, and must return a patch confined to allowed_paths. The brief must not be presented as a real vendor update, because it is not one.",
+    "provided_to_model": [
+      "required new contract for page_size (min 1, max 20, message 'page_size must be within 1..20')",
+      "current contents of src/ezviz_unified/storage_models.py",
+      "allowed_paths"
+    ],
+    "withheld_from_model": [
+      "oracle.py and all acceptance implementation details",
+      "tests/test_harness_repair_oracle.py (trusted default-suite helper regression tests)",
+      "the adapted regression test text",
+      "any acceptance results"
+    ],
+    "expected_output": "a patch proposal confined to allowed_paths; no test, registry, or oracle edits"
+  },
+  "acceptance": {
+    "authority": "trusted coordinator only, inside an isolated copy of the repository",
+    "sdk_resolution": "the oracle lazily imports whichever ezviz_unified the runner's sys.path resolves (the isolated copy); there is deliberately no path fallback that could silently import the original repository",
+    "scope_check": "oracle.validate_scope(before_source, after_source): the reference source is parsed and its AST rewritten by the single permitted mutation — the int literal 50 -> 20 as the last comparator of the '1 <= size <= 50' <=-chain and the ValueError argument 'page_size must be within 1..50' -> '...1..20', each exactly once inside the only top-level _spaces_query; acceptance requires ast.dump(include_attributes=False) of the expected tree to equal the candidate's, so value-equal but type-different edits (50.0, True/False), kind or node-type changes, edits in any other scope, missing or ambiguous anchors, and unchanged candidates are all rejected; sources are parsed, never executed",
+    "regression_adaptation": "oracle.adapt_regression_test(source of tests/test_sdk_storage.py): coordinator-side pre-fixed new-contract adjustment; rewrites only the 'page_size': 50 literal of the execute(kind, 'spaces', ...) call inside test_documented_inclusive_bounds_and_no_extra_batch_limit to 20, using UTF-8 byte offsets (AST col_offset is a byte offset, not a character index) so all other text is preserved byte-for-byte; returns text, writes nothing; missing or ambiguous anchors fail",
+    "runtime_tests": "explicit-path pytest run of oracle.py against the patched isolated copy: spaces(page_size=20) succeeds and sends pageSize=20; page_size 0/21/50 raise ValueError before any auth or business request; omitted page_size injects no pageSize; page_size=1 accepted; StorageFileQuery accepts page_size=50 and rejects 51; download_urls still accepts 50 node ids and rejects 51",
+    "helper_regression_tests": "tests/test_harness_repair_oracle.py — trusted default-suite tests for the oracle helpers covering the exact accepted edit plus rejection of collateral float/bool edits, float in the allowed slot, wrong scope, global replacement, wrong or retyped message, new imports or helpers, missing or ambiguous anchors, and byte-exact UTF-8 adaptation; never shown to the candidate",
+    "override_policy": "no candidate self-report of 'passed' may override or discard an oracle failure"
+  },
+  "non_goals": [
+    "no change to the real vendor contract, the production SDK, or the contract registry",
+    "no real open.ys7.com traffic, no credentials, no automatic release or publish",
+    "not evidence of general repair capability; multi-file or behavioural repairs need dedicated oracles and scope rules"
+  ]
+}
