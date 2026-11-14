@@ -75,7 +75,10 @@ def _validate_base_url(base_url: str) -> str:
 def _validate_timeout(timeout: object) -> float:
     if isinstance(timeout, bool) or not isinstance(timeout, (int, float)):
         raise ValueError("timeout must be a finite positive number of seconds")
-    value = float(timeout)
+    try:
+        value = float(timeout)
+    except OverflowError:
+        raise ValueError("timeout must be a finite positive number of seconds") from None
     if not math.isfinite(value) or value <= 0:
         raise ValueError("timeout must be a finite positive number of seconds")
     return value

@@ -104,7 +104,7 @@ print(response.data)
 
 `SyncTransport` 与 `AsyncTransport` 提供显式的 query/form/JSON/header 请求入口，默认各 HTTPX I/O 阶段超时为10秒，不自动重试或跟随重定向，支持上下文管理关闭。该超时不是整个请求的总时限；有限认证重试由上面的客户端层控制。
 
-SDK请求期间会对HTTPX请求日志脱敏，不改变应用日志等级或handler。自定义transport中的编程错误原样传播；网络失败不会被表述为“远端肯定没有执行”。
+SDK仅对自身请求上下文内的httpx logger请求日志记录脱敏，不改变应用日志等级或handler，也不添加全局日志钩子；用户自行记录的原始响应及其他依赖库的调试输出不在此脱敏保证范围内。自定义transport中的编程错误原样传播；网络失败不会被表述为“远端肯定没有执行”。
 
 ## 区域与认证
 
