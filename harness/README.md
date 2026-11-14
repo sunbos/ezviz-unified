@@ -1,5 +1,9 @@
 # 文档维护 harness
 
+## 构建维护候选输入
+
+`python -m harness.candidate_input --repo . --before data/official-docs/BEFORE --after data/official-docs/AFTER --task domestic:5230`会先运行完整review基线，再重新核验并打包所选任务的前后HTML、相关契约与直接SDK模块；执行前须替换为已准备好的快照目录。额外上下文通过`--extra-module`显式指定，不能读取清单外的配置文件；超出实际UTF-8输出预算时失败。它只生成输入材料，后续模型调用、补丁生成及独立验收仍是分开的步骤。具体参数、目录稳定要求和限制见[使用说明](../docs/research/2026-11-15-maintenance-candidate-inputs.md)。
+
 ## 维护模型语义评测
 
 `python -m harness.maintenance_eval --cases evals/maintenance/cases.json --expectations evals/maintenance/expectations.json --answers <answers.json>` 对独立会话产出的候选判断评分。它比较字段、JSON类型、证据行和不确定项，漏答保持总分母；不调用模型、不执行补丁、不授予发布权限。数据协议及范围见[公开合成基准](../evals/maintenance/README.md)，第一次真实模型调用的[8案例结果](../docs/validation/maintenance/2026-11-15-swe2-semantic/README.md)只证明该次语义提取表现。

@@ -39,6 +39,10 @@ with Client(
 
 `client.alarms.list(AlarmQuery(status=2))`查询全部状态告警，`for_device(serial, query)`按设备查询；不自动翻页、标记已读或下载图片。省略status时由平台默认查询未读。`client.cloud_storage.info`默认国内v2、海外v1，另有套餐类型、开通状态查询及显式开通/兑换/暂停/试用/转移方法。服务变更不自动重放，也不自动轮询或更换付款方式。版本、时间、权限和原文缺项见[告警与云存储说明](docs/research/2026-11-14-alarms-cloud-storage.md)，未产生实际订单或服务变更。
 
+## 消息回调
+
+模块级`parse_webhook`使用原始UTF-8正文、`t`、`Signature`与单独配置的`webhook_secret`先核验MAC再解析；`parse_unverified_webhook`是显式不做认证的入口。返回值保留未知body字段与类型，`ack()`只构造messageId字典，HTTP响应和去重由应用负责。签名匹配不证明当前发送者身份或消息新鲜度；本批依据国内归档协议离线验证，未接收真实回调，也不自动使用AppSecret、配置消息服务或下载媒体。详见[消息助手](docs/research/2026-11-15-webhook-helpers.md)及[源资料差异](docs/research/2026-11-15-message-ingestion.md)。
+
 ## 统一存储
 
 统一存储入口为`client.storage`，提供空间列表/创建/更新/删除、文件搜索/保留期修改及签名下载地址查询，目前仅国内。文件查询使用`StorageFileQuery`，保留官方选择器优先级；`None`不发送，更新不注入创建默认值。统一存储永久保留使用`-1`，与旧云录制空间的`0`不同。下载地址仅返回，不获取媒体；[完整规则与来源限制](docs/research/2026-11-14-unified-storage.md)列明单位、编码推导及权限，全部新能力仍为离线验证。
