@@ -1,0 +1,28 @@
+{
+  "task_id": "H008A",
+  "status": "accepted",
+  "execution_mode": "tool_free_print_from_explicit_inline_input",
+  "workspace_access": "none",
+  "worker_model_requested": "devin/swe-2",
+  "effort_requested": "max",
+  "deadline_seconds": 900,
+  "prompt_sha256": "b1e37373b38be036a42750133596471d9bd197d3f2eb78c2db26129649374cc0",
+  "process_exit": 0,
+  "models_observed": [
+    "devin/swe-2"
+  ],
+  "tools_advertised": [],
+  "tool_calls_observed": 0,
+  "candidate_sha256": "2e22301dc68c48b7b84fec493e29aecb2e86fced025f11c7e1b518ab3dc45ebd",
+  "verification": {
+    "pytest": 1955,
+    "subtests": 11,
+    "mypy_sdk_files": 33,
+    "ruff_files": 100,
+    "portal_documents_checked": 2269,
+    "baseline_contracts": 172,
+    "baseline_offline_executions": 1408,
+    "real_api_used": false
+  },
+  "acceptance_notes": "Coordinator applied documented corrections and verified existing-snapshot plus clearly labelled synthetic-change integration. Remote CI is checked separately."
+}

@@ -1,0 +1,11 @@
+# H008B 组合维护审查验收
+
+Claude以devin/swe-2、effort=max、零工具纯文本模式交付候选，Codex复核执行顺序、hash固定、失败边界和真实组合运行。
+
+候选已固定并复核登记、案例、快照索引和SDK源码。独立回归发现它没有验证eval的证据类型，可能把其他执行记录标成离线；已要求offline_contract_conformance_only及real_api_used=False。包装异常改为脱离原异常上下文后抛出固定ReviewError，不保留原文错误对象。
+
+移除计划模块多余I/O后，组合入口只输出JSON。标题/导航变化返回metadata_only，既不虚构协议补丁，也不冒充无变化；metadata中保留前后导航。没有eval跳过开关，基线不完整或失败均阻止正常基线结论。
+
+另修复原始资料验证器对历史receipt的直接读取：全部改经受root约束的读取方法；越界符号链接在读取目标前拒绝，root内合法别名保持可用。没有改写已有源快照。
+
+已有2269条门户快照自比较验证无变化路径；单独克隆后加入标记HTML注释，验证唯一变更会定位到domestic:5230和cn.storage.spaces。该副本明确为合成测试，不代表真实官网更新；两次均运行172契约/1408次模拟调用，且publication_authorized始终False。摘要见integration-checks.json。

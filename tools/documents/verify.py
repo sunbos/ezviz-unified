@@ -341,7 +341,7 @@ def verify(input_directory):
     audit.expect(len(catalog) == summary["documents"] and status_stats["archived"] == summary["derived_documents"], "summary_documents_mismatch", "derivation-summary.json")
     # 包括当前 catalog 之外的历史采集缓存：只核验其字节，不计入正文覆盖分母。
     for path in sorted((root / "sources").rglob("*.receipt.json")) if (root / "sources").exists() else []:
-        receipt = json.loads(path.read_bytes())
+        receipt = audit.json(path.relative_to(root))
         if receipt.get("raw_file") and receipt.get("sha256"):
             audit.receipt(receipt)
     return {

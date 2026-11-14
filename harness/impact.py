@@ -127,7 +127,9 @@ def _bindings(bindings: object) -> list:
         seen.add(op)
         constants = entry.get("argument_constants", {})
         if not isinstance(constants, dict) or not all(
-            isinstance(key, str) and key.isidentifier() and isinstance(value, str) and value.strip()
+            isinstance(key, str)
+            and key.isidentifier()
+            and (value is None or type(value) in (bool, int, str))
             for key, value in constants.items()
         ):
             raise ImpactError("invalid argument constants")

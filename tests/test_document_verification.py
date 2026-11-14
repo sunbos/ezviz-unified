@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest import mock
 
 from tools.documents.derive import derive
 
@@ -90,6 +91,29 @@ class DocumentVerificationTests(unittest.TestCase):
         report = self.module().verify(self.root)
         self.assertFalse(report["passed"])
         self.assertIn("menu_catalog_missing", {error["code"] for error in report["errors"]})
+
+    def test_historical_receipt_symlink_is_checked_before_reading_outside_root(self):
+        with tempfile.TemporaryDirectory() as elsewhere:
+            outside = Path(elsewhere) / "private.json"
+            outside.write_text('{"PRIVATE_VALUE": "must not be read"}')
+            link = self.root / "sources/escape.receipt.json"
+            link.symlink_to(outside)
+            original = Path.read_bytes
+
+            def checked_read(path):
+                if path.resolve() == outside.resolve():
+                    self.fail("verification tried to read outside the snapshot")
+                return original(path)
+
+            with mock.patch.object(Path, "read_bytes", checked_read):
+                with self.assertRaisesRegex(ValueError, "Path escapes corpus"):
+                    self.module().verify(self.root)
+
+    def test_historical_receipt_alias_inside_snapshot_remains_valid(self):
+        self.write("sources/safe.receipt.json", self.catalog[0]["source_receipt"])
+        (self.root / "sources/alias.receipt.json").symlink_to(self.root / "sources/safe.receipt.json")
+        report = self.module().verify(self.root)
+        self.assertTrue(report["passed"], report["errors"])
 
     def test_parser_hash_in_derivation_receipt_is_verified(self):
         summary = json.loads((self.root / "derivation-summary.json").read_text())
