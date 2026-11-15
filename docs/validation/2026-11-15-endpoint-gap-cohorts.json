@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "evidence": "offline_candidate_cohort_only",
+  "input_sha256": {
+    "catalog": "7befa1e5ba706e2ff897a5da512f821874a8054252a1bb3dd6be870d5941e406",
+    "contracts": "c0f875ddcaa7199887b82e7569fcafb8a5d0ac60b2c5f46ffb145b0e5cda04ae"
+  },
+  "regions": [
+    {
+      "region": "domestic",
+      "paired_occurrences": 1376,
+      "exact_source_linked_occurrences": 130,
+      "same_route_hint_only_occurrences": 119,
+      "unlinked_without_route_hint_occurrences": 1127,
+      "unlinked_documents": 1126,
+      "distinct_method_path_candidates": 1030,
+      "otap_property_path_occurrences": 493,
+      "otap_action_path_occurrences": 52
+    },
+    {
+      "region": "overseas",
+      "paired_occurrences": 107,
+      "exact_source_linked_occurrences": 54,
+      "same_route_hint_only_occurrences": 3,
+      "unlinked_without_route_hint_occurrences": 50,
+      "unlinked_documents": 14,
+      "distinct_method_path_candidates": 45,
+      "otap_property_path_occurrences": 0,
+      "otap_action_path_occurrences": 0
+    }
+  ],
+  "limitations": [
+    "Counts describe candidate occurrences and paths, not SDK coverage or API totals.",
+    "A same-route hint does not resolve parameter, product, permission, or response differences.",
+    "Templated paths are kept as candidate paths, not expanded or proved supported."
+  ],
+  "phase": "before_overseas_settings_batch",
+  "reviewed_contract_count_at_snapshot": 186
+}

@@ -73,6 +73,8 @@ with Client(
 
 `client.settings.get_switch(device_serial, DeviceSwitch.INDICATOR_LIGHT)`读取状态；`set_switch(device_serial, switch, enabled, channel=None)`设置状态。enabled必须为bool，写请求不重放。省略channel表示设备本身，麦克风不接受channel。六类开关、地区限制和原文差异见[开关说明](docs/research/2026-11-14-switch-settings.md)。SOUND_LOCALIZATION是声源定位，与TLS无关；所有真实设置效果仍未验证。
 
+海外`client.settings`另提供九项设备设置与一项公开目录：`get_pir_area`/`set_pir_area`（`area`为官方原始字符串）、`get_chime`/`set_chime`、`get_infrared`/`set_infrared`、`set_timezone`、`get_language`/`set_language`，以及无凭据的`list_timezones`时区目录；以上仅海外，写操作不自动重放。`Client(anonymous=True, region=RegionConfig.overseas(api_base_url=...))`提供显式匿名模式调用公开操作。`timezone`须用目录返回的`tzCode`，`timeFormat`必填性、duration单位等来源缺项与匿名约束见[海外设备设置与公开目录](docs/research/2026-11-15-overseas-settings.md)；仅新加坡公开目录经SDK真实查询验证，九项设备接口仍为离线验证。
+
 ## 视频配置
 
 `client.video`提供清晰度、预览编码、音视频codec、视频类开关的设置，以及本地录像编码和开关查询，仅国内。预览参数使用`PreviewEncoding`，分辨率/帧率是官方枚举代码；本地录像查询不视为预览设置的逆操作。`VideoSwitch`包含隐私遮蔽、休眠、人脸开锁、特写追踪和LOGO；设置不自动重放。JSON/form位置、权限、参数省略规则和源码缺项见[视频说明](docs/research/2026-11-14-video-configuration.md)，真实效果仍未验证。
@@ -214,6 +216,7 @@ uv pip install --python .venv/bin/python -e '.[dev]' -r tools/documents/requirem
 - [HTTP候选清单](docs/research/2026-11-15-endpoint-inventory.md)：从归档官方文档提取的HTTP候选及同路由线索；候选数量不是SDK支持数量，不代表已验证或完整覆盖。
 - [App 数据复用指南](docs/integrations/pyezvizapi.md)：按固定版本评估第三方 pyEzvizApi，保持消费者账号与开放平台身份分离；当前只提供集成说明，未内置 App adapter。
 - [主导与执行分工](docs/coordination/workflow.md)：执行模型产出候选，主导方核对来源、代码和测试后集成。
+- [技能包索引](skills/README.md)：面向 Agent 的技能包说明（设备只读检查、单契约审查、快照维护），随源码分发，非 SDK 运行依赖。
 - [维护harness](harness/README.md)：用`python -m harness.review`组合快照完整性、来源关联、静态登记和[离线传输评测](evals/contracts/README.md)，输出待审查任务；当前不自动改代码或发布。
 - [维护语义评测](evals/maintenance/README.md)：独立评分文档变化判断，保留字段类型、证据与不确定性；已有一次真实模型的8个公开合成案例记录，尚不代表补丁正确性或自动维护完成。
 - [受控补丁演练](docs/validation/maintenance/2026-11-15-controlled-repair/README.md)：模型生成提案，经哈希、修改范围与独立Oracle检查后，仅在macOS隔离副本验证；单个合成分页案例通过1,978项回归，生产SDK与契约登记不变，不自动合入或发布。
