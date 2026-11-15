@@ -27,6 +27,15 @@ python3 tools/documents/collect_assets.py --root data/official-docs/2026-11-14
 
 `verify.py` 独立核对目录与引用范围、源响应/正文/派生哈希和 HTMLParser 结构计数。`collect_assets.py` 下载被正文明确引用的图片与文档附件，验证类型、大小与哈希；默认复核并复用已完成文件，需要重试失败项时使用 `--retry-failures`。媒体示例、脚本占位和业务 API 链接只登记，不执行。
 
+## HTTP 候选清单
+
+```sh
+python -m tools.documents.endpoint_inventory --input data/official-docs/2026-11-14 --contracts contracts/reviewed-transport-contracts.json
+python -m tools.documents.endpoint_inventory --input data/official-docs/2026-11-14 --contracts contracts/reviewed-transport-contracts.json --summary-only
+```
+
+第一条命令输出完整 JSON，可重定向到 `data/reports/2026-11-15-http-endpoint-inventory.json`；完整报告按忽略文件处理，不提交仓库。`--summary-only` 只输出汇总。输出区分 `declarations` 与 `examples`；与已审核契约核对时按来源身份、URL、哈希、方法和路径精确匹配，同路由条目只作线索。候选不宣称完整覆盖，也未做实时验证。
+
 ## SDK 参考库
 
 `reference_collectors/` 保存本轮独立采集脚本。国内种子由当前 SDK 指南的实际链接确定；海外根路径来自官方英文目录。运行时显式传入 `--output`；国内另传 `--seeds data/official-docs/2026-11-14/discovery/sdk-seeds.json`。
