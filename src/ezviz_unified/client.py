@@ -4,8 +4,12 @@ Each client authenticates lazily through a shared token manager, injects the
 access token at the location declared by the ``Operation``, reuses one
 transport per verified API origin, and retries a declared read-only
 operation at most once when the platform reports code ``10002`` for the
-token that was sent. Credentials and token values never appear in ``repr``
-and are always registered with the transport for redaction.
+token that was sent. Operations declared with ``token_location="none"``
+are public: they never touch the token provider, never carry a token, and
+reuse the transport bound to the configured ``api_base_url``.
+``anonymous=True`` creates a credential-free client that may only run
+those public operations. Credentials and token values never appear in
+``repr`` and are always registered with the transport for redaction.
 """
 
 from __future__ import annotations
@@ -124,6 +128,7 @@ def _prepare(
             raise ValueError("json token location does not accept form data")
         if json is not None and not isinstance(json, Mapping):
             raise ValueError("json token location requires a JSON object body")
+    # token_location "none" injects no token, so either single body style passes through.
     return _Prepared(
         params=dict(params) if params is not None else None,
         data=dict(data) if data is not None else None,
@@ -148,6 +153,8 @@ def _verified_origin(region: RegionConfig, token: Token) -> str:
 def _inject(operation: Operation, prepared: _Prepared, token: Token) -> _Prepared:
     """Return per-attempt copies carrying the current access token."""
     location = operation.token_location
+    if location == "none":
+        return prepared
     if location == "form":
         form = dict(prepared.data) if prepared.data is not None else {}
         form[_TOKEN_FIELD] = token.value
@@ -190,11 +197,14 @@ class Client:
         trust_env: bool = False,
         auth_transport: httpx.BaseTransport | None = None,
         transport_factory: SyncTransportFactory | None = None,
+        anonymous: bool = False,
     ) -> None:
         if not isinstance(region, RegionConfig):
             raise ValueError("region must be a RegionConfig")
         if transport_factory is not None and not callable(transport_factory):
             raise ValueError("transport_factory must be callable")
+        if not isinstance(anonymous, bool):
+            raise ValueError("anonymous must be a bool")
         self._region = region
         self._timeout = _validate_timeout(timeout)
         self._trust_env = trust_env
@@ -203,9 +213,23 @@ class Client:
             raise ValueError("clock must be callable")
         self._clock = clock
         self._owned_manager: TokenManager | None = None
-        self._manager: TokenProvider
+        self._manager: TokenProvider | None
         self._secrets: tuple[str, ...]
-        if token_provider is not None:
+        if anonymous:
+            if (
+                app_key is not None
+                or app_secret is not None
+                or token_provider is not None
+                or auth_transport is not None
+            ):
+                raise ValueError(
+                    "anonymous mode does not accept application credentials, token_provider, or auth_transport"
+                )
+            if region.api_base_url is None:
+                raise ValueError("anonymous mode requires a configured api_base_url")
+            self._manager = None
+            self._secrets = ()
+        elif token_provider is not None:
             if app_key is not None or app_secret is not None or auth_transport is not None:
                 raise ValueError(
                     "token_provider cannot be combined with application credentials or auth_transport"
@@ -307,9 +331,28 @@ class Client:
                     self._condition.notify_all()
 
     def _execute(self, operation: Operation, prepared: _Prepared) -> ApiResponse:
+        if operation.token_location == "none":
+            origin = self._region.api_base_url
+            if origin is None:
+                raise ValueError("public operation requires a configured api_base_url")
+            transport = self._transport_for_origin(origin)
+            return transport.request(
+                operation.method,
+                operation.path,
+                params=prepared.params,
+                data=prepared.data,
+                json=prepared.json,
+                headers=prepared.headers,
+                policy=operation.policy,
+                operation=operation.name,
+                secrets=self._secrets,
+            )
+        manager = self._manager
+        if manager is None:
+            raise ValueError("anonymous client cannot perform authenticated operations")
         retried = False
         while True:
-            supplied = self._manager.get_token()  # provider errors are never retried
+            supplied = manager.get_token()  # provider errors are never retried
             if inspect.iscoroutine(supplied):
                 supplied.close()
                 raise TypeError("synchronous provider returned a coroutine")
@@ -331,13 +374,15 @@ class Client:
             except AuthenticationError as exc:
                 if not exc.invalid_token:
                     raise
-                self._manager.invalidate(token.value)
-                if retried or not operation.read_only or not self._manager.can_refresh:
+                manager.invalidate(token.value)
+                if retried or not operation.read_only or not manager.can_refresh:
                     raise
                 retried = True
 
     def _transport_for(self, token: Token) -> SyncTransport:
-        origin = _verified_origin(self._region, token)
+        return self._transport_for_origin(_verified_origin(self._region, token))
+
+    def _transport_for_origin(self, origin: str) -> SyncTransport:
         with self._condition:
             transport = self._transports.get(origin)
             if transport is None:
@@ -406,11 +451,14 @@ class AsyncClient:
         trust_env: bool = False,
         auth_transport: httpx.AsyncBaseTransport | None = None,
         transport_factory: AsyncTransportFactory | None = None,
+        anonymous: bool = False,
     ) -> None:
         if not isinstance(region, RegionConfig):
             raise ValueError("region must be a RegionConfig")
         if transport_factory is not None and not callable(transport_factory):
             raise ValueError("transport_factory must be callable")
+        if not isinstance(anonymous, bool):
+            raise ValueError("anonymous must be a bool")
         self._region = region
         self._timeout = _validate_timeout(timeout)
         self._trust_env = trust_env
@@ -419,9 +467,23 @@ class AsyncClient:
             raise ValueError("clock must be callable")
         self._clock = clock
         self._owned_manager: AsyncTokenManager | None = None
-        self._manager: AsyncTokenProvider
+        self._manager: AsyncTokenProvider | None
         self._secrets: tuple[str, ...]
-        if token_provider is not None:
+        if anonymous:
+            if (
+                app_key is not None
+                or app_secret is not None
+                or token_provider is not None
+                or auth_transport is not None
+            ):
+                raise ValueError(
+                    "anonymous mode does not accept application credentials, token_provider, or auth_transport"
+                )
+            if region.api_base_url is None:
+                raise ValueError("anonymous mode requires a configured api_base_url")
+            self._manager = None
+            self._secrets = ()
+        elif token_provider is not None:
             if app_key is not None or app_secret is not None or auth_transport is not None:
                 raise ValueError(
                     "token_provider cannot be combined with application credentials or auth_transport"
@@ -522,9 +584,28 @@ class AsyncClient:
                 self._idle.set()
 
     async def _execute(self, operation: Operation, prepared: _Prepared) -> ApiResponse:
+        if operation.token_location == "none":
+            origin = self._region.api_base_url
+            if origin is None:
+                raise ValueError("public operation requires a configured api_base_url")
+            transport = self._transport_for_origin(origin)
+            return await transport.request(
+                operation.method,
+                operation.path,
+                params=prepared.params,
+                data=prepared.data,
+                json=prepared.json,
+                headers=prepared.headers,
+                policy=operation.policy,
+                operation=operation.name,
+                secrets=self._secrets,
+            )
+        manager = self._manager
+        if manager is None:
+            raise ValueError("anonymous client cannot perform authenticated operations")
         retried = False
         while True:
-            awaitable = self._manager.get_token()  # provider errors never retry
+            awaitable = manager.get_token()  # provider errors never retry
             if not inspect.isawaitable(awaitable):
                 raise TypeError("async token_provider get_token must return an awaitable")
             supplied = await awaitable
@@ -546,13 +627,15 @@ class AsyncClient:
             except AuthenticationError as exc:
                 if not exc.invalid_token:
                     raise
-                self._manager.invalidate(token.value)
-                if retried or not operation.read_only or not self._manager.can_refresh:
+                manager.invalidate(token.value)
+                if retried or not operation.read_only or not manager.can_refresh:
                     raise
                 retried = True
 
     def _transport_for(self, token: Token) -> AsyncTransport:
-        origin = _verified_origin(self._region, token)
+        return self._transport_for_origin(_verified_origin(self._region, token))
+
+    def _transport_for_origin(self, origin: str) -> AsyncTransport:
         transport = self._transports.get(origin)
         if transport is None:
             factory = self._factory(origin) if self._factory is not None else None

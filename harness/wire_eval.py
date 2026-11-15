@@ -822,6 +822,8 @@ def _region_for(package: object, contract: dict) -> object:
         raise _Reject("sdk_import_failed")
     if contract["region"] == _DOMESTIC:
         return region_cls.china()
+    if contract["token_location"] == "none" and contract["operation_id"] not in _AUTH_OPERATION_IDS:
+        return region_cls.overseas(api_base_url=_API_ORIGIN[contract["region"]])
     return region_cls.overseas()
 
 
@@ -844,9 +846,12 @@ def _operation_outcome(package: object) -> dict:
 
 
 def _expected_result_scenario(contract: dict, scenario: str) -> str:
+    is_public = (
+        contract["token_location"] == "none" and contract["operation_id"] not in _AUTH_OPERATION_IDS
+    )
     if scenario == _SUCCESS:
         return "response"
-    if scenario == _AUTH_FAULT and contract["read_only"]:
+    if scenario == _AUTH_FAULT and contract["read_only"] and not is_public:
         return "response"
     if scenario == _AUTH_FAULT:
         return "auth_error"
@@ -857,6 +862,8 @@ def _expected_result_scenario(contract: dict, scenario: str) -> str:
 
 def _expected_call_counts(contract: dict, scenario: str) -> tuple[int, int]:
     """Return ``(business_calls, auth_calls)`` for a normal operation."""
+    if contract["token_location"] == "none" and contract["operation_id"] not in _AUTH_OPERATION_IDS:
+        return 1, 0
     if scenario == _AUTH_FAULT and contract["read_only"]:
         return 2, 2
     return 1, 1

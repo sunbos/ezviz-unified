@@ -262,6 +262,9 @@ def fake_client_classes(token_location="header", read_only=False, tamper=None):
             self._transport_factory = kwargs["transport_factory"]
 
         def _get_token(self):
+            if token_location == "none":
+                # Public operations carry no managed credential: no auth call.
+                return None
             with httpx.Client(transport=self._auth_transport) as client:
                 response = client.post(
                     ORIGIN + AUTH_PATH,
@@ -294,6 +297,7 @@ def fake_client_classes(token_location="header", read_only=False, tamper=None):
                 headers[TOKEN_FIELD] = token
             elif operation.token_location == "query":
                 params[TOKEN_FIELD] = token
+            # token_location == "none": no managed credential is injected.
             body = self._tampered_body(payload)
             path = operation.path
             if tamper == "wrong_path":
@@ -323,8 +327,9 @@ def fake_client_classes(token_location="header", read_only=False, tamper=None):
             envelope = response.json()
             code = envelope["code"]
             if code == FAULT_AUTH:
-                if not operation.read_only:
-                    # Write operations must not replay on an auth fault.
+                if operation.token_location == "none" or not operation.read_only:
+                    # Public operations have no managed credential, so there is
+                    # nothing to refresh; write operations must not replay.
                     raise make_error(auth_error_cls, 200, invalid_token=True)
                 token = self._get_token()
                 response = self._send(operation, token, payload)
@@ -390,6 +395,55 @@ def test_whole_body_grid_passes_with_real_wire_checks(monkeypatch, token_locatio
     assert report["covered_operation_ids"] == [OP_ID]
     assert report["missing_operation_ids"] == [AUTH_ID]
     assert not report["coverage_complete"]
+
+
+def test_none_location_sends_no_auth_and_never_replays_on_auth_fault():
+    """token_location="none" is a public operation: zero auth requests and
+    no managed credential on the wire; a 10002 envelope raises
+    AuthenticationError immediately -- even when read_only -- instead of
+    triggering a token refresh/replay."""
+    import ezviz_unified as package
+
+    sync_cls, _ = fake_client_classes("none", read_only=True)
+    auth_calls = []
+    business_calls = []
+
+    def auth_handler(request):
+        auth_calls.append(request)
+        return httpx.Response(200, json={"code": 200, "message": "ok", "data": {}})
+
+    ok = {"code": 200, "message": "ok", "data": {}}
+    fault = {"code": FAULT_AUTH, "message": "fault", "data": None}
+    responses = iter([httpx.Response(200, json=ok), httpx.Response(200, json=fault)])
+
+    def business_handler(request):
+        business_calls.append(request)
+        return next(responses)
+
+    def make_client():
+        return sync_cls(
+            "key",
+            "secret",
+            auth_transport=httpx.MockTransport(auth_handler),
+            transport_factory=lambda origin: httpx.MockTransport(business_handler),
+        )
+
+    operation = make_client()._operation()
+    assert operation.token_location == "none"
+
+    client = make_client()
+    client.request(operation, payload={})
+    assert len(business_calls) == 1
+    request = business_calls[0]
+    assert TOKEN_FIELD not in request.headers
+    assert TOKEN_FIELD not in str(request.url.query)
+    assert auth_calls == []
+
+    client = make_client()
+    with pytest.raises(package.AuthenticationError):
+        client.request(operation, payload={})
+    assert len(business_calls) == 2  # the fault cell only: no replay
+    assert auth_calls == []
 
 
 WIRE_TAMPERS = [

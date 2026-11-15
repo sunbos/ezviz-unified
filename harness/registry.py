@@ -119,8 +119,18 @@ def _parameters(contract, where):
         location = param.get("location")
         if not isinstance(location, str) or location not in PARAMETER_LOCATIONS:
             _fail(pwhere, "location must be body, query or header")
-        if type(param.get("required")) is not bool:
-            _fail(pwhere, "required must be a boolean")
+        if "required" not in param:
+            _fail(pwhere, "required key is mandatory")
+        required = param["required"]
+        if required is None:
+            uncertainty = param.get("required_uncertainty")
+            if not isinstance(uncertainty, str) or not uncertainty.strip():
+                _fail(
+                    pwhere,
+                    "required may only be null with non-empty required_uncertainty",
+                )
+        elif type(required) is not bool:
+            _fail(pwhere, "required must be a boolean or null")
         key = (location, name)
         if key in seen:
             _fail(pwhere, "duplicate (location, name) parameter")
