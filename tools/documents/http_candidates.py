@@ -134,8 +134,6 @@ _TITLE_METHOD_RE = re.compile(
 )
 # 行内 “标签：取值” 的中英文冒号分隔符；取文本中最早出现的一处切分。
 _INLINE_LABEL_SEPARATORS = (":", "：")
-# shell 命令分隔符：curl 只在命令起始位置（行首、可选 $ 提示符或分隔符后）解析。
-_CURL_SEPARATORS = frozenset({";", "&&", "||", "|", "&"})
 
 # 取参数字段（header/data/form/user/output/timeout/user-agent）：其值
 # 不视为目标地址，也不用于推断方法。--request 与 --url 单独处理；
@@ -387,6 +385,13 @@ def _parse_address(raw: str | None) -> dict[str, Any]:
         # 内部空白意味着多值或与其他内容粘连，不拆分不修复。
         result["reasons"].append("invalid_address")
         return result
+    if '"' in text:
+        # 地址原文中的 ``"`` 是引号残留（URI 中本不可能出现）：只解析
+        # ``"`` 之前的可解析部分，raw 原文不改写、不剥离。
+        text = text.split('"', 1)[0]
+        if not text:
+            result["reasons"].append("invalid_address")
+            return result
     if "`" in text:
         # 地址原文残留反引号是源文档问题：保留原文、判为不可用，
         # 不剥离不修复。
@@ -760,65 +765,465 @@ def _curl_example(
     return example
 
 
+# POSIX shell 引号/转义状态（贯穿分块与切段的同一状态机）。
+_QUOTE_NONE = 0
+_QUOTE_SINGLE = 1
+_QUOTE_DOUBLE = 2
+
+# 字符在逻辑行内的角色：未引用字面、引号内字面、或结构（here-doc
+# 正文、命令替换/反引号/控制结构等不支持语法，整段保守拒绝）。
+_MARK_LITERAL = 0
+_MARK_QUOTED = 1
+_MARK_STRUCTURAL = 2
+
+# 双引号内允许反斜杠转义的字符（POSIX shell 语义）：\$ \` \" \\ \<newline>。
+_DOUBLE_QUOTE_ESCAPABLE = frozenset('$`"\\\n')
+
+# 未引用 here-doc 定界符：<<[-] [\'\"]?WORD[\'\"]?。
+_HEREDOC_MARKER_RE = re.compile(r"<<-?\s*(?P<q>['\"]?)(?P<word>[^\s'\";|&<>]+)(?P=q)")
+
+# 字面区域中本身即构成命令边界的字符；&& || 单独处理。
+_COMMAND_SEPARATORS = frozenset(";|&")
+
+# 在命令段内一旦出现即把整段判为结构（不从中提取示例）的字符。
+# ``$`` 单独处理：``$``/``$(`` 是替换或提示符，``user@host$`` 是合法提示符。
+_STRUCTURAL_CHARS = frozenset("`(){}!<>")
+
+
+def _scan_logical_lines(text: str) -> list[tuple[str, list[int]]]:
+    """把代码块按引号/续行切为逻辑行，并为每个字符标注字面/引号/结构。
+
+    结构识别是“最小保守”原则：不配对嵌套、不展开结构内容，一旦在
+    未引用区域发现不支持语法（here-doc 标记、``$(``/`` ` `` 替换、
+    命令组 ``( ) { }``、重定向 ``<`` ``>``、命令位置上的控制关键字），
+    只把包含它的命令段标为 ``_MARK_STRUCTURAL``，由调用方整体拒绝，
+    绝不从结构内部制造 curl/HTTP 示例。
+    """
+    out: list[str] = []
+    marks: list[int] = []
+    line_marks: list[int] = []  # 每个字符所属逻辑行序号
+    in_quote = _QUOTE_NONE
+    escaped = False
+    line_index = 0
+    index = 0
+    length = len(text)
+    while index < length:
+        char = text[index]
+        if in_quote == _QUOTE_SINGLE:
+            if char == "\n" or char == "\r":
+                # 单引号内换行是字面值，保留在行内。
+                if char == "\r" and index + 1 < length and text[index + 1] == "\n":
+                    index += 1
+                    out.append("\r")
+                    marks.append(_MARK_QUOTED)
+                    line_marks.append(line_index)
+                out.append("\n")
+                marks.append(_MARK_QUOTED)
+                line_marks.append(line_index)
+            else:
+                out.append(char)
+                marks.append(_MARK_QUOTED)
+                line_marks.append(line_index)
+                if char == "'":
+                    in_quote = _QUOTE_NONE
+        elif in_quote == _QUOTE_DOUBLE:
+            if escaped:
+                if char == "\n" or char == "\r":
+                    # 双引号内续行：\<newline> 原样删除，不产字符。
+                    if char == "\r" and index + 1 < length and text[index + 1] == "\n":
+                        index += 1
+                elif char in _DOUBLE_QUOTE_ESCAPABLE:
+                    # 双引号内可转义序列 ``\X``：重编码为 ``\\`` + ``\X``，
+                    # 使下游 shlex 只解码一次后 token 仍保留原始 ``\X``
+                    # 字面（源证据不改写）；``\"`` 不会成为引号边界。
+                    for piece in ("\\", "\\", "\\", char):
+                        out.append(piece)
+                        marks.append(_MARK_QUOTED)
+                        line_marks.append(line_index)
+                else:
+                    # 双引号内不可转义序列 ``\X`` 在 shell 中按字面保留；
+                    # ``\X`` 原样输出，shlex 解码一次后仍是 ``\X``。
+                    out.append("\\")
+                    marks.append(_MARK_QUOTED)
+                    line_marks.append(line_index)
+                    out.append(char)
+                    marks.append(_MARK_QUOTED)
+                    line_marks.append(line_index)
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_quote = _QUOTE_NONE
+                out.append(char)
+                marks.append(_MARK_QUOTED)
+                line_marks.append(line_index)
+            elif char == "\n" or char == "\r":
+                # 双引号内换行是字面值，保留在行内。
+                if char == "\r" and index + 1 < length and text[index + 1] == "\n":
+                    index += 1
+                    out.append("\r")
+                    marks.append(_MARK_QUOTED)
+                    line_marks.append(line_index)
+                out.append("\n")
+                marks.append(_MARK_QUOTED)
+                line_marks.append(line_index)
+            else:
+                out.append(char)
+                marks.append(_MARK_QUOTED)
+                line_marks.append(line_index)
+        else:
+            if char == "'":
+                in_quote = _QUOTE_SINGLE
+                out.append(char)
+                marks.append(_MARK_LITERAL)
+                line_marks.append(line_index)
+            elif char == '"':
+                in_quote = _QUOTE_DOUBLE
+                out.append(char)
+                marks.append(_MARK_LITERAL)
+                line_marks.append(line_index)
+            elif char == "\\" and index + 1 < length:
+                nxt = text[index + 1]
+                if nxt == "\n" or nxt == "\r":
+                    # 未引用区域续行：按 shell 语义原样删除，不加空格。
+                    index += 1
+                    if nxt == "\r" and index + 1 < length and text[index + 1] == "\n":
+                        index += 1
+                else:
+                    # 转义字符（\' \" \; \\ \$ \` 等）：两字都是字面值，
+                    # 不改变 quote 状态、不构成命令边界；标 QUOTED 避免
+                    # 被当作字面分隔符或结构起点。
+                    out.append(char)
+                    marks.append(_MARK_QUOTED)
+                    line_marks.append(line_index)
+                    index += 1
+                    out.append(nxt)
+                    marks.append(_MARK_QUOTED)
+                    line_marks.append(line_index)
+            elif char == "\n" or char == "\r":
+                # 字面换行：逻辑行切分点。
+                if char == "\r" and index + 1 < length and text[index + 1] == "\n":
+                    index += 1
+                    out.append("\r")
+                    marks.append(_MARK_LITERAL)
+                    line_marks.append(line_index)
+                out.append("\n")
+                marks.append(_MARK_LITERAL)
+                line_marks.append(line_index)
+                line_index += 1
+            else:
+                out.append(char)
+                marks.append(_MARK_LITERAL)
+                line_marks.append(line_index)
+        index += 1
+    if escaped:
+        out.append("\\")
+        marks.append(_MARK_LITERAL)
+        line_marks.append(line_index)
+
+    # 切分逻辑行并记录行内结构标记（字面换行/引号内换行已处理）。
+    lines: list[tuple[str, list[int]]] = []
+    current: list[str] = []
+    current_marks: list[int] = []
+    seen = -1
+    for position, mark in enumerate(line_marks):
+        if mark != seen and current:
+            lines.append(("".join(current), current_marks))
+            current = []
+            current_marks = []
+        seen = mark
+        current.append(out[position])
+        current_marks.append(marks[position])
+    if current:
+        lines.append(("".join(current), current_marks))
+
+    # 对每个逻辑行做最小结构标注：不配对、不展开、不解释嵌套，
+    # 仅保证一旦发现不支持语法，整段标结构后绝不进入。控制关键字
+    # 是跨行结构：一旦出现，同一 pre 块内其后所有逻辑行全部保守
+    # 标为结构（不做配对，也不尝试恢复）。
+    scanned: list[tuple[str, list[int]]] = []
+    poisoned = False
+    for line, mark in lines:
+        new_marks, has_control = _scan_line_structures(line, mark)
+        if poisoned:
+            new_marks = [_MARK_STRUCTURAL] * len(line)
+        elif has_control:
+            poisoned = True
+        scanned.append((line, new_marks))
+
+    # 跨行结构合并：here-doc 标记行使后续物理行成为结构正文；
+    # 凡以结构标记开头的物理行，追加到最近一条含结构段的逻辑行，
+    # 绝不冒充独立命令。
+    result: list[tuple[str, list[int]]] = []
+    i = 0
+    while i < len(scanned):
+        line, mark = scanned[i]
+        if mark and mark[0] == _MARK_STRUCTURAL and result:
+            prev_line, prev_mark = result[-1]
+            result[-1] = (
+                prev_line + "\n" + line,
+                prev_mark + [_MARK_STRUCTURAL] + list(mark),
+            )
+            i += 1
+            continue
+        # 若本行含 here-doc 标记（``<<`` 且结构标记），把后续所有物理
+        # 行并回本行：here-doc 正文与定界符都是数据，不是命令。
+        heredoc_start = line.find("<<")
+        if heredoc_start >= 0 and any(
+            m == _MARK_STRUCTURAL for m in mark[heredoc_start : heredoc_start + 2]
+        ):
+            merged_line = line
+            merged_mark = list(mark)
+            i += 1
+            while i < len(scanned):
+                next_line, next_mark = scanned[i]
+                merged_line += "\n" + next_line
+                merged_mark += [_MARK_STRUCTURAL] + list(next_mark)
+                i += 1
+            result.append((merged_line, merged_mark))
+            continue
+        result.append((line, mark))
+        i += 1
+    return result
+
+
+def _scan_line_structures(line: str, mark: list[int]) -> tuple[list[int], bool]:
+    """对单行做最小结构标注：不支持语法出现时整段标记。
+
+    返回 ``(与原 ``mark`` 等长的新掩码, 是否发现命令位置上的控制关键字)``。
+    仅做三件事：
+    1. 把 here-doc 标记 ``<<[-] delim`` 标为结构；
+    2. 把 ``$(``/`` ` `` 替换、``( ) { }`` 命令组、``<`` ``>`` 重定向、
+       命令位置上的控制关键字标为结构；
+    3. 保证 ``while`` 循环每轮都推进 ``index`` 或结束。
+
+    控制关键字是跨行结构：本函数只上报 ``has_control``，由调用方把同一
+    pre 块内其后的逻辑行一并保守标为结构；这里不做配对、不做解释。
+    """
+    marks = list(mark)
+    length = len(line)
+    index = 0
+    command_start = True  # 位于段首（命令位置），用于关键字与 $ 提示符
+    has_control = False
+    while index < length:
+        if marks[index] != _MARK_LITERAL:
+            index += 1
+            continue
+        char = line[index]
+        if char == "\n" or char in _COMMAND_SEPARATORS:
+            command_start = True
+            index += 1
+            continue
+        if char.isspace():
+            index += 1
+            continue
+        # 非空白字面字符：识别结构标记，然后推进到本 token 末尾。
+        if char == "#" and (command_start or line[index - 1].isspace()):
+            # ``#`` 在命令位置或空白后是行注释开始，标到行尾。
+            # URI 中的 ``#``（如 ``/api#frag``）前面是 ``/``，不是注释。
+            end = line.find("\n", index)
+            end = length if end < 0 else end
+            for position in range(index, end):
+                marks[position] = _MARK_STRUCTURAL
+            index = end
+            continue
+        if char == "<" and index + 1 < length and line[index + 1] == "<":
+            match = _HEREDOC_MARKER_RE.match(line, index)
+            if match:
+                for position in range(index, match.end()):
+                    marks[position] = _MARK_STRUCTURAL
+                # here-doc 正文/定界符行都是结构；标到本逻辑行尾。
+                for position in range(index, length):
+                    marks[position] = _MARK_STRUCTURAL
+                index = length
+                continue
+        if char == "$" and index + 1 < length and line[index + 1] == "(":
+            # ``$(`` 是命令替换：标结构。普通 ``$``/``user@host$`` 提示符
+            # 保持字面，交给下游 ``endswith("$")`` 提示符剥离处理。
+            marks[index] = _MARK_STRUCTURAL
+            index += 1
+            continue
+        if char in "`()!<>":
+            marks[index] = _MARK_STRUCTURAL
+            index += 1
+            command_start = False
+            continue
+        # 普通字面 token：推进到 token 末尾（未引用字符），看是否控制关键字。
+        # ``{``/``}`` 不作为 token 边界：URI 中的 ``{name}`` 是合法模板，
+        # 不是 ``{ cmd; }`` 命令组。
+        start = index
+        while index < length:
+            if marks[index] != _MARK_LITERAL:
+                break
+            c = line[index]
+            if c.isspace() or c in _COMMAND_SEPARATORS or c in "`()!<>":
+                break
+            index += 1
+        word = line[start:index]
+        # 只有当 ``{``/``}`` 是独立语法 token（前后是空白/分隔符/行首）
+        # 时才按命令组处理；URI 中的 ``{name}`` 是 token 的一部分。
+        if word in ("{", "}"):
+            for position in range(start, index):
+                marks[position] = _MARK_STRUCTURAL
+            command_start = False
+            continue
+        if command_start and word in {
+            "if",
+            "then",
+            "else",
+            "elif",
+            "fi",
+            "for",
+            "while",
+            "until",
+            "do",
+            "done",
+            "case",
+            "esac",
+            "select",
+            "time",
+            "coproc",
+        }:
+            # 控制结构：整段保守拒绝，不配对、不进入；并上报给调用方，
+            # 让同一 pre 块内其后的逻辑行一并按结构处理。
+            has_control = True
+            for position in range(start, length):
+                marks[position] = _MARK_STRUCTURAL
+            index = length
+        if word:
+            command_start = False
+    return marks, has_control
+
+
+def _split_commands(line: str, mark: list[int]) -> tuple[list[str], list[bool]]:
+    """按掩码把逻辑行切成命令段，并标记各段是否含不支持的结构。
+
+    仅在字面区域识别命令边界（``;``、``&&``、``||``、``&``、``|``）；
+    结构字符、注释、here-doc 标记都已由掩码标出，不再按 token 值猜
+    边界。返回 ``(段文本列表, 各段是否含结构标记)``；含结构标记的段
+    不提取示例，由调用方保留为不可解析证据。
+    """
+    commands: list[str] = []
+    flags: list[bool] = []
+    current: list[str] = []
+    current_structural = False
+    index = 0
+    length = len(line)
+
+    def flush() -> None:
+        nonlocal current, current_structural
+        text = "".join(current).strip()
+        if text:
+            commands.append(text)
+            flags.append(current_structural)
+        current = []
+        current_structural = False
+
+    while index < length:
+        char = line[index]
+        if mark[index] != _MARK_LITERAL:
+            current.append(char)
+            if mark[index] == _MARK_STRUCTURAL:
+                current_structural = True
+            index += 1
+            continue
+        if char == ";":
+            flush()
+            index += 1
+            continue
+        if char in "&|":
+            flush()
+            index += 2 if index + 1 < length and line[index + 1] == char else 1
+            continue
+        current.append(char)
+        index += 1
+    flush()
+    return commands, flags
+
+
 def _extract_block_examples(
     pre: Tag,
     indices: dict[int, int],
     section_title: str,
     section_index: int | None,
 ) -> list[dict[str, Any]]:
-    """仅从 pre 代码块提取示例：行首 curl 命令与严格 METHOD target HTTP/1.x 行。"""
+    """仅从 pre 代码块提取示例：行首 curl 命令与严格 METHOD target HTTP/1.x 行。
+
+    命令边界在去引号前、仍保留 quote/escape 出处的阶段区分；含
+    here-doc/命令替换/控制结构/重定向/花括号命令组的段保守保留为
+    ``unparsed_curl`` 证据，不从内部虚构可用示例。URI 中的 ``{name}``
+    模板是合法目标，不据此拒绝。
+    """
     text = pre.get_text()
-    logical = text.replace("\\\r\n", " ").replace("\\\n", " ").replace("\\\r", " ")
     block_index = indices.get(id(pre))
+    lines = _scan_logical_lines(text)
+    # 证据文本用原始 ``pre`` 文本，不用去引号后的解析视图。
+    evidence_text = _norm_text(text)
     out: list[dict[str, Any]] = []
-    for line in logical.split("\n"):
-        stripped = line.strip()
-        if not stripped:
+    for line, mark in lines:
+        if not line.strip():
             continue
-        request = _REQUEST_LINE_RE.fullmatch(stripped)
-        if request:
-            example = _example_candidate(section_title, section_index, block_index, stripped)
+        # HTTP request-line 先按 HTTP 语法识别：整行是
+        # ``METHOD target HTTP/1.x`` 时，target 里的 ``&``/``;`` 等是
+        # query 字面值，不是 shell 命令边界。仅当整行（去首尾空白）无
+        # 结构掩码时成立，避免结构段里的同形文本冒充请求行。
+        stripped_line = line.strip()
+        lead = len(line) - len(line.lstrip())
+        request = _REQUEST_LINE_RE.fullmatch(stripped_line)
+        if request and all(
+            char_mark == _MARK_LITERAL for char_mark in mark[lead : lead + len(stripped_line)]
+        ):
+            example = _example_candidate(section_title, section_index, block_index, stripped_line)
             example["method"] = request.group(1)
             example["raw_method"] = request.group(1)
             _apply_address(example, request.group(2))
             out.append(example)
             continue
-        try:
-            tokens = shlex.split(stripped)
-        except ValueError:
-            tokens = None
-        if tokens is None:
-            # 引号不配平等无法分词：仅当行首（可含 $ 提示符）是 curl 时
-            # 给出不可解析候选，不从残缺文本猜测方法或地址。
-            probe = stripped[1:].lstrip() if stripped.startswith("$") else stripped
-            head = probe.split(None, 1)[0] if probe else ""
-            if head.rsplit("/", 1)[-1] == "curl":
-                example = _example_candidate(
-                    section_title, section_index, block_index, _norm_text(stripped)
-                )
-                example["reasons"].append("unparsed_curl")
-                _apply_address(example, None)
-                out.append(example)
-            continue
-        segments: list[list[str]] = [[]]
-        for token in tokens:
-            if token in _CURL_SEPARATORS:
-                segments.append([])
-            else:
-                segments[-1].append(token)
-        if segments[0] and segments[0][0].endswith("$"):
-            # 可选 shell 提示符（$、user@host$ 之类），仅出现在行首。
-            segments[0] = segments[0][1:]
-        for command in segments:
-            if not command:
+        commands, flags = _split_commands(line, mark)
+        for command, has_structural in zip(commands, flags, strict=True):
+            stripped = command.strip()
+            if not stripped:
                 continue
-            if command[0].rsplit("/", 1)[-1] != "curl":
+            if has_structural:
+                # 含 here-doc/替换/控制结构/重定向/花括号组的段：
+                # 不从中提取示例；若段首是 curl 则保留一条不可解析
+                # 证据，其余结构段静默。
+                head = stripped.split(None, 1)[0] if stripped else ""
+                if head.rsplit("/", 1)[-1] == "curl":
+                    example = _example_candidate(
+                        section_title, section_index, block_index, evidence_text
+                    )
+                    example["reasons"].append("unparsed_curl")
+                    _apply_address(example, None)
+                    out.append(example)
+                continue
+            try:
+                tokens = shlex.split(stripped)
+            except ValueError:
+                tokens = None
+            if tokens is None:
+                # 引号不配平等无法分词：仅当行首（可含 $ 提示符）是 curl
+                # 时给出不可解析候选，不从残缺文本猜测方法或地址。
+                probe = stripped[1:].lstrip() if stripped.startswith("$") else stripped
+                head = probe.split(None, 1)[0] if probe else ""
+                if head.rsplit("/", 1)[-1] == "curl":
+                    example = _example_candidate(
+                        section_title, section_index, block_index, evidence_text
+                    )
+                    example["reasons"].append("unparsed_curl")
+                    _apply_address(example, None)
+                    out.append(example)
+                continue
+            if tokens and tokens[0].endswith("$"):
+                # 可选 shell 提示符（$、user@host$ 之类），仅出现在段首。
+                tokens = tokens[1:]
+            if not tokens:
+                continue
+            if tokens[0].rsplit("/", 1)[-1] != "curl":
                 # 忽略嵌于字符串/其他文本等非命令起始位置的 curl。
                 continue
             out.append(
-                _curl_example(
-                    command[1:], section_title, section_index, block_index, _norm_text(stripped)
-                )
+                _curl_example(tokens[1:], section_title, section_index, block_index, evidence_text)
             )
     return out
 

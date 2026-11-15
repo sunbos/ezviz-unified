@@ -34,7 +34,7 @@ python -m tools.documents.endpoint_inventory --input data/official-docs/2026-11-
 python -m tools.documents.endpoint_inventory --input data/official-docs/2026-11-14 --contracts contracts/reviewed-transport-contracts.json --summary-only
 ```
 
-第一条命令输出完整 JSON，可重定向到 `data/reports/2026-11-15-http-endpoint-inventory.json`；完整报告按忽略文件处理，不提交仓库。`--summary-only` 只输出汇总。输出区分 `declarations` 与 `examples`；与已审核契约核对时按来源身份、URL、哈希、方法和路径精确匹配，同路由条目只作线索。候选不宣称完整覆盖，也未做实时验证。
+第一条命令输出完整 JSON，可重定向到 `data/reports/2026-11-15-http-endpoint-inventory.json`；完整报告按忽略文件处理，不提交仓库。`--summary-only` 只输出汇总。输出区分 `declarations` 与 `examples`；与已审核契约核对时按来源身份、URL、哈希、方法和路径精确匹配，路径模板仅允许整段 ASCII `{name}` 形式逐字比对（不展开为设备取值），同路由条目只作线索。候选不宣称完整覆盖，也未做实时验证。
 
 ## SDK 参考库
 

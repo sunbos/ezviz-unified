@@ -62,7 +62,7 @@ ADDRESS_ONLY = "<h2>Lonely</h2><ul><li>请求地址</li></ul><p><code>/api/lonel
 NO_DECL = '<h2>Guide</h2><p><a href="https://open.ys7.com/help/1">doc link</a></p>'
 TEMPLATE_OP = (
     "<h3>T</h3><ul>"
-    "<li><p>Request Address</p><p><code>{areaDomain}/api/t</code></p></li>"
+    "<li><p>Request Address</p><p><code>{areaDomain}/api/t/{deviceSerial}</code></p></li>"
     "<li><p>Request Method</p><p><code>POST</code></p></li></ul>"
 )
 
@@ -643,6 +643,8 @@ def test_unrecovered_contract_on_url_or_hash_drift(tmp_path):
 
 
 def test_registry_cannot_complete_template_or_ambiguous_routes(tmp_path):
+    """Registry data never fills a declaration, but a canonical whole-segment
+    ``{name}`` path template now joins a reviewed contract verbatim."""
     root = tmp_path / "archive"
     raw = write_raw(root, "raw/1.json", TEMPLATE_OP)
     write_catalog(
@@ -658,14 +660,40 @@ def test_registry_cannot_complete_template_or_ambiguous_routes(tmp_path):
                 url="https://open.ys7.com/help/en/1",
                 content_sha256=raw["content_sha256"],
                 method="POST",
+                path="/api/t/{deviceSerial}",
+            ),
+            contract(
+                "op-other",
+                "overseas",
+                "1",
+                url="https://open.ys7.com/help/en/1",
+                content_sha256=raw["content_sha256"],
+                method="POST",
                 path="/api/other",
+            ),
+            contract(
+                "op-inst",
+                "overseas",
+                "1",
+                url="https://open.ys7.com/help/en/1",
+                content_sha256=raw["content_sha256"],
+                method="POST",
+                path="/api/t/L12345678",
             ),
         ],
     )
     out = build_inventory(root, contracts_path=cpath)
     decl = out["documents"][0]["declarations"][0]
-    assert decl["reviewed_operation_ids"] == []
-    assert decl["path"] == "/api/t" and decl["host"] == "{areaDomain}"
+    # Identical template literals join; registry guesses and instantiated
+    # device values never complete the declaration.
+    assert decl["reviewed_operation_ids"] == ["op-t"]
+    assert decl["path"] == "/api/t/{deviceSerial}" and decl["host"] == "{areaDomain}"
+    assert "templated_path" in decl["reasons"]
+    reasons = {u["operation_id"]: u["reason"] for u in out["unrecovered_reviewed"]}
+    assert reasons == {
+        "op-other": "no_matching_declaration",
+        "op-inst": "no_matching_declaration",
+    }
 
 
 def test_bad_contracts_rejected(tmp_path):

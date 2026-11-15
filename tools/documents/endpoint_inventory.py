@@ -68,6 +68,8 @@ HTTP_METHODS = frozenset(
 
 _DIGITS = re.compile(r"[0-9]+")
 _SHA256 = re.compile(r"[0-9a-f]{64}")
+_PLACEHOLDER = re.compile(r"\{[A-Za-z_][A-Za-z0-9_]*\}")
+_ENCODED_DOT = re.compile(r"%2e", re.IGNORECASE)
 _MISSING = object()
 
 LIMITATIONS = [
@@ -75,7 +77,7 @@ LIMITATIONS = [
     "counts are document/candidate/link counts, not API totals or SDK coverage",
     "a document with zero declarations may still describe interfaces this parser did not observe",
     "static SDK references, attachments, and files not listed in catalog.json are outside the scanned corpus",
-    "links are exact source joins over declared pairs only; declarations with fragments, queries, userinfo, or path templates are ineligible and registry data never completes a declaration",
+    "links are exact source joins over declared pairs only; declarations with fragments, queries, or userinfo are ineligible, path templates join only as canonical whole-segment ASCII {name} forms compared verbatim (never expanded to device values), and registry data never completes a declaration",
     "same_route_operation_ids values are informational route hints only, not reviewed support",
     "unrecovered reviewed contracts are listed with explicit reasons instead of blocking the scan, and no candidate rows are fabricated",
     "the final hash recheck detects input drift during the run; it does not provide an atomic snapshot or OS-level isolation",
@@ -367,11 +369,35 @@ def _source_reason(contract, records):
     return None
 
 
+def _canonical_template(path):
+    """Whole-segment ASCII ``{name}`` placeholders only, compared verbatim.
+
+    Every segment containing a brace must be exactly ``{name}`` with an
+    ASCII identifier name; repeated names are legal. Static ``.``/``..``
+    segments and their percent-encoded forms are rejected. Nothing is
+    expanded, unquoted, case-folded, or slash-collapsed, and a canonical
+    template is still only a declaration string, never a callable marker.
+    """
+    for segment in path.split("/"):
+        if "{" in segment or "}" in segment:
+            if _PLACEHOLDER.fullmatch(segment) is None:
+                return False
+        elif _ENCODED_DOT.sub(".", segment) in (".", ".."):
+            return False
+    return True
+
+
 def _exact_eligible(path):
-    # A templated host with a literal path (e.g. overseas 485) stays
-    # eligible; path templates, queries, fragments, and userinfo can never
-    # join exactly.
-    return not any(ch in path for ch in "{}?#@")
+    # Queries, fragments, and userinfo markers can never join exactly. A
+    # templated host with a literal path (e.g. overseas 485) stays
+    # eligible, as do fixed literal paths with their historical behavior.
+    # Braced paths are eligible only as canonical whole-segment {name}
+    # templates matched verbatim; malformed templates stay ineligible.
+    if any(ch in path for ch in "?#@"):
+        return False
+    if "{" in path or "}" in path:
+        return _canonical_template(path)
+    return True
 
 
 def _linked(declaration, entry, doc_id, strict_index, route_index):

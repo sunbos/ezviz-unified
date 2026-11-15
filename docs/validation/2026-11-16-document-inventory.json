@@ -1,0 +1,43 @@
+{
+  "inventory": {
+    "documents": 2269,
+    "archived_documents": 2221,
+    "source_unavailable_documents": 48,
+    "documents_with_declarations": 1438,
+    "declarations": 1529,
+    "paired_declarations": 1483,
+    "unresolved_declarations": 46,
+    "examples": 1490,
+    "matched_reviewed_contracts": 201,
+    "unrecovered_reviewed_contracts": 2
+  },
+  "selected_documents": 996,
+  "selected_statuses": {
+    "scanned": 987,
+    "source_unavailable": 9
+  },
+  "selected_examples": 882,
+  "selected_unparsed_curl": 0,
+  "selected_invalid_address": 21,
+  "elapsed_seconds": 41.598,
+  "parser_sha256": "18647cacb39b0a1fab11e10c4417c949da471442e1b258687cdeab0c6b27b1d1",
+  "fresh_catalog_sha256": "c88b351e8495cd8b4ae389096f3ecf7535aeb34e64760ddbc2400b736ff3baeb",
+  "full_report_sha256": "d41a9ea48eb58f21bae18871fe3596ac654149e4218230540363073fcf0b5ecf",
+  "evidence": "verified_archive_and_offline_parser_observations_only",
+  "source_snapshot": "data/official-docs/2026-11-16-main",
+  "previous_source_snapshot": "data/official-docs/2026-11-14",
+  "sdk_contract_count": 203,
+  "component_before": {
+    "documents": 996,
+    "examples": 882,
+    "unparsed_curl": 141,
+    "invalid_address_observations": 161
+  },
+  "limitations": [
+    "Document/candidate counts are not API totals or SDK coverage.",
+    "48 primary source records still have no body; 9 are in the selected component corpus.",
+    "21 invalid-address observations are unresolved parser/source observations, not a count of broken vendor APIs.",
+    "Static SDK reference pages and assets were not refreshed.",
+    "No business API or physical device was tested in this batch."
+  ]
+}
