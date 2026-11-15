@@ -2407,6 +2407,123 @@
       "public_entry": "cloud_recording.create_instant_plan",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.otap.get_property",
+      "region": "domestic",
+      "source_doc_id": "1512",
+      "module": "src/ezviz_unified/otap.py",
+      "symbols": [
+        "Otap.get_property",
+        "AsyncOtap.get_property"
+      ],
+      "public_entry": "otap.get_property",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.otap.set_property",
+      "region": "domestic",
+      "source_doc_id": "1513",
+      "module": "src/ezviz_unified/otap.py",
+      "symbols": [
+        "Otap.set_property",
+        "AsyncOtap.set_property"
+      ],
+      "public_entry": "otap.set_property",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.otap.invoke_action",
+      "region": "domestic",
+      "source_doc_id": "1514",
+      "module": "src/ezviz_unified/otap.py",
+      "symbols": [
+        "Otap.invoke_action",
+        "AsyncOtap.invoke_action"
+      ],
+      "public_entry": "otap.invoke_action",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.otap.latest_property",
+      "region": "domestic",
+      "source_doc_id": "5891",
+      "module": "src/ezviz_unified/otap.py",
+      "symbols": [
+        "Otap.latest_property",
+        "AsyncOtap.latest_property"
+      ],
+      "public_entry": "otap.latest_property",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.delegation.apply_code",
+      "region": "domestic",
+      "source_doc_id": "1890",
+      "module": "src/ezviz_unified/delegation.py",
+      "symbols": [
+        "Delegation.apply_code",
+        "AsyncDelegation.apply_code"
+      ],
+      "public_entry": "delegation.apply_code",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.delegation.authorize_account",
+      "region": "domestic",
+      "source_doc_id": "1891",
+      "module": "src/ezviz_unified/delegation.py",
+      "symbols": [
+        "Delegation.authorize_account",
+        "AsyncDelegation.authorize_account"
+      ],
+      "public_entry": "delegation.authorize_account",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.delegation.list_resources",
+      "region": "domestic",
+      "source_doc_id": "1892",
+      "module": "src/ezviz_unified/delegation.py",
+      "symbols": [
+        "Delegation.list_resources",
+        "AsyncDelegation.list_resources"
+      ],
+      "public_entry": "delegation.list_resources",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.delegation.authorize_device",
+      "region": "domestic",
+      "source_doc_id": "1893",
+      "module": "src/ezviz_unified/delegation.py",
+      "symbols": [
+        "Delegation.authorize_device",
+        "AsyncDelegation.authorize_device"
+      ],
+      "public_entry": "delegation.authorize_device",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.delegation.relieve_device",
+      "region": "domestic",
+      "source_doc_id": "1894",
+      "module": "src/ezviz_unified/delegation.py",
+      "symbols": [
+        "Delegation.relieve_device",
+        "AsyncDelegation.relieve_device"
+      ],
+      "public_entry": "delegation.relieve_device",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

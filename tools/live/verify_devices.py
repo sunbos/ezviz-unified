@@ -16,6 +16,7 @@ from urllib.parse import parse_qs
 import httpx
 
 from ezviz_unified import Client, EzvizError, RegionConfig
+from ezviz_unified.inspection import inspect_device
 
 _READ_ROUTES = frozenset(
     {
@@ -43,6 +44,9 @@ _CAPABILITY_FLAGS = (
     "ptz_left_right",
     "ptz_center_mirror",
 )
+
+_DEFAULT_SCOPE = "bounded_readonly_request_and_response_shape_check"
+_INSPECTION_SCOPE = "bounded_readonly_inspection_policy_check"
 
 
 class _ReadOnlyTransport(httpx.BaseTransport):
@@ -138,7 +142,9 @@ def _public_receipt(report: dict[str, object]) -> dict[str, object]:
             public["reason"] = "not_selected_for_this_probe"
         rows.append(public)
     result["results"] = rows
-    result["validation_scope"] = "bounded_readonly_request_and_response_shape_check"
+    result["validation_scope"] = (
+        _INSPECTION_SCOPE if report.get("validation_scope") == _INSPECTION_SCOPE else _DEFAULT_SCOPE
+    )
     return result
 
 
@@ -149,6 +155,9 @@ def verify(config: dict[str, str]) -> dict[str, object]:
     include_managed = config.get("include_managed") == "true"
     include_diagnostics = config.get("include_diagnostics") == "true"
     protocol_only = config.get("protocol_only") == "true"
+    inspection = config.get("inspection") == "true"
+    if inspection and (include_managed or include_diagnostics or protocol_only):
+        raise ValueError("inspection profile cannot combine with other probe options")
     if protocol_only and (include_managed or include_diagnostics or scope != "domestic"):
         raise ValueError("protocol probe requires domestic scope without managed inventory")
     if include_managed and scope != "domestic":
@@ -170,6 +179,8 @@ def verify(config: dict[str, str]) -> dict[str, object]:
         "read_only": True,
         "results": results,
     }
+    if inspection:
+        report["validation_scope"] = _INSPECTION_SCOPE
 
     def transport(origin: str) -> httpx.BaseTransport:
         origins.append(origin)
@@ -251,6 +262,33 @@ def verify(config: dict[str, str]) -> dict[str, object]:
                     )
             except EzvizError as exc:
                 record_error("devices.list_managed", exc)
+        if inspection:
+            serial = rows[0].get("deviceSerial") if rows and isinstance(rows[0], dict) else None
+            if not isinstance(serial, str) or not serial.strip():
+                reason = "no_device" if not rows else "missing_device_serial"
+                results.append(
+                    {
+                        "operation": "inspect_device",
+                        "status": "not_verified",
+                        "reason": reason,
+                    }
+                )
+                return report
+            try:
+                outcome = inspect_device(client, serial, channel=1)
+            except EzvizError as exc:
+                record_error("inspect_device", exc)
+                return report
+            for row in outcome.public_summary()["results"]:
+                item: dict[str, object] = {
+                    "operation": row["operation"],
+                    "status": "passed" if row["status"] == "ok" else "failed",
+                }
+                for key in ("error_type", "code", "http_status"):
+                    if key in row:
+                        item[key] = row[key]
+                results.append(item)
+            return report
         serial = rows[0].get("deviceSerial") if rows and isinstance(rows[0], dict) else None
         if not isinstance(serial, str) or not serial.strip():
             reason = "no_device" if not rows else "missing_device_serial"
@@ -319,6 +357,7 @@ def serve(
     include_managed: bool = False,
     protocol_only: bool = False,
     include_diagnostics: bool = False,
+    inspection: bool = False,
 ) -> None:
     """Temporary loopback form lets authorized browser inputs reach the local SDK."""
     route = "/" + secrets.token_urlsafe(24)
@@ -355,6 +394,16 @@ def serve(
         )
         form = form.replace(
             "</form>", '<input type="hidden" name="include_diagnostics" value="true"></form>'
+        )
+    if inspection:
+        form = form.replace(
+            "<form",
+            "<p>检查模式：读取第一页设备后，仅对第一台设备依次执行信息、通道、状态、能力、版本"
+            "共五个只读逻辑调用（固定通道1），不做存储、媒体查询或任何写操作。</p><form",
+            1,
+        )
+        form = form.replace(
+            "</form>", '<input type="hidden" name="inspection" value="true"></form>'
         )
 
     class Handler(BaseHTTPRequestHandler):
@@ -419,17 +468,21 @@ if __name__ == "__main__":
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--include-managed", action="store_true")
     mode.add_argument("--protocol-only", action="store_true")
+    mode.add_argument("--inspection", action="store_true")
     parser.add_argument("--include-diagnostics", action="store_true")
     parser.add_argument("--output", type=Path, default=Path("docs/validation/live"))
     args = parser.parse_args()
     if args.protocol_only and args.include_diagnostics:
         parser.error("--protocol-only cannot be combined with --include-diagnostics")
+    if args.inspection and args.include_diagnostics:
+        parser.error("--inspection cannot be combined with --include-diagnostics")
     if args.serve:
         serve(
             args.output,
             include_managed=args.include_managed,
             protocol_only=args.protocol_only,
             include_diagnostics=args.include_diagnostics,
+            inspection=args.inspection,
         )
     else:
         try:
@@ -440,6 +493,8 @@ if __name__ == "__main__":
                 config["protocol_only"] = "true"
             if args.include_diagnostics:
                 config["include_diagnostics"] = "true"
+            if args.inspection:
+                config["inspection"] = "true"
             print(json.dumps(_public_receipt(verify(config)), ensure_ascii=False, indent=2))
         except Exception as error:
             print(json.dumps({"status": "stopped", "error_type": type(error).__name__}))

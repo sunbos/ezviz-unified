@@ -1,0 +1,3 @@
+# S022A 验收记录
+
+接受。OTAP模块40项同步/异步测试通过。独立复现候选的payload签名不符、MappingProxyType拒绝及Unicode异常链保留输入；Claude修订后按固定API接收位置payload、复制Mapping并清除异常链。区分v3与latest限制，不修改客户端超时，写请求不自动重放。

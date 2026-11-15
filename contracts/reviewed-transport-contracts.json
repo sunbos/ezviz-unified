@@ -12321,6 +12321,770 @@
         "streamType 默认值未明示（仅列 1主码流/2子码流）"
       ],
       "transport_evidence": "接口信息表：POST /api/service/cloudrecord/video/plan/instant，Content-Type application/json，accessToken 位于 Header；请求示例为 JSON 对象"
+    },
+    {
+      "operation_id": "cn.otap.get_property",
+      "region": "domestic",
+      "source_doc_id": "1512",
+      "source_url": "https://open.ys7.com/help/1512",
+      "source_content_sha256": "1bad35fd8e28dc911bbfbb6d38bbb9e4f906d2f0c87615e784d979be9c91d7dc",
+      "method": "GET",
+      "path": "/api/v3/device/otap/prop",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "localIndex",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "resourceCategory",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "domainIdentifier",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "propIdentifier",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response 示例 meta.code=200（整型）；data 为属性 JSON 对象，示例 {\"timeZone\":\"CST-08:00:00\"}"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "GET 无 query 与请求体；业务标识与 accessToken 均置于 Header",
+          "evidence": "Source 接口信息表与 curl 示例"
+        },
+        {
+          "fact": "data 为属性 JSON 结构，字段由产品属性报备定义",
+          "evidence": "Source 返回参数表与响应示例"
+        },
+        {
+          "fact": "查询语义为读取平台缓存的最新属性值，暂不支持直接向设备查询",
+          "evidence": "Source 接口说明与 doc 1307015"
+        }
+      ],
+      "uncertainties": [
+        "业务码→HTTP 状态映射未给出；不得套用 5891 的映射，HTTP 状态与 meta.code 不可混用",
+        "设备离线时行为未明：缓存语义与错误表 20007 设备不在线并存",
+        "localIndex 是否受 5891 明文格式约束（非负≤10位无前导零）未定义，v3 接口仅标 String 必选",
+        "resourceCategory/domainIdentifier/propIdentifier 可选枚举由产品开发控制台功能定义决定"
+      ],
+      "transport_evidence": "接口信息表：GET /api/v3/device/otap/prop；curl 示例 Header 携带 accessToken、deviceSerial、localIndex、resourceCategory、domainIdentifier、propIdentifier，无请求体"
+    },
+    {
+      "operation_id": "cn.otap.set_property",
+      "region": "domestic",
+      "source_doc_id": "1513",
+      "source_url": "https://open.ys7.com/help/1513",
+      "source_content_sha256": "675828789612e014aa2e259cb1b55ef5489dfe935b44fdd31077c7ce05440ea6",
+      "method": "PUT",
+      "path": "/api/v3/device/otap/prop",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "json",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "localIndex",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "resourceCategory",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "domainIdentifier",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "propIdentifier",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/json",
+          "evidence": "Source 参数表：请设置为 application/json"
+        }
+      ],
+      "request_body": {
+        "type": "object",
+        "required": true,
+        "evidence": "curl --data-raw 示例为裸 JSON 属性对象 '{\"timeZone\":\"CST-08:00:00\"}'；参数表仅将其标为 Body/String，无包装键、无固定属性 schema"
+      },
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response 示例 meta.code=200；源未声明 data 字段，未返回时 .data 为 None"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "请求体为裸 JSON 属性对象，不得包装为 {\"Body\": ...}",
+          "evidence": "Source 参数表（Body/String）与 --data-raw 裸 JSON 示例"
+        },
+        {
+          "fact": "Content-Type 必须设置为 application/json",
+          "evidence": "Source 参数表必选说明"
+        },
+        {
+          "fact": "设备生效后须自行上报新值，否则平台缓存仍为旧值",
+          "evidence": "doc 1307015 属性设置语义"
+        }
+      ],
+      "uncertainties": [
+        "成功示例 meta.code=200/\"Operation succeeded\" 却携带 moreInfo.msgDetail=\"param error : 设备不支持该功能\"；msgDetail 出现的确切条件未说明，既不能作为判失败依据也不能丢弃",
+        "纯成功响应是否含 data 字段未说明",
+        "业务码→HTTP 状态映射未给出；不得套用 5891 的映射",
+        "header propIdentifier=TimeZone 与 JSON 键 timeZone 的大小写映射规则未定义；示例值 CST-08:00:00 与 1514 的 CST-8:00:00 不一致",
+        "请求体根类型为 JSON 对象仅是示例形状与本地 SDK 约定；平台是否拒绝数组/标量等其他根类型未说明"
+      ],
+      "transport_evidence": "接口信息表：PUT /api/v3/device/otap/prop；curl 示例 Header 携带 accessToken 等六个必选 header 与 Content-Type: application/json，--data-raw 为裸 JSON 属性对象"
+    },
+    {
+      "operation_id": "cn.otap.invoke_action",
+      "region": "domestic",
+      "source_doc_id": "1514",
+      "source_url": "https://open.ys7.com/help/1514",
+      "source_content_sha256": "e3faff4599865dbc87f5d4dc02ca5295f94e022c0294d201cd188743584dcd76",
+      "method": "PUT",
+      "path": "/api/v3/device/otap/action",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "json",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "localIndex",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "resourceCategory",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "domainIdentifier",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table"
+        },
+        {
+          "name": "actionIdentifier",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（填写报备时的操作标识符）"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/json",
+          "evidence": "Source 参数表：请设置为 application/json"
+        }
+      ],
+      "request_body": {
+        "type": "object",
+        "required": true,
+        "evidence": "curl --data-raw 示例为裸 JSON 输入参数 '{\"timeZone\":\"CST-8:00:00\"}'；参数表仅将其标为 Body/String，无包装键、无固定参数 schema"
+      },
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "device_code_path": "meta.moreInfo.deviceMeta.code",
+        "device_message_path": "meta.moreInfo.deviceMeta.errorMsg",
+        "device_success_values": [
+          "0x00000000"
+        ],
+        "require_device_code": false,
+        "evidence": "Response 示例 meta.code=200 且 meta.moreInfo.deviceMeta.code=\"0x00000000\"（String 设备响应码）+errorMsg，data 为 {}；0x00000000 取值仅来自示例"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "请求体为裸 JSON 输入参数对象，不得包装为 {\"Body\": ...}",
+          "evidence": "Source 参数表与 --data-raw 示例"
+        },
+        {
+          "fact": "同步接口，平台最大等待 16 秒",
+          "evidence": "doc 1307015 服务调用说明"
+        },
+        {
+          "fact": "双层判定：meta.code 平台业务码 + meta.moreInfo.deviceMeta.code/errorMsg 设备层响应码",
+          "evidence": "Source 返回参数表与示例"
+        }
+      ],
+      "uncertainties": [
+        "deviceMeta 在失败/超时路径是否出现未说明；16 秒同步超时对应的具体错误码形态未给出",
+        "业务码→HTTP 状态映射未给出；不得套用 5891 的映射",
+        "header actionIdentifier 与 JSON 输入键的映射规则未定义；输入参数 schema 由产品报备定义",
+        "同族能力分属 /api/v3/... 与 /api/service/... 两个路径前缀，关系未说明",
+        "请求体根类型为 JSON 对象仅是示例形状与本地 SDK 约定；平台是否拒绝数组/标量等其他根类型未说明"
+      ],
+      "transport_evidence": "接口信息表：PUT /api/v3/device/otap/action；curl 示例 Header 携带 accessToken 等六个必选 header（actionIdentifier 替代 propIdentifier）与 Content-Type: application/json，--data-raw 为裸 JSON 对象"
+    },
+    {
+      "operation_id": "cn.otap.latest_property",
+      "region": "domestic",
+      "source_doc_id": "5891",
+      "source_url": "https://open.ys7.com/help/5891",
+      "source_content_sha256": "942f24cf8ec2428416efd12a7d250ad7a8234bca0e7b9d12f49c49b50f02d904",
+      "method": "GET",
+      "path": "/api/service/device/otap/prop/latest",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（须具有目标设备的读取权限）"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（实际序列号）"
+        },
+        {
+          "name": "localIndex",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（非负十进制整数，最多10位，除0外不得带前导零）"
+        },
+        {
+          "name": "resourceCategory",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（非空且长度<255）"
+        },
+        {
+          "name": "domainIdentifier",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（非空<255）"
+        },
+        {
+          "name": "propIdentifier",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（非空<255）"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response 示例 meta.code=200；data.desired 与 data.reported 各含 value 与 time"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "localIndex 为非负十进制整数，最多10位，除0外不得带前导零（例如 0、1）",
+          "evidence": "Source 参数表"
+        },
+        {
+          "fact": "resourceCategory/domainIdentifier/propIdentifier 非空且长度<255",
+          "evidence": "Source 参数表"
+        },
+        {
+          "fact": "data.desired 与 data.reported 各含 value（数字/布尔/字符串/对象/数组或 null）与 time（ISO 8601 含毫秒与时区偏移或 null）；任一侧无值时 value/time 均 null",
+          "evidence": "Source 返回参数表"
+        },
+        {
+          "fact": "设备离线时返回设备影子中保存的最后值，不向设备发起实时读取；desired/reported 不保证相等",
+          "evidence": "Source 接口说明"
+        },
+        {
+          "fact": "accessToken 须具有目标设备的读取权限",
+          "evidence": "Source 接口说明与参数表"
+        }
+      ],
+      "uncertainties": [
+        "20002 同时覆盖属性不存在与未查询到两种情形，无法在契约层区分",
+        "value 的具体类型与取值由产品报备定义，文档未枚举",
+        "10031 错误描述提及令牌类型是否支持，暗示存在令牌类型限制，具体类型清单未给出",
+        "唯一给出业务码→HTTP 状态映射的文档（10001→400、10002→401、10031/20018→403、20002→404、49999/50000→500），不得回推到 v3 接口"
+      ],
+      "transport_evidence": "接口信息表：GET /api/service/device/otap/prop/latest；参数全部位于 Header（accessToken、deviceSerial、localIndex、resourceCategory、domainIdentifier、propIdentifier），无请求体"
+    },
+    {
+      "operation_id": "cn.delegation.apply_code",
+      "region": "domestic",
+      "source_doc_id": "1890",
+      "source_url": "https://open.ys7.com/help/1890",
+      "source_content_sha256": "63907d4e023df781829e65b3b0ca5d9f195a90408148b37a734ada51f64786ce",
+      "method": "POST",
+      "path": "/api/v3/lapp/trust/sign/apply",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（B2账号的萤石开放API访问令牌）"
+        },
+        {
+          "name": "appKey",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（B1账号的appKey）"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response 示例 meta.code=200（整型）；data 含 sign（授权码，示例格式 appKey#hex#hex）与 appKey"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "accessToken 为 B2 账号令牌且置于 Header",
+          "evidence": "Source 参数表与 curl --header"
+        },
+        {
+          "fact": "form 仅传 appKey，为 B1 账号的 appKey",
+          "evidence": "Source 参数表与 curl -d"
+        },
+        {
+          "fact": "返回 data.sign 授权码与 data.appKey",
+          "evidence": "Source 返回参数表与示例"
+        },
+        {
+          "fact": "需平台人员后台开通，仅付费客户",
+          "evidence": "Source 接口说明"
+        }
+      ],
+      "uncertainties": [
+        "返回字段标注\"开发者B用户的应用key\"与入参\"B1账号的appKey\"指代歧义（示例返回值与入参同值）",
+        "sign 的有效期、是否单次使用、可否跨多次 resource 调用复用未说明",
+        "未开通或免费账号调用时的具体错误码未列出"
+      ],
+      "transport_evidence": "接口信息表：POST /api/v3/lapp/trust/sign/apply；curl 示例 Header 携带 accessToken，Content-Type: application/x-www-form-urlencoded，-d 传 appKey"
+    },
+    {
+      "operation_id": "cn.delegation.authorize_account",
+      "region": "domestic",
+      "source_doc_id": "1891",
+      "source_url": "https://open.ys7.com/help/1891",
+      "source_content_sha256": "9b81e19e604b606fe48050fe545781f1acc485cbc492f9017230ac256c98d1ee",
+      "method": "POST",
+      "path": "/api/v3/lapp/trust/sign/userAuthorize",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（B1账号的萤石开放API访问令牌）"
+        },
+        {
+          "name": "sign",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（授权码）"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response 示例 meta.code=200（整型）；data 为 Boolean 操作是否成功"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "accessToken 为 B1 账号令牌且置于 Header",
+          "evidence": "Source 参数表与 curl --header"
+        },
+        {
+          "fact": "form 仅传 sign 授权码",
+          "evidence": "Source 参数表与 curl -d"
+        },
+        {
+          "fact": "data 为 Boolean\"操作是否成功\"；meta.code=200 且 data=false 表示该次授权未被确认成功",
+          "evidence": "Source 返回参数表"
+        }
+      ],
+      "uncertainties": [
+        "sign 的有效期、是否单次使用未说明；userAuthorize 与 resource/* 的调用顺序约束未文档化",
+        "标题\"B1账户托管用户授权\"与正文\"B账户托管用户授权\"表述不一致",
+        "data=false 时的失败原因与是否伴随业务错误码未说明（meta.code 仍为 200，异常映射未定义）"
+      ],
+      "transport_evidence": "接口信息表：POST /api/v3/lapp/trust/sign/userAuthorize；curl 示例 Header 携带 accessToken，Content-Type: application/x-www-form-urlencoded，-d 传 sign"
+    },
+    {
+      "operation_id": "cn.delegation.list_resources",
+      "region": "domestic",
+      "source_doc_id": "1892",
+      "source_url": "https://open.ys7.com/help/1892",
+      "source_content_sha256": "7c340d64fcf5dd3244a68d125f4d0b7ead5683c7a5239961a180f22180f41988",
+      "method": "POST",
+      "path": "/api/v3/lapp/trust/sign/resource/list",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（B1账号令牌）"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table（可选 Header）"
+        },
+        {
+          "name": "sign",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（授权码）"
+        },
+        {
+          "name": "authorizeType",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table（托管类型，authorize:查询已托管）"
+        },
+        {
+          "name": "pageStart",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table（分页起始位置，默认0）"
+        },
+        {
+          "name": "pageSize",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "Hash-verified request parameter table（分页大小，默认10，最大20）"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response 示例 meta.code=200（整型）；data 为设备数组，含 deviceSerial/deviceName/isEncrypt/isPermission/isAble/deviceTagType/capturePic/cameraInfo"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "可选 deviceSerial 置于 Header 而非 form/query",
+          "evidence": "Source 参数表与 curl --header"
+        },
+        {
+          "fact": "pageStart 默认0、pageSize 默认10且最大20",
+          "evidence": "Source 参数表"
+        },
+        {
+          "fact": "响应 data 为扁平数组，无 total/hasMore 分页返回块；capturePic 可为 null",
+          "evidence": "Source 返回参数表与示例"
+        }
+      ],
+      "uncertainties": [
+        "authorizeType 除 \"authorize\" 外的取值、省略时是否返回全部资源未说明",
+        "pageStart/pageSize 下界未声明；pageSize>20 的行为未知；无分页返回块时如何判断还有下一页未定义",
+        "可选 Header deviceSerial 的过滤语义（是否限定单设备）未说明",
+        "cameraInfo 对无通道设备是空数组还是缺省未知；isEncrypt 粒度（设备/通道）未细分"
+      ],
+      "transport_evidence": "接口信息表：POST /api/v3/lapp/trust/sign/resource/list；curl 示例 Header 携带 accessToken 与可选 deviceSerial，Content-Type: application/x-www-form-urlencoded，-d 传 sign 及可选分页参数"
+    },
+    {
+      "operation_id": "cn.delegation.authorize_device",
+      "region": "domestic",
+      "source_doc_id": "1893",
+      "source_url": "https://open.ys7.com/help/1893",
+      "source_content_sha256": "400f30879c59f0d7bdd0da8c596d6e56ed510dfba2d9a6eee1811a89a83da19d",
+      "method": "POST",
+      "path": "/api/v3/lapp/trust/sign/resource/authorize",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（B1账号令牌）"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（Header 必传）"
+        },
+        {
+          "name": "localIndex",
+          "location": "header",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table（设备的局部资源标识，通道托管时必传）"
+        },
+        {
+          "name": "sign",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（授权码）"
+        },
+        {
+          "name": "state",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table（状态，可选）"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response 示例 meta.code=200（整型）；data 为 Boolean"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "deviceSerial 必置于 Header；localIndex 仅在通道托管时作为 Header 必传",
+          "evidence": "Source 参数表与 curl --header"
+        },
+        {
+          "fact": "form 含必填 sign 与可选 state",
+          "evidence": "Source 参数表与 curl --data-urlencode 'state=1'"
+        },
+        {
+          "fact": "授权凭证为 sign；与 1894 解绑要求 appKey+必填 state 不对称，属合同事实",
+          "evidence": "Source 参数表对比"
+        },
+        {
+          "fact": "data 为 Boolean\"操作是否成功\"，false 表示授权未被确认成功",
+          "evidence": "Source 返回参数表"
+        }
+      ],
+      "uncertainties": [
+        "state 取值枚举与语义未定义（仅标注\"状态\"，示例传1）",
+        "localIndex 的具体格式（通道号？字符串标识）未定义",
+        "data=false 时的失败原因与是否伴随业务错误码未说明（meta.code 仍为 200）"
+      ],
+      "transport_evidence": "接口信息表：POST /api/v3/lapp/trust/sign/resource/authorize；curl 示例 Header 携带 accessToken、deviceSerial（及可选 localIndex），Content-Type: application/x-www-form-urlencoded，form 传 sign 与可选 state"
+    },
+    {
+      "operation_id": "cn.delegation.relieve_device",
+      "region": "domestic",
+      "source_doc_id": "1894",
+      "source_url": "https://open.ys7.com/help/1894",
+      "source_content_sha256": "f67a83dead358fadfb8e86af1d4b064e2fca7382151158bd5da60df4acf08445",
+      "method": "POST",
+      "path": "/api/v3/lapp/trust/sign/resource/relieve",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（B1账号令牌）"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（Header 必传）"
+        },
+        {
+          "name": "localIndex",
+          "location": "header",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-verified request parameter table（设备的局部资源标识，通道解绑时必传）"
+        },
+        {
+          "name": "appKey",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（B2账号的appKey）"
+        },
+        {
+          "name": "state",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-verified request parameter table（状态，必填）"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Response 示例 meta.code=200（整型）；data 为 Boolean"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "deviceSerial 必置于 Header；localIndex 仅在通道解绑时作为 Header 必传",
+          "evidence": "Source 参数表与 curl --header"
+        },
+        {
+          "fact": "form 要求 B2 的 appKey 与必填 state；解绑用 appKey 而非 sign，与 1893 授权不对称属合同事实，不得假设解绑也接受 sign",
+          "evidence": "Source 参数表"
+        },
+        {
+          "fact": "错误码表仅列 200/10001/10002/50000，与其他托管文档不统一",
+          "evidence": "Source 返回码表"
+        },
+        {
+          "fact": "data 为 Boolean\"操作是否成功\"，false 表示解绑未被确认成功",
+          "evidence": "Source 返回参数表"
+        }
+      ],
+      "uncertainties": [
+        "state 语义未定义：1893 中可选、1894 中必填，示例值同为1，无法推断语义",
+        "relieve 粒度（按设备解除该 B2 全部托管，还是按通道/按 sign 粒度）未说明",
+        "localIndex 具体格式未定义",
+        "data=false 时的失败原因与是否伴随业务错误码未说明（meta.code 仍为 200）"
+      ],
+      "transport_evidence": "接口信息表：POST /api/v3/lapp/trust/sign/resource/relieve；curl 示例 Header 携带 accessToken、deviceSerial（及可选 localIndex），Content-Type: application/x-www-form-urlencoded，form 传 appKey 与必填 state"
     }
   ],
   "reviews": [

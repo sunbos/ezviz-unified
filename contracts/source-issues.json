@@ -596,6 +596,96 @@
       "description": "2046 的 onlyStopPreview 类型为 Boolean，但 curl 示例仅展示 oneOffPlanId，Boolean 在 application/x-www-form-urlencoded 中的序列化写法未明示。",
       "status": "unresolved_source_semantics",
       "sdk_handling": "only_stop_preview 非 None 时按小写字符串 'true'/'false' 序列化入表单；data 按可缺失字段读取，源未返回时为 None。"
+    },
+    {
+      "id": "cn.otap.device_meta_presence",
+      "region": "domestic",
+      "source_doc_id": "1514",
+      "source_url": "https://open.ys7.com/help/1514",
+      "source_content_sha256": "e3faff4599865dbc87f5d4dc02ca5295f94e022c0294d201cd188743584dcd76",
+      "description": "1514 双层成功判定 meta.code=200 与 meta.moreInfo.deviceMeta.code=\"0x00000000\"；\"0x00000000\" 取值仅来自示例，deviceMeta 在失败/超时路径是否出现、其他拼写形态均未说明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "策略声明 device_code_path=meta.moreInfo.deviceMeta.code、device_success_values=(\"0x00000000\",)、require_device_code=false；deviceMeta 存在且不等时暴露设备层错误，缺失时仅按 meta.code 判定，不补造设备层语义。"
+    },
+    {
+      "id": "cn.otap.msgdetail_conflict",
+      "region": "domestic",
+      "source_doc_id": "1513",
+      "source_url": "https://open.ys7.com/help/1513",
+      "source_content_sha256": "675828789612e014aa2e259cb1b55ef5489dfe935b44fdd31077c7ce05440ea6",
+      "description": "1513 成功示例 meta.code=200/\"Operation succeeded\" 却携带 meta.moreInfo.msgDetail=\"param error : 设备不支持该功能\"；业务码与附加详情语义不一致，msgDetail 出现的确切条件未说明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "仅按 meta.code 判定成功；moreInfo 原文保留于 .raw，不从 msgDetail 文本推断成功/失败，也不丢弃该字段。"
+    },
+    {
+      "id": "cn.otap.bounds_latest_vs_v3",
+      "region": "domestic",
+      "source_doc_id": "5891",
+      "source_url": "https://open.ys7.com/help/5891",
+      "source_content_sha256": "942f24cf8ec2428416efd12a7d250ad7a8234bca0e7b9d12f49c49b50f02d904",
+      "description": "localIndex 非负≤10位无前导零、标识符长度<255 仅 5891 明文；v3 接口（1512/1513/1514）仅标 String 必选、示例为 0/1，是否同约束未定义；且仅 5891 给出业务码→HTTP 状态映射。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "仅 latest_property 执行 5891 格式校验（拒绝 '01'/'-1'/超10位/长度≥255 标识符）；v3 三接口仅要求非空白，两套边界显式分离，不回推、不混用 HTTP 状态与业务码。"
+    },
+    {
+      "id": "cn.otap.sync_timeout_16s",
+      "region": "domestic",
+      "source_doc_id": "1307015",
+      "source_url": "https://open.ys7.com/help/1307015",
+      "source_content_sha256": "7750e0b73ce56d27dffbdae32f0ec6e044c56f934b82f345af94daa67929c5f3",
+      "description": "doc 1307015 说明服务调用同步执行、平台最大等待 16 秒；16 秒超时对应的具体错误码形态未给出，调用方是否等待满平台上限属本地取舍（SDK 默认 Client timeout 为 10 秒）。",
+      "status": "local_choice",
+      "sdk_handling": "门面不修改 Client 默认超时、不轮询、不自动重放写操作；需要完整等待的调用方显式设置 Client(timeout>16)，SDK 不代选超时值。"
+    },
+    {
+      "id": "cn.delegation.sign_lifecycle",
+      "region": "domestic",
+      "source_doc_id": "1890",
+      "source_url": "https://open.ys7.com/help/1890",
+      "source_content_sha256": "63907d4e023df781829e65b3b0ca5d9f195a90408148b37a734ada51f64786ce",
+      "description": "授权码 sign 的有效期、是否单次使用、可否跨多次 resource 调用复用、是否绑定特定 B1 appKey，以及 apply/userAuthorize/resource/* 之间的调用顺序约束均未文档化；文档未规定完整授权序列。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "每个门面方法对应一个逻辑端点、各发一次请求，不串联任何顺序；sign 由调用方显式传入并登记为敏感字段（脱敏不改原文），不解析其 appKey#hex#hex 格式、不缓存、不代签。"
+    },
+    {
+      "id": "cn.delegation.grant_revoke_asymmetry",
+      "region": "domestic",
+      "source_doc_id": "1894",
+      "source_url": "https://open.ys7.com/help/1894",
+      "source_content_sha256": "f67a83dead358fadfb8e86af1d4b064e2fca7382151158bd5da60df4acf08445",
+      "description": "授权（1893）form 必填 sign、state 可选；解绑（1894）不要求 sign 而要求 B2 的 appKey 与必填 state，示例均传 state=1；state 取值枚举与语义未定义，授权/解绑凭证不对称是合同事实。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "relieve_device 要求显式 recipient_app_key 与 state 非空白；不默认 state=1、不造枚举、不假设解绑接受 sign；通道授权/解绑的 local_index 由调用方显式提供。"
+    },
+    {
+      "id": "cn.delegation.paid_activation",
+      "region": "domestic",
+      "source_doc_id": "1890",
+      "source_url": "https://open.ys7.com/help/1890",
+      "source_content_sha256": "63907d4e023df781829e65b3b0ca5d9f195a90408148b37a734ada51f64786ce",
+      "description": "1890 接口说明：托管能力需平台人员后台开通且仅面向付费客户，属文档明确的前置条件而非语义歧义；未开通或免费账号调用时的具体错误码未列出，各文档错误码表亦不统一（1894 缺 10015/10005/40002）。",
+      "status": "documented_prerequisite",
+      "sdk_handling": "SDK 不激活服务、不计费、不预检账号资格；服务端返回码按信封原样判定并保留，不按未列出的码表猜测行为。"
+    },
+    {
+      "id": "cn.delegation.boolean_data_semantics",
+      "region": "domestic",
+      "source_doc_id": "1891",
+      "source_url": "https://open.ys7.com/help/1891",
+      "source_content_sha256": "9b81e19e604b606fe48050fe545781f1acc485cbc492f9017230ac256c98d1ee",
+      "description": "1891/1893/1894 的 data 为 Boolean\"操作是否成功\"；按文档 data=false 即操作未被确认成功，未知的仅是此时失败原因与异常/错误码映射（meta.code 仍为 200）。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "data 原样返回（含 false），不强制改写为 true；调用方须检查 data 判断操作是否成功，meta.code=200 不覆盖 data=false。"
+    },
+    {
+      "id": "cn.delegation.pagination_lower_bounds",
+      "region": "domestic",
+      "source_doc_id": "1892",
+      "source_url": "https://open.ys7.com/help/1892",
+      "source_content_sha256": "7c340d64fcf5dd3244a68d125f4d0b7ead5683c7a5239961a180f22180f41988",
+      "description": "pageSize 仅声明默认10、最大20；pageStart/pageSize 下界未声明，pageSize>20 的行为未知；响应 data 为扁平数组，无 total/hasMore 返回块，翻页终止条件未定义。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "仅校验严格 int（非 bool）与 page_size≤20 的文档上限；不把下界假设补成官方限制；参数为 None 时不发送以保留平台默认；不自动翻页。"
     }
   ]
 }

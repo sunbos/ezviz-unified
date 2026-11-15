@@ -4288,6 +4288,269 @@
         "planId": 88001,
         "planStatus": 2
       }
+    },
+    {
+      "operation_id": "cn.otap.get_property",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "resource_category": "EVAL_CATEGORY",
+        "local_index": "0",
+        "domain_identifier": "EVAL_DOMAIN",
+        "property_identifier": "EVAL_PROP"
+      },
+      "fields": {
+        "deviceSerial": "EV1234567",
+        "localIndex": "0",
+        "resourceCategory": "EVAL_CATEGORY",
+        "domainIdentifier": "EVAL_DOMAIN",
+        "propIdentifier": "EVAL_PROP"
+      },
+      "data": {
+        "evalProp": "EVAL_VALUE"
+      }
+    },
+    {
+      "operation_id": "cn.otap.set_property",
+      "args": [
+        {
+          "$ref": "device_serial"
+        },
+        {
+          "evalEnabled": true,
+          "evalLevel": 3,
+          "evalItems": [
+            "a",
+            2,
+            false,
+            null
+          ],
+          "evalNested": {
+            "count": 7,
+            "note": null
+          },
+          "evalNull": null
+        }
+      ],
+      "kwargs": {
+        "resource_category": "EVAL_CATEGORY",
+        "local_index": "1",
+        "domain_identifier": "EVAL_DOMAIN",
+        "property_identifier": "EVAL_PROP"
+      },
+      "fields": {
+        "deviceSerial": "EV1234567",
+        "localIndex": "1",
+        "resourceCategory": "EVAL_CATEGORY",
+        "domainIdentifier": "EVAL_DOMAIN",
+        "propIdentifier": "EVAL_PROP"
+      },
+      "json_body": {
+        "evalEnabled": true,
+        "evalLevel": 3,
+        "evalItems": [
+          "a",
+          2,
+          false,
+          null
+        ],
+        "evalNested": {
+          "count": 7,
+          "note": null
+        },
+        "evalNull": null
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.otap.invoke_action",
+      "args": [
+        {
+          "$ref": "device_serial"
+        },
+        {
+          "evalDelay": 5,
+          "evalForce": false,
+          "evalItems": [
+            1,
+            "x",
+            true,
+            null
+          ],
+          "evalMeta": {
+            "retries": 2,
+            "extra": null
+          }
+        }
+      ],
+      "kwargs": {
+        "resource_category": "EVAL_CATEGORY",
+        "local_index": "1",
+        "domain_identifier": "EVAL_DOMAIN",
+        "action_identifier": "EVAL_ACTION"
+      },
+      "fields": {
+        "deviceSerial": "EV1234567",
+        "localIndex": "1",
+        "resourceCategory": "EVAL_CATEGORY",
+        "domainIdentifier": "EVAL_DOMAIN",
+        "actionIdentifier": "EVAL_ACTION"
+      },
+      "json_body": {
+        "evalDelay": 5,
+        "evalForce": false,
+        "evalItems": [
+          1,
+          "x",
+          true,
+          null
+        ],
+        "evalMeta": {
+          "retries": 2,
+          "extra": null
+        }
+      },
+      "data": {}
+    },
+    {
+      "operation_id": "cn.otap.latest_property",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "resource_category": "EVAL_CATEGORY",
+        "local_index": "2",
+        "domain_identifier": "EVAL_DOMAIN",
+        "property_identifier": "EVAL_PROP"
+      },
+      "fields": {
+        "deviceSerial": "EV1234567",
+        "localIndex": "2",
+        "resourceCategory": "EVAL_CATEGORY",
+        "domainIdentifier": "EVAL_DOMAIN",
+        "propIdentifier": "EVAL_PROP"
+      },
+      "data": {
+        "desired": {
+          "value": null,
+          "time": null
+        },
+        "reported": {
+          "value": false,
+          "time": "2026-11-15T08:30:00.000+08:00"
+        }
+      }
+    },
+    {
+      "operation_id": "cn.delegation.apply_code",
+      "args": [
+        "EVAL_OWNER_APPKEY"
+      ],
+      "kwargs": {},
+      "fields": {
+        "appKey": "EVAL_OWNER_APPKEY"
+      },
+      "data": {
+        "sign": "EVAL_OWNER_APPKEY#0123456789abcdef#fedcba9876543210",
+        "appKey": "EVAL_OWNER_APPKEY"
+      }
+    },
+    {
+      "operation_id": "cn.delegation.authorize_account",
+      "args": [
+        "EVAL_SIGN_01"
+      ],
+      "kwargs": {},
+      "fields": {
+        "sign": "EVAL_SIGN_01"
+      },
+      "data": false
+    },
+    {
+      "operation_id": "cn.delegation.list_resources",
+      "args": [
+        "EVAL_SIGN_01"
+      ],
+      "kwargs": {
+        "device_serial": "EV7654321",
+        "authorization_type": "authorize",
+        "page_start": 5,
+        "page_size": 20
+      },
+      "fields": {
+        "deviceSerial": "EV7654321",
+        "sign": "EVAL_SIGN_01",
+        "authorizeType": "authorize",
+        "pageStart": 5,
+        "pageSize": 20
+      },
+      "data": [
+        {
+          "deviceSerial": "EV7654321",
+          "deviceName": "EVAL_DEVICE",
+          "isEncrypt": 0,
+          "isPermission": 1,
+          "isAble": 1,
+          "deviceTagType": "EVAL_TAG",
+          "capturePic": null,
+          "cameraInfo": [
+            {
+              "deviceSerial": "EV7654321",
+              "deviceName": "EVAL_DEVICE_CH1",
+              "cameraNo": 1,
+              "isEncrypt": 0,
+              "isPermission": 0,
+              "isAble": 1,
+              "capturePic": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.delegation.authorize_device",
+      "args": [
+        "EVAL_SIGN_01",
+        {
+          "$ref": "other_serial"
+        }
+      ],
+      "kwargs": {
+        "state": "1",
+        "local_index": "3"
+      },
+      "fields": {
+        "deviceSerial": "EV7654321",
+        "localIndex": "3",
+        "sign": "EVAL_SIGN_01",
+        "state": "1"
+      },
+      "data": true
+    },
+    {
+      "operation_id": "cn.delegation.relieve_device",
+      "args": [
+        "EVAL_PEER_APPKEY",
+        {
+          "$ref": "other_serial"
+        },
+        "1"
+      ],
+      "kwargs": {
+        "local_index": "3"
+      },
+      "fields": {
+        "deviceSerial": "EV7654321",
+        "localIndex": "3",
+        "appKey": "EVAL_PEER_APPKEY",
+        "state": "1"
+      },
+      "data": false
     }
   ]
 }

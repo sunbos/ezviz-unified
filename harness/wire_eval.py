@@ -28,6 +28,7 @@ import asyncio
 import importlib
 import inspect
 import json
+import math
 import re
 import sys
 from datetime import datetime
@@ -109,7 +110,9 @@ _BASE_HEADERS = frozenset(
 _PARAM_LOCATIONS = frozenset({"body", "query", "header"})
 _TOKEN_LOCATIONS = frozenset({"form", "query", "header", "json", "none"})
 _BODY_ENCODINGS = frozenset({"form_urlencoded", "json", "unknown"})
-_CASE_KEYS = frozenset({"operation_id", "args", "kwargs", "fields", "data", "json_fields"})
+_CASE_KEYS = frozenset(
+    {"operation_id", "args", "kwargs", "fields", "data", "json_fields", "json_body"}
+)
 _CONTENT_TYPE = "content-type"
 _CONTENT_TYPE_FOR_ENCODING = {
     "form_urlencoded": "application/x-www-form-urlencoded",
@@ -171,6 +174,34 @@ def _wire_str(value: object) -> str:
         return repr(value)
     if value is None:
         return ""
+    raise _Reject("case_invalid")
+
+
+def _check_json_tree(value: object) -> None:
+    """Require ``value`` to be a JSON-safe tree of finite scalars.
+
+    Validates a decoded ``case.json_body``: every object key must be a
+    string, arrays/objects recurse, and scalar leaves are limited to
+    str/bool/int/finite-float/None. Anything else (NaN, Infinity, decoded
+    datetime/DTO tags, non-string keys) is not representable on the wire
+    and is rejected as ``case_invalid``.
+    """
+    if isinstance(value, dict):
+        for key, item in value.items():
+            if not isinstance(key, str):
+                raise _Reject("case_invalid")
+            _check_json_tree(item)
+        return
+    if isinstance(value, list):
+        for item in value:
+            _check_json_tree(item)
+        return
+    if value is None or isinstance(value, (str, bool, int)):
+        return
+    if isinstance(value, float):
+        if not math.isfinite(value):
+            raise _Reject("case_invalid")
+        return
     raise _Reject("case_invalid")
 
 
@@ -370,6 +401,23 @@ def _check_contract(contract: dict) -> None:
         or any(not isinstance(p, str) for p in envelope_paths)
     ):
         raise _Reject("contract_invalid")
+    if "request_body" in contract:
+        spec = contract["request_body"]
+        if not isinstance(spec, dict) or set(spec) - {"type", "required", "evidence"}:
+            raise _Reject("contract_invalid")
+        if spec.get("type") != "object" or spec.get("required") is not True:
+            raise _Reject("contract_invalid")
+        if not isinstance(spec.get("evidence"), str) or not spec["evidence"].strip():
+            raise _Reject("contract_invalid")
+        if contract["body_encoding"] != "json":
+            raise _Reject("contract_invalid")
+        if contract["token_location"] not in ("none", "query", "header"):
+            raise _Reject("contract_invalid")
+        if any(
+            isinstance(param, dict) and param.get("location") == "body"
+            for param in contract["parameters"]
+        ):
+            raise _Reject("contract_invalid")
 
 
 def _check_auth_contract(contract: object) -> dict:
@@ -463,6 +511,11 @@ def _normalize_case(raw: object, contract_map: dict, context: dict, dto_registry
     if _TOKEN_FIELD in fields:
         raise _Reject("managed_token_field")
     contract = contract_map[operation_id]
+    whole_body = "request_body" in contract
+    if ("json_body" in raw) != whole_body:
+        # Whole-body contracts require a complete json_body object; every
+        # other contract forbids the key outright.
+        raise _Reject("case_invalid")
     decoded = {
         "operation_id": operation_id,
         "contract": contract,
@@ -470,8 +523,20 @@ def _normalize_case(raw: object, contract_map: dict, context: dict, dto_registry
         "kwargs": {key: _decode_value(item, context, dto_registry) for key, item in kwargs.items()},
         "fields": {key: _decode_value(item, context, dto_registry) for key, item in fields.items()},
         "json_fields": list(json_fields),
+        "json_body": (
+            _decode_value(raw["json_body"], context, dto_registry) if whole_body else None
+        ),
         "data": _decode_value(raw.get("data"), context, dto_registry),
     }
+    if whole_body:
+        json_body = decoded["json_body"]
+        if not isinstance(json_body, dict):
+            raise _Reject("case_invalid")
+        _check_json_tree(json_body)
+        if any(key.lower() == _TOKEN_FIELD.lower() for key in json_body):
+            # The managed credential must never be smuggled into the payload
+            # top level; nested keys remain ordinary product attributes.
+            raise _Reject("managed_token_field")
     locations, constants, required = _parameter_maps(contract)
     if operation_id not in _AUTH_OPERATION_IDS:
         # The two developer auth operations take no business fields at all;
@@ -502,17 +567,26 @@ def _normalize_case(raw: object, contract_map: dict, context: dict, dto_registry
 # ---------------------------------------------------------------------------
 
 
-def _expected_wire(contract: dict, fields: dict, json_fields: list, token: str) -> dict:
+def _expected_wire(
+    contract: dict,
+    fields: dict,
+    json_fields: list,
+    token: str,
+    json_body: object = None,
+) -> dict:
     """Map expected wire values to header/query/form/json buckets.
 
     Header-bucket keys are all lowercase (including the managed token);
     ``Content-Type`` is never in the header bucket -- it is verified through
-    the declared body encoding.
+    the declared body encoding. For contracts declaring ``request_body``
+    the json bucket is the complete body object rather than a per-field
+    map, and named body fields can never appear alongside it.
     """
     encoding = contract["body_encoding"]
     token_location = contract["token_location"]
     locations, constants, _required = _parameter_maps(contract)
     json_names = set(json_fields)
+    whole_body = "request_body" in contract
     expected = {
         "header": {},
         "query": {},
@@ -520,6 +594,8 @@ def _expected_wire(contract: dict, fields: dict, json_fields: list, token: str) 
         "json": {},
         "json_fields": json_names,
     }
+    if whole_body:
+        expected["json"] = json_body
 
     def place(name: str, value: object, location: str) -> None:
         if location == "header":
@@ -527,6 +603,8 @@ def _expected_wire(contract: dict, fields: dict, json_fields: list, token: str) 
         elif location == "query":
             expected["query"][name] = [_wire_str(value)]
         elif location == "body":
+            if whole_body:
+                raise _Reject("contract_invalid")
             if encoding == "form_urlencoded":
                 if name in json_names:
                     # JSON-structured form value: keep the decoded structure or
@@ -559,6 +637,10 @@ def _expected_wire(contract: dict, fields: dict, json_fields: list, token: str) 
     elif token_location == "header":
         expected["header"][_TOKEN_FIELD.lower()] = token
     elif token_location == "json":
+        if whole_body:
+            # A JSON-embedded token cannot share a caller-owned whole body;
+            # reject explicitly instead of silently overwriting a key.
+            raise _Reject("contract_invalid")
         expected["json"][_TOKEN_FIELD] = token
     elif token_location != "none":
         raise _Reject("contract_invalid")
@@ -1055,7 +1137,11 @@ def _verify_operation_run(
             return problem
     for index, business_request in enumerate(queues.business_requests):
         expected = _expected_wire(
-            contract, case["fields"], case["json_fields"], _auth_token_value(index + 1)
+            contract,
+            case["fields"],
+            case["json_fields"],
+            _auth_token_value(index + 1),
+            case["json_body"],
         )
         expected["origin"] = api_origin
         problem = _check_business_request(business_request, contract, expected)

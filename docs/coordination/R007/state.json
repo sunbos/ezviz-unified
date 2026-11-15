@@ -1,0 +1,7 @@
+{
+  "task": "R007",
+  "state": "accepted",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "note": "接受经原文复核的OTAP事实。四项HTTP接口与1307015语义指南区分；16秒语义归属1307015，参数表Body/String解释为完整JSON而非固定Body键。请求参数逐项核对来源；设备层成功码、缓存/离线行为与报备schema的未知项保留。"
+}

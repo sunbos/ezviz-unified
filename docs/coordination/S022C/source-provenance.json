@@ -1,0 +1,82 @@
+[
+  {
+    "region": "domestic",
+    "doc_id": "1512",
+    "source_url": "https://open.ys7.com/help/1512",
+    "content_sha256": "1bad35fd8e28dc911bbfbb6d38bbb9e4f906d2f0c87615e784d979be9c91d7dc",
+    "retrieved_at_utc": "2026-11-14T22:50:10.877507+00:00",
+    "matches_prior_archive": true
+  },
+  {
+    "region": "domestic",
+    "doc_id": "1513",
+    "source_url": "https://open.ys7.com/help/1513",
+    "content_sha256": "675828789612e014aa2e259cb1b55ef5489dfe935b44fdd31077c7ce05440ea6",
+    "retrieved_at_utc": "2026-11-14T22:50:11.067204+00:00",
+    "matches_prior_archive": true
+  },
+  {
+    "region": "domestic",
+    "doc_id": "1514",
+    "source_url": "https://open.ys7.com/help/1514",
+    "content_sha256": "e3faff4599865dbc87f5d4dc02ca5295f94e022c0294d201cd188743584dcd76",
+    "retrieved_at_utc": "2026-11-14T22:50:10.897156+00:00",
+    "matches_prior_archive": true
+  },
+  {
+    "region": "domestic",
+    "doc_id": "5891",
+    "source_url": "https://open.ys7.com/help/5891",
+    "content_sha256": "942f24cf8ec2428416efd12a7d250ad7a8234bca0e7b9d12f49c49b50f02d904",
+    "retrieved_at_utc": "2026-11-14T22:50:11.559213+00:00",
+    "matches_prior_archive": true
+  },
+  {
+    "region": "domestic",
+    "doc_id": "1307015",
+    "source_url": "https://open.ys7.com/help/1307015",
+    "content_sha256": "7750e0b73ce56d27dffbdae32f0ec6e044c56f934b82f345af94daa67929c5f3",
+    "retrieved_at_utc": "2026-11-14T22:50:12.047673+00:00",
+    "matches_prior_archive": true
+  },
+  {
+    "region": "domestic",
+    "doc_id": "1890",
+    "source_url": "https://open.ys7.com/help/1890",
+    "content_sha256": "63907d4e023df781829e65b3b0ca5d9f195a90408148b37a734ada51f64786ce",
+    "retrieved_at_utc": "2026-11-14T22:50:11.815026+00:00",
+    "matches_prior_archive": true
+  },
+  {
+    "region": "domestic",
+    "doc_id": "1891",
+    "source_url": "https://open.ys7.com/help/1891",
+    "content_sha256": "9b81e19e604b606fe48050fe545781f1acc485cbc492f9017230ac256c98d1ee",
+    "retrieved_at_utc": "2026-11-14T22:50:12.267534+00:00",
+    "matches_prior_archive": true
+  },
+  {
+    "region": "domestic",
+    "doc_id": "1892",
+    "source_url": "https://open.ys7.com/help/1892",
+    "content_sha256": "7c340d64fcf5dd3244a68d125f4d0b7ead5683c7a5239961a180f22180f41988",
+    "retrieved_at_utc": "2026-11-14T22:50:12.856992+00:00",
+    "matches_prior_archive": true
+  },
+  {
+    "region": "domestic",
+    "doc_id": "1893",
+    "source_url": "https://open.ys7.com/help/1893",
+    "content_sha256": "400f30879c59f0d7bdd0da8c596d6e56ed510dfba2d9a6eee1811a89a83da19d",
+    "retrieved_at_utc": "2026-11-14T22:50:12.877036+00:00",
+    "matches_prior_archive": true
+  },
+  {
+    "region": "domestic",
+    "doc_id": "1894",
+    "source_url": "https://open.ys7.com/help/1894",
+    "content_sha256": "f67a83dead358fadfb8e86af1d4b064e2fca7382151158bd5da60df4acf08445",
+    "retrieved_at_utc": "2026-11-14T22:50:12.967578+00:00",
+    "matches_prior_archive": true
+  }
+]

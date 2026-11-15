@@ -270,3 +270,251 @@ def test_protocol_probe_uses_public_sample_and_does_not_query_devices(monkeypatc
     assert calls == [("CS-C1-10F", "V4.1.0 build 130101", "PRIVATE_KEY")]
     assert result["results"][0]["operation"] == "diagnostics.protocol_support"
     assert result["results"][0]["reported_support"] == [1] and "PRIVATE" not in json.dumps(result)
+
+
+def _serve_real_sdk_over_mock(monkeypatch, handler):
+    """Patch only the Client constructor so verify drives the real SDK over MockTransport."""
+    requests = []
+
+    def record(request):
+        requests.append(request)
+        return handler(request)
+
+    mock = httpx.MockTransport(record)
+    real_client = verify_devices.Client
+
+    def construct(*args, **kwargs):
+        kwargs["auth_transport"] = mock
+        kwargs["transport_factory"] = lambda origin: verify_devices._ReadOnlyTransport(mock, origin)
+        return real_client(*args, **kwargs)
+
+    monkeypatch.setattr(verify_devices, "Client", construct)
+    return requests
+
+
+def _spy_on_inspect_device(monkeypatch):
+    calls = []
+    real_inspect = verify_devices.inspect_device
+
+    def spy(client, device_serial, *, channel=1):
+        calls.append((device_serial, channel))
+        return real_inspect(client, device_serial, channel=channel)
+
+    monkeypatch.setattr(verify_devices, "inspect_device", spy)
+    return calls
+
+
+def _sdk_response(data):
+    return httpx.Response(200, json={"code": "200", "msg": "Operation succeeded", "data": data})
+
+
+def _inspection_handler(rows, fail_at=None):
+    state = {"count": 0}
+
+    def handler(request):
+        if (request.method, request.url.path) not in verify_devices._READ_ROUTES:
+            if (request.method, request.url.path) == ("POST", "/api/lapp/token/get"):
+                return _sdk_response({"accessToken": "TEST_TOKEN", "expireTime": 1893456000000})
+            raise AssertionError(
+                f"unexpected non-allowlisted request: {request.method} {request.url.path}"
+            )
+        state["count"] += 1
+        if fail_at is not None and state["count"] == fail_at:
+            return httpx.Response(200, json={"code": "10017", "msg": "PRIVATE_REASON"})
+        if request.url.path == "/api/lapp/device/list":
+            return _sdk_response(rows)
+        return _sdk_response({})
+
+    return handler
+
+
+def _inspection_config():
+    return {
+        "region": "domestic",
+        "app_key": "TEST_APP_KEY",
+        "app_secret": "TEST_APP_SECRET",
+        "inspection": "true",
+    }
+
+
+def test_inspection_profile_uses_sdk_helper_once_and_stays_read_only(monkeypatch):
+    requests = _serve_real_sdk_over_mock(
+        monkeypatch, _inspection_handler([{"deviceSerial": "C12345678"}])
+    )
+    seen = _spy_on_inspect_device(monkeypatch)
+    result = verify_devices.verify(_inspection_config())
+    assert seen == [("C12345678", 1)]
+    assert all(
+        (request.method, request.url.path) in verify_devices._READ_ROUTES
+        or "token" in request.url.path
+        for request in requests
+    )
+    business = [
+        request
+        for request in requests
+        if (request.method, request.url.path) in verify_devices._READ_ROUTES
+    ]
+    assert len(business) == 6
+    assert business[0].url.path == "/api/lapp/device/list"
+    assert not any(request.url.path.startswith("/api/v3/") for request in business)
+    assert [row["operation"] for row in result["results"]] == [
+        "devices.list",
+        "devices.get",
+        "devices.channels",
+        "devices.status",
+        "diagnostics.capabilities",
+        "diagnostics.version",
+    ]
+    assert all(row["status"] == "passed" for row in result["results"])
+    assert "online" not in json.dumps(result)
+    public = verify_devices._public_receipt(result)
+    assert public["validation_scope"] == "bounded_readonly_inspection_policy_check"
+    assert "C12345678" not in json.dumps(public)
+    assert "TEST_APP" not in json.dumps(public)
+
+
+def test_inspection_partial_failure_records_public_summary_rows(monkeypatch):
+    _serve_real_sdk_over_mock(
+        monkeypatch, _inspection_handler([{"deviceSerial": "C12345678"}], fail_at=6)
+    )
+    seen = _spy_on_inspect_device(monkeypatch)
+    result = verify_devices.verify(_inspection_config())
+    assert seen == [("C12345678", 1)]
+    assert [row["status"] for row in result["results"]] == [
+        "passed",
+        "passed",
+        "passed",
+        "passed",
+        "passed",
+        "failed",
+    ]
+    failed = result["results"][-1]
+    assert failed["operation"] == "diagnostics.version"
+    assert isinstance(failed.get("error_type"), str) and failed["error_type"]
+    assert failed.get("code") in ("10017", 10017)
+    assert "PRIVATE" not in json.dumps(result)
+    assert "PRIVATE" not in json.dumps(verify_devices._public_receipt(result))
+
+
+@pytest.mark.parametrize(
+    "rows,reason",
+    [([], "no_device"), ([{"deviceSerial": "  "}], "missing_device_serial")],
+)
+def test_inspection_missing_serial_is_not_verified_without_helper(monkeypatch, rows, reason):
+    _serve_real_sdk_over_mock(monkeypatch, _inspection_handler(rows))
+    seen = _spy_on_inspect_device(monkeypatch)
+    result = verify_devices.verify(_inspection_config())
+    assert seen == []
+    assert result["results"][-1] == {
+        "operation": "inspect_device",
+        "status": "not_verified",
+        "reason": reason,
+    }
+    assert "returned_items" not in result["results"][-1]
+    assert result["validation_scope"] == "bounded_readonly_inspection_policy_check"
+    assert (
+        verify_devices._public_receipt(result)["validation_scope"]
+        == "bounded_readonly_inspection_policy_check"
+    )
+
+
+def test_inspection_auth_failure_retains_scope_without_business_requests(monkeypatch):
+    def handler(request):
+        if (request.method, request.url.path) == ("POST", "/api/lapp/token/get"):
+            return httpx.Response(200, json={"code": "10002", "msg": "PRIVATE_AUTH"})
+        raise AssertionError(
+            f"unexpected request after auth failure: {request.method} {request.url.path}"
+        )
+
+    requests = _serve_real_sdk_over_mock(monkeypatch, handler)
+    result = verify_devices.verify(_inspection_config())
+    assert requests
+    assert all(
+        (request.method, request.url.path) == ("POST", "/api/lapp/token/get")
+        for request in requests
+    )
+    assert result["results"][-1]["operation"] == "devices.list"
+    assert result["results"][-1]["status"] == "failed"
+    assert result["validation_scope"] == "bounded_readonly_inspection_policy_check"
+    public = verify_devices._public_receipt(result)
+    assert public["validation_scope"] == "bounded_readonly_inspection_policy_check"
+    assert "PRIVATE" not in json.dumps(result)
+    assert "PRIVATE" not in json.dumps(public)
+
+
+def test_inspection_fatal_error_uses_fixed_stage_and_sanitized_fields(monkeypatch):
+    _serve_real_sdk_over_mock(monkeypatch, _inspection_handler([{"deviceSerial": "C12345678"}]))
+
+    def explode(client, device_serial, *, channel=1):
+        raise ApiError("PRIVATE_MESSAGE", code="PRIVATE_CODE", http_status=503)
+
+    monkeypatch.setattr(verify_devices, "inspect_device", explode)
+    result = verify_devices.verify(_inspection_config())
+    assert result["results"][-1] == {
+        "operation": "inspect_device",
+        "status": "failed",
+        "error_type": "ApiError",
+        "code": None,
+        "http_status": 503,
+    }
+    assert "PRIVATE" not in json.dumps(result)
+    public = verify_devices._public_receipt(result)
+    assert public["validation_scope"] == "bounded_readonly_inspection_policy_check"
+
+
+@pytest.mark.parametrize(
+    "extra",
+    [
+        {"include_managed": "true"},
+        {"protocol_only": "true"},
+        {"include_diagnostics": "true"},
+    ],
+)
+def test_inspection_rejects_other_profiles_before_client_construction(monkeypatch, extra):
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Client must not be constructed for rejected profiles")
+
+    monkeypatch.setattr(verify_devices, "Client", forbidden)
+    with pytest.raises(ValueError):
+        verify_devices.verify({**_inspection_config(), **extra})
+
+
+def test_public_receipt_accepts_only_the_known_inspection_scope_literal():
+    base = {
+        "recorded_at_utc": "2026-11-15T00:00:00Z",
+        "region": "domestic",
+        "read_only": True,
+        "auth_origin": "https://open.ys7.com",
+        "business_origins": ["https://open.ys7.com"],
+        "results": [],
+    }
+    report = {**base, "validation_scope": "bounded_readonly_inspection_policy_check"}
+    assert (
+        verify_devices._public_receipt(report)["validation_scope"]
+        == "bounded_readonly_inspection_policy_check"
+    )
+    for bogus in ("inspection", "bounded_readonly_inspection_policy_check2", 1, None):
+        report = {**base, "validation_scope": bogus}
+        assert (
+            verify_devices._public_receipt(report)["validation_scope"]
+            == "bounded_readonly_request_and_response_shape_check"
+        )
+    assert (
+        verify_devices._public_receipt(dict(base))["validation_scope"]
+        == "bounded_readonly_request_and_response_shape_check"
+    )
+    report = {
+        **base,
+        "validation_scope": "bounded_readonly_inspection_policy_check",
+        "results": [
+            {
+                "operation": "devices.get",
+                "status": "passed",
+                "device_serial": "PRIVATE_SERIAL",
+                "response": {"raw": "PRIVATE_PAYLOAD"},
+            }
+        ],
+    }
+    public = verify_devices._public_receipt(report)
+    assert public["results"][0] == {"operation": "devices.get", "status": "passed"}
+    assert "PRIVATE" not in json.dumps(public)

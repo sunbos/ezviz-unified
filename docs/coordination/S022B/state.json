@@ -1,0 +1,7 @@
+{
+  "task": "S022B",
+  "state": "accepted",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "note": "接受。托管模块77项测试通过。角色与对方key均显式，不默认切换账号；保留Opaque state、未声明分页下界及Boolean/nullable响应。sign新增诊断脱敏，线上真实授权、解绑和服务开通均未执行。"
+}
