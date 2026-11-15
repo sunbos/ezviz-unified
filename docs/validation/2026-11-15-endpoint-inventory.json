@@ -33,8 +33,8 @@
     "declarations": 21,
     "source_linked_declarations": 20
   },
-  "parser_sha256": "da804a29ea265acd73dbd105820f0f5c5deeb5d26d6b189b2183dd4fae13dc3d",
-  "adapter_sha256": "17f048be38a89d258552d1b360b0e7fed9da2c2f3dae209eaaca8bce3fdaf277",
+  "parser_sha256": "e0762f5be0e9744072265a3b921769966fd91313280536ba94cbd2ff334882b7",
+  "adapter_sha256": "48348eb47924107b9a326b5e83f5cc147940c6d5ffc8a15b95889e29d52dd519",
   "limitations": [
     "declarations and examples are offline HTML observations; a candidate does not prove an endpoint exists, is complete, or is supported",
     "counts are document/candidate/link counts, not API totals or SDK coverage",

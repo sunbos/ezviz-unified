@@ -257,7 +257,10 @@ def _pin_source(root, entry):
     Performs the checks ``derive._verify_sources`` alone does not cover for
     this tool's report: strict JSON decoding, source doc_id equal to the
     catalog doc_id, and source platform equal to the region's expected
-    platform. Returns the verified ``html_content`` string.
+    platform. The raw source platform field is optional: a missing or null
+    value is legal and matches the collector's real schema, but when it is
+    present and non-null it must equal the expected platform. Returns the
+    verified ``html_content`` string.
     """
     key = (entry["region"], str(entry["doc_id"]))
     resolved = _resolve_inside(root, Path(entry["raw_file"]), "raw source")

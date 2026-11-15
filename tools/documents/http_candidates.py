@@ -289,6 +289,13 @@ def _element_inline_label(element: Tag) -> dict[str, Any] | None:
     }
 
 
+def _has_inline_label(element: Tag) -> bool:
+    """元素自身或任一后代为 li/p 行内标签（“标签：取值”）即视为取值边界。"""
+    if _element_inline_label(element) is not None:
+        return True
+    return any(_element_inline_label(child) is not None for child in element.find_all(True))
+
+
 def _find_label_value(label: Tag, indices: dict[int, int]) -> dict[str, Any] | None:
     """在标签之后、下一处标签/标题/表格/代码块边界之前找第一个取值元素。"""
     for node in label.next_elements:
@@ -296,7 +303,7 @@ def _find_label_value(label: Tag, indices: dict[int, int]) -> dict[str, Any] | N
             continue
         if node.name in _BOUNDARY_TAGS:
             return None
-        if _has_label(node):
+        if _has_label(node) or _has_inline_label(node):
             return None
         if node.name in _VALUE_TAGS:
             text = _norm_text(node.get_text(" ", strip=True))
