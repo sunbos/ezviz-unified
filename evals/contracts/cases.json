@@ -4753,6 +4753,136 @@
         "language": "GERMAN"
       },
       "data": null
+    },
+    {
+      "operation_id": "cn.components.face_voice_video.get",
+      "args": [
+        "cn.components.face_voice_video.get",
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "path_fields": {
+        "deviceSerial": "EV1234567"
+      },
+      "fields": {},
+      "data": {
+        "enabled": false
+      }
+    },
+    {
+      "operation_id": "cn.components.face_voice_video.set",
+      "args": [
+        "cn.components.face_voice_video.set",
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "payload": {
+          "enabled": true
+        }
+      },
+      "path_fields": {
+        "deviceSerial": "EV1234567"
+      },
+      "fields": {},
+      "json_body": {
+        "enabled": true
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.components.face_voice_lock.get",
+      "args": [
+        "cn.components.face_voice_lock.get",
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "path_fields": {
+        "deviceSerial": "EV1234567"
+      },
+      "fields": {},
+      "data": {
+        "enabled": true
+      }
+    },
+    {
+      "operation_id": "cn.components.chime_power.set",
+      "args": [
+        "cn.components.chime_power.set",
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "payload": 0
+      },
+      "path_fields": {
+        "deviceSerial": "EV1234567"
+      },
+      "fields": {},
+      "json_body": 0,
+      "data": null
+    },
+    {
+      "operation_id": "cn.components.gas_countdown.query",
+      "args": [
+        "cn.components.gas_countdown.query",
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "payload": null
+      },
+      "path_fields": {
+        "deviceSerial": "EV1234567"
+      },
+      "fields": {},
+      "json_body": null,
+      "data": {
+        "enable": true,
+        "timeRemaining": 120,
+        "switch": false
+      }
+    },
+    {
+      "operation_id": "cn.components.temperature.get",
+      "args": [
+        "cn.components.temperature.get",
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "path_fields": {
+        "deviceSerial": "EV1234567"
+      },
+      "fields": {},
+      "data": 0.0
+    },
+    {
+      "operation_id": "cn.components.smoke_countdown.get",
+      "args": [
+        "cn.components.smoke_countdown.get",
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "path_fields": {
+        "deviceSerial": "EV1234567"
+      },
+      "fields": {},
+      "data": {
+        "enable": false,
+        "timeRemaining": 60,
+        "switch": false
+      }
     }
   ]
 }

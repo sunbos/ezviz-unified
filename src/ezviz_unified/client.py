@@ -25,12 +25,14 @@ from typing import NamedTuple
 
 import httpx
 
+from ._path import render_path
 from .alarms import Alarms, AsyncAlarms
 from .arming import Arming, AsyncArming
 from .auth import AsyncTokenManager, TokenManager
 from .auth_models import RegionConfig, Token
 from .cloud_recording import AsyncCloudRecording, CloudRecording
 from .cloud_storage import AsyncCloudStorage, CloudStorage
+from .components import AsyncComponents, Components
 from .delegation import AsyncDelegation, Delegation
 from .devices import AsyncDevices, Devices
 from .diagnostics import AsyncDiagnostics, Diagnostics
@@ -63,12 +65,19 @@ AsyncTransportFactory = Callable[[str], httpx.AsyncBaseTransport | None]
 
 
 class _Prepared(NamedTuple):
-    """Caller-supplied request parts after validation and copying."""
+    """Caller-supplied request parts after validation and copying.
+
+    ``path`` is the rendered path (already validated once) and
+    ``path_secrets`` carries the raw plus encoded path-parameter values
+    for the transport's redaction context.
+    """
 
     params: ParamMapping | None
     data: Mapping[str, object] | None
     json: object
     headers: Mapping[str, str] | None
+    path: str
+    path_secrets: tuple[str, ...]
 
 
 def _validate_timeout(timeout: object) -> float:
@@ -106,6 +115,7 @@ def _prepare(
     data: Mapping[str, object] | None,
     json: object,
     headers: Mapping[str, str] | None,
+    path_params: Mapping[str, str] | None,
 ) -> _Prepared:
     """Validate caller input before authentication; never mutate it."""
     if scope not in operation.regions:
@@ -129,11 +139,21 @@ def _prepare(
         if json is not None and not isinstance(json, Mapping):
             raise ValueError("json token location requires a JSON object body")
     # token_location "none" injects no token, so either single body style passes through.
+    names = operation.path_params
+    if names is None:
+        if path_params is not None:
+            raise ValueError("operation path has no template placeholders")
+        rendered = operation.path
+        path_secrets: tuple[str, ...] = ()
+    else:
+        rendered, path_secrets = render_path(operation.path, names, path_params)
     return _Prepared(
         params=dict(params) if params is not None else None,
         data=dict(data) if data is not None else None,
         json=dict(json) if isinstance(json, Mapping) else json,
         headers=dict(headers) if headers is not None else None,
+        path=rendered,
+        path_secrets=path_secrets,
     )
 
 
@@ -289,6 +309,7 @@ class Client:
         self.diagnostics = Diagnostics(self)
         self.recordings = Recordings(self)
         self.ptz = Ptz(self)
+        self.components = Components(self)
 
     @property
     def region(self) -> RegionConfig:
@@ -309,6 +330,7 @@ class Client:
         data: Mapping[str, object] | None = None,
         json: object = None,
         headers: Mapping[str, str] | None = None,
+        path_params: Mapping[str, str] | None = None,
     ) -> ApiResponse:
         with self._condition:
             if self._closed:
@@ -322,6 +344,7 @@ class Client:
                 data=data,
                 json=json,
                 headers=headers,
+                path_params=path_params,
             )
             return self._execute(operation, prepared)
         finally:
@@ -338,14 +361,14 @@ class Client:
             transport = self._transport_for_origin(origin)
             return transport.request(
                 operation.method,
-                operation.path,
+                prepared.path,
                 params=prepared.params,
                 data=prepared.data,
                 json=prepared.json,
                 headers=prepared.headers,
                 policy=operation.policy,
                 operation=operation.name,
-                secrets=self._secrets,
+                secrets=(*self._secrets, *prepared.path_secrets),
             )
         manager = self._manager
         if manager is None:
@@ -362,14 +385,14 @@ class Client:
             try:
                 return transport.request(
                     operation.method,
-                    operation.path,
+                    prepared.path,
                     params=bound.params,
                     data=bound.data,
                     json=bound.json,
                     headers=bound.headers,
                     policy=operation.policy,
                     operation=operation.name,
-                    secrets=(*self._secrets, token.value),
+                    secrets=(*self._secrets, *prepared.path_secrets, token.value),
                 )
             except AuthenticationError as exc:
                 if not exc.invalid_token:
@@ -542,6 +565,7 @@ class AsyncClient:
         self.diagnostics = AsyncDiagnostics(self)
         self.recordings = AsyncRecordings(self)
         self.ptz = AsyncPtz(self)
+        self.components = AsyncComponents(self)
 
     @property
     def region(self) -> RegionConfig:
@@ -562,6 +586,7 @@ class AsyncClient:
         data: Mapping[str, object] | None = None,
         json: object = None,
         headers: Mapping[str, str] | None = None,
+        path_params: Mapping[str, str] | None = None,
     ) -> ApiResponse:
         if self._closed:
             raise _closed_error(operation.name, self._secrets)
@@ -576,6 +601,7 @@ class AsyncClient:
                 data=data,
                 json=json,
                 headers=headers,
+                path_params=path_params,
             )
             return await self._execute(operation, prepared)
         finally:
@@ -591,14 +617,14 @@ class AsyncClient:
             transport = self._transport_for_origin(origin)
             return await transport.request(
                 operation.method,
-                operation.path,
+                prepared.path,
                 params=prepared.params,
                 data=prepared.data,
                 json=prepared.json,
                 headers=prepared.headers,
                 policy=operation.policy,
                 operation=operation.name,
-                secrets=self._secrets,
+                secrets=(*self._secrets, *prepared.path_secrets),
             )
         manager = self._manager
         if manager is None:
@@ -615,14 +641,14 @@ class AsyncClient:
             try:
                 return await transport.request(
                     operation.method,
-                    operation.path,
+                    prepared.path,
                     params=bound.params,
                     data=bound.data,
                     json=bound.json,
                     headers=bound.headers,
                     policy=operation.policy,
                     operation=operation.name,
-                    secrets=(*self._secrets, token.value),
+                    secrets=(*self._secrets, *prepared.path_secrets, token.value),
                 )
             except AuthenticationError as exc:
                 if not exc.invalid_token:

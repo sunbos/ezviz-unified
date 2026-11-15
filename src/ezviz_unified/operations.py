@@ -9,6 +9,7 @@ the request to the configured ``api_base_url`` exactly as supplied.
 from dataclasses import dataclass, field
 from typing import Literal
 
+from ._path import parse_path_template
 from .models import ResponsePolicy
 
 TokenLocation = Literal["form", "query", "header", "json", "none"]
@@ -23,6 +24,9 @@ class Operation:
     regions: frozenset[str] = field(default=frozenset({"domestic", "overseas"}), kw_only=True)
     read_only: bool = field(default=False, kw_only=True)
     policy: ResponsePolicy = field(default_factory=ResponsePolicy, kw_only=True)
+    _path_params: tuple[str, ...] | None = field(
+        default=None, init=False, repr=False, compare=False
+    )
 
     def __post_init__(self) -> None:
         if not isinstance(self.name, str) or not self.name.strip():
@@ -47,3 +51,11 @@ class Operation:
             raise ValueError("read_only must be a bool")
         if not isinstance(self.policy, ResponsePolicy):
             raise TypeError("operation policy must be a ResponsePolicy")
+        # Whole-segment {name} placeholders are validated once here; the
+        # template itself is kept verbatim and values are bound per request.
+        object.__setattr__(self, "_path_params", parse_path_template(self.path))
+
+    @property
+    def path_params(self) -> tuple[str, ...] | None:
+        """Template placeholder names, or ``None`` for a fixed path."""
+        return self._path_params

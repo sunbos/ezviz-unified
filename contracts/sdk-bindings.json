@@ -2655,6 +2655,118 @@
       "offline_status": "passed",
       "live_status": "not_verified",
       "public_entry": "settings.set_language"
+    },
+    {
+      "operation_id": "cn.components.face_voice_video.get",
+      "region": "domestic",
+      "source_doc_id": "774",
+      "module": "src/ezviz_unified/components.py",
+      "symbols": [
+        "Components.call",
+        "AsyncComponents.call"
+      ],
+      "public_entry": "components.call",
+      "argument_constants": {
+        "operation_id": "cn.components.face_voice_video.get"
+      },
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.components.face_voice_video.set",
+      "region": "domestic",
+      "source_doc_id": "775",
+      "module": "src/ezviz_unified/components.py",
+      "symbols": [
+        "Components.call",
+        "AsyncComponents.call"
+      ],
+      "public_entry": "components.call",
+      "argument_constants": {
+        "operation_id": "cn.components.face_voice_video.set"
+      },
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.components.face_voice_lock.get",
+      "region": "domestic",
+      "source_doc_id": "812",
+      "module": "src/ezviz_unified/components.py",
+      "symbols": [
+        "Components.call",
+        "AsyncComponents.call"
+      ],
+      "public_entry": "components.call",
+      "argument_constants": {
+        "operation_id": "cn.components.face_voice_lock.get"
+      },
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.components.chime_power.set",
+      "region": "domestic",
+      "source_doc_id": "868",
+      "module": "src/ezviz_unified/components.py",
+      "symbols": [
+        "Components.call",
+        "AsyncComponents.call"
+      ],
+      "public_entry": "components.call",
+      "argument_constants": {
+        "operation_id": "cn.components.chime_power.set"
+      },
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.components.gas_countdown.query",
+      "region": "domestic",
+      "source_doc_id": "998",
+      "module": "src/ezviz_unified/components.py",
+      "symbols": [
+        "Components.call",
+        "AsyncComponents.call"
+      ],
+      "public_entry": "components.call",
+      "argument_constants": {
+        "operation_id": "cn.components.gas_countdown.query"
+      },
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.components.temperature.get",
+      "region": "domestic",
+      "source_doc_id": "1134",
+      "module": "src/ezviz_unified/components.py",
+      "symbols": [
+        "Components.call",
+        "AsyncComponents.call"
+      ],
+      "public_entry": "components.call",
+      "argument_constants": {
+        "operation_id": "cn.components.temperature.get"
+      },
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.components.smoke_countdown.get",
+      "region": "domestic",
+      "source_doc_id": "1447",
+      "module": "src/ezviz_unified/components.py",
+      "symbols": [
+        "Components.call",
+        "AsyncComponents.call"
+      ],
+      "public_entry": "components.call",
+      "argument_constants": {
+        "operation_id": "cn.components.smoke_countdown.get"
+      },
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

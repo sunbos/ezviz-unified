@@ -796,6 +796,106 @@
       "description": "1.14–1.17 参数表表头标为 'Parameter Name|Description|Type|Required'，但单元格第 2 列实为类型、第 3 列为描述，表头与单元格顺序不一致；类型/必填的归属依赖语义推断。",
       "status": "unresolved_source_semantics",
       "sdk_handling": "按单元格语义而非表头位置解析参数类型与必填性；提取结果已按此归一化，不将错位表头当作新字段。"
+    },
+    {
+      "id": "cn.components.face_voice_tip.duplicate_resource_paths",
+      "region": "domestic",
+      "source_doc_id": "774",
+      "source_url": "https://open.ys7.com/help/774",
+      "source_content_sha256": "c53ccf0b16309a261b64695ec0f14e570b91398e7f437c5eff6437a5f829e20a",
+      "description": "文档 774 与 812 标题同为“查询人脸识别开门语音提示开关”，但资源路径分别为 /Video/1/DoorLockCtrl/... 与 /DoorLock/0/DoorLockCtrl/...；两资源段的关系（等价/不同能力面）原文未说明，不能互相推断或合并。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "按两个独立 operation_id（face_voice_video.get 与 face_voice_lock.get）绑定各自固定路径，不做归并、不做跨路径推断。"
+    },
+    {
+      "id": "cn.components.face_voice_video.set.root_body_required",
+      "region": "domestic",
+      "source_doc_id": "775",
+      "source_url": "https://open.ys7.com/help/775",
+      "source_content_sha256": "ffe08f56d9e1b9d199e440399ee0b73ee8a8af12d57771560f8644a55be0f2b3",
+      "description": "参数表仅将 enabled 标为 Body/Boolean/N，curl --data-raw 示为 {\"enabled\":true}；请求体根对象是否可整体省略、空对象 {} 或省略 enabled 的设备侧语义均未说明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "request_body.required 记 null+required_uncertainty；SDK 不默认补 {}，由调用方显式传 payload；enabled 约束写入 constraints 而非 location:body 参数。"
+    },
+    {
+      "id": "cn.components.chime_power.set.physical_effect_unknown",
+      "region": "domestic",
+      "source_doc_id": "868",
+      "source_url": "https://open.ys7.com/help/868",
+      "source_content_sha256": "2bfa0437d0976c0d1d34ce3ed977f039e0a5fda52ad3d3e16040d06ebe1640b0",
+      "description": "“设置剩余电量”的真实物理效果未说明：是覆写上报电量、校准电量计还是其他语义不得而知；meta.code=200 与 deviceMeta.code=0x00000000 均不能证明电量在设备上实际改变。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "仅按原文建模为裸 integer 根 body（0..100）的写操作；不推断物理效果，不将成功响应解释为电量已变更。"
+    },
+    {
+      "id": "cn.components.gas_countdown.query.put_null_body",
+      "region": "domestic",
+      "source_doc_id": "998",
+      "source_url": "https://open.ys7.com/help/998",
+      "source_content_sha256": "3b9622c076e411b1d25c18beb5eb71c8b5c658dde276e3a6c0872214aac32b82",
+      "description": "查询语义接口使用 PUT /api/v3/otap/action/... 且 curl --data-raw 'null'，参数表无 Body 行；请求体是否可省略、省略与字面量 null 是否等价未说明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "read_only=true 按查询语义记录；request_body 记 type null + required:null+required_uncertainty；SDK 要求调用方显式 payload=None，不自动省略 body。"
+    },
+    {
+      "id": "cn.components.temperature.unit_unspecified",
+      "region": "domestic",
+      "source_doc_id": "1134",
+      "source_url": "https://open.ys7.com/help/1134",
+      "source_content_sha256": "e2d71af4cb2128a2b403872482ce9204fddf07a77bde6e14d160fccc0b579ebb",
+      "description": "data 为裸 Number 温度，取值范围[-100.0,100000.0]，原文未标注单位与精度；不对单位或数值缩放作推断。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "按裸 Number 透传，不假定单位、不做换算；在 uncertainties 中保留单位与精度未知。"
+    },
+    {
+      "id": "cn.components.device_success_code.example_only",
+      "region": "domestic",
+      "source_doc_id": "774",
+      "source_url": "https://open.ys7.com/help/774",
+      "source_content_sha256": "c53ccf0b16309a261b64695ec0f14e570b91398e7f437c5eff6437a5f829e20a",
+      "description": "设备成功码 deviceMeta.code=\"0x00000000\" 在 774/775/812/868/998/1134 中仅来自返回示例，正文未声明其为成功取值（1447 例外，其返回字段表明确 0x00000000 表示成功）；其他设备码取值全部未枚举。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "device_success_values 记 [\"0x00000000\"] 且 require_device_code=false；evidence 明确标注“仅来自示例”；不以 absence 推断失败或成功。"
+    },
+    {
+      "id": "cn.components.whitelist_requirement.undocumented",
+      "region": "domestic",
+      "source_doc_id": "868",
+      "source_url": "https://open.ys7.com/help/868",
+      "source_content_sha256": "2bfa0437d0976c0d1d34ce3ed977f039e0a5fda52ad3d3e16040d06ebe1640b0",
+      "description": "774/775/812 明确声明需联系萤石配置白名单；868/998/1134/1447 仅有型号限制说明，未提及白名单，是否需要白名单未知。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "仅 774/775/812 写入白名单 constraint；其余文档在 uncertainties 记“是否需要白名单未说明”，不继承白名单声明。"
+    },
+    {
+      "id": "cn.components.hdd_format.missing_disk_selector",
+      "region": "domestic",
+      "source_doc_id": "847",
+      "source_url": "https://open.ys7.com/help/847",
+      "source_content_sha256": "83afa69f896a7608a1364a28c973ba0e95ab6c0275c387be8211052a74e7a8dc",
+      "description": "接口名为“格式化指定本地硬盘”，但参数表中业务定位参数仅有 deviceSerial（其余为 accessToken、Content-Type 通用项），未提供任何磁盘标识参数（盘号/索引/路径），curl --data-raw 'null'；“指定”硬盘的选择方式未说明，且该操作为破坏性格式化。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "仅登记问题，不生成契约/绑定；不得自行添加磁盘参数或默认盘号。"
+    },
+    {
+      "id": "cn.components.human_detection.malformed_path_template",
+      "region": "domestic",
+      "source_doc_id": "3873",
+      "source_url": "https://open.ys7.com/help/3873",
+      "source_content_sha256": "7f3f8c8cbfd85737edf05dbc36c5399890cadcb7e45e68df8ea898323cfc5038",
+      "description": "请求地址为 /api/v3/otap/prop/{{deviceSerial}}/global/[\"0\"]/HumanDetection/InDetectEnabled：占位符为双花括号 {{deviceSerial}}，且含字面量 [\"0\"] 段，占位语法与其他文档 {deviceSerial} 不一致，实际发送路径形态未确认。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "仅登记问题，不生成契约/绑定；不将 [\"0\"] 规整化为 0 或推断为数组索引语法。"
+    },
+    {
+      "id": "cn.components.human_detection.content_type_required_unknown",
+      "region": "domestic",
+      "source_doc_id": "3873",
+      "source_url": "https://open.ys7.com/help/3873",
+      "source_content_sha256": "7f3f8c8cbfd85737edf05dbc36c5399890cadcb7e45e68df8ea898323cfc5038",
+      "description": "参数表 Body data Boolean Y 与 curl 示例 --header 'Content-Type: application/json' + --data 'true' 相互印证：请求体为裸 Boolean 根值，body 类型已知（--data 与 --data-raw 的差异不构成歧义）。未确认项为：参数表未列 Content-Type 而 curl 携带，Content-Type 是否必选未知。另路径模板与适用型号未确认（已另列 issue），路径未确认故该接口当前不可调用。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "仅登记问题，不生成契约/绑定；body 已确认为裸 Boolean 根值，不得再标注 body 编码未知；Content-Type 必填性与路径模板未确认前不可调用。"
     }
   ]
 }
