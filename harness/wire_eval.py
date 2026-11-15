@@ -979,19 +979,29 @@ def _check_business_request(request: httpx.Request, contract: dict, expected: di
     ct_specs = expected.get("ct_specs", ())
     if ct_specs:
         if not raw_ct_values:
+            # Absent header: only a declared required spec rejects; optional
+            # or unknown-requiredness specs tolerate the absence.
             if any(spec[0] for spec in ct_specs):
                 return "request_mismatch"
         elif len(raw_ct_values) > 1:
             return "request_mismatch"
         else:
+            # A present header must equal every declared constant — a wrong
+            # value stays a mismatch regardless of requiredness. A spec
+            # without a constant accepts any single present value.
             constants = {spec[2] for spec in ct_specs if spec[1]}
             if constants and raw_ct_values[0] not in constants:
                 return "request_mismatch"
     elif len(raw_ct_values) > 1:
         return "request_mismatch"
     content_type = raw_ct_values[0] if raw_ct_values else None
+    # With a declared Content-Type parameter the value was already verified
+    # above against the declaration itself; the canonical default for the
+    # body encoding must not impose a second, conflicting value. The
+    # canonical rule stays in force only when no CT parameter is declared.
+    ct_declared = bool(ct_specs)
     if encoding == "form_urlencoded":
-        if content_type != _CONTENT_TYPE_FOR_ENCODING["form_urlencoded"]:
+        if not ct_declared and content_type != _CONTENT_TYPE_FOR_ENCODING["form_urlencoded"]:
             return "request_mismatch"
         try:
             form = _request_form(request)
@@ -1029,10 +1039,14 @@ def _check_business_request(request: httpx.Request, contract: dict, expected: di
         if not expected["has_body"]:
             if request.content not in (b"", ""):
                 return "request_mismatch"
-            if content_type is not None and content_type != _CONTENT_TYPE_FOR_ENCODING["json"]:
+            if (
+                not ct_declared
+                and content_type is not None
+                and content_type != _CONTENT_TYPE_FOR_ENCODING["json"]
+            ):
                 return "request_mismatch"
         else:
-            if content_type != _CONTENT_TYPE_FOR_ENCODING["json"]:
+            if not ct_declared and content_type != _CONTENT_TYPE_FOR_ENCODING["json"]:
                 return "request_mismatch"
             try:
                 body = _strict_json_loads(request.content.decode("utf-8"))

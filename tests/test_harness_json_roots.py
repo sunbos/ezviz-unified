@@ -714,6 +714,300 @@ def test_business_check_detects_root_tampering(expected_body, raw):
 
 
 # ---------------------------------------------------------------------------
+# Declared Content-Type parameters vs. body-encoding canonical values
+# ---------------------------------------------------------------------------
+#
+# Architecture: an explicitly declared ``Content-Type`` header parameter is
+# verified against its own required/constant declaration; ``body_encoding``
+# then only governs body byte decoding/structure. The canonical default
+# Content-Type applies only when no Content-Type parameter is declared.
+
+JSON_CT = "application/json; charset=utf-8"
+FORM_CT = "application/x-www-form-urlencoded; charset=utf-8"
+FORM_PATH = "/api/synthetic/form/set"
+
+
+_OMIT = object()
+
+
+def ct_contract(ct_required=True, ct_constant=JSON_CT, base=None):
+    contract = base if base is not None else root_contract("object")
+    spec = {"name": "Content-Type", "location": "header", "type": "String"}
+    if ct_required is not _OMIT:
+        spec["required"] = ct_required
+    if ct_constant is not _OMIT:
+        spec["constant"] = ct_constant
+    contract["parameters"].append(spec)
+    return contract
+
+
+def form_contract():
+    contract = {
+        "operation_id": OP_ID,
+        "region": "domestic",
+        "source_doc_id": "SYN-FORM",
+        "source_url": "https://open.ys7.com/help/synthetic-form",
+        "source_content_sha256": SHA,
+        "method": "PUT",
+        "path": FORM_PATH,
+        "read_only": False,
+        "body_encoding": "form_urlencoded",
+        "token_location": "header",
+        "parameters": [
+            {"name": "X-Trace-Id", "location": "header", "type": "String", "required": True},
+            {
+                "name": "clientType",
+                "location": "query",
+                "type": "String",
+                "required": True,
+                "constant": "sdk",
+            },
+            {"name": "namedBody", "location": "body", "type": "String", "required": True},
+            {"name": TOKEN_FIELD, "location": "header", "type": "String", "required": True},
+        ],
+        "success": {
+            "code_path": "code",
+            "message_path": "message",
+            "data_path": "data",
+            "values": [200],
+        },
+    }
+    return contract
+
+
+def _parameter_ct_specs(mod, contract):
+    return mod._parameter_maps(contract)[3]
+
+
+def raw_put_request(content, extra_headers=None, path=OP_PATH, query="?clientType=sdk"):
+    """Independently constructed request — no Content-Type unless given."""
+    headers = {
+        "host": "open.ys7.com",
+        "x-trace-id": TRACE_ID,
+        "accesstoken": FIRST_TOKEN,
+    }
+    headers.update(extra_headers or {})
+    return httpx.Request("PUT", ORIGIN + path + query, content=content, headers=headers)
+
+
+def send_form(content_type, path=FORM_PATH):
+    captured = []
+
+    def handler(request):
+        captured.append(request)
+        return httpx.Response(200, json={"code": 200})
+
+    headers = dict(GOOD_HEADERS)
+    if content_type is not _UNSET:
+        headers["Content-Type"] = content_type
+    with httpx.Client(transport=httpx.MockTransport(handler)) as client:
+        client.put(
+            ORIGIN + path,
+            content=b"namedBody=v",
+            headers=headers,
+            params=dict(GOOD_PARAMS),
+        )
+    assert len(captured) == 1
+    return captured[0]
+
+
+def form_expected(mod, contract):
+    expected = mod._expected_wire(
+        contract,
+        {"X-Trace-Id": TRACE_ID, "namedBody": "v"},
+        [],
+        FIRST_TOKEN,
+        None,
+    )
+    expected["origin"] = ORIGIN
+    expected["path"] = FORM_PATH
+    expected["ct_specs"] = _parameter_ct_specs(mod, contract)
+    return expected
+
+
+def test_declared_json_charset_content_type_accepted():
+    """Explicit ``application/json; charset=utf-8`` constant must not collide
+    with the canonical ``application/json`` body-encoding expectation."""
+    mod = wire_eval()
+    contract = ct_contract()
+    expected = expected_wire(contract, {"k": 1})
+    expected["ct_specs"] = _parameter_ct_specs(mod, contract)
+    request = send_put(
+        json_body={"k": 1},
+        headers={**GOOD_HEADERS, "Content-Type": JSON_CT},
+        params=dict(GOOD_PARAMS),
+    )
+    assert mod._check_business_request(request, contract, expected) is None
+
+
+def test_declared_json_content_type_wrong_value_rejected():
+    """A present Content-Type unequal to the declared constant still fails."""
+    mod = wire_eval()
+    contract = ct_contract()
+    expected = expected_wire(contract, {"k": 1})
+    expected["ct_specs"] = _parameter_ct_specs(mod, contract)
+    request = send_put(
+        json_body={"k": 1},
+        headers={**GOOD_HEADERS, "Content-Type": "application/json"},
+        params=dict(GOOD_PARAMS),
+    )
+    assert mod._check_business_request(request, contract, expected) == "request_mismatch"
+
+
+def test_declared_json_content_type_required_missing_rejected():
+    """required=true with no Content-Type header on the wire must fail."""
+    mod = wire_eval()
+    contract = ct_contract()
+    expected = expected_wire(contract, {"k": 1})
+    expected["ct_specs"] = _parameter_ct_specs(mod, contract)
+    request = raw_put_request(b'{"k": 1}')
+    assert mod._check_business_request(request, contract, expected) == "request_mismatch"
+
+
+def test_declared_form_charset_content_type_accepted():
+    """Explicit form ``charset=utf-8`` constant must not collide with the
+    canonical ``application/x-www-form-urlencoded`` expectation."""
+    mod = wire_eval()
+    contract = ct_contract(ct_constant=FORM_CT, base=form_contract())
+    expected = form_expected(mod, contract)
+    request = send_form(FORM_CT)
+    assert mod._check_business_request(request, contract, expected) is None
+
+
+def test_declared_form_content_type_wrong_value_rejected():
+    mod = wire_eval()
+    contract = ct_contract(ct_constant=FORM_CT, base=form_contract())
+    expected = form_expected(mod, contract)
+    request = send_form("application/x-www-form-urlencoded")
+    assert mod._check_business_request(request, contract, expected) == "request_mismatch"
+
+
+def test_declared_form_content_type_required_missing_rejected():
+    mod = wire_eval()
+    contract = ct_contract(ct_constant=FORM_CT, base=form_contract())
+    expected = form_expected(mod, contract)
+    request = send_form(_UNSET)
+    assert mod._check_business_request(request, contract, expected) == "request_mismatch"
+
+
+def test_undeclared_content_type_keeps_canonical_json_rule():
+    """With no Content-Type parameter declared, the canonical
+    ``application/json`` requirement still applies and a charset-suffixed
+    value stays a mismatch."""
+    mod = wire_eval()
+    contract = root_contract("object")
+    expected = expected_wire(contract, {"k": 1})
+    expected["ct_specs"] = []
+    request = send_put(
+        json_body={"k": 1},
+        headers={**GOOD_HEADERS, "Content-Type": JSON_CT},
+        params=dict(GOOD_PARAMS),
+    )
+    assert mod._check_business_request(request, contract, expected) == "request_mismatch"
+
+
+def test_undeclared_content_type_keeps_canonical_form_rule():
+    mod = wire_eval()
+    contract = form_contract()
+    expected = form_expected(mod, contract)
+    request = send_form(FORM_CT)
+    assert mod._check_business_request(request, contract, expected) == "request_mismatch"
+
+
+def test_optional_declared_content_type_absent_accepted():
+    """required=false: the header may be absent; the body is still decoded."""
+    mod = wire_eval()
+    contract = ct_contract(ct_required=False)
+    expected = expected_wire(contract, {"k": 1})
+    expected["ct_specs"] = _parameter_ct_specs(mod, contract)
+    request = raw_put_request(b'{"k": 1}')
+    assert mod._check_business_request(request, contract, expected) is None
+
+
+def test_optional_declared_content_type_present_matching_accepted():
+    """required=false with a constant: a present value equal to it passes."""
+    mod = wire_eval()
+    contract = ct_contract(ct_required=False)
+    expected = expected_wire(contract, {"k": 1})
+    expected["ct_specs"] = _parameter_ct_specs(mod, contract)
+    request = send_put(
+        json_body={"k": 1},
+        headers={**GOOD_HEADERS, "Content-Type": JSON_CT},
+        params=dict(GOOD_PARAMS),
+    )
+    assert mod._check_business_request(request, contract, expected) is None
+
+
+def test_optional_declared_content_type_present_wrong_constant_rejected():
+    """required=false with a constant: a present value must match it."""
+    mod = wire_eval()
+    contract = ct_contract(ct_required=False)
+    expected = expected_wire(contract, {"k": 1})
+    expected["ct_specs"] = _parameter_ct_specs(mod, contract)
+    request = send_put(
+        json_body={"k": 1},
+        headers={**GOOD_HEADERS, "Content-Type": "text/plain"},
+        params=dict(GOOD_PARAMS),
+    )
+    assert mod._check_business_request(request, contract, expected) == "request_mismatch"
+
+
+def test_unknown_required_declared_content_type_absent_accepted():
+    """required absent is never promoted to required: an absent header
+    passes, while a present header still honors the declared constant."""
+    mod = wire_eval()
+    contract = ct_contract(ct_required=_OMIT)
+    expected = expected_wire(contract, {"k": 1})
+    expected["ct_specs"] = _parameter_ct_specs(mod, contract)
+    request = raw_put_request(b'{"k": 1}')
+    assert mod._check_business_request(request, contract, expected) is None
+
+
+def test_duplicate_content_type_headers_still_rejected():
+    mod = wire_eval()
+    contract = ct_contract()
+    expected = expected_wire(contract, {"k": 1})
+    expected["ct_specs"] = _parameter_ct_specs(mod, contract)
+    request = httpx.Request(
+        "PUT",
+        ORIGIN + OP_PATH + "?clientType=sdk",
+        content=b'{"k": 1}',
+        headers=[
+            (b"host", b"open.ys7.com"),
+            (b"x-trace-id", TRACE_ID.encode()),
+            (b"accesstoken", FIRST_TOKEN.encode()),
+            (b"content-type", JSON_CT.encode()),
+            (b"content-type", JSON_CT.encode()),
+        ],
+    )
+    assert mod._check_business_request(request, contract, expected) == "request_mismatch"
+
+
+def test_declared_content_type_does_not_launder_wrong_json_null_body():
+    """A null-root body must still parse to a real ``null``; a declared CT
+    constant can never make ``b'{}'`` pass as the null document."""
+    mod = wire_eval()
+    contract = root_contract("null")
+    contract["parameters"].append(
+        {
+            "name": "Content-Type",
+            "location": "header",
+            "type": "String",
+            "required": True,
+            "constant": JSON_CT,
+        }
+    )
+    expected = expected_wire(contract, None)
+    expected["ct_specs"] = _parameter_ct_specs(mod, contract)
+    request = send_put(
+        content=b"{}",
+        headers={**GOOD_HEADERS, "Content-Type": JSON_CT},
+        params=dict(GOOD_PARAMS),
+    )
+    assert mod._check_business_request(request, contract, expected) == "request_mismatch"
+
+
+# ---------------------------------------------------------------------------
 # Registry structural audit coverage
 # ---------------------------------------------------------------------------
 
