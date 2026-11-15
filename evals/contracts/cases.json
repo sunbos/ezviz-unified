@@ -4551,6 +4551,208 @@
         "state": "1"
       },
       "data": false
+    },
+    {
+      "operation_id": "global.settings.get_pir_area",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "channel": 0
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": "0"
+      },
+      "data": {
+        "deviceSerial": "C00000000",
+        "channelNo": 1,
+        "rows": 4,
+        "columns": 3,
+        "area": [
+          1,
+          3,
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "operation_id": "global.settings.set_pir_area",
+      "args": [
+        {
+          "$ref": "device_serial"
+        },
+        "1,3,6,7"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "area": "1,3,6,7"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "global.settings.get_chime",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        }
+      },
+      "data": {
+        "deviceSerial": "C00000000",
+        "channelNo": 1,
+        "type": 2,
+        "duration": 10000
+      }
+    },
+    {
+      "operation_id": "global.settings.set_chime",
+      "args": [
+        {
+          "$ref": "device_serial"
+        },
+        2,
+        10000
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "type": "2",
+        "duration": "10000"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "global.settings.get_infrared",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        }
+      },
+      "data": {
+        "deviceSerial": "C00000000",
+        "channelNo": 1,
+        "enable": 1
+      }
+    },
+    {
+      "operation_id": "global.settings.set_infrared",
+      "args": [
+        {
+          "$ref": "device_serial"
+        },
+        false
+      ],
+      "kwargs": {
+        "channel": 0
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "enable": "0",
+        "channelNo": "0"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "global.settings.list_timezones",
+      "args": [],
+      "kwargs": {
+        "language": "SIMPCN"
+      },
+      "fields": {
+        "language": "SIMPCN"
+      },
+      "data": [
+        {
+          "tzCode": "1",
+          "tzValue": "GMT-12:00",
+          "disPlayName": "评测时区甲"
+        },
+        {
+          "tzCode": "188",
+          "tzValue": "GMT+08:00",
+          "disPlayName": "评测时区乙"
+        }
+      ]
+    },
+    {
+      "operation_id": "global.settings.set_timezone",
+      "args": [
+        {
+          "$ref": "device_serial"
+        },
+        "188"
+      ],
+      "kwargs": {
+        "time_format": 0,
+        "daylight_saving": false
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "timezone": "188",
+        "timeFormat": "0",
+        "daylightSaving": "0"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "global.settings.get_language",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        }
+      },
+      "data": {
+        "language": "ENGLISH"
+      }
+    },
+    {
+      "operation_id": "global.settings.set_language",
+      "args": [
+        {
+          "$ref": "device_serial"
+        },
+        "GERMAN"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "language": "GERMAN"
+      },
+      "data": null
     }
   ]
 }

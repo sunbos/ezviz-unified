@@ -1,11 +1,17 @@
-"""Explicit request contracts for the unified client."""
+"""Explicit request contracts for the unified client.
+
+``token_location`` selects where the client places the access token.
+``"none"`` declares a public operation: the client never calls the token
+provider, never injects a token into any field, never retries, and sends
+the request to the configured ``api_base_url`` exactly as supplied.
+"""
 
 from dataclasses import dataclass, field
 from typing import Literal
 
 from .models import ResponsePolicy
 
-TokenLocation = Literal["form", "query", "header", "json"]
+TokenLocation = Literal["form", "query", "header", "json", "none"]
 
 
 @dataclass(frozen=True)
@@ -31,7 +37,7 @@ class Operation:
             or any(ord(ch) < 32 or ch.isspace() for ch in self.path)
         ):
             raise ValueError("operation path must be root-relative without query or fragment")
-        if self.token_location not in {"form", "query", "header", "json"}:
+        if self.token_location not in {"form", "query", "header", "json", "none"}:
             raise ValueError("invalid token location")
         regions = frozenset(self.regions)
         if not regions or not regions <= {"domestic", "overseas"}:

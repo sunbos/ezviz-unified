@@ -2524,6 +2524,137 @@
       "public_entry": "delegation.relieve_device",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "global.settings.get_pir_area",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.get_pir_area",
+        "AsyncSettings.get_pir_area"
+      ],
+      "offline_status": "passed",
+      "live_status": "not_verified",
+      "public_entry": "settings.get_pir_area"
+    },
+    {
+      "operation_id": "global.settings.set_pir_area",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.set_pir_area",
+        "AsyncSettings.set_pir_area"
+      ],
+      "offline_status": "passed",
+      "live_status": "not_verified",
+      "public_entry": "settings.set_pir_area"
+    },
+    {
+      "operation_id": "global.settings.get_chime",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.get_chime",
+        "AsyncSettings.get_chime"
+      ],
+      "offline_status": "passed",
+      "live_status": "not_verified",
+      "public_entry": "settings.get_chime"
+    },
+    {
+      "operation_id": "global.settings.set_chime",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.set_chime",
+        "AsyncSettings.set_chime"
+      ],
+      "offline_status": "passed",
+      "live_status": "not_verified",
+      "public_entry": "settings.set_chime"
+    },
+    {
+      "operation_id": "global.settings.get_infrared",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.get_infrared",
+        "AsyncSettings.get_infrared"
+      ],
+      "offline_status": "passed",
+      "live_status": "not_verified",
+      "public_entry": "settings.get_infrared"
+    },
+    {
+      "operation_id": "global.settings.set_infrared",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.set_infrared",
+        "AsyncSettings.set_infrared"
+      ],
+      "offline_status": "passed",
+      "live_status": "not_verified",
+      "public_entry": "settings.set_infrared"
+    },
+    {
+      "operation_id": "global.settings.list_timezones",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.list_timezones",
+        "AsyncSettings.list_timezones"
+      ],
+      "offline_status": "passed",
+      "live_status": "public_timezone_catalog_succeeded_singapore",
+      "live_evidence": "docs/validation/live/2026-11-15-public-timezones/singapore.json",
+      "public_entry": "settings.list_timezones"
+    },
+    {
+      "operation_id": "global.settings.set_timezone",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.set_timezone",
+        "AsyncSettings.set_timezone"
+      ],
+      "offline_status": "passed",
+      "live_status": "not_verified",
+      "public_entry": "settings.set_timezone"
+    },
+    {
+      "operation_id": "global.settings.get_language",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.get_language",
+        "AsyncSettings.get_language"
+      ],
+      "offline_status": "passed",
+      "live_status": "not_verified",
+      "public_entry": "settings.get_language"
+    },
+    {
+      "operation_id": "global.settings.set_language",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.set_language",
+        "AsyncSettings.set_language"
+      ],
+      "offline_status": "passed",
+      "live_status": "not_verified",
+      "public_entry": "settings.set_language"
     }
   ]
 }

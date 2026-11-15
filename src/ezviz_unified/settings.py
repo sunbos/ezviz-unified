@@ -1,10 +1,24 @@
-"""Device switch settings facade for the unified EZVIZ client (sync and async).
+"""Device settings facade for the unified EZVIZ client (sync and async).
 
-Covers the reviewed switch operations: Wi-Fi configuration prompt, scene
-(lens occlusion / video tampering), sound source localization, indicator
-light, all-day recording, and microphone. All endpoints are POST with
-form-encoded bodies, token in form, and a top-level code/msg/data envelope
-where the string "200" marks success.
+Covers the reviewed switch operations (Wi-Fi configuration prompt, scene
+lens occlusion / video tampering, sound source localization, indicator
+light, all-day recording, and microphone) plus the overseas-only settings
+batch: PIR detection area, doorbell chime, infrared switch, device
+timezone, device language, and the public timezone directory list.
+
+All endpoints are POST with form-encoded bodies and a top-level
+code/msg/data envelope where the string "200" marks success. Authenticated
+operations carry the access token in the form; ``list_timezones`` is an
+explicit public operation that carries no token at all.
+
+Overseas batch notes from the reviewed sources: the PIR ``area`` string is
+forwarded verbatim (no reordering, bitmask conversion, or grid inference);
+chime ``duration`` is a plain integer whose unit and range are not
+specified in the source; ``timeFormat`` is a required keyword-only SDK
+argument even though the source does not mark it required; and
+``daylightSaving`` is sent as the string "0"/"1". The timezone directory
+``language`` accepts only ENGLISH or SIMPCN, while the device ``language``
+accepts any non-blank UTF-8 string.
 """
 
 from __future__ import annotations
@@ -14,12 +28,14 @@ from enum import StrEnum
 from typing import TYPE_CHECKING
 
 from .models import ApiResponse, ResponsePolicy
-from .operations import Operation
+from .operations import Operation, TokenLocation
 
 if TYPE_CHECKING:
     from .client import AsyncClient, Client
 
 _DOMESTIC = "domestic"
+_OVERSEAS = "overseas"
+_OVERSEAS_REGIONS = frozenset({_OVERSEAS})
 
 _POLICY = ResponsePolicy(success_values=("200",))
 
@@ -169,8 +185,212 @@ def _enable_value(enabled: bool, *, as_string: bool) -> str | int:
     return 1 if enabled else 0
 
 
+def _require_overseas(scope: str) -> None:
+    if scope != _OVERSEAS:
+        raise ValueError("this operation is only supported in the overseas region")
+
+
+def _check_text(value: object, field: str) -> str:
+    """Return a non-blank UTF-8 encodable string unchanged."""
+
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f"{field} must be a non-blank string")
+    try:
+        value.encode("utf-8")
+    except UnicodeEncodeError:
+        encodable = False
+    else:
+        encodable = True
+    if not encodable:
+        raise ValueError(f"{field} must be encodable as UTF-8")
+    return value
+
+
+def _check_int(value: object, field: str) -> int:
+    if isinstance(value, bool) or not isinstance(value, int):
+        raise ValueError(f"{field} must be an int")
+    return value
+
+
+def _check_chime_type(value: object) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value not in (1, 2, 3):
+        raise ValueError("chime_type must be the int 1, 2, or 3")
+    return value
+
+
+def _check_time_format(value: object) -> int:
+    if isinstance(value, bool) or not isinstance(value, int) or value not in (0, 1, 2):
+        raise ValueError("time_format must be the int 0, 1, or 2")
+    return value
+
+
+def _check_daylight_saving(value: object) -> bool | None:
+    if value is None:
+        return None
+    if not isinstance(value, bool):
+        raise ValueError("daylight_saving must be a bool or None")
+    return value
+
+
+def _check_timezone_language(value: object) -> str:
+    if not isinstance(value, str) or value not in ("ENGLISH", "SIMPCN"):
+        raise ValueError("language must be ENGLISH or SIMPCN")
+    return value
+
+
+def _put_channel(data: dict[str, str | int], channel: int | None) -> None:
+    if channel is not None:
+        data["channelNo"] = _check_channel(channel)
+
+
+def _overseas_op(
+    name: str,
+    path: str,
+    *,
+    read_only: bool,
+    token_location: TokenLocation = "form",
+) -> Operation:
+    return Operation(
+        f"settings.{name}",
+        "POST",
+        path,
+        token_location=token_location,
+        regions=_OVERSEAS_REGIONS,
+        read_only=read_only,
+        policy=_POLICY,
+    )
+
+
+def _pir_area_get_request(
+    serial: object, channel: int | None, scope: str
+) -> tuple[Operation, dict[str, str | int]]:
+    _require_overseas(scope)
+    data: dict[str, str | int] = {"deviceSerial": _check_text(serial, "device_serial")}
+    _put_channel(data, channel)
+    return _overseas_op("get_pir_area", "/api/lapp/device/pir/get", read_only=True), data
+
+
+def _pir_area_set_request(
+    serial: object, area: object, channel: int | None, scope: str
+) -> tuple[Operation, dict[str, str | int]]:
+    _require_overseas(scope)
+    data: dict[str, str | int] = {
+        "deviceSerial": _check_text(serial, "device_serial"),
+        "area": _check_text(area, "area"),
+    }
+    _put_channel(data, channel)
+    return _overseas_op("set_pir_area", "/api/lapp/device/pir/set", read_only=False), data
+
+
+def _chime_get_request(
+    serial: object, channel: int | None, scope: str
+) -> tuple[Operation, dict[str, str | int]]:
+    _require_overseas(scope)
+    data: dict[str, str | int] = {"deviceSerial": _check_text(serial, "device_serial")}
+    _put_channel(data, channel)
+    return _overseas_op("get_chime", "/api/lapp/device/chime/get", read_only=True), data
+
+
+def _chime_set_request(
+    serial: object,
+    chime_type: object,
+    duration: object,
+    channel: int | None,
+    scope: str,
+) -> tuple[Operation, dict[str, str | int]]:
+    _require_overseas(scope)
+    data: dict[str, str | int] = {
+        "deviceSerial": _check_text(serial, "device_serial"),
+        "type": _check_chime_type(chime_type),
+        "duration": _check_int(duration, "duration"),
+    }
+    _put_channel(data, channel)
+    return _overseas_op("set_chime", "/api/lapp/device/chime/set", read_only=False), data
+
+
+def _infrared_get_request(
+    serial: object, channel: int | None, scope: str
+) -> tuple[Operation, dict[str, str | int]]:
+    _require_overseas(scope)
+    data: dict[str, str | int] = {"deviceSerial": _check_text(serial, "device_serial")}
+    _put_channel(data, channel)
+    return _overseas_op(
+        "get_infrared", "/api/lapp/device/infrared/switch/get", read_only=True
+    ), data
+
+
+def _infrared_set_request(
+    serial: object, enabled: object, channel: int | None, scope: str
+) -> tuple[Operation, dict[str, str | int]]:
+    _require_overseas(scope)
+    data: dict[str, str | int] = {
+        "deviceSerial": _check_text(serial, "device_serial"),
+        "enable": 1 if _check_enabled(enabled) else 0,
+    }
+    _put_channel(data, channel)
+    return _overseas_op(
+        "set_infrared", "/api/lapp/device/infrared/switch/set", read_only=False
+    ), data
+
+
+def _timezone_list_request(language: object, scope: str) -> tuple[Operation, dict[str, str] | None]:
+    _require_overseas(scope)
+    data: dict[str, str] | None = None
+    if language is not None:
+        data = {"language": _check_timezone_language(language)}
+    return (
+        _overseas_op(
+            "list_timezones",
+            "/api/lapp/timezone/list",
+            read_only=True,
+            token_location="none",
+        ),
+        data,
+    )
+
+
+def _timezone_set_request(
+    serial: object,
+    timezone: object,
+    time_format: object,
+    daylight_saving: object,
+    scope: str,
+) -> tuple[Operation, dict[str, str | int]]:
+    _require_overseas(scope)
+    data: dict[str, str | int] = {
+        "deviceSerial": _check_text(serial, "device_serial"),
+        "timezone": _check_text(timezone, "timezone"),
+        "timeFormat": _check_time_format(time_format),
+    }
+    saving = _check_daylight_saving(daylight_saving)
+    if saving is not None:
+        data["daylightSaving"] = "1" if saving else "0"
+    return _overseas_op("set_timezone", "/api/lapp/device/timezone/set", read_only=False), data
+
+
+def _language_get_request(serial: object, scope: str) -> tuple[Operation, dict[str, str | int]]:
+    _require_overseas(scope)
+    return (
+        _overseas_op("get_language", "/api/lapp/device/language/get", read_only=True),
+        {"deviceSerial": _check_text(serial, "device_serial")},
+    )
+
+
+def _language_set_request(
+    serial: object, language: object, scope: str
+) -> tuple[Operation, dict[str, str | int]]:
+    _require_overseas(scope)
+    return (
+        _overseas_op("set_language", "/api/lapp/device/language/set", read_only=False),
+        {
+            "deviceSerial": _check_text(serial, "device_serial"),
+            "language": _check_text(language, "language"),
+        },
+    )
+
+
 class Settings:
-    """Synchronous facade over the reviewed device switch operations."""
+    """Synchronous facade over device switch and overseas settings operations."""
 
     __slots__ = ("_client",)
 
@@ -192,9 +412,129 @@ class Settings:
         op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
         return self._client.request(op, data=data)
 
+    def get_pir_area(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
+        """Read the PIR detection area configuration (overseas region only).
+
+        POSTs ``/api/lapp/device/pir/get`` with ``deviceSerial`` and an
+        optional ``channelNo`` as form fields.
+        """
+        op, data = _pir_area_get_request(device_serial, channel, self._client.region.scope)
+        return self._client.request(op, data=data)
+
+    def set_pir_area(
+        self, device_serial: str, area: str, *, channel: int | None = None
+    ) -> ApiResponse:
+        """Write the PIR detection area configuration (overseas region only).
+
+        POSTs ``/api/lapp/device/pir/set``. ``area`` is forwarded verbatim as
+        the ``area`` form field: no reordering, bitmask conversion, or grid
+        inference is applied.
+        """
+        op, data = _pir_area_set_request(device_serial, area, channel, self._client.region.scope)
+        return self._client.request(op, data=data)
+
+    def get_chime(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
+        """Read the doorbell chime configuration (overseas region only).
+
+        POSTs ``/api/lapp/device/chime/get`` with ``deviceSerial`` and an
+        optional ``channelNo``.
+        """
+        op, data = _chime_get_request(device_serial, channel, self._client.region.scope)
+        return self._client.request(op, data=data)
+
+    def set_chime(
+        self,
+        device_serial: str,
+        chime_type: int,
+        duration: int,
+        *,
+        channel: int | None = None,
+    ) -> ApiResponse:
+        """Set the doorbell chime (overseas region only).
+
+        POSTs ``/api/lapp/device/chime/set``. ``chime_type`` must be the int
+        1, 2, or 3 and is sent as ``type``; ``duration`` is sent as-is as an
+        int because the source does not specify its unit or range (negative
+        values are not rejected).
+        """
+        op, data = _chime_set_request(
+            device_serial, chime_type, duration, channel, self._client.region.scope
+        )
+        return self._client.request(op, data=data)
+
+    def get_infrared(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
+        """Read the infrared (night vision) switch state (overseas only).
+
+        POSTs ``/api/lapp/device/infrared/switch/get`` with ``deviceSerial``
+        and an optional ``channelNo``.
+        """
+        op, data = _infrared_get_request(device_serial, channel, self._client.region.scope)
+        return self._client.request(op, data=data)
+
+    def set_infrared(
+        self, device_serial: str, enabled: bool, *, channel: int | None = None
+    ) -> ApiResponse:
+        """Set the infrared (night vision) switch (overseas region only).
+
+        POSTs ``/api/lapp/device/infrared/switch/set``; ``enabled`` is sent
+        as the integer ``enable`` field (1 or 0).
+        """
+        op, data = _infrared_set_request(device_serial, enabled, channel, self._client.region.scope)
+        return self._client.request(op, data=data)
+
+    def list_timezones(self, *, language: str | None = None) -> ApiResponse:
+        """List the public timezone directory (overseas region only).
+
+        POSTs ``/api/lapp/timezone/list`` as an explicit public request: no
+        token is attached regardless of client credentials. ``language`` may
+        be "ENGLISH" or "SIMPCN"; ``None`` leaves the choice to the
+        service default.
+        """
+        op, data = _timezone_list_request(language, self._client.region.scope)
+        return self._client.request(op, data=data)
+
+    def set_timezone(
+        self,
+        device_serial: str,
+        timezone: str,
+        *,
+        time_format: int,
+        daylight_saving: bool | None = None,
+    ) -> ApiResponse:
+        """Set the device timezone (overseas region only).
+
+        POSTs ``/api/lapp/device/timezone/set`` with ``timezone`` and
+        ``timeFormat``. ``time_format`` is a required keyword-only int
+        (0/1/2); requiring it is a local SDK design choice, not a rule
+        marked in the source. ``daylight_saving`` is an optional bool sent
+        as the string "1"/"0" via ``daylightSaving`` and omitted when None.
+        """
+        op, data = _timezone_set_request(
+            device_serial, timezone, time_format, daylight_saving, self._client.region.scope
+        )
+        return self._client.request(op, data=data)
+
+    def get_language(self, device_serial: str) -> ApiResponse:
+        """Read the device language (overseas region only).
+
+        POSTs ``/api/lapp/device/language/get`` with ``deviceSerial``.
+        """
+        op, data = _language_get_request(device_serial, self._client.region.scope)
+        return self._client.request(op, data=data)
+
+    def set_language(self, device_serial: str, language: str) -> ApiResponse:
+        """Set the device language (overseas region only).
+
+        POSTs ``/api/lapp/device/language/set``. ``language`` is forwarded
+        verbatim as a non-blank UTF-8 string and is not limited to the
+        timezone directory's ENGLISH/SIMPCN set.
+        """
+        op, data = _language_set_request(device_serial, language, self._client.region.scope)
+        return self._client.request(op, data=data)
+
 
 class AsyncSettings:
-    """Asynchronous facade over the reviewed device switch operations."""
+    """Asynchronous facade over device switch and overseas settings operations."""
 
     __slots__ = ("_client",)
 
@@ -214,4 +554,124 @@ class AsyncSettings:
         channel: int | None = None,
     ) -> ApiResponse:
         op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
+        return await self._client.request(op, data=data)
+
+    async def get_pir_area(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
+        """Read the PIR detection area configuration (overseas region only).
+
+        POSTs ``/api/lapp/device/pir/get`` with ``deviceSerial`` and an
+        optional ``channelNo`` as form fields.
+        """
+        op, data = _pir_area_get_request(device_serial, channel, self._client.region.scope)
+        return await self._client.request(op, data=data)
+
+    async def set_pir_area(
+        self, device_serial: str, area: str, *, channel: int | None = None
+    ) -> ApiResponse:
+        """Write the PIR detection area configuration (overseas region only).
+
+        POSTs ``/api/lapp/device/pir/set``. ``area`` is forwarded verbatim as
+        the ``area`` form field: no reordering, bitmask conversion, or grid
+        inference is applied.
+        """
+        op, data = _pir_area_set_request(device_serial, area, channel, self._client.region.scope)
+        return await self._client.request(op, data=data)
+
+    async def get_chime(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
+        """Read the doorbell chime configuration (overseas region only).
+
+        POSTs ``/api/lapp/device/chime/get`` with ``deviceSerial`` and an
+        optional ``channelNo``.
+        """
+        op, data = _chime_get_request(device_serial, channel, self._client.region.scope)
+        return await self._client.request(op, data=data)
+
+    async def set_chime(
+        self,
+        device_serial: str,
+        chime_type: int,
+        duration: int,
+        *,
+        channel: int | None = None,
+    ) -> ApiResponse:
+        """Set the doorbell chime (overseas region only).
+
+        POSTs ``/api/lapp/device/chime/set``. ``chime_type`` must be the int
+        1, 2, or 3 and is sent as ``type``; ``duration`` is sent as-is as an
+        int because the source does not specify its unit or range (negative
+        values are not rejected).
+        """
+        op, data = _chime_set_request(
+            device_serial, chime_type, duration, channel, self._client.region.scope
+        )
+        return await self._client.request(op, data=data)
+
+    async def get_infrared(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
+        """Read the infrared (night vision) switch state (overseas only).
+
+        POSTs ``/api/lapp/device/infrared/switch/get`` with ``deviceSerial``
+        and an optional ``channelNo``.
+        """
+        op, data = _infrared_get_request(device_serial, channel, self._client.region.scope)
+        return await self._client.request(op, data=data)
+
+    async def set_infrared(
+        self, device_serial: str, enabled: bool, *, channel: int | None = None
+    ) -> ApiResponse:
+        """Set the infrared (night vision) switch (overseas region only).
+
+        POSTs ``/api/lapp/device/infrared/switch/set``; ``enabled`` is sent
+        as the integer ``enable`` field (1 or 0).
+        """
+        op, data = _infrared_set_request(device_serial, enabled, channel, self._client.region.scope)
+        return await self._client.request(op, data=data)
+
+    async def list_timezones(self, *, language: str | None = None) -> ApiResponse:
+        """List the public timezone directory (overseas region only).
+
+        POSTs ``/api/lapp/timezone/list`` as an explicit public request: no
+        token is attached regardless of client credentials. ``language`` may
+        be "ENGLISH" or "SIMPCN"; ``None`` leaves the choice to the
+        service default.
+        """
+        op, data = _timezone_list_request(language, self._client.region.scope)
+        return await self._client.request(op, data=data)
+
+    async def set_timezone(
+        self,
+        device_serial: str,
+        timezone: str,
+        *,
+        time_format: int,
+        daylight_saving: bool | None = None,
+    ) -> ApiResponse:
+        """Set the device timezone (overseas region only).
+
+        POSTs ``/api/lapp/device/timezone/set`` with ``timezone`` and
+        ``timeFormat``. ``time_format`` is a required keyword-only int
+        (0/1/2); requiring it is a local SDK design choice, not a rule
+        marked in the source. ``daylight_saving`` is an optional bool sent
+        as the string "1"/"0" via ``daylightSaving`` and omitted when None.
+        """
+        op, data = _timezone_set_request(
+            device_serial, timezone, time_format, daylight_saving, self._client.region.scope
+        )
+        return await self._client.request(op, data=data)
+
+    async def get_language(self, device_serial: str) -> ApiResponse:
+        """Read the device language (overseas region only).
+
+        POSTs ``/api/lapp/device/language/get`` with ``deviceSerial``.
+        """
+        op, data = _language_get_request(device_serial, self._client.region.scope)
+        return await self._client.request(op, data=data)
+
+    async def set_language(self, device_serial: str, language: str) -> ApiResponse:
+        """Set the device language (overseas region only).
+
+        POSTs ``/api/lapp/device/language/set``. ``language`` is forwarded
+        verbatim as a non-blank UTF-8 string and is not limited to the
+        timezone directory's ENGLISH/SIMPCN set.
+        """
+        op, data = _language_set_request(device_serial, language, self._client.region.scope)
         return await self._client.request(op, data=data)

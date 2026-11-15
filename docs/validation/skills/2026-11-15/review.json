@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "evaluation": "manual_semantic_review_of_synthetic_plans",
+  "runs": [
+    {
+      "skill": "ezviz-device-inspection",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "prompt_sha256": "b22889d7e1f8d7600ee6cc9f9e6f9f1563b3b4d2702490f1e577d9e49903781d",
+      "skill_sha256": "31cdfa1eed09f831537bf0a10d4a1fbd9313d76f11f7db22bb88bc7ce5c382b3",
+      "case_ids": [
+        "inspection_empty_first_page",
+        "inspection_public_partial_report"
+      ],
+      "tools_enabled": false
+    },
+    {
+      "skill": "ezviz-contract-review",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "prompt_sha256": "c8c754ba0fc765b7fef0f5a96696f107b336c7d39e61b98fc58bd6ecf31c9d59",
+      "skill_sha256": "20e5a8d48ce6b1f474b437e2301d50d365842d073e74afc5b8cfa56675bc96ff",
+      "case_ids": [
+        "contract_declared_example_conflict",
+        "contract_source_hash_and_instruction",
+        "contract_known_wire_requirement_unknown"
+      ],
+      "tools_enabled": false
+    },
+    {
+      "skill": "ezviz-doc-maintenance",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "prompt_sha256": "5f8ac10bc808ff7d3d1b1a6ded49ae9847db6099e63555876d0f880d6562dddb",
+      "skill_sha256": "7cca6e23ff97b7920f3b524bee1834e426da3e7bbcdd1bda198f68ed09481814",
+      "case_ids": [
+        "maintenance_missing_source",
+        "maintenance_deprecated_title"
+      ],
+      "tools_enabled": false
+    }
+  ],
+  "case_count": 7,
+  "format_validation_count": 3,
+  "criteria_path": "evals/skills/expectations.json",
+  "cases_sha256": "670989bd71a268fd427ffd1ee302f3196eb6af8b158223066c89baaaac551b3e",
+  "answers_sha256": "a6091afa26e27e2c998e76e320a2254e18574f7f48d794a17bb9c2d9c3113883",
+  "observations": [
+    "All seven final plans address the core case criteria; this is manual review, not an automatic execution pass rate.",
+    "The empty-page answer proposes further pagination only after separate authorization; no enumeration was executed or approved by this evaluation. The deployed single-device workflow remains bounded.",
+    "Two earlier responses expanded report-only scope or suggested registration from incomplete evidence; skills were revised and the same cases rerun.",
+    "Skill authors and reviewers participated in the iterative case design; this is not a hidden holdout benchmark."
+  ],
+  "actual_command_smoke": {
+    "runner": "Claude Code Bash",
+    "command": ".venv/bin/python -m harness.review --repo . --before data/official-docs/2026-11-14 --after data/official-docs/2026-11-14",
+    "decision": "no_document_review",
+    "registered_contracts": 186,
+    "offline_executions": 1520,
+    "publication_authorized": false,
+    "real_api_used": false
+  },
+  "limitations": [
+    "Model evaluations used no tools: plans are not evidence that skills execute complete workflows reliably.",
+    "The command smoke uses identical existing snapshots, not a real document change or generated repair.",
+    "No new device, credential, publication, or merge actions were exercised by these skills."
+  ]
+}

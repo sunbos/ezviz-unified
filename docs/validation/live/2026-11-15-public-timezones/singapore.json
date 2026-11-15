@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "evidence": "bounded_unauthenticated_http_and_sdk_catalog_queries",
+  "region": "overseas",
+  "regional_host": "isgpopen.ezvizlife.com",
+  "operation_path": "/api/lapp/timezone/list",
+  "credentials_used": false,
+  "device_api_called": false,
+  "requests": [
+    {
+      "request": "default",
+      "at_utc": "2026-11-15T04:23:08.256517+00:00",
+      "method": "POST",
+      "url": "https://isgpopen.ezvizlife.com/api/lapp/timezone/list",
+      "form": null,
+      "status": 200,
+      "sha256": "4c436f58bc5c0887a85ffea0aff40987a2bed7b1c3b128469941cfaddf1e73a9",
+      "request_content_type": null,
+      "response_content_type": "application/json;charset=UTF-8"
+    },
+    {
+      "request": "english",
+      "at_utc": "2026-11-15T04:23:10.144689+00:00",
+      "method": "POST",
+      "url": "https://isgpopen.ezvizlife.com/api/lapp/timezone/list",
+      "form": {
+        "language": "ENGLISH"
+      },
+      "status": 200,
+      "sha256": "4c436f58bc5c0887a85ffea0aff40987a2bed7b1c3b128469941cfaddf1e73a9",
+      "request_content_type": "application/x-www-form-urlencoded",
+      "response_content_type": "application/json;charset=UTF-8"
+    },
+    {
+      "request": "simpcn",
+      "at_utc": "2026-11-15T04:23:10.504309+00:00",
+      "method": "POST",
+      "url": "https://isgpopen.ezvizlife.com/api/lapp/timezone/list",
+      "form": {
+        "language": "SIMPCN"
+      },
+      "status": 200,
+      "sha256": "a9a683ffd069ccef3c228d4f66df7f4d4dd4fc5f61da58607344f33a4be6bf71",
+      "request_content_type": "application/x-www-form-urlencoded",
+      "response_content_type": "application/json;charset=UTF-8"
+    }
+  ],
+  "results": [
+    {
+      "name": "default",
+      "http_status": 200,
+      "code": "200",
+      "data_type": "list",
+      "count": 105,
+      "first_fields": [
+        "tzCode",
+        "tzValue",
+        "disPlayName"
+      ]
+    },
+    {
+      "name": "english",
+      "http_status": 200,
+      "code": "200",
+      "data_type": "list",
+      "count": 105,
+      "first_fields": [
+        "tzCode",
+        "tzValue",
+        "disPlayName"
+      ]
+    },
+    {
+      "name": "simpcn",
+      "http_status": 200,
+      "code": "200",
+      "data_type": "list",
+      "count": 105,
+      "first_fields": [
+        "tzCode",
+        "tzValue",
+        "disPlayName"
+      ]
+    }
+  ],
+  "comparison": {
+    "default_equals_english": true,
+    "same_codes": true,
+    "localized_name_differences": 105
+  },
+  "limitations": [
+    "Only the listed Singapore host, HTTP requests, and SDK invocations were observed.",
+    "SDK checks cover only the listed sync/async public catalog invocations; device settings remain offline-only.",
+    "No region fallback, authentication, or device mutation was performed."
+  ],
+  "sdk_checks": [
+    {
+      "at_utc": "2026-11-15T04:57:18.529368+00:00",
+      "mode": "sync",
+      "operation": "settings.list_timezones",
+      "language": "ENGLISH",
+      "anonymous": true,
+      "api_origin": "https://isgpopen.ezvizlife.com",
+      "http_status": 200,
+      "code": "200",
+      "items": 105,
+      "raw_sha256": "cc19779ffc90cd89ccffd5dd3942ed0b2b4d4dac09fe75354c414ea91f8c58bb"
+    },
+    {
+      "at_utc": "2026-11-15T04:57:19.760874+00:00",
+      "mode": "async",
+      "operation": "settings.list_timezones",
+      "language": "SIMPCN",
+      "anonymous": true,
+      "api_origin": "https://isgpopen.ezvizlife.com",
+      "http_status": 200,
+      "code": "200",
+      "items": 105,
+      "raw_sha256": "e9cf369a12ff92c9c7d51ae7dab6e583ab26e398293347b92f883cb0c49ebf4c"
+    }
+  ],
+  "sdk_source_sha256": {
+    "src/ezviz_unified/client.py": "18c98c9e6f4b4f6194c092b0f0f6dd88daca59c5a49cd2936eb7407c97e39492",
+    "src/ezviz_unified/operations.py": "5c2689ab7289607226dc7b3344957cfed296e55fe0c2fae920e90bb3c44f2530",
+    "src/ezviz_unified/settings.py": "54e002b86382422e4a4efe75b7ed7a3643c077ecae179b348ce8c5757d11bbb5"
+  }
+}

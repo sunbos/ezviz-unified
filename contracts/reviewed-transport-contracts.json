@@ -13085,6 +13085,684 @@
         "data=false 时的失败原因与是否伴随业务错误码未说明（meta.code 仍为 200）"
       ],
       "transport_evidence": "接口信息表：POST /api/v3/lapp/trust/sign/resource/relieve；curl 示例 Header 携带 accessToken、deviceSerial（及可选 localIndex），Content-Type: application/x-www-form-urlencoded，form 传 appKey 与必填 state"
+    },
+    {
+      "operation_id": "global.settings.get_pir_area",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "method": "POST",
+      "path": "/api/lapp/device/pir/get",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row (raw cell order): 'accessToken | String | Obtained access_token during assigning permission | Y'"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row (raw cell order): 'deviceSerial | String | Device serial No. | Y'"
+        },
+        {
+          "name": "channelNo",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "evidence": "request parameter table row (raw cell order): 'channelNo | int | Channel No., no transmission means the device itself. | N'"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "Return Data example emits string \"code\": \"200\" with data.deviceSerial/channelNo/rows/columns/area",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "omitting channelNo targets the device itself",
+          "evidence": "no transmission means the device itself."
+        },
+        {
+          "fact": "area entries are row bitmasks; decimal converts to binary and 1-bits mark selected cells",
+          "evidence": "Converting decimal to binary , All of 1 area is selected"
+        }
+      ],
+      "uncertainties": [
+        "HTTP example body includes undocumented 'enable=1'",
+        "return field table spells 'devceSerial' while the response example emits 'deviceSerial'",
+        "parameter table header order 'Parameter Name|Description|Type|Required' mismatches cell order"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/device/pir/get",
+        "encoding": "application/x-www-form-urlencoded (HTTP example header 'Content-Type: application/x-www-form-urlencoded')"
+      }
+    },
+    {
+      "operation_id": "global.settings.set_pir_area",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "method": "POST",
+      "path": "/api/lapp/device/pir/set",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row (raw cell order): 'accessToken | String | Obtained access_token during assigning permission | Y'"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row (raw cell order): 'deviceSerial | String | Device serial No. | Y'"
+        },
+        {
+          "name": "channelNo",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "evidence": "request parameter table row (raw cell order): 'channelNo | int | Channel No., no transmission means the device itself. | N'"
+        },
+        {
+          "name": "area",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row (raw cell order): 'area | String | pir area . if the value of area is 1,3,6,7 <embedded 4x3 selection grid> | Y'"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "Return Data example emits string \"code\": \"200\" with msg \"Operating succeeded!\"",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "each number in area is a row bitmask; decimal converts to binary and 1-bits mark selected cells",
+          "evidence": "Every number in param area means the row of area. Converting decimal to binary , All of 1 area is selected"
+        },
+        {
+          "fact": "omitting channelNo targets the device itself",
+          "evidence": "no transmission means the device itself."
+        }
+      ],
+      "uncertainties": [
+        "HTTP example body sends undocumented 'enable=1' and omits required 'area'",
+        "example request line shows '//api/lapp/device/pir/set' with double slash",
+        "area description embeds a 4x3 selection grid for value '1,3,6,7'; wire encoding for multiple rows is not stated",
+        "parameter table header order 'Parameter Name|Description|Type|Required' mismatches cell order (type appears in the Description column)"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/device/pir/set",
+        "encoding": "application/x-www-form-urlencoded (HTTP example header 'Content-Type: application/x-www-form-urlencoded')"
+      }
+    },
+    {
+      "operation_id": "global.settings.get_chime",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "method": "POST",
+      "path": "/api/lapp/device/chime/get",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row (raw cell order): 'accessToken | String | Obtained access_token during assigning permission | Y'"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row (raw cell order): 'deviceSerial | String | Device serial No. | Y'"
+        },
+        {
+          "name": "channelNo",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "evidence": "request parameter table row (raw cell order): 'channelNo | int | Channel No., no transmission means the device itself. | N'"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "Return Data example emits string \"code\": \"200\" with data.deviceSerial/channelNo/type/duration",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "type enum documented in return field",
+          "evidence": "1-mechanical , 2-electronic 3-none"
+        },
+        {
+          "fact": "omitting channelNo targets the device itself",
+          "evidence": "no transmission means the device itself."
+        }
+      ],
+      "uncertainties": [
+        "HTTP example request line shows 'POST /api/lapp/camera/video/sound/set' which differs from the documented path '/api/lapp/device/chime/get'",
+        "return field table spells 'devceSerial' while the response example emits 'deviceSerial'",
+        "parameter table header order 'Parameter Name|Description|Type|Required' mismatches cell order"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/device/chime/get",
+        "encoding": "application/x-www-form-urlencoded (HTTP example header 'Content-Type: application/x-www-form-urlencoded')"
+      }
+    },
+    {
+      "operation_id": "global.settings.set_chime",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "method": "POST",
+      "path": "/api/lapp/device/chime/set",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row (raw cell order): 'accessToken | String | Obtained access_token during assigning permission | Y'"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row (raw cell order): 'deviceSerial | String | Device serial No. | Y'"
+        },
+        {
+          "name": "channelNo",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "evidence": "request parameter table row (raw cell order): 'channelNo | int | Channel No., no transmission means the device itself. | N'"
+        },
+        {
+          "name": "type",
+          "location": "body",
+          "type": "int",
+          "required": true,
+          "evidence": "request parameter table row (raw cell order): 'type | int | Device chime type , 1-mechanical , 2-electronic 3-none | Y'"
+        },
+        {
+          "name": "duration",
+          "location": "body",
+          "type": "int",
+          "required": true,
+          "evidence": "request parameter table row (raw cell order): 'duration | int | The length of time that sth lasts or continues | Y'"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "Return Data example emits string \"code\": \"200\" with msg \"Operation succeeded\"",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "type enum documented inline",
+          "evidence": "1-mechanical , 2-electronic 3-none"
+        },
+        {
+          "fact": "omitting channelNo targets the device itself",
+          "evidence": "no transmission means the device itself."
+        }
+      ],
+      "uncertainties": [
+        "no unit or range stated for duration (example uses 10000)",
+        "parameter table header order 'Parameter Name|Description|Type|Required' mismatches cell order"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/device/chime/set",
+        "encoding": "application/x-www-form-urlencoded (HTTP example header 'Content-Type: application/x-www-form-urlencoded')"
+      }
+    },
+    {
+      "operation_id": "global.settings.get_infrared",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "method": "POST",
+      "path": "/api/lapp/device/infrared/switch/get",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row: 'accessToken | String | Obtained access_token during assigning permission | Y'"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row: 'deviceSerial | String | Device serial No. | Y'"
+        },
+        {
+          "name": "channelNo",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "evidence": "request parameter table row: 'channelNo | int | Channel No., no transmission means the device itself. | N'"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "Return Data example emits string \"code\": \"200\" with data.deviceSerial/channelNo/enable",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "omitting channelNo targets the device itself",
+          "evidence": "no transmission means the device itself."
+        }
+      ],
+      "uncertainties": [
+        "HTTP example body includes undocumented 'enable=1'",
+        "error 60020 text references 'people counting funcrion' (sic) which does not match this endpoint's stated function"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/device/infrared/switch/get",
+        "encoding": "application/x-www-form-urlencoded (HTTP example header 'Content-Type: application/x-www-form-urlencoded')"
+      }
+    },
+    {
+      "operation_id": "global.settings.set_infrared",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "method": "POST",
+      "path": "/api/lapp/device/infrared/switch/set",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row: 'accessToken | String | Obtained access_token during assigning permission | Y'"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row: 'deviceSerial | String | Device serial No. | Y'"
+        },
+        {
+          "name": "enable",
+          "location": "body",
+          "type": "int",
+          "required": true,
+          "evidence": "request parameter table row: 'enable | int | Status:0-Disable, 1-Enable | Y'"
+        },
+        {
+          "name": "channelNo",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "evidence": "request parameter table row: 'channelNo | int | Channel No., no transmission means the device itself. | N'"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "Return Data example emits string \"code\": \"200\" with msg \"Operation succeeded\"",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "enable is a 0/1 switch",
+          "evidence": "Status:0-Disable, 1-Enable"
+        },
+        {
+          "fact": "omitting channelNo targets the device itself",
+          "evidence": "no transmission means the device itself."
+        }
+      ],
+      "uncertainties": [
+        "HTTP example request line shows 'POST /api/lapp/device/infrared/switch/get' while Request Address is '/api/lapp/device/infrared/switch/set'",
+        "a Return Field table lists deviceSerial/channelNo/enable but the Return Data example contains no 'data' object",
+        "return table types channelNo as String while the request types it int"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/device/infrared/switch/set",
+        "encoding": "application/x-www-form-urlencoded (HTTP example header 'Content-Type: application/x-www-form-urlencoded')"
+      }
+    },
+    {
+      "operation_id": "global.settings.list_timezones",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "method": "POST",
+      "path": "/api/lapp/timezone/list",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "none",
+      "parameters": [
+        {
+          "name": "language",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "request parameter table row: 'language | String | Time zone language can only be ENGLISH or SIMPCN, the default value is ENGLISH | N'; parameter transport unspecified in source, form body verified by 2026-11-15 public probe on isgpopen.ezvizlife.com"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "Return Data example emits string \"code\": \"200\" with data array; 2026-11-15 public probe on isgpopen.ezvizlife.com also returned string code '200'",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "language limited to two values with ENGLISH default",
+          "evidence": "can only be ENGLISH or SIMPCN, the default value is ENGLISH"
+        },
+        {
+          "fact": "tzCode is the value to pass to the set-timezone interface",
+          "evidence": "Time zone encoding (used when calling the set time interface)"
+        },
+        {
+          "fact": "extra non-source evidence: 2026-11-15 coordinator probe sent three unauthenticated POSTs to https://isgpopen.ezvizlife.com/api/lapp/timezone/list (no body, form ENGLISH, form SIMPCN); all returned HTTP 200 with string code '200' and 105 items; default equals ENGLISH; ENGLISH/SIMPCN disPlayName differ for all 105 items; only the Singapore host was probed, other regions remain untested",
+          "evidence": "docs/validation/live/2026-11-15-public-timezones/singapore.json (live probe record, not document text)"
+        }
+      ],
+      "uncertainties": [
+        "no accessToken parameter documented although sibling endpoints require one; source alone cannot confirm token-free access, but the Singapore host was verified token-free by the 2026-11-15 public probe",
+        "no Content-Type or request body shown in the HTTP example; parameter transport (body vs query) is not demonstrated in source; form encoding verified by public probe on the Singapore host only",
+        "example Host line includes a scheme: 'Host: https://isgpopen.ezvizlife.com'",
+        "return field header contains stray text '描Description'"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/timezone/list",
+        "encoding": "unspecified in source (no Content-Type in HTTP example); application/x-www-form-urlencoded confirmed by 2026-11-15 public probe on isgpopen.ezvizlife.com"
+      }
+    },
+    {
+      "operation_id": "global.settings.set_timezone",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "method": "POST",
+      "path": "/api/lapp/device/timezone/set",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row: 'accessToken | String | access_token obtained by the authorization process | Y'"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row: 'deviceSerial | Strring | Device serial number | Y' (source type cell spells 'Strring'; normalized to String)"
+        },
+        {
+          "name": "timezone",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row: 'timezone | String | Time zone code, tzCode value obtained through the time zone list query interface | Y'"
+        },
+        {
+          "name": "timeFormat",
+          "location": "body",
+          "type": "int",
+          "required": null,
+          "required_uncertainty": "官方 Required 单元格填写的是枚举说明 '0: YYYY-MM-DD, 1: MM-DD-YYYY, 2: DD-MM-YYYY' 而非 Y/N 必填标记，因此必填性未被声明；HTTP 示例仍发送 timeFormat=0。SDK 的 time_format 显式必填是本地设计规则，不代表官方已确认必填。",
+          "evidence": "request parameter table row: 'timeFormat | int | time format \\ | 0: YYYY-MM-DD, 1: MM-DD-YYYY, 2: DD-MM-YYYY' — the enum text occupies the Required cell instead of Y/N"
+        },
+        {
+          "name": "daylightSaving",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "request parameter table row: 'daylightSaving | String | Whether to turn on daylight saving time 0-not open, 1-open | N'"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "Return Data example emits string \"code\": \"200\" with msg \"Operation succeeded\"",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "timezone takes the tzCode value returned by the list interface",
+          "evidence": "tzCode value obtained through the time zone list query interface"
+        },
+        {
+          "fact": "timeFormat enum text is documented inside the Required cell",
+          "evidence": "0: YYYY-MM-DD, 1: MM-DD-YYYY, 2: DD-MM-YYYY"
+        },
+        {
+          "fact": "daylightSaving is a 0/1 flag declared as String; SDK accepts bool or None and maps it to '0'/'1' per the declared String type (explicit SDK rule, not a source contradiction)",
+          "evidence": "Whether to turn on daylight saving time 0-not open, 1-open"
+        },
+        {
+          "fact": "SDK requires the caller to pass time_format explicitly; this is a local SDK design rule and is not claimed as a documented mandatory requirement",
+          "evidence": "local design decision; the source Required cell carries enum text instead of Y/N"
+        }
+      ],
+      "uncertainties": [
+        "timeFormat Required cell contains '0: YYYY-MM-DD, 1: MM-DD-YYYY, 2: DD-MM-YYYY' instead of Y/N, so requiredness is not stated; the example nevertheless sends timeFormat=0",
+        "timeFormat description is truncated to 'time format \\' in source",
+        "deviceSerial type spelled 'Strring' in source",
+        "HTTP example separates accessToken and deviceSerial with ';' instead of '&'",
+        "example Host line includes a scheme: 'Host: https://isgpopen.ezvizlife.com'"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/device/timezone/set",
+        "encoding": "application/x-www-form-urlencoded (HTTP example header 'Content-Type: application/x-www-form-urlencoded')"
+      }
+    },
+    {
+      "operation_id": "global.settings.get_language",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "method": "POST",
+      "path": "/api/lapp/device/language/get",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row: 'accessToken | String | access_token obtained by the authorization process | Y'"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row: 'deviceSerial | Strring | Device serial number | Y' (source type cell spells 'Strring'; normalized to String)"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "Return Data example emits string \"code\": \"200\" with data.language \"ENGLISH\"",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "minimum sub-account permission documented",
+          "evidence": "\"Permission\":\"Get\" \"Resource\":\"dev:serial number\""
+        }
+      ],
+      "uncertainties": [
+        "deviceSerial type spelled 'Strring' in source",
+        "HTTP example separates accessToken and deviceSerial with ';' instead of '&'",
+        "example Host line includes a scheme: 'Host: https://isgpopen.ezvizlife.com'",
+        "no enum of possible language values given in this section"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/device/language/get",
+        "encoding": "application/x-www-form-urlencoded (HTTP example header 'Content-Type: application/x-www-form-urlencoded')"
+      }
+    },
+    {
+      "operation_id": "global.settings.set_language",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "method": "POST",
+      "path": "/api/lapp/device/language/set",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row: 'accessToken | String | access_token obtained by the authorization process | Y'"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row: 'deviceSerial | String | Device serial number | Y'"
+        },
+        {
+          "name": "language",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "request parameter table row: 'language | String | The language to be set. The parameter value can be obtained from the field [support_language] return by [Get Device Capability Set] (#api_capacity) | Y'"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "Return Data example emits string \"code\": \"200\" with msg \"Operation succeeded\"",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "minimum sub-account permission documented",
+          "evidence": "\"Permission\":\"Config\" \"Resource\":\"dev:serial number\""
+        },
+        {
+          "fact": "valid language values come from device capability field support_language",
+          "evidence": "can be obtained from the field [support_language] return by [Get Device Capability Set]"
+        }
+      ],
+      "uncertainties": [
+        "HTTP example separates accessToken and deviceSerial with ';' instead of '&'",
+        "example Host line includes a scheme: 'Host: https://isgpopen.ezvizlife.com'"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/device/language/set",
+        "encoding": "application/x-www-form-urlencoded (HTTP example header 'Content-Type: application/x-www-form-urlencoded')"
+      }
     }
   ],
   "reviews": [

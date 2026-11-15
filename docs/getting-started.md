@@ -91,6 +91,23 @@ stdout 只输出一行 `public_summary()` JSON：`region`、`all_succeeded` 与�
 
 SDK 内置的 `ProtocolError`、`TransportError` 都继承 `EzvizError`，会被示例捕获并脱敏输出；配置错误与 SDK 错误之外的真实程序错误不会被吞掉，会原样抛出。
 
+## 匿名公开目录
+
+公开时区目录与上文设备示例不同，不需要`EZVIZ_APP_KEY`/`EZVIZ_APP_SECRET`；设备查询、设备设置和单设备检查仍必须认证。最小同步示例（无凭据、显式新加坡业务地址）：
+
+```python
+from ezviz_unified import Client, RegionConfig
+
+with Client(
+    anonymous=True,
+    region=RegionConfig.overseas(api_base_url="https://isgpopen.ezvizlife.com"),
+) as client:
+    response = client.settings.list_timezones()
+    zones = response.data
+```
+
+`anonymous=True`时不允许应用凭据、token provider或auth_transport；`api_base_url`必须显式给出，SDK不猜测地域。匿名客户端调用需认证接口会在请求前抛出`ValueError`。`language`仅接受`"ENGLISH"`/`"SIMPCN"`，省略由服务端默认。该目录目前只有新加坡地址经SDK真实查询验证（返回105项，见[记录](validation/live/2026-11-15-public-timezones/singapore.json)），其他海外区域未验证；字段约束见[海外设备设置与公开目录](research/2026-11-15-overseas-settings.md)。
+
 ## 联调与参考
 
 深度联调（源码脚本，按路径运行，不是已安装命令）：

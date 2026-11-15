@@ -50,7 +50,7 @@ python -m harness.docdiff \
 python -m harness.audit --repo . --check-summary
 ```
 
-校验operation与绑定集合、地区/文档身份、source hash格式和同源一致性、参数与token位置、官方契约覆盖数量；再通过AST检查实际类方法、mixin继承、嵌套client入口和常量参数名。C3仅对本地类解析；明确构造赋值以外的动态或条件属性不作为可达证明，不执行或导入SDK。
+校验operation与绑定集合、地区/文档身份、source hash格式和同源一致性、参数与token位置、官方契约覆盖数量——参数`required`可为显式`null`表示官方必填性未标明，但必须同时给出非空`required_uncertainty`，缺失required键或无解释`null`仍拒绝，`accessToken`依旧必须`required=true`；再通过AST检查实际类方法、mixin继承、嵌套client入口和常量参数名。C3仅对本地类解析；明确构造赋值以外的动态或条件属性不作为可达证明，不执行或导入SDK。
 
 已修复早期缺失的来源哈希和read_only标记，并规范form token位置。报告记录三份官方登记输入和实际解析源码的哈希。live_evidence只检查文件引用存在，实测内容和HTTP语义仍需独立验收；工具不会将空列表、失败、未验证合并为成功，也不是发布许可。
 
@@ -65,7 +65,7 @@ python -m harness.audit --repo . --check-summary
 
 ## 离线传输评测
 
-运行 `python -m harness.contract_eval --repo . --require-all`，按[独立案例](../evals/contracts/README.md)调用同步/异步SDK，在MockTransport上检查报文、响应与故障处理。父进程校验场景完整性和源码哈希；异常输出不回显，Python网络调用被阻断。此检查不证明真实设备能力或模型质量，不是运行不可信代码的OS沙箱。
+运行 `python -m harness.contract_eval --repo . --require-all`，按[独立案例](../evals/contracts/README.md)调用同步/异步SDK，在MockTransport上检查报文、响应与故障处理。父进程校验场景完整性和源码哈希；异常输出不回显，Python网络调用被阻断。`token_location=none`的公开业务操作评测要求零认证请求、恰好一次业务调用、`10002`按原错误抛出不重放；认证端点本身的既有评测不受该分支影响。此检查不证明真实设备能力或模型质量，不是运行不可信代码的OS沙箱。
 
 SDK和维护检查均不依赖旧utils或旧迁移清单。旧对照冻结为研究资料，不作为覆盖率分母、CI输入或发布要求。
 
