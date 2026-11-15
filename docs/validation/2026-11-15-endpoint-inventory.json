@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "evidence": "offline_http_declarations_only",
+  "archive": "2026-11-14",
+  "summary": {
+    "documents": 2269,
+    "archived_documents": 2221,
+    "source_unavailable_documents": 48,
+    "documents_with_declarations": 1438,
+    "declarations": 1529,
+    "paired_declarations": 1483,
+    "unresolved_declarations": 46,
+    "examples": 1490,
+    "matched_reviewed_contracts": 184,
+    "unrecovered_reviewed_contracts": 2
+  },
+  "unrecovered_reviewed": [
+    {
+      "operation_id": "global.playback.invalidate",
+      "reason": "no_matching_declaration"
+    },
+    {
+      "operation_id": "global.security.update_password",
+      "reason": "no_matching_declaration"
+    }
+  ],
+  "input_sha256": {
+    "catalog": "7befa1e5ba706e2ff897a5da512f821874a8054252a1bb3dd6be870d5941e406",
+    "contracts": "c0f875ddcaa7199887b82e7569fcafb8a5d0ac60b2c5f46ffb145b0e5cda04ae"
+  },
+  "sample_verification": {
+    "documents": 11,
+    "declarations": 21,
+    "source_linked_declarations": 20
+  },
+  "parser_sha256": "da804a29ea265acd73dbd105820f0f5c5deeb5d26d6b189b2183dd4fae13dc3d",
+  "adapter_sha256": "17f048be38a89d258552d1b360b0e7fed9da2c2f3dae209eaaca8bce3fdaf277",
+  "limitations": [
+    "declarations and examples are offline HTML observations; a candidate does not prove an endpoint exists, is complete, or is supported",
+    "counts are document/candidate/link counts, not API totals or SDK coverage",
+    "a document with zero declarations may still describe interfaces this parser did not observe",
+    "static SDK references, attachments, and files not listed in catalog.json are outside the scanned corpus",
+    "links are exact source joins over declared pairs only; declarations with fragments, queries, userinfo, or path templates are ineligible and registry data never completes a declaration",
+    "same_route_operation_ids values are informational route hints only, not reviewed support",
+    "unrecovered reviewed contracts are listed with explicit reasons instead of blocking the scan, and no candidate rows are fabricated",
+    "the final hash recheck detects input drift during the run; it does not provide an atomic snapshot or OS-level isolation",
+    "matching hashes tie output to input bytes but do not prove official documentation content is correct"
+  ]
+}
