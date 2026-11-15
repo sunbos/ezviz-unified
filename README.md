@@ -6,7 +6,7 @@
 
 当前为开发中的 `0.1.0a1`：发行名 `ezviz-unified`，导入名 `ezviz_unified`，要求 Python 3.12+，仓库为 [sunbos/ezviz-unified](https://github.com/sunbos/ezviz-unified)，尚未发布到 PyPI。已有同步/异步客户端、区域认证、设备查询和诊断脱敏；各业务域按[实施路线](docs/plans/2026-11-14-delivery-roadmap.md)逐域推进。
 
-本地录像、云台、巡航、诊断、设备开关、管理、图像参数、视频配置、播放地址、抓拍、告警、云存储、统一存储、RAM子账户、维护、补光、加密/布撤防和单步确权接口已加入，国内/海外共用入口并保留协议差异；当前登记数量、地区分布与验证状态见[机器生成的覆盖清单](contracts/coverage.json)，真实支持情况另列。
+本地录像、云台、巡航、诊断、设备开关、管理、图像参数、视频配置、播放地址、抓拍、告警、云存储、统一存储、RAM子账户、维护、补光、加密/布撤防、单步确权、OTAP物模型与B1/B2账户托管接口已加入，国内/海外共用入口并保留协议差异（OTAP与账户托管目前仅国内有据）；当前登记数量、地区分布与验证状态见[机器生成的覆盖清单](contracts/coverage.json)，真实支持情况另列。
 
 ## 设备查询
 
@@ -92,6 +92,41 @@ with Client(
 ## 维护与补光
 
 `client.maintenance`提供固件/模块查询与显式升级、指定介质格式化；查询不自动轮询，触发操作不自动重放或修改前置安全状态。`client.illumination`按地区处理补光模式、读取与开关，国内模式0–3、海外0–2。参数顺序、旧版迁移与[响应层级证据](docs/research/2026-11-14-maintenance-illumination.md)有明确说明；没有真实设备维护操作。
+
+## OTAP物模型与账户托管
+
+`client.otap`目前仅国内提供四个物模型入口：`get_property`与`latest_property`为只读查询（平台缓存值、`data.desired`/`data.reported`），`set_property`与`invoke_action`把调用方给定的裸JSON对象下发到设备；业务标识与令牌均置于Header，两个GET无请求体。服务调用为同步接口，平台等待上限16秒，需要完整等待请显式设置更大的`Client(timeout=...)`；写入后不自动再查询、不轮询，`desired`/`reported`中的`null`与`false`原样保留。`latest_property`按来源校验`local_index`（`0`或非零开头、不超过10位）与标识符长度<255，旧v3接口仅要求非空白。
+
+`client.delegation`仅国内提供五个B1/B2托管入口：B2端`apply_code`，B1端`authorize_account`、`list_resources`（只读，`page_size`不超过文档最大20）、`authorize_device`、`relieve_device`。授权与解绑凭证不对称是合同事实：授权使用授权码`sign`，解绑使用B2的`appKey`与必填`state`；`state`无已声明枚举，SDK不设默认值。每个方法各发一次请求，官方文档未规定完整调用顺序；SDK不交换或缓存对方凭据、不从一方身份推导对方appKey、不代激活该付费能力，`sign`按敏感数据处理。
+
+```python
+import os
+from ezviz_unified import Client, RegionConfig
+
+# B1为设备归属账号、B2为被托管账号，是两个独立的客户端身份；
+# 下列顺序仅为演示各入口，官方文档未规定完整调用顺序。
+with Client(
+    os.environ["EZVIZ_B1_APP_KEY"],
+    os.environ["EZVIZ_B1_APP_SECRET"],
+    region=RegionConfig.china(),
+) as b1, Client(
+    os.environ["EZVIZ_B2_APP_KEY"],
+    os.environ["EZVIZ_B2_APP_SECRET"],
+    region=RegionConfig.china(),
+) as b2:
+    grant = b2.delegation.apply_code("<B1的appKey>")          # 返回 data.sign
+    b1.delegation.authorize_account(grant.data["sign"])
+    resources = b1.delegation.list_resources(grant.data["sign"], page_size=20)
+    prop = b1.otap.get_property(
+        "<deviceSerial>",
+        resource_category="<category>",
+        local_index="0",
+        domain_identifier="<domain>",
+        property_identifier="<prop>",
+    )
+```
+
+校验规则、Header位置、信封判定与未解决项见[OTAP与账户托管说明](docs/research/2026-11-15-otap-delegation.md)；本批接口均未做真实调用验证。
 
 ## 底层响应与传输
 

@@ -23,6 +23,8 @@ TOKEN_LOCATIONS = frozenset(("none", "form", "json", "query", "header"))
 PARAMETER_LOCATIONS = frozenset(("body", "query", "header"))
 TOKEN_PARAMETER_LOCATIONS = {"form": "body", "json": "body", "query": "query", "header": "header"}
 SUCCESS_PATH_FIELDS = ("message_path", "data_path", "device_code_path")
+REQUEST_BODY_KEYS = frozenset(("type", "required", "evidence"))
+WHOLE_BODY_TOKEN_LOCATIONS = frozenset(("none", "query", "header"))
 NOT_VERIFIED = "not_verified"
 _HEX = frozenset("0123456789abcdef")
 
@@ -148,6 +150,35 @@ def _token_consistency(contract, params, where):
         _fail(where, "the accessToken parameter must be required")
 
 
+def _request_body(contract, params, where):
+    """Validate the optional whole-JSON-body descriptor.
+
+    ``request_body`` declares that the request payload is a single bare JSON
+    object (the OTAP "Body" parameter table). It is only legal on a
+    ``body_encoding=json`` contract whose token travels in the header or
+    query (or is absent); a JSON-embedded token and any ``location=body``
+    parameter are explicitly rejected rather than silently merged.
+    """
+    if "request_body" not in contract:
+        return
+    spec = contract["request_body"]
+    if not isinstance(spec, dict):
+        _fail(where, "request_body must be an object")
+    if set(spec) - REQUEST_BODY_KEYS:
+        _fail(where, "request_body contains unsupported keys")
+    if spec.get("type") != "object":
+        _fail(where, 'request_body.type must be "object"')
+    if spec.get("required") is not True:
+        _fail(where, "request_body.required must be true")
+    _text(spec.get("evidence"), "request_body.evidence", where)
+    if contract.get("body_encoding") != "json":
+        _fail(where, "request_body requires json body_encoding")
+    if contract.get("token_location") not in WHOLE_BODY_TOKEN_LOCATIONS:
+        _fail(where, "request_body requires token_location none, query or header")
+    if any(param.get("location") == "body" for param in params):
+        _fail(where, "request_body must not be combined with location=body parameters")
+
+
 def _success(value, where):
     success = _entry(value, where)
     if "envelope_paths" in success:
@@ -209,6 +240,7 @@ def _contract(raw, where, operation_ids, doc_identities):
         _fail(where, "token_location must be none, form, json, query or header")
     params = _parameters(contract, where)
     _token_consistency(contract, params, where)
+    _request_body(contract, params, where)
     _success(contract.get("success"), f"{where}.success")
     identity = doc_identities.setdefault((region, doc), (url, sha))
     if identity != (url, sha):

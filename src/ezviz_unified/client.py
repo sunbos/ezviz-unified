@@ -27,6 +27,7 @@ from .auth import AsyncTokenManager, TokenManager
 from .auth_models import RegionConfig, Token
 from .cloud_recording import AsyncCloudRecording, CloudRecording
 from .cloud_storage import AsyncCloudStorage, CloudStorage
+from .delegation import AsyncDelegation, Delegation
 from .devices import AsyncDevices, Devices
 from .diagnostics import AsyncDiagnostics, Diagnostics
 from .errors import AuthenticationError, ProtocolError, TransportError
@@ -35,6 +36,7 @@ from .imaging import AsyncImaging, Imaging
 from .maintenance import AsyncMaintenance, Maintenance
 from .models import ApiResponse
 from .operations import Operation
+from .otap import AsyncOtap, Otap
 from .ownership import AsyncOwnership, Ownership
 from .playback import AsyncPlayback, Playback
 from .providers import AsyncTokenProvider, TokenProvider, validate_provider_token
@@ -243,6 +245,8 @@ class Client:
         self._active = 0
         self._closed = False
         self.devices = Devices(self)
+        self.otap = Otap(self)
+        self.delegation = Delegation(self)
         self.ownership = Ownership(self)
         self.settings = Settings(self)
         self.imaging = Imaging(self)
@@ -456,6 +460,8 @@ class AsyncClient:
         self._closing: asyncio.Task[None] | None = None
         self._closed = False
         self.devices = AsyncDevices(self)
+        self.otap = AsyncOtap(self)
+        self.delegation = AsyncDelegation(self)
         self.ownership = AsyncOwnership(self)
         self.settings = AsyncSettings(self)
         self.imaging = AsyncImaging(self)

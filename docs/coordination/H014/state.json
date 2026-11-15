@@ -1,0 +1,7 @@
+{
+  "task": "H014",
+  "state": "accepted",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "note": "接受。71项工具回归通过；整体JSON对象使用request_body描述与独立json_body用例，不伪造Body字段。严格区分bool/int/float并拒绝保留token键大小写变体。测试最初绕过真实构造器导致6项失败，改用公共构造器后通过；一次纯文本修订因2次工具调用尝试被拒收，重试核验后接受。旧契约及新增契约共186项、1520次离线执行全部通过。"
+}

@@ -22,6 +22,7 @@ _SENSITIVE_KEYS = (
     "validateCode",
     "refresh_token",
     "refreshToken",
+    "sign",
     "auth_code",
     "authCode",
     "client_secret",

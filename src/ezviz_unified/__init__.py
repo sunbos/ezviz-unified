@@ -11,6 +11,7 @@ from .cloud_recording import AsyncCloudRecording, CloudRecording
 from .cloud_recording_plans import CloudRecordingDevice
 from .cloud_storage import AsyncCloudStorage, CloudStorage, StorageOrderOptions
 from .cruise import AsyncCruise, Cruise, CruisePeriod
+from .delegation import AsyncDelegation, Delegation
 from .devices import AsyncDevices, Devices
 from .diagnostics import AsyncDiagnostics, Diagnostics
 from .errors import (
@@ -33,6 +34,7 @@ from .inspection import (
 from .maintenance import AsyncMaintenance, Maintenance
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
+from .otap import AsyncOtap, Otap
 from .ownership import AsyncOwnership, Ownership
 from .playback import AsyncPlayback, Playback, PlaybackOptions
 from .providers import (
@@ -81,6 +83,7 @@ __all__ = [
     "ApiResponse",
     "AsyncClient",
     "AsyncCruise",
+    "AsyncDelegation",
     "AsyncDevices",
     "AsyncDiagnostics",
     "AsyncImaging",
@@ -90,6 +93,7 @@ __all__ = [
     "AsyncRecordings",
     "AsyncSettings",
     "AsyncPtz",
+    "AsyncOtap",
     "AsyncOwnership",
     "AsyncStaticTokenProvider",
     "AsyncTokenProvider",
@@ -104,6 +108,7 @@ __all__ = [
     "CloudRecordingDevice",
     "Cruise",
     "CruisePeriod",
+    "Delegation",
     "DeviceError",
     "DeviceInspection",
     "DeviceSwitch",
@@ -117,6 +122,7 @@ __all__ = [
     "Imaging",
     "InspectionResult",
     "Operation",
+    "Otap",
     "Ownership",
     "PermissionDeniedError",
     "ProtocolError",

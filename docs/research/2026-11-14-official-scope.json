@@ -5,18 +5,18 @@
     "documents": 2269,
     "archived_documents": 2221,
     "source_unavailable_documents": 48,
-    "documents_with_contract_links": 137,
-    "documents_without_contract_links": 2084,
-    "registered_contracts": 177
+    "documents_with_contract_links": 146,
+    "documents_without_contract_links": 2075,
+    "registered_contracts": 186
   },
   "regions": {
     "domestic": {
       "documents": 2217,
       "archived_documents": 2178,
       "source_unavailable_documents": 39,
-      "documents_with_contract_links": 121,
-      "documents_without_contract_links": 2057,
-      "registered_contracts": 121
+      "documents_with_contract_links": 130,
+      "documents_without_contract_links": 2048,
+      "registered_contracts": 130
     },
     "overseas": {
       "documents": 52,
@@ -47,9 +47,9 @@
         "documents": 1219,
         "archived_documents": 1210,
         "source_unavailable_documents": 9,
-        "documents_with_contract_links": 85,
-        "documents_without_contract_links": 1125,
-        "registered_contracts": 85
+        "documents_with_contract_links": 94,
+        "documents_without_contract_links": 1116,
+        "registered_contracts": 94
       }
     },
     {
@@ -256,6 +256,6 @@
   ],
   "inputs_sha256": {
     "catalog": "7befa1e5ba706e2ff897a5da512f821874a8054252a1bb3dd6be870d5941e406",
-    "contracts": "a2cc5879e011bf52c5d7665d4e7f8e8496eaf36ca3c62b3c3ec3ad99b61868a6"
+    "contracts": "c0f875ddcaa7199887b82e7569fcafb8a5d0ac60b2c5f46ffb145b0e5cda04ae"
   }
 }

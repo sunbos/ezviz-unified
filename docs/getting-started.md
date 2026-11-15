@@ -70,7 +70,7 @@ PY
 
 五个调用是顺序的非原子观察，逐项结果之间不保证同一时刻快照；某项失败会被记录并继续，认证级错误（`AuthenticationError`）立即中断剩余调用。这是五个逻辑调用而非固定五次 HTTP 请求：SDK 的 token 刷新与 10002 重发可能增加实际请求数。示例自身不重试、不列设备、不做媒体操作、不自动猜测区域。
 
-stdout 只输出一行 `public_summary()` JSON：`region`、`all_succeeded` 与逐项 `operation`/`status`（失败项另含 `error_type` 及合法 `code`/`http_status`），不含序列号、通道、响应载荷或异常原文。退出码：`0` 全部成功；`2` 部分失败（摘要照常输出到 stdout）；`1` 配置错误或 SDK 级致命错误（stderr 输出上文同款脱敏失败 JSON）。该示例未做真实联网验收。
+stdout 只输出一行 `public_summary()` JSON：`region`、`all_succeeded` 与逐项 `operation`/`status`（失败项另含 `error_type` 及合法 `code`/`http_status`），不含序列号、通道、响应载荷或异常原文。退出码：`0` 全部成功；`2` 部分失败（摘要照常输出到 stdout）；`1` 配置错误或 SDK 级致命错误（stderr 输出上文同款脱敏失败 JSON）。该示例 CLI 本身未做真实联网验收；其调用的只读检查助手已于UTC 2026-11-14 23:12:31（Asia/Shanghai 2026-11-15 07:12:31）经 tools/live 检查模式在国内单设备完成一次真实验收（同步、通道1，记录见 `docs/validation/live/2026-11-15-domestic-inspection/`），不代表示例模块或异步、海外路径已实测。
 
 ## 结果与排错
 
@@ -107,4 +107,4 @@ SDK 内置的 `ProtocolError`、`TransportError` 都继承 `EzvizError`，会被
 
 ## 验证状态
 
-本批示例尚未做真实联网验收。仓库离线测试范围：`tests/test_examples.py` 用 `MockTransport` 覆盖同步/异步、国内/海外的成功、空列表、异常载荷、认证失败、配置校验与脱敏输出；`tests/test_examples_inspection.py` 离线覆盖单设备检查示例的两个区域、逐项失败、认证中断、配置前置校验与脱敏输出。由主导方运行后记录结果，不据此宣称真实网络已验收。
+本批示例尚未做真实联网验收（只读检查助手经 tools/live 在国内单设备实测过一次，观察时刻为UTC 2026-11-14（Asia/Shanghai 2026-11-15），该路径不经过示例 CLI，记录见 `docs/validation/live/2026-11-15-domestic-inspection/`）。仓库离线测试范围：`tests/test_examples.py` 用 `MockTransport` 覆盖同步/异步、国内/海外的成功、空列表、异常载荷、认证失败、配置校验与脱敏输出；`tests/test_examples_inspection.py` 离线覆盖单设备检查示例的两个区域、逐项失败、认证中断、配置前置校验与脱敏输出。由主导方运行后记录结果，不据此宣称真实网络已验收。

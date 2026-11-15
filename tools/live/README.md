@@ -14,8 +14,10 @@
 
 本地临时页面可显示白名单中的状态与能力标记，供当前验收判断；写入文件和stdin模式输出都只保留公开投影：操作结果、错误码、区域origin和有界数量。在线状态、能力集、升级提示和存储细节不写入公开记录。完整响应、序列号、名称、IP和凭据始终不输出。
 
+`--inspection`启用显式检查模式：读取一页设备（page_size=1）后，仅由SDK只读检查助手对第一台设备执行一次固定的五个逻辑调用（信息、通道、状态、能力、版本，固定通道1），不重复调用基础三项，也不查询存储、媒体或执行任何写操作。空账户或首台设备序列号缺失时仅记录not_verified，不断言账户设备数量。逐步结果取自助手的公开摘要，只保留操作名、passed/failed、脱敏error_type、纯数字code与整数http_status；助手级致命错误统一记入inspect_device阶段。此模式公开记录的validation_scope为bounded_readonly_inspection_policy_check，以区别于基础的请求与响应结构检查。与--include-managed、--protocol-only、--include-diagnostics互斥；serve表单通过隐藏inspection字段开启。该模式已于UTC 2026-11-14 23:12:31（Asia/Shanghai 2026-11-15 07:12:31）在国内账号完成一次真实执行：读取一页设备（page_size=1返回1条）后，对首台设备的固定五项只读逻辑调用均返回策略内成功（通道1，单次同步样本；记录见`docs/validation/live/2026-11-15-domestic-inspection/`，目录按Asia/Shanghai本地日期命名），未做全字段结构校验或健康推断。海外与其他场景仍未实测，其余覆盖仍依赖MockTransport测试。
+
 `--protocol-only`只查询文档652的公开型号/版本示例，跳过设备列表和详情，与--include-managed互斥。它只能验证该次协议查询结果，不能证明真实硬件支持；HTTP失败保留为失败。
 
-无浏览器时可以通过stdin传入JSON（region、app_key、app_secret，可选auth_base_url）；避免把密钥写入shell历史、脚本或仓库。输出只含操作状态、数字错误码、HTTP状态和区域origin，不含完整响应、设备标识或密钥。
+无浏览器时可以通过stdin传入JSON（region、app_key、app_secret，可选auth_base_url，可选inspection等模式键，组合规则与CLI一致）；避免把密钥写入shell历史、脚本或仓库。输出只含操作状态、数字错误码、HTTP状态和区域origin，不含完整响应、设备标识或密钥。
 
-空账户只证明认证和设备列表可调用，其他设备方法标记not_verified。passed表示该次请求成功且data结构符合基本预期，不证明全部设备型号、字段语义或海外集群均支持。默认pytest不会执行此工具的真实网络入口。
+空账户只证明认证和设备列表可调用，其他设备方法标记not_verified。默认与诊断档案中的passed表示该次请求成功且data结构符合基本预期；--inspection档案的passed仅表示只读检查助手对该次逻辑调用返回策略内ok，属检查策略结果而非逐字段结构校验。两类结果均不证明全部设备型号、字段语义或海外集群均支持。默认pytest不会执行此工具的真实网络入口。
