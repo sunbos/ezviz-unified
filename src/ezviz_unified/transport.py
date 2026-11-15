@@ -12,6 +12,7 @@ from urllib.parse import urlsplit
 
 import httpx
 
+from ._request_values import _JsonNull
 from .errors import _SENSITIVE_KEYS, TransportError, redact
 from .models import ApiResponse, ResponsePolicy
 from .response import decode_response
@@ -159,6 +160,26 @@ def _read_payload(response: httpx.Response) -> object:
         return None
 
 
+def _split_body(
+    json_body: object,
+    headers: Mapping[str, str] | None,
+) -> tuple[bytes | None, object, dict[str, str] | None]:
+    """Map the request body onto httpx ``content``/``json`` plus headers.
+
+    The ``JSON_NULL`` marker becomes ``content=b"null"`` and defaults the
+    Content-Type to ``application/json`` unless the caller already set one
+    (case-insensitive). Any other value — including ``None`` for "no
+    body" — travels through the existing ``json=`` path unchanged.
+    """
+    bound = dict(headers) if headers is not None else None
+    if not isinstance(json_body, _JsonNull):
+        return None, json_body, bound
+    if bound is None or not any(key.lower() == "content-type" for key in bound):
+        bound = {} if bound is None else bound
+        bound["Content-Type"] = "application/json"
+    return b"null", None, bound
+
+
 class SyncTransport:
     """One finite-timeout synchronous HTTPS client; no retries, no redirects."""
 
@@ -220,6 +241,7 @@ class SyncTransport:
                 operation=operation,
                 secrets=all_secrets,
             )
+        content, json_body, bound_headers = _split_body(json, headers)
         marker = _SDK_SECRETS.set(all_secrets)
         response: httpx.Response | None = None
         failure: str | None = None
@@ -229,8 +251,9 @@ class SyncTransport:
                 path,
                 params=dict(params) if params is not None else None,
                 data=dict(data) if data is not None else None,
-                json=json,
-                headers=dict(headers) if headers is not None else None,
+                content=content,
+                json=json_body,
+                headers=bound_headers,
             )
         except httpx.TimeoutException:
             failure = "timeout"
@@ -316,6 +339,7 @@ class AsyncTransport:
                 operation=operation,
                 secrets=all_secrets,
             )
+        content, json_body, bound_headers = _split_body(json, headers)
         marker = _SDK_SECRETS.set(all_secrets)
         response: httpx.Response | None = None
         failure: str | None = None
@@ -325,8 +349,9 @@ class AsyncTransport:
                 path,
                 params=dict(params) if params is not None else None,
                 data=dict(data) if data is not None else None,
-                json=json,
-                headers=dict(headers) if headers is not None else None,
+                content=content,
+                json=json_body,
+                headers=bound_headers,
             )
         except httpx.TimeoutException:
             failure = "timeout"

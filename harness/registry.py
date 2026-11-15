@@ -13,6 +13,8 @@ are never echoed and no exception chain is retained.
 
 from __future__ import annotations
 
+import re
+
 SCHEMA_VERSION = 1
 EVIDENCE = "registry_structure_only"
 
@@ -20,13 +22,18 @@ REGIONS = frozenset(("domestic", "overseas"))
 HTTP_METHODS = frozenset(("GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"))
 BODY_ENCODINGS = frozenset(("form_urlencoded", "json", "unknown"))
 TOKEN_LOCATIONS = frozenset(("none", "form", "json", "query", "header"))
-PARAMETER_LOCATIONS = frozenset(("body", "query", "header"))
+PARAMETER_LOCATIONS = frozenset(("body", "query", "header", "path"))
 TOKEN_PARAMETER_LOCATIONS = {"form": "body", "json": "body", "query": "query", "header": "header"}
 SUCCESS_PATH_FIELDS = ("message_path", "data_path", "device_code_path")
-REQUEST_BODY_KEYS = frozenset(("type", "required", "evidence"))
+REQUEST_BODY_KEYS = frozenset(("type", "required", "required_uncertainty", "evidence"))
+REQUEST_BODY_TYPES = frozenset(
+    ("object", "array", "string", "integer", "number", "boolean", "null")
+)
 WHOLE_BODY_TOKEN_LOCATIONS = frozenset(("none", "query", "header"))
 NOT_VERIFIED = "not_verified"
 _HEX = frozenset("0123456789abcdef")
+_PLACEHOLDER_CHARS = frozenset("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_")
+_ASCII_PERCENT_TRIPLET = re.compile(r"%[0-7][0-9A-Fa-f]")
 
 
 class RegistryError(ValueError):
@@ -93,6 +100,50 @@ def _path(value, where):
         _fail(where, "path must start with / (not //) and contain no ?, #, \\ or whitespace")
 
 
+def _is_dot_segment(segment):
+    """True when ``segment`` spells ``.``/``..``, even percent-encoded.
+
+    Any hex triplet producing an ASCII byte is decoded case-insensitively
+    (``%2E``/``%2e``); triplets at or above ``0x80`` stay verbatim so an
+    encoded non-ASCII byte sequence is never read as navigation.
+    """
+
+    def repl(match):
+        return chr(int(match.group(0)[1:], 16))
+
+    return _ASCII_PERCENT_TRIPLET.sub(repl, segment) in (".", "..")
+
+
+def _path_template_names(path, where):
+    """Return the ordered placeholder names of a contract path template.
+
+    A placeholder must occupy one complete path segment (``/{name}/``) with
+    an ASCII identifier name. Unbalanced or nested braces, brace fragments
+    glued to literal text, embedded expressions, and static ``.``/``..``
+    segments — including percent-encoded spellings — are all structural
+    violations.
+    """
+    names = []
+    for index, segment in enumerate(path.split("/")):
+        seg_where = f"{where}.segments[{index}]"
+        if "{" not in segment and "}" not in segment:
+            if _is_dot_segment(segment):
+                _fail(seg_where, "path templates must not contain . or .. segments")
+            continue
+        if not (
+            segment.startswith("{")
+            and segment.endswith("}")
+            and segment.count("{") == 1
+            and segment.count("}") == 1
+        ):
+            _fail(seg_where, "placeholders must be complete {name} path segments")
+        name = segment[1:-1]
+        if not (name and name.isidentifier() and all(ch in _PLACEHOLDER_CHARS for ch in name)):
+            _fail(seg_where, "placeholder names must be ASCII identifiers")
+        names.append(name)
+    return names
+
+
 def _document(value, name, list_key):
     if (
         not isinstance(value, dict)
@@ -118,7 +169,7 @@ def _parameters(contract, where):
         _text(param.get("type"), "type", pwhere)
         location = param.get("location")
         if not isinstance(location, str) or location not in PARAMETER_LOCATIONS:
-            _fail(pwhere, "location must be body, query or header")
+            _fail(pwhere, "location must be body, query, header or path")
         if "required" not in param:
             _fail(pwhere, "required key is mandatory")
         required = param["required"]
@@ -160,14 +211,40 @@ def _token_consistency(contract, params, where):
         _fail(where, "the accessToken parameter must be required")
 
 
+def _path_parameters(contract, params, where):
+    """Match ``location=path`` parameters to the path template placeholders.
+
+    Every ``{name}`` placeholder must be backed by exactly one required
+    ``location=path`` parameter of the same name, and no path parameter may
+    exist without a matching placeholder. The managed ``accessToken`` is
+    never a legal path placeholder.
+    """
+    names = _path_template_names(contract.get("path"), where)
+    path_params = [p for p in params if p.get("location") == "path"]
+    seen = set()
+    for param in path_params:
+        name = param.get("name")
+        if name == "accessToken":
+            _fail(where, "accessToken must not be a path parameter")
+        if param.get("required") is not True:
+            _fail(where, "path parameters must be required")
+        seen.add(name)
+    expected = set(names)
+    if seen != expected:
+        _fail(where, "path parameters must match the path template placeholders exactly")
+
+
 def _request_body(contract, params, where):
     """Validate the optional whole-JSON-body descriptor.
 
     ``request_body`` declares that the request payload is a single bare JSON
-    object (the OTAP "Body" parameter table). It is only legal on a
-    ``body_encoding=json`` contract whose token travels in the header or
-    query (or is absent); a JSON-embedded token and any ``location=body``
-    parameter are explicitly rejected rather than silently merged.
+    document (the OTAP "Body" parameter table). Any JSON root type may be
+    declared; ``required`` is a boolean, or explicit ``null`` paired with a
+    non-empty ``required_uncertainty`` note when the source does not state
+    requiredness. It is only legal on a ``body_encoding=json`` contract
+    whose token travels in the header or query (or is absent); a
+    JSON-embedded token and any ``location=body`` parameter are explicitly
+    rejected rather than silently merged.
     """
     if "request_body" not in contract:
         return
@@ -176,10 +253,21 @@ def _request_body(contract, params, where):
         _fail(where, "request_body must be an object")
     if set(spec) - REQUEST_BODY_KEYS:
         _fail(where, "request_body contains unsupported keys")
-    if spec.get("type") != "object":
-        _fail(where, 'request_body.type must be "object"')
-    if spec.get("required") is not True:
-        _fail(where, "request_body.required must be true")
+    body_type = spec.get("type")
+    if not isinstance(body_type, str) or body_type not in REQUEST_BODY_TYPES:
+        _fail(where, "request_body.type must be a JSON root type name")
+    if "required" not in spec:
+        _fail(where, "request_body.required key is mandatory")
+    required = spec["required"]
+    if required is None:
+        uncertainty = spec.get("required_uncertainty")
+        if not isinstance(uncertainty, str) or not uncertainty.strip():
+            _fail(
+                where,
+                "request_body.required may only be null with non-empty required_uncertainty",
+            )
+    elif type(required) is not bool:
+        _fail(where, "request_body.required must be a boolean or null")
     _text(spec.get("evidence"), "request_body.evidence", where)
     if contract.get("body_encoding") != "json":
         _fail(where, "request_body requires json body_encoding")
@@ -250,6 +338,7 @@ def _contract(raw, where, operation_ids, doc_identities):
         _fail(where, "token_location must be none, form, json, query or header")
     params = _parameters(contract, where)
     _token_consistency(contract, params, where)
+    _path_parameters(contract, params, where)
     _request_body(contract, params, where)
     _success(contract.get("success"), f"{where}.success")
     identity = doc_identities.setdefault((region, doc), (url, sha))

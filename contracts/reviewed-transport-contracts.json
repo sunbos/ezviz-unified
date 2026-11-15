@@ -13763,6 +13763,573 @@
         "path": "{areaDomain}/api/lapp/device/language/set",
         "encoding": "application/x-www-form-urlencoded (HTTP example header 'Content-Type: application/x-www-form-urlencoded')"
       }
+    },
+    {
+      "operation_id": "cn.components.face_voice_video.get",
+      "region": "domestic",
+      "source_doc_id": "774",
+      "source_url": "https://open.ys7.com/help/774",
+      "source_content_sha256": "c53ccf0b16309a261b64695ec0f14e570b91398e7f437c5eff6437a5f829e20a",
+      "method": "GET",
+      "path": "/api/v3/otap/prop/{deviceSerial}/Video/1/DoorLockCtrl/FaceRecognitionVoiceTipSwitch",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 Header accessToken String 用户访问令牌 Y"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 Path deviceSerial String 设备序列号 Y"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/json",
+          "evidence": "原文参数表 Header Content-Type String application/json Y"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "device_code_path": "meta.moreInfo.deviceMeta.code",
+        "device_message_path": "meta.moreInfo.deviceMeta.errorMsg",
+        "device_success_values": [
+          "0x00000000"
+        ],
+        "require_device_code": false,
+        "evidence": "返回示例 meta.code=200，meta.moreInfo.deviceMeta.code=\"0x00000000\"+errorMsg；data.enabled Boolean；0x00000000 取值仅来自示例，正文未声明其为成功码"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "仅适用 CS-DL30-V100 系列与 CS-Y3000F-V100 系列智能门锁，其余型号不保证可用；不作跨型号推断",
+          "evidence": "接口功能段原文"
+        },
+        {
+          "fact": "接口调用需联系萤石配置白名单，否则可能调用报错",
+          "evidence": "接口功能段原文"
+        },
+        {
+          "fact": "双层判定：meta.code 平台业务码 + meta.moreInfo.deviceMeta.code/errorMsg 设备层响应码；deviceMeta.code 缺失不能证明物理执行成功",
+          "evidence": "返回字段表与示例"
+        },
+        {
+          "fact": "GET 无请求体；Content-Type: application/json 仍为必选 header 常量",
+          "evidence": "参数表与 curl 示例"
+        }
+      ],
+      "uncertainties": [
+        "deviceMeta 在失败/超时路径是否出现未说明",
+        "meta.code→HTTP 状态映射未给出",
+        "设备成功码 0x00000000 仅来自示例，文档未明确声明",
+        "data.enabled 的语义细节与异常取值未说明",
+        "白名单申请流程、粒度与生效条件未说明"
+      ],
+      "transport_evidence": "GET /api/v3/otap/prop/{deviceSerial}/Video/1/DoorLockCtrl/FaceRecognitionVoiceTipSwitch；curl 示例 Header 携带 Content-Type: application/json 与 accessToken，无请求体"
+    },
+    {
+      "operation_id": "cn.components.face_voice_video.set",
+      "region": "domestic",
+      "source_doc_id": "775",
+      "source_url": "https://open.ys7.com/help/775",
+      "source_content_sha256": "ffe08f56d9e1b9d199e440399ee0b73ee8a8af12d57771560f8644a55be0f2b3",
+      "method": "PUT",
+      "path": "/api/v3/otap/prop/{deviceSerial}/Video/1/DoorLockCtrl/FaceRecognitionVoiceTipSwitch",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "json",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 Header accessToken String 用户访问令牌 Y"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 Path deviceSerial String 设备序列号 Y"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/json",
+          "evidence": "原文参数表 Header Content-Type String application/json Y"
+        }
+      ],
+      "request_body": {
+        "type": "object",
+        "required": null,
+        "required_uncertainty": "参数表仅列 Body enabled Boolean N（非必选），curl --data-raw 为 {\"enabled\":true} 对象；请求体根对象是否可整体省略未明确，故 required 记 null",
+        "evidence": "参数表仅列 Body enabled Boolean N（非必选）；curl --data-raw 为对象 {\"enabled\":true}；请求体根对象是否可整体省略未明确"
+      },
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "device_code_path": "meta.moreInfo.deviceMeta.code",
+        "device_message_path": "meta.moreInfo.deviceMeta.errorMsg",
+        "device_success_values": [
+          "0x00000000"
+        ],
+        "require_device_code": false,
+        "evidence": "返回示例 meta.code=200，meta.moreInfo.deviceMeta.code=\"0x00000000\"+errorMsg；响应示例无 data 字段，data_path=\"data\" 为 SDK 解码路径配置而非断言文档返回该字段，字段缺失时解码为 None；0x00000000 取值仅来自示例"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "仅适用 CS-DL30-V100 系列与 CS-Y3000F-V100 系列智能门锁，其余型号不保证可用；不作跨型号推断",
+          "evidence": "接口功能段原文"
+        },
+        {
+          "fact": "接口调用需联系萤石配置白名单，否则可能调用报错",
+          "evidence": "接口功能段原文"
+        },
+        {
+          "fact": "enabled 为可选 Boolean 字段（参数表标 N），置于请求体根对象内，不作为 location:body 参数混入参数表",
+          "evidence": "参数表 Body enabled Boolean N 与 --data-raw 示例"
+        },
+        {
+          "fact": "双层判定：meta.code 平台业务码 + meta.moreInfo.deviceMeta.code/errorMsg 设备层响应码；deviceMeta.code 缺失不能证明物理执行成功",
+          "evidence": "返回字段表与示例"
+        }
+      ],
+      "uncertainties": [
+        "请求体根对象是否可整体省略未明确；空对象 {} 的效果未说明",
+        "enabled 省略时设备行为（保持原值/默认值）未说明",
+        "deviceMeta 在失败/超时路径是否出现未说明",
+        "meta.code→HTTP 状态映射未给出",
+        "设备成功码 0x00000000 仅来自示例，文档未明确声明",
+        "白名单申请流程、粒度与生效条件未说明"
+      ],
+      "transport_evidence": "PUT /api/v3/otap/prop/{deviceSerial}/Video/1/DoorLockCtrl/FaceRecognitionVoiceTipSwitch；curl 示例 Header 携带 Content-Type: application/json 与 accessToken，--data-raw '{\"enabled\":true}'"
+    },
+    {
+      "operation_id": "cn.components.face_voice_lock.get",
+      "region": "domestic",
+      "source_doc_id": "812",
+      "source_url": "https://open.ys7.com/help/812",
+      "source_content_sha256": "3b452ec83ae73840f4485f7db55760054902ae181a832433025f4595926d52e2",
+      "method": "GET",
+      "path": "/api/v3/otap/prop/{deviceSerial}/DoorLock/0/DoorLockCtrl/FaceRecognitionVoiceTipSwitch",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 Header accessToken String 用户访问令牌 Y"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 Path deviceSerial String 设备序列号 Y"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/json",
+          "evidence": "原文参数表 Header Content-Type String application/json Y"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "device_code_path": "meta.moreInfo.deviceMeta.code",
+        "device_message_path": "meta.moreInfo.deviceMeta.errorMsg",
+        "device_success_values": [
+          "0x00000000"
+        ],
+        "require_device_code": false,
+        "evidence": "返回示例 meta.code=200，meta.moreInfo.deviceMeta.code=\"0x00000000\"+errorMsg；data.enabled Boolean；0x00000000 取值仅来自示例"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "仅适用 CS-DL30-V100 系列与 CS-Y3000F-V100 系列智能门锁，其余型号不保证可用；不作跨型号推断",
+          "evidence": "接口功能段原文"
+        },
+        {
+          "fact": "接口调用需联系萤石配置白名单，否则可能调用报错",
+          "evidence": "接口功能段原文"
+        },
+        {
+          "fact": "资源段为 DoorLock/0，与文档 774 的 Video/1 路径不同；两者关系未说明，不互相推断",
+          "evidence": "请求地址原文"
+        },
+        {
+          "fact": "双层判定：meta.code 平台业务码 + meta.moreInfo.deviceMeta.code/errorMsg 设备层响应码；deviceMeta.code 缺失不能证明物理执行成功",
+          "evidence": "返回字段表与示例"
+        },
+        {
+          "fact": "GET 无请求体；Content-Type: application/json 仍为必选 header 常量",
+          "evidence": "参数表与 curl 示例"
+        }
+      ],
+      "uncertainties": [
+        "deviceMeta 在失败/超时路径是否出现未说明",
+        "meta.code→HTTP 状态映射未给出",
+        "设备成功码 0x00000000 仅来自示例，文档未明确声明",
+        "meta.code 类型标注为 Int（其他文档为 Integer），是否仅为写法差异未说明",
+        "data.enabled 的语义细节与异常取值未说明",
+        "白名单申请流程、粒度与生效条件未说明"
+      ],
+      "transport_evidence": "GET /api/v3/otap/prop/{deviceSerial}/DoorLock/0/DoorLockCtrl/FaceRecognitionVoiceTipSwitch；curl 示例 Header 携带 Content-Type: application/json 与 accessToken，无请求体"
+    },
+    {
+      "operation_id": "cn.components.chime_power.set",
+      "region": "domestic",
+      "source_doc_id": "868",
+      "source_url": "https://open.ys7.com/help/868",
+      "source_content_sha256": "2bfa0437d0976c0d1d34ce3ed977f039e0a5fda52ad3d3e16040d06ebe1640b0",
+      "method": "PUT",
+      "path": "/api/v3/otap/prop/{deviceSerial}/Default/0/PowerMgr/SurplusPower",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "json",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 Header accessToken String 用户访问令牌 Y"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 Path deviceSerial String 设备序列号 Y"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/json",
+          "evidence": "原文参数表 Header Content-Type String application/json Y"
+        }
+      ],
+      "request_body": {
+        "type": "integer",
+        "required": true,
+        "evidence": "参数表 Body data Integer Y 电量信息取值范围[0,100]；curl --data-raw '0' 为裸 integer 根值，而非 {\"data\":0}"
+      },
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "device_code_path": "meta.moreInfo.deviceMeta.code",
+        "device_message_path": "meta.moreInfo.deviceMeta.errorMsg",
+        "device_success_values": [
+          "0x00000000"
+        ],
+        "require_device_code": false,
+        "evidence": "返回示例 meta.code=200，meta.moreInfo.deviceMeta.code=\"0x00000000\"+errorMsg；响应示例无 data 字段，data_path=\"data\" 为 SDK 解码路径配置而非断言文档返回该字段，字段缺失时解码为 None；0x00000000 取值仅来自示例"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "仅适用设备型号 CS-CMT-CHIME-B，其余型号不保证可用；不作跨型号推断",
+          "evidence": "接口功能段原文"
+        },
+        {
+          "fact": "请求体为裸 integer 根值（0..100），不得包装为 {\"data\": ...} 等对象",
+          "evidence": "参数表与 --data-raw '0' 示例"
+        },
+        {
+          "fact": "双层判定：meta.code 平台业务码 + meta.moreInfo.deviceMeta.code/errorMsg 设备层响应码；deviceMeta.code 缺失不能证明物理执行成功",
+          "evidence": "返回字段表与示例"
+        }
+      ],
+      "uncertainties": [
+        "'设置剩余电量' 的真实物理效果未说明（上报值覆写/电量计校准/其他），成功响应不证明物理生效",
+        "deviceMeta 在失败/超时路径是否出现未说明",
+        "meta.code→HTTP 状态映射未给出",
+        "设备成功码 0x00000000 仅来自示例，文档未明确声明",
+        "是否需要白名单未说明",
+        "越界值（<0 或 >100）的平台/设备行为未说明"
+      ],
+      "transport_evidence": "PUT /api/v3/otap/prop/{deviceSerial}/Default/0/PowerMgr/SurplusPower；curl 示例 Header 携带 Content-Type: application/json 与 accessToken，--data-raw '0'"
+    },
+    {
+      "operation_id": "cn.components.gas_countdown.query",
+      "region": "domestic",
+      "source_doc_id": "998",
+      "source_url": "https://open.ys7.com/help/998",
+      "source_content_sha256": "3b9622c076e411b1d25c18beb5eb71c8b5c658dde276e3a6c0872214aac32b82",
+      "method": "PUT",
+      "path": "/api/v3/otap/action/{deviceSerial}/GasSensor/0/PowerMgr/GetPowerSwitchCountdown",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "json",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 Header accessToken String 用户访问令牌 Y"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 Path deviceSerial String 设备序列号 Y"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/json",
+          "evidence": "原文参数表 Header Content-Type String application/json Y"
+        }
+      ],
+      "request_body": {
+        "type": "null",
+        "required": null,
+        "required_uncertainty": "参数表无 Body 参数行，仅 curl --data-raw 'null'；body 是否可整体省略未说明，故 required 记 null；SDK 本地要求调用方显式传 payload=None",
+        "evidence": "参数表无 Body 参数行；curl --data-raw 'null'；body 是否可整体省略未说明；SDK 本地要求调用方显式传 payload=None"
+      },
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "device_code_path": "meta.moreInfo.deviceMeta.code",
+        "device_message_path": "meta.moreInfo.deviceMeta.errorMsg",
+        "device_success_values": [
+          "0x00000000"
+        ],
+        "require_device_code": false,
+        "evidence": "返回示例 meta.code=200，meta.moreInfo.deviceMeta.code=\"0x00000000\"+errorMsg；data 为 {enable,timeRemaining,switch}；0x00000000 取值仅来自示例"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "仅适用设备型号 CS-T8C-DG，其余型号不保证可用；不作跨型号推断",
+          "evidence": "接口功能段原文"
+        },
+        {
+          "fact": "查询语义但请求方式为 PUT，路径前缀为 /api/v3/otap/action/；按原文记 read_only=true",
+          "evidence": "接口功能'查询倒计时信息'与请求方式 PUT 原文"
+        },
+        {
+          "fact": "data.timeRemaining 单位为秒，取值范围[60,86340]；data.switch 表示倒计时结束后动作开/关",
+          "evidence": "返回字段表"
+        },
+        {
+          "fact": "双层判定：meta.code 平台业务码 + meta.moreInfo.deviceMeta.code/errorMsg 设备层响应码；deviceMeta.code 缺失不能证明查询成功",
+          "evidence": "返回字段表与示例"
+        }
+      ],
+      "uncertainties": [
+        "请求体是否可省略、省略与字面量 'null' 是否等价未说明",
+        "deviceMeta 在失败/超时路径是否出现未说明",
+        "meta.code→HTTP 状态映射未给出",
+        "设备成功码 0x00000000 仅来自示例，文档未明确声明",
+        "是否需要白名单未说明",
+        "timeRemaining 与设备实际倒计时进度的时序语义未说明"
+      ],
+      "transport_evidence": "PUT /api/v3/otap/action/{deviceSerial}/GasSensor/0/PowerMgr/GetPowerSwitchCountdown；curl 示例 Header 携带 Content-Type: application/json 与 accessToken，--data-raw 'null'"
+    },
+    {
+      "operation_id": "cn.components.temperature.get",
+      "region": "domestic",
+      "source_doc_id": "1134",
+      "source_url": "https://open.ys7.com/help/1134",
+      "source_content_sha256": "e2d71af4cb2128a2b403872482ce9204fddf07a77bde6e14d160fccc0b579ebb",
+      "method": "GET",
+      "path": "/api/v3/otap/prop/{deviceSerial}/global/0/Humiture/Temperature",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 header accessToken String 用户访问令牌 Y"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 path deviceSerial String 设备序列号 Y"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/json",
+          "evidence": "原文参数表 header Content-Type String 固定值 application/json Y"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "device_code_path": "meta.moreInfo.deviceMeta.code",
+        "device_message_path": "meta.moreInfo.deviceMeta.errorMsg",
+        "device_success_values": [
+          "0x00000000"
+        ],
+        "require_device_code": false,
+        "evidence": "返回示例 meta.code=200，meta.moreInfo.deviceMeta.code=\"0x00000000\"+errorMsg；data 为裸 Number（示例 0.0）；0x00000000 取值仅来自示例"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "仅适用设备型号 CS-T51C-BG，其它型号不保证可用；不作跨型号推断",
+          "evidence": "接口功能段原文"
+        },
+        {
+          "fact": "data 为裸 Number 温度值，取值范围[-100.0,100000.0]；原文未标注单位，SDK 不做单位换算或假定",
+          "evidence": "返回字段表"
+        },
+        {
+          "fact": "双层判定：meta.code 平台业务码 + meta.moreInfo.deviceMeta.code/errorMsg 设备层响应码；deviceMeta.code 缺失不能证明查询成功",
+          "evidence": "返回字段表与示例"
+        },
+        {
+          "fact": "GET 无请求体；Content-Type: application/json 仍为必选 header 常量",
+          "evidence": "参数表与 curl 示例"
+        }
+      ],
+      "uncertainties": [
+        "温度单位（摄氏/其他）与精度未说明，不得自动换算",
+        "data 为 0.0 的示例是真实读数还是占位未说明",
+        "deviceMeta 在失败/超时路径是否出现未说明",
+        "meta.code→HTTP 状态映射未给出",
+        "设备成功码 0x00000000 仅来自示例，文档未明确声明",
+        "是否需要白名单未说明"
+      ],
+      "transport_evidence": "GET /api/v3/otap/prop/{deviceSerial}/global/0/Humiture/Temperature；curl 示例 Header 携带 Content-Type: application/json 与 accessToken，无请求体"
+    },
+    {
+      "operation_id": "cn.components.smoke_countdown.get",
+      "region": "domestic",
+      "source_doc_id": "1447",
+      "source_url": "https://open.ys7.com/help/1447",
+      "source_content_sha256": "81aecb59826e58a646390db9085b0f695dcc0eaf808346e92d2cf7228175c6af",
+      "method": "GET",
+      "path": "/api/v3/otap/prop/{deviceSerial}/SmokeSensor/0/PowerMgr/CountdownInfo",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 header accessToken String 授权过程获取的access_token Y"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "evidence": "原文参数表 path deviceSerial String 设备序列号 Y"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/json",
+          "evidence": "原文参数表 header Content-Type String application/json Y"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "device_code_path": "meta.moreInfo.deviceMeta.code",
+        "device_message_path": "meta.moreInfo.deviceMeta.errorMsg",
+        "device_success_values": [
+          "0x00000000"
+        ],
+        "require_device_code": false,
+        "evidence": "返回字段表明确 meta.code Integer 200表示成功、meta.moreInfo.deviceMeta.code String 0x00000000表示成功；data 为 {enable,timeRemaining,switch}"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "仅适用设备型号 CS-T4C-BG，其余型号不保证可用；不作跨型号推断",
+          "evidence": "接口功能段原文"
+        },
+        {
+          "fact": "data.timeRemaining 单位为秒，范围[60,86340]；data.switch 表示倒计时结束后动作开（true）/关（false）",
+          "evidence": "返回字段表"
+        },
+        {
+          "fact": "双层判定：meta.code 平台业务码 + meta.moreInfo.deviceMeta.code/errorMsg 设备层响应码；本文档明确 0x00000000 为设备成功码，但 deviceMeta 缺失仍不能证明物理状态",
+          "evidence": "返回字段表与示例"
+        },
+        {
+          "fact": "GET 无请求体；Content-Type: application/json 仍为必选 header 常量",
+          "evidence": "参数表与 curl 示例"
+        }
+      ],
+      "uncertainties": [
+        "除 0x00000000 外的设备码取值未枚举",
+        "deviceMeta 在失败/超时路径是否出现未说明",
+        "meta.code→HTTP 状态映射未给出",
+        "是否需要白名单未说明"
+      ],
+      "transport_evidence": "GET /api/v3/otap/prop/{deviceSerial}/SmokeSensor/0/PowerMgr/CountdownInfo；curl 示例使用字面序列号 L12345678，Header 携带 accessToken 与 Content-Type: application/json，无请求体"
     }
   ],
   "reviews": [

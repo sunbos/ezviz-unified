@@ -130,6 +130,10 @@ with Client(
 
 校验规则、Header位置、信封判定与未解决项见[OTAP与账户托管说明](docs/research/2026-11-15-otap-delegation.md)；本批接口均未做真实调用验证。
 
+## 国内组件目录
+
+`client.components`（异步为 `AsyncClient.components`）登记了一小批路径式 OTAP 官方文档——`deviceSerial` 位于请求路径中，与头部式 `client.otap` 是两套独立契约，来源未声明等价，不合并。`describe`/`list_documented` 纯本地返回元数据，`call(operation_id, device_serial, *, payload=...)` 调用其中 7 项可调用条目；另有 2 条文档仅保留元数据（破坏性动作无选盘规则、模板拼写含义未确认），在认证前拒绝。payload 逐文档约束：无正文 GET 拒绝 payload 但仍按文档要求发送 JSON Content-Type；语义只读的 PUT 查询需显式 `payload=None`。型号、白名单与设备成功码证据层均按源文档记录，目录是文档登记而非设备能力检测，真实型号可用性未验证。条目细节与 `path_params`/`JSON_NULL` 低层规则见[组件目录说明](docs/components.md)。
+
 ## 底层响应与传输
 
 ```python

@@ -81,7 +81,9 @@ def auth_contract():
     }
 
 
-def whole_body_contract(token_location="header", read_only=False):
+def whole_body_contract(
+    token_location="header", read_only=False, body_type="object", required=True
+):
     parameters = [
         {
             "name": "X-Trace-Id",
@@ -124,8 +126,8 @@ def whole_body_contract(token_location="header", read_only=False):
         "body_encoding": "json",
         "token_location": token_location,
         "request_body": {
-            "type": "object",
-            "required": True,
+            "type": body_type,
+            "required": required,
             "evidence": "synthetic descriptor for harness unit tests",
         },
         "parameters": parameters,
@@ -166,12 +168,22 @@ def plain_body():
     return body
 
 
-def whole_body_case():
+_OMITTED = object()
+
+
+def whole_body_case(body=_OMITTED):
+    """Case whose json_body is the object template, or a caller-supplied root.
+
+    Passing ``body=[]`` (or any explicit value, including ``None``) overrides
+    the template; the omitted-argument default keeps the original object
+    shape.
+    """
+    payload = body_template() if body is _OMITTED else body
     return {
         "operation_id": OP_ID,
-        "kwargs": {"payload": body_template()},
+        "kwargs": {"payload": copy.deepcopy(payload)},
         "fields": {"X-Trace-Id": TRACE_ID, "channel": "eval"},
-        "json_body": body_template(),
+        "json_body": copy.deepcopy(payload),
         "data": {"marker": "synthetic", "index": 1},
     }
 
@@ -496,6 +508,9 @@ CASE_REJECTS = [
     ("unknown_field", "unknown_field"),
     ("missing_required_header", "missing_required_field"),
     ("token_in_fields", "managed_token_field"),
+    ("null_body_for_array", "case_invalid"),
+    ("object_body_for_null", "case_invalid"),
+    ("scalar_for_array", "case_invalid"),
 ]
 
 
@@ -532,15 +547,37 @@ def mutate_case(case, kind):
         case["fields"].pop("X-Trace-Id")
     elif kind == "token_in_fields":
         case["fields"][TOKEN_FIELD] = "smuggled"
+    elif kind in ("null_body_for_array", "object_body_for_null", "scalar_for_array"):
+        raise AssertionError(f"{kind} is handled by a contract-scoped test")
     else:
         raise AssertionError(f"unknown case mutation {kind}")
 
 
+# Kinds whose expectation depends on a non-default request_body.type: the
+# mutation builds a legal JSON root, just not the declared one.
+CASE_REJECT_BODY_TYPES = {
+    "null_body_for_array": ("array", None),
+    "object_body_for_null": ("null", {"k": 1}),
+    "scalar_for_array": ("array", "text"),
+}
+
+
 @pytest.mark.parametrize("kind,problem", CASE_REJECTS)
 def test_case_level_rejections_emit_fixed_problem(kind, problem):
-    case = whole_body_case()
-    mutate_case(case, kind)
-    report = evaluate(eval_inputs(case=case))
+    if kind in CASE_REJECT_BODY_TYPES:
+        body_type, body = CASE_REJECT_BODY_TYPES[kind]
+        contract = whole_body_contract(body_type=body_type)
+        case = whole_body_case(body)
+        if kind == "null_body_for_array":
+            # The explicit None must survive the fixture: json_body really is
+            # a null root, not the default object template.
+            assert case["json_body"] is None
+            assert case["kwargs"]["payload"] is None
+    else:
+        contract = None
+        case = whole_body_case()
+        mutate_case(case, kind)
+    report = evaluate(eval_inputs(case=case, contract=contract))
     assert not report["passed"]
     assert {row["problem"] for row in report["results"]} == {problem}
 
@@ -557,8 +594,8 @@ CONTRACT_REJECTS = [
     "body_param",
     "spec_null",
     "spec_string",
-    "spec_type_array",
-    "spec_required_false",
+    "spec_type_binary",
+    "spec_required_string",
     "spec_extra_key",
     "spec_missing_evidence",
 ]
@@ -585,10 +622,10 @@ def mutate_contract(contract, kind):
         contract["request_body"] = None
     elif kind == "spec_string":
         contract["request_body"] = "object"
-    elif kind == "spec_type_array":
-        contract["request_body"]["type"] = "array"
-    elif kind == "spec_required_false":
-        contract["request_body"]["required"] = False
+    elif kind == "spec_type_binary":
+        contract["request_body"]["type"] = "binary"
+    elif kind == "spec_required_string":
+        contract["request_body"]["required"] = "false"
     elif kind == "spec_extra_key":
         contract["request_body"]["schema"] = "openapi-style"
     elif kind == "spec_missing_evidence":
@@ -604,6 +641,36 @@ def test_contract_level_rejections_emit_contract_invalid(kind):
     report = evaluate(eval_inputs(contract=contract))
     assert not report["passed"]
     assert {row["problem"] for row in report["results"]} == {"contract_invalid"}
+
+
+def test_array_root_descriptor_evaluates_cleanly(monkeypatch):
+    """type "array" is an approved root: a matching case passes the whole
+    grid through the real wire-checking machinery."""
+    _install_fake(monkeypatch)
+    contract = whole_body_contract(body_type="array")
+    case = whole_body_case(body=["alpha", {"k": 1}, None, True])
+    report = evaluate(eval_inputs(case=case, contract=contract))
+    assert report["passed"], json.dumps(report["results"], indent=2)
+    assert report["summary"]["executions"] == 8
+
+
+def test_array_descriptor_with_object_case_is_case_invalid_not_contract_invalid():
+    """A legal ``type: "array"`` descriptor paired with a dict json_body is
+    a case-level root mismatch (case_invalid), never a contract defect."""
+    contract = whole_body_contract(body_type="array")
+    report = evaluate(eval_inputs(contract=contract))  # default case body is a dict
+    assert not report["passed"]
+    assert {row["problem"] for row in report["results"]} == {"case_invalid"}
+
+
+def test_required_false_descriptor_evaluates_cleanly(monkeypatch):
+    """required: false is approved for the descriptor; the whole grid still
+    passes with an explicitly supplied body."""
+    _install_fake(monkeypatch)
+    contract = whole_body_contract(required=False)
+    report = evaluate(eval_inputs(contract=contract))
+    assert report["passed"], json.dumps(report["results"], indent=2)
+    assert report["summary"]["executions"] == 8
 
 
 def test_case_json_body_is_forbidden_without_descriptor():
@@ -833,6 +900,23 @@ def test_registry_json_contract_without_descriptor_stays_valid():
     docs = audit_inputs()
     docs[0]["contracts"][1].pop("request_body")
     registry().audit_registry(*docs)  # must not raise: the field is optional
+
+
+@pytest.mark.parametrize("body_type", ["array", "string", "integer", "number", "boolean", "null"])
+def test_registry_accepts_non_object_root_types(body_type):
+    docs = audit_inputs()
+    docs[0]["contracts"][1]["request_body"]["type"] = body_type
+    registry().audit_registry(*docs)
+
+
+@pytest.mark.parametrize("required", [False, None])
+def test_registry_accepts_required_false_and_null(required):
+    docs = audit_inputs()
+    spec = docs[0]["contracts"][1]["request_body"]
+    spec["required"] = required
+    if required is None:
+        spec["required_uncertainty"] = "synthetic: source does not state requiredness"
+    registry().audit_registry(*docs)
 
 
 @pytest.mark.parametrize("kind", CONTRACT_REJECTS)

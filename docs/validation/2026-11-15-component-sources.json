@@ -1,0 +1,138 @@
+{
+  "scope": "12 selected domestic documentation pages only",
+  "semantic_accuracy_verified": false,
+  "entries": [
+    {
+      "region": "domestic",
+      "doc_id": "774",
+      "title": "API-设备云组件仓-智能锁-基础功能-智能门锁控制-查询人脸识别开门语音提示开关",
+      "source_url": "https://open.ys7.com/help/774",
+      "status": "archived",
+      "source_content_sha256": "c53ccf0b16309a261b64695ec0f14e570b91398e7f437c5eff6437a5f829e20a",
+      "unchanged_from_archive": true,
+      "text_file": "774.plain.txt",
+      "text_sha256": "2203f6f0e109ce840b9c0f04248fffa77d68e9a84e3df34e14f5d6973fca726e"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "775",
+      "title": "API-设备云组件仓-智能锁-基础功能-智能门锁控制-设置人脸识别开门语音提示开关",
+      "source_url": "https://open.ys7.com/help/775",
+      "status": "archived",
+      "source_content_sha256": "ffe08f56d9e1b9d199e440399ee0b73ee8a8af12d57771560f8644a55be0f2b3",
+      "unchanged_from_archive": true,
+      "text_file": "775.plain.txt",
+      "text_sha256": "3c51bfc5775af79c9384b17dd1826be7072c4c3fd77acf6ed27a7eeb4da45fc4"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "812",
+      "title": "API-设备云组件仓-智能锁-基础功能-智能门锁控制-查询人脸识别开门语音提示开关",
+      "source_url": "https://open.ys7.com/help/812",
+      "status": "archived",
+      "source_content_sha256": "3b452ec83ae73840f4485f7db55760054902ae181a832433025f4595926d52e2",
+      "unchanged_from_archive": true,
+      "text_file": "812.plain.txt",
+      "text_sha256": "9433608d1cb4b2fd52038d9b83ee89f7d2e7180b4b7d727eb8b2f0bd6dafdf71"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "847",
+      "title": "API-设备云组件仓-猫眼-基础功能-硬盘管理-格式化指定本地硬盘",
+      "source_url": "https://open.ys7.com/help/847",
+      "status": "archived",
+      "source_content_sha256": "83afa69f896a7608a1364a28c973ba0e95ab6c0275c387be8211052a74e7a8dc",
+      "unchanged_from_archive": true,
+      "text_file": "847.plain.txt",
+      "text_sha256": "d43b6bef32318690866f56721e5aaca84fa4e3128dfad6af26d2c3a834b2ee34"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "868",
+      "title": "API-设备云组件仓-智能门铃-基础功能-电源管理-设置剩余电量",
+      "source_url": "https://open.ys7.com/help/868",
+      "status": "archived",
+      "source_content_sha256": "2bfa0437d0976c0d1d34ce3ed977f039e0a5fda52ad3d3e16040d06ebe1640b0",
+      "unchanged_from_archive": true,
+      "text_file": "868.plain.txt",
+      "text_sha256": "d1fa1f70fbc66a6cb61d9b024f4f2a2187db5c6abfed097f36aa0aeef9809ba7"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "998",
+      "title": "API-设备云组件仓-T8C天然气传感器-基础功能-电源管理-查询倒计时信息",
+      "source_url": "https://open.ys7.com/help/998",
+      "status": "archived",
+      "source_content_sha256": "3b9622c076e411b1d25c18beb5eb71c8b5c658dde276e3a6c0872214aac32b82",
+      "unchanged_from_archive": true,
+      "text_file": "998.plain.txt",
+      "text_sha256": "8602b933b0d7f91f981604a7cc88955d47a5bdba499738a4e482e772f030b795"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "1134",
+      "title": "API-设备云组件仓-T51C温湿度传感器-基础功能-温湿度-查询温度",
+      "source_url": "https://open.ys7.com/help/1134",
+      "status": "archived",
+      "source_content_sha256": "e2d71af4cb2128a2b403872482ce9204fddf07a77bde6e14d160fccc0b579ebb",
+      "unchanged_from_archive": true,
+      "text_file": "1134.plain.txt",
+      "text_sha256": "5cddaeb07a0f323bd897ef7dfd9db33a09078d6c25f65543bf4ab6b4c7d060e2"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "1447",
+      "title": "API-设备云组件仓-T4C火灾探测报警器-基础功能-电源管理 -查询倒计时信息",
+      "source_url": "https://open.ys7.com/help/1447",
+      "status": "archived",
+      "source_content_sha256": "81aecb59826e58a646390db9085b0f695dcc0eaf808346e92d2cf7228175c6af",
+      "unchanged_from_archive": true,
+      "text_file": "1447.plain.txt",
+      "text_sha256": "8cec243ed1c0afd94977ee769229c28071739f971a8f40db5d7036e93b798730"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "1512",
+      "title": "API-云接入-设备能力-OTAP设备能力-otap属性查询接口",
+      "source_url": "https://open.ys7.com/help/1512",
+      "status": "archived",
+      "source_content_sha256": "1bad35fd8e28dc911bbfbb6d38bbb9e4f906d2f0c87615e784d979be9c91d7dc",
+      "unchanged_from_archive": true,
+      "text_file": "1512.plain.txt",
+      "text_sha256": "3c425074ebf7af837df0a92315eb965cfce7874cad5cdcff6082701eb9af20b8"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "1513",
+      "title": "API-云接入-设备能力-OTAP设备能力-otap属性设置接口",
+      "source_url": "https://open.ys7.com/help/1513",
+      "status": "archived",
+      "source_content_sha256": "675828789612e014aa2e259cb1b55ef5489dfe935b44fdd31077c7ce05440ea6",
+      "unchanged_from_archive": true,
+      "text_file": "1513.plain.txt",
+      "text_sha256": "dd8889b1242b43480855b0b604fcd25644858a7fcb02fd084597820706e43523"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "1514",
+      "title": "API-云接入-设备能力-OTAP设备能力-otap设备操作指令接口",
+      "source_url": "https://open.ys7.com/help/1514",
+      "status": "archived",
+      "source_content_sha256": "e3faff4599865dbc87f5d4dc02ca5295f94e022c0294d201cd188743584dcd76",
+      "unchanged_from_archive": true,
+      "text_file": "1514.plain.txt",
+      "text_sha256": "cbd530f8e86723a007f189572f83df3cbc932bd3bc40c1526be8abf1da21c74e"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "3873",
+      "title": "设置有人进入检测使能",
+      "source_url": "https://open.ys7.com/help/3873",
+      "status": "archived",
+      "source_content_sha256": "7f3f8c8cbfd85737edf05dbc36c5399890cadcb7e45e68df8ea898323cfc5038",
+      "unchanged_from_archive": true,
+      "text_file": "3873.plain.txt",
+      "text_sha256": "d1e16ce379d44b2fe8c699117d867d79b6a46e0e2502236fe8c4562b3a0576db"
+    }
+  ]
+}

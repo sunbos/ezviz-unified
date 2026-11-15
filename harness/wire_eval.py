@@ -31,9 +31,10 @@ import json
 import math
 import re
 import sys
+import unicodedata
 from datetime import datetime
 from pathlib import Path
-from urllib.parse import parse_qs, urlsplit
+from urllib.parse import parse_qs, quote_from_bytes, urlsplit
 
 import httpx
 
@@ -107,12 +108,26 @@ _BASE_HEADERS = frozenset(
         "content-type",
     }
 )
-_PARAM_LOCATIONS = frozenset({"body", "query", "header"})
+_PARAM_LOCATIONS = frozenset({"body", "query", "header", "path"})
 _TOKEN_LOCATIONS = frozenset({"form", "query", "header", "json", "none"})
 _BODY_ENCODINGS = frozenset({"form_urlencoded", "json", "unknown"})
 _CASE_KEYS = frozenset(
-    {"operation_id", "args", "kwargs", "fields", "data", "json_fields", "json_body"}
+    {
+        "operation_id",
+        "args",
+        "kwargs",
+        "fields",
+        "data",
+        "json_fields",
+        "json_body",
+        "path_fields",
+    }
 )
+_BODY_TYPES = frozenset({"object", "array", "string", "integer", "number", "boolean", "null"})
+_TEMPLATE_SEGMENT = re.compile(r"^\{([A-Za-z_][A-Za-z0-9_]*)\}$")
+# Hex triplets producing ASCII bytes only; ``%80`` and above stay verbatim
+# so an encoded non-ASCII byte sequence is never decoded as navigation.
+_ASCII_PERCENT_TRIPLET = re.compile(r"%[0-7][0-9A-Fa-f]")
 _CONTENT_TYPE = "content-type"
 _CONTENT_TYPE_FOR_ENCODING = {
     "form_urlencoded": "application/x-www-form-urlencoded",
@@ -203,6 +218,110 @@ def _check_json_tree(value: object) -> None:
             raise _Reject("case_invalid")
         return
     raise _Reject("case_invalid")
+
+
+def _json_root_matches(value: object, declared: object) -> bool:
+    """Whether ``value`` is a legal JSON instance of the declared root type.
+
+    ``integer`` accepts ints only (never bools), ``number`` accepts ints and
+    floats (never bools), ``null`` accepts exactly ``None``.
+    """
+    if declared == "object":
+        return isinstance(value, dict)
+    if declared == "array":
+        return isinstance(value, list)
+    if declared == "string":
+        return isinstance(value, str)
+    if declared == "integer":
+        return isinstance(value, int) and not isinstance(value, bool)
+    if declared == "number":
+        return isinstance(value, (int, float)) and not isinstance(value, bool)
+    if declared == "boolean":
+        return isinstance(value, bool)
+    if declared == "null":
+        return value is None
+    raise _Reject("contract_invalid")
+
+
+def _is_dot_segment(segment: str) -> bool:
+    """True when ``segment`` spells ``.``/``..``, even percent-encoded.
+
+    ASCII-producing hex triplets decode case-insensitively; triplets at or
+    above ``0x80`` stay verbatim.
+    """
+    return _ASCII_PERCENT_TRIPLET.sub(lambda match: chr(int(match.group(0)[1:], 16)), segment) in (
+        ".",
+        "..",
+    )
+
+
+def _template_names(path: str) -> list:
+    """Ordered placeholder names of a validated contract path template.
+
+    Only complete-segment ``{name}`` placeholders count; any other brace
+    usage (including ``}x{`` reversals), an embedded expression, and a
+    static dot segment — plain or percent-encoded — is a contract defect
+    rejected by ``_check_contract``.
+    """
+    names = []
+    for segment in path.split("/"):
+        match = _TEMPLATE_SEGMENT.match(segment)
+        if match:
+            names.append(match.group(1))
+        elif "{" in segment or "}" in segment:
+            raise _Reject("contract_invalid")
+        elif _is_dot_segment(segment):
+            raise _Reject("contract_invalid")
+    return names
+
+
+def _encode_path_segment(value: object) -> str:
+    """Percent-encode one raw path-segment value independently of the SDK.
+
+    The case value must decode to a non-blank ``str``: an empty or
+    all-whitespace value is rejected, while leading/trailing whitespace on
+    an otherwise non-blank value is preserved and encoded. Raw ``/`` and
+    ``\\`` are rejected outright — a path separator is never legal data —
+    as is every Unicode Cc control character and a lone ``.``/``..``. The
+    survivor is UTF-8 encoded and percent-escaped exactly once with an
+    empty safe set, so a literal ``%`` becomes data (``a%2Fb`` encodes to
+    ``a%252Fb``), never a second decoding layer. Rejections are
+    ``case_invalid`` and never carry the offending value or a chained
+    encoding exception.
+    """
+    if not isinstance(value, str):
+        raise _Reject("case_invalid")
+    if not value.strip() or value in (".", ".."):
+        raise _Reject("case_invalid")
+    if any(unicodedata.category(ch) == "Cc" or ch in "/\\" for ch in value):
+        raise _Reject("case_invalid")
+    try:
+        raw = value.encode("utf-8")
+    except UnicodeError:
+        raw = None
+    if raw is None:
+        # A lone surrogate cannot be UTF-8 encoded. The ``_Reject`` is raised
+        # outside the ``except`` block so the ``UnicodeEncodeError`` (whose
+        # ``.object`` embeds the raw value) lands on neither ``__context__``
+        # nor ``__cause__`` — the same principle the SDK applies.
+        raise _Reject("case_invalid")
+    return quote_from_bytes(raw, safe="")
+
+
+def _render_expected_path(template: str, path_fields: dict) -> str:
+    """Render the expected wire path from the contract template and case
+    values only — never from SDK code or the observed request."""
+    out = []
+    for segment in template.split("/"):
+        match = _TEMPLATE_SEGMENT.match(segment)
+        if match is None:
+            out.append(segment)
+            continue
+        name = match.group(1)
+        if name not in path_fields:
+            raise _Reject("case_invalid")
+        out.append(_encode_path_segment(path_fields[name]))
+    return "/".join(out)
 
 
 def _set_path(root: dict, dotted: str, value: object) -> None:
@@ -403,9 +522,23 @@ def _check_contract(contract: dict) -> None:
         raise _Reject("contract_invalid")
     if "request_body" in contract:
         spec = contract["request_body"]
-        if not isinstance(spec, dict) or set(spec) - {"type", "required", "evidence"}:
+        if not isinstance(spec, dict) or set(spec) - {
+            "type",
+            "required",
+            "required_uncertainty",
+            "evidence",
+        }:
             raise _Reject("contract_invalid")
-        if spec.get("type") != "object" or spec.get("required") is not True:
+        if not isinstance(spec.get("type"), str) or spec["type"] not in _BODY_TYPES:
+            raise _Reject("contract_invalid")
+        if "required" not in spec:
+            raise _Reject("contract_invalid")
+        required = spec["required"]
+        if required is None:
+            uncertainty = spec.get("required_uncertainty")
+            if not isinstance(uncertainty, str) or not uncertainty.strip():
+                raise _Reject("contract_invalid")
+        elif type(required) is not bool:
             raise _Reject("contract_invalid")
         if not isinstance(spec.get("evidence"), str) or not spec["evidence"].strip():
             raise _Reject("contract_invalid")
@@ -418,6 +551,27 @@ def _check_contract(contract: dict) -> None:
             for param in contract["parameters"]
         ):
             raise _Reject("contract_invalid")
+    _check_path_template(contract)
+
+
+def _check_path_template(contract: dict) -> None:
+    """Path template placeholders are structural: every ``{name}`` segment
+    must be backed by a required ``location=path`` parameter and vice versa;
+    the managed ``accessToken`` is never a legal path parameter."""
+    path = contract.get("path")
+    parameters = contract.get("parameters")
+    if not isinstance(path, str) or not isinstance(parameters, list):
+        raise _Reject("contract_invalid")
+    names = _template_names(path)
+    path_params = [
+        param for param in parameters if isinstance(param, dict) and param.get("location") == "path"
+    ]
+    if any(param.get("name") == _TOKEN_FIELD for param in path_params):
+        raise _Reject("contract_invalid")
+    if any(param.get("required") is not True for param in path_params):
+        raise _Reject("contract_invalid")
+    if {param.get("name") for param in path_params} != set(names):
+        raise _Reject("contract_invalid")
 
 
 def _check_auth_contract(contract: object) -> dict:
@@ -441,14 +595,20 @@ def _contract_layouts(contract: dict) -> list:
 
 
 def _parameter_maps(contract: dict):
-    """Return ``(locations, constants, required)`` maps for business params.
+    """Return ``(locations, constants, required, ct_specs)`` for the params.
 
-    ``accessToken`` is managed by the client and ``Content-Type`` is checked
-    through the declared body encoding, so neither counts as a business field.
+    ``accessToken`` is managed by the client and path parameters are
+    verified through the rendered path, so neither counts as a business
+    field. Header ``Content-Type`` parameters are collected into
+    ``ct_specs`` — a list of ``(required, has_constant, constant)`` — and
+    checked against the wire Content-Type independently of the body
+    encoding, so a documented mandatory ``application/json`` header is
+    verified even when no body travels.
     """
     locations: dict[str, set] = {}
     constants: dict[str, tuple] = {}
     required: set[str] = set()
+    ct_specs: list[tuple[bool, bool, object]] = []
     for param in contract["parameters"]:
         if not isinstance(param, dict):
             raise _Reject("contract_invalid")
@@ -458,14 +618,21 @@ def _parameter_maps(contract: dict):
             raise _Reject("contract_invalid")
         if name == _TOKEN_FIELD:
             continue
+        if location == "path":
+            # Path parameters are verified through the rendered path, never
+            # through the field/header/query buckets.
+            continue
         if name.lower() == _CONTENT_TYPE and location == "header":
+            ct_specs.append(
+                (param.get("required") is True, "constant" in param, param.get("constant"))
+            )
             continue
         locations.setdefault(name, set()).add(location)
         if "constant" in param:
             constants[name] = (location, param["constant"])
         if param.get("required") is True:
             required.add(name)
-    return locations, constants, required
+    return locations, constants, required, ct_specs
 
 
 def _context_for(contract: dict) -> dict:
@@ -495,12 +662,15 @@ def _normalize_case(raw: object, contract_map: dict, context: dict, dto_registry
     args = raw.get("args", [])
     kwargs = raw.get("kwargs", {})
     fields = raw.get("fields", {})
+    path_fields = raw.get("path_fields", {})
     json_fields = raw.get("json_fields", [])
     if not isinstance(args, list):
         raise _Reject("case_invalid")
     if not isinstance(kwargs, dict) or any(not isinstance(k, str) for k in kwargs):
         raise _Reject("case_invalid")
     if not isinstance(fields, dict) or any(not isinstance(k, str) for k in fields):
+        raise _Reject("case_invalid")
+    if not isinstance(path_fields, dict) or any(not isinstance(k, str) for k in path_fields):
         raise _Reject("case_invalid")
     if (
         not isinstance(json_fields, list)
@@ -513,8 +683,9 @@ def _normalize_case(raw: object, contract_map: dict, context: dict, dto_registry
     contract = contract_map[operation_id]
     whole_body = "request_body" in contract
     if ("json_body" in raw) != whole_body:
-        # Whole-body contracts require a complete json_body object; every
-        # other contract forbids the key outright.
+        # Whole-body contracts require an explicitly present json_body (a
+        # null value is distinct from an absent key); every other contract
+        # forbids the key outright.
         raise _Reject("case_invalid")
     decoded = {
         "operation_id": operation_id,
@@ -522,22 +693,50 @@ def _normalize_case(raw: object, contract_map: dict, context: dict, dto_registry
         "args": [_decode_value(item, context, dto_registry) for item in args],
         "kwargs": {key: _decode_value(item, context, dto_registry) for key, item in kwargs.items()},
         "fields": {key: _decode_value(item, context, dto_registry) for key, item in fields.items()},
+        "path_fields": {
+            key: _decode_value(item, context, dto_registry) for key, item in path_fields.items()
+        },
         "json_fields": list(json_fields),
         "json_body": (
             _decode_value(raw["json_body"], context, dto_registry) if whole_body else None
         ),
         "data": _decode_value(raw.get("data"), context, dto_registry),
     }
+    # Contract-side template consistency is re-checked here so a structural
+    # defect reports contract_invalid rather than a misleading case_invalid.
+    _check_path_template(contract)
+    # The declared template placeholders are the only legal path_fields keys;
+    # missing or extra keys are case defects, never silently ignored. This
+    # also validates that every supplied value encodes safely.
+    placeholders = set(_template_names(contract["path"]))
+    if set(decoded["path_fields"]) != placeholders:
+        raise _Reject("case_invalid")
+    decoded["expected_path"] = _render_expected_path(contract["path"], decoded["path_fields"])
     if whole_body:
         json_body = decoded["json_body"]
-        if not isinstance(json_body, dict):
+        # The declared request_body.type fixes the JSON root shape;
+        # _check_json_tree enforces finite scalars and string keys
+        # recursively, and rejects non-JSON decoded values.
+        spec = contract["request_body"]
+        if not isinstance(spec, dict):
+            raise _Reject("contract_invalid")
+        if not _json_root_matches(json_body, spec.get("type")):
             raise _Reject("case_invalid")
         _check_json_tree(json_body)
-        if any(key.lower() == _TOKEN_FIELD.lower() for key in json_body):
+        if isinstance(json_body, dict) and any(
+            key.lower() == _TOKEN_FIELD.lower() for key in json_body
+        ):
             # The managed credential must never be smuggled into the payload
             # top level; nested keys remain ordinary product attributes.
             raise _Reject("managed_token_field")
-    locations, constants, required = _parameter_maps(contract)
+    locations, constants, required, ct_specs = _parameter_maps(contract)
+    if any(
+        has_constant and not isinstance(constant, str) for _, has_constant, constant in ct_specs
+    ):
+        # A non-string Content-Type constant could never be compared as a
+        # header value; this is a contract authoring defect.
+        raise _Reject("contract_invalid")
+    decoded["ct_specs"] = ct_specs
     if operation_id not in _AUTH_OPERATION_IDS:
         # The two developer auth operations take no business fields at all;
         # appKey/appSecret are verified on the wire from synthetic context.
@@ -578,13 +777,15 @@ def _expected_wire(
 
     Header-bucket keys are all lowercase (including the managed token);
     ``Content-Type`` is never in the header bucket -- it is verified through
-    the declared body encoding. For contracts declaring ``request_body``
-    the json bucket is the complete body object rather than a per-field
-    map, and named body fields can never appear alongside it.
+    the declared body encoding plus any contract Content-Type parameter
+    specs checked separately in ``_check_business_request``. For contracts
+    declaring ``request_body`` the json bucket is the complete body object
+    rather than a per-field map, and named body fields can never appear
+    alongside it.
     """
     encoding = contract["body_encoding"]
     token_location = contract["token_location"]
-    locations, constants, _required = _parameter_maps(contract)
+    locations, constants, _required, _ct_specs = _parameter_maps(contract)
     json_names = set(json_fields)
     whole_body = "request_body" in contract
     expected = {
@@ -593,9 +794,11 @@ def _expected_wire(
         "form": {},
         "json": {},
         "json_fields": json_names,
+        "has_body": False,
     }
     if whole_body:
         expected["json"] = json_body
+        expected["has_body"] = True
 
     def place(name: str, value: object, location: str) -> None:
         if location == "header":
@@ -613,6 +816,7 @@ def _expected_wire(
                 else:
                     expected["form"][name] = [_wire_str(value)]
             elif encoding == "json":
+                expected["has_body"] = True
                 expected["json"][name] = value
             else:
                 raise _Reject("contract_invalid")
@@ -632,6 +836,7 @@ def _expected_wire(
         place(name, constant, location)
     if token_location == "form":
         expected["form"][_TOKEN_FIELD] = [token]
+        expected["has_body"] = True
     elif token_location == "query":
         expected["query"][_TOKEN_FIELD] = [token]
     elif token_location == "header":
@@ -642,6 +847,7 @@ def _expected_wire(
             # reject explicitly instead of silently overwriting a key.
             raise _Reject("contract_invalid")
         expected["json"][_TOKEN_FIELD] = token
+        expected["has_body"] = True
     elif token_location != "none":
         raise _Reject("contract_invalid")
     for name in json_names:
@@ -736,15 +942,54 @@ def _check_business_request(request: httpx.Request, contract: dict, expected: di
         return "request_mismatch"
     if not _host_ok(request):
         return "request_mismatch"
-    parts = urlsplit(str(request.url))
-    if parts.path != contract["path"]:
+    # raw_path is the encoded view: an encoded separator (%2F, %5C) stays
+    # data and can never masquerade as a real path segment boundary. The
+    # query part is stripped before comparing the byte path. The expected
+    # path must be pure ASCII (percent-encoding only produces ASCII); a
+    # non-ASCII static segment is a contract defect reported as
+    # contract_invalid, never silently compared against the decoded view.
+    raw_path = request.url.raw_path.split(b"?", 1)[0]
+    # ``expected["path"]`` carries the independently rendered template path;
+    # callers that check a fixed-path contract directly may omit it, in which
+    # case the contract's own literal path is the expectation.
+    expected_path = expected.get("path", contract["path"])
+    try:
+        expected_raw = expected_path.encode("ascii")
+    except (UnicodeEncodeError, AttributeError):
+        return "contract_invalid"
+    if raw_path != expected_raw:
         return "request_mismatch"
+    parts = urlsplit(str(request.url))
     if parse_qs(parts.query, keep_blank_values=True) != expected["query"]:
         return "request_mismatch"
     business = _business_headers(request)
     if business is None or business != expected["header"]:
         return "request_mismatch"
-    content_type = request.headers.get("content-type")
+    # Contract-declared Content-Type header parameters are verified here —
+    # missing when required, duplicated, or unequal to the declared constant
+    # are all mismatches — independently of the body encoding so a documented
+    # mandatory Content-Type is checked even when no body travels. Duplicate
+    # raw occurrences are a mismatch regardless of requiredness. When the
+    # contract declares no Content-Type parameter the body-encoding check
+    # below governs exactly as before.
+    try:
+        raw_ct_values = request.headers.get_list(_CONTENT_TYPE)
+    except Exception:
+        return "request_mismatch"
+    ct_specs = expected.get("ct_specs", ())
+    if ct_specs:
+        if not raw_ct_values:
+            if any(spec[0] for spec in ct_specs):
+                return "request_mismatch"
+        elif len(raw_ct_values) > 1:
+            return "request_mismatch"
+        else:
+            constants = {spec[2] for spec in ct_specs if spec[1]}
+            if constants and raw_ct_values[0] not in constants:
+                return "request_mismatch"
+    elif len(raw_ct_values) > 1:
+        return "request_mismatch"
+    content_type = raw_ct_values[0] if raw_ct_values else None
     if encoding == "form_urlencoded":
         if content_type != _CONTENT_TYPE_FOR_ENCODING["form_urlencoded"]:
             return "request_mismatch"
@@ -781,14 +1026,20 @@ def _check_business_request(request: httpx.Request, contract: dict, expected: di
         if remainder != expected_remainder:
             return "request_mismatch"
     elif encoding == "json":
-        if content_type != _CONTENT_TYPE_FOR_ENCODING["json"]:
-            return "request_mismatch"
-        try:
-            body = _strict_json_loads(request.content.decode("utf-8"))
-        except Exception:
-            return "request_mismatch"
-        if not _strict_equal(body, expected["json"]):
-            return "request_mismatch"
+        if not expected["has_body"]:
+            if request.content not in (b"", ""):
+                return "request_mismatch"
+            if content_type is not None and content_type != _CONTENT_TYPE_FOR_ENCODING["json"]:
+                return "request_mismatch"
+        else:
+            if content_type != _CONTENT_TYPE_FOR_ENCODING["json"]:
+                return "request_mismatch"
+            try:
+                body = _strict_json_loads(request.content.decode("utf-8"))
+            except Exception:
+                return "request_mismatch"
+            if not _strict_equal(body, expected["json"]):
+                return "request_mismatch"
     else:
         if request.content not in (b"", ""):
             return "request_mismatch"
@@ -1151,6 +1402,8 @@ def _verify_operation_run(
             case["json_body"],
         )
         expected["origin"] = api_origin
+        expected["path"] = case["expected_path"]
+        expected["ct_specs"] = case["ct_specs"]
         problem = _check_business_request(business_request, contract, expected)
         if problem is not None:
             return problem
