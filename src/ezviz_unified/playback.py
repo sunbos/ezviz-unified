@@ -23,6 +23,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -336,8 +337,9 @@ class Playback:
 
     def create(self, device_serial: str, options: PlaybackOptions | None = None) -> ApiResponse:
         """Obtain a play address for one device channel."""
-        request = _build_create(self._client.region.scope, device_serial, options)
-        return self._client.request(request.operation, data=request.data)
+        with _diagnostic_scope(self._client, entrypoint="playback.create", mode="sync"):
+            request = _build_create(self._client.region.scope, device_serial, options)
+            return self._client.request(request.operation, data=request.data)
 
     def invalidate(
         self,
@@ -347,13 +349,14 @@ class Playback:
         channel: int | None = None,
     ) -> ApiResponse:
         """Invalidate a previously obtained play address."""
-        request = _build_invalidate(
-            self._client.region.scope,
-            device_serial,
-            url_id=url_id,
-            channel=channel,
-        )
-        return self._client.request(request.operation, data=request.data)
+        with _diagnostic_scope(self._client, entrypoint="playback.invalidate", mode="sync"):
+            request = _build_invalidate(
+                self._client.region.scope,
+                device_serial,
+                url_id=url_id,
+                channel=channel,
+            )
+            return self._client.request(request.operation, data=request.data)
 
 
 class AsyncPlayback:
@@ -368,8 +371,9 @@ class AsyncPlayback:
         self, device_serial: str, options: PlaybackOptions | None = None
     ) -> ApiResponse:
         """Obtain a play address for one device channel."""
-        request = _build_create(self._client.region.scope, device_serial, options)
-        return await self._client.request(request.operation, data=request.data)
+        with _diagnostic_scope(self._client, entrypoint="playback.create", mode="async"):
+            request = _build_create(self._client.region.scope, device_serial, options)
+            return await self._client.request(request.operation, data=request.data)
 
     async def invalidate(
         self,
@@ -379,10 +383,11 @@ class AsyncPlayback:
         channel: int | None = None,
     ) -> ApiResponse:
         """Invalidate a previously obtained play address."""
-        request = _build_invalidate(
-            self._client.region.scope,
-            device_serial,
-            url_id=url_id,
-            channel=channel,
-        )
-        return await self._client.request(request.operation, data=request.data)
+        with _diagnostic_scope(self._client, entrypoint="playback.invalidate", mode="async"):
+            request = _build_invalidate(
+                self._client.region.scope,
+                device_serial,
+                url_id=url_id,
+                channel=channel,
+            )
+            return await self._client.request(request.operation, data=request.data)

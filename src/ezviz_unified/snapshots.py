@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -122,16 +123,18 @@ class Snapshots:
     def capture(
         self, device_serial: str, *, channel: int, quality: int | None = None
     ) -> ApiResponse:
-        op, data = _capture_call(device_serial, channel, quality, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="snapshots.capture", mode="sync"):
+            op, data = _capture_call(device_serial, channel, quality, self._client.region.scope)
+            return self._client.request(op, data=data)
 
     def capture_to_space(
         self, device_serial: str, result_space_id: int, *, channel: int | None = None
     ) -> ApiResponse:
-        op, data = _capture_to_space_call(
-            device_serial, result_space_id, channel, self._client.region.scope
-        )
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="snapshots.capture_to_space", mode="sync"):
+            op, data = _capture_to_space_call(
+                device_serial, result_space_id, channel, self._client.region.scope
+            )
+            return self._client.request(op, data=data)
 
 
 class AsyncSnapshots:
@@ -145,13 +148,19 @@ class AsyncSnapshots:
     async def capture(
         self, device_serial: str, *, channel: int, quality: int | None = None
     ) -> ApiResponse:
-        op, data = _capture_call(device_serial, channel, quality, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="snapshots.capture", mode="async"):
+            op, data = _capture_call(device_serial, channel, quality, self._client.region.scope)
+            return await self._client.request(op, data=data)
 
     async def capture_to_space(
         self, device_serial: str, result_space_id: int, *, channel: int | None = None
     ) -> ApiResponse:
-        op, data = _capture_to_space_call(
-            device_serial, result_space_id, channel, self._client.region.scope
-        )
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="snapshots.capture_to_space",
+            mode="async",
+        ):
+            op, data = _capture_to_space_call(
+                device_serial, result_space_id, channel, self._client.region.scope
+            )
+            return await self._client.request(op, data=data)

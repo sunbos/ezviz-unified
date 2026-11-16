@@ -15,6 +15,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -372,19 +373,24 @@ class CloudRecordingPlans:
         auto_delete: bool | None = None,
     ) -> ApiResponse:
         """Create a one-off recording plan (doc 2045)."""
-        request = _create_one_off_request(
-            self._client.region.scope,
-            plan_name=plan_name,
-            space_id=space_id,
-            start_time=start_time,
-            devices=devices,
-            end_time=end_time,
-            template_id=template_id,
-            stream_type=stream_type,
-            specified_end_time=specified_end_time,
-            auto_delete=auto_delete,
-        )
-        return self._dispatch(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.create_one_off_plan",
+            mode="sync",
+        ):
+            request = _create_one_off_request(
+                self._client.region.scope,
+                plan_name=plan_name,
+                space_id=space_id,
+                start_time=start_time,
+                devices=devices,
+                end_time=end_time,
+                template_id=template_id,
+                stream_type=stream_type,
+                specified_end_time=specified_end_time,
+                auto_delete=auto_delete,
+            )
+            return self._dispatch(request)
 
     def update_one_off_plan(
         self,
@@ -400,34 +406,49 @@ class CloudRecordingPlans:
         specified_end_time: bool | None = None,
     ) -> ApiResponse:
         """Update the device list of a not-yet-started one-off plan (doc 2050)."""
-        request = _update_one_off_request(
-            self._client.region.scope,
-            plan_id,
-            plan_name=plan_name,
-            space_id=space_id,
-            start_time=start_time,
-            end_time=end_time,
-            devices=devices,
-            template_id=template_id,
-            stream_type=stream_type,
-            specified_end_time=specified_end_time,
-        )
-        return self._dispatch(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.update_one_off_plan",
+            mode="sync",
+        ):
+            request = _update_one_off_request(
+                self._client.region.scope,
+                plan_id,
+                plan_name=plan_name,
+                space_id=space_id,
+                start_time=start_time,
+                end_time=end_time,
+                devices=devices,
+                template_id=template_id,
+                stream_type=stream_type,
+                specified_end_time=specified_end_time,
+            )
+            return self._dispatch(request)
 
     def stop_one_off_plan(
         self, plan_id: int, *, only_stop_preview: bool | None = None
     ) -> ApiResponse:
         """Stop a pending or running one-off plan (doc 2046)."""
-        request = _stop_one_off_request(
-            self._client.region.scope,
-            plan_id,
-            only_stop_preview=only_stop_preview,
-        )
-        return self._dispatch(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.stop_one_off_plan",
+            mode="sync",
+        ):
+            request = _stop_one_off_request(
+                self._client.region.scope,
+                plan_id,
+                only_stop_preview=only_stop_preview,
+            )
+            return self._dispatch(request)
 
     def delete_one_off_plan(self, plan_id: int) -> ApiResponse:
         """Delete an already stopped or finished one-off plan (doc 2049)."""
-        return self._dispatch(_delete_one_off_request(self._client.region.scope, plan_id))
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.delete_one_off_plan",
+            mode="sync",
+        ):
+            return self._dispatch(_delete_one_off_request(self._client.region.scope, plan_id))
 
     def create_instant_plan(
         self,
@@ -446,16 +467,21 @@ class CloudRecordingPlans:
         the reviewed contract surface only, not a claim that the service can
         never support it.
         """
-        request = _create_instant_request(
-            self._client.region.scope,
-            plan_name=plan_name,
-            space_id=space_id,
-            hours=hours,
-            devices=devices,
-            template_id=template_id,
-            stream_type=stream_type,
-        )
-        return self._dispatch(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.create_instant_plan",
+            mode="sync",
+        ):
+            request = _create_instant_request(
+                self._client.region.scope,
+                plan_name=plan_name,
+                space_id=space_id,
+                hours=hours,
+                devices=devices,
+                template_id=template_id,
+                stream_type=stream_type,
+            )
+            return self._dispatch(request)
 
 
 class AsyncCloudRecordingPlans:
@@ -490,19 +516,24 @@ class AsyncCloudRecordingPlans:
         auto_delete: bool | None = None,
     ) -> ApiResponse:
         """Create a one-off recording plan (doc 2045)."""
-        request = _create_one_off_request(
-            self._client.region.scope,
-            plan_name=plan_name,
-            space_id=space_id,
-            start_time=start_time,
-            devices=devices,
-            end_time=end_time,
-            template_id=template_id,
-            stream_type=stream_type,
-            specified_end_time=specified_end_time,
-            auto_delete=auto_delete,
-        )
-        return await self._dispatch(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.create_one_off_plan",
+            mode="async",
+        ):
+            request = _create_one_off_request(
+                self._client.region.scope,
+                plan_name=plan_name,
+                space_id=space_id,
+                start_time=start_time,
+                devices=devices,
+                end_time=end_time,
+                template_id=template_id,
+                stream_type=stream_type,
+                specified_end_time=specified_end_time,
+                auto_delete=auto_delete,
+            )
+            return await self._dispatch(request)
 
     async def update_one_off_plan(
         self,
@@ -518,34 +549,49 @@ class AsyncCloudRecordingPlans:
         specified_end_time: bool | None = None,
     ) -> ApiResponse:
         """Update the device list of a not-yet-started one-off plan (doc 2050)."""
-        request = _update_one_off_request(
-            self._client.region.scope,
-            plan_id,
-            plan_name=plan_name,
-            space_id=space_id,
-            start_time=start_time,
-            end_time=end_time,
-            devices=devices,
-            template_id=template_id,
-            stream_type=stream_type,
-            specified_end_time=specified_end_time,
-        )
-        return await self._dispatch(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.update_one_off_plan",
+            mode="async",
+        ):
+            request = _update_one_off_request(
+                self._client.region.scope,
+                plan_id,
+                plan_name=plan_name,
+                space_id=space_id,
+                start_time=start_time,
+                end_time=end_time,
+                devices=devices,
+                template_id=template_id,
+                stream_type=stream_type,
+                specified_end_time=specified_end_time,
+            )
+            return await self._dispatch(request)
 
     async def stop_one_off_plan(
         self, plan_id: int, *, only_stop_preview: bool | None = None
     ) -> ApiResponse:
         """Stop a pending or running one-off plan (doc 2046)."""
-        request = _stop_one_off_request(
-            self._client.region.scope,
-            plan_id,
-            only_stop_preview=only_stop_preview,
-        )
-        return await self._dispatch(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.stop_one_off_plan",
+            mode="async",
+        ):
+            request = _stop_one_off_request(
+                self._client.region.scope,
+                plan_id,
+                only_stop_preview=only_stop_preview,
+            )
+            return await self._dispatch(request)
 
     async def delete_one_off_plan(self, plan_id: int) -> ApiResponse:
         """Delete an already stopped or finished one-off plan (doc 2049)."""
-        return await self._dispatch(_delete_one_off_request(self._client.region.scope, plan_id))
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.delete_one_off_plan",
+            mode="async",
+        ):
+            return await self._dispatch(_delete_one_off_request(self._client.region.scope, plan_id))
 
     async def create_instant_plan(
         self,
@@ -564,13 +610,18 @@ class AsyncCloudRecordingPlans:
         the reviewed contract surface only, not a claim that the service can
         never support it.
         """
-        request = _create_instant_request(
-            self._client.region.scope,
-            plan_name=plan_name,
-            space_id=space_id,
-            hours=hours,
-            devices=devices,
-            template_id=template_id,
-            stream_type=stream_type,
-        )
-        return await self._dispatch(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.create_instant_plan",
+            mode="async",
+        ):
+            request = _create_instant_request(
+                self._client.region.scope,
+                plan_name=plan_name,
+                space_id=space_id,
+                hours=hours,
+                devices=devices,
+                template_id=template_id,
+                stream_type=stream_type,
+            )
+            return await self._dispatch(request)

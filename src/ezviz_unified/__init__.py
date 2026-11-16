@@ -15,6 +15,7 @@ from .components import AsyncComponents, ComponentInfo, Components
 from .cruise import AsyncCruise, Cruise, CruisePeriod
 from .delegation import AsyncDelegation, Delegation
 from .devices import AsyncDevices, Devices
+from .diagnostic_report import DiagnosticRecorder
 from .diagnostics import AsyncDiagnostics, Diagnostics
 from .errors import (
     ApiError,
@@ -118,6 +119,7 @@ __all__ = [
     "DeviceInspection",
     "DeviceSwitch",
     "Devices",
+    "DiagnosticRecorder",
     "Diagnostics",
     "EzvizError",
     "ImageSetting",

@@ -28,6 +28,7 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from typing import TYPE_CHECKING, NamedTuple
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 from .ram_models import RamStatement, _check_encodable, serialize_policy, serialize_statement
@@ -263,8 +264,9 @@ class Subaccounts:
         ``LowerCase(MD5(AppKey#plain))`` value. Validation checks the digest shape, not how it was computed;
         the facade does not hash plaintext on the caller's behalf.
         """
-        plan = _create_plan(account_name, password_digest, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.create", mode="sync"):
+            plan = _create_plan(account_name, password_digest, self._client.region.scope)
+            return _send(self._client, plan)
 
     def get(self, *, account_id: str | None = None, account_name: str | None = None) -> ApiResponse:
         """Query sub-account information (overseas only).
@@ -274,8 +276,9 @@ class Subaccounts:
         the platform prefers ``accountId``. Lookup does not apply the
         create-time name rules.
         """
-        plan = _get_plan(account_id, account_name, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.get", mode="sync"):
+            plan = _get_plan(account_id, account_name, self._client.region.scope)
+            return _send(self._client, plan)
 
     def list(self, *, page_start: int | None = None, page_size: int | None = None) -> ApiResponse:
         """List sub-accounts one page at a time (overseas only).
@@ -285,8 +288,9 @@ class Subaccounts:
         with no documented upper bound; ``page_size`` is 1-50. The ``page``
         block is returned untouched — callers drive pagination.
         """
-        plan = _list_plan(page_start, page_size, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.list", mode="sync"):
+            plan = _list_plan(page_start, page_size, self._client.region.scope)
+            return _send(self._client, plan)
 
     def change_password(
         self, account_id: str, old_password_digest: str, new_password_digest: str
@@ -296,13 +300,18 @@ class Subaccounts:
         Both digests follow the same format rule as :meth:`create`;
         nothing is generated, rehashed, or recorded.
         """
-        plan = _change_password_plan(
-            account_id,
-            old_password_digest,
-            new_password_digest,
-            self._client.region.scope,
-        )
-        return _send(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="subaccounts.change_password",
+            mode="sync",
+        ):
+            plan = _change_password_plan(
+                account_id,
+                old_password_digest,
+                new_password_digest,
+                self._client.region.scope,
+            )
+            return _send(self._client, plan)
 
     def set_policy(self, account_id: str, statements: Sequence[RamStatement]) -> ApiResponse:
         """Replace the sub-account's whole policy (overseas only).
@@ -310,13 +319,15 @@ class Subaccounts:
         Sends exactly the caller's serialized policy; no statements are
         appended, merged, or defaulted here.
         """
-        plan = _set_policy_plan(account_id, statements, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.set_policy", mode="sync"):
+            plan = _set_policy_plan(account_id, statements, self._client.region.scope)
+            return _send(self._client, plan)
 
     def add_statement(self, account_id: str, statement: RamStatement) -> ApiResponse:
         """Append one authorization statement to the policy (both regions)."""
-        plan = _add_statement_plan(account_id, statement, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.add_statement", mode="sync"):
+            plan = _add_statement_plan(account_id, statement, self._client.region.scope)
+            return _send(self._client, plan)
 
     def remove_device_permissions(self, account_id: str, device_serial: str) -> ApiResponse:
         """Delete every statement a sub-account holds for one device.
@@ -324,8 +335,15 @@ class Subaccounts:
         Overseas only; sends one device identifier. The SDK issues no account
         deletion or follow-up calls for other devices.
         """
-        plan = _remove_device_permissions_plan(account_id, device_serial, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="subaccounts.remove_device_permissions",
+            mode="sync",
+        ):
+            plan = _remove_device_permissions_plan(
+                account_id, device_serial, self._client.region.scope
+            )
+            return _send(self._client, plan)
 
     def issue_token(self, account_id: str) -> ApiResponse:
         """Issue a sub-account access token (overseas only).
@@ -335,13 +353,15 @@ class Subaccounts:
         client's own token is never replaced. Not read-only: issuing
         credentials is never replayed automatically.
         """
-        plan = _issue_token_plan(account_id, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.issue_token", mode="sync"):
+            plan = _issue_token_plan(account_id, self._client.region.scope)
+            return _send(self._client, plan)
 
     def delete(self, account_id: str) -> ApiResponse:
         """Delete a sub-account (overseas only); no related-object cleanup."""
-        plan = _delete_plan(account_id, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.delete", mode="sync"):
+            plan = _delete_plan(account_id, self._client.region.scope)
+            return _send(self._client, plan)
 
 
 class AsyncSubaccounts:
@@ -353,48 +373,67 @@ class AsyncSubaccounts:
         self._client = client
 
     async def create(self, account_name: str, password_digest: str) -> ApiResponse:
-        plan = _create_plan(account_name, password_digest, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.create", mode="async"):
+            plan = _create_plan(account_name, password_digest, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def get(
         self, *, account_id: str | None = None, account_name: str | None = None
     ) -> ApiResponse:
-        plan = _get_plan(account_id, account_name, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.get", mode="async"):
+            plan = _get_plan(account_id, account_name, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def list(
         self, *, page_start: int | None = None, page_size: int | None = None
     ) -> ApiResponse:
-        plan = _list_plan(page_start, page_size, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.list", mode="async"):
+            plan = _list_plan(page_start, page_size, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def change_password(
         self, account_id: str, old_password_digest: str, new_password_digest: str
     ) -> ApiResponse:
-        plan = _change_password_plan(
-            account_id,
-            old_password_digest,
-            new_password_digest,
-            self._client.region.scope,
-        )
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="subaccounts.change_password",
+            mode="async",
+        ):
+            plan = _change_password_plan(
+                account_id,
+                old_password_digest,
+                new_password_digest,
+                self._client.region.scope,
+            )
+            return await _asend(self._client, plan)
 
     async def set_policy(self, account_id: str, statements: Sequence[RamStatement]) -> ApiResponse:
-        plan = _set_policy_plan(account_id, statements, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.set_policy", mode="async"):
+            plan = _set_policy_plan(account_id, statements, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def add_statement(self, account_id: str, statement: RamStatement) -> ApiResponse:
-        plan = _add_statement_plan(account_id, statement, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.add_statement", mode="async"):
+            plan = _add_statement_plan(account_id, statement, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def remove_device_permissions(self, account_id: str, device_serial: str) -> ApiResponse:
-        plan = _remove_device_permissions_plan(account_id, device_serial, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="subaccounts.remove_device_permissions",
+            mode="async",
+        ):
+            plan = _remove_device_permissions_plan(
+                account_id, device_serial, self._client.region.scope
+            )
+            return await _asend(self._client, plan)
 
     async def issue_token(self, account_id: str) -> ApiResponse:
-        plan = _issue_token_plan(account_id, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.issue_token", mode="async"):
+            plan = _issue_token_plan(account_id, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def delete(self, account_id: str) -> ApiResponse:
-        plan = _delete_plan(account_id, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="subaccounts.delete", mode="async"):
+            plan = _delete_plan(account_id, self._client.region.scope)
+            return await _asend(self._client, plan)

@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -205,22 +206,23 @@ class Recordings:
         query_by_nvr: bool | None = None,
         location: int | None = None,
     ) -> ApiResponse:
-        query = _build_local_query(
-            self._client.region.scope,
-            device_serial,
-            start_time=start_time,
-            end_time=end_time,
-            channel=channel,
-            record_type=record_type,
-            page_size=page_size,
-            query_by_nvr=query_by_nvr,
-            location=location,
-        )
-        return self._client.request(
-            query.operation,
-            params=query.params,
-            headers=query.headers,
-        )
+        with _diagnostic_scope(self._client, entrypoint="recordings.local", mode="sync"):
+            query = _build_local_query(
+                self._client.region.scope,
+                device_serial,
+                start_time=start_time,
+                end_time=end_time,
+                channel=channel,
+                record_type=record_type,
+                page_size=page_size,
+                query_by_nvr=query_by_nvr,
+                location=location,
+            )
+            return self._client.request(
+                query.operation,
+                params=query.params,
+                headers=query.headers,
+            )
 
 
 class AsyncRecordings:
@@ -243,19 +245,20 @@ class AsyncRecordings:
         query_by_nvr: bool | None = None,
         location: int | None = None,
     ) -> ApiResponse:
-        query = _build_local_query(
-            self._client.region.scope,
-            device_serial,
-            start_time=start_time,
-            end_time=end_time,
-            channel=channel,
-            record_type=record_type,
-            page_size=page_size,
-            query_by_nvr=query_by_nvr,
-            location=location,
-        )
-        return await self._client.request(
-            query.operation,
-            params=query.params,
-            headers=query.headers,
-        )
+        with _diagnostic_scope(self._client, entrypoint="recordings.local", mode="async"):
+            query = _build_local_query(
+                self._client.region.scope,
+                device_serial,
+                start_time=start_time,
+                end_time=end_time,
+                channel=channel,
+                record_type=record_type,
+                page_size=page_size,
+                query_by_nvr=query_by_nvr,
+                location=location,
+            )
+            return await self._client.request(
+                query.operation,
+                params=query.params,
+                headers=query.headers,
+            )

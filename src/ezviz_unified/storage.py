@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 from .storage_models import (
@@ -252,16 +253,17 @@ class Storage:
         permission: int | None = None,
     ) -> ApiResponse:
         """Create a unified storage space for one business type (doc 5236)."""
-        request = _create_space_request(
-            self._client.region.scope,
-            name,
-            biz_type=biz_type,
-            expire_days=expire_days,
-            storage_type=storage_type,
-            flow_limit=flow_limit,
-            permission=permission,
-        )
-        return self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="storage.create_space", mode="sync"):
+            request = _create_space_request(
+                self._client.region.scope,
+                name,
+                biz_type=biz_type,
+                expire_days=expire_days,
+                storage_type=storage_type,
+                flow_limit=flow_limit,
+                permission=permission,
+            )
+            return self._call(request)
 
     def update_space(
         self,
@@ -274,20 +276,22 @@ class Storage:
         permission: int | None = None,
     ) -> ApiResponse:
         """Update fields of an existing space; at least one change is required (doc 5237)."""
-        request = _update_space_request(
-            self._client.region.scope,
-            space_id,
-            name=name,
-            expire_days=expire_days,
-            storage_type=storage_type,
-            flow_limit=flow_limit,
-            permission=permission,
-        )
-        return self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="storage.update_space", mode="sync"):
+            request = _update_space_request(
+                self._client.region.scope,
+                space_id,
+                name=name,
+                expire_days=expire_days,
+                storage_type=storage_type,
+                flow_limit=flow_limit,
+                permission=permission,
+            )
+            return self._call(request)
 
     def delete_space(self, space_id: int) -> ApiResponse:
         """Delete a space together with all its files; irreversible (doc 5238)."""
-        return self._call(_delete_space_request(self._client.region.scope, space_id))
+        with _diagnostic_scope(self._client, entrypoint="storage.delete_space", mode="sync"):
+            return self._call(_delete_space_request(self._client.region.scope, space_id))
 
     def spaces(
         self,
@@ -301,35 +305,41 @@ class Storage:
         sort_field: str | None = None,
     ) -> ApiResponse:
         """Page through spaces by creation time; cursors pass through verbatim (doc 5230)."""
-        request = _spaces_request(
-            self._client.region.scope,
-            start_time=start_time,
-            end_time=end_time,
-            last_space_id=last_space_id,
-            page_size=page_size,
-            biz_type=biz_type,
-            sort_rule=sort_rule,
-            sort_field=sort_field,
-        )
-        return self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="storage.spaces", mode="sync"):
+            request = _spaces_request(
+                self._client.region.scope,
+                start_time=start_time,
+                end_time=end_time,
+                last_space_id=last_space_id,
+                page_size=page_size,
+                biz_type=biz_type,
+                sort_rule=sort_rule,
+                sort_field=sort_field,
+            )
+            return self._call(request)
 
     def set_file_retention(self, file_node_ids: Sequence[str], expire_days: int) -> ApiResponse:
         """Batch-update the retention days of existing file nodes (doc 5232)."""
-        request = _set_file_retention_request(self._client.region.scope, file_node_ids, expire_days)
-        return self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="storage.set_file_retention", mode="sync"):
+            request = _set_file_retention_request(
+                self._client.region.scope, file_node_ids, expire_days
+            )
+            return self._call(request)
 
     def search_files(self, query: StorageFileQuery) -> ApiResponse:
         """Search file metadata with a StorageFileQuery selector set (doc 5233)."""
-        return self._call(_search_files_request(self._client.region.scope, query))
+        with _diagnostic_scope(self._client, entrypoint="storage.search_files", mode="sync"):
+            return self._call(_search_files_request(self._client.region.scope, query))
 
     def download_urls(
         self, file_node_ids: Sequence[str], *, expire_seconds: int | None = None
     ) -> ApiResponse:
         """Fetch signed download URLs for file nodes; no media download occurs (doc 5234)."""
-        request = _download_urls_request(
-            self._client.region.scope, file_node_ids, expire_seconds=expire_seconds
-        )
-        return self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="storage.download_urls", mode="sync"):
+            request = _download_urls_request(
+                self._client.region.scope, file_node_ids, expire_seconds=expire_seconds
+            )
+            return self._call(request)
 
 
 class AsyncStorage:
@@ -359,16 +369,17 @@ class AsyncStorage:
         permission: int | None = None,
     ) -> ApiResponse:
         """Create a unified storage space for one business type (doc 5236)."""
-        request = _create_space_request(
-            self._client.region.scope,
-            name,
-            biz_type=biz_type,
-            expire_days=expire_days,
-            storage_type=storage_type,
-            flow_limit=flow_limit,
-            permission=permission,
-        )
-        return await self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="storage.create_space", mode="async"):
+            request = _create_space_request(
+                self._client.region.scope,
+                name,
+                biz_type=biz_type,
+                expire_days=expire_days,
+                storage_type=storage_type,
+                flow_limit=flow_limit,
+                permission=permission,
+            )
+            return await self._call(request)
 
     async def update_space(
         self,
@@ -381,20 +392,22 @@ class AsyncStorage:
         permission: int | None = None,
     ) -> ApiResponse:
         """Update fields of an existing space; at least one change is required (doc 5237)."""
-        request = _update_space_request(
-            self._client.region.scope,
-            space_id,
-            name=name,
-            expire_days=expire_days,
-            storage_type=storage_type,
-            flow_limit=flow_limit,
-            permission=permission,
-        )
-        return await self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="storage.update_space", mode="async"):
+            request = _update_space_request(
+                self._client.region.scope,
+                space_id,
+                name=name,
+                expire_days=expire_days,
+                storage_type=storage_type,
+                flow_limit=flow_limit,
+                permission=permission,
+            )
+            return await self._call(request)
 
     async def delete_space(self, space_id: int) -> ApiResponse:
         """Delete a space together with all its files; irreversible (doc 5238)."""
-        return await self._call(_delete_space_request(self._client.region.scope, space_id))
+        with _diagnostic_scope(self._client, entrypoint="storage.delete_space", mode="async"):
+            return await self._call(_delete_space_request(self._client.region.scope, space_id))
 
     async def spaces(
         self,
@@ -408,34 +421,44 @@ class AsyncStorage:
         sort_field: str | None = None,
     ) -> ApiResponse:
         """Page through spaces by creation time; cursors pass through verbatim (doc 5230)."""
-        request = _spaces_request(
-            self._client.region.scope,
-            start_time=start_time,
-            end_time=end_time,
-            last_space_id=last_space_id,
-            page_size=page_size,
-            biz_type=biz_type,
-            sort_rule=sort_rule,
-            sort_field=sort_field,
-        )
-        return await self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="storage.spaces", mode="async"):
+            request = _spaces_request(
+                self._client.region.scope,
+                start_time=start_time,
+                end_time=end_time,
+                last_space_id=last_space_id,
+                page_size=page_size,
+                biz_type=biz_type,
+                sort_rule=sort_rule,
+                sort_field=sort_field,
+            )
+            return await self._call(request)
 
     async def set_file_retention(
         self, file_node_ids: Sequence[str], expire_days: int
     ) -> ApiResponse:
         """Batch-update the retention days of existing file nodes (doc 5232)."""
-        request = _set_file_retention_request(self._client.region.scope, file_node_ids, expire_days)
-        return await self._call(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="storage.set_file_retention",
+            mode="async",
+        ):
+            request = _set_file_retention_request(
+                self._client.region.scope, file_node_ids, expire_days
+            )
+            return await self._call(request)
 
     async def search_files(self, query: StorageFileQuery) -> ApiResponse:
         """Search file metadata with a StorageFileQuery selector set (doc 5233)."""
-        return await self._call(_search_files_request(self._client.region.scope, query))
+        with _diagnostic_scope(self._client, entrypoint="storage.search_files", mode="async"):
+            return await self._call(_search_files_request(self._client.region.scope, query))
 
     async def download_urls(
         self, file_node_ids: Sequence[str], *, expire_seconds: int | None = None
     ) -> ApiResponse:
         """Fetch signed download URLs for file nodes; no media download occurs (doc 5234)."""
-        request = _download_urls_request(
-            self._client.region.scope, file_node_ids, expire_seconds=expire_seconds
-        )
-        return await self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="storage.download_urls", mode="async"):
+            request = _download_urls_request(
+                self._client.region.scope, file_node_ids, expire_seconds=expire_seconds
+            )
+            return await self._call(request)

@@ -1,5 +1,5 @@
 {
-  "status": "prepared",
+  "status": "accepted",
   "input_commit": "b2b6dcaf970579f9376ef7bdc36aa962b3e6b960",
   "model": "devin/swe-2",
   "effort": "max",
@@ -8,5 +8,46 @@
     "src/ezviz_unified/_diagnostic_registry.py"
   ],
   "input_sha256": "5d1b4ed44ea54983e455dd524293b46f6e3e4579b8448ab2d371fe7709d8d4bc",
-  "tools": []
+  "tools": [],
+  "review": "revision-request.md",
+  "model_evidence": {
+    "exit_code": 0,
+    "requested_model": "devin/swe-2",
+    "requested_effort": "max",
+    "observed_models": [
+      "devin/swe-2"
+    ],
+    "tools": [],
+    "tool_calls": 0,
+    "prompt_sha256": "5d1b4ed44ea54983e455dd524293b46f6e3e4579b8448ab2d371fe7709d8d4bc",
+    "usage": {
+      "input_tokens": 11854,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 448,
+      "output_tokens": 47859,
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "failure_flags": [
+      "context",
+      "timeout"
+    ]
+  },
+  "revision_input_sha256": "4c4505a5dd79ee9be955ece522340ef5dff0783896cbd2b2ea0d9c923e49d91f",
+  "acceptance_note": "Recorder and strict scalar projection; accepted through DG009 and full tests",
+  "verification": "../../validation/2026-11-16-diagnostics-v1.json"
 }

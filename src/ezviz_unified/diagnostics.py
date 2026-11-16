@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -175,45 +176,56 @@ class Diagnostics:
         return self._client.region.scope == _DOMESTIC
 
     def protocol_support(self, model: str, version: str, *, app_key: str) -> ApiResponse:
-        _require_domestic(self._client.region.scope, "protocol_support")
-        data = {
-            "appKey": _check_str("app_key", app_key),
-            "model": _check_str("model", model),
-            "version": _check_str("version", version),
-        }
-        return self._client.request(_OP_PROTOCOL_SUPPORT, data=data)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="diagnostics.protocol_support",
+            mode="sync",
+        ):
+            _require_domestic(self._client.region.scope, "protocol_support")
+            data = {
+                "appKey": _check_str("app_key", app_key),
+                "model": _check_str("model", model),
+                "version": _check_str("version", version),
+            }
+            return self._client.request(_OP_PROTOCOL_SUPPORT, data=data)
 
     def search(self, device_serial: str, *, model: str | None = None) -> ApiResponse:
-        _require_domestic(self._client.region.scope, "search")
-        return self._client.request(_OP_SEARCH, data=_search_data(device_serial, model))
+        with _diagnostic_scope(self._client, entrypoint="diagnostics.search", mode="sync"):
+            _require_domestic(self._client.region.scope, "search")
+            return self._client.request(_OP_SEARCH, data=_search_data(device_serial, model))
 
     def channel_status(self, device_serial: str) -> ApiResponse:
-        _require_domestic(self._client.region.scope, "channel_status")
-        serial = _check_device_serial(device_serial, require_uppercase=True)
-        headers = {"deviceSerial": serial, "Content-Type": _FORM_CONTENT_TYPE}
-        return self._client.request(_OP_CHANNEL_STATUS, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="diagnostics.channel_status", mode="sync"):
+            _require_domestic(self._client.region.scope, "channel_status")
+            serial = _check_device_serial(device_serial, require_uppercase=True)
+            headers = {"deviceSerial": serial, "Content-Type": _FORM_CONTENT_TYPE}
+            return self._client.request(_OP_CHANNEL_STATUS, headers=headers)
 
     def capabilities(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
-        domestic = self._domestic()
-        serial = _check_device_serial(device_serial, require_uppercase=domestic)
-        return self._client.request(
-            _OP_CAPABILITIES,
-            data=_capabilities_data(serial, channel, domestic=domestic),
-        )
+        with _diagnostic_scope(self._client, entrypoint="diagnostics.capabilities", mode="sync"):
+            domestic = self._domestic()
+            serial = _check_device_serial(device_serial, require_uppercase=domestic)
+            return self._client.request(
+                _OP_CAPABILITIES,
+                data=_capabilities_data(serial, channel, domestic=domestic),
+            )
 
     def version(self, device_serial: str) -> ApiResponse:
-        serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
-        return self._client.request(_OP_VERSION, data={"deviceSerial": serial})
+        with _diagnostic_scope(self._client, entrypoint="diagnostics.version", mode="sync"):
+            serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
+            return self._client.request(_OP_VERSION, data={"deviceSerial": serial})
 
     def storage_status(self, device_serial: str) -> ApiResponse:
-        serial = _check_device_serial(device_serial, require_uppercase=False)
-        operation, params, headers = _storage_status_request(serial, domestic=self._domestic())
-        return self._client.request(operation, params=params, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="diagnostics.storage_status", mode="sync"):
+            serial = _check_device_serial(device_serial, require_uppercase=False)
+            operation, params, headers = _storage_status_request(serial, domestic=self._domestic())
+            return self._client.request(operation, params=params, headers=headers)
 
     def disk_capacity(self, device_serial: str) -> ApiResponse:
-        _require_domestic(self._client.region.scope, "disk_capacity")
-        serial = _check_device_serial(device_serial, require_uppercase=False)
-        return self._client.request(_OP_DISK_CAPACITY, params={"deviceSerial": serial})
+        with _diagnostic_scope(self._client, entrypoint="diagnostics.disk_capacity", mode="sync"):
+            _require_domestic(self._client.region.scope, "disk_capacity")
+            serial = _check_device_serial(device_serial, require_uppercase=False)
+            return self._client.request(_OP_DISK_CAPACITY, params={"deviceSerial": serial})
 
 
 class AsyncDiagnostics:
@@ -228,42 +240,61 @@ class AsyncDiagnostics:
         return self._client.region.scope == _DOMESTIC
 
     async def protocol_support(self, model: str, version: str, *, app_key: str) -> ApiResponse:
-        _require_domestic(self._client.region.scope, "protocol_support")
-        data = {
-            "appKey": _check_str("app_key", app_key),
-            "model": _check_str("model", model),
-            "version": _check_str("version", version),
-        }
-        return await self._client.request(_OP_PROTOCOL_SUPPORT, data=data)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="diagnostics.protocol_support",
+            mode="async",
+        ):
+            _require_domestic(self._client.region.scope, "protocol_support")
+            data = {
+                "appKey": _check_str("app_key", app_key),
+                "model": _check_str("model", model),
+                "version": _check_str("version", version),
+            }
+            return await self._client.request(_OP_PROTOCOL_SUPPORT, data=data)
 
     async def search(self, device_serial: str, *, model: str | None = None) -> ApiResponse:
-        _require_domestic(self._client.region.scope, "search")
-        return await self._client.request(_OP_SEARCH, data=_search_data(device_serial, model))
+        with _diagnostic_scope(self._client, entrypoint="diagnostics.search", mode="async"):
+            _require_domestic(self._client.region.scope, "search")
+            return await self._client.request(_OP_SEARCH, data=_search_data(device_serial, model))
 
     async def channel_status(self, device_serial: str) -> ApiResponse:
-        _require_domestic(self._client.region.scope, "channel_status")
-        serial = _check_device_serial(device_serial, require_uppercase=True)
-        headers = {"deviceSerial": serial, "Content-Type": _FORM_CONTENT_TYPE}
-        return await self._client.request(_OP_CHANNEL_STATUS, headers=headers)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="diagnostics.channel_status",
+            mode="async",
+        ):
+            _require_domestic(self._client.region.scope, "channel_status")
+            serial = _check_device_serial(device_serial, require_uppercase=True)
+            headers = {"deviceSerial": serial, "Content-Type": _FORM_CONTENT_TYPE}
+            return await self._client.request(_OP_CHANNEL_STATUS, headers=headers)
 
     async def capabilities(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
-        domestic = self._domestic()
-        serial = _check_device_serial(device_serial, require_uppercase=domestic)
-        return await self._client.request(
-            _OP_CAPABILITIES,
-            data=_capabilities_data(serial, channel, domestic=domestic),
-        )
+        with _diagnostic_scope(self._client, entrypoint="diagnostics.capabilities", mode="async"):
+            domestic = self._domestic()
+            serial = _check_device_serial(device_serial, require_uppercase=domestic)
+            return await self._client.request(
+                _OP_CAPABILITIES,
+                data=_capabilities_data(serial, channel, domestic=domestic),
+            )
 
     async def version(self, device_serial: str) -> ApiResponse:
-        serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
-        return await self._client.request(_OP_VERSION, data={"deviceSerial": serial})
+        with _diagnostic_scope(self._client, entrypoint="diagnostics.version", mode="async"):
+            serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
+            return await self._client.request(_OP_VERSION, data={"deviceSerial": serial})
 
     async def storage_status(self, device_serial: str) -> ApiResponse:
-        serial = _check_device_serial(device_serial, require_uppercase=False)
-        operation, params, headers = _storage_status_request(serial, domestic=self._domestic())
-        return await self._client.request(operation, params=params, headers=headers)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="diagnostics.storage_status",
+            mode="async",
+        ):
+            serial = _check_device_serial(device_serial, require_uppercase=False)
+            operation, params, headers = _storage_status_request(serial, domestic=self._domestic())
+            return await self._client.request(operation, params=params, headers=headers)
 
     async def disk_capacity(self, device_serial: str) -> ApiResponse:
-        _require_domestic(self._client.region.scope, "disk_capacity")
-        serial = _check_device_serial(device_serial, require_uppercase=False)
-        return await self._client.request(_OP_DISK_CAPACITY, params={"deviceSerial": serial})
+        with _diagnostic_scope(self._client, entrypoint="diagnostics.disk_capacity", mode="async"):
+            _require_domestic(self._client.region.scope, "disk_capacity")
+            serial = _check_device_serial(device_serial, require_uppercase=False)
+            return await self._client.request(_OP_DISK_CAPACITY, params={"deviceSerial": serial})

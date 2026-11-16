@@ -1,0 +1,17 @@
+{
+  "status": "accepted",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "write_files": [
+    "src/ezviz_unified/diagnostic_report.py",
+    "tests/test_sdk_diagnostic_boundaries.py"
+  ],
+  "input_sha256": "27ba96475b5ca46f573255d7523c24129b88d588ba325543d778a38c62d80bbf",
+  "source_revision": "DG007",
+  "test_revision": "DG007R",
+  "corrected_red": "6 failed, 6 passed",
+  "green_with_examples": "28 passed",
+  "mypy": "Success: no issues found in 43 source files",
+  "acceptance_note": "Exact error/RegionConfig types; corrected regression red/green and full tests",
+  "verification": "../../validation/2026-11-16-diagnostics-v1.json"
+}

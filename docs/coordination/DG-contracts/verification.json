@@ -1,0 +1,23 @@
+{
+  "command": ".venv/bin/python -m harness.audit --repo . --check-summary && .venv/bin/python -m harness.contract_eval --repo . --require-all",
+  "model": [
+    "devin/swe-2"
+  ],
+  "primary_tool_result_is_error": false,
+  "audit_counts": {
+    "contracts": 203,
+    "bindings": 203,
+    "symbols": 406
+  },
+  "evaluation_summary_from_actual_tool_result": {
+    "contracts": 203,
+    "cases": 203,
+    "executions": 1656,
+    "passed_executions": 1656,
+    "failed_executions": 0
+  },
+  "client_sha256_matched_visible_tool_result": "0753611ab6ed25306aba122f8db0d31f0780ac8b8cd8c441d5a929cddf211f52",
+  "execution_shape_verified": false,
+  "deviation": "After successful requested command, worker issued four additional read-only tail/grep/sed calls against the same auto-persisted output. No writes, network or credentials. Original command not rerun.",
+  "full_output_availability": "Claude temporary persisted output was removed after --no-session-persistence exited; public tool results retain audit preview and complete evaluation summary. No full JSON/source-hash reparse claimed."
+}

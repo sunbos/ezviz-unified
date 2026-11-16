@@ -1,0 +1,13 @@
+{
+  "status": "accepted",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "write_files": [
+    "tests/test_sdk_diagnostic_coverage.py",
+    "tests/test_harness_diagnostic_coverage.py",
+    "tools/release/smoke_installed.py"
+  ],
+  "input_sha256": "72716c36976a29afa6c91db028e667e437f49ea8de0aecfd9ef1f24e12e101b7",
+  "acceptance_note": "Coverage audit moved without byte changes; clean wheel/sdist diagnostic smoke and 2695 source tests passed",
+  "verification": "../../validation/2026-11-16-diagnostics-v1.json"
+}

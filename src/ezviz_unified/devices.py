@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .management import AsyncDeviceManagement, DeviceManagement
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
@@ -109,30 +110,35 @@ class Devices(DeviceManagement):
         return self._client.region.scope == _DOMESTIC
 
     def list(self, page_start: int = 0, page_size: int = 10) -> ApiResponse:
-        data = {
-            "pageStart": _check_page_start(page_start, domestic=self._domestic()),
-            "pageSize": _check_page_size(page_size),
-        }
-        return self._client.request(_OP_LIST, data=data)
+        with _diagnostic_scope(self._client, entrypoint="devices.list", mode="sync"):
+            data = {
+                "pageStart": _check_page_start(page_start, domestic=self._domestic()),
+                "pageSize": _check_page_size(page_size),
+            }
+            return self._client.request(_OP_LIST, data=data)
 
     def list_managed(self, page_start: int = 0, page_size: int = 10) -> ApiResponse:
-        return self._client.request(
-            _OP_LIST_MANAGED,
-            data=_managed_list_data(self._client.region.scope, page_start, page_size),
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.list_managed", mode="sync"):
+            return self._client.request(
+                _OP_LIST_MANAGED,
+                data=_managed_list_data(self._client.region.scope, page_start, page_size),
+            )
 
     def get(self, device_serial: str) -> ApiResponse:
-        serial = _check_device_serial(device_serial, require_uppercase=False)
-        return self._client.request(_OP_GET, data={"deviceSerial": serial})
+        with _diagnostic_scope(self._client, entrypoint="devices.get", mode="sync"):
+            serial = _check_device_serial(device_serial, require_uppercase=False)
+            return self._client.request(_OP_GET, data={"deviceSerial": serial})
 
     def channels(self, device_serial: str) -> ApiResponse:
-        serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
-        return self._client.request(_OP_CHANNELS, data={"deviceSerial": serial})
+        with _diagnostic_scope(self._client, entrypoint="devices.channels", mode="sync"):
+            serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
+            return self._client.request(_OP_CHANNELS, data={"deviceSerial": serial})
 
     def status(self, device_serial: str, channel: int = 1) -> ApiResponse:
-        serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
-        data = {"deviceSerial": serial, "channel": _check_int("channel", channel)}
-        return self._client.request(_OP_STATUS, data=data)
+        with _diagnostic_scope(self._client, entrypoint="devices.status", mode="sync"):
+            serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
+            data = {"deviceSerial": serial, "channel": _check_int("channel", channel)}
+            return self._client.request(_OP_STATUS, data=data)
 
 
 class AsyncDevices(AsyncDeviceManagement):
@@ -147,27 +153,32 @@ class AsyncDevices(AsyncDeviceManagement):
         return self._client.region.scope == _DOMESTIC
 
     async def list(self, page_start: int = 0, page_size: int = 10) -> ApiResponse:
-        data = {
-            "pageStart": _check_page_start(page_start, domestic=self._domestic()),
-            "pageSize": _check_page_size(page_size),
-        }
-        return await self._client.request(_OP_LIST, data=data)
+        with _diagnostic_scope(self._client, entrypoint="devices.list", mode="async"):
+            data = {
+                "pageStart": _check_page_start(page_start, domestic=self._domestic()),
+                "pageSize": _check_page_size(page_size),
+            }
+            return await self._client.request(_OP_LIST, data=data)
 
     async def list_managed(self, page_start: int = 0, page_size: int = 10) -> ApiResponse:
-        return await self._client.request(
-            _OP_LIST_MANAGED,
-            data=_managed_list_data(self._client.region.scope, page_start, page_size),
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.list_managed", mode="async"):
+            return await self._client.request(
+                _OP_LIST_MANAGED,
+                data=_managed_list_data(self._client.region.scope, page_start, page_size),
+            )
 
     async def get(self, device_serial: str) -> ApiResponse:
-        serial = _check_device_serial(device_serial, require_uppercase=False)
-        return await self._client.request(_OP_GET, data={"deviceSerial": serial})
+        with _diagnostic_scope(self._client, entrypoint="devices.get", mode="async"):
+            serial = _check_device_serial(device_serial, require_uppercase=False)
+            return await self._client.request(_OP_GET, data={"deviceSerial": serial})
 
     async def channels(self, device_serial: str) -> ApiResponse:
-        serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
-        return await self._client.request(_OP_CHANNELS, data={"deviceSerial": serial})
+        with _diagnostic_scope(self._client, entrypoint="devices.channels", mode="async"):
+            serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
+            return await self._client.request(_OP_CHANNELS, data={"deviceSerial": serial})
 
     async def status(self, device_serial: str, channel: int = 1) -> ApiResponse:
-        serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
-        data = {"deviceSerial": serial, "channel": _check_int("channel", channel)}
-        return await self._client.request(_OP_STATUS, data=data)
+        with _diagnostic_scope(self._client, entrypoint="devices.status", mode="async"):
+            serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
+            data = {"deviceSerial": serial, "channel": _check_int("channel", channel)}
+            return await self._client.request(_OP_STATUS, data=data)

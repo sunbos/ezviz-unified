@@ -35,6 +35,7 @@ from .cloud_storage import AsyncCloudStorage, CloudStorage
 from .components import AsyncComponents, Components
 from .delegation import AsyncDelegation, Delegation
 from .devices import AsyncDevices, Devices
+from .diagnostic_report import DiagnosticRecorder, _diagnostic_retry, _diagnostic_scope
 from .diagnostics import AsyncDiagnostics, Diagnostics
 from .errors import AuthenticationError, ProtocolError, TransportError
 from .illumination import AsyncIllumination, Illumination
@@ -218,6 +219,7 @@ class Client:
         auth_transport: httpx.BaseTransport | None = None,
         transport_factory: SyncTransportFactory | None = None,
         anonymous: bool = False,
+        diagnostic_recorder: DiagnosticRecorder | None = None,
     ) -> None:
         if not isinstance(region, RegionConfig):
             raise ValueError("region must be a RegionConfig")
@@ -225,6 +227,9 @@ class Client:
             raise ValueError("transport_factory must be callable")
         if not isinstance(anonymous, bool):
             raise ValueError("anonymous must be a bool")
+        if diagnostic_recorder is not None:
+            if type(diagnostic_recorder) is not DiagnosticRecorder:
+                raise TypeError("diagnostic_recorder must be a DiagnosticRecorder or None")
         self._region = region
         self._timeout = _validate_timeout(timeout)
         self._trust_env = trust_env
@@ -288,6 +293,7 @@ class Client:
         self._transports: dict[str, SyncTransport] = {}
         self._active = 0
         self._closed = False
+        self._diagnostic_recorder = diagnostic_recorder
         self.devices = Devices(self)
         self.otap = Otap(self)
         self.delegation = Delegation(self)
@@ -332,68 +338,113 @@ class Client:
         headers: Mapping[str, str] | None = None,
         path_params: Mapping[str, str] | None = None,
     ) -> ApiResponse:
-        with self._condition:
-            if self._closed:
-                raise _closed_error(operation.name, self._secrets)
-            self._active += 1
-        try:
-            prepared = _prepare(
-                operation,
-                self._region.scope,
-                params=params,
-                data=data,
-                json=json,
-                headers=headers,
-                path_params=path_params,
-            )
-            return self._execute(operation, prepared)
-        finally:
+        with _diagnostic_scope(
+            self,
+            entrypoint="client.request",
+            mode="sync",
+            operation=operation,
+        ):
             with self._condition:
-                self._active -= 1
-                if self._active == 0:
-                    self._condition.notify_all()
+                if self._closed:
+                    raise _closed_error(operation.name, self._secrets)
+                self._active += 1
+            try:
+                prepared = _prepare(
+                    operation,
+                    self._region.scope,
+                    params=params,
+                    data=data,
+                    json=json,
+                    headers=headers,
+                    path_params=path_params,
+                )
+                return self._execute(operation, prepared)
+            finally:
+                with self._condition:
+                    self._active -= 1
+                    if self._active == 0:
+                        self._condition.notify_all()
 
     def _execute(self, operation: Operation, prepared: _Prepared) -> ApiResponse:
         if operation.token_location == "none":
-            origin = self._region.api_base_url
-            if origin is None:
-                raise ValueError("public operation requires a configured api_base_url")
-            transport = self._transport_for_origin(origin)
-            return transport.request(
-                operation.method,
-                prepared.path,
-                params=prepared.params,
-                data=prepared.data,
-                json=prepared.json,
-                headers=prepared.headers,
-                policy=operation.policy,
-                operation=operation.name,
-                secrets=(*self._secrets, *prepared.path_secrets),
-            )
+            with _diagnostic_scope(
+                self,
+                entrypoint="client.request",
+                mode="sync",
+                kind="transport_setup",
+                operation=operation,
+                attempt=0,
+            ):
+                origin = self._region.api_base_url
+                if origin is None:
+                    raise ValueError("public operation requires a configured api_base_url")
+                transport = self._transport_for_origin(origin)
+            with _diagnostic_scope(
+                self,
+                entrypoint="client.request",
+                mode="sync",
+                kind="attempt",
+                operation=operation,
+                attempt=1,
+            ):
+                return transport.request(
+                    operation.method,
+                    prepared.path,
+                    params=prepared.params,
+                    data=prepared.data,
+                    json=prepared.json,
+                    headers=prepared.headers,
+                    policy=operation.policy,
+                    operation=operation.name,
+                    secrets=(*self._secrets, *prepared.path_secrets),
+                )
         manager = self._manager
         if manager is None:
             raise ValueError("anonymous client cannot perform authenticated operations")
         retried = False
         while True:
-            supplied = manager.get_token()  # provider errors are never retried
-            if inspect.iscoroutine(supplied):
-                supplied.close()
-                raise TypeError("synchronous provider returned a coroutine")
-            token = validate_provider_token(supplied, region=self._region, now=self._clock())
-            transport = self._transport_for(token)
-            bound = _inject(operation, prepared, token)
+            with _diagnostic_scope(
+                self,
+                entrypoint="client.request",
+                mode="sync",
+                kind="authentication",
+                operation=operation,
+            ):
+                supplied = manager.get_token()  # provider errors are never retried
+                if inspect.iscoroutine(supplied):
+                    supplied.close()
+                    raise TypeError("synchronous provider returned a coroutine")
+                token = validate_provider_token(supplied, region=self._region, now=self._clock())
+            with _diagnostic_scope(
+                self,
+                entrypoint="client.request",
+                mode="sync",
+                kind="transport_setup",
+                operation=operation,
+                attempt=0,
+            ):
+                transport = self._transport_for(token)
+                bound = _inject(operation, prepared, token)
             try:
-                return transport.request(
-                    operation.method,
-                    prepared.path,
-                    params=bound.params,
-                    data=bound.data,
-                    json=bound.json,
-                    headers=bound.headers,
-                    policy=operation.policy,
-                    operation=operation.name,
-                    secrets=(*self._secrets, *prepared.path_secrets, token.value),
-                )
+                with _diagnostic_scope(
+                    self,
+                    entrypoint="client.request",
+                    mode="sync",
+                    kind="attempt",
+                    operation=operation,
+                    attempt=2 if retried else 1,
+                ):
+                    return transport.request(
+                        operation.method,
+                        prepared.path,
+                        params=bound.params,
+                        data=bound.data,
+                        json=bound.json,
+                        headers=bound.headers,
+                        policy=operation.policy,
+                        operation=operation.name,
+                        secrets=(*self._secrets, *prepared.path_secrets, token.value),
+                    )
             except AuthenticationError as exc:
                 if not exc.invalid_token:
                     raise
@@ -401,6 +452,7 @@ class Client:
                 if retried or not operation.read_only or not manager.can_refresh:
                     raise
                 retried = True
+                _diagnostic_retry(self, mode="sync", operation=operation)
 
     def _transport_for(self, token: Token) -> SyncTransport:
         return self._transport_for_origin(_verified_origin(self._region, token))
@@ -420,8 +472,9 @@ class Client:
         return transport
 
     def close(self) -> None:
-        with self._close_lock:
-            self._close_resources()
+        with _diagnostic_scope(self, entrypoint="client.close", mode="sync", kind="close"):
+            with self._close_lock:
+                self._close_resources()
 
     def _close_resources(self) -> None:
         with self._condition:
@@ -475,6 +528,7 @@ class AsyncClient:
         auth_transport: httpx.AsyncBaseTransport | None = None,
         transport_factory: AsyncTransportFactory | None = None,
         anonymous: bool = False,
+        diagnostic_recorder: DiagnosticRecorder | None = None,
     ) -> None:
         if not isinstance(region, RegionConfig):
             raise ValueError("region must be a RegionConfig")
@@ -482,6 +536,9 @@ class AsyncClient:
             raise ValueError("transport_factory must be callable")
         if not isinstance(anonymous, bool):
             raise ValueError("anonymous must be a bool")
+        if diagnostic_recorder is not None:
+            if type(diagnostic_recorder) is not DiagnosticRecorder:
+                raise TypeError("diagnostic_recorder must be a DiagnosticRecorder or None")
         self._region = region
         self._timeout = _validate_timeout(timeout)
         self._trust_env = trust_env
@@ -544,6 +601,7 @@ class AsyncClient:
         self._idle.set()
         self._closing: asyncio.Task[None] | None = None
         self._closed = False
+        self._diagnostic_recorder = diagnostic_recorder
         self.devices = AsyncDevices(self)
         self.otap = AsyncOtap(self)
         self.delegation = AsyncDelegation(self)
@@ -588,68 +646,113 @@ class AsyncClient:
         headers: Mapping[str, str] | None = None,
         path_params: Mapping[str, str] | None = None,
     ) -> ApiResponse:
-        if self._closed:
-            raise _closed_error(operation.name, self._secrets)
-        self._active += 1
-        if self._active == 1:
-            self._idle.clear()
-        try:
-            prepared = _prepare(
-                operation,
-                self._region.scope,
-                params=params,
-                data=data,
-                json=json,
-                headers=headers,
-                path_params=path_params,
-            )
-            return await self._execute(operation, prepared)
-        finally:
-            self._active -= 1
-            if self._active == 0:
-                self._idle.set()
+        with _diagnostic_scope(
+            self,
+            entrypoint="client.request",
+            mode="async",
+            operation=operation,
+        ):
+            if self._closed:
+                raise _closed_error(operation.name, self._secrets)
+            self._active += 1
+            if self._active == 1:
+                self._idle.clear()
+            try:
+                prepared = _prepare(
+                    operation,
+                    self._region.scope,
+                    params=params,
+                    data=data,
+                    json=json,
+                    headers=headers,
+                    path_params=path_params,
+                )
+                return await self._execute(operation, prepared)
+            finally:
+                self._active -= 1
+                if self._active == 0:
+                    self._idle.set()
 
     async def _execute(self, operation: Operation, prepared: _Prepared) -> ApiResponse:
         if operation.token_location == "none":
-            origin = self._region.api_base_url
-            if origin is None:
-                raise ValueError("public operation requires a configured api_base_url")
-            transport = self._transport_for_origin(origin)
-            return await transport.request(
-                operation.method,
-                prepared.path,
-                params=prepared.params,
-                data=prepared.data,
-                json=prepared.json,
-                headers=prepared.headers,
-                policy=operation.policy,
-                operation=operation.name,
-                secrets=(*self._secrets, *prepared.path_secrets),
-            )
+            with _diagnostic_scope(
+                self,
+                entrypoint="client.request",
+                mode="async",
+                kind="transport_setup",
+                operation=operation,
+                attempt=0,
+            ):
+                origin = self._region.api_base_url
+                if origin is None:
+                    raise ValueError("public operation requires a configured api_base_url")
+                transport = self._transport_for_origin(origin)
+            with _diagnostic_scope(
+                self,
+                entrypoint="client.request",
+                mode="async",
+                kind="attempt",
+                operation=operation,
+                attempt=1,
+            ):
+                return await transport.request(
+                    operation.method,
+                    prepared.path,
+                    params=prepared.params,
+                    data=prepared.data,
+                    json=prepared.json,
+                    headers=prepared.headers,
+                    policy=operation.policy,
+                    operation=operation.name,
+                    secrets=(*self._secrets, *prepared.path_secrets),
+                )
         manager = self._manager
         if manager is None:
             raise ValueError("anonymous client cannot perform authenticated operations")
         retried = False
         while True:
-            awaitable = manager.get_token()  # provider errors never retry
-            if not inspect.isawaitable(awaitable):
-                raise TypeError("async token_provider get_token must return an awaitable")
-            supplied = await awaitable
-            token = validate_provider_token(supplied, region=self._region, now=self._clock())
-            transport = self._transport_for(token)
-            bound = _inject(operation, prepared, token)
+            with _diagnostic_scope(
+                self,
+                entrypoint="client.request",
+                mode="async",
+                kind="authentication",
+                operation=operation,
+            ):
+                awaitable = manager.get_token()  # provider errors never retry
+                if not inspect.isawaitable(awaitable):
+                    raise TypeError("async token_provider get_token must return an awaitable")
+                supplied = await awaitable
+                token = validate_provider_token(supplied, region=self._region, now=self._clock())
+            with _diagnostic_scope(
+                self,
+                entrypoint="client.request",
+                mode="async",
+                kind="transport_setup",
+                operation=operation,
+                attempt=0,
+            ):
+                transport = self._transport_for(token)
+                bound = _inject(operation, prepared, token)
             try:
-                return await transport.request(
-                    operation.method,
-                    prepared.path,
-                    params=bound.params,
-                    data=bound.data,
-                    json=bound.json,
-                    headers=bound.headers,
-                    policy=operation.policy,
-                    operation=operation.name,
-                    secrets=(*self._secrets, *prepared.path_secrets, token.value),
-                )
+                with _diagnostic_scope(
+                    self,
+                    entrypoint="client.request",
+                    mode="async",
+                    kind="attempt",
+                    operation=operation,
+                    attempt=2 if retried else 1,
+                ):
+                    return await transport.request(
+                        operation.method,
+                        prepared.path,
+                        params=bound.params,
+                        data=bound.data,
+                        json=bound.json,
+                        headers=bound.headers,
+                        policy=operation.policy,
+                        operation=operation.name,
+                        secrets=(*self._secrets, *prepared.path_secrets, token.value),
+                    )
             except AuthenticationError as exc:
                 if not exc.invalid_token:
                     raise
@@ -657,6 +760,7 @@ class AsyncClient:
                 if retried or not operation.read_only or not manager.can_refresh:
                     raise
                 retried = True
+                _diagnostic_retry(self, mode="async", operation=operation)
 
     def _transport_for(self, token: Token) -> AsyncTransport:
         return self._transport_for_origin(_verified_origin(self._region, token))
@@ -675,31 +779,33 @@ class AsyncClient:
         return transport
 
     async def aclose(self) -> None:
-        self._closed = True
-        if self._closing is None:
-            self._closing = asyncio.create_task(self._cleanup())
-            self._closing.add_done_callback(_consume_task_error)
-        # Cancellation belongs to this waiter; cleanup continues independently.
-        await asyncio.shield(self._closing)
+        with _diagnostic_scope(self, entrypoint="client.aclose", mode="async", kind="close"):
+            self._closed = True
+            if self._closing is None:
+                self._closing = asyncio.create_task(self._cleanup())
+                self._closing.add_done_callback(_consume_task_error)
+            # Cancellation belongs to this waiter; cleanup continues independently.
+            await asyncio.shield(self._closing)
 
     async def _cleanup(self) -> None:
-        await self._idle.wait()
-        failure: BaseException | None = None
-        for transport in list(self._transports.values()):
+        with _diagnostic_scope(self, entrypoint="client.cleanup", mode="async", kind="cleanup"):
+            await self._idle.wait()
+            failure: BaseException | None = None
+            for transport in list(self._transports.values()):
+                try:
+                    await transport.aclose()
+                except BaseException as exc:
+                    if failure is None:
+                        failure = exc
+            self._transports.clear()
             try:
-                await transport.aclose()
+                if self._owned_manager is not None:
+                    await self._owned_manager.aclose()
             except BaseException as exc:
                 if failure is None:
                     failure = exc
-        self._transports.clear()
-        try:
-            if self._owned_manager is not None:
-                await self._owned_manager.aclose()
-        except BaseException as exc:
-            if failure is None:
-                failure = exc
-        if failure is not None:
-            raise failure
+            if failure is not None:
+                raise failure
 
     async def __aenter__(self) -> AsyncClient:
         return self

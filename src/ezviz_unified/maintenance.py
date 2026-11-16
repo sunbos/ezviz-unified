@@ -34,6 +34,7 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 from typing import TYPE_CHECKING, NamedTuple
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 from .transport import ParamMapping
@@ -289,8 +290,13 @@ class Maintenance:
         latest), 60014 (upgrading), and 60015 (rebooting) still surface as
         errors, and acceptance is never treated as a finished upgrade.
         """
-        plan = _firmware_plan(device_serial, self._client.region.scope, status=False)
-        return _send(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="maintenance.upgrade_firmware",
+            mode="sync",
+        ):
+            plan = _firmware_plan(device_serial, self._client.region.scope, status=False)
+            return _send(self._client, plan)
 
     def upgrade_status(self, device_serial: str) -> ApiResponse:
         """Read firmware-upgrade progress (both regions, read-only).
@@ -299,8 +305,9 @@ class Maintenance:
         ``data.status`` (domestic: 0 upgrading, 1 rebooting, 2 succeeded, >2 failed; overseas documents 3 as failed)
         are returned verbatim; a single status read is never a poll loop.
         """
-        plan = _firmware_plan(device_serial, self._client.region.scope, status=True)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="maintenance.upgrade_status", mode="sync"):
+            plan = _firmware_plan(device_serial, self._client.region.scope, status=True)
+            return _send(self._client, plan)
 
     def modules(self, device_serial: str) -> ApiResponse:
         """List modules pending upgrade (domestic only, read-only).
@@ -309,8 +316,9 @@ class Maintenance:
         ``isNeedUpgrade`` entry exactly as returned; nothing is filtered or
         fed into an upgrade automatically.
         """
-        plan = _modules_plan(device_serial, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="maintenance.modules", mode="sync"):
+            plan = _modules_plan(device_serial, self._client.region.scope)
+            return _send(self._client, plan)
 
     def module_status(self, device_serial: str, module: str) -> ApiResponse:
         """Read one module's upgrade progress (domestic only, read-only).
@@ -319,8 +327,9 @@ class Maintenance:
         ``data.process`` (0-100) and ``data.status`` (0 pending … 7 success,
         8 failed) are returned verbatim.
         """
-        plan = _module_status_plan(device_serial, module, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="maintenance.module_status", mode="sync"):
+            plan = _module_status_plan(device_serial, module, self._client.region.scope)
+            return _send(self._client, plan)
 
     def upgrade_modules(self, device_serial: str, modules: Sequence[str]) -> ApiResponse:
         """Trigger upgrades for the listed modules (domestic only).
@@ -331,8 +340,13 @@ class Maintenance:
         caller's order: no dedup, no :meth:`modules` pre-query or
         ``isNeedUpgrade`` filtering, and never an implicit upgrade-all.
         """
-        plan = _upgrade_modules_plan(device_serial, modules, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="maintenance.upgrade_modules",
+            mode="sync",
+        ):
+            plan = _upgrade_modules_plan(device_serial, modules, self._client.region.scope)
+            return _send(self._client, plan)
 
     def format_disk(self, device_serial: str, disk_index: str) -> ApiResponse:
         """Format one storage medium by index (both regions).
@@ -343,8 +357,9 @@ class Maintenance:
         no default disk is guessed, no disks are listed, and all disks are
         never formatted in bulk; 20016 (already formatting) stays an error.
         """
-        plan = _format_disk_plan(device_serial, disk_index, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="maintenance.format_disk", mode="sync"):
+            plan = _format_disk_plan(device_serial, disk_index, self._client.region.scope)
+            return _send(self._client, plan)
 
 
 class AsyncMaintenance:
@@ -356,25 +371,43 @@ class AsyncMaintenance:
         self._client = client
 
     async def upgrade_firmware(self, device_serial: str) -> ApiResponse:
-        plan = _firmware_plan(device_serial, self._client.region.scope, status=False)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="maintenance.upgrade_firmware",
+            mode="async",
+        ):
+            plan = _firmware_plan(device_serial, self._client.region.scope, status=False)
+            return await _asend(self._client, plan)
 
     async def upgrade_status(self, device_serial: str) -> ApiResponse:
-        plan = _firmware_plan(device_serial, self._client.region.scope, status=True)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="maintenance.upgrade_status",
+            mode="async",
+        ):
+            plan = _firmware_plan(device_serial, self._client.region.scope, status=True)
+            return await _asend(self._client, plan)
 
     async def modules(self, device_serial: str) -> ApiResponse:
-        plan = _modules_plan(device_serial, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="maintenance.modules", mode="async"):
+            plan = _modules_plan(device_serial, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def module_status(self, device_serial: str, module: str) -> ApiResponse:
-        plan = _module_status_plan(device_serial, module, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="maintenance.module_status", mode="async"):
+            plan = _module_status_plan(device_serial, module, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def upgrade_modules(self, device_serial: str, modules: Sequence[str]) -> ApiResponse:
-        plan = _upgrade_modules_plan(device_serial, modules, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="maintenance.upgrade_modules",
+            mode="async",
+        ):
+            plan = _upgrade_modules_plan(device_serial, modules, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def format_disk(self, device_serial: str, disk_index: str) -> ApiResponse:
-        plan = _format_disk_plan(device_serial, disk_index, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="maintenance.format_disk", mode="async"):
+            plan = _format_disk_plan(device_serial, disk_index, self._client.region.scope)
+            return await _asend(self._client, plan)

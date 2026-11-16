@@ -91,6 +91,17 @@ stdout 只输出一行 `public_summary()` JSON：`region`、`all_succeeded` 与�
 
 SDK 内置的 `ProtocolError`、`TransportError` 都继承 `EzvizError`，会被示例捕获并脱敏输出；配置错误与 SDK 错误之外的真实程序错误不会被吞掉，会原样抛出。
 
+## 本地诊断示例
+
+`examples.diagnostics_sync` 与 `examples.diagnostics_async` 演示 `DiagnosticRecorder`：recorder 显式传入 `Client`/`AsyncClient` 的 `diagnostic_recorder`，`recorder.capture()` 作用域覆盖配置校验、客户端构造与一次只读首页查询（`page_start=0, page_size=1`），`finally` 中把 `recorder.to_json()` 打印到 stdout。环境变量与设备列表示例相同；示例不自动写文件、不上传，保存报告需显式重定向：
+
+```bash
+.venv/bin/python -m examples.diagnostics_sync > report.json
+.venv/bin/python -m examples.diagnostics_async > report.json
+```
+
+成功与失败 stdout 都输出同一份诊断报告 JSON（`schema_version=1`）；stderr 仅输出固定纯文本提示，不含异常 message 或 traceback。退出码 `0` 成功、`1` 失败（含未预期的 `BaseException`/`SystemExit`）、`130` 表示 `KeyboardInterrupt`/`CancelledError`；上述转换发生在示例 CLI 的 `run_cli` 边界，SDK 与 capture 异常本身原样传播。报告不含凭据、token、设备序列号、URL、异常原文或自由文本；字段白名单、覆盖与未覆盖范围见[本地诊断说明](diagnostics.md)。该示例 CLI 尚未做真实联网验收。
+
 ## 匿名公开目录
 
 公开时区目录与上文设备示例不同，不需要`EZVIZ_APP_KEY`/`EZVIZ_APP_SECRET`；设备查询、设备设置和单设备检查仍必须认证。最小同步示例（无凭据、显式新加坡业务地址）：
@@ -124,4 +135,4 @@ with Client(
 
 ## 验证状态
 
-本批示例尚未做真实联网验收（只读检查助手经 tools/live 在国内单设备实测过一次，观察时刻为UTC 2026-11-14（Asia/Shanghai 2026-11-15），该路径不经过示例 CLI，记录见 `docs/validation/live/2026-11-15-domestic-inspection/`）。仓库离线测试范围：`tests/test_examples.py` 用 `MockTransport` 覆盖同步/异步、国内/海外的成功、空列表、异常载荷、认证失败、配置校验与脱敏输出；`tests/test_examples_inspection.py` 离线覆盖单设备检查示例的两个区域、逐项失败、认证中断、配置前置校验与脱敏输出。由主导方运行后记录结果，不据此宣称真实网络已验收。
+本批示例尚未做真实联网验收（只读检查助手经 tools/live 在国内单设备实测过一次，观察时刻为UTC 2026-11-14（Asia/Shanghai 2026-11-15），该路径不经过示例 CLI，记录见 `docs/validation/live/2026-11-15-domestic-inspection/`）。仓库离线测试范围：`tests/test_examples.py` 用 `MockTransport` 覆盖同步/异步、国内/海外的成功、空列表、异常载荷、认证失败、配置校验与脱敏输出；`tests/test_examples_inspection.py` 离线覆盖单设备检查示例的两个区域、逐项失败、认证中断、配置前置校验与脱敏输出；`tests/test_examples_diagnostics.py` 离线覆盖诊断示例的报告结构、失败仍导出报告、应用异常捕获、脱敏与不自动写文件。由主导方运行后记录结果，不据此宣称真实网络已验收。

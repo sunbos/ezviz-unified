@@ -1,0 +1,903 @@
+{
+  "schema_version": 1,
+  "scope": "local_diagnostics_v1_acceptance",
+  "recorded_at_utc": "2026-11-16T05:02:07.684813+00:00",
+  "baseline_main": "b2b6dcaf970579f9376ef7bdc36aa962b3e6b960",
+  "implementation_status": "offline_accepted_live_and_git_gates_pending",
+  "automatic_business_coverage": [
+    {
+      "entrypoint": "alarms.for_device",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "alarms.list",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "arming.active_defence",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "arming.get_schedule",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "arming.set_mode",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "arming.set_schedule",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.calendar",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.create_instant_plan",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.create_one_off_plan",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.delete_one_off_plan",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.hls_recordings",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.one_off_plan",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.plan_devices",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.plans",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.recordings",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.running_tasks",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.space",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.stop_one_off_plan",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.tasks",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.templates",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_recording.update_one_off_plan",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_storage.activate_card",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_storage.available_types",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_storage.info",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_storage.open_service",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_storage.opening_status",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_storage.set_enabled",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_storage.start_trial",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "cloud_storage.transfer",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "components.call",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "delegation.apply_code",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "delegation.authorize_account",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "delegation.authorize_device",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "delegation.list_resources",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "delegation.relieve_device",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.bind",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.cameras",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.channels",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.connection_info",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.get",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.link_ipc",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.list",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.list_managed",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.rename",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.rename_channel",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.set_channel_visible",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.status",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.unbind",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "devices.unlink_ipc",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "diagnostics.capabilities",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "diagnostics.channel_status",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "diagnostics.disk_capacity",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "diagnostics.protocol_support",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "diagnostics.search",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "diagnostics.storage_status",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "diagnostics.version",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "illumination.get_mode",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "illumination.set_enabled",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "illumination.set_mode",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "imaging.get",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "imaging.set_anti_flicker",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "imaging.set_backlight",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "imaging.set_denoising",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "imaging.set_exposure",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "maintenance.format_disk",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "maintenance.module_status",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "maintenance.modules",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "maintenance.upgrade_firmware",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "maintenance.upgrade_modules",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "maintenance.upgrade_status",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "otap.get_property",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "otap.invoke_action",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "otap.latest_property",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "otap.set_property",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ownership.auto_verify",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ownership.confirm_offline",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ownership.verify_online",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "playback.create",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "playback.invalidate",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ptz.add_preset",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ptz.calibrate",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ptz.clear_preset",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ptz.cruise.get_enabled",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ptz.cruise.get_schedule",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ptz.cruise.set_schedule",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ptz.mirror",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ptz.move_preset",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ptz.presets",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ptz.reset",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ptz.start",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "ptz.stop",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "recordings.local",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "security.disable_encryption",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "security.enable_encryption",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "security.update_password",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "settings.get_chime",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "settings.get_infrared",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "settings.get_language",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "settings.get_pir_area",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "settings.get_switch",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "settings.list_timezones",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "settings.set_chime",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "settings.set_infrared",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "settings.set_language",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "settings.set_pir_area",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "settings.set_switch",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "settings.set_timezone",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "snapshots.capture",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "snapshots.capture_to_space",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "storage.create_space",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "storage.delete_space",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "storage.download_urls",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "storage.search_files",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "storage.set_file_retention",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "storage.spaces",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "storage.update_space",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "subaccounts.add_statement",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "subaccounts.change_password",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "subaccounts.create",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "subaccounts.delete",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "subaccounts.get",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "subaccounts.issue_token",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "subaccounts.list",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "subaccounts.remove_device_permissions",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "subaccounts.set_policy",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "video.get_recording_encoding",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "video.get_switch",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "video.set_audio_codec",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "video.set_preview_encoding",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "video.set_quality",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "video.set_switch",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    },
+    {
+      "entrypoint": "video.set_video_codec",
+      "sync": "method_body_verified",
+      "async": "method_body_verified"
+    }
+  ],
+  "coverage_test": "tests/test_harness_diagnostic_coverage.py",
+  "coverage_evidence": "268 passed: 264 real facade-method invocations with stubbed request plus 4 registry/prevalidation checks; not all argument combinations or real devices",
+  "offline_results": {
+    "repository_tests": "4419 passed, 11 subtests passed in 33.02s",
+    "mypy": "43 source files passed",
+    "ruff": "checks passed; final format check: 81 files already formatted",
+    "contract_audit": {
+      "contracts": 203,
+      "bindings": 203,
+      "symbols": 406
+    },
+    "wire_eval": {
+      "cases": 203,
+      "executions": 1656,
+      "passed": 1656,
+      "failed": 0,
+      "real_api_used": false
+    },
+    "artifacts": [
+      {
+        "filename": "ezviz_unified-0.1.0a1-py3-none-any.whl",
+        "kind": "wheel",
+        "member_count": 49,
+        "sha256": "02de0a13f8a2a8eb6d483f8eea184aad3571af871c1b1bfb0113de62aa38fc43"
+      },
+      {
+        "filename": "ezviz_unified-0.1.0a1.tar.gz",
+        "kind": "sdist",
+        "member_count": 115,
+        "sha256": "2fb3d5ef547923401c24716eaed1ae007eaacc9adaf43e9ca537d664c87b7949"
+      }
+    ],
+    "clean_install": {
+      "installer": "pip",
+      "name": "ezviz-unified",
+      "offline": false,
+      "python": "3.12.13",
+      "real_api_used": false,
+      "results": [
+        {
+          "artifact_sha256": "02de0a13f8a2a8eb6d483f8eea184aad3571af871c1b1bfb0113de62aa38fc43",
+          "clean_install": true,
+          "filename": "ezviz_unified-0.1.0a1-py3-none-any.whl",
+          "install_offline": false,
+          "kind": "wheel",
+          "smoke": "Installed SDK sync/async mock smoke passed"
+        },
+        {
+          "artifact_sha256": "2fb3d5ef547923401c24716eaed1ae007eaacc9adaf43e9ca537d664c87b7949",
+          "clean_install": true,
+          "filename": "ezviz_unified-0.1.0a1.tar.gz",
+          "install_offline": false,
+          "kind": "sdist",
+          "smoke": "Installed SDK sync/async mock smoke passed",
+          "source_archive_tests": "2695 passed in 8.30s"
+        }
+      ],
+      "source_tests": true,
+      "validation": "clean_install_and_offline_smoke",
+      "version": "0.1.0a1"
+    },
+    "source_bytes_match_artifacts": true
+  },
+  "checks": {
+    "DG-full": {
+      "command": ".venv/bin/python -m pytest -q --tb=short > .claude/coordination/DG-full-tests.log 2>&1; dg_full_tests_rc=$?; tail -n 55 .claude/coordination/DG-full-tests.log; exit \"$dg_full_tests_rc\"",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "tool_result_sha256": "bdc29d39a411722d81dd1f4af3d4dd7d7e6847f6a6a139c8009f4fa2d881aee3",
+      "tool_is_error": false,
+      "execution_shape_verified": true
+    },
+    "DG-mypy": {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "tool_result_sha256": "81784d66b50ab805e12926572bc574c5ee133f874cd342bcb2d09b3e54c063d5",
+      "tool_is_error": false,
+      "execution_shape_verified": true
+    },
+    "DG-ruff-check": {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified harness examples tools/release tests/test_sdk_diagnostic_report.py tests/test_sdk_diagnostic_coverage.py tests/test_sdk_diagnostic_boundaries.py tests/test_sdk_diagnostic_control.py tests/test_sdk_diagnostic_hardening.py tests/test_sdk_diagnostic_behaviour.py tests/test_examples_diagnostics.py tests/test_live_diagnostics.py tools/live/verify_diagnostics.py",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "tool_result_sha256": "f0d0b1081d9d3ebb26c4c93543053ecdc0a58998f22c071dc4ddb26021b57645",
+      "tool_is_error": false,
+      "execution_shape_verified": true
+    },
+    "DG-audit-plain": {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "tool_result_sha256": "2bfd1395ee39f3f0560f859ce1c705c71d3cc6bdec914ba7016456c87f03472e",
+      "tool_is_error": false,
+      "execution_shape_verified": true
+    },
+    "DG-wire-plain": {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "tool_result_sha256": "e0b04cf0c5bf842c8c868ddabd5b97422c01eef5d7e92e8ded95097215650716",
+      "tool_is_error": false,
+      "execution_shape_verified": true
+    },
+    "DG-build": {
+      "command": ".venv/bin/python -m build",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "tool_result_sha256": "c6e5082f023ba6d28532caf5b19522fc3c6635421a6d933894aff5bde9ed7c43",
+      "tool_is_error": false,
+      "execution_shape_verified": true
+    },
+    "DG-artifacts": {
+      "command": ".venv/bin/python tools/release/check_artifacts.py",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "tool_result_sha256": "e1142c934727d62e8542f54eb6fcfcb3197f7be18ffa6b24ea89498b2d95a4eb",
+      "tool_is_error": false,
+      "execution_shape_verified": true
+    },
+    "DG-twine": {
+      "command": ".venv/bin/python -m twine check dist/ezviz_unified-0.1.0a1-py3-none-any.whl dist/ezviz_unified-0.1.0a1.tar.gz",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "tool_result_sha256": "2b88bc9f76e64b0fb107a4289e50cb9eaace1a9cd68bc704e07070fd2e0187b3",
+      "tool_is_error": false,
+      "execution_shape_verified": true
+    },
+    "DG-install": {
+      "command": ".venv/bin/python tools/release/verify_installations.py --installer pip",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "tool_result_sha256": "d0ab06c02d62fcd968395476afb7f1b1eb7c570633bbce386a57cc786028d237",
+      "tool_is_error": false,
+      "execution_shape_verified": true
+    },
+    "DG-coverage-moved": {
+      "command": ".venv/bin/python -m pytest -q tests/test_harness_diagnostic_coverage.py",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "tool_result_sha256": "87d99877f7763a968b7c147f97de63cad5041db1538b07487b1b13098063c9cc",
+      "tool_is_error": false,
+      "execution_shape_verified": true
+    },
+    "DG-format-final": {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified harness examples tools/release tests/test_sdk_diagnostic_report.py tests/test_harness_diagnostic_coverage.py tests/test_sdk_diagnostic_boundaries.py tests/test_sdk_diagnostic_control.py tests/test_sdk_diagnostic_hardening.py tests/test_sdk_diagnostic_behaviour.py tests/test_examples_diagnostics.py tests/test_live_diagnostics.py tools/live/verify_diagnostics.py",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "tool_result_sha256": "76f2ced949978ce6e1694b4aec58fa008c01a4e7f00000158971efb42ba26703",
+      "tool_is_error": false,
+      "execution_shape_verified": true
+    }
+  },
+  "live": {
+    "status": "pending_local_configuration",
+    "real_device_acceptance_completed": false,
+    "scope": "domestic, first ordinary device, channel 1, one list page, five inspection calls, at most seven HTTP requests",
+    "credentials_shared_with_worker": false
+  },
+  "git_gates": {
+    "pull_request": null,
+    "head_ci": "pending",
+    "merged": false,
+    "main_validation": "pending"
+  },
+  "limitations": [
+    "Client/AsyncClient constructor without explicit capture",
+    "Python argument binding errors before method body without explicit capture",
+    "unawaited coroutine bodies",
+    "Components.describe/list_documented local metadata",
+    "standalone TokenManager/Transport/providers/DTO constructors/parsers/webhook helpers",
+    "arbitrary application code outside recorder.capture()",
+    "external HTTP clients, logs and other processes",
+    "forged or user-modified reports are not authenticated evidence",
+    "SDK method success is response-policy success, not physical device health or full-field validation.",
+    "Report is bounded and may lack spans after overflow, recording faults or interruption; zero error counters do not attest completeness.",
+    "Reports are not authenticated evidence; no telemetry/RSI completion claim."
+  ],
+  "process_deviations": [
+    "Some compound/redirected Claude commands were permission-denied and were not counted as executed. Plain, precisely scoped commands subsequently passed.",
+    "DG-contracts early session issued extra read-only output inspection commands; latest DG-audit-plain/DG-wire-plain each matched exactly one authorized command.",
+    "Zero-tool candidates that attempted disabled tools were rejected; complete inputs and smaller tasks produced verified zero-tool replacements."
+  ],
+  "sdk_source_sha256": {
+    "src/ezviz_unified/__init__.py": "a5d9aa7a6c7fd008899e32205543d4e4e646f71f492b0ffc1e87c3738bd2f115",
+    "src/ezviz_unified/_diagnostic_registry.py": "49a15a36a1cedb318f1288723373a1607e25a8b860f2235940e1d904cea17b96",
+    "src/ezviz_unified/_path.py": "d292b93654b81af90276cdf508035353e382a5ab25efd97f88b8acc1376077bc",
+    "src/ezviz_unified/_request_values.py": "01c7484f52e36b6b173a6151e378ca7a90c814f872b7e5e011cc6b6a93bc194d",
+    "src/ezviz_unified/alarms.py": "b8563da22258056976bceade05306cd7d34097e098a591d65dbfad8ffb5428e0",
+    "src/ezviz_unified/arming.py": "687f954f1312f74436aebde3ec9a0ffbdf331027c5effffdad14cb8fd191602b",
+    "src/ezviz_unified/auth.py": "e6b53a75fefa81af507c6a7ab2fd2bbfc60420092f82152e5bde631d9608c9b1",
+    "src/ezviz_unified/auth_models.py": "206afefa42e605b7b1f2567b8f2f48a572e7cc9067fa25fd8f4247a7fc345ad6",
+    "src/ezviz_unified/client.py": "0753611ab6ed25306aba122f8db0d31f0780ac8b8cd8c441d5a929cddf211f52",
+    "src/ezviz_unified/cloud_recording.py": "502c0376e4b6fe0b4b4d4847acf0b269e279cb1f39dd2f7a07f3a2967a856733",
+    "src/ezviz_unified/cloud_recording_plans.py": "95b9f270439d9e281ca006f197ddcfe6121531c16e6a528de9df20616278a6e9",
+    "src/ezviz_unified/cloud_storage.py": "13a56120d13f5105ee690e06b52567d058f41cb796f719c72dec9d0873739faf",
+    "src/ezviz_unified/components.py": "b9e52a4440ce92101977717c5f1186f3d176363f449241c95b6d6b997dbaafdc",
+    "src/ezviz_unified/cruise.py": "495b6448f91183629e8f086c58cbb5567b390eb2d718150714e965949861dd7f",
+    "src/ezviz_unified/delegation.py": "0dea0991d445deb7253a76efbd5ed33cef744488d05a9fa604d7535410eff786",
+    "src/ezviz_unified/devices.py": "954b87af61b41c87a755157143f51057432d1502ad83bd345ff9ed5e5296adfa",
+    "src/ezviz_unified/diagnostic_report.py": "a51bc53010fe8e62e41f2b43cc57390562bccc84b67c03d529c69edff2558083",
+    "src/ezviz_unified/diagnostics.py": "f8bb12a10e5e7581560c3e0fc06a637ad257f4e42de8e0490c934577117396df",
+    "src/ezviz_unified/errors.py": "4eb697065529ae95eac0f6d6f07a675527c0b62358a6d0975d6acb15be8b4437",
+    "src/ezviz_unified/illumination.py": "c0938903c3de36bb18c6e8d24c410698fd1f82f7a8c08a96a510b0a77ac65d38",
+    "src/ezviz_unified/imaging.py": "c4b2bcdd6da6f93126b922c4007845c4faf10ff7933d754d1c14a955f749b4b9",
+    "src/ezviz_unified/inspection.py": "65ec20d3ef66e2b18b9e68b43e6a4d37cbae4d88c3141ac8e5a3214b49f0866a",
+    "src/ezviz_unified/maintenance.py": "76a65c07243498b2544495a4ca98903f688c7be627cc2128324dd7d1d5bd5128",
+    "src/ezviz_unified/management.py": "58dfb523feb7c9c8c5880b84e6448db20e01e6b2050cc3fb4be4590895b68908",
+    "src/ezviz_unified/models.py": "e578f021b578fdfef49e6dd5b0e138d6fd61bc4a5a4c2af355562562b65a2d71",
+    "src/ezviz_unified/operations.py": "fda7103e1b0e1bce9eda49fa7ec39083e38ad27b90e5352c5cf2f6d63a17944f",
+    "src/ezviz_unified/otap.py": "3742ebabb58cab972d87296a536ed46b3ee4958a44380d2b0036eddb736f89ed",
+    "src/ezviz_unified/ownership.py": "0d7e55e673e639cef84fe39b3bd72834227ebc4bed683610b1308624dc21ae69",
+    "src/ezviz_unified/playback.py": "9186a3d033816ca84e6b1123a14f5751bee87a2b76215be3a9f81bd5e36d33c8",
+    "src/ezviz_unified/providers.py": "3095319721e73cc1923348722d8ff8e6f5133c99c47d64d3a5a6f32a04576940",
+    "src/ezviz_unified/ptz.py": "5129116dc216ec7fa93bf7af2ab10260c18d28b4cf0a98f3e834f3bdfa1bc2ca",
+    "src/ezviz_unified/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/ezviz_unified/ram_models.py": "ef21cda34746714fa889ef82af20fb42768cf56273a4e965ed25c2b8a80b4f0d",
+    "src/ezviz_unified/recordings.py": "fddeb6d54632044c3152fc47c75cfa47e0ff90c8470365264f28be938cc54c2f",
+    "src/ezviz_unified/response.py": "2eb50d65ec3fc8b65049c3863ba51c033a8e895af646b771d34f966fe0ec4db7",
+    "src/ezviz_unified/security.py": "44b174a7d4452e1c30af08c42fe2474e2c6e427f98b3955400948340098af7c6",
+    "src/ezviz_unified/settings.py": "0a640edeac8c5bd17faf95c041bc8e8a750f30b513f4b69cb09112eaae886527",
+    "src/ezviz_unified/snapshots.py": "40b3f5036f014aca82c96e778476dfd3bdb0c54bd0910b1dbd9e3fbaad2021cb",
+    "src/ezviz_unified/storage.py": "9ac47a0c0f14a83191c977ce0b94c0e00a0b5a563b297dfc8f11f51c4fe15829",
+    "src/ezviz_unified/storage_models.py": "29f0798d82c8acca2b87c6414ef7a02e92597320ef833f40d5a286775afddada",
+    "src/ezviz_unified/subaccounts.py": "b5580261419fce7da353f78e2f49b48a2028c00af3e85d6aac30aaed6ca8cbed",
+    "src/ezviz_unified/transport.py": "39a7f91201aaf204f12e6edb05e9a1d7d570689f1a8d52b327926a5fd5101cfd",
+    "src/ezviz_unified/video.py": "32eed052c976f09776384db882b8bfa802aefe5a9a0736f748384df4265d5ac1",
+    "src/ezviz_unified/webhooks.py": "a3f16dc9e1cf1b6236e3a91e947676546b1a3067200d13e289cfc349bcffa70f"
+  },
+  "review": {
+    "result": "no_new_blocking_findings",
+    "scope": "read-only SDK/privacy/behavior and 132x2 facade structure review",
+    "not_a_substitute_for": "live device, artifact, CI or merge gates"
+  }
+}

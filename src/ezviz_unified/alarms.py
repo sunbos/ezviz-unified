@@ -20,6 +20,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -148,13 +149,15 @@ class Alarms:
 
     def list(self, query: AlarmQuery | None = None) -> ApiResponse:
         """List alarms for the whole account; ``raw`` retains the ``page`` block."""
-        data = _form(self._client.region.scope, query, None)
-        return self._client.request(_OP_LIST, data=data)
+        with _diagnostic_scope(self._client, entrypoint="alarms.list", mode="sync"):
+            data = _form(self._client.region.scope, query, None)
+            return self._client.request(_OP_LIST, data=data)
 
     def for_device(self, device_serial: str, query: AlarmQuery | None = None) -> ApiResponse:
         """List alarms for one device via ``/api/lapp/alarm/device/list``."""
-        data = _form(self._client.region.scope, query, device_serial, device_required=True)
-        return self._client.request(_OP_DEVICE, data=data)
+        with _diagnostic_scope(self._client, entrypoint="alarms.for_device", mode="sync"):
+            data = _form(self._client.region.scope, query, device_serial, device_required=True)
+            return self._client.request(_OP_DEVICE, data=data)
 
 
 class AsyncAlarms:
@@ -167,10 +170,12 @@ class AsyncAlarms:
 
     async def list(self, query: AlarmQuery | None = None) -> ApiResponse:
         """List alarms for the whole account; ``raw`` retains the ``page`` block."""
-        data = _form(self._client.region.scope, query, None)
-        return await self._client.request(_OP_LIST, data=data)
+        with _diagnostic_scope(self._client, entrypoint="alarms.list", mode="async"):
+            data = _form(self._client.region.scope, query, None)
+            return await self._client.request(_OP_LIST, data=data)
 
     async def for_device(self, device_serial: str, query: AlarmQuery | None = None) -> ApiResponse:
         """List alarms for one device via ``/api/lapp/alarm/device/list``."""
-        data = _form(self._client.region.scope, query, device_serial, device_required=True)
-        return await self._client.request(_OP_DEVICE, data=data)
+        with _diagnostic_scope(self._client, entrypoint="alarms.for_device", mode="async"):
+            data = _form(self._client.region.scope, query, device_serial, device_required=True)
+            return await self._client.request(_OP_DEVICE, data=data)

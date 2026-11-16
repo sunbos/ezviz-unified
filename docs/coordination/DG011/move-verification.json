@@ -1,0 +1,7 @@
+{
+  "from": "tests/test_sdk_diagnostic_coverage.py",
+  "to": "tests/test_harness_diagnostic_coverage.py",
+  "sha256_unchanged": "3aac8b8699787908170fb558aa7083008ddd5b7ee060a4c6c7498a2d9ff13029",
+  "coverage_preserved": "132 entries x sync/async; same code and assertions; repository pytest/CI includes harness tests",
+  "sdist_boundary": "No harness/docs/contracts/runtime dependency added"
+}

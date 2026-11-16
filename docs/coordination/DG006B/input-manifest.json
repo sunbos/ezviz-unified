@@ -1,0 +1,18 @@
+{
+  "baseline": "b2b6dca",
+  "files": {
+    "src/ezviz_unified/diagnostic_report.py": "007c9168e7afa0e8e2a53c658549eed8d68475606d4fd625bbf39506a604a06e",
+    "src/ezviz_unified/_diagnostic_registry.py": "49a15a36a1cedb318f1288723373a1607e25a8b860f2235940e1d904cea17b96",
+    "src/ezviz_unified/client.py": "0753611ab6ed25306aba122f8db0d31f0780ac8b8cd8c441d5a929cddf211f52",
+    "src/ezviz_unified/operations.py": "fda7103e1b0e1bce9eda49fa7ec39083e38ad27b90e5352c5cf2f6d63a17944f",
+    "src/ezviz_unified/models.py": "e578f021b578fdfef49e6dd5b0e138d6fd61bc4a5a4c2af355562562b65a2d71",
+    "src/ezviz_unified/auth_models.py": "206afefa42e605b7b1f2567b8f2f48a572e7cc9067fa25fd8f4247a7fc345ad6",
+    "src/ezviz_unified/providers.py": "3095319721e73cc1923348722d8ff8e6f5133c99c47d64d3a5a6f32a04576940",
+    "src/ezviz_unified/errors.py": "4eb697065529ae95eac0f6d6f07a675527c0b62358a6d0975d6acb15be8b4437",
+    "src/ezviz_unified/transport.py": "39a7f91201aaf204f12e6edb05e9a1d7d570689f1a8d52b327926a5fd5101cfd",
+    "src/ezviz_unified/response.py": "2eb50d65ec3fc8b65049c3863ba51c033a8e895af646b771d34f966fe0ec4db7",
+    "src/ezviz_unified/_path.py": "d292b93654b81af90276cdf508035353e382a5ab25efd97f88b8acc1376077bc",
+    "src/ezviz_unified/_request_values.py": "01c7484f52e36b6b173a6151e378ca7a90c814f872b7e5e011cc6b6a93bc194d"
+  },
+  "includes": "DG007 exact builtin errors and exact RegionConfig projection"
+}

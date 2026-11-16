@@ -15,6 +15,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
 from .devices import AsyncDevices, Devices, _check_device_serial, _check_int
+from .diagnostic_report import _diagnostic_scope
 from .diagnostics import AsyncDiagnostics, Diagnostics
 from .errors import AuthenticationError, EzvizError
 from .models import ApiResponse
@@ -204,29 +205,36 @@ def inspect_device(client: Client, device_serial: str, *, channel: int = 1) -> D
     may still authenticate, refresh, or retry, so the actual HTTP request
     count can exceed five.
     """
-    _check_device_serial(device_serial, require_uppercase=client.region.scope == _DOMESTIC)
-    _check_int("channel", channel)
-    results = _collect(_steps(client.devices, client.diagnostics, device_serial, channel))
-    return DeviceInspection(
-        region=client.region.scope,
-        device_serial=device_serial,
-        channel=channel,
-        results=results,
-    )
+    with _diagnostic_scope(client, entrypoint="inspect_device", mode="sync", kind="inspection"):
+        _check_device_serial(device_serial, require_uppercase=client.region.scope == _DOMESTIC)
+        _check_int("channel", channel)
+        results = _collect(_steps(client.devices, client.diagnostics, device_serial, channel))
+        return DeviceInspection(
+            region=client.region.scope,
+            device_serial=device_serial,
+            channel=channel,
+            results=results,
+        )
 
 
 async def inspect_device_async(
     client: AsyncClient, device_serial: str, *, channel: int = 1
 ) -> DeviceInspection:
     """Async variant of :func:`inspect_device` with identical semantics."""
-    _check_device_serial(device_serial, require_uppercase=client.region.scope == _DOMESTIC)
-    _check_int("channel", channel)
-    results = await _collect_async(
-        _async_steps(client.devices, client.diagnostics, device_serial, channel)
-    )
-    return DeviceInspection(
-        region=client.region.scope,
-        device_serial=device_serial,
-        channel=channel,
-        results=results,
-    )
+    with _diagnostic_scope(
+        client,
+        entrypoint="inspect_device_async",
+        mode="async",
+        kind="inspection",
+    ):
+        _check_device_serial(device_serial, require_uppercase=client.region.scope == _DOMESTIC)
+        _check_int("channel", channel)
+        results = await _collect_async(
+            _async_steps(client.devices, client.diagnostics, device_serial, channel)
+        )
+        return DeviceInspection(
+            region=client.region.scope,
+            device_serial=device_serial,
+            channel=channel,
+            results=results,
+        )

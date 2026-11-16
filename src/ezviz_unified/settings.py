@@ -27,6 +27,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation, TokenLocation
 
@@ -398,8 +399,9 @@ class Settings:
         self._client = client
 
     def get_switch(self, device_serial: str, switch: DeviceSwitch | str) -> ApiResponse:
-        op, data = _get_data(switch, device_serial, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.get_switch", mode="sync"):
+            op, data = _get_data(switch, device_serial, self._client.region.scope)
+            return self._client.request(op, data=data)
 
     def set_switch(
         self,
@@ -409,8 +411,9 @@ class Settings:
         *,
         channel: int | None = None,
     ) -> ApiResponse:
-        op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.set_switch", mode="sync"):
+            op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
+            return self._client.request(op, data=data)
 
     def get_pir_area(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Read the PIR detection area configuration (overseas region only).
@@ -418,8 +421,9 @@ class Settings:
         POSTs ``/api/lapp/device/pir/get`` with ``deviceSerial`` and an
         optional ``channelNo`` as form fields.
         """
-        op, data = _pir_area_get_request(device_serial, channel, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.get_pir_area", mode="sync"):
+            op, data = _pir_area_get_request(device_serial, channel, self._client.region.scope)
+            return self._client.request(op, data=data)
 
     def set_pir_area(
         self, device_serial: str, area: str, *, channel: int | None = None
@@ -430,8 +434,11 @@ class Settings:
         the ``area`` form field: no reordering, bitmask conversion, or grid
         inference is applied.
         """
-        op, data = _pir_area_set_request(device_serial, area, channel, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.set_pir_area", mode="sync"):
+            op, data = _pir_area_set_request(
+                device_serial, area, channel, self._client.region.scope
+            )
+            return self._client.request(op, data=data)
 
     def get_chime(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Read the doorbell chime configuration (overseas region only).
@@ -439,8 +446,9 @@ class Settings:
         POSTs ``/api/lapp/device/chime/get`` with ``deviceSerial`` and an
         optional ``channelNo``.
         """
-        op, data = _chime_get_request(device_serial, channel, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.get_chime", mode="sync"):
+            op, data = _chime_get_request(device_serial, channel, self._client.region.scope)
+            return self._client.request(op, data=data)
 
     def set_chime(
         self,
@@ -457,10 +465,11 @@ class Settings:
         int because the source does not specify its unit or range (negative
         values are not rejected).
         """
-        op, data = _chime_set_request(
-            device_serial, chime_type, duration, channel, self._client.region.scope
-        )
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.set_chime", mode="sync"):
+            op, data = _chime_set_request(
+                device_serial, chime_type, duration, channel, self._client.region.scope
+            )
+            return self._client.request(op, data=data)
 
     def get_infrared(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Read the infrared (night vision) switch state (overseas only).
@@ -468,8 +477,9 @@ class Settings:
         POSTs ``/api/lapp/device/infrared/switch/get`` with ``deviceSerial``
         and an optional ``channelNo``.
         """
-        op, data = _infrared_get_request(device_serial, channel, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.get_infrared", mode="sync"):
+            op, data = _infrared_get_request(device_serial, channel, self._client.region.scope)
+            return self._client.request(op, data=data)
 
     def set_infrared(
         self, device_serial: str, enabled: bool, *, channel: int | None = None
@@ -479,8 +489,11 @@ class Settings:
         POSTs ``/api/lapp/device/infrared/switch/set``; ``enabled`` is sent
         as the integer ``enable`` field (1 or 0).
         """
-        op, data = _infrared_set_request(device_serial, enabled, channel, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.set_infrared", mode="sync"):
+            op, data = _infrared_set_request(
+                device_serial, enabled, channel, self._client.region.scope
+            )
+            return self._client.request(op, data=data)
 
     def list_timezones(self, *, language: str | None = None) -> ApiResponse:
         """List the public timezone directory (overseas region only).
@@ -490,8 +503,9 @@ class Settings:
         be "ENGLISH" or "SIMPCN"; ``None`` leaves the choice to the
         service default.
         """
-        op, data = _timezone_list_request(language, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.list_timezones", mode="sync"):
+            op, data = _timezone_list_request(language, self._client.region.scope)
+            return self._client.request(op, data=data)
 
     def set_timezone(
         self,
@@ -509,18 +523,20 @@ class Settings:
         marked in the source. ``daylight_saving`` is an optional bool sent
         as the string "1"/"0" via ``daylightSaving`` and omitted when None.
         """
-        op, data = _timezone_set_request(
-            device_serial, timezone, time_format, daylight_saving, self._client.region.scope
-        )
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.set_timezone", mode="sync"):
+            op, data = _timezone_set_request(
+                device_serial, timezone, time_format, daylight_saving, self._client.region.scope
+            )
+            return self._client.request(op, data=data)
 
     def get_language(self, device_serial: str) -> ApiResponse:
         """Read the device language (overseas region only).
 
         POSTs ``/api/lapp/device/language/get`` with ``deviceSerial``.
         """
-        op, data = _language_get_request(device_serial, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.get_language", mode="sync"):
+            op, data = _language_get_request(device_serial, self._client.region.scope)
+            return self._client.request(op, data=data)
 
     def set_language(self, device_serial: str, language: str) -> ApiResponse:
         """Set the device language (overseas region only).
@@ -529,8 +545,9 @@ class Settings:
         verbatim as a non-blank UTF-8 string and is not limited to the
         timezone directory's ENGLISH/SIMPCN set.
         """
-        op, data = _language_set_request(device_serial, language, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.set_language", mode="sync"):
+            op, data = _language_set_request(device_serial, language, self._client.region.scope)
+            return self._client.request(op, data=data)
 
 
 class AsyncSettings:
@@ -542,8 +559,9 @@ class AsyncSettings:
         self._client = client
 
     async def get_switch(self, device_serial: str, switch: DeviceSwitch | str) -> ApiResponse:
-        op, data = _get_data(switch, device_serial, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.get_switch", mode="async"):
+            op, data = _get_data(switch, device_serial, self._client.region.scope)
+            return await self._client.request(op, data=data)
 
     async def set_switch(
         self,
@@ -553,8 +571,9 @@ class AsyncSettings:
         *,
         channel: int | None = None,
     ) -> ApiResponse:
-        op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.set_switch", mode="async"):
+            op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
+            return await self._client.request(op, data=data)
 
     async def get_pir_area(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Read the PIR detection area configuration (overseas region only).
@@ -562,8 +581,9 @@ class AsyncSettings:
         POSTs ``/api/lapp/device/pir/get`` with ``deviceSerial`` and an
         optional ``channelNo`` as form fields.
         """
-        op, data = _pir_area_get_request(device_serial, channel, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.get_pir_area", mode="async"):
+            op, data = _pir_area_get_request(device_serial, channel, self._client.region.scope)
+            return await self._client.request(op, data=data)
 
     async def set_pir_area(
         self, device_serial: str, area: str, *, channel: int | None = None
@@ -574,8 +594,11 @@ class AsyncSettings:
         the ``area`` form field: no reordering, bitmask conversion, or grid
         inference is applied.
         """
-        op, data = _pir_area_set_request(device_serial, area, channel, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.set_pir_area", mode="async"):
+            op, data = _pir_area_set_request(
+                device_serial, area, channel, self._client.region.scope
+            )
+            return await self._client.request(op, data=data)
 
     async def get_chime(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Read the doorbell chime configuration (overseas region only).
@@ -583,8 +606,9 @@ class AsyncSettings:
         POSTs ``/api/lapp/device/chime/get`` with ``deviceSerial`` and an
         optional ``channelNo``.
         """
-        op, data = _chime_get_request(device_serial, channel, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.get_chime", mode="async"):
+            op, data = _chime_get_request(device_serial, channel, self._client.region.scope)
+            return await self._client.request(op, data=data)
 
     async def set_chime(
         self,
@@ -601,10 +625,11 @@ class AsyncSettings:
         int because the source does not specify its unit or range (negative
         values are not rejected).
         """
-        op, data = _chime_set_request(
-            device_serial, chime_type, duration, channel, self._client.region.scope
-        )
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.set_chime", mode="async"):
+            op, data = _chime_set_request(
+                device_serial, chime_type, duration, channel, self._client.region.scope
+            )
+            return await self._client.request(op, data=data)
 
     async def get_infrared(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Read the infrared (night vision) switch state (overseas only).
@@ -612,8 +637,9 @@ class AsyncSettings:
         POSTs ``/api/lapp/device/infrared/switch/get`` with ``deviceSerial``
         and an optional ``channelNo``.
         """
-        op, data = _infrared_get_request(device_serial, channel, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.get_infrared", mode="async"):
+            op, data = _infrared_get_request(device_serial, channel, self._client.region.scope)
+            return await self._client.request(op, data=data)
 
     async def set_infrared(
         self, device_serial: str, enabled: bool, *, channel: int | None = None
@@ -623,8 +649,11 @@ class AsyncSettings:
         POSTs ``/api/lapp/device/infrared/switch/set``; ``enabled`` is sent
         as the integer ``enable`` field (1 or 0).
         """
-        op, data = _infrared_set_request(device_serial, enabled, channel, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.set_infrared", mode="async"):
+            op, data = _infrared_set_request(
+                device_serial, enabled, channel, self._client.region.scope
+            )
+            return await self._client.request(op, data=data)
 
     async def list_timezones(self, *, language: str | None = None) -> ApiResponse:
         """List the public timezone directory (overseas region only).
@@ -634,8 +663,9 @@ class AsyncSettings:
         be "ENGLISH" or "SIMPCN"; ``None`` leaves the choice to the
         service default.
         """
-        op, data = _timezone_list_request(language, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.list_timezones", mode="async"):
+            op, data = _timezone_list_request(language, self._client.region.scope)
+            return await self._client.request(op, data=data)
 
     async def set_timezone(
         self,
@@ -653,18 +683,20 @@ class AsyncSettings:
         marked in the source. ``daylight_saving`` is an optional bool sent
         as the string "1"/"0" via ``daylightSaving`` and omitted when None.
         """
-        op, data = _timezone_set_request(
-            device_serial, timezone, time_format, daylight_saving, self._client.region.scope
-        )
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.set_timezone", mode="async"):
+            op, data = _timezone_set_request(
+                device_serial, timezone, time_format, daylight_saving, self._client.region.scope
+            )
+            return await self._client.request(op, data=data)
 
     async def get_language(self, device_serial: str) -> ApiResponse:
         """Read the device language (overseas region only).
 
         POSTs ``/api/lapp/device/language/get`` with ``deviceSerial``.
         """
-        op, data = _language_get_request(device_serial, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.get_language", mode="async"):
+            op, data = _language_get_request(device_serial, self._client.region.scope)
+            return await self._client.request(op, data=data)
 
     async def set_language(self, device_serial: str, language: str) -> ApiResponse:
         """Set the device language (overseas region only).
@@ -673,5 +705,6 @@ class AsyncSettings:
         verbatim as a non-blank UTF-8 string and is not limited to the
         timezone directory's ENGLISH/SIMPCN set.
         """
-        op, data = _language_set_request(device_serial, language, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="settings.set_language", mode="async"):
+            op, data = _language_set_request(device_serial, language, self._client.region.scope)
+            return await self._client.request(op, data=data)

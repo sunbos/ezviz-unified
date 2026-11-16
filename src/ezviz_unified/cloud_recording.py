@@ -18,6 +18,7 @@ from datetime import datetime, timedelta
 from typing import TYPE_CHECKING, Literal
 
 from .cloud_recording_plans import AsyncCloudRecordingPlans, CloudRecordingPlans
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -403,15 +404,26 @@ class CloudRecording(CloudRecordingPlans):
 
     def space(self, space_id: str) -> ApiResponse:
         """Fetch recording space details (doc 2039)."""
-        return self._call(_space_request(self._client.region.scope, space_id))
+        with _diagnostic_scope(self._client, entrypoint="cloud_recording.space", mode="sync"):
+            return self._call(_space_request(self._client.region.scope, space_id))
 
     def one_off_plan(self, plan_id: str) -> ApiResponse:
         """Fetch a one-off recording plan (doc 2047)."""
-        return self._call(_one_off_plan_request(self._client.region.scope, plan_id))
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.one_off_plan",
+            mode="sync",
+        ):
+            return self._call(_one_off_plan_request(self._client.region.scope, plan_id))
 
     def plan_devices(self, plan_id: int) -> ApiResponse:
         """List device channels bound to a one-off plan (doc 2048)."""
-        return self._call(_plan_devices_request(self._client.region.scope, plan_id))
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.plan_devices",
+            mode="sync",
+        ):
+            return self._call(_plan_devices_request(self._client.region.scope, plan_id))
 
     def plans(
         self,
@@ -423,25 +435,27 @@ class CloudRecording(CloudRecordingPlans):
         page_size: int = 10,
     ) -> ApiResponse:
         """Page through one-off plans of one space within a single day (doc 2051)."""
-        request = _plans_request(
-            self._client.region.scope,
-            space_id,
-            start_time=start_time,
-            end_time=end_time,
-            last_plan_id=last_plan_id,
-            page_size=page_size,
-        )
-        return self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="cloud_recording.plans", mode="sync"):
+            request = _plans_request(
+                self._client.region.scope,
+                space_id,
+                start_time=start_time,
+                end_time=end_time,
+                last_plan_id=last_plan_id,
+                page_size=page_size,
+            )
+            return self._call(request)
 
     def tasks(self, plan_id: int, *, page_start: int = 0, page_size: int = 10) -> ApiResponse:
         """Page through tasks under a recording plan (doc 4860)."""
-        request = _tasks_request(
-            self._client.region.scope,
-            plan_id,
-            page_start=page_start,
-            page_size=page_size,
-        )
-        return self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="cloud_recording.tasks", mode="sync"):
+            request = _tasks_request(
+                self._client.region.scope,
+                plan_id,
+                page_start=page_start,
+                page_size=page_size,
+            )
+            return self._call(request)
 
     def running_tasks(
         self,
@@ -452,14 +466,19 @@ class CloudRecording(CloudRecordingPlans):
         channel: str | int = 1,
     ) -> ApiResponse:
         """List running tasks for one device channel (doc 4861)."""
-        request = _running_tasks_request(
-            self._client.region.scope,
-            device_serial,
-            start_time=start_time,
-            end_time=end_time,
-            channel=channel,
-        )
-        return self._call(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.running_tasks",
+            mode="sync",
+        ):
+            request = _running_tasks_request(
+                self._client.region.scope,
+                device_serial,
+                start_time=start_time,
+                end_time=end_time,
+                channel=channel,
+            )
+            return self._call(request)
 
     def calendar(
         self,
@@ -470,14 +489,15 @@ class CloudRecording(CloudRecordingPlans):
         space_id: str | None = None,
     ) -> ApiResponse:
         """List the days of one month holding recordings (doc 2042)."""
-        request = _calendar_request(
-            self._client.region.scope,
-            device_serial,
-            channel=channel,
-            month=month,
-            space_id=space_id,
-        )
-        return self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="cloud_recording.calendar", mode="sync"):
+            request = _calendar_request(
+                self._client.region.scope,
+                device_serial,
+                channel=channel,
+                month=month,
+                space_id=space_id,
+            )
+            return self._call(request)
 
     def recordings(
         self,
@@ -489,15 +509,16 @@ class CloudRecording(CloudRecordingPlans):
         end_time: datetime,
     ) -> ApiResponse:
         """List recording fragments for one device channel in a single day (doc 2043)."""
-        request = _recordings_request(
-            self._client.region.scope,
-            device_serial,
-            channel=channel,
-            space_id=space_id,
-            start_time=start_time,
-            end_time=end_time,
-        )
-        return self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="cloud_recording.recordings", mode="sync"):
+            request = _recordings_request(
+                self._client.region.scope,
+                device_serial,
+                channel=channel,
+                space_id=space_id,
+                start_time=start_time,
+                end_time=end_time,
+            )
+            return self._call(request)
 
     def hls_recordings(
         self,
@@ -511,17 +532,22 @@ class CloudRecording(CloudRecordingPlans):
         page_size: int = 50,
     ) -> ApiResponse:
         """List HLS recording files for one device channel within 48 hours (doc 3974)."""
-        request = _hls_recordings_request(
-            self._client.region.scope,
-            device_serial,
-            channel=channel,
-            start_time=start_time,
-            end_time=end_time,
-            format=format,
-            space_id=space_id,
-            page_size=page_size,
-        )
-        return self._call(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.hls_recordings",
+            mode="sync",
+        ):
+            request = _hls_recordings_request(
+                self._client.region.scope,
+                device_serial,
+                channel=channel,
+                start_time=start_time,
+                end_time=end_time,
+                format=format,
+                space_id=space_id,
+                page_size=page_size,
+            )
+            return self._call(request)
 
     def templates(
         self,
@@ -532,14 +558,15 @@ class CloudRecording(CloudRecordingPlans):
         template_name: str | None = None,
     ) -> ApiResponse:
         """Page through transcoding templates (doc 4382)."""
-        request = _templates_request(
-            self._client.region.scope,
-            page_start=page_start,
-            page_size=page_size,
-            template_id=template_id,
-            template_name=template_name,
-        )
-        return self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="cloud_recording.templates", mode="sync"):
+            request = _templates_request(
+                self._client.region.scope,
+                page_start=page_start,
+                page_size=page_size,
+                template_id=template_id,
+                template_name=template_name,
+            )
+            return self._call(request)
 
 
 class AsyncCloudRecording(AsyncCloudRecordingPlans):
@@ -560,15 +587,26 @@ class AsyncCloudRecording(AsyncCloudRecordingPlans):
 
     async def space(self, space_id: str) -> ApiResponse:
         """Fetch recording space details (doc 2039)."""
-        return await self._call(_space_request(self._client.region.scope, space_id))
+        with _diagnostic_scope(self._client, entrypoint="cloud_recording.space", mode="async"):
+            return await self._call(_space_request(self._client.region.scope, space_id))
 
     async def one_off_plan(self, plan_id: str) -> ApiResponse:
         """Fetch a one-off recording plan (doc 2047)."""
-        return await self._call(_one_off_plan_request(self._client.region.scope, plan_id))
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.one_off_plan",
+            mode="async",
+        ):
+            return await self._call(_one_off_plan_request(self._client.region.scope, plan_id))
 
     async def plan_devices(self, plan_id: int) -> ApiResponse:
         """List device channels bound to a one-off plan (doc 2048)."""
-        return await self._call(_plan_devices_request(self._client.region.scope, plan_id))
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.plan_devices",
+            mode="async",
+        ):
+            return await self._call(_plan_devices_request(self._client.region.scope, plan_id))
 
     async def plans(
         self,
@@ -580,25 +618,27 @@ class AsyncCloudRecording(AsyncCloudRecordingPlans):
         page_size: int = 10,
     ) -> ApiResponse:
         """Page through one-off plans of one space within a single day (doc 2051)."""
-        request = _plans_request(
-            self._client.region.scope,
-            space_id,
-            start_time=start_time,
-            end_time=end_time,
-            last_plan_id=last_plan_id,
-            page_size=page_size,
-        )
-        return await self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="cloud_recording.plans", mode="async"):
+            request = _plans_request(
+                self._client.region.scope,
+                space_id,
+                start_time=start_time,
+                end_time=end_time,
+                last_plan_id=last_plan_id,
+                page_size=page_size,
+            )
+            return await self._call(request)
 
     async def tasks(self, plan_id: int, *, page_start: int = 0, page_size: int = 10) -> ApiResponse:
         """Page through tasks under a recording plan (doc 4860)."""
-        request = _tasks_request(
-            self._client.region.scope,
-            plan_id,
-            page_start=page_start,
-            page_size=page_size,
-        )
-        return await self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="cloud_recording.tasks", mode="async"):
+            request = _tasks_request(
+                self._client.region.scope,
+                plan_id,
+                page_start=page_start,
+                page_size=page_size,
+            )
+            return await self._call(request)
 
     async def running_tasks(
         self,
@@ -609,14 +649,19 @@ class AsyncCloudRecording(AsyncCloudRecordingPlans):
         channel: str | int = 1,
     ) -> ApiResponse:
         """List running tasks for one device channel (doc 4861)."""
-        request = _running_tasks_request(
-            self._client.region.scope,
-            device_serial,
-            start_time=start_time,
-            end_time=end_time,
-            channel=channel,
-        )
-        return await self._call(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.running_tasks",
+            mode="async",
+        ):
+            request = _running_tasks_request(
+                self._client.region.scope,
+                device_serial,
+                start_time=start_time,
+                end_time=end_time,
+                channel=channel,
+            )
+            return await self._call(request)
 
     async def calendar(
         self,
@@ -627,14 +672,15 @@ class AsyncCloudRecording(AsyncCloudRecordingPlans):
         space_id: str | None = None,
     ) -> ApiResponse:
         """List the days of one month holding recordings (doc 2042)."""
-        request = _calendar_request(
-            self._client.region.scope,
-            device_serial,
-            channel=channel,
-            month=month,
-            space_id=space_id,
-        )
-        return await self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="cloud_recording.calendar", mode="async"):
+            request = _calendar_request(
+                self._client.region.scope,
+                device_serial,
+                channel=channel,
+                month=month,
+                space_id=space_id,
+            )
+            return await self._call(request)
 
     async def recordings(
         self,
@@ -646,15 +692,20 @@ class AsyncCloudRecording(AsyncCloudRecordingPlans):
         end_time: datetime,
     ) -> ApiResponse:
         """List recording fragments for one device channel in a single day (doc 2043)."""
-        request = _recordings_request(
-            self._client.region.scope,
-            device_serial,
-            channel=channel,
-            space_id=space_id,
-            start_time=start_time,
-            end_time=end_time,
-        )
-        return await self._call(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.recordings",
+            mode="async",
+        ):
+            request = _recordings_request(
+                self._client.region.scope,
+                device_serial,
+                channel=channel,
+                space_id=space_id,
+                start_time=start_time,
+                end_time=end_time,
+            )
+            return await self._call(request)
 
     async def hls_recordings(
         self,
@@ -668,17 +719,22 @@ class AsyncCloudRecording(AsyncCloudRecordingPlans):
         page_size: int = 50,
     ) -> ApiResponse:
         """List HLS recording files for one device channel within 48 hours (doc 3974)."""
-        request = _hls_recordings_request(
-            self._client.region.scope,
-            device_serial,
-            channel=channel,
-            start_time=start_time,
-            end_time=end_time,
-            format=format,
-            space_id=space_id,
-            page_size=page_size,
-        )
-        return await self._call(request)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_recording.hls_recordings",
+            mode="async",
+        ):
+            request = _hls_recordings_request(
+                self._client.region.scope,
+                device_serial,
+                channel=channel,
+                start_time=start_time,
+                end_time=end_time,
+                format=format,
+                space_id=space_id,
+                page_size=page_size,
+            )
+            return await self._call(request)
 
     async def templates(
         self,
@@ -689,11 +745,12 @@ class AsyncCloudRecording(AsyncCloudRecordingPlans):
         template_name: str | None = None,
     ) -> ApiResponse:
         """Page through transcoding templates (doc 4382)."""
-        request = _templates_request(
-            self._client.region.scope,
-            page_start=page_start,
-            page_size=page_size,
-            template_id=template_id,
-            template_name=template_name,
-        )
-        return await self._call(request)
+        with _diagnostic_scope(self._client, entrypoint="cloud_recording.templates", mode="async"):
+            request = _templates_request(
+                self._client.region.scope,
+                page_start=page_start,
+                page_size=page_size,
+                template_id=template_id,
+                template_name=template_name,
+            )
+            return await self._call(request)

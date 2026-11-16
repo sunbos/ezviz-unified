@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -229,25 +230,29 @@ class DeviceManagement:
         return self._client.region.scope
 
     def bind(self, device_serial: str, verification_code: str) -> ApiResponse:
-        return self._client.request(
-            _OP_BIND, data=_bind_data(self._scope(), device_serial, verification_code)
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.bind", mode="sync"):
+            return self._client.request(
+                _OP_BIND, data=_bind_data(self._scope(), device_serial, verification_code)
+            )
 
     def unbind(self, device_serial: str) -> ApiResponse:
-        return self._client.request(_OP_UNBIND, data=_serial_data(self._scope(), device_serial))
+        with _diagnostic_scope(self._client, entrypoint="devices.unbind", mode="sync"):
+            return self._client.request(_OP_UNBIND, data=_serial_data(self._scope(), device_serial))
 
     def rename(self, device_serial: str, name: str) -> ApiResponse:
-        data = _serial_data(self._scope(), device_serial)
-        data["deviceName"] = _check_name("name", name)
-        return self._client.request(_OP_RENAME, data=data)
+        with _diagnostic_scope(self._client, entrypoint="devices.rename", mode="sync"):
+            data = _serial_data(self._scope(), device_serial)
+            data["deviceName"] = _check_name("name", name)
+            return self._client.request(_OP_RENAME, data=data)
 
     def rename_channel(
         self, device_serial: str, name: str, *, channel: int | None = None
     ) -> ApiResponse:
-        return self._client.request(
-            _OP_RENAME_CHANNEL,
-            data=_rename_channel_data(self._scope(), device_serial, name, channel),
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.rename_channel", mode="sync"):
+            return self._client.request(
+                _OP_RENAME_CHANNEL,
+                data=_rename_channel_data(self._scope(), device_serial, name, channel),
+            )
 
     def link_ipc(
         self,
@@ -257,34 +262,45 @@ class DeviceManagement:
         channel: int | None = None,
         verification_code: str | None = None,
     ) -> ApiResponse:
-        return self._client.request(
-            _OP_LINK_IPC,
-            data=_ipc_data(self._scope(), device_serial, ipc_serial, channel, verification_code),
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.link_ipc", mode="sync"):
+            return self._client.request(
+                _OP_LINK_IPC,
+                data=_ipc_data(
+                    self._scope(), device_serial, ipc_serial, channel, verification_code
+                ),
+            )
 
     def unlink_ipc(
         self, device_serial: str, ipc_serial: str, *, channel: int | None = None
     ) -> ApiResponse:
-        return self._client.request(
-            _OP_UNLINK_IPC,
-            data=_ipc_data(self._scope(), device_serial, ipc_serial, channel, None),
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.unlink_ipc", mode="sync"):
+            return self._client.request(
+                _OP_UNLINK_IPC,
+                data=_ipc_data(self._scope(), device_serial, ipc_serial, channel, None),
+            )
 
     def set_channel_visible(
         self, device_serial: str, channel: str | int, visible: bool
     ) -> ApiResponse:
-        return self._client.request(
-            _OP_SET_CHANNEL_VISIBLE,
-            data=_visibility_data(self._scope(), device_serial, channel, visible),
-        )
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="devices.set_channel_visible",
+            mode="sync",
+        ):
+            return self._client.request(
+                _OP_SET_CHANNEL_VISIBLE,
+                data=_visibility_data(self._scope(), device_serial, channel, visible),
+            )
 
     def cameras(self, *, page_start: int = 0, page_size: int = 10) -> ApiResponse:
-        return self._client.request(_OP_CAMERAS, data=_cameras_data(page_start, page_size))
+        with _diagnostic_scope(self._client, entrypoint="devices.cameras", mode="sync"):
+            return self._client.request(_OP_CAMERAS, data=_cameras_data(page_start, page_size))
 
     def connection_info(self, device_serial: str) -> ApiResponse:
-        return self._client.request(
-            _OP_CONNECTION_INFO, data=_connection_data(self._scope(), device_serial)
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.connection_info", mode="sync"):
+            return self._client.request(
+                _OP_CONNECTION_INFO, data=_connection_data(self._scope(), device_serial)
+            )
 
 
 class AsyncDeviceManagement:
@@ -298,27 +314,31 @@ class AsyncDeviceManagement:
         return self._client.region.scope
 
     async def bind(self, device_serial: str, verification_code: str) -> ApiResponse:
-        return await self._client.request(
-            _OP_BIND, data=_bind_data(self._scope(), device_serial, verification_code)
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.bind", mode="async"):
+            return await self._client.request(
+                _OP_BIND, data=_bind_data(self._scope(), device_serial, verification_code)
+            )
 
     async def unbind(self, device_serial: str) -> ApiResponse:
-        return await self._client.request(
-            _OP_UNBIND, data=_serial_data(self._scope(), device_serial)
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.unbind", mode="async"):
+            return await self._client.request(
+                _OP_UNBIND, data=_serial_data(self._scope(), device_serial)
+            )
 
     async def rename(self, device_serial: str, name: str) -> ApiResponse:
-        data = _serial_data(self._scope(), device_serial)
-        data["deviceName"] = _check_name("name", name)
-        return await self._client.request(_OP_RENAME, data=data)
+        with _diagnostic_scope(self._client, entrypoint="devices.rename", mode="async"):
+            data = _serial_data(self._scope(), device_serial)
+            data["deviceName"] = _check_name("name", name)
+            return await self._client.request(_OP_RENAME, data=data)
 
     async def rename_channel(
         self, device_serial: str, name: str, *, channel: int | None = None
     ) -> ApiResponse:
-        return await self._client.request(
-            _OP_RENAME_CHANNEL,
-            data=_rename_channel_data(self._scope(), device_serial, name, channel),
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.rename_channel", mode="async"):
+            return await self._client.request(
+                _OP_RENAME_CHANNEL,
+                data=_rename_channel_data(self._scope(), device_serial, name, channel),
+            )
 
     async def link_ipc(
         self,
@@ -328,31 +348,44 @@ class AsyncDeviceManagement:
         channel: int | None = None,
         verification_code: str | None = None,
     ) -> ApiResponse:
-        return await self._client.request(
-            _OP_LINK_IPC,
-            data=_ipc_data(self._scope(), device_serial, ipc_serial, channel, verification_code),
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.link_ipc", mode="async"):
+            return await self._client.request(
+                _OP_LINK_IPC,
+                data=_ipc_data(
+                    self._scope(), device_serial, ipc_serial, channel, verification_code
+                ),
+            )
 
     async def unlink_ipc(
         self, device_serial: str, ipc_serial: str, *, channel: int | None = None
     ) -> ApiResponse:
-        return await self._client.request(
-            _OP_UNLINK_IPC,
-            data=_ipc_data(self._scope(), device_serial, ipc_serial, channel, None),
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.unlink_ipc", mode="async"):
+            return await self._client.request(
+                _OP_UNLINK_IPC,
+                data=_ipc_data(self._scope(), device_serial, ipc_serial, channel, None),
+            )
 
     async def set_channel_visible(
         self, device_serial: str, channel: str | int, visible: bool
     ) -> ApiResponse:
-        return await self._client.request(
-            _OP_SET_CHANNEL_VISIBLE,
-            data=_visibility_data(self._scope(), device_serial, channel, visible),
-        )
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="devices.set_channel_visible",
+            mode="async",
+        ):
+            return await self._client.request(
+                _OP_SET_CHANNEL_VISIBLE,
+                data=_visibility_data(self._scope(), device_serial, channel, visible),
+            )
 
     async def cameras(self, *, page_start: int = 0, page_size: int = 10) -> ApiResponse:
-        return await self._client.request(_OP_CAMERAS, data=_cameras_data(page_start, page_size))
+        with _diagnostic_scope(self._client, entrypoint="devices.cameras", mode="async"):
+            return await self._client.request(
+                _OP_CAMERAS, data=_cameras_data(page_start, page_size)
+            )
 
     async def connection_info(self, device_serial: str) -> ApiResponse:
-        return await self._client.request(
-            _OP_CONNECTION_INFO, data=_connection_data(self._scope(), device_serial)
-        )
+        with _diagnostic_scope(self._client, entrypoint="devices.connection_info", mode="async"):
+            return await self._client.request(
+                _OP_CONNECTION_INFO, data=_connection_data(self._scope(), device_serial)
+            )
