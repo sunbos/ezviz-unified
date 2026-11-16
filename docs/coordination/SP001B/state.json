@@ -1,0 +1,11 @@
+{
+  "status": "submitted",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "input_commit": "81b86b462825739db8f059a418d5de235db88c87",
+  "write_scope": "data/official-docs/2026-11-17-sdk-product-reference/domestic",
+  "command": ".venv/bin/python tools/documents/reference_collectors/domestic_sdk.py --output data/official-docs/2026-11-17-sdk-product-reference/domestic --seeds data/official-docs/2026-11-14/discovery/sdk-seeds.json --workers 4 --refresh",
+  "actual_tool_result_verified": true,
+  "html_hashes_verified": true,
+  "remaining": "fresh primary-portal seed comparison and semantic classification"
+}

@@ -1,0 +1,8 @@
+{
+  "status": "prepared",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "input_commit": "81b86b462825739db8f059a418d5de235db88c87",
+  "write_scope": "data/official-docs/2026-11-17-sdk-product-main",
+  "command": ".venv/bin/python tools/documents/collect_current.py --output data/official-docs/2026-11-17-sdk-product-main --workers 4"
+}
