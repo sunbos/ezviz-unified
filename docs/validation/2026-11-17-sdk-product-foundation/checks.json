@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "evidence": "sdk_product_source_foundation_only",
+  "recorded_at_utc": "2026-11-16T21:38:17.275383+00:00",
+  "baseline_commit": "81b86b462825739db8f059a418d5de235db88c87",
+  "scope_plan_commit": "004a795",
+  "sdk_sources_changed": false,
+  "product_complete": false,
+  "semantic_capability_matrix_complete": false,
+  "source_ledger": {
+    "schema_version": 1,
+    "evidence": "independent_schema2_public_projection_acceptance",
+    "observed_at_utc": "2026-11-16T23:40:50.788007+00:00",
+    "passed": true,
+    "report_schema_version": 2,
+    "report_sha256": "d0e6bae17322a3aa379e75918327f85bcdcfb9ce53ee53371604047a6cad9540",
+    "manifest_sha256": "fd96ba8ad291f6a1954968a879c64e5d29d0c5c49c09f84c31c7c095bad6479f",
+    "source_count": 4051,
+    "observation_count": 3019,
+    "reviewed_contracts": 203,
+    "recovered_contracts": 201,
+    "graph_references_valid": true,
+    "all_record_indices_and_hashes_preserved": true,
+    "same_summary_as_private_schema1": true,
+    "reviewed_path_slots_only": 203,
+    "canonical_document_url_slots": 2484,
+    "sample_literal_path_records_checked": 17,
+    "unique_literal_values_checked": 4,
+    "query_values_checked": 3,
+    "opaque_asset_ids_withheld_count": 1477,
+    "raw_locator_fields_absent": true,
+    "input_hashes_unchanged": true,
+    "sdk_runtime_changed": false,
+    "sdk_product_complete": false,
+    "semantic_capability_review_complete": false,
+    "limits": [
+      "Publication projection over verified archives and reviewed registry only.",
+      "No API coverage, hardware, complete semantic review or release claim.",
+      "Raw schema1 remains private and marked not-for-sharing."
+    ]
+  },
+  "ledger_summary": {
+    "source_count": 4051,
+    "observation_count": 3019,
+    "reviewed_contract_count": 203,
+    "provisional_capability_count": 5339,
+    "unresolved_count": 7256,
+    "unresolved_reviewed_contracts": 2,
+    "sources_by_kind": {
+      "asset": 1477,
+      "portal_document": 2281,
+      "sdk_reference": 293
+    },
+    "sources_by_status": {
+      "already_archived_document": 3,
+      "archived": 2233,
+      "excluded_non_document_media": 12,
+      "excluded_placeholder": 1,
+      "excluded_url_policy": 1,
+      "ok": 1696,
+      "redirect_outside_or_alias": 4,
+      "source_invalid_document": 22,
+      "source_mime_mismatch": 31,
+      "source_missing": 48
+    },
+    "sources_by_disposition": {
+      "blocked_source": 69,
+      "needs_review": 3982
+    },
+    "observations_by_kind": {
+      "declaration": 1529,
+      "example": 1490
+    },
+    "decisions_applied": 0,
+    "counts_are_not_api_totals": true
+  },
+  "assets": {
+    "schema_version": 1,
+    "evidence": "offline_asset_integrity_and_format_verification",
+    "observed_at_utc": "2026-11-16T19:51:58.939544+00:00",
+    "passed": true,
+    "source_indexes_checked": 3,
+    "asset_records": 1477,
+    "references": 2157,
+    "response_files_checked": 1460,
+    "format_assessments_rechecked": 1460,
+    "referenced_archive_files_checked": 3,
+    "manifest_sha256": "7f0ffd5203651bad1b449898818945c54da1d46933ee7ddee6407b8b76b50e72",
+    "summary_sha256": "5e13b822bcbf03d687514d74b70661c95f63b04e7f993a6320cc0082d1a79af3",
+    "status_counts": {
+      "ok": 1407,
+      "source_invalid_document": 22,
+      "excluded_non_document_media": 12,
+      "source_mime_mismatch": 31,
+      "already_archived_document": 3,
+      "excluded_placeholder": 1,
+      "excluded_url_policy": 1
+    },
+    "source_content_complete": false,
+    "semantic_accuracy_verified": false,
+    "live_api_verified": false,
+    "command_completion_note": "Claude Bash moved collection to background after 600s; original task output was subsequently observed through final summary and [exited with code 0]; final manifests and referenced bytes independently verified",
+    "collector_exit_code_observed": 0
+  },
+  "source_sets": [
+    {
+      "id": "portal-2026-11-17",
+      "kind": "portal",
+      "manifest_sha256": "83bfc37a3dc45e4f126f6c92d5423ca42b60dff5377634486589c11fcd22c130",
+      "inventory_sha256": "4e6567579e0a5d34c813f4ff22785508469cb585b7265e0a26259e3498d0fe3f"
+    },
+    {
+      "id": "sdk-cn-2026-11-17",
+      "kind": "sdk_reference",
+      "manifest_sha256": "08000fce33a8749a383a4e12b8f0770ea87bb6b250ceb9e677bfbb474e5d7a36"
+    },
+    {
+      "id": "sdk-global-2026-11-17",
+      "kind": "sdk_reference",
+      "manifest_sha256": "3674fd9c1dce1d48c164a7f74b8553c85bd1aca499fd815f95013892d9210901"
+    },
+    {
+      "id": "account-guide-2026-11-17",
+      "kind": "sdk_reference",
+      "manifest_sha256": "cf24414df447d7bb6b22cc21f9c351db7b854ea6f98363e9e8fd237e220f5769"
+    },
+    {
+      "id": "assets-2026-11-17",
+      "kind": "assets",
+      "manifest_sha256": "7f0ffd5203651bad1b449898818945c54da1d46933ee7ddee6407b8b76b50e72"
+    }
+  ],
+  "source_set_limits": [
+    "Declared portal/static/selected-asset sets only; not all vendor ecosystem resources.",
+    "SDK binaries and linked repository release versions require component-specific review.",
+    "Unavailable pages may hide references; missing/excluded records are not counted as complete.",
+    "Source and observation counts are not API totals, SDK coverage, or physical capability proof."
+  ],
+  "local_checks": [
+    {
+      "task": "SP012-tests",
+      "command": ".venv/bin/python -m pytest -q",
+      "result": "passed",
+      "tests_passed": 4488,
+      "subtests_passed": 35,
+      "seconds": 42.17,
+      "scope_note": "Full suite before final raw-locator bound change; SDK code unchanged. Subsequent matrix changes covered by SP003T6."
+    },
+    {
+      "task": "SP005T2",
+      "command": ".venv/bin/python -m pytest -q tests/test_document_sdk_reference.py",
+      "result": "passed",
+      "tests_passed": 22,
+      "subtests_passed": 24
+    },
+    {
+      "task": "SP006T",
+      "command": ".venv/bin/python -m pytest -q tests/test_document_inventory_output.py tests/test_document_endpoint_inventory.py",
+      "result": "passed",
+      "tests_passed": 74
+    },
+    {
+      "task": "SP012-lint",
+      "scope": "current CI explicit scope",
+      "result": "passed",
+      "scope_note": "Later matrix-only revisions additionally checked by SP003L6."
+    },
+    {
+      "task": "SP012-format",
+      "scope": "current CI explicit scope",
+      "result": "passed",
+      "scope_note": "Later test-only fixture split passed a dedicated formatter invocation with no changes.",
+      "files_checked": 172
+    },
+    {
+      "task": "SP003P2FinalT",
+      "command": ".venv/bin/python -m pytest -q tests/test_harness_product_matrix.py",
+      "result": "passed",
+      "tests_passed": 44,
+      "seconds": 1.42
+    },
+    {
+      "task": "SP003P2FinalL",
+      "command": ".venv/bin/python -m ruff check harness/product_matrix.py tests/test_harness_product_matrix.py",
+      "result": "passed"
+    }
+  ],
+  "implementation_file_sha256": {
+    "harness/product_matrix.py": "6d7aefafa82f05b1ddacd145c4c5532bc982283c728b090b4d24129cb10dcb06",
+    "tools/documents/normalize_sdk_reference.py": "38ce3c8c641d4503550d2565f6f2073e905a2517dac218569a84a931b19117f0",
+    "tools/documents/endpoint_inventory.py": "c723369a10e807c3368bbaddbd1da1a613fe63f704abdcb83cc92e84f4d21173"
+  },
+  "local_artifacts": {
+    "manifest": "data/reports/sdk-product-source-manifest-2026-11-17.json",
+    "ledger": "data/reports/sdk-product-matrix-public-v2-2026-11-17.json",
+    "ledger_acceptance": "data/reports/sdk-product-matrix-public-v2-acceptance-2026-11-17.json",
+    "seed_revalidation": "data/official-docs/2026-11-17-sdk-product-reference/seed-revalidation.json"
+  },
+  "execution_model": {
+    "runner": "Claude Code via Magpie",
+    "model": "devin/swe-2",
+    "effort": "max",
+    "acceptance": "Codex independent source/projection checks; actual tool_result evidence"
+  },
+  "resources": {
+    "overseas_device": "user_confirmed_no_bound_device",
+    "platform_messages": "unknown_awaiting_configuration_check",
+    "pypi_publication": "not_performed",
+    "release_owner_version_authorization": "not_frozen"
+  },
+  "phase_2_deferred": [
+    "app_adapter",
+    "selective_telemetry",
+    "independent_model_evaluation",
+    "controlled_rsi"
+  ],
+  "git_and_release_boundary": "This record does not claim PR/main CI, merge, package release, or SDK product acceptance; verify exact GitHub commits separately.",
+  "publication_safety": {
+    "status": "accepted_schema2_projection",
+    "legacy_schema1": "not-for-sharing; kept privately, not uploaded",
+    "legacy_sha256": "f8e104c2df72ad9e96aaa70b5b00cd3443a0eb69fee5819beda5e737340352f7",
+    "fields": "Reviewed registry paths, controlled metadata and archive indices only; unreviewed locators withheld"
+  },
+  "post_schema2_full_suite": {
+    "task": "SP019-tests",
+    "command": ".venv/bin/python -m pytest -q",
+    "result": "passed",
+    "actual_tail": "4499 passed, 35 subtests passed in 42.46s"
+  }
+}

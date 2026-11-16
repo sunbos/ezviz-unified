@@ -1,0 +1,2 @@
+# SP011 CI新增工具检查范围
+输入004a795+本轮新仓库工具，固定devin/swe-2 effort=max，无Bash。唯一可写.github/workflows/ci.yml。先Read AGENTS.md、现CI、pyproject.toml、MANIFEST.in；只把本轮新增tools/documents/normalize_sdk_reference.py、tests/test_document_sdk_reference.py、tests/test_document_inventory_output.py补进已有Ruff check和Ruff format --check两个精确文件范围。harness/product_matrix与test_harness_product_matrix已经被现有harness/与tests/test_harness*.py覆盖，不重复。endpoint_inventory本已包含，不重复。不改pytest/audit/eval/build/versions/actions permissions，不新增发布或自动流程。绝不能改成ruff .（有历史未纳入文件），不改任何源/test/doc。结果报告diff意图，不声称CI/测试通过。

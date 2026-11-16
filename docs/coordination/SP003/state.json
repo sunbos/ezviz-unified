@@ -1,5 +1,5 @@
 {
-  "status": "prepared",
+  "status": "accepted",
   "model": "devin/swe-2",
   "effort": "max",
   "input_commit": "81b86b4",
@@ -13,5 +13,10 @@
     ".venv/bin/python -m ruff check --fix harness/product_matrix.py tests/test_harness_product_matrix.py",
     ".venv/bin/python -m ruff format harness/product_matrix.py tests/test_harness_product_matrix.py"
   ],
-  "purpose": "full source accountability before SDK implementation"
+  "purpose": "full source accountability before SDK implementation",
+  "accepted_scope": "schema2 source publication projection and source conservation only",
+  "evidence": "docs/validation/2026-11-17-sdk-product-foundation/checks.json",
+  "product_complete": false,
+  "reason": "Final per-kind field whitelist reviewed;44 targeted tests and true corpus independent checks passed",
+  "report_schema_version": 2
 }

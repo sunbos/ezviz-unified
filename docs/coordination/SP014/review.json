@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "status": "accepted_as_review_candidates_only",
+  "source_documents": 16,
+  "candidate_records": 49,
+  "json_sha256": "3bb1b8c8008a24833ab7c93cb705100670d004fd7d93ca9b92c57636c693c3e2",
+  "corrected": [
+    "origin and public-directory uncertainty",
+    "device selectors and all required identity fields",
+    "request-field metadata",
+    "login/refresh conditional differences",
+    "response policy vs official fact",
+    "regional historical evidence scope",
+    "source alignment vs duplicate",
+    "retry policy boundary",
+    "table row counts"
+  ],
+  "not_claimed": [
+    "complete request schemas",
+    "approved SDK signatures",
+    "implementation",
+    "offline evaluation of new operations",
+    "live device acceptance"
+  ]
+}

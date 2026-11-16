@@ -1,0 +1,13 @@
+{
+  "status": "accepted",
+  "input_commit": "004a795",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "write_files": [
+    "docs/validation/sdk-product-acceptance.json",
+    "docs/validation/sdk-product-acceptance.md"
+  ],
+  "accepted_scope": "source foundation or provisional acceptance structure only",
+  "evidence": "docs/validation/2026-11-17-sdk-product-foundation/checks.json",
+  "product_complete": false
+}

@@ -1,0 +1,13 @@
+{
+  "status": "accepted",
+  "input_commit": "004a795",
+  "write_files": [
+    "tools/documents/endpoint_inventory.py",
+    "tests/test_document_inventory_output.py",
+    "docs/endpoint-inventory-output.md"
+  ],
+  "model": "devin/swe-2",
+  "effort": "max",
+  "evidence": "docs/validation/2026-11-17-sdk-product-foundation/checks.json",
+  "product_complete": false
+}

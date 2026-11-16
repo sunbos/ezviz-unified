@@ -1,0 +1,14 @@
+{
+  "status": "accepted",
+  "input_commit": "004a795 + SP008 pinned protocol review",
+  "write_files": [
+    "docs/capabilities/overseas-review-candidates.json",
+    "docs/capabilities/overseas-review-candidates.md"
+  ],
+  "model": "devin/swe-2",
+  "effort": "max",
+  "scope": "49 review records over 16 sources; not implementation authorization",
+  "revision": "SP014R3",
+  "accepted_scope": "49 review candidates over16 pinned sources; not complete schemas or SDK implementation",
+  "json_sha256": "3bb1b8c8008a24833ab7c93cb705100670d004fd7d93ca9b92c57636c693c3e2"
+}

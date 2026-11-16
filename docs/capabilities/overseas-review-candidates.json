@@ -1,0 +1,3358 @@
+{
+  "schema_version": 1,
+  "evidence": "review_candidates_from_pinned_official_sources",
+  "product_complete": false,
+  "semantic_review_complete": false,
+  "scope": {
+    "source_set": "portal-2026-11-17",
+    "reviewed_at": "2026-11-17",
+    "batch_note": "16 pinned overseas source documents only; these are the docs reviewed in this batch, not the total overseas corpus. No coverage percentage or API total is implied.",
+    "element_pointer_convention": "d = HTTP declaration ordinal; e = element_index in derived/overseas/<doc_id>.structure.json snapshot.",
+    "sources": [
+      { "source_id": "portal-2026-11-17:overseas:469", "doc_id": "469", "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8" },
+      { "source_id": "portal-2026-11-17:overseas:476", "doc_id": "476", "content_sha256": "82a0152058592e8c4b5e11f4f968edce7a4e39d5e16b527db606d5957bf8f858" },
+      { "source_id": "portal-2026-11-17:overseas:477", "doc_id": "477", "content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62" },
+      { "source_id": "portal-2026-11-17:overseas:481", "doc_id": "481", "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e" },
+      { "source_id": "portal-2026-11-17:overseas:534", "doc_id": "534", "content_sha256": "94f2eedda4e0e15f2f20d1d255a3e45699ebc51341851f07259d4b14ff6302dd" },
+      { "source_id": "portal-2026-11-17:overseas:2868", "doc_id": "2868", "content_sha256": "1dfff933af774a00e1a567610b9d1cfbb6648b5abbcf7bccc156f6d9c9ce7d12" },
+      { "source_id": "portal-2026-11-17:overseas:3722", "doc_id": "3722", "content_sha256": "5b6a1bcbdf331c3bb35997f76527587c2ecc0bd6b86cc6e32785c3061ec551c6" },
+      { "source_id": "portal-2026-11-17:overseas:3723", "doc_id": "3723", "content_sha256": "36812eeb04ef69ea54b3c37dafb0260f40b254a2e15b1baf3ff2c903fa2b23c6" },
+      { "source_id": "portal-2026-11-17:overseas:3724", "doc_id": "3724", "content_sha256": "7ef3e49f33cf52a11879c12db273522c3e8c8b527163739828c6582ff033f010" },
+      { "source_id": "portal-2026-11-17:overseas:3725", "doc_id": "3725", "content_sha256": "aa017fdeb22f9fde09b6c814b28d3f7ec2cb8a25e9a500c29666635b570a01f2" },
+      { "source_id": "portal-2026-11-17:overseas:3726", "doc_id": "3726", "content_sha256": "f2ec2e45a80e4b4d3ad7eec1d323a4126901d02cb147bd87d2ff754810f371b5" },
+      { "source_id": "portal-2026-11-17:overseas:3727", "doc_id": "3727", "content_sha256": "748ee92cab93ce0f7627d9e6d8b4a5f2e38c9882d05ff85f951c08fd4c8bb9a0" },
+      { "source_id": "portal-2026-11-17:overseas:3728", "doc_id": "3728", "content_sha256": "fdc18ec8ee9d85d33473f21603b4fda8c0308d9bb10dbf888e2ec3c2ef5d1ecd" },
+      { "source_id": "portal-2026-11-17:overseas:3729", "doc_id": "3729", "content_sha256": "dd9efadcceec76eecbaae3f01ab56f72d3c6107d79bd1c06f0f41283a7878535" },
+      { "source_id": "portal-2026-11-17:overseas:3730", "doc_id": "3730", "content_sha256": "84203aedfcca87134b5df1ac6ecfd5d086717370a2c619ca456a747d4ad74d8b" },
+      { "source_id": "portal-2026-11-17:overseas:1000007", "doc_id": "1000007", "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4" }
+    ]
+  },
+  "capabilities": [
+    {
+      "capability_id": "candidate:overseas:469:1.1",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:469",
+          "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+          "section": "1.1",
+          "declaration": null,
+          "element_pointers": ["e75", "e77", "e120", "e122"]
+        }
+      ],
+      "nature": "authorization_flow",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "openauth.ezvizlife.com",
+        "method": "browser-driven page navigation (no HTTP declaration row); the source only says a browser opens the login page — the GET to /oauth/ddns/{appKey} is a browser-behavior inference, not an official method claim",
+        "path": "/oauth/ddns/{appKey}",
+        "auth": "entry query parameters do not list accessToken; an interactive login is required inside the page — entry authentication class is not declared 'none' by the source",
+        "permissions": "end-user interactive login; returns access_token, refresh_token, open_id, areaDomain, authDomain via redirect fragment",
+        "request": "query parameters include areaId, response_type, client_type, bundleId; login-specific rule (e77): bundleId is required when client_type is 11 or 13",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:overseas:469 table_element_index 77",
+          "location": "query",
+          "fields": [
+            { "name": "areaId", "type": "int", "required": null, "required_cell": "unreviewed", "location": "query" },
+            { "name": "response_type", "type": "String", "required": null, "required_cell": "unreviewed", "location": "query" },
+            { "name": "client_type", "type": "int", "required": null, "required_cell": "String (abnormal error text, not Y/N)", "location": "query" },
+            { "name": "bundleId", "type": "String", "required": null, "required_cell": "unreviewed", "location": "query", "required_when": { "client_type": [11, 13] } }
+          ],
+          "other_rows_not_in_this_packet": 1,
+          "request_schema_status": "partial_pending_full_contract_review"
+        },
+        "body_type": "n/a (browser redirect)",
+        "response": "fragment-encoded OAuth tokens plus areaDomain/authDomain",
+        "effect": "issues end-user OAuth credentials; distinct from developer appKey/appSecret token",
+        "hardware_constraints": "none"
+      },
+      "source_uncertainties": [
+        "the client_type 'required' cell actually contains an abnormal String error text, not a normal Y/N — requiredness cannot be claimed",
+        "reviewed constraint (e77): bundleId is required when client_type is 11 or 13 — a login-specific rule, independent of the refresh table",
+        "one additional table row exists beyond this packet (other_rows_not_in_this_packet=1); request_schema_status stays partial_pending_full_contract_review",
+        "response field names/types in the fragment must be re-read at contract time",
+        "the page GET is browser-behavior inference only; do not assert an official GET declaration"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No SDK facade implements browser OAuth login or fragment parsing; TokenManager only exchanges appKey/appSecret for a developer token."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "oauth (new module)",
+        "entry": "oauth.build_login_url / oauth.parse_redirect",
+        "status": "proposal",
+        "notes": "Expose URL construction and fragment parsing only; the SDK does not open a browser or host a redirect listener."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: generated login URL matches documented parameter names exactly (areaId, response_type, client_type, bundleId); bundleId emitted whenever client_type is 11 or 13 per e77; no parameter invented",
+          "parameter: fragment parser extracts access_token/refresh_token/open_id/areaDomain/authDomain without normalizing or dropping unknown fields",
+          "response: unit-level fixture proves fragment parsing rejects missing/malformed tokens deterministically",
+          "retry: n/a (no SDK request)",
+          "diagnostics sync+async: oauth parse/build calls registered in _diagnostic_registry with fixed codes; no token values echoed"
+        ],
+        "live": [
+          "real resources required: an overseas account eligible for DDNS OAuth login and a controlled means of obtaining the redirect result (mechanism to be adjudicated — self-hosted callback endpoint is not proven required by current source)",
+          "read authorization: user completes an interactive login and the returned fragment is parsed offline; no auto-login",
+          "write authorization: not_authorized — issuing tokens is a side effect; no automated login submission",
+          "blocked_no_bound_device: not applicable — this is an account-level flow, not hardware-bound, but not executed this round"
+        ]
+      },
+      "blocking_resources": [
+        "eligible overseas account",
+        "controlled means of obtaining the redirect result (mechanism to be adjudicated; not forced to a self-hosted callback)",
+        "explicit authorization for an interactive login"
+      ],
+      "decision_basis": [
+        "Codex review record for doc 469 §1.1 (e75/e77/e120/e122)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.2",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:469",
+          "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+          "section": "1.2",
+          "declaration": "d0",
+          "element_pointers": ["e158", "e170", "e190", "e198"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "open.ezvizlife.com (developer portal; not {areaDomain} business host)",
+        "method": "POST",
+        "path": "/api/lapp/token/get",
+        "auth": "none (appKey/appSecret exchanged)",
+        "permissions": "developer credential exchange",
+        "request": "form accessToken=none; appKey, appSecret in form body",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'; data.accessToken/expireTime/areaDomain",
+        "effect": "issues developer access token",
+        "hardware_constraints": "none"
+      },
+      "source_uncertainties": [],
+      "existing_support": {
+        "status": "duplicate_source",
+        "contract": "global.token.get",
+        "binding": "auth.py TokenManager.get_token / AsyncTokenManager.get_token",
+        "detail": "Same origin, form appKey/appSecret, expireTime ms, areaDomain semantics as existing global.token.get (source_doc_id 473). This is a second official source for the same operation. Live evidence is account-specific: for the tested Singapore account the documented default origin returned 10017 while the explicit Singapore origin https://isgpopen.ezvizlife.com succeeded — see live_evidence docs/validation/live/2026-11-14-overseas/overseas.json and overseas-default-auth.json; this is not a general claim that the default origin fails or succeeds for all accounts."
+      },
+      "disposition": "duplicate",
+      "sdk_design_proposal": {
+        "facade": "existing auth",
+        "entry": "TokenManager.get_token",
+        "status": "proposal",
+        "notes": "No new operation; register 469 §1.2 as an additional source_ref on the existing global.token.get contract."
+      },
+      "implementation_status": "implemented",
+      "offline_status": "passed",
+      "live_read_status": "authentication_succeeded_explicit_regional_origin",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: existing wire eval for global.token.get already covers method/path/encoding",
+          "parameter: appKey/appSecret required String; no additional parameter added",
+          "response: code '200' + data.accessToken/expireTime/areaDomain parse already validated",
+          "retry: credential-issuing write — never auto-replayed after a token refresh (existing client.py policy: write calls are not replayed)",
+          "diagnostics sync+async: existing auth.token.get diagnostic scope already registered"
+        ],
+        "live": [
+          "real resources required: authorized overseas developer credentials",
+          "read authorization: reuse_existing_scope — explicit regional authentication succeeded for the tested Singapore account via auth_base_url=https://isgpopen.ezvizlife.com (documented default origin returned 10017 for this account only); evidence docs/validation/live/2026-11-14-overseas/overseas.json + overseas-default-auth.json; not a general claim for all accounts",
+          "write authorization: n/a",
+          "blocked_no_bound_device: n/a (account-level auth)"
+        ]
+      },
+      "blocking_resources": [],
+      "decision_basis": [
+        "Codex review record for doc 469 §1.2 (e158/e170/e190/e198) — duplicate source of global.token.get; live_evidence docs/validation/live/2026-11-14-overseas/overseas.json, overseas-default-auth.json"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.3",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:469",
+          "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+          "section": "1.3",
+          "declaration": "d1",
+          "element_pointers": ["e269", "e319", "e355"]
+        }
+      ],
+      "nature": "authorization_flow",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{authDomain}",
+        "method": "POST",
+        "path": "/oauth/token/refreshToken",
+        "auth": "OAuth refresh token flow",
+        "permissions": "refresh of end-user OAuth token",
+        "request": "refresh_token, grant_type, client_id, openId, bundleId, scope/state",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:overseas:469 table_element_index 269",
+          "location": "form",
+          "fields": [
+            { "name": "refresh_token", "type": "String", "required": true, "location": "form" },
+            { "name": "grant_type", "type": "String", "required": true, "location": "form" },
+            { "name": "client_id", "type": "String", "required": true, "location": "form" },
+            { "name": "openId", "type": "String", "required": true, "location": "form" },
+            { "name": "bundleId", "type": "String", "required": true, "location": "form" },
+            { "name": "scope", "type": "String", "required": false, "location": "form" },
+            { "name": "state", "type": "String", "required": false, "location": "form" }
+          ],
+          "other_rows_not_in_this_packet": 0,
+          "request_schema_status": "partial_pending_full_contract_review"
+        },
+        "body_type": "form (request example); exact encoding row must be re-read",
+        "response": "access_token/refresh_token fields (types listed as int in table but JSON example shows string — conflict preserved)",
+        "effect": "refreshes an OAuth user token; whether the old credentials are rotated/invalidated is NOT guaranteed by source — do not claim rotation semantics",
+        "hardware_constraints": "none"
+      },
+      "source_uncertainties": [
+        "parameter table says openId while request example shows open_id",
+        "bundleId is marked required (Y) in the table but absent from the request example — requiredness not proven, do not restate as a login-entry conditional",
+        "response table types access_token/refresh_token as int while the JSON example shows string — conflict preserved; string parsing is an SDK proposal, not an official fact",
+        "expires_in is described as an expiry timestamp but its unit is not stated; do not apply developer-token expireTime semantics",
+        "whether refresh rotates the token or invalidates the old credential is not stated — do not claim rotation or invalidation"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "Existing TokenManager performs developer appKey/appSecret exchange only; it cannot refresh an OAuth end-user token."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "oauth (new module)",
+        "entry": "oauth.refresh_token",
+        "status": "proposal",
+        "notes": "Separate from TokenManager; caller supplies refresh_token and the authDomain returned by the login flow. Parameter naming and types must be frozen from the element pointers, not guessed."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {authDomain}/oauth/token/refreshToken with documented parameter set; openId vs open_id resolved against e269/e319 before contract freeze",
+          "parameter: refresh_token/grant_type/client_id required; bundleId marked Y in table but absent from example — requiredness not proven, kept unknown; scope/state optional",
+          "response: table types access_token/refresh_token int vs JSON example string — conflict preserved; SDK proposes parsing as string per JSON example, not an official fact",
+          "retry: credential-refreshing write — SDK proposal: never auto-replayed; whether executing a refresh rotates or invalidates old credentials is not guaranteed by source",
+          "diagnostics sync+async: oauth.refresh_token registered in _diagnostic_registry with fixed codes; refresh token value never echoed"
+        ],
+        "live": [
+          "real resources required: a valid OAuth refresh_token obtained via the interactive login flow",
+          "read authorization: n/a",
+          "write authorization: not_authorized — executing an OAuth refresh is a state change; whether it rotates or invalidates old credentials remains unknown; no automated refresh this round",
+          "blocked_no_bound_device: n/a (account-level)"
+        ]
+      },
+      "blocking_resources": [
+        "a live OAuth refresh_token from the §1.1 flow",
+        "explicit authorization to execute an OAuth refresh (rotation/invalidation of old credentials unknown)"
+      ],
+      "decision_basis": [
+        "Codex review record for doc 469 §1.3 (e269/e319/e355)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.4",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:469",
+          "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+          "section": "1.4",
+          "declaration": "d2",
+          "element_pointers": ["e436", "e447", "e472", "e500"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/ddns/get",
+        "auth": "accessToken in form",
+        "permissions": "unknown (minimum sub-account/managed permission not stated)",
+        "request": "deviceSerial and/or domain; at least one required; serial takes precedence when both given",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'; data carries DDNS mapping fields",
+        "effect": "read-only query of DDNS mapping; explicitly includes shared devices",
+        "hardware_constraints": "shared-device visibility is documented; no model restriction stated"
+      },
+      "source_uncertainties": [
+        "minimum permission class for sub-account/hosted calls is not stated",
+        "exact response field names/types must be re-read at contract time"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No DDNS facade exists; generic transport does not equal a business entry."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "ddns (new module)",
+        "entry": "ddns.get",
+        "status": "proposal",
+        "notes": "Read-only query; accept device_serial and/or domain with serial precedence documented."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/ddns/get with form token; serial/domain at-least-one rule enforced",
+          "parameter: deviceSerial String optional, domain String optional, at least one required",
+          "response: top-level string code '200'; data fields preserved verbatim",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: ddns.get registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: an overseas account with a bound device (user confirmed none currently bound)",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes — device-level read requires a bound device; the account currently has none"
+        ]
+      },
+      "blocking_resources": [
+        "overseas account with a bound device (user_confirmed_no_bound_device)",
+        "explicit permission class confirmation for sub-account/hosted calls"
+      ],
+      "decision_basis": [
+        "Codex review record for doc 469 §1.4 (e436/e447/e472/e500)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.5",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:469",
+          "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+          "section": "1.5",
+          "declaration": "d3",
+          "element_pointers": ["e593", "e604"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/ddns/setDomain",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "deviceSerial + new domain; domain length/char/first-last-char limits stated in parameter table",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "changes the device DDNS domain; explicitly includes shared devices",
+        "hardware_constraints": "none stated"
+      },
+      "source_uncertainties": [
+        "exact domain length/charset/first-last limits must be re-read",
+        "minimum permission class not stated"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No DDNS facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "ddns",
+        "entry": "ddns.set_domain",
+        "status": "proposal",
+        "notes": "Write operation; do not auto-replay or auto-apply."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/ddns/setDomain with form token and documented domain field",
+          "parameter: deviceSerial required, domain required; SDK validates only documented length/charset/first-last rules",
+          "response: top-level string code '200'",
+          "retry: write operation; never auto-replayed",
+          "diagnostics sync+async: ddns.set_domain registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: bound device + write authorization + recovery plan",
+          "read authorization: pre-state read of current domain",
+          "write authorization: not_authorized — changes device mapping",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": [
+        "bound device",
+        "write authorization",
+        "recovery plan for domain change"
+      ],
+      "decision_basis": [
+        "Codex review record for doc 469 §1.5 (e593/e604)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.6",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:469",
+          "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+          "section": "1.6",
+          "declaration": "d4",
+          "element_pointers": ["e686", "e697"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/ddns/mode/setAutomatic",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "deviceSerial required",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "switches DDNS mapping to automatic mode",
+        "hardware_constraints": "none stated"
+      },
+      "source_uncertainties": ["minimum permission class not stated"],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No DDNS facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "ddns",
+        "entry": "ddns.set_automatic",
+        "status": "proposal",
+        "notes": "Write; distinct scenario from manual mode."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/ddns/mode/setAutomatic with form token and deviceSerial",
+          "parameter: deviceSerial required String",
+          "response: top-level string code '200'",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: ddns.set_automatic registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: bound device + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["bound device", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 469 §1.6 (e686/e697)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.7",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:469",
+          "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+          "section": "1.7",
+          "declaration": "d5",
+          "element_pointers": ["e778", "e789"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/ddns/mode/setManual",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "deviceSerial required; cmdPort and httpPort required; port valid range not given",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "switches DDNS mapping to manual external-port mode",
+        "hardware_constraints": "none stated"
+      },
+      "source_uncertainties": [
+        "cmdPort/httpPort valid ranges are not documented",
+        "minimum permission class not stated"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No DDNS facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "ddns",
+        "entry": "ddns.set_manual",
+        "status": "proposal",
+        "notes": "Write; port ranges left as caller-supplied strings until source is re-read."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/ddns/mode/setManual with form token, deviceSerial, cmdPort, httpPort",
+          "parameter: deviceSerial/cmdPort/httpPort required; port values preserved verbatim, no range invented",
+          "response: top-level string code '200'",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: ddns.set_manual registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: bound device + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["bound device", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 469 §1.7 (e778/e789)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.8",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:469",
+          "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+          "section": "1.8",
+          "declaration": "d6",
+          "element_pointers": ["e880", "e891", "e924", "e948"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/ddns/list",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "pageStart default 0, pageSize default 10 max 50; lists current account devices including shared devices",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'; data is a page of DDNS records",
+        "effect": "read-only listing of account DDNS mappings (includes shared devices)",
+        "hardware_constraints": "shared-device inclusion is documented"
+      },
+      "source_uncertainties": [
+        "exact response field names/types must be re-read",
+        "minimum permission class not stated"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No DDNS facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "ddns",
+        "entry": "ddns.list",
+        "status": "proposal",
+        "notes": "Read-only paged listing; do not merge with share/list — different scope."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/ddns/list with form token, pageStart/pageSize defaults",
+          "parameter: pageStart int default 0; pageSize int default 10, max 50 enforced",
+          "response: top-level string code '200'; page data preserved verbatim",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: ddns.list registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: overseas account; device presence affects payload contents only",
+          "read authorization: awaiting_resource_confirmation (device-level read requires bound device for meaningful payload)",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes for device-content validation"
+        ]
+      },
+      "blocking_resources": [
+        "overseas account; bound device for non-empty payload"
+      ],
+      "decision_basis": [
+        "Codex review record for doc 469 §1.8 (e880/e891/e924/e948)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.9",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:469",
+          "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+          "section": "1.9",
+          "declaration": "d7",
+          "element_pointers": ["e1053", "e1064"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/ddns/share",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "share DDNS to another account; exact target-account field must be re-read",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "grants DDNS access to another account — an authorization change, not a query",
+        "hardware_constraints": "none stated"
+      },
+      "source_uncertainties": [
+        "target account parameter name and validation rules must be re-read",
+        "minimum permission class not stated"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No DDNS facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "ddns",
+        "entry": "ddns.share",
+        "status": "proposal",
+        "notes": "Permission-changing write; never auto-replayed."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/ddns/share with form token and documented target field",
+          "parameter: target-account field required; exact name frozen from e1064",
+          "response: top-level string code '200'",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: ddns.share registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: bound device + a second account + write authorization",
+          "read authorization: pre-state read of share list",
+          "write authorization: not_authorized — permission change",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": [
+        "bound device",
+        "second overseas account",
+        "write authorization"
+      ],
+      "decision_basis": [
+        "Codex review record for doc 469 §1.9 (e1053/e1064)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.10",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:469",
+          "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+          "section": "1.10",
+          "declaration": "d8",
+          "element_pointers": ["e1162", "e1173", "e1198"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/device/add",
+        "auth": "accessToken in form",
+        "permissions": "account binding; validateCode required",
+        "request": "accessToken, deviceSerial, validateCode in form",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "binds a device to the account",
+        "hardware_constraints": "physical device and its verification code required"
+      },
+      "source_uncertainties": [],
+      "existing_support": {
+        "status": "duplicate_source",
+        "contract": "global.devices.bind",
+        "binding": "management.py DeviceManagement.bind / AsyncDeviceManagement.bind",
+        "detail": "Same origin, form accessToken/deviceSerial/validateCode, account-binding semantics as existing global.devices.bind (source_doc_id 475). Second official source for the same operation."
+      },
+      "disposition": "duplicate",
+      "sdk_design_proposal": {
+        "facade": "existing devices (management)",
+        "entry": "devices.bind",
+        "status": "proposal",
+        "notes": "No new operation; register 469 §1.10 as an additional source_ref on global.devices.bind."
+      },
+      "implementation_status": "implemented",
+      "offline_status": "passed",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: existing wire eval for global.devices.bind covers method/path/encoding",
+          "parameter: deviceSerial/validateCode required",
+          "response: top-level string code '200'",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: existing devices.bind diagnostic scope already registered"
+        ],
+        "live": [
+          "real resources required: a physical device + verification code + write authorization",
+          "read authorization: n/a",
+          "write authorization: not_authorized — account binding",
+          "blocked_no_bound_device: n/a (bind creates the binding)"
+        ]
+      },
+      "blocking_resources": [
+        "a physical device and its verification code",
+        "write authorization"
+      ],
+      "decision_basis": [
+        "Codex review record for doc 469 §1.10 (e1162/e1173/e1198) — duplicate source of global.devices.bind"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.11",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:469",
+          "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+          "section": "1.11",
+          "declaration": "d9",
+          "element_pointers": ["e1283", "e1294"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/ddns/share/list",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "shared-device list only; exact page params must be re-read",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'; data lists shared devices",
+        "effect": "read-only listing of DDNS shares; must not be merged with ddns/list",
+        "hardware_constraints": "none stated"
+      },
+      "source_uncertainties": [
+        "exact request parameters (pagination fields) must be re-read",
+        "minimum permission class not stated"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No DDNS facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "ddns",
+        "entry": "ddns.share_list",
+        "status": "proposal",
+        "notes": "Read-only; distinct scope from ddns.list."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/ddns/share/list with form token and documented pagination",
+          "parameter: fields frozen from e1294",
+          "response: top-level string code '200'",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: ddns.share_list registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: overseas account; share rows require a bound device + a prior share",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes for non-empty payload"
+        ]
+      },
+      "blocking_resources": ["overseas account", "bound device + prior share for non-empty payload"],
+      "decision_basis": [
+        "Codex review record for doc 469 §1.11 (e1283/e1294)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.12",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:469",
+          "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+          "section": "1.12",
+          "declaration": "d10",
+          "element_pointers": ["e1459", "e1463", "e1468", "e1476"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "open.ezvizlife.com (e1459 actual request origin; NOT {areaDomain})",
+        "method": "GET and POST both declared by the source",
+        "path": "/api/lapp/area/list",
+        "auth": "GET example carries no accessToken; whether POST requires a token/form is not stated in source",
+        "permissions": "public catalog",
+        "request": "GET example has no accessToken; POST request shape unknown (no source evidence)",
+        "body_type": "n/a for GET; unknown for POST (no source evidence)",
+        "response": "top-level string code '200'; data is the public area directory",
+        "effect": "read-only public regional directory",
+        "hardware_constraints": "none"
+      },
+      "source_uncertainties": [
+        "both GET and POST are declared; whether POST carries a token and form fields is not stated in source — POST request shape remains unknown",
+        "actual request origin is open.ezvizlife.com per e1459, not the {areaDomain} business host",
+        "parser's unknown_method flag is a parsing artifact, not a missing-method source fact"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No area-directory facade; generic transport does not equal a business entry."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "settings or new area module",
+        "entry": "settings.list_areas (proposed)",
+        "status": "proposal",
+        "notes": "Public catalog; SDK selects GET only (proposal) and records the choice; actual source origin open.ezvizlife.com per e1459, not {areaDomain}."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: GET open.ezvizlife.com/api/lapp/area/list with no token; documented response shape",
+          "parameter: none required for GET; POST parameter shape unknown and not asserted",
+          "response: top-level string code '200'; area directory preserved verbatim",
+          "retry: read_only public catalog with no token involved — token-refresh replay does not apply; no blanket retry on transport errors",
+          "diagnostics sync+async: settings.list_areas (or equivalent) registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: reachable overseas regional host open.ezvizlife.com",
+          "read authorization: public catalog; no authorization needed",
+          "write authorization: n/a",
+          "blocked_no_bound_device: n/a (public/account-level, not hardware)"
+        ]
+      },
+      "blocking_resources": ["reachable overseas regional host open.ezvizlife.com"],
+      "decision_basis": [
+        "Codex review record for doc 469 §1.12 (e1459/e1463/e1468/e1476); e1459 actual origin open.ezvizlife.com"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.1",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:481",
+          "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+          "section": "1.1",
+          "declaration": "d0",
+          "element_pointers": ["e59", "e71", "e97"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/detector/list",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "deviceSerial (A1 host) — exact required params must be re-read",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'; data lists linked detectors",
+        "effect": "read-only list of A1-series associated detectors",
+        "hardware_constraints": "requires an A1 host device"
+      },
+      "source_uncertainties": [
+        "exact request parameter set must be re-read",
+        "minimum permission class not stated"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No detectors facade; not part of ordinary devices/IPC management."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "detectors (new module)",
+        "entry": "detectors.list",
+        "status": "proposal",
+        "notes": "A1-series detector domain; keep separate from devices/IPC."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/detector/list with form token and documented params",
+          "parameter: fields frozen from e71",
+          "response: top-level string code '200'; data preserved verbatim",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: detectors.list registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: overseas account + A1 host device",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["A1 host device"],
+      "decision_basis": [
+        "Codex review record for doc 481 §1.1 (e59/e71/e97)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.2",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:481",
+          "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+          "section": "1.2",
+          "declaration": "d1",
+          "element_pointers": ["e256", "e268"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/detector/status/set",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "detectorSerial, safeMode 0–2 (stay/away/sleeping), enable 0/1",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "changes detector enable state per safe mode",
+        "hardware_constraints": "requires an associated detector"
+      },
+      "source_uncertainties": [
+        "exact request parameter set must be re-read",
+        "minimum permission class not stated"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No detectors facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "detectors",
+        "entry": "detectors.set_status",
+        "status": "proposal",
+        "notes": "Write; safeMode restricted to 0/1/2."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/detector/status/set with form token, safeMode, enable",
+          "parameter: safeMode Int 0-2; enable Int 0/1",
+          "response: top-level string code '200'",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: detectors.set_status registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: associated detector + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["associated detector", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 481 §1.2 (e256/e268)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.3",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:481",
+          "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+          "section": "1.3",
+          "declaration": "d2",
+          "element_pointers": ["e372", "e384"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/detector/delete",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "accessToken + host deviceSerial + detectorSerial (e384); removes association",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "deletes the detector association — a destructive association change",
+        "hardware_constraints": "requires an associated detector"
+      },
+      "source_uncertainties": ["minimum permission class not stated"],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No detectors facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "detectors",
+        "entry": "detectors.delete",
+        "status": "proposal",
+        "notes": "Destructive write; never auto-replayed."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/detector/delete with form token, host deviceSerial and detectorSerial",
+          "parameter: host deviceSerial required + detectorSerial required (e384)",
+          "response: top-level string code '200'",
+          "retry: destructive write; never auto-replayed",
+          "diagnostics sync+async: detectors.delete registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: associated detector + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized — destructive association change",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["associated detector", "write authorization", "recovery/re-association plan"],
+      "decision_basis": [
+        "Codex review record for doc 481 §1.3 (e372/e384)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.4",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:481",
+          "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+          "section": "1.4",
+          "declaration": "d3",
+          "element_pointers": ["e470", "e482"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/detector/ipc/list/bindable",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "accessToken + deviceSerial (e482); do not invent detectorSerial for this endpoint",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'; data lists bindable IPCs",
+        "effect": "read-only list of IPCs eligible for detector association",
+        "hardware_constraints": "requires an A1 host and candidate IPCs"
+      },
+      "source_uncertainties": [
+        "exact request parameter set must be re-read",
+        "e508 lists cameraName type as int while the example is string — preserve source, do not correct"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No detectors facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "detectors",
+        "entry": "detectors.list_bindable_ipc",
+        "status": "proposal",
+        "notes": "Read-only."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/detector/ipc/list/bindable with form token and deviceSerial",
+          "parameter: deviceSerial required (e482); no detectorSerial for this endpoint; cameraName type discrepancy preserved as a source issue",
+          "response: top-level string code '200'",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: detectors.list_bindable_ipc registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: A1 host + candidate IPCs",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["A1 host device", "candidate IPCs"],
+      "decision_basis": [
+        "Codex review record for doc 481 §1.4 (e470/e482; e508 type discrepancy)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.5",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:481",
+          "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+          "section": "1.5",
+          "declaration": "d4",
+          "element_pointers": ["e572", "e584"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/detector/ipc/list/bind",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "detectorSerial — exact params must be re-read",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'; data lists already-bound IPCs",
+        "effect": "read-only list of IPCs already associated to a detector",
+        "hardware_constraints": "requires an associated detector"
+      },
+      "source_uncertainties": [
+        "response table uses deviceSerial while the JSON example uses detectorSerial — naming discrepancy preserved",
+        "exact request parameter set must be re-read"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No detectors facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "detectors",
+        "entry": "detectors.list_bound_ipc",
+        "status": "proposal",
+        "notes": "Read-only; field naming discrepancy preserved, not normalized."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/detector/ipc/list/bind with form token and documented params",
+          "parameter: fields frozen from e584",
+          "response: top-level string code '200'; deviceSerial vs detectorSerial naming preserved",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: detectors.list_bound_ipc registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: associated detector + bound IPCs",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["associated detector", "bound IPCs"],
+      "decision_basis": [
+        "Codex review record for doc 481 §1.5 (e572/e584)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.6",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:481",
+          "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+          "section": "1.6",
+          "declaration": "d5",
+          "element_pointers": ["e675", "e687"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/detector/ipc/relation/set",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "required form set exactly accessToken + deviceSerial + detectorSerial + ipcSerial + operation (e687); deviceSerial is the A1 host/gateway device identity, detectorSerial the target detector, ipcSerial the IPC — three distinct identity fields, not either/or",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:overseas:481 table_element_index 687",
+          "location": "form",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "form" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "form" },
+            { "name": "detectorSerial", "type": "String", "required": true, "location": "form" },
+            { "name": "ipcSerial", "type": "String", "required": true, "location": "form" },
+            { "name": "operation", "type": "int", "required": true, "location": "form" }
+          ],
+          "other_rows_not_in_this_packet": 0,
+          "request_schema_status": "partial_pending_full_contract_review"
+        },
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "binds or unbinds an IPC to a detector — not read-only",
+        "hardware_constraints": "requires an associated detector and a candidate IPC"
+      },
+      "source_uncertainties": [
+        "packet covers only the selected table rows; request_schema_status stays partial_pending_full_contract_review — full contract review still required",
+        "minimum permission class not stated"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No detectors facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "detectors",
+        "entry": "detectors.set_ipc_relation",
+        "status": "proposal",
+        "notes": "Write; operation enum 0/1."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/detector/ipc/relation/set with form accessToken + deviceSerial + detectorSerial + ipcSerial + operation",
+          "parameter: required set exactly accessToken/deviceSerial/detectorSerial/ipcSerial/operation (e687); deviceSerial=A1 host, detectorSerial and ipcSerial separate identity fields; operation int restricted to 0/1",
+          "response: top-level string code '200'",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: detectors.set_ipc_relation registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: associated detector + candidate IPC + write authorization",
+          "read authorization: pre-state read of bound list",
+          "write authorization: not_authorized — association change",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["associated detector", "candidate IPC", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 481 §1.6 (e675/e687)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.7",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:481",
+          "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+          "section": "1.7",
+          "declaration": "d6",
+          "element_pointers": ["e795", "e798", "e799", "e829"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/detector/name/change",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "required form set exactly accessToken + deviceSerial + detectorSerial + newName (e799); deviceSerial is the A1 host/gateway device identity, detectorSerial the detector being renamed; the wire field is newName, not name",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:overseas:481 table_element_index 799",
+          "location": "form",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "form" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "form" },
+            { "name": "detectorSerial", "type": "String", "required": true, "location": "form" },
+            { "name": "newName", "type": "String", "required": true, "location": "form" }
+          ],
+          "other_rows_not_in_this_packet": 0,
+          "request_schema_status": "partial_pending_full_contract_review"
+        },
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "renames a detector",
+        "hardware_constraints": "requires an associated detector"
+      },
+      "source_uncertainties": [
+        "the current multiple_methods parse flag is a parser artifact: e798 mislabels the parameter table title as a second 'Request Method'; e795/e829 confirm POST — do not treat this as a missing-method source gap",
+        "packet covers only the selected table rows; request_schema_status stays partial_pending_full_contract_review — full contract review still required"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No detectors facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "detectors",
+        "entry": "detectors.rename",
+        "status": "proposal",
+        "notes": "Write; parser artifact documented in source_issues, not an API ambiguity."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/detector/name/change with form accessToken + deviceSerial + detectorSerial + newName",
+          "parameter: required set exactly accessToken/deviceSerial/detectorSerial/newName (e799); wire field is newName not name; documented limits re-read from e799",
+          "response: top-level string code '200'",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: detectors.rename registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: associated detector + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["associated detector", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 481 §1.7 (e795/e798/e799/e829) — parser artifact resolved"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.8",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:481",
+          "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+          "section": "1.8",
+          "declaration": "d7",
+          "element_pointers": ["e890", "e902"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/detector/cancelAlarm",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "accessToken + deviceSerial (e902); no detectorSerial in this request",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "clears A1 alarm state — changes alarm state, not read-only",
+        "hardware_constraints": "device must support alarm clearing"
+      },
+      "source_uncertainties": [
+        "device support precondition stated; exact request parameter set must be re-read",
+        "minimum permission class not stated"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No detectors facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "detectors",
+        "entry": "detectors.cancel_alarm",
+        "status": "proposal",
+        "notes": "State-changing write."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/detector/cancelAlarm with form token and deviceSerial",
+          "parameter: deviceSerial required (e902); no detectorSerial",
+          "response: top-level string code '200'",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: detectors.cancel_alarm registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: A1 host in alarm state + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized — alarm-state change",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["A1 host in alarm state", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 481 §1.8 (e890/e902)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.9",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:481",
+          "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+          "section": "1.9",
+          "declaration": "d8",
+          "element_pointers": ["e984", "e994", "e995", "e1000", "e1102"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/detector/add",
+        "auth": "accessToken in form",
+        "permissions": "sub-account minimum Config permission (e995)",
+        "request": "detectorSerial + detectorCode; remote-association and ≤1m distance preconditions",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "associates a detector to the A1 host — a binding/association change",
+        "hardware_constraints": "device must support remote association; detector must be within 1 meter; model support list in e1102"
+      },
+      "source_uncertainties": [
+        "detectorCode fixed-value note must not be treated as the user's real verification-code rule",
+        "add-interface error-code timeout/offline descriptions conflict with an older section — do not unify official error semantics"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No detectors facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "detectors",
+        "entry": "detectors.add",
+        "status": "proposal",
+        "notes": "Association write; hardware/distance preconditions documented."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/detector/add with form token, detectorSerial, detectorCode",
+          "parameter: fields frozen from e1000; model list in e1102 preserved as documentation",
+          "response: top-level string code '200'",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: detectors.add registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: A1 host + a supported detector within 1m + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized — binding/association change",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": [
+        "A1 host device",
+        "a supported detector within 1m",
+        "write authorization"
+      ],
+      "decision_basis": [
+        "Codex review record for doc 481 §1.9 (e984/e994/e995/e1000/e1102)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "keylock user delete",
+          "declaration": "d0",
+          "element_pointers": ["e3", "e9", "e37"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/v3/keylock/user/delete",
+        "auth": "accessToken in header",
+        "permissions": "online + Config permission",
+        "request": "form deviceSerial + lockUserIndex",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "meta.code integer 200",
+        "effect": "deletes a lock user — destructive permission change",
+        "hardware_constraints": "device must be online"
+      },
+      "source_uncertainties": [],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "Existing cn.otap.* operations are domestic-only (regions=frozenset({'domestic'}) in otap.py); they cannot be counted as overseas lock support."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks (new module)",
+        "entry": "locks.delete_user",
+        "status": "proposal",
+        "notes": "Destructive write; v3 keylock route, not OTAP."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/v3/keylock/user/delete with header token, form deviceSerial+lockUserIndex",
+          "parameter: deviceSerial String form; lockUserIndex Int (delete table) — do not unify with String variant",
+          "response: meta.code integer 200",
+          "retry: destructive write; never auto-replayed",
+          "diagnostics sync+async: locks.delete_user registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: an online CS-DL05 lock + a user to delete + write authorization",
+          "read authorization: pre-state read of user list",
+          "write authorization: not_authorized — destructive user/permission change",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05-R201-WBCP-GR lock", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d0 (e3/e9/e37)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d1",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "keylock user remark modify",
+          "declaration": "d1",
+          "element_pointers": ["e105", "e111", "e145"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/v3/keylock/user/modify/remark",
+        "auth": "accessToken in header",
+        "permissions": "online + Update permission",
+        "request": "deviceSerial in header; form lockUserIndex + remarkName (≤30 UTF-8 bytes)",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "meta.code integer 200",
+        "effect": "modifies a lock user's remark",
+        "hardware_constraints": "device must be online"
+      },
+      "source_uncertainties": [],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No locks facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.modify_user_remark",
+        "status": "proposal",
+        "notes": "Write; remark length ≤30 UTF-8 bytes enforced from source."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/v3/keylock/user/modify/remark with header token+deviceSerial, form lockUserIndex+remarkName",
+          "parameter: remarkName ≤30 UTF-8 bytes",
+          "response: meta.code integer 200",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: locks.modify_user_remark registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online lock + user + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d1 (e105/e111/e145)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d2",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "keylock user expiryDate",
+          "declaration": "d2",
+          "element_pointers": ["e213", "e219", "e289"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/v3/keylock/user/expiryDate",
+        "auth": "accessToken in header",
+        "permissions": "online + Config permission",
+        "request": "deviceSerial in header; JSON body with lockUserIndex + expiry configuration",
+        "body_type": "application/json",
+        "response": "meta.code integer 200",
+        "effect": "sets permanent or time-windowed user validity — a permission change",
+        "hardware_constraints": "device must be online"
+      },
+      "source_uncertainties": [
+        "lockUserIndex is String in this table but Int in delete/detail tables — do not unify types"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No locks facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.set_user_expiry",
+        "status": "proposal",
+        "notes": "Write; JSON body; lockUserIndex typed String per this declaration."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/v3/keylock/user/expiryDate with header token+deviceSerial and JSON body",
+          "parameter: lockUserIndex String; expiry fields frozen from e219",
+          "response: meta.code integer 200",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: locks.set_user_expiry registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online lock + user + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized — permission change",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d2 (e213/e219/e289)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d3",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "keylock user list",
+          "declaration": "d3",
+          "element_pointers": ["e357", "e363", "e391"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "GET",
+        "path": "/api/v3/keylock/user/list",
+        "auth": "accessToken in header",
+        "permissions": "Get permission",
+        "request": "deviceSerial in query",
+        "body_type": "n/a",
+        "response": "meta.code integer 200; data lists users",
+        "effect": "read-only user list; after device transfer user data must be re-synced for complete results",
+        "hardware_constraints": "device transfer affects completeness"
+      },
+      "source_uncertainties": [
+        "post-transfer re-sync requirement is documented but the sync mechanism is not specified"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No locks facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.list_users",
+        "status": "proposal",
+        "notes": "Read-only."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: GET {areaDomain}/api/v3/keylock/user/list with header token and query deviceSerial",
+          "parameter: deviceSerial String in query",
+          "response: meta.code integer 200",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: locks.list_users registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online lock with users",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock with users"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d3 (e357/e363/e391)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d4",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "keylock user info",
+          "declaration": "d4",
+          "element_pointers": ["e513", "e519", "e553"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "GET",
+        "path": "/api/v3/keylock/user/info",
+        "auth": "accessToken in header",
+        "permissions": "Get permission",
+        "request": "query deviceSerial + lockUserIndex",
+        "body_type": "n/a",
+        "response": "meta.code integer 200; data includes credential types and counts (sensitive business data)",
+        "effect": "read-only user detail",
+        "hardware_constraints": "none stated"
+      },
+      "source_uncertainties": [],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No locks facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.get_user",
+        "status": "proposal",
+        "notes": "Read-only; sensitive credential data preserved verbatim, never logged."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: GET {areaDomain}/api/v3/keylock/user/info with header token and query params",
+          "parameter: deviceSerial + lockUserIndex in query",
+          "response: meta.code integer 200; sensitive fields preserved but never logged",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: locks.get_user registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online lock + existing user",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock with a user"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d4 (e513/e519/e553)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d5",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "keylock open list",
+          "declaration": "d5",
+          "element_pointers": ["e687", "e693", "e745"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "GET",
+        "path": "/api/v3/keylock/open/list",
+        "auth": "accessToken in header",
+        "permissions": "Get permission",
+        "request": "query deviceSerial + date range + pagination",
+        "body_type": "n/a",
+        "response": "meta.code integer 200; data lists open records (last 60 days, ≤50/page, ≤10000 total)",
+        "effect": "read-only unlock-record query",
+        "hardware_constraints": "records bounded to last 60 days"
+      },
+      "source_uncertainties": [
+        "exact date/pagination parameter names must be re-read"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No locks facade."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.list_open_records",
+        "status": "proposal",
+        "notes": "Read-only; page bounds from source."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: GET {areaDomain}/api/v3/keylock/open/list with header token and query params",
+          "parameter: date range + pageStart/pageSize; page ≤50, total ≤10000 bounds",
+          "response: meta.code integer 200",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: locks.list_open_records registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online lock with open records",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock with records"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d5 (e687/e693/e745)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d6",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "TemporaryPassword / AddTemporaryPassword",
+          "declaration": "d6",
+          "element_pointers": ["e803", "e809", "e897"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain} (declaration); HTTP example shows domestic open.ys7.com — do not auto-route to domestic",
+        "method": "PUT",
+        "path": "/api/v3/device/otap/action",
+        "auth": "accessToken in header",
+        "permissions": "enterprise-hosting/sub-account supported",
+        "request": "header deviceSerial + resourceCategory=DoorLock + localIndex=0 + wire header domainIdentifier=TemporaryPassword + wire header actionIdentifier=AddTemporaryPassword; JSON body temporary-password object",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:overseas:1000007 (AddTemporaryPassword parameter table, header/body location rows)",
+          "location": "header+body",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "header" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "header" },
+            { "name": "localIndex", "type": "String", "required": true, "location": "header" },
+            { "name": "resourceCategory", "type": "String", "required": true, "location": "header" },
+            { "name": "domainIdentifier", "type": "String", "required": true, "location": "header" },
+            { "name": "actionIdentifier", "type": "String", "required": true, "location": "header" }
+          ],
+          "other_rows_not_in_this_packet": 7,
+          "request_schema_status": "partial_pending_full_contract_review",
+          "note": "packet lists only selected table rows; body fields not enumerated here — body shape remains frozen from e809 at contract time"
+        },
+        "body_type": "application/json",
+        "response": "meta.code integer 200 + deviceMeta device success code layer",
+        "effect": "grants a temporary door-open credential and notifies email/phone — a permission grant",
+        "hardware_constraints": "body limited to model CS-DL05-R201-WBCP-GR"
+      },
+      "source_uncertainties": [
+        "declaration origin is {areaDomain} while the example host is open.ys7.com — do not auto-route cross-region",
+        "wire header names are confirmed: domainIdentifier=TemporaryPassword and actionIdentifier=AddTemporaryPassword (header/String/Y); the SDK signature carrying them is still a proposal pending freeze",
+        "deviceMeta device success code layer is defined by the source for this declaration but whether that layer is optional is not declared; missing-layer handling is unknown — do not generalize the d9/d10 moreInfo=null example to this group",
+        "deviceMeta.code success value/meaning must be re-read",
+        "usageTimes range includes 0 but only -1 and positive values are explained — 0 semantics undocumented for this AddTemporaryPassword scenario",
+        "minimum sub-account policy for d6-d8/d11-13 is stated; d9/d10 only say 'access permission'"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "Existing cn.otap.invoke_action is domestic-only and uses different selectors; this is a separate overseas DoorLock scenario on a shared OTAP route — not a duplicate."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.add_temporary_password",
+        "status": "proposal",
+        "notes": "Separate scenario on the shared OTAP action route; do not merge with other selectors."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: PUT {areaDomain}/api/v3/device/otap/action with header token+deviceSerial+resourceCategory=DoorLock+localIndex=0+domainIdentifier=TemporaryPassword+actionIdentifier=AddTemporaryPassword, JSON body; SDK signature for the confirmed wire headers pending freeze",
+          "parameter: wire headers domainIdentifier/actionIdentifier confirmed (String/Y); body object fields frozen from e809",
+          "response: meta.code integer 200; deviceMeta layer is defined by source but its optionality is not declared — missing-layer handling unknown, not asserted",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: locks.add_temporary_password registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online CS-DL05 lock + write authorization + recovery plan (password revocation)",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized — grants door-open permission and notifies contact",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock", "write authorization", "revocation plan"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d6 (e803/e809/e897)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d7",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "TemporaryPassword / DeleteTemporaryPassword",
+          "declaration": "d7",
+          "element_pointers": ["e969", "e975"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "PUT",
+        "path": "/api/v3/device/otap/action",
+        "auth": "accessToken in header",
+        "permissions": "enterprise-hosting/sub-account supported",
+        "request": "header deviceSerial + resourceCategory=DoorLock + localIndex=0 + wire header domainIdentifier=TemporaryPassword + wire header actionIdentifier=DeleteTemporaryPassword (e975); JSON body passwordID + opType",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:overseas:1000007 table_element_index 975",
+          "location": "header+body",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "header" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "header" },
+            { "name": "localIndex", "type": "String", "required": true, "location": "header" },
+            { "name": "resourceCategory", "type": "String", "required": true, "location": "header" },
+            { "name": "domainIdentifier", "type": "String", "required": true, "location": "header" },
+            { "name": "actionIdentifier", "type": "String", "required": true, "location": "header" },
+            { "name": "passwordID", "type": "Int", "required": true, "location": "body" },
+            { "name": "opType", "type": "Int", "required": true, "location": "body" }
+          ],
+          "other_rows_not_in_this_packet": 1,
+          "request_schema_status": "partial_pending_full_contract_review"
+        },
+        "body_type": "application/json",
+        "response": "meta.code integer 200 + deviceMeta device success code layer",
+        "effect": "revokes a temporary password — a permission revocation",
+        "hardware_constraints": "body limited to CS-DL05-R201-WBCP-GR"
+      },
+      "source_uncertainties": [
+        "wire header names confirmed at e975: domainIdentifier=TemporaryPassword and actionIdentifier=DeleteTemporaryPassword (header/String/Y) — an independent selector pair for this declaration, not inherited from d6; the SDK signature carrying them is still a proposal pending freeze",
+        "one additional table row exists beyond this packet (other_rows_not_in_this_packet=1); request_schema_status stays partial_pending_full_contract_review",
+        "deviceMeta device success code layer is defined by the source for this declaration but whether that layer is optional is not declared; missing-layer handling is unknown — do not generalize the d9/d10 moreInfo=null example to this group"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "Distinct scenario on the shared OTAP action route."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.delete_temporary_password",
+        "status": "proposal",
+        "notes": "Separate scenario; do not merge with add."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: PUT {areaDomain}/api/v3/device/otap/action with header token+deviceSerial+resourceCategory=DoorLock+localIndex=0+domainIdentifier=TemporaryPassword+actionIdentifier=DeleteTemporaryPassword (e975), JSON body passwordID+opType; SDK signature for the confirmed wire headers pending freeze",
+          "parameter: body passwordID Int + opType Int required (e975)",
+          "response: meta.code integer 200; deviceMeta layer is defined by source but its optionality is not declared — missing-layer handling unknown, not asserted",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: locks.delete_temporary_password registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online lock + existing temporary password + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized — permission revocation",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d7 (e969/e975)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d8",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "TemporaryPassword / QueryTemporaryPassword",
+          "declaration": "d8",
+          "element_pointers": ["e1107", "e1113"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "PUT",
+        "path": "/api/v3/device/otap/action",
+        "auth": "accessToken in header",
+        "permissions": "enterprise-hosting/sub-account supported",
+        "request": "header deviceSerial + resourceCategory=DoorLock + localIndex=0 + wire header domainIdentifier=TemporaryPassword + wire header actionIdentifier=QueryTemporaryPassword (e1113); JSON body enabled flag",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:overseas:1000007 table_element_index 1113",
+          "location": "header+body",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "header" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "header" },
+            { "name": "localIndex", "type": "String", "required": true, "location": "header" },
+            { "name": "resourceCategory", "type": "String", "required": true, "location": "header" },
+            { "name": "domainIdentifier", "type": "String", "required": true, "location": "header" },
+            { "name": "actionIdentifier", "type": "String", "required": true, "location": "header" },
+            { "name": "enabled", "type": "Boolean", "required": true, "location": "body" }
+          ],
+          "other_rows_not_in_this_packet": 1,
+          "request_schema_status": "partial_pending_full_contract_review"
+        },
+        "body_type": "application/json",
+        "response": "meta.code integer 200 + deviceMeta device success code layer",
+        "effect": "logical query of temporary passwords — do not treat as write merely because PUT, nor confirm idempotent replay merely because 'Query'",
+        "hardware_constraints": "body limited to CS-DL05-R201-WBCP-GR"
+      },
+      "source_uncertainties": [
+        "read/write classification must be decided from semantics, not the HTTP method or the 'Query' name",
+        "wire header names confirmed at e1113: domainIdentifier=TemporaryPassword and actionIdentifier=QueryTemporaryPassword (header/String/Y) — an independent selector pair for this declaration, not 'as d6'; the SDK signature carrying them is still a proposal pending freeze",
+        "one additional table row exists beyond this packet (other_rows_not_in_this_packet=1); request_schema_status stays partial_pending_full_contract_review",
+        "deviceMeta device success code layer is defined by the source for this declaration but whether that layer is optional is not declared; missing-layer handling is unknown — do not generalize the d9/d10 moreInfo=null example to this group"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "Distinct scenario on the shared OTAP action route."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.query_temporary_password",
+        "status": "proposal",
+        "notes": "Treat as a query semantics; do not infer write from PUT."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: PUT {areaDomain}/api/v3/device/otap/action with header token+deviceSerial+resourceCategory=DoorLock+localIndex=0+domainIdentifier=TemporaryPassword+actionIdentifier=QueryTemporaryPassword (e1113), JSON body enabled; SDK signature for the confirmed wire headers pending freeze",
+          "parameter: body enabled Boolean required (e1113)",
+          "response: meta.code integer 200; deviceMeta layer is defined by source but its optionality is not declared — missing-layer handling unknown, not asserted",
+          "retry: do not auto-replay; idempotence not proven",
+          "diagnostics sync+async: locks.query_temporary_password registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online lock + temporary passwords",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock with temporary passwords"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d8 (e1107/e1113)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d9",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "DoorLockMgr / RemoteUnlockSwitch",
+          "declaration": "d9",
+          "element_pointers": ["e1267", "e1273", "e1331"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "PUT",
+        "path": "/api/v3/device/otap/prop",
+        "auth": "accessToken in header",
+        "permissions": "access permission (no explicit enterprise/sub-account policy stated)",
+        "request": "header selectors DoorLockMgr/RemoteUnlockSwitch; JSON body enabled integer",
+        "body_type": "application/json",
+        "response": "meta.code integer 200; moreInfo may be null",
+        "effect": "toggles the remote-unlock switch — a security configuration change",
+        "hardware_constraints": "body limited to CS-DL05-R201-WBCP-GR"
+      },
+      "source_uncertainties": [
+        "e1331 example has incomplete quotes; parameter table + MIME/JSON keys are still resolvable",
+        "only 'access permission' is stated — do not invent a minimum sub-account policy",
+        "moreInfo=null on success must not be forced into a 'deviceMeta required' rule"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "Distinct scenario on the shared OTAP prop route."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.set_remote_unlock_switch",
+        "status": "proposal",
+        "notes": "Write; security configuration change."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: PUT {areaDomain}/api/v3/device/otap/prop with header selectors and JSON body enabled",
+          "parameter: enabled integer",
+          "response: meta.code integer 200; tolerate moreInfo=null",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: locks.set_remote_unlock_switch registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online lock + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized — security config change",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d9 (e1267/e1273/e1331)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d10",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "DoorLockMgr / DeviceBoundList",
+          "declaration": "d10",
+          "element_pointers": ["e1395", "e1401"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "GET",
+        "path": "/api/v3/device/otap/prop",
+        "auth": "accessToken in header",
+        "permissions": "access permission (no explicit enterprise/sub-account policy stated)",
+        "request": "header selectors DoorLockMgr/DeviceBoundList; no body",
+        "body_type": "n/a",
+        "response": "meta.code integer 200; moreInfo may be null",
+        "effect": "read-only list of bound terminals",
+        "hardware_constraints": "body limited to CS-DL05-R201-WBCP-GR"
+      },
+      "source_uncertainties": [
+        "only 'access permission' stated — do not invent a minimum sub-account policy"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "Distinct scenario on the shared OTAP prop route."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.list_bound_devices",
+        "status": "proposal",
+        "notes": "Read-only."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: GET {areaDomain}/api/v3/device/otap/prop with header selectors and no body",
+          "parameter: none beyond headers",
+          "response: meta.code integer 200; tolerate moreInfo=null",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: locks.list_bound_devices registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online lock with bound terminals",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock with bound terminals"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d10 (e1395/e1401)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d11",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "DoorLockMgr / OperateBindToDevice",
+          "declaration": "d11",
+          "element_pointers": ["e1511", "e1517"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "PUT",
+        "path": "/api/v3/device/otap/action",
+        "auth": "accessToken in header",
+        "permissions": "enterprise-hosting/sub-account supported",
+        "request": "header deviceSerial + resourceCategory=DoorLock + localIndex=0 + wire header domainIdentifier=DoorLockMgr + wire header actionIdentifier=OperateBindToDevice; JSON body type + bindCode + userName",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:overseas:1000007 (OperateBindToDevice parameter table, header rows; body fields not in this packet)",
+          "location": "header",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "header" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "header" },
+            { "name": "localIndex", "type": "String", "required": true, "location": "header" },
+            { "name": "resourceCategory", "type": "String", "required": true, "location": "header" },
+            { "name": "domainIdentifier", "type": "String", "required": true, "location": "header" },
+            { "name": "actionIdentifier", "type": "String", "required": true, "location": "header" }
+          ],
+          "other_rows_not_in_this_packet": 4,
+          "request_schema_status": "partial_pending_full_contract_review",
+          "note": "body fields (type/bindCode/userName) are not enumerated in this packet — they remain frozen from e1517 at contract time"
+        },
+        "body_type": "application/json",
+        "response": "meta.code integer 200 + deviceMeta device success code layer",
+        "effect": "binds or unbinds a terminal; after successful bind a real unlock is required for it to take effect — do not auto-chain operations",
+        "hardware_constraints": "body limited to CS-DL05-R201-WBCP-GR"
+      },
+      "source_uncertainties": [
+        "post-bind activation requires a real unlock — cannot be auto-chained",
+        "wire header names confirmed: domainIdentifier=DoorLockMgr and actionIdentifier=OperateBindToDevice (header/String/Y); the SDK signature carrying them is still a proposal pending freeze",
+        "deviceMeta device success code layer is defined by the source for this declaration but whether that layer is optional is not declared; missing-layer handling is unknown — do not generalize the d9/d10 moreInfo=null example to this group"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "Distinct scenario on the shared OTAP action route."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.operate_bind_to_device",
+        "status": "proposal",
+        "notes": "Write; permission change; never auto-chain the activation unlock."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: PUT {areaDomain}/api/v3/device/otap/action with header token+deviceSerial+resourceCategory=DoorLock+localIndex=0+domainIdentifier=DoorLockMgr+actionIdentifier=OperateBindToDevice, JSON body type/bindCode/userName; SDK signature for the confirmed wire headers pending freeze",
+          "parameter: body fields frozen from e1517",
+          "response: meta.code integer 200; deviceMeta layer is defined by source but its optionality is not declared — missing-layer handling unknown, not asserted",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: locks.operate_bind_to_device registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online lock + target terminal + write authorization",
+          "read authorization: pre-state read of bound list",
+          "write authorization: not_authorized — permission change; activation unlock is a separate physical action not auto-chained",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock", "target terminal", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d11 (e1511/e1517)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d12",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "DoorLockMgr / QueryRemoteUnlockRandomCode",
+          "declaration": "d12",
+          "element_pointers": ["e1647", "e1653", "e1699"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "PUT",
+        "path": "/api/v3/device/otap/action",
+        "auth": "accessToken in header",
+        "permissions": "enterprise-hosting/sub-account supported",
+        "request": "header deviceSerial + resourceCategory=DoorLock + localIndex=0 + wire header domainIdentifier=DoorLockMgr + wire header actionIdentifier=QueryRemoteUnlockRandomCode; example has no body",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:overseas:1000007 (QueryRemoteUnlockRandomCode parameter table, header rows)",
+          "location": "header",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "header" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "header" },
+            { "name": "localIndex", "type": "String", "required": true, "location": "header" },
+            { "name": "resourceCategory", "type": "String", "required": true, "location": "header" },
+            { "name": "domainIdentifier", "type": "String", "required": true, "location": "header" },
+            { "name": "actionIdentifier", "type": "String", "required": true, "location": "header" }
+          ],
+          "other_rows_not_in_this_packet": 0,
+          "request_schema_status": "partial_pending_full_contract_review",
+          "note": "body presence/shape not enumerated in this packet — remains frozen from e1653 at contract time"
+        },
+        "body_type": "n/a (per example) — confirm whether a JSON body is required",
+        "response": "meta.code integer 200 + deviceMeta device success code layer",
+        "effect": "generates/retrieves a remote-unlock random challenge — a security-sensitive value",
+        "hardware_constraints": "body limited to CS-DL05-R201-WBCP-GR"
+      },
+      "source_uncertainties": [
+        "whether the challenge rotates or invalidates a previous code is unspecified — idempotence not proven",
+        "request-body presence must be re-read from e1653",
+        "wire header names confirmed: domainIdentifier=DoorLockMgr and actionIdentifier=QueryRemoteUnlockRandomCode (header/String/Y); the SDK signature carrying them is still a proposal pending freeze",
+        "deviceMeta device success code layer is defined by the source for this declaration but whether that layer is optional is not declared; missing-layer handling is unknown — do not generalize the d9/d10 moreInfo=null example to this group"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "Distinct scenario on the shared OTAP action route."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.query_remote_unlock_random_code",
+        "status": "proposal",
+        "notes": "Do not treat as a safe replay; code may be a rotating challenge."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: PUT {areaDomain}/api/v3/device/otap/action with header token+deviceSerial+resourceCategory=DoorLock+localIndex=0+domainIdentifier=DoorLockMgr+actionIdentifier=QueryRemoteUnlockRandomCode; body shape frozen from e1653; SDK signature for the confirmed wire headers pending freeze",
+          "parameter: none documented beyond headers; body if required frozen from source",
+          "response: meta.code integer 200; deviceMeta layer is defined by source but its optionality is not declared — missing-layer handling unknown, not asserted",
+          "retry: do not auto-replay; rotation semantics unknown",
+          "diagnostics sync+async: locks.query_remote_unlock_random_code registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online lock + authorization to fetch a challenge",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: not_authorized if fetching rotates/invalidates a prior code",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock", "challenge-fetch authorization"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d12 (e1647/e1653/e1699)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d13",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "DoorLockMgr / RemoteUnlockReq",
+          "declaration": "d13",
+          "element_pointers": ["e1759", "e1765", "e1847"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "PUT",
+        "path": "/api/v3/device/otap/action",
+        "auth": "accessToken in header",
+        "permissions": "enterprise-hosting/sub-account supported",
+        "request": "header deviceSerial + resourceCategory=DoorLock + localIndex=0 + wire header domainIdentifier=DoorLockMgr + wire header actionIdentifier=RemoteUnlockReq; JSON body unLockInfo with voice/linkIPC/unLinkIPC branches",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:overseas:1000007 (RemoteUnlockReq parameter table, header rows; unLockInfo body rows not in this packet)",
+          "location": "header",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "header" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "header" },
+            { "name": "localIndex", "type": "String", "required": true, "location": "header" },
+            { "name": "resourceCategory", "type": "String", "required": true, "location": "header" },
+            { "name": "domainIdentifier", "type": "String", "required": true, "location": "header" },
+            { "name": "actionIdentifier", "type": "String", "required": true, "location": "header" }
+          ],
+          "other_rows_not_in_this_packet": 6,
+          "request_schema_status": "partial_pending_full_contract_review",
+          "note": "unLockInfo body fields are not enumerated in this packet — voice/linkIPC/unLinkIPC branches remain frozen from e1765 at contract time"
+        },
+        "body_type": "application/json",
+        "response": "meta.code integer 200 + deviceMeta device success code layer",
+        "effect": "performs a real door-open action — a physical, irreversible effect",
+        "hardware_constraints": "body limited to CS-DL05-R201-WBCP-GR"
+      },
+      "source_uncertainties": [
+        "d13 type text mentions streamToken but the parameter table and example do not define it — do not invent linkIPC branch parameters",
+        "wire header names confirmed: domainIdentifier=DoorLockMgr and actionIdentifier=RemoteUnlockReq (header/String/Y); the SDK signature carrying them is still a proposal pending freeze",
+        "deviceMeta device success code layer is defined by the source for this declaration but whether that layer is optional is not declared; missing-layer handling is unknown — do not generalize the d9/d10 moreInfo=null example to this group"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "Distinct scenario on the shared OTAP action route."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "locks",
+        "entry": "locks.remote_unlock",
+        "status": "proposal",
+        "notes": "Physical action; never auto-replayed; unLockInfo branches frozen from source, not guessed."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: PUT {areaDomain}/api/v3/device/otap/action with header token+deviceSerial+resourceCategory=DoorLock+localIndex=0+domainIdentifier=DoorLockMgr+actionIdentifier=RemoteUnlockReq, JSON body unLockInfo; SDK signature for the confirmed wire headers pending freeze",
+          "parameter: unLockInfo fields frozen from e1765; voice/linkIPC/unLinkIPC branches preserved as distinct cases; no invented streamToken parameter",
+          "response: meta.code integer 200; deviceMeta layer is defined by source but its optionality is not declared — missing-layer handling unknown, not asserted",
+          "retry: physical action; never auto-replayed",
+          "diagnostics sync+async: locks.remote_unlock registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: online lock + a designated door + explicit write authorization + safety/recovery plan",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized — real door-open action",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["online CS-DL05 lock", "designated physical door", "explicit write authorization", "safety/recovery plan"],
+      "decision_basis": [
+        "Codex review record for doc 1000007 d13 (e1759/e1765/e1847)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:message-integration",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:1000007",
+          "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+          "section": "message integration",
+          "declaration": null,
+          "element_pointers": ["e1905", "e1920", "e1926"]
+        }
+      ],
+      "nature": "message_protocol",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "customer-hosted webhook endpoint",
+        "method": "inbound POST callback",
+        "path": "customer-defined public webhook URL",
+        "auth": "signature/verification per service configuration",
+        "permissions": "requires an enabled message-push service, a reachable public webhook, and a bound device",
+        "request": "platform POSTs messages to the configured callback",
+        "body_type": "JSON message envelope",
+        "response": "ack contract per service docs",
+        "effect": "delivers device/platform events; enabling takes ~2 hours per e1926",
+        "hardware_constraints": "requires a bound device that generates events"
+      },
+      "source_uncertainties": [
+        "e1920 example service does not provide a full signature/ciphertext/redelivery contract — message ingestion is not complete just because helpers exist",
+        "configuration side effects (App reminder stop, ~2h delay, console test suspending the original callback) require explicit authorization",
+        "overseas 't' timestamp unit and freshness window are not confirmed in this source"
+      ],
+      "existing_support": {
+        "status": "partial_helpers_only",
+        "binding": "src/ezviz_unified/webhooks.py verify_webhook_signature/parse_webhook",
+        "detail": "Pure-function MAC/parse helpers exist; they prove a given body+secret match, not sender identity, freshness, replay safety, or completed service integration."
+      },
+      "disposition": "needs_review",
+      "sdk_design_proposal": {
+        "facade": "webhooks (existing helpers) + separate receiver example (repo-level, not SDK runtime)",
+        "entry": "existing verify_webhook_signature/parse_webhook",
+        "status": "proposal",
+        "notes": "Do not count helpers as message-service integration; real enablement, callback reachability, secret, dedup and replay boundaries are separate acceptance scope (see ACC-PLATFORM-MESSAGE-001)."
+      },
+      "implementation_status": "partial",
+      "offline_status": "partial",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: helper-level signature/parse vectors already covered; receiver-example wire is a separate repo-level deliverable",
+          "parameter: raw-body signature over bytes as delivered; no re-serialization",
+          "response: ACK contract per service (HTTP 200 + messageId) — exact overseas wording to be re-read",
+          "retry: dedup by messageId must be defined before live acceptance",
+          "diagnostics sync+async: webhook receiver example registered separately; helpers already registered"
+        ],
+        "live": [
+          "real resources required: enabled message-push service + public reachable callback + independent secret + bound device + authorization for config side effects",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: not_authorized — enabling/config changes have side effects beyond prior read-only scope",
+          "blocked_no_bound_device: yes — a bound device is required for real event callbacks"
+        ]
+      },
+      "blocking_resources": [
+        "enabled message-push service",
+        "public reachable callback endpoint",
+        "independent secret",
+        "bound device",
+        "explicit authorization for configuration side effects"
+      ],
+      "decision_basis": [
+        "Codex review record for doc 1000007 message section (e1905/e1920/e1926); docs/research/2026-11-15-message-ingestion.md; docs/research/2026-11-17-message-scope-review.md"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:476:1.4",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:476",
+          "content_sha256": "82a0152058592e8c4b5e11f4f968edce7a4e39d5e16b527db606d5957bf8f858",
+          "section": "1.4",
+          "declaration": "d3",
+          "element_pointers": ["e437", "e443", "e454", "e479", "e485"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/device/uuid/picture",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "accessToken + uuid + size (0–1280)",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'; data.picUrl",
+        "effect": "queries a previously captured picture by UUID — a read, not a new capture",
+        "hardware_constraints": "uuid must come from a Linktom device via the device-SDK capture flow — not any arbitrary snapshot UUID; not a trigger"
+      },
+      "source_uncertainties": [
+        "the UUID precondition is specific to a Linktom device producing the value through the device-SDK capture path — do not generalize to any capture UUID from other sources"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "snapshots.capture triggers a new capture; this is a distinct UUID query. Do not merge."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "snapshots",
+        "entry": "snapshots.get_by_uuid (proposed)",
+        "status": "proposal",
+        "notes": "Explicit UUID query; SDK does not auto-download the returned picUrl."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/device/uuid/picture with form token, uuid, size",
+          "parameter: uuid String required; size Int 0-1280",
+          "response: top-level string code '200'; data.picUrl preserved verbatim, never followed",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: snapshots.get_by_uuid registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: overseas account + a Linktom device that has produced a UUID via the device-SDK capture flow",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["Linktom bound device", "a UUID produced via the device-SDK capture flow (not any capture UUID)"],
+      "decision_basis": [
+        "Codex review record for doc 476 §1.4 (e437/e443/e454/e479/e485)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:477:1.20",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:477",
+          "content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+          "section": "1.20",
+          "declaration": "d19",
+          "element_pointers": ["e2374", "e2390", "e2416", "e2424"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/device/info",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "accessToken + deviceSerial + version=utc (required); timeZone/wifiSsid depend on version=utc",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'; data includes timeZone/wifiSsid only when version=utc",
+        "effect": "reads device info with UTC-variant fields — a distinct request variant of the same route as devices.get",
+        "hardware_constraints": "none stated"
+      },
+      "source_uncertainties": [
+        "version=utc is a required discriminator for this variant; omitting it falls back to the non-UTC devices.get shape"
+      ],
+      "existing_support": {
+        "status": "variant_of_existing_route",
+        "contract": "global.devices.get",
+        "binding": "devices.py Devices.get / AsyncDevices.get",
+        "detail": "Same POST /api/lapp/device/info route, but existing devices.get does not send version; the UTC variant requires version=utc and returns extra fields. Do not mark as a plain duplicate — it is a separate request variant."
+      },
+      "disposition": "needs_review",
+      "sdk_design_proposal": {
+        "facade": "devices",
+        "entry": "devices.get with optional version parameter or devices.get_utc variant (proposed)",
+        "status": "proposal",
+        "notes": "Decide whether to extend devices.get with a keyword-only version arg or a separate method; the version=utc discriminator is required for this response shape."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/lapp/device/info with form token, deviceSerial, version=utc",
+          "parameter: version String literal 'utc' required for this variant",
+          "response: top-level string code '200'; timeZone/wifiSsid present only under version=utc",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: devices UTC variant registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: overseas account + bound device",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["bound device"],
+      "decision_basis": [
+        "Codex review record for doc 477 §1.20 (e2374/e2390/e2416/e2424)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:3722:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:3722",
+          "content_sha256": "5b6a1bcbdf331c3bb35997f76527587c2ecc0bd6b86cc6e32785c3061ec551c6",
+          "section": "switchStatus get",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e8", "e30", "e47"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "GET",
+        "path": "/api/v3/device/switchStatus/get",
+        "auth": "accessToken in header",
+        "permissions": "hosted/sub-account supported; Get permission for GET",
+        "request": "header token + deviceSerial; query type=301",
+        "body_type": "n/a",
+        "response": "status → body → meta presentation; meta.code integer 200",
+        "effect": "read-only motion-detection light linkage status — not a generic indicator or fill-light mode",
+        "hardware_constraints": "device must support the linked-light feature"
+      },
+      "source_uncertainties": [
+        "response table presents status → body → meta; do not assume a root-level meta beyond what the source shows"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No v3 overseas settings facade for this feature; distinct from indicator_light and illumination fill-light mode."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "settings or a dedicated v3 settings module",
+        "entry": "settings.get_light_linkage (proposed)",
+        "status": "proposal",
+        "notes": "Read-only; type=301 is a fixed selector."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: GET {areaDomain}/api/v3/device/switchStatus/get with header token+deviceSerial and query type=301",
+          "parameter: type fixed 301",
+          "response: meta.code integer 200; body preserved verbatim",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: settings.get_light_linkage registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: overseas account + device supporting linked light",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["bound device supporting linked light"],
+      "decision_basis": [
+        "Codex review record for doc 3722 d0 (e5/e8/e30/e47)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:3723:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:3723",
+          "content_sha256": "36812eeb04ef69ea54b3c37dafb0260f40b254a2e15b1baf3ff2c903fa2b23c6",
+          "section": "switchStatus set",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e8", "e30"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/v3/device/switchStatus/set",
+        "auth": "accessToken in header",
+        "permissions": "hosted/sub-account supported; Config permission for POST",
+        "request": "header token + deviceSerial; query enable + type",
+        "body_type": "n/a (query parameters)",
+        "response": "meta.code integer 200",
+        "effect": "writes the linked-light switch configuration",
+        "hardware_constraints": "device must support the feature"
+      },
+      "source_uncertainties": [],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No v3 overseas settings facade for this feature."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "settings or dedicated v3 settings module",
+        "entry": "settings.set_light_linkage (proposed)",
+        "status": "proposal",
+        "notes": "Write; query-parameter transport."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/v3/device/switchStatus/set with header token+deviceSerial and query enable+type",
+          "parameter: enable + type in query",
+          "response: meta.code integer 200",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: settings.set_light_linkage registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: device supporting linked light + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["device supporting linked light", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 3723 d0 (e5/e8/e30)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:3724:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:3724",
+          "content_sha256": "7ef3e49f33cf52a11879c12db273522c3e8c8b527163739828c6582ff033f010",
+          "section": "timing plan get",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e8", "e31"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "GET",
+        "path": "/api/v3/device/timing/plan/get",
+        "auth": "accessToken in header",
+        "permissions": "hosted/sub-account supported; Get permission",
+        "request": "header token + deviceSerial",
+        "body_type": "n/a",
+        "response": "meta.code integer 200",
+        "effect": "read-only work-mode timing plan — not an arming/defence schedule",
+        "hardware_constraints": "device must support timing plans"
+      },
+      "source_uncertainties": [],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "Distinct from arming schedule; separate feature."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "settings or dedicated v3 settings module",
+        "entry": "settings.get_timing_plan (proposed)",
+        "status": "proposal",
+        "notes": "Read-only."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: GET {areaDomain}/api/v3/device/timing/plan/get with header token+deviceSerial",
+          "parameter: none beyond headers",
+          "response: meta.code integer 200",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: settings.get_timing_plan registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: device supporting timing plans",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["device supporting timing plans"],
+      "decision_basis": [
+        "Codex review record for doc 3724 d0 (e5/e8/e31)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:3725:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:3725",
+          "content_sha256": "aa017fdeb22f9fde09b6c814b28d3f7ec2cb8a25e9a500c29666635b570a01f2",
+          "section": "timing plan set",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e8", "e30", "e71"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/v3/device/timing/plan/set",
+        "auth": "accessToken in header",
+        "permissions": "hosted/sub-account supported; Config permission",
+        "request": "body enable + startTime + endTime + week; eventArg optional",
+        "body_type": "not declared in source — encoding unknown",
+        "response": "meta.code integer 200",
+        "effect": "writes the work-mode timing plan; overwrite/merge semantics and timezone handling are unknown",
+        "hardware_constraints": "device must support timing plans"
+      },
+      "source_uncertainties": [
+        "body encoding is not declared",
+        "week description is misaligned in the source",
+        "overwrite vs merge semantics and timezone handling are unknown"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No v3 overseas settings facade for this feature."
+      },
+      "disposition": "needs_review",
+      "sdk_design_proposal": {
+        "facade": "settings or dedicated v3 settings module",
+        "entry": "settings.set_timing_plan (proposed)",
+        "status": "proposal",
+        "notes": "Write; encoding and merge/overwrite semantics must be resolved before contract freeze."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/v3/device/timing/plan/set with header token+deviceSerial; body shape frozen after encoding is resolved",
+          "parameter: enable/startTime/endTime/week; eventArg optional; week format re-read",
+          "response: meta.code integer 200",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: settings.set_timing_plan registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: device supporting timing plans + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["device supporting timing plans", "write authorization", "encoding resolution"],
+      "decision_basis": [
+        "Codex review record for doc 3725 d0 (e5/e8/e30/e71)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:3726:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:3726",
+          "content_sha256": "f2ec2e45a80e4b4d3ad7eec1d323a4126901d02cb147bd87d2ff754810f371b5",
+          "section": "alarmSound enabled get",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e8", "e31"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "GET",
+        "path": "/api/v3/device/alarmSound/enabled/get",
+        "auth": "accessToken in header",
+        "permissions": "hosted/sub-account supported; Get permission",
+        "request": "header token + deviceSerial",
+        "body_type": "n/a",
+        "response": "meta.code integer 200; returns alarmSoundMode, not a plain boolean",
+        "effect": "read-only alarm-sound mode query",
+        "hardware_constraints": "device must support alarm sound"
+      },
+      "source_uncertainties": [
+        "returns alarmSoundMode, not a pure bool — preserve the mode field verbatim"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No v3 overseas settings facade for this feature."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "settings or dedicated v3 settings module",
+        "entry": "settings.get_alarm_sound (proposed)",
+        "status": "proposal",
+        "notes": "Read-only; returns mode, not boolean."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: GET {areaDomain}/api/v3/device/alarmSound/enabled/get with header token+deviceSerial",
+          "parameter: none beyond headers",
+          "response: meta.code integer 200; alarmSoundMode preserved verbatim",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: settings.get_alarm_sound registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: device supporting alarm sound",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["device supporting alarm sound"],
+      "decision_basis": [
+        "Codex review record for doc 3726 d0 (e5/e8/e31)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:3727:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:3727",
+          "content_sha256": "748ee92cab93ce0f7627d9e6d8b4a5f2e38c9882d05ff85f951c08fd4c8bb9a0",
+          "section": "alarmSound enabled set",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e8", "e30"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/v3/device/alarmSound/enabled/set",
+        "auth": "accessToken in header",
+        "permissions": "hosted/sub-account supported; Config permission",
+        "request": "header token + deviceSerial; query type=0/1/2 (short/long/mute)",
+        "body_type": "n/a (query parameters)",
+        "response": "meta.code integer 200",
+        "effect": "writes alarm-sound mode configuration",
+        "hardware_constraints": "device must support alarm sound"
+      },
+      "source_uncertainties": [],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No v3 overseas settings facade for this feature."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "settings or dedicated v3 settings module",
+        "entry": "settings.set_alarm_sound (proposed)",
+        "status": "proposal",
+        "notes": "Write; type restricted to 0/1/2."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/v3/device/alarmSound/enabled/set with header token+deviceSerial and query type",
+          "parameter: type Int restricted to 0/1/2",
+          "response: meta.code integer 200",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: settings.set_alarm_sound registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: device supporting alarm sound + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["device supporting alarm sound", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 3727 d0 (e5/e8/e30)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:3728:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:3728",
+          "content_sha256": "fdc18ec8ee9d85d33473f21603b4fda8c0308d9bb10dbf888e2ec3c2ef5d1ecd",
+          "section": "motion detect get",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e8", "e37"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "open.ys7.com (declared origin is the domestic host — anomalous for an overseas doc; preserve, do not auto-route)",
+        "method": "GET",
+        "path": "/api/v3/device/motion/detect/get",
+        "auth": "accessToken in header",
+        "permissions": "hosted/sub-account supported; Get permission",
+        "request": "header token + deviceSerial + channelNo",
+        "body_type": "n/a",
+        "response": "meta.code integer 200",
+        "effect": "read-only motion-detection area config",
+        "hardware_constraints": "device must support motion detection"
+      },
+      "source_uncertainties": [
+        "declared origin is open.ys7.com per e5 for an overseas document — keep the anomaly; do not silently rewrite to {areaDomain} and do not treat the domestic host as an official fact for routing"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No v3 overseas settings facade for this feature."
+      },
+      "disposition": "needs_review",
+      "sdk_design_proposal": {
+        "facade": "settings or dedicated v3 settings module",
+        "entry": "settings.get_motion_detect (proposed)",
+        "status": "proposal",
+        "notes": "Read-only; routing scheme is NOT adjudicated — the declared open.ys7.com origin is an anomaly that needs cross-source verification; do not auto-route to the domestic host and do not pre-assume configured areaDomain is correct either."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: GET /api/v3/device/motion/detect/get with header token+deviceSerial+channelNo; origin to be confirmed by cross-source verification — declared open.ys7.com is an anomaly, not an official routing fact",
+          "parameter: channelNo required",
+          "response: meta.code integer 200",
+          "retry: read_only — on platform 10002 invalid-token under a refreshable token provider the existing client refreshes once and replays the identical read once (client.py policy); no blanket retry on all auth/transport errors",
+          "diagnostics sync+async: settings.get_motion_detect registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: device supporting motion detection + origin anomaly resolution",
+          "read authorization: awaiting_resource_confirmation",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["device supporting motion detection", "origin anomaly resolution (open.ys7.com declared per e5, needs cross-source verification)"],
+      "decision_basis": [
+        "Codex review record for doc 3728 d0 (e5/e8/e37)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:3729:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:3729",
+          "content_sha256": "dd9efadcceec76eecbaae3f01ab56f72d3c6107d79bd1c06f0f41283a7878535",
+          "section": "motion detect set",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e8", "e36"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/v3/device/motion/detect/set",
+        "auth": "accessToken in header",
+        "permissions": "hosted/sub-account supported; Config permission",
+        "request": "header token + deviceSerial + channelNo; query area string",
+        "body_type": "n/a (query parameters)",
+        "response": "meta.code integer 200",
+        "effect": "writes the motion-detection area; full grid/bitmap encoding is undefined",
+        "hardware_constraints": "device must support motion detection"
+      },
+      "source_uncertainties": [
+        "complete grid/bitmap encoding for the area string is not defined — do not merge with PIR-area format"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No v3 overseas settings facade for this feature; not the same format as global.settings.set_pir_area."
+      },
+      "disposition": "needs_review",
+      "sdk_design_proposal": {
+        "facade": "settings or dedicated v3 settings module",
+        "entry": "settings.set_motion_detect (proposed)",
+        "status": "proposal",
+        "notes": "Write; area string forwarded verbatim until encoding is resolved."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/v3/device/motion/detect/set with header token+deviceSerial+channelNo and query area",
+          "parameter: channelNo required in header; area String forwarded verbatim; no grid/bitmap conversion invented",
+          "response: meta.code integer 200",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: settings.set_motion_detect registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: device supporting motion detection + write authorization",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["device supporting motion detection", "write authorization", "area encoding resolution"],
+      "decision_basis": [
+        "Codex review record for doc 3729 d0 (e5/e8/e36)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:3730:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:3730",
+          "content_sha256": "84203aedfcca87134b5df1ac6ecfd5d086717370a2c619ca456a747d4ad74d8b",
+          "section": "audition",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e8", "e30"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/v3/device/audition",
+        "auth": "accessToken in header",
+        "permissions": "hosted/sub-account supported; Config permission",
+        "request": "header token + deviceSerial; query voiceIndex required, volume optional",
+        "body_type": "n/a (query parameters)",
+        "response": "meta.code integer 200",
+        "effect": "plays a real audible tone on the device — a physical side effect, not a chime-type setting",
+        "hardware_constraints": "device must have a speaker/sound capability"
+      },
+      "source_uncertainties": [],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No v3 overseas settings facade for this feature."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "settings or dedicated v3 settings module",
+        "entry": "settings.play_audition (proposed)",
+        "status": "proposal",
+        "notes": "Physical action; never auto-replayed."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST {areaDomain}/api/v3/device/audition with header token+deviceSerial and query voiceIndex/volume",
+          "parameter: voiceIndex required; volume optional",
+          "response: meta.code integer 200",
+          "retry: physical action; never auto-replayed",
+          "diagnostics sync+async: settings.play_audition registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: device with speaker + write authorization",
+          "read authorization: n/a",
+          "write authorization: not_authorized — real audible output",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["device with speaker", "write authorization"],
+      "decision_basis": [
+        "Codex review record for doc 3730 d0 (e5/e8/e30)"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:534:1.2",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:534",
+          "content_sha256": "94f2eedda4e0e15f2f20d1d255a3e45699ebc51341851f07259d4b14ff6302dd",
+          "section": "1.2",
+          "declaration": "d1",
+          "element_pointers": ["e152", "e155", "e189"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/live/address/disable",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "accessToken + deviceSerial + channelNo optional + urlId optional",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "invalidates a playback address — write, not read",
+        "hardware_constraints": "none stated"
+      },
+      "source_uncertainties": [
+        "urlId optional but the effect of omission is unspecified (existing source issue global.playback.invalidation_scope)",
+        "e152 URL element carries a leading single-sided backtick — a parser artifact (address_backtick); e155/e189 confirm the real path"
+      ],
+      "existing_support": {
+        "status": "implemented_existing_contract",
+        "contract": "global.playback.invalidate",
+        "binding": "playback.py Playback.invalidate / AsyncPlayback.invalidate",
+        "detail": "Existing contract preserved; the e152 leading single-sided backtick is a registered parser exception on the already-primary source, not a duplicate second source and not a source-method gap. Existing source issue global.playback.invalidation_scope is retained."
+      },
+      "disposition": "source_alignment",
+      "sdk_design_proposal": {
+        "facade": "existing playback",
+        "entry": "playback.invalidate",
+        "status": "proposal",
+        "notes": "No new operation; register the parser exception and preserve the existing contract."
+      },
+      "implementation_status": "implemented",
+      "offline_status": "passed",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: existing wire eval for global.playback.invalidate covers method/path/encoding",
+          "parameter: deviceSerial required; channelNo/urlId optional; url_id explicit argument with None allowed only overseas",
+          "response: top-level string code '200'",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: existing playback.invalidate diagnostic scope already registered"
+        ],
+        "live": [
+          "real resources required: overseas account + a live playback address",
+          "read authorization: n/a",
+          "write authorization: not_authorized — invalidation is a write",
+          "blocked_no_bound_device: yes (needs a real playback URL)"
+        ]
+      },
+      "blocking_resources": ["a live playback address"],
+      "decision_basis": [
+        "Codex review record for doc 534 §1.2 (e152/e155/e189); contracts/source-issues.json global.playback.invalidation_scope"
+      ]
+    },
+    {
+      "capability_id": "candidate:overseas:2868:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:overseas:2868",
+          "content_sha256": "1dfff933af774a00e1a567610b9d1cfbb6648b5abbcf7bccc156f6d9c9ce7d12",
+          "section": "password update",
+          "declaration": "d0",
+          "element_pointers": ["e7", "e10", "e49"]
+        }
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "overseas",
+        "origin": "{areaDomain}",
+        "method": "POST",
+        "path": "/api/lapp/device/password/update",
+        "auth": "accessToken in form",
+        "permissions": "unknown",
+        "request": "accessToken + deviceSerial + oldPassword + newPassword",
+        "body_type": "application/x-www-form-urlencoded",
+        "response": "top-level string code '200'",
+        "effect": "updates the device password — a credential change",
+        "hardware_constraints": "physical device required"
+      },
+      "source_uncertainties": [
+        "e7 URL element carries a trailing single-sided backtick — a parser artifact; e10/e49 confirm the real path",
+        "example Host is domestic while declaration says {areaDomain} — route through configured areaDomain, not the example host"
+      ],
+      "existing_support": {
+        "status": "implemented_existing_contract",
+        "contract": "global.security.update_password",
+        "binding": "security.py Security.update_password / AsyncSecurity.update_password",
+        "detail": "Existing contract preserved; the e7 trailing single-sided backtick and the domestic example host are registered parser/example anomalies on the already-primary source, not a duplicate second source and not source-method gaps. Existing source issues global.security.password_example_origin and related are retained."
+      },
+      "disposition": "source_alignment",
+      "sdk_design_proposal": {
+        "facade": "existing security",
+        "entry": "security.update_password",
+        "status": "proposal",
+        "notes": "No new operation; preserve the existing contract and the open source issue about the example origin."
+      },
+      "implementation_status": "implemented",
+      "offline_status": "passed",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: existing wire eval for global.security.update_password covers method/path/encoding",
+          "parameter: oldPassword/newPassword required; new password ≤12 chars per source",
+          "response: top-level string code '200'",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: existing security.update_password diagnostic scope already registered"
+        ],
+        "live": [
+          "real resources required: a physical device + write authorization + recovery plan",
+          "read authorization: pre-state read",
+          "write authorization: not_authorized — credential change",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": ["a physical device", "write authorization", "credential-recovery plan"],
+      "decision_basis": [
+        "Codex review record for doc 2868 d0 (e7/e10/e49); contracts/source-issues.json global.security.password_example_origin"
+      ]
+    }
+  ],
+  "summary": {
+    "candidate_count": 49,
+    "by_disposition": {
+      "implement": 40,
+      "duplicate": 2,
+      "source_alignment": 2,
+      "needs_review": 5,
+      "reuse_official_component": 0
+    },
+    "by_nature": {
+      "server_api": 46,
+      "authorization_flow": 2,
+      "message_protocol": 1,
+      "other": 0
+    },
+    "sources_in_scope": 16,
+    "notes": [
+      "Counts cover only this batch of 16 pinned sources; they are not overseas totals and no coverage percentage is computed. These are review-record statistics, not API totals.",
+      "Two entries are duplicate additional sources of existing reviewed contracts (global.token.get via 469 §1.2, global.devices.bind via 469 §1.10) and do not add new API count.",
+      "Two entries are source_alignment registrations on already-primary sources (534 §1.2 global.playback.invalidate e152 leading backtick; 2868 d0 global.security.update_password e7 trailing backtick + domestic example host) — parser/example exceptions on a single registered primary source, not duplicate second sources.",
+      "The 1000007 lock scenarios share OTAP action/prop routes but are kept as separate capabilities per business scenario; cn.otap.* contracts are domestic-only and are not counted as overseas support.",
+      "Write/permission/binding/paid/door-open/audible operations are not_authorized; no execution was performed this round.",
+      "Overseas account has user_confirmed_no_bound_device; hardware-dependent rows are marked blocked_no_bound_device while public/account-level rows are not."
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "baseline": "81b86b4",
+  "scope": "source foundation",
+  "records": [
+    {
+      "task": "SP003",
+      "first_candidate": "not accepted: out-of-manifest shell attempts and substantive projection issues",
+      "route_recheck": "Separated no-Bash file writers from single-command max-turn executors; centralized public URL projection and indexed declaration/example relations",
+      "final": "real source ledger accepted;37 targeted tests passed; all input records retained",
+      "preserved_assertions": "Malformed/duplicate/oversized inputs and privacy assertions retained; independent tmp_path parameterization corrects fixture lifecycle; no failing cases removed."
+    },
+    {
+      "task": "SP005",
+      "first_candidate": "not accepted: output/normalization boundary issues",
+      "route_recheck": "Validate raw bytes once, preserve them; check lexical output before resolve; canonical relative paths; exact traversal_finished true",
+      "final": "22 tests+24 subtests and both real derive/verify passed"
+    },
+    {
+      "task": "SP001F2",
+      "execution": "One authorized collection call auto-backgrounded by Claude Bash after600s; no second copy started",
+      "final": "Original task log ended exit0;1477 records,1460 response files and3 referenced archives independently checked"
+    },
+    {
+      "task": "SP014",
+      "state": "needs final critical review",
+      "note": "Source and SDK proposal facts remain separate; no contract or SDK code changed."
+    },
+    {
+      "task": "SP003 publication profile",
+      "schema1": "private not-for-sharing after actual literal-path audit; no upload",
+      "route_recheck": "Single explicit per-kind schema2 publisher; ordinal nonportal IDs; only reviewed registry path; no raw locator export",
+      "schema2": "44 targeted tests; true corpus4051/3019/203 retained,201 source joins; independent literal/query/ID checks passed",
+      "full_suite": "4499passed35subtests afterschema2"
+    }
+  ],
+  "raw_model_thoughts_saved": false,
+  "credential_values_saved": false,
+  "model_usage_note": "Command receipts retain reported usage/CLI estimate in ignored coordination files. Some early native receipts did not retain usage; no estimate is fabricated or treated as a bill."
+}
