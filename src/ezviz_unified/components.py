@@ -39,6 +39,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, NamedTuple
 
 from ._request_values import JSON_NULL
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -484,22 +485,23 @@ class Components:
         integer for doc 868. Non-callable and unknown ids raise a fixed
         ``ValueError`` before authentication.
         """
-        entry = _lookup(operation_id)
-        if entry.operation is None:
-            raise ValueError("component operation is documented but not callable")
-        body, headers = _render_body(entry, payload)
-        if body is None:
+        with _diagnostic_scope(self._client, entrypoint="components.call", mode="sync"):
+            entry = _lookup(operation_id)
+            if entry.operation is None:
+                raise ValueError("component operation is documented but not callable")
+            body, headers = _render_body(entry, payload)
+            if body is None:
+                return self._client.request(
+                    entry.operation,
+                    path_params={"deviceSerial": device_serial},
+                    headers=headers,
+                )
             return self._client.request(
                 entry.operation,
                 path_params={"deviceSerial": device_serial},
+                json=body,
                 headers=headers,
             )
-        return self._client.request(
-            entry.operation,
-            path_params={"deviceSerial": device_serial},
-            json=body,
-            headers=headers,
-        )
 
 
 class AsyncComponents:
@@ -526,19 +528,20 @@ class AsyncComponents:
         payload: object = _UNSET,
     ) -> ApiResponse:
         """Async variant of :meth:`Components.call`."""
-        entry = _lookup(operation_id)
-        if entry.operation is None:
-            raise ValueError("component operation is documented but not callable")
-        body, headers = _render_body(entry, payload)
-        if body is None:
+        with _diagnostic_scope(self._client, entrypoint="components.call", mode="async"):
+            entry = _lookup(operation_id)
+            if entry.operation is None:
+                raise ValueError("component operation is documented but not callable")
+            body, headers = _render_body(entry, payload)
+            if body is None:
+                return await self._client.request(
+                    entry.operation,
+                    path_params={"deviceSerial": device_serial},
+                    headers=headers,
+                )
             return await self._client.request(
                 entry.operation,
                 path_params={"deviceSerial": device_serial},
+                json=body,
                 headers=headers,
             )
-        return await self._client.request(
-            entry.operation,
-            path_params={"deviceSerial": device_serial},
-            json=body,
-            headers=headers,
-        )

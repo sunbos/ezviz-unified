@@ -1,0 +1,9 @@
+{
+  "status": "accepted",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "tools": [],
+  "tool_calls": 0,
+  "input_code_commit": "99613eaf26203329600316daf2424f42cd34ac0e",
+  "acceptance": "Codex verified real receipt and source hashes; independent read-only review accepted A11; no new runtime changes"
+}

@@ -1,0 +1,9 @@
+{
+  "status": "running",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "write_files": [
+    "tests/test_sdk_diagnostic_hardening.py"
+  ],
+  "input_sha256": "6f2abfd68e03b416af5e35d4eea506bed73d47587d5f4500ab2d0413af89992e"
+}

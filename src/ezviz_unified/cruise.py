@@ -8,6 +8,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -152,17 +153,19 @@ class Cruise:
             raise ValueError("cruise operations are only available for the domestic region")
 
     def get_enabled(self, device_serial: str, *, channel: str | int = 1) -> ApiResponse:
-        self._require_domestic()
-        headers = {
-            "deviceSerial": _check_device_serial(device_serial),
-            "localIndex": _check_channel(channel),
-        }
-        return self._client.request(_OP_GET_ENABLED, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="ptz.cruise.get_enabled", mode="sync"):
+            self._require_domestic()
+            headers = {
+                "deviceSerial": _check_device_serial(device_serial),
+                "localIndex": _check_channel(channel),
+            }
+            return self._client.request(_OP_GET_ENABLED, headers=headers)
 
     def get_schedule(self, device_serial: str) -> ApiResponse:
-        self._require_domestic()
-        headers = {"deviceSerial": _check_device_serial(device_serial)}
-        return self._client.request(_OP_GET_SCHEDULE, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="ptz.cruise.get_schedule", mode="sync"):
+            self._require_domestic()
+            headers = {"deviceSerial": _check_device_serial(device_serial)}
+            return self._client.request(_OP_GET_SCHEDULE, headers=headers)
 
     def set_schedule(
         self,
@@ -171,13 +174,14 @@ class Cruise:
         enabled: bool,
         periods: Sequence[CruisePeriod],
     ) -> ApiResponse:
-        self._require_domestic()
-        headers = {"deviceSerial": _check_device_serial(device_serial)}
-        return self._client.request(
-            _OP_SET_SCHEDULE,
-            headers=headers,
-            data=_schedule_form(enabled, periods),
-        )
+        with _diagnostic_scope(self._client, entrypoint="ptz.cruise.set_schedule", mode="sync"):
+            self._require_domestic()
+            headers = {"deviceSerial": _check_device_serial(device_serial)}
+            return self._client.request(
+                _OP_SET_SCHEDULE,
+                headers=headers,
+                data=_schedule_form(enabled, periods),
+            )
 
 
 class AsyncCruise:
@@ -193,17 +197,19 @@ class AsyncCruise:
             raise ValueError("cruise operations are only available for the domestic region")
 
     async def get_enabled(self, device_serial: str, *, channel: str | int = 1) -> ApiResponse:
-        self._require_domestic()
-        headers = {
-            "deviceSerial": _check_device_serial(device_serial),
-            "localIndex": _check_channel(channel),
-        }
-        return await self._client.request(_OP_GET_ENABLED, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="ptz.cruise.get_enabled", mode="async"):
+            self._require_domestic()
+            headers = {
+                "deviceSerial": _check_device_serial(device_serial),
+                "localIndex": _check_channel(channel),
+            }
+            return await self._client.request(_OP_GET_ENABLED, headers=headers)
 
     async def get_schedule(self, device_serial: str) -> ApiResponse:
-        self._require_domestic()
-        headers = {"deviceSerial": _check_device_serial(device_serial)}
-        return await self._client.request(_OP_GET_SCHEDULE, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="ptz.cruise.get_schedule", mode="async"):
+            self._require_domestic()
+            headers = {"deviceSerial": _check_device_serial(device_serial)}
+            return await self._client.request(_OP_GET_SCHEDULE, headers=headers)
 
     async def set_schedule(
         self,
@@ -212,10 +218,11 @@ class AsyncCruise:
         enabled: bool,
         periods: Sequence[CruisePeriod],
     ) -> ApiResponse:
-        self._require_domestic()
-        headers = {"deviceSerial": _check_device_serial(device_serial)}
-        return await self._client.request(
-            _OP_SET_SCHEDULE,
-            headers=headers,
-            data=_schedule_form(enabled, periods),
-        )
+        with _diagnostic_scope(self._client, entrypoint="ptz.cruise.set_schedule", mode="async"):
+            self._require_domestic()
+            headers = {"deviceSerial": _check_device_serial(device_serial)}
+            return await self._client.request(
+                _OP_SET_SCHEDULE,
+                headers=headers,
+                data=_schedule_form(enabled, periods),
+            )

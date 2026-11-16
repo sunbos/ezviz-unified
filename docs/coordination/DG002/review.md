@@ -1,0 +1,7 @@
+# 首轮关键审查：需要修订
+
+DG002机械转换保留签名、继承方法边界和原有业务顺序，但attempt scope包围原有AuthenticationError handler。令牌失效被handler接住并决定重试后，scope退出无异常，会错误记录第一次attempt succeeded。因此候选暂不应用。
+
+修订路线：单独transport_setup scope围住原factory/origin/注入语句，仍在try外；把attempt scope放到原try.body中，只围transport.request。原handler留在外层，既使首次attempt收到异常并记failed，也保持factory异常不会被原transport-only重试handler处理。匿名分支同样区分setup和attempt。新kind transport_setup已进入设计枚举；core候选需同步允许。
+
+不可通过删除首次失败断言、只记录最终结果或吞AuthenticationError规避。重试事件继续在既有retried=True之后产生。

@@ -44,6 +44,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, NamedTuple
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -226,16 +227,22 @@ class Delegation:
         the client's own credentials. ``data.sign``/``data.appKey`` pass
         through verbatim.
         """
-        plan = _apply_code_plan(owner_app_key, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="delegation.apply_code", mode="sync"):
+            plan = _apply_code_plan(owner_app_key, self._client.region.scope)
+            return _send(self._client, plan)
 
     def authorize_account(self, authorization_code: str) -> ApiResponse:
         """Grant account-level delegation (B1 caller, doc 1891).
 
         ``data`` is a Boolean returned untouched — ``false`` is kept.
         """
-        plan = _authorize_account_plan(authorization_code, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="delegation.authorize_account",
+            mode="sync",
+        ):
+            plan = _authorize_account_plan(authorization_code, self._client.region.scope)
+            return _send(self._client, plan)
 
     def list_resources(
         self,
@@ -258,15 +265,16 @@ class Delegation:
         verbatim; callers drive pagination. This is the only read-only
         member and the only one eligible for the token-refresh retry.
         """
-        plan = _list_resources_plan(
-            authorization_code,
-            device_serial,
-            authorization_type,
-            page_start,
-            page_size,
-            self._client.region.scope,
-        )
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="delegation.list_resources", mode="sync"):
+            plan = _list_resources_plan(
+                authorization_code,
+                device_serial,
+                authorization_type,
+                page_start,
+                page_size,
+                self._client.region.scope,
+            )
+            return _send(self._client, plan)
 
     def authorize_device(
         self,
@@ -281,14 +289,19 @@ class Delegation:
         ``device_serial``/``local_index`` travel in headers; ``state`` is
         an opaque optional string sent only when the caller provides it.
         """
-        plan = _authorize_device_plan(
-            authorization_code,
-            device_serial,
-            state,
-            local_index,
-            self._client.region.scope,
-        )
-        return _send(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="delegation.authorize_device",
+            mode="sync",
+        ):
+            plan = _authorize_device_plan(
+                authorization_code,
+                device_serial,
+                state,
+                local_index,
+                self._client.region.scope,
+            )
+            return _send(self._client, plan)
 
     def relieve_device(
         self,
@@ -304,14 +317,15 @@ class Delegation:
         ``recipient_app_key`` plus a required ``state`` — ``sign`` is
         never sent here.
         """
-        plan = _relieve_device_plan(
-            recipient_app_key,
-            device_serial,
-            state,
-            local_index,
-            self._client.region.scope,
-        )
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="delegation.relieve_device", mode="sync"):
+            plan = _relieve_device_plan(
+                recipient_app_key,
+                device_serial,
+                state,
+                local_index,
+                self._client.region.scope,
+            )
+            return _send(self._client, plan)
 
 
 class AsyncDelegation:
@@ -323,12 +337,18 @@ class AsyncDelegation:
         self._client = client
 
     async def apply_code(self, owner_app_key: str) -> ApiResponse:
-        plan = _apply_code_plan(owner_app_key, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="delegation.apply_code", mode="async"):
+            plan = _apply_code_plan(owner_app_key, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def authorize_account(self, authorization_code: str) -> ApiResponse:
-        plan = _authorize_account_plan(authorization_code, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="delegation.authorize_account",
+            mode="async",
+        ):
+            plan = _authorize_account_plan(authorization_code, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def list_resources(
         self,
@@ -339,15 +359,16 @@ class AsyncDelegation:
         page_start: int | None = None,
         page_size: int | None = None,
     ) -> ApiResponse:
-        plan = _list_resources_plan(
-            authorization_code,
-            device_serial,
-            authorization_type,
-            page_start,
-            page_size,
-            self._client.region.scope,
-        )
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="delegation.list_resources", mode="async"):
+            plan = _list_resources_plan(
+                authorization_code,
+                device_serial,
+                authorization_type,
+                page_start,
+                page_size,
+                self._client.region.scope,
+            )
+            return await _asend(self._client, plan)
 
     async def authorize_device(
         self,
@@ -357,14 +378,19 @@ class AsyncDelegation:
         state: str | None = None,
         local_index: str | None = None,
     ) -> ApiResponse:
-        plan = _authorize_device_plan(
-            authorization_code,
-            device_serial,
-            state,
-            local_index,
-            self._client.region.scope,
-        )
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="delegation.authorize_device",
+            mode="async",
+        ):
+            plan = _authorize_device_plan(
+                authorization_code,
+                device_serial,
+                state,
+                local_index,
+                self._client.region.scope,
+            )
+            return await _asend(self._client, plan)
 
     async def relieve_device(
         self,
@@ -374,11 +400,12 @@ class AsyncDelegation:
         *,
         local_index: str | None = None,
     ) -> ApiResponse:
-        plan = _relieve_device_plan(
-            recipient_app_key,
-            device_serial,
-            state,
-            local_index,
-            self._client.region.scope,
-        )
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="delegation.relieve_device", mode="async"):
+            plan = _relieve_device_plan(
+                recipient_app_key,
+                device_serial,
+                state,
+                local_index,
+                self._client.region.scope,
+            )
+            return await _asend(self._client, plan)

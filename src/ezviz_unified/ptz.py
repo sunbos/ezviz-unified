@@ -10,6 +10,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from .cruise import AsyncCruise, Cruise
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -191,17 +192,18 @@ class Ptz:
         channel: int = 1,
         speed: int = 1,
     ) -> ApiResponse:
-        domestic = self._domestic()
-        serial = _check_serial(device_serial, uppercase=domestic)
-        data = _lapp_data(
-            serial,
-            _check_channel_int(channel),
-            {
-                "direction": _check_direction(direction, domestic=domestic),
-                "speed": _check_speed(speed),
-            },
-        )
-        return self._client.request(_OP_START, data=data)
+        with _diagnostic_scope(self._client, entrypoint="ptz.start", mode="sync"):
+            domestic = self._domestic()
+            serial = _check_serial(device_serial, uppercase=domestic)
+            data = _lapp_data(
+                serial,
+                _check_channel_int(channel),
+                {
+                    "direction": _check_direction(direction, domestic=domestic),
+                    "speed": _check_speed(speed),
+                },
+            )
+            return self._client.request(_OP_START, data=data)
 
     def stop(
         self,
@@ -210,18 +212,19 @@ class Ptz:
         channel: int = 1,
         direction: int | None = None,
     ) -> ApiResponse:
-        domestic = self._domestic()
-        if not domestic and direction is None:
-            # The overseas parameter table marks direction as required while
-            # its example omits it; the conflict is recorded by Codex and the
-            # SDK follows the table.
-            raise ValueError("direction is required for the overseas region")
-        serial = _check_serial(device_serial, uppercase=domestic)
-        extra: dict[str, int] = {}
-        if direction is not None:
-            extra["direction"] = _check_direction(direction, domestic=domestic)
-        data = _lapp_data(serial, _check_channel_int(channel), extra)
-        return self._client.request(_OP_STOP, data=data)
+        with _diagnostic_scope(self._client, entrypoint="ptz.stop", mode="sync"):
+            domestic = self._domestic()
+            if not domestic and direction is None:
+                # The overseas parameter table marks direction as required while
+                # its example omits it; the conflict is recorded by Codex and the
+                # SDK follows the table.
+                raise ValueError("direction is required for the overseas region")
+            serial = _check_serial(device_serial, uppercase=domestic)
+            extra: dict[str, int] = {}
+            if direction is not None:
+                extra["direction"] = _check_direction(direction, domestic=domestic)
+            data = _lapp_data(serial, _check_channel_int(channel), extra)
+            return self._client.request(_OP_STOP, data=data)
 
     def mirror(
         self,
@@ -230,18 +233,20 @@ class Ptz:
         *,
         channel: int = 1,
     ) -> ApiResponse:
-        serial = _check_serial(device_serial, uppercase=self._domestic())
-        data = _lapp_data(
-            serial,
-            _check_channel_int(channel),
-            {"command": _check_mirror_command(command)},
-        )
-        return self._client.request(_OP_MIRROR, data=data)
+        with _diagnostic_scope(self._client, entrypoint="ptz.mirror", mode="sync"):
+            serial = _check_serial(device_serial, uppercase=self._domestic())
+            data = _lapp_data(
+                serial,
+                _check_channel_int(channel),
+                {"command": _check_mirror_command(command)},
+            )
+            return self._client.request(_OP_MIRROR, data=data)
 
     def add_preset(self, device_serial: str, *, channel: int = 1) -> ApiResponse:
-        serial = _check_serial(device_serial, uppercase=self._domestic())
-        data = _lapp_data(serial, _check_channel_int(channel), {})
-        return self._client.request(_OP_ADD_PRESET, data=data)
+        with _diagnostic_scope(self._client, entrypoint="ptz.add_preset", mode="sync"):
+            serial = _check_serial(device_serial, uppercase=self._domestic())
+            data = _lapp_data(serial, _check_channel_int(channel), {})
+            return self._client.request(_OP_ADD_PRESET, data=data)
 
     def move_preset(
         self,
@@ -250,13 +255,14 @@ class Ptz:
         *,
         channel: int = 1,
     ) -> ApiResponse:
-        serial = _check_serial(device_serial, uppercase=self._domestic())
-        data = _lapp_data(
-            serial,
-            _check_channel_int(channel),
-            {"index": _check_index(index)},
-        )
-        return self._client.request(_OP_MOVE_PRESET, data=data)
+        with _diagnostic_scope(self._client, entrypoint="ptz.move_preset", mode="sync"):
+            serial = _check_serial(device_serial, uppercase=self._domestic())
+            data = _lapp_data(
+                serial,
+                _check_channel_int(channel),
+                {"index": _check_index(index)},
+            )
+            return self._client.request(_OP_MOVE_PRESET, data=data)
 
     def clear_preset(
         self,
@@ -265,31 +271,35 @@ class Ptz:
         *,
         channel: int = 1,
     ) -> ApiResponse:
-        serial = _check_serial(device_serial, uppercase=self._domestic())
-        data = _lapp_data(
-            serial,
-            _check_channel_int(channel),
-            {"index": _check_index(index)},
-        )
-        return self._client.request(_OP_CLEAR_PRESET, data=data)
+        with _diagnostic_scope(self._client, entrypoint="ptz.clear_preset", mode="sync"):
+            serial = _check_serial(device_serial, uppercase=self._domestic())
+            data = _lapp_data(
+                serial,
+                _check_channel_int(channel),
+                {"index": _check_index(index)},
+            )
+            return self._client.request(_OP_CLEAR_PRESET, data=data)
 
     def presets(self, device_serial: str, *, channel: int | str = 1) -> ApiResponse:
-        self._require_domestic()
-        serial = _check_serial(device_serial, uppercase=False)
-        params = {"deviceSerial": serial, "localIndex": _check_channel_str(channel)}
-        return self._client.request(_OP_PRESETS, params=params)
+        with _diagnostic_scope(self._client, entrypoint="ptz.presets", mode="sync"):
+            self._require_domestic()
+            serial = _check_serial(device_serial, uppercase=False)
+            params = {"deviceSerial": serial, "localIndex": _check_channel_str(channel)}
+            return self._client.request(_OP_PRESETS, params=params)
 
     def calibrate(self, device_serial: str, *, channel: int | str = 1) -> ApiResponse:
-        self._require_domestic()
-        serial = _check_serial(device_serial, uppercase=False)
-        headers = {"deviceSerial": serial, "localIndex": _check_channel_str(channel)}
-        return self._client.request(_OP_CALIBRATE, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="ptz.calibrate", mode="sync"):
+            self._require_domestic()
+            serial = _check_serial(device_serial, uppercase=False)
+            headers = {"deviceSerial": serial, "localIndex": _check_channel_str(channel)}
+            return self._client.request(_OP_CALIBRATE, headers=headers)
 
     def reset(self, device_serial: str) -> ApiResponse:
-        self._require_domestic()
-        serial = _check_serial(device_serial, uppercase=False)
-        headers = {"deviceSerial": serial}
-        return self._client.request(_OP_RESET, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="ptz.reset", mode="sync"):
+            self._require_domestic()
+            serial = _check_serial(device_serial, uppercase=False)
+            headers = {"deviceSerial": serial}
+            return self._client.request(_OP_RESET, headers=headers)
 
 
 class AsyncPtz:
@@ -320,17 +330,18 @@ class AsyncPtz:
         channel: int = 1,
         speed: int = 1,
     ) -> ApiResponse:
-        domestic = self._domestic()
-        serial = _check_serial(device_serial, uppercase=domestic)
-        data = _lapp_data(
-            serial,
-            _check_channel_int(channel),
-            {
-                "direction": _check_direction(direction, domestic=domestic),
-                "speed": _check_speed(speed),
-            },
-        )
-        return await self._client.request(_OP_START, data=data)
+        with _diagnostic_scope(self._client, entrypoint="ptz.start", mode="async"):
+            domestic = self._domestic()
+            serial = _check_serial(device_serial, uppercase=domestic)
+            data = _lapp_data(
+                serial,
+                _check_channel_int(channel),
+                {
+                    "direction": _check_direction(direction, domestic=domestic),
+                    "speed": _check_speed(speed),
+                },
+            )
+            return await self._client.request(_OP_START, data=data)
 
     async def stop(
         self,
@@ -339,18 +350,19 @@ class AsyncPtz:
         channel: int = 1,
         direction: int | None = None,
     ) -> ApiResponse:
-        domestic = self._domestic()
-        if not domestic and direction is None:
-            # The overseas parameter table marks direction as required while
-            # its example omits it; the conflict is recorded by Codex and the
-            # SDK follows the table.
-            raise ValueError("direction is required for the overseas region")
-        serial = _check_serial(device_serial, uppercase=domestic)
-        extra: dict[str, int] = {}
-        if direction is not None:
-            extra["direction"] = _check_direction(direction, domestic=domestic)
-        data = _lapp_data(serial, _check_channel_int(channel), extra)
-        return await self._client.request(_OP_STOP, data=data)
+        with _diagnostic_scope(self._client, entrypoint="ptz.stop", mode="async"):
+            domestic = self._domestic()
+            if not domestic and direction is None:
+                # The overseas parameter table marks direction as required while
+                # its example omits it; the conflict is recorded by Codex and the
+                # SDK follows the table.
+                raise ValueError("direction is required for the overseas region")
+            serial = _check_serial(device_serial, uppercase=domestic)
+            extra: dict[str, int] = {}
+            if direction is not None:
+                extra["direction"] = _check_direction(direction, domestic=domestic)
+            data = _lapp_data(serial, _check_channel_int(channel), extra)
+            return await self._client.request(_OP_STOP, data=data)
 
     async def mirror(
         self,
@@ -359,18 +371,20 @@ class AsyncPtz:
         *,
         channel: int = 1,
     ) -> ApiResponse:
-        serial = _check_serial(device_serial, uppercase=self._domestic())
-        data = _lapp_data(
-            serial,
-            _check_channel_int(channel),
-            {"command": _check_mirror_command(command)},
-        )
-        return await self._client.request(_OP_MIRROR, data=data)
+        with _diagnostic_scope(self._client, entrypoint="ptz.mirror", mode="async"):
+            serial = _check_serial(device_serial, uppercase=self._domestic())
+            data = _lapp_data(
+                serial,
+                _check_channel_int(channel),
+                {"command": _check_mirror_command(command)},
+            )
+            return await self._client.request(_OP_MIRROR, data=data)
 
     async def add_preset(self, device_serial: str, *, channel: int = 1) -> ApiResponse:
-        serial = _check_serial(device_serial, uppercase=self._domestic())
-        data = _lapp_data(serial, _check_channel_int(channel), {})
-        return await self._client.request(_OP_ADD_PRESET, data=data)
+        with _diagnostic_scope(self._client, entrypoint="ptz.add_preset", mode="async"):
+            serial = _check_serial(device_serial, uppercase=self._domestic())
+            data = _lapp_data(serial, _check_channel_int(channel), {})
+            return await self._client.request(_OP_ADD_PRESET, data=data)
 
     async def move_preset(
         self,
@@ -379,13 +393,14 @@ class AsyncPtz:
         *,
         channel: int = 1,
     ) -> ApiResponse:
-        serial = _check_serial(device_serial, uppercase=self._domestic())
-        data = _lapp_data(
-            serial,
-            _check_channel_int(channel),
-            {"index": _check_index(index)},
-        )
-        return await self._client.request(_OP_MOVE_PRESET, data=data)
+        with _diagnostic_scope(self._client, entrypoint="ptz.move_preset", mode="async"):
+            serial = _check_serial(device_serial, uppercase=self._domestic())
+            data = _lapp_data(
+                serial,
+                _check_channel_int(channel),
+                {"index": _check_index(index)},
+            )
+            return await self._client.request(_OP_MOVE_PRESET, data=data)
 
     async def clear_preset(
         self,
@@ -394,28 +409,32 @@ class AsyncPtz:
         *,
         channel: int = 1,
     ) -> ApiResponse:
-        serial = _check_serial(device_serial, uppercase=self._domestic())
-        data = _lapp_data(
-            serial,
-            _check_channel_int(channel),
-            {"index": _check_index(index)},
-        )
-        return await self._client.request(_OP_CLEAR_PRESET, data=data)
+        with _diagnostic_scope(self._client, entrypoint="ptz.clear_preset", mode="async"):
+            serial = _check_serial(device_serial, uppercase=self._domestic())
+            data = _lapp_data(
+                serial,
+                _check_channel_int(channel),
+                {"index": _check_index(index)},
+            )
+            return await self._client.request(_OP_CLEAR_PRESET, data=data)
 
     async def presets(self, device_serial: str, *, channel: int | str = 1) -> ApiResponse:
-        self._require_domestic()
-        serial = _check_serial(device_serial, uppercase=False)
-        params = {"deviceSerial": serial, "localIndex": _check_channel_str(channel)}
-        return await self._client.request(_OP_PRESETS, params=params)
+        with _diagnostic_scope(self._client, entrypoint="ptz.presets", mode="async"):
+            self._require_domestic()
+            serial = _check_serial(device_serial, uppercase=False)
+            params = {"deviceSerial": serial, "localIndex": _check_channel_str(channel)}
+            return await self._client.request(_OP_PRESETS, params=params)
 
     async def calibrate(self, device_serial: str, *, channel: int | str = 1) -> ApiResponse:
-        self._require_domestic()
-        serial = _check_serial(device_serial, uppercase=False)
-        headers = {"deviceSerial": serial, "localIndex": _check_channel_str(channel)}
-        return await self._client.request(_OP_CALIBRATE, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="ptz.calibrate", mode="async"):
+            self._require_domestic()
+            serial = _check_serial(device_serial, uppercase=False)
+            headers = {"deviceSerial": serial, "localIndex": _check_channel_str(channel)}
+            return await self._client.request(_OP_CALIBRATE, headers=headers)
 
     async def reset(self, device_serial: str) -> ApiResponse:
-        self._require_domestic()
-        serial = _check_serial(device_serial, uppercase=False)
-        headers = {"deviceSerial": serial}
-        return await self._client.request(_OP_RESET, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="ptz.reset", mode="async"):
+            self._require_domestic()
+            serial = _check_serial(device_serial, uppercase=False)
+            headers = {"deviceSerial": serial}
+            return await self._client.request(_OP_RESET, headers=headers)

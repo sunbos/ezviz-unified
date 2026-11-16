@@ -11,6 +11,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -113,22 +114,25 @@ class Ownership:
         client_ip: str | None = None,
     ) -> ApiResponse:
         """One "自动确权" call; returns the raw envelope including ``status``."""
-        _check_domestic(self._client.region.scope)
-        return self._client.request(
-            _OP_AUTO_VERIFY,
-            params=_serial_params(device_serial),
-            headers=_auto_verify_headers(ssid, client_ip),
-        )
+        with _diagnostic_scope(self._client, entrypoint="ownership.auto_verify", mode="sync"):
+            _check_domestic(self._client.region.scope)
+            return self._client.request(
+                _OP_AUTO_VERIFY,
+                params=_serial_params(device_serial),
+                headers=_auto_verify_headers(ssid, client_ip),
+            )
 
     def confirm_offline(self, device_serial: str) -> ApiResponse:
         """One "离线确认" call; the caller owns polling cadence and timeout."""
-        _check_domestic(self._client.region.scope)
-        return self._client.request(_OP_CONFIRM_OFFLINE, params=_serial_params(device_serial))
+        with _diagnostic_scope(self._client, entrypoint="ownership.confirm_offline", mode="sync"):
+            _check_domestic(self._client.region.scope)
+            return self._client.request(_OP_CONFIRM_OFFLINE, params=_serial_params(device_serial))
 
     def verify_online(self, device_serial: str) -> ApiResponse:
         """One "在线确权" call; no implicit retries or follow-up steps."""
-        _check_domestic(self._client.region.scope)
-        return self._client.request(_OP_VERIFY_ONLINE, params=_serial_params(device_serial))
+        with _diagnostic_scope(self._client, entrypoint="ownership.verify_online", mode="sync"):
+            _check_domestic(self._client.region.scope)
+            return self._client.request(_OP_VERIFY_ONLINE, params=_serial_params(device_serial))
 
 
 class AsyncOwnership:
@@ -147,19 +151,26 @@ class AsyncOwnership:
         client_ip: str | None = None,
     ) -> ApiResponse:
         """One "自动确权" call; returns the raw envelope including ``status``."""
-        _check_domestic(self._client.region.scope)
-        return await self._client.request(
-            _OP_AUTO_VERIFY,
-            params=_serial_params(device_serial),
-            headers=_auto_verify_headers(ssid, client_ip),
-        )
+        with _diagnostic_scope(self._client, entrypoint="ownership.auto_verify", mode="async"):
+            _check_domestic(self._client.region.scope)
+            return await self._client.request(
+                _OP_AUTO_VERIFY,
+                params=_serial_params(device_serial),
+                headers=_auto_verify_headers(ssid, client_ip),
+            )
 
     async def confirm_offline(self, device_serial: str) -> ApiResponse:
         """One "离线确认" call; the caller owns polling cadence and timeout."""
-        _check_domestic(self._client.region.scope)
-        return await self._client.request(_OP_CONFIRM_OFFLINE, params=_serial_params(device_serial))
+        with _diagnostic_scope(self._client, entrypoint="ownership.confirm_offline", mode="async"):
+            _check_domestic(self._client.region.scope)
+            return await self._client.request(
+                _OP_CONFIRM_OFFLINE, params=_serial_params(device_serial)
+            )
 
     async def verify_online(self, device_serial: str) -> ApiResponse:
         """One "在线确权" call; no implicit retries or follow-up steps."""
-        _check_domestic(self._client.region.scope)
-        return await self._client.request(_OP_VERIFY_ONLINE, params=_serial_params(device_serial))
+        with _diagnostic_scope(self._client, entrypoint="ownership.verify_online", mode="async"):
+            _check_domestic(self._client.region.scope)
+            return await self._client.request(
+                _OP_VERIFY_ONLINE, params=_serial_params(device_serial)
+            )

@@ -43,6 +43,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, NamedTuple
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -194,8 +195,9 @@ class Security:
         overseas page's "Disable" function text is a typo — the path and
         error 60019 confirm this call enables encryption.
         """
-        plan = _enable_encryption_plan(device_serial, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="security.enable_encryption", mode="sync"):
+            plan = _enable_encryption_plan(device_serial, self._client.region.scope)
+            return _send(self._client, plan)
 
     def disable_encryption(
         self, device_serial: str, *, verification_code: str | None = None
@@ -208,8 +210,15 @@ class Security:
         ``ValueError`` rather than a guess, and this is not a claim that
         domestic disable is unguarded; the platform still returns errors.
         """
-        plan = _disable_encryption_plan(device_serial, verification_code, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="security.disable_encryption",
+            mode="sync",
+        ):
+            plan = _disable_encryption_plan(
+                device_serial, verification_code, self._client.region.scope
+            )
+            return _send(self._client, plan)
 
     def update_password(
         self, device_serial: str, old_password: str, new_password: str
@@ -222,10 +231,11 @@ class Security:
         unresolved byte-length wording, so only non-blank UTF-8 is
         enforced and the platform decides.
         """
-        plan = _update_password_plan(
-            device_serial, old_password, new_password, self._client.region.scope
-        )
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="security.update_password", mode="sync"):
+            plan = _update_password_plan(
+                device_serial, old_password, new_password, self._client.region.scope
+            )
+            return _send(self._client, plan)
 
 
 class AsyncSecurity:
@@ -237,19 +247,32 @@ class AsyncSecurity:
         self._client = client
 
     async def enable_encryption(self, device_serial: str) -> ApiResponse:
-        plan = _enable_encryption_plan(device_serial, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="security.enable_encryption",
+            mode="async",
+        ):
+            plan = _enable_encryption_plan(device_serial, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def disable_encryption(
         self, device_serial: str, *, verification_code: str | None = None
     ) -> ApiResponse:
-        plan = _disable_encryption_plan(device_serial, verification_code, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="security.disable_encryption",
+            mode="async",
+        ):
+            plan = _disable_encryption_plan(
+                device_serial, verification_code, self._client.region.scope
+            )
+            return await _asend(self._client, plan)
 
     async def update_password(
         self, device_serial: str, old_password: str, new_password: str
     ) -> ApiResponse:
-        plan = _update_password_plan(
-            device_serial, old_password, new_password, self._client.region.scope
-        )
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="security.update_password", mode="async"):
+            plan = _update_password_plan(
+                device_serial, old_password, new_password, self._client.region.scope
+            )
+            return await _asend(self._client, plan)

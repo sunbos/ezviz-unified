@@ -17,6 +17,7 @@ from dataclasses import dataclass
 from enum import IntEnum
 from typing import TYPE_CHECKING, NamedTuple
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -368,42 +369,59 @@ class Video:
         self._client = client
 
     def set_quality(self, device_serial: str, level: int, *, channel: int) -> ApiResponse:
-        plan = _quality_plan(device_serial, level, channel, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="video.set_quality", mode="sync"):
+            plan = _quality_plan(device_serial, level, channel, self._client.region.scope)
+            return _send(self._client, plan)
 
     def set_preview_encoding(
         self, device_serial: str, encoding: PreviewEncoding, *, channel: int | None = None
     ) -> ApiResponse:
-        plan = _preview_encoding_plan(device_serial, encoding, channel, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="video.set_preview_encoding", mode="sync"):
+            plan = _preview_encoding_plan(
+                device_serial, encoding, channel, self._client.region.scope
+            )
+            return _send(self._client, plan)
 
     def get_recording_encoding(
         self, device_serial: str, *, channel: int | None = None, stream: int | None = None
     ) -> ApiResponse:
-        plan = _recording_encoding_plan(device_serial, channel, stream, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="video.get_recording_encoding",
+            mode="sync",
+        ):
+            plan = _recording_encoding_plan(
+                device_serial, channel, stream, self._client.region.scope
+            )
+            return _send(self._client, plan)
 
     def set_audio_codec(
         self, device_serial: str, codec: str, *, channel: int | None = None
     ) -> ApiResponse:
-        plan = _audio_codec_plan(device_serial, codec, channel, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="video.set_audio_codec", mode="sync"):
+            plan = _audio_codec_plan(device_serial, codec, channel, self._client.region.scope)
+            return _send(self._client, plan)
 
     def set_video_codec(
         self, device_serial: str, codec: str, *, stream: int, channel: int | None = None
     ) -> ApiResponse:
-        plan = _video_codec_plan(device_serial, codec, stream, channel, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="video.set_video_codec", mode="sync"):
+            plan = _video_codec_plan(
+                device_serial, codec, stream, channel, self._client.region.scope
+            )
+            return _send(self._client, plan)
 
     def get_switch(self, device_serial: str, switch: VideoSwitch | int) -> ApiResponse:
-        plan = _get_switch_plan(device_serial, switch, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="video.get_switch", mode="sync"):
+            plan = _get_switch_plan(device_serial, switch, self._client.region.scope)
+            return _send(self._client, plan)
 
     def set_switch(
         self, device_serial: str, switch: VideoSwitch | int, enabled: bool
     ) -> ApiResponse:
-        plan = _set_switch_plan(device_serial, switch, enabled, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="video.set_switch", mode="sync"):
+            plan = _set_switch_plan(device_serial, switch, enabled, self._client.region.scope)
+            return _send(self._client, plan)
 
 
 class AsyncVideo:
@@ -415,39 +433,60 @@ class AsyncVideo:
         self._client = client
 
     async def set_quality(self, device_serial: str, level: int, *, channel: int) -> ApiResponse:
-        plan = _quality_plan(device_serial, level, channel, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="video.set_quality", mode="async"):
+            plan = _quality_plan(device_serial, level, channel, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def set_preview_encoding(
         self, device_serial: str, encoding: PreviewEncoding, *, channel: int | None = None
     ) -> ApiResponse:
-        plan = _preview_encoding_plan(device_serial, encoding, channel, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="video.set_preview_encoding",
+            mode="async",
+        ):
+            plan = _preview_encoding_plan(
+                device_serial, encoding, channel, self._client.region.scope
+            )
+            return await _asend(self._client, plan)
 
     async def get_recording_encoding(
         self, device_serial: str, *, channel: int | None = None, stream: int | None = None
     ) -> ApiResponse:
-        plan = _recording_encoding_plan(device_serial, channel, stream, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="video.get_recording_encoding",
+            mode="async",
+        ):
+            plan = _recording_encoding_plan(
+                device_serial, channel, stream, self._client.region.scope
+            )
+            return await _asend(self._client, plan)
 
     async def set_audio_codec(
         self, device_serial: str, codec: str, *, channel: int | None = None
     ) -> ApiResponse:
-        plan = _audio_codec_plan(device_serial, codec, channel, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="video.set_audio_codec", mode="async"):
+            plan = _audio_codec_plan(device_serial, codec, channel, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def set_video_codec(
         self, device_serial: str, codec: str, *, stream: int, channel: int | None = None
     ) -> ApiResponse:
-        plan = _video_codec_plan(device_serial, codec, stream, channel, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="video.set_video_codec", mode="async"):
+            plan = _video_codec_plan(
+                device_serial, codec, stream, channel, self._client.region.scope
+            )
+            return await _asend(self._client, plan)
 
     async def get_switch(self, device_serial: str, switch: VideoSwitch | int) -> ApiResponse:
-        plan = _get_switch_plan(device_serial, switch, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="video.get_switch", mode="async"):
+            plan = _get_switch_plan(device_serial, switch, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def set_switch(
         self, device_serial: str, switch: VideoSwitch | int, enabled: bool
     ) -> ApiResponse:
-        plan = _set_switch_plan(device_serial, switch, enabled, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="video.set_switch", mode="async"):
+            plan = _set_switch_plan(device_serial, switch, enabled, self._client.region.scope)
+            return await _asend(self._client, plan)

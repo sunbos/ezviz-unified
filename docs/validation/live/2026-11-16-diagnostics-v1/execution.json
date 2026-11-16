@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "validation_scope": "bounded_domestic_diagnostic_v1",
+  "real_api_used": true,
+  "result": "passed",
+  "observed_at_utc": "2026-11-16T13:24:44.913484+00:00",
+  "observed_at_asia_shanghai": "2026-11-16T21:24:44.913484+08:00",
+  "sdk_commit": "99613eaf26203329600316daf2424f42cd34ac0e",
+  "command": ".venv/bin/python tools/live/verify_diagnostics.py --serve --output docs/validation/live/2026-11-16-diagnostics-v1",
+  "report_sha256": "360263e73e82e3168506322cc1b248adfaa6b94b9962ef9fe9f105f15fbdbc67",
+  "receipt": {
+    "schema_version": 1,
+    "scope": "bounded_domestic_diagnostic_v1",
+    "outcome": "passed",
+    "logical_calls": 6,
+    "http_requests": 7,
+    "read_only": true
+  },
+  "event_count": 64,
+  "field_and_value_whitelist_checked": true,
+  "source_hashes_matched_prepared_snapshot": true,
+  "credentials_channel": "local_loopback_form",
+  "credentials_shared_with_claude": false,
+  "limitations": [
+    "single domestic account/device, channel 1, synchronous sample",
+    "response policy success, not hardware health or full-field validation",
+    "example CLI and overseas live flows not exercised"
+  ],
+  "temporary_service_stopped": true
+}

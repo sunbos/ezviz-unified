@@ -27,6 +27,7 @@ from dataclasses import dataclass
 from enum import IntEnum
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -307,15 +308,17 @@ class Arming:
 
     def set_mode(self, device_serial: str, mode: int) -> ApiResponse:
         """Set the defence mode; mode 0 means disarm or sleep per device."""
-        op, data = _set_mode_call(device_serial, mode, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="arming.set_mode", mode="sync"):
+            op, data = _set_mode_call(device_serial, mode, self._client.region.scope)
+            return self._client.request(op, data=data)
 
     def get_schedule(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Fetch the arming plan; returned fields are passed through raw."""
-        op, data = _schedule_call(
-            _OP_GET_SCHEDULE, device_serial, channel, self._client.region.scope
-        )
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="arming.get_schedule", mode="sync"):
+            op, data = _schedule_call(
+                _OP_GET_SCHEDULE, device_serial, channel, self._client.region.scope
+            )
+            return self._client.request(op, data=data)
 
     def set_schedule(
         self,
@@ -329,13 +332,19 @@ class Arming:
         The platform documents enable=1 as its default. No separate mode
         change or prerequisite request is sent by the SDK.
         """
-        op, data = _set_schedule_call(device_serial, schedule, channel, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="arming.set_schedule", mode="sync"):
+            op, data = _set_schedule_call(
+                device_serial, schedule, channel, self._client.region.scope
+            )
+            return self._client.request(op, data=data)
 
     def active_defence(self, device_serial: str, action: ActiveDefenceAction | int) -> ApiResponse:
         """Clear or trigger the active-defence alarm (domestic only)."""
-        op, headers, data = _active_defence_call(device_serial, action, self._client.region.scope)
-        return self._client.request(op, headers=headers, data=data)
+        with _diagnostic_scope(self._client, entrypoint="arming.active_defence", mode="sync"):
+            op, headers, data = _active_defence_call(
+                device_serial, action, self._client.region.scope
+            )
+            return self._client.request(op, headers=headers, data=data)
 
 
 class AsyncArming:
@@ -347,14 +356,16 @@ class AsyncArming:
         self._client = client
 
     async def set_mode(self, device_serial: str, mode: int) -> ApiResponse:
-        op, data = _set_mode_call(device_serial, mode, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="arming.set_mode", mode="async"):
+            op, data = _set_mode_call(device_serial, mode, self._client.region.scope)
+            return await self._client.request(op, data=data)
 
     async def get_schedule(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
-        op, data = _schedule_call(
-            _OP_GET_SCHEDULE, device_serial, channel, self._client.region.scope
-        )
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="arming.get_schedule", mode="async"):
+            op, data = _schedule_call(
+                _OP_GET_SCHEDULE, device_serial, channel, self._client.region.scope
+            )
+            return await self._client.request(op, data=data)
 
     async def set_schedule(
         self,
@@ -363,11 +374,17 @@ class AsyncArming:
         *,
         channel: int | None = None,
     ) -> ApiResponse:
-        op, data = _set_schedule_call(device_serial, schedule, channel, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="arming.set_schedule", mode="async"):
+            op, data = _set_schedule_call(
+                device_serial, schedule, channel, self._client.region.scope
+            )
+            return await self._client.request(op, data=data)
 
     async def active_defence(
         self, device_serial: str, action: ActiveDefenceAction | int
     ) -> ApiResponse:
-        op, headers, data = _active_defence_call(device_serial, action, self._client.region.scope)
-        return await self._client.request(op, headers=headers, data=data)
+        with _diagnostic_scope(self._client, entrypoint="arming.active_defence", mode="async"):
+            op, headers, data = _active_defence_call(
+                device_serial, action, self._client.region.scope
+            )
+            return await self._client.request(op, headers=headers, data=data)

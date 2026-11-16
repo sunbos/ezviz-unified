@@ -25,6 +25,7 @@ import json
 from collections.abc import Mapping
 from typing import TYPE_CHECKING, cast
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -241,16 +242,17 @@ class Otap:
         This serves the value cached on the platform; it does not query the
         device live (doc 1307015).
         """
-        headers = _resource_headers(
-            device_serial,
-            resource_category,
-            local_index,
-            domain_identifier,
-            property_identifier,
-            identifier_arg="property_identifier",
-            identifier_header="propIdentifier",
-        )
-        return self._client.request(_OP_GET_PROPERTY, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="otap.get_property", mode="sync"):
+            headers = _resource_headers(
+                device_serial,
+                resource_category,
+                local_index,
+                domain_identifier,
+                property_identifier,
+                identifier_arg="property_identifier",
+                identifier_header="propIdentifier",
+            )
+            return self._client.request(_OP_GET_PROPERTY, headers=headers)
 
     def set_property(
         self,
@@ -269,18 +271,19 @@ class Otap:
         ``moreInfo.msgDetail`` carries error text (conflict C1); the
         envelope passes through verbatim. The write is never replayed.
         """
-        headers = _resource_headers(
-            device_serial,
-            resource_category,
-            local_index,
-            domain_identifier,
-            property_identifier,
-            identifier_arg="property_identifier",
-            identifier_header="propIdentifier",
-            content_type=_JSON_CONTENT_TYPE,
-        )
-        body = _prepare_payload(payload)
-        return self._client.request(_OP_SET_PROPERTY, json=body, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="otap.set_property", mode="sync"):
+            headers = _resource_headers(
+                device_serial,
+                resource_category,
+                local_index,
+                domain_identifier,
+                property_identifier,
+                identifier_arg="property_identifier",
+                identifier_header="propIdentifier",
+                content_type=_JSON_CONTENT_TYPE,
+            )
+            body = _prepare_payload(payload)
+            return self._client.request(_OP_SET_PROPERTY, json=body, headers=headers)
 
     def invoke_action(
         self,
@@ -300,18 +303,19 @@ class Otap:
         present its ``code`` must equal ``"0x00000000"``; when it is absent
         the platform ``meta.code`` alone decides.
         """
-        headers = _resource_headers(
-            device_serial,
-            resource_category,
-            local_index,
-            domain_identifier,
-            action_identifier,
-            identifier_arg="action_identifier",
-            identifier_header="actionIdentifier",
-            content_type=_JSON_CONTENT_TYPE,
-        )
-        body = _prepare_payload(payload)
-        return self._client.request(_OP_INVOKE_ACTION, json=body, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="otap.invoke_action", mode="sync"):
+            headers = _resource_headers(
+                device_serial,
+                resource_category,
+                local_index,
+                domain_identifier,
+                action_identifier,
+                identifier_arg="action_identifier",
+                identifier_header="actionIdentifier",
+                content_type=_JSON_CONTENT_TYPE,
+            )
+            body = _prepare_payload(payload)
+            return self._client.request(_OP_INVOKE_ACTION, json=body, headers=headers)
 
     def latest_property(
         self,
@@ -327,17 +331,18 @@ class Otap:
         Null ``value``/``time`` on either side is a valid answer, not an
         error; ``desired`` and ``reported`` are not guaranteed to match.
         """
-        headers = _resource_headers(
-            device_serial,
-            resource_category,
-            local_index,
-            domain_identifier,
-            property_identifier,
-            identifier_arg="property_identifier",
-            identifier_header="propIdentifier",
-        )
-        _enforce_latest_limits(headers)
-        return self._client.request(_OP_LATEST_PROPERTY, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="otap.latest_property", mode="sync"):
+            headers = _resource_headers(
+                device_serial,
+                resource_category,
+                local_index,
+                domain_identifier,
+                property_identifier,
+                identifier_arg="property_identifier",
+                identifier_header="propIdentifier",
+            )
+            _enforce_latest_limits(headers)
+            return self._client.request(_OP_LATEST_PROPERTY, headers=headers)
 
 
 class AsyncOtap:
@@ -358,16 +363,17 @@ class AsyncOtap:
         property_identifier: str,
     ) -> ApiResponse:
         """Async variant of :meth:`Otap.get_property`."""
-        headers = _resource_headers(
-            device_serial,
-            resource_category,
-            local_index,
-            domain_identifier,
-            property_identifier,
-            identifier_arg="property_identifier",
-            identifier_header="propIdentifier",
-        )
-        return await self._client.request(_OP_GET_PROPERTY, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="otap.get_property", mode="async"):
+            headers = _resource_headers(
+                device_serial,
+                resource_category,
+                local_index,
+                domain_identifier,
+                property_identifier,
+                identifier_arg="property_identifier",
+                identifier_header="propIdentifier",
+            )
+            return await self._client.request(_OP_GET_PROPERTY, headers=headers)
 
     async def set_property(
         self,
@@ -380,18 +386,19 @@ class AsyncOtap:
         property_identifier: str,
     ) -> ApiResponse:
         """Async variant of :meth:`Otap.set_property`."""
-        headers = _resource_headers(
-            device_serial,
-            resource_category,
-            local_index,
-            domain_identifier,
-            property_identifier,
-            identifier_arg="property_identifier",
-            identifier_header="propIdentifier",
-            content_type=_JSON_CONTENT_TYPE,
-        )
-        body = _prepare_payload(payload)
-        return await self._client.request(_OP_SET_PROPERTY, json=body, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="otap.set_property", mode="async"):
+            headers = _resource_headers(
+                device_serial,
+                resource_category,
+                local_index,
+                domain_identifier,
+                property_identifier,
+                identifier_arg="property_identifier",
+                identifier_header="propIdentifier",
+                content_type=_JSON_CONTENT_TYPE,
+            )
+            body = _prepare_payload(payload)
+            return await self._client.request(_OP_SET_PROPERTY, json=body, headers=headers)
 
     async def invoke_action(
         self,
@@ -404,18 +411,19 @@ class AsyncOtap:
         action_identifier: str,
     ) -> ApiResponse:
         """Async variant of :meth:`Otap.invoke_action`."""
-        headers = _resource_headers(
-            device_serial,
-            resource_category,
-            local_index,
-            domain_identifier,
-            action_identifier,
-            identifier_arg="action_identifier",
-            identifier_header="actionIdentifier",
-            content_type=_JSON_CONTENT_TYPE,
-        )
-        body = _prepare_payload(payload)
-        return await self._client.request(_OP_INVOKE_ACTION, json=body, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="otap.invoke_action", mode="async"):
+            headers = _resource_headers(
+                device_serial,
+                resource_category,
+                local_index,
+                domain_identifier,
+                action_identifier,
+                identifier_arg="action_identifier",
+                identifier_header="actionIdentifier",
+                content_type=_JSON_CONTENT_TYPE,
+            )
+            body = _prepare_payload(payload)
+            return await self._client.request(_OP_INVOKE_ACTION, json=body, headers=headers)
 
     async def latest_property(
         self,
@@ -427,14 +435,15 @@ class AsyncOtap:
         property_identifier: str,
     ) -> ApiResponse:
         """Async variant of :meth:`Otap.latest_property`."""
-        headers = _resource_headers(
-            device_serial,
-            resource_category,
-            local_index,
-            domain_identifier,
-            property_identifier,
-            identifier_arg="property_identifier",
-            identifier_header="propIdentifier",
-        )
-        _enforce_latest_limits(headers)
-        return await self._client.request(_OP_LATEST_PROPERTY, headers=headers)
+        with _diagnostic_scope(self._client, entrypoint="otap.latest_property", mode="async"):
+            headers = _resource_headers(
+                device_serial,
+                resource_category,
+                local_index,
+                domain_identifier,
+                property_identifier,
+                identifier_arg="property_identifier",
+                identifier_header="propIdentifier",
+            )
+            _enforce_latest_limits(headers)
+            return await self._client.request(_OP_LATEST_PROPERTY, headers=headers)

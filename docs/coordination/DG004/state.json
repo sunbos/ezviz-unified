@@ -1,0 +1,19 @@
+{
+  "status": "accepted",
+  "input_commit": "bceeee4",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "write_files": [
+    "docs/diagnostics.md",
+    "examples/diagnostics_sync.py",
+    "examples/diagnostics_async.py",
+    "tests/test_examples_diagnostics.py",
+    "README.md",
+    "README.zh-CN.md",
+    "docs/getting-started.md"
+  ],
+  "input_sha256": "701469f802e2b212a4f1e82fd14746c0549c1669f6a187866386953a3e4b1573",
+  "applied_revision": "DG004R",
+  "verification": "../../validation/2026-11-16-diagnostics-v1.json",
+  "acceptance_note": "Documentation and examples including DG008/DG010 corrections; full tests passed"
+}

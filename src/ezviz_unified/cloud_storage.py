@@ -26,6 +26,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, NamedTuple
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -411,8 +412,9 @@ class CloudStorage:
         defaults to v1 and rejects ``version=2``. Timestamps and ``status``
         codes are returned unconverted.
         """
-        plan = _info_plan(device_serial, version, channel, phone, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="cloud_storage.info", mode="sync"):
+            plan = _info_plan(device_serial, version, channel, phone, self._client.region.scope)
+            return _send(self._client, plan)
 
     def available_types(
         self,
@@ -422,13 +424,23 @@ class CloudStorage:
         payment: int | None = None,
     ) -> ApiResponse:
         """List the cloudType catalog a domestic device may open (prices in cents)."""
-        plan = _available_types_plan(device_serial, channel, payment, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_storage.available_types",
+            mode="sync",
+        ):
+            plan = _available_types_plan(device_serial, channel, payment, self._client.region.scope)
+            return _send(self._client, plan)
 
     def opening_status(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Report whether a service-open is still in flight; ``isOpening`` stays raw."""
-        plan = _opening_status_plan(device_serial, channel, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_storage.opening_status",
+            mode="sync",
+        ):
+            plan = _opening_status_plan(device_serial, channel, self._client.region.scope)
+            return _send(self._client, plan)
 
     def activate_card(
         self,
@@ -440,15 +452,20 @@ class CloudStorage:
         immediately: bool | None = None,
     ) -> ApiResponse:
         """Activate cloud storage with a card password; the secret is never echoed."""
-        plan = _activate_card_plan(
-            device_serial,
-            card_password,
-            channel,
-            phone,
-            immediately,
-            self._client.region.scope,
-        )
-        return _send(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_storage.activate_card",
+            mode="sync",
+        ):
+            plan = _activate_card_plan(
+                device_serial,
+                card_password,
+                channel,
+                phone,
+                immediately,
+                self._client.region.scope,
+            )
+            return _send(self._client, plan)
 
     def open_service(
         self,
@@ -464,10 +481,11 @@ class CloudStorage:
         caller's idempotency key and is sent exactly once — never regenerated
         or replayed. ``payment=6`` is rejected here via StorageOrderOptions.
         """
-        plan = _open_service_plan(
-            device_serial, cloud_type, request_id, options, self._client.region.scope
-        )
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="cloud_storage.open_service", mode="sync"):
+            plan = _open_service_plan(
+                device_serial, cloud_type, request_id, options, self._client.region.scope
+            )
+            return _send(self._client, plan)
 
     def set_enabled(
         self,
@@ -478,15 +496,19 @@ class CloudStorage:
         phone: str | None = None,
     ) -> ApiResponse:
         """Resume or pause recording upload; pausing does not cancel the plan."""
-        plan = _set_enabled_plan(device_serial, enabled, channel, phone, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="cloud_storage.set_enabled", mode="sync"):
+            plan = _set_enabled_plan(
+                device_serial, enabled, channel, phone, self._client.region.scope
+            )
+            return _send(self._client, plan)
 
     def start_trial(
         self, device_serial: str, request_id: str, *, channel: int | None = None
     ) -> ApiResponse:
         """Activate the first-use trial; no eligibility pre-check or fallback."""
-        plan = _start_trial_plan(device_serial, request_id, channel, self._client.region.scope)
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="cloud_storage.start_trial", mode="sync"):
+            plan = _start_trial_plan(device_serial, request_id, channel, self._client.region.scope)
+            return _send(self._client, plan)
 
     def transfer(
         self,
@@ -503,15 +525,16 @@ class CloudStorage:
         the target disabled; no automatic pause, re-enable, or per-package
         looping is performed here.
         """
-        plan = _transfer_plan(
-            from_device_serial,
-            to_device_serial,
-            request_id,
-            from_channel,
-            to_channel,
-            self._client.region.scope,
-        )
-        return _send(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="cloud_storage.transfer", mode="sync"):
+            plan = _transfer_plan(
+                from_device_serial,
+                to_device_serial,
+                request_id,
+                from_channel,
+                to_channel,
+                self._client.region.scope,
+            )
+            return _send(self._client, plan)
 
 
 class AsyncCloudStorage:
@@ -530,8 +553,9 @@ class AsyncCloudStorage:
         channel: int | None = None,
         phone: str | None = None,
     ) -> ApiResponse:
-        plan = _info_plan(device_serial, version, channel, phone, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="cloud_storage.info", mode="async"):
+            plan = _info_plan(device_serial, version, channel, phone, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def available_types(
         self,
@@ -540,14 +564,24 @@ class AsyncCloudStorage:
         channel: int | None = None,
         payment: int | None = None,
     ) -> ApiResponse:
-        plan = _available_types_plan(device_serial, channel, payment, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_storage.available_types",
+            mode="async",
+        ):
+            plan = _available_types_plan(device_serial, channel, payment, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def opening_status(
         self, device_serial: str, *, channel: int | None = None
     ) -> ApiResponse:
-        plan = _opening_status_plan(device_serial, channel, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_storage.opening_status",
+            mode="async",
+        ):
+            plan = _opening_status_plan(device_serial, channel, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def activate_card(
         self,
@@ -558,15 +592,20 @@ class AsyncCloudStorage:
         phone: str | None = None,
         immediately: bool | None = None,
     ) -> ApiResponse:
-        plan = _activate_card_plan(
-            device_serial,
-            card_password,
-            channel,
-            phone,
-            immediately,
-            self._client.region.scope,
-        )
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_storage.activate_card",
+            mode="async",
+        ):
+            plan = _activate_card_plan(
+                device_serial,
+                card_password,
+                channel,
+                phone,
+                immediately,
+                self._client.region.scope,
+            )
+            return await _asend(self._client, plan)
 
     async def open_service(
         self,
@@ -576,10 +615,15 @@ class AsyncCloudStorage:
         *,
         options: StorageOrderOptions | None = None,
     ) -> ApiResponse:
-        plan = _open_service_plan(
-            device_serial, cloud_type, request_id, options, self._client.region.scope
-        )
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="cloud_storage.open_service",
+            mode="async",
+        ):
+            plan = _open_service_plan(
+                device_serial, cloud_type, request_id, options, self._client.region.scope
+            )
+            return await _asend(self._client, plan)
 
     async def set_enabled(
         self,
@@ -589,14 +633,18 @@ class AsyncCloudStorage:
         channel: int | None = None,
         phone: str | None = None,
     ) -> ApiResponse:
-        plan = _set_enabled_plan(device_serial, enabled, channel, phone, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="cloud_storage.set_enabled", mode="async"):
+            plan = _set_enabled_plan(
+                device_serial, enabled, channel, phone, self._client.region.scope
+            )
+            return await _asend(self._client, plan)
 
     async def start_trial(
         self, device_serial: str, request_id: str, *, channel: int | None = None
     ) -> ApiResponse:
-        plan = _start_trial_plan(device_serial, request_id, channel, self._client.region.scope)
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="cloud_storage.start_trial", mode="async"):
+            plan = _start_trial_plan(device_serial, request_id, channel, self._client.region.scope)
+            return await _asend(self._client, plan)
 
     async def transfer(
         self,
@@ -607,12 +655,13 @@ class AsyncCloudStorage:
         from_channel: int | None = None,
         to_channel: int | None = None,
     ) -> ApiResponse:
-        plan = _transfer_plan(
-            from_device_serial,
-            to_device_serial,
-            request_id,
-            from_channel,
-            to_channel,
-            self._client.region.scope,
-        )
-        return await _asend(self._client, plan)
+        with _diagnostic_scope(self._client, entrypoint="cloud_storage.transfer", mode="async"):
+            plan = _transfer_plan(
+                from_device_serial,
+                to_device_serial,
+                request_id,
+                from_channel,
+                to_channel,
+                self._client.region.scope,
+            )
+            return await _asend(self._client, plan)

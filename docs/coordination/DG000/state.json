@@ -1,0 +1,18 @@
+{
+  "cli_exit_code": 0,
+  "requested_model": "devin/swe-2",
+  "requested_effort": "max",
+  "observed_models": [
+    "devin/swe-2"
+  ],
+  "tools": [
+    "Bash"
+  ],
+  "tool_calls": 1,
+  "tool_results": 1,
+  "test_command": ".venv/bin/python -m pytest -q",
+  "prompt_sha256": "d1cbb9f39708f5071120854b501010ea392af178942062b370b4ad79f642fdb5",
+  "status": "accepted",
+  "tool_result_tail": "3808 passed, 11 subtests passed in 31.75s",
+  "input_commit": "b2b6dcaf970579f9376ef7bdc36aa962b3e6b960"
+}

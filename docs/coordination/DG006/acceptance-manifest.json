@@ -1,0 +1,35 @@
+{
+  "status": "accepted",
+  "observed_at_utc": "2026-11-16T03:06:16.571533+00:00",
+  "source_boundary": "DG007 applied; before DG009 control-exception patch",
+  "candidates": [
+    "DG006H",
+    "DG006HR",
+    "DG006HR2",
+    "DG006B",
+    "DG006BR",
+    "DG006BR2",
+    "DG006BR3"
+  ],
+  "checks": {
+    "DG006-format": {
+      "command": ".venv/bin/python -m ruff format tests/test_sdk_diagnostic_hardening.py tests/test_sdk_diagnostic_behaviour.py",
+      "tool_result": "2 files reformatted"
+    },
+    "DG006-lint": {
+      "command": ".venv/bin/python -m ruff check tests/test_sdk_diagnostic_hardening.py tests/test_sdk_diagnostic_behaviour.py",
+      "tool_result": "All checks passed!"
+    },
+    "DG006-tests": {
+      "command": ".venv/bin/python -m pytest -q tests/test_sdk_diagnostic_hardening.py tests/test_sdk_diagnostic_behaviour.py",
+      "tool_result": "..............................................................           [100%]\n62 passed in 0.48s"
+    }
+  },
+  "file_sha256": {
+    "tests/test_sdk_diagnostic_hardening.py": "a5ca92a298d16610051eef8679353bee7529b75f475af050210a36c29960063a",
+    "tests/test_sdk_diagnostic_behaviour.py": "3477474910857635455a9a4eff4749f2997ef7abe80109e4be22305b80b2a83e",
+    "src/ezviz_unified/diagnostic_report.py": "7e239d844b5772c68ff924b36b3de522114736e2b82a5dd9fe1a306f8bbfdcd3",
+    "src/ezviz_unified/client.py": "0753611ab6ed25306aba122f8db0d31f0780ac8b8cd8c441d5a929cddf211f52"
+  },
+  "hash_observation_note": "Hashes were observed while writing acceptance records after the test finished; SDK hashes are not asserted to be a separately captured test-start snapshot. Parent held SDK source stable during the test and was then released to apply DG009."
+}

@@ -1,0 +1,7 @@
+{
+  "model": "devin/swe-2",
+  "effort": "max",
+  "status": "accepted",
+  "acceptance_note": "Corrected getting-started CLI description; source inspected",
+  "verification": "../../validation/2026-11-16-diagnostics-v1.json"
+}

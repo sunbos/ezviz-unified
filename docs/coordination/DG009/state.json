@@ -1,0 +1,13 @@
+{
+  "status": "accepted",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "write_files": [
+    "src/ezviz_unified/diagnostic_report.py",
+    "tests/test_sdk_diagnostic_control.py",
+    "docs/diagnostics.md"
+  ],
+  "input_sha256": "abc598dcadb7b2836d1eabc2aa8d8dd849392b49ab38487ffd27dd62ccd8df53",
+  "acceptance_note": "Process-control propagation and context restoration; targeted red then full suite passed",
+  "verification": "../../validation/2026-11-16-diagnostics-v1.json"
+}

@@ -1,0 +1,18 @@
+{
+  "status": "accepted",
+  "input_commit": "bceeee4",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "write_files": [
+    "tools/live/verify_diagnostics.py",
+    "tests/test_live_diagnostics.py",
+    "tools/live/README.md",
+    ".github/workflows/ci.yml"
+  ],
+  "input_sha256": "3b95bfff3de25941c99726f1c7e92ae2bf34a7c216d775a48d607bb240d984f7",
+  "applied_revision": "DG005S",
+  "verified": "69 live-tool tests plus 22 example tests =91 passed; report-completeness gate pending DG005T2",
+  "rejected_revision": "DG005T attempted unavailable Read/Bash tools; all denied, no filesystem action; rerouted with complete texts",
+  "acceptance_note": "Offline guarded verifier accepted (81 tests); actual device acceptance remains pending configuration",
+  "verification": "../../validation/2026-11-16-diagnostics-v1.json"
+}

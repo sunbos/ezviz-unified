@@ -153,6 +153,10 @@ print(response.data)
 
 SDK仅对自身请求上下文内的httpx logger请求日志记录脱敏，不改变应用日志等级或handler，也不添加全局日志钩子；用户自行记录的原始响应及其他依赖库的调试输出不在此脱敏保证范围内。自定义transport中的编程错误原样传播；网络失败不会被表述为“远端肯定没有执行”。
 
+## 本地调用诊断
+
+`diagnostic_recorder=DiagnosticRecorder()` 让 `Client`/`AsyncClient` 在进程内生成一份无凭据、无标识、无异常原文的本地调用诊断 JSON（默认关闭，不自动写文件或上传）；字段白名单、覆盖与未覆盖边界见[本地诊断说明](docs/diagnostics.md)。
+
 ## 区域与认证
 
 `TokenManager` 与 `AsyncTokenManager` 惰性获取 token，按服务器返回的毫秒 `expireTime` 缓存，并合并并发刷新。国内使用 `RegionConfig.china()`；海外默认认证入口来自官方文档，业务地址绑定返回的 `areaDomain`，不假定所有海外账户属于同一区域。

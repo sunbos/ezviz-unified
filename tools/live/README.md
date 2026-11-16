@@ -21,3 +21,13 @@
 无浏览器时可以通过stdin传入JSON（region、app_key、app_secret，可选auth_base_url，可选inspection等模式键，组合规则与CLI一致）；避免把密钥写入shell历史、脚本或仓库。输出只含操作状态、数字错误码、HTTP状态和区域origin，不含完整响应、设备标识或密钥。
 
 空账户只证明认证和设备列表可调用，其他设备方法标记not_verified。默认与诊断档案中的passed表示该次请求成功且data结构符合基本预期；--inspection档案的passed仅表示只读检查助手对该次逻辑调用返回策略内ok，属检查策略结果而非逐字段结构校验。两类结果均不证明全部设备型号、字段语义或海外集群均支持。默认pytest不会执行此工具的真实网络入口。
+
+`verify_diagnostics.py`是独立的窄口径一次性诊断验收工具：固定国内区域，先用一次`devices.list`（严格pageStart=0、pageSize=1）取第一台已授权普通设备，再复用`inspect_device`对它执行固定五个只读逻辑调用（信息、通道、状态、能力、版本，通道1）。不查询存储、媒体、托管，不执行任何写操作。
+
+```sh
+.venv/bin/python tools/live/verify_diagnostics.py --serve --output docs/validation/live
+```
+
+认证与业务共用唯一origin（`https://open.ys7.com`）、固定7条method/path白名单（token获取+六个只读设备路径）和共享HTTP预算：总计至多7次、每路由至多1次；越界或超限在发送前以固定错误停止，SDK自身重试不变，但本验收边界不放行第二次请求。回环表单只有AppKey/Secret两个密码字段（无区域或隐藏选项，domestic不可覆盖），POST需通过Origin与Host校验、正文不超过8192字节，且只消费一次（先标记后执行，之后一律拒绝）；页面只回显安全JSON。stdin模式仅接受`{"app_key": ..., "app_secret": ...}`（可加固定值"domestic"的region键），stdout只输出安全JSON，错误只以固定文本写stderr，不读环境变量、不打开浏览器、不读取任何凭据文件。`--serve`不提供默认输出目录，必须显式指定`--output`；其中写入的`domestic-diagnostic.json`是本次验收报告，不是自动累积的日志。
+
+输出分两部分：`receipt`只有schema_version、固定scope `bounded_domestic_diagnostic_v1`、outcome（passed/failed/not_verified）、logical_calls（≤6）、http_requests（≤7）、read_only=true；`diagnostics`为`recorder.report()`的schema_version=1白名单快照，不含序列号、密钥、URL、异常消息等标识。空账户或首台设备缺序列号记not_verified；任何一步失败或边界拒绝记failed，不借`DeviceInspection.public_summary`充当安全报告（其code允许任意数字，不满足白名单），也不假称实测通过。即使中途异常也会close并产出报告。默认pytest不触发此工具的真实网络入口；`tests/test_live_diagnostics.py`只用MockTransport验证路径、预算、设备绑定、枚举输出与单POST约束。

@@ -1,0 +1,14 @@
+{
+  "status": "accepted",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "write_files": [
+    "examples/diagnostics_sync.py",
+    "examples/diagnostics_async.py",
+    "tests/test_examples_diagnostics.py",
+    "docs/diagnostics.md"
+  ],
+  "input_sha256": "d282c8867e82660cc4955de4293b51ecc71e5cd28fe44bba7bb82e93ba6bd12c",
+  "acceptance_note": "CLI fixed output/exit boundaries and accurate task/ID docs; full tests",
+  "verification": "../../validation/2026-11-16-diagnostics-v1.json"
+}

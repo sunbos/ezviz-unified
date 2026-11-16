@@ -12,6 +12,7 @@ from __future__ import annotations
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -189,12 +190,14 @@ class Imaging:
         self._client = client
 
     def get(self, device_serial: str, setting: ImageSetting | str) -> ApiResponse:
-        op, params = _get_call(setting, device_serial, self._client.region.scope)
-        return self._client.request(op, params=params)
+        with _diagnostic_scope(self._client, entrypoint="imaging.get", mode="sync"):
+            op, params = _get_call(setting, device_serial, self._client.region.scope)
+            return self._client.request(op, params=params)
 
     def set_backlight(self, device_serial: str, mode: str) -> ApiResponse:
-        op, data = _backlight_data(device_serial, mode, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_backlight", mode="sync"):
+            op, data = _backlight_data(device_serial, mode, self._client.region.scope)
+            return self._client.request(op, data=data)
 
     def set_denoising(
         self,
@@ -205,23 +208,26 @@ class Imaging:
         spatial_level: int | None = None,
         temporal_level: int | None = None,
     ) -> ApiResponse:
-        op, data = _denoising_data(
-            device_serial,
-            mode,
-            general_level,
-            spatial_level,
-            temporal_level,
-            self._client.region.scope,
-        )
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_denoising", mode="sync"):
+            op, data = _denoising_data(
+                device_serial,
+                mode,
+                general_level,
+                spatial_level,
+                temporal_level,
+                self._client.region.scope,
+            )
+            return self._client.request(op, data=data)
 
     def set_exposure(self, device_serial: str, microseconds: int) -> ApiResponse:
-        op, data = _exposure_data(device_serial, microseconds, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_exposure", mode="sync"):
+            op, data = _exposure_data(device_serial, microseconds, self._client.region.scope)
+            return self._client.request(op, data=data)
 
     def set_anti_flicker(self, device_serial: str, mode: str) -> ApiResponse:
-        op, data = _anti_flicker_data(device_serial, mode, self._client.region.scope)
-        return self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_anti_flicker", mode="sync"):
+            op, data = _anti_flicker_data(device_serial, mode, self._client.region.scope)
+            return self._client.request(op, data=data)
 
 
 class AsyncImaging:
@@ -233,12 +239,14 @@ class AsyncImaging:
         self._client = client
 
     async def get(self, device_serial: str, setting: ImageSetting | str) -> ApiResponse:
-        op, params = _get_call(setting, device_serial, self._client.region.scope)
-        return await self._client.request(op, params=params)
+        with _diagnostic_scope(self._client, entrypoint="imaging.get", mode="async"):
+            op, params = _get_call(setting, device_serial, self._client.region.scope)
+            return await self._client.request(op, params=params)
 
     async def set_backlight(self, device_serial: str, mode: str) -> ApiResponse:
-        op, data = _backlight_data(device_serial, mode, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_backlight", mode="async"):
+            op, data = _backlight_data(device_serial, mode, self._client.region.scope)
+            return await self._client.request(op, data=data)
 
     async def set_denoising(
         self,
@@ -249,20 +257,23 @@ class AsyncImaging:
         spatial_level: int | None = None,
         temporal_level: int | None = None,
     ) -> ApiResponse:
-        op, data = _denoising_data(
-            device_serial,
-            mode,
-            general_level,
-            spatial_level,
-            temporal_level,
-            self._client.region.scope,
-        )
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_denoising", mode="async"):
+            op, data = _denoising_data(
+                device_serial,
+                mode,
+                general_level,
+                spatial_level,
+                temporal_level,
+                self._client.region.scope,
+            )
+            return await self._client.request(op, data=data)
 
     async def set_exposure(self, device_serial: str, microseconds: int) -> ApiResponse:
-        op, data = _exposure_data(device_serial, microseconds, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_exposure", mode="async"):
+            op, data = _exposure_data(device_serial, microseconds, self._client.region.scope)
+            return await self._client.request(op, data=data)
 
     async def set_anti_flicker(self, device_serial: str, mode: str) -> ApiResponse:
-        op, data = _anti_flicker_data(device_serial, mode, self._client.region.scope)
-        return await self._client.request(op, data=data)
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_anti_flicker", mode="async"):
+            op, data = _anti_flicker_data(device_serial, mode, self._client.region.scope)
+            return await self._client.request(op, data=data)

@@ -22,6 +22,7 @@ from __future__ import annotations
 from enum import IntEnum
 from typing import TYPE_CHECKING, NamedTuple
 
+from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -190,31 +191,34 @@ class Illumination:
         self._client = client
 
     def get_mode(self, device_serial: str) -> ApiResponse:
-        call = _get_mode_call(self._client.region.scope, device_serial)
-        return self._client.request(
-            call.operation,
-            headers=call.headers,
-            params=call.params,
-            data=call.data,
-        )
+        with _diagnostic_scope(self._client, entrypoint="illumination.get_mode", mode="sync"):
+            call = _get_mode_call(self._client.region.scope, device_serial)
+            return self._client.request(
+                call.operation,
+                headers=call.headers,
+                params=call.params,
+                data=call.data,
+            )
 
     def set_mode(self, device_serial: str, mode: FillLightMode | int) -> ApiResponse:
-        call = _set_mode_call(self._client.region.scope, device_serial, mode)
-        return self._client.request(
-            call.operation,
-            headers=call.headers,
-            params=call.params,
-            data=call.data,
-        )
+        with _diagnostic_scope(self._client, entrypoint="illumination.set_mode", mode="sync"):
+            call = _set_mode_call(self._client.region.scope, device_serial, mode)
+            return self._client.request(
+                call.operation,
+                headers=call.headers,
+                params=call.params,
+                data=call.data,
+            )
 
     def set_enabled(self, device_serial: str, enabled: bool) -> ApiResponse:
-        call = _set_enabled_call(self._client.region.scope, device_serial, enabled)
-        return self._client.request(
-            call.operation,
-            headers=call.headers,
-            params=call.params,
-            data=call.data,
-        )
+        with _diagnostic_scope(self._client, entrypoint="illumination.set_enabled", mode="sync"):
+            call = _set_enabled_call(self._client.region.scope, device_serial, enabled)
+            return self._client.request(
+                call.operation,
+                headers=call.headers,
+                params=call.params,
+                data=call.data,
+            )
 
 
 class AsyncIllumination:
@@ -226,28 +230,31 @@ class AsyncIllumination:
         self._client = client
 
     async def get_mode(self, device_serial: str) -> ApiResponse:
-        call = _get_mode_call(self._client.region.scope, device_serial)
-        return await self._client.request(
-            call.operation,
-            headers=call.headers,
-            params=call.params,
-            data=call.data,
-        )
+        with _diagnostic_scope(self._client, entrypoint="illumination.get_mode", mode="async"):
+            call = _get_mode_call(self._client.region.scope, device_serial)
+            return await self._client.request(
+                call.operation,
+                headers=call.headers,
+                params=call.params,
+                data=call.data,
+            )
 
     async def set_mode(self, device_serial: str, mode: FillLightMode | int) -> ApiResponse:
-        call = _set_mode_call(self._client.region.scope, device_serial, mode)
-        return await self._client.request(
-            call.operation,
-            headers=call.headers,
-            params=call.params,
-            data=call.data,
-        )
+        with _diagnostic_scope(self._client, entrypoint="illumination.set_mode", mode="async"):
+            call = _set_mode_call(self._client.region.scope, device_serial, mode)
+            return await self._client.request(
+                call.operation,
+                headers=call.headers,
+                params=call.params,
+                data=call.data,
+            )
 
     async def set_enabled(self, device_serial: str, enabled: bool) -> ApiResponse:
-        call = _set_enabled_call(self._client.region.scope, device_serial, enabled)
-        return await self._client.request(
-            call.operation,
-            headers=call.headers,
-            params=call.params,
-            data=call.data,
-        )
+        with _diagnostic_scope(self._client, entrypoint="illumination.set_enabled", mode="async"):
+            call = _set_enabled_call(self._client.region.scope, device_serial, enabled)
+            return await self._client.request(
+                call.operation,
+                headers=call.headers,
+                params=call.params,
+                data=call.data,
+            )
