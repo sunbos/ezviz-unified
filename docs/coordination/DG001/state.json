@@ -1,0 +1,12 @@
+{
+  "status": "prepared",
+  "input_commit": "b2b6dcaf970579f9376ef7bdc36aa962b3e6b960",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "write_files": [
+    "src/ezviz_unified/diagnostic_report.py",
+    "src/ezviz_unified/_diagnostic_registry.py"
+  ],
+  "input_sha256": "5d1b4ed44ea54983e455dd524293b46f6e3e4579b8448ab2d371fe7709d8d4bc",
+  "tools": []
+}
