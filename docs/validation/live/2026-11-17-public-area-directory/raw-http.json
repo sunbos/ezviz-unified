@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "evidence": "bounded_public_http_source_observation_only",
+  "observed_at_utc": "2026-11-16T23:24:13.433826+00:00",
+  "source_doc_id": "overseas:469",
+  "source_content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+  "request_count": 1,
+  "credentials_used": false,
+  "redirects_followed": false,
+  "retries": 0,
+  "sdk_entry_verified": false,
+  "device_verified": false,
+  "result": "http_structure_observed",
+  "http_status": 200,
+  "shape": {
+    "type": "object",
+    "known_fields": {
+      "code": {
+        "type": "string"
+      },
+      "data": {
+        "type": "array",
+        "count": 240,
+        "item_types": [
+          "object"
+        ],
+        "known_item_fields": {
+          "telephoneCode": [
+            "integer"
+          ],
+          "id": [
+            "integer"
+          ],
+          "region": [
+            "string"
+          ],
+          "name": [
+            "string"
+          ]
+        },
+        "items_with_unknown_keys": 0
+      },
+      "msg": {
+        "type": "string"
+      }
+    },
+    "unknown_key_count": 0
+  },
+  "known_success_code": true,
+  "elapsed_seconds": 1.029,
+  "limitations": [
+    "One unauthenticated GET at the documented origin only.",
+    "No raw response or arbitrary response values saved.",
+    "HTTP observation is not SDK, account, cluster-routing, or hardware acceptance."
+  ]
+}

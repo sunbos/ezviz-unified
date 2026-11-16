@@ -1,0 +1,14 @@
+{
+  "status": "accepted",
+  "input_commit": "004a795",
+  "write_files": [
+    "tools/documents/normalize_sdk_reference.py",
+    "tests/test_document_sdk_reference.py",
+    "docs/sdk-reference-normalization.md"
+  ],
+  "model": "devin/swe-2",
+  "effort": "max",
+  "accepted_scope": "source foundation or provisional acceptance structure only",
+  "evidence": "docs/validation/2026-11-17-sdk-product-foundation/checks.json",
+  "product_complete": false
+}

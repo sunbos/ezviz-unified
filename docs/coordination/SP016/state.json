@@ -1,0 +1,10 @@
+{
+  "status": "accepted",
+  "executor": "Codex",
+  "kind": "bounded_public_http_source_observation",
+  "max_requests": 1,
+  "credentials": false,
+  "sdk_acceptance": false,
+  "accepted_scope": "raw public HTTP/schema observation only",
+  "result": "240 entries; code string200; no credentials"
+}

@@ -1,0 +1,515 @@
+{
+  "schema_version": 1,
+  "evidence": "pre_frozen_acceptance_structure",
+  "baseline_commit": "81b86b462825739db8f059a418d5de235db88c87",
+  "generated_for_scope_doc": "docs/plans/2026-11-17-sdk-product-completion.md",
+  "scope_status": "provisional_pending_capability_review",
+  "product_complete": false,
+  "notes": [
+    "Acceptance structure and scenarios frozen ahead of execution; capability scope is still under semantic review (SP003 matrix work in progress), so not all capabilities are frozen.",
+    "No row here claims live verification that has not already been recorded elsewhere; recorded_evidence rows only reference existing files.",
+    "bounded.max_requests / max_operations are null and freeze_required=true wherever no executed tool or explicit authorization defines a bound; no values are invented for unknown devices, accounts, or counts.",
+    "result distinguishes recorded_evidence (an existing evidence file) from awaiting_resource_confirmation, awaiting_authorization, awaiting_design, blocked, and pending_execution; blocked is never counted as passed. resource_state qualifies resource readiness (e.g. user_confirmed_no_bound_device, unknown_awaiting_configuration_check) and never marks a row complete.",
+    "The domestic sync row's 7-request bound and 6-business-logical-call count come from tools/live/verify_diagnostics.py (the executor of the 2026-11-16-diagnostics-v1 receipt): devices.list plus the inspect_device five (get/channels/status/capabilities/version) = 6 business logical entries, plus one auth HTTP call = 7 total; verify_devices.py is not the executor of that receipt.",
+    "No tokens, serials, raw business responses, or account/device identifiers appear in this file."
+  ],
+  "case_schema": {
+    "case_id": "stable identifier",
+    "tier": "required | scenario",
+    "capability_selector": "capability_id, operation_id set, or domain label; may reference reviewed contracts by prefix",
+    "region_cluster": "domestic | overseas:<cluster> | n/a",
+    "account_role_permissions": "role/permission class only; never a real identity",
+    "device_requirements": "device class requirements only; no real identifiers",
+    "surface": ["sync", "async", "cli_example", "installed_package"],
+    "risk": "read_only | write_bounded | destructive_guarded | release | offline_only",
+    "preconditions": ["..."],
+    "expected_evidence": {
+      "read": "...",
+      "write": "...",
+      "physical": "..."
+    },
+    "bounded": {
+      "max_requests": "integer | null",
+      "max_operations": "integer | null",
+      "freeze_required": true
+    },
+    "authorization_status": "recorded | reuse_existing_scope | awaiting_resource_confirmation | awaiting_authorization | not_authorized | n/a",
+    "recovery_plan": "...",
+    "source_refs": ["..."],
+    "code_artifact_evidence_refs": ["..."],
+    "result": "recorded_evidence | awaiting_resource_confirmation | awaiting_authorization | awaiting_design | blocked | pending_execution",
+    "resource_state": "optional qualifier on resource readiness, e.g. user_confirmed_no_bound_device | unknown_awaiting_configuration_check; never marks a row complete",
+    "blockers": ["..."]
+  },
+  "cases": [
+    {
+      "case_id": "ACC-CN-SYNC-READONLY-001",
+      "tier": "required",
+      "capability_selector": "cn.token.get; cn.devices.list; cn.devices.get; cn.devices.channels; cn.device.status; cn.diagnostics.capabilities; cn.diagnostics.version",
+      "region_cluster": "domestic (open.ys7.com)",
+      "account_role_permissions": "developer appKey/appSecret; ordinary device scope",
+      "device_requirements": "first ordinary device from page_size=1 list; channel 1",
+      "surface": ["sync"],
+      "risk": "read_only",
+      "preconditions": [
+        "authorized domestic developer credentials",
+        "at least one ordinary device visible to the token"
+      ],
+      "expected_evidence": {
+        "read": "SDK response-policy success for 6 business logical entries: one-page devices.list plus the inspect_device fixed five (devices.get, devices.channels, devices.status channel 1, diagnostics.capabilities, diagnostics.version); authentication is one separate HTTP call inside the shared 7-request bound, not a 7th business entry; bounded public receipt only",
+        "write": "none",
+        "physical": "none; no hardware-health claim"
+      },
+      "bounded": {
+        "max_requests": 7,
+        "max_operations": 6,
+        "freeze_required": false
+      },
+      "authorization_status": "reuse_existing_scope",
+      "recovery_plan": "n/a; read-only",
+      "source_refs": [
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json"
+      ],
+      "code_artifact_evidence_refs": [
+        "tools/live/verify_diagnostics.py",
+        "docs/validation/live/2026-11-16-diagnostics-v1/README.md",
+        "docs/validation/live/2026-11-16-diagnostics-v1/execution.json",
+        "docs/validation/live/2026-11-16-diagnostics-v1/domestic-diagnostic.json",
+        "docs/validation/live/2026-11-14-domestic-device/domestic.json",
+        "docs/validation/2026-11-16-diagnostics-v1.md"
+      ],
+      "result": "recorded_evidence",
+      "blockers": [
+        "Reuse conditions only: SDK source must still match the prepared snapshot hash recorded on 2026-11-16; evidence is a single sync sample on one device/channel, not async, not CLI, not all models; current device online state not provided, so this row does not claim the device is still online."
+      ]
+    },
+    {
+      "case_id": "ACC-CN-ASYNC-READONLY-001",
+      "tier": "required",
+      "capability_selector": "cn.token.get; cn.devices.list; cn.devices.get; cn.devices.channels; cn.device.status; cn.diagnostics.capabilities; cn.diagnostics.version (AsyncClient path)",
+      "region_cluster": "domestic (open.ys7.com)",
+      "account_role_permissions": "developer appKey/appSecret; ordinary device scope",
+      "device_requirements": "same first-ordinary-device / channel 1 policy as the sync row",
+      "surface": ["async"],
+      "risk": "read_only",
+      "preconditions": [
+        "authorized domestic developer credentials",
+        "an async-capable bounded live runner equivalent to the sync inspection path"
+      ],
+      "expected_evidence": {
+        "read": "AsyncClient response-policy success for the same 6 business logical entries as the sync row (devices.list + inspect_device five); public receipt only",
+        "write": "none",
+        "physical": "none"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "reuse_existing_scope",
+      "recovery_plan": "n/a; read-only",
+      "source_refs": [
+        "contracts/sdk-bindings.json",
+        "docs/validation/live/2026-11-15-domestic-inspection/README.md"
+      ],
+      "code_artifact_evidence_refs": [
+        "tools/live/verify_devices.py",
+        "tools/live/verify_diagnostics.py"
+      ],
+      "result": "awaiting_design",
+      "blockers": [
+        "No async live execution recorded; the existing bounded verifier is synchronous. A bounded async scenario (max requests/operations) must be frozen before execution."
+      ]
+    },
+    {
+      "case_id": "ACC-CN-CLI-EXAMPLE-001",
+      "tier": "required",
+      "capability_selector": "examples devices/inspection/diagnostics entry points against the domestic read-only scope",
+      "region_cluster": "domestic (open.ys7.com)",
+      "account_role_permissions": "developer appKey/appSecret; ordinary device scope",
+      "device_requirements": "same read-only device policy; CLI must not widen it",
+      "surface": ["cli_example"],
+      "risk": "read_only",
+      "preconditions": [
+        "authorized domestic developer credentials via the local loopback form",
+        "explicitly bounded CLI run (requests/operations frozen in advance)"
+      ],
+      "expected_evidence": {
+        "read": "example CLI module run completes within the frozen read-only scope and emits the documented single-JSON stdout contract",
+        "write": "none",
+        "physical": "none"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "reuse_existing_scope",
+      "recovery_plan": "n/a; read-only",
+      "source_refs": [
+        "docs/diagnostics.md",
+        "docs/plans/2026-11-15-quickstart-examples.md"
+      ],
+      "code_artifact_evidence_refs": [
+        "examples/devices_sync.py",
+        "examples/devices_async.py",
+        "examples/inspection_sync.py",
+        "examples/inspection_async.py",
+        "examples/diagnostics_sync.py",
+        "examples/diagnostics_async.py",
+        "docs/validation/live/2026-11-15-domestic-inspection/README.md"
+      ],
+      "result": "awaiting_design",
+      "blockers": [
+        "Example CLI modules were not exercised in the recorded live sessions; verifier results cannot be counted as CLI network acceptance. A frozen CLI scenario and bound is required."
+      ]
+    },
+    {
+      "case_id": "ACC-OS-PUBLIC-TIMEZONE-001",
+      "tier": "required",
+      "capability_selector": "settings.list_timezones (unauthenticated public catalog)",
+      "region_cluster": "overseas: singapore (isgpopen.ezvizlife.com)",
+      "account_role_permissions": "none required; unauthenticated public catalog",
+      "device_requirements": "none",
+      "surface": ["sync", "async"],
+      "risk": "read_only",
+      "preconditions": [
+        "reachable overseas regional host"
+      ],
+      "expected_evidence": {
+        "read": "HTTP 200 + business code 200 with list payload for both sync and async settings.list_timezones on the recorded cluster",
+        "write": "none",
+        "physical": "none; public catalog does not prove hardware"
+      },
+      "bounded": {
+        "max_requests": 5,
+        "max_operations": 5,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "n/a; read-only",
+      "source_refs": [
+        "docs/research/2026-11-15-overseas-settings.md"
+      ],
+      "code_artifact_evidence_refs": [
+        "docs/validation/live/2026-11-15-public-timezones/singapore.json",
+        "src/ezviz_unified/settings.py"
+      ],
+      "result": "recorded_evidence",
+      "blockers": [
+        "Evidence covers only the listed Singapore host and anonymous catalog calls; device settings and other clusters remain unverified; public catalog success is not device/hardware evidence."
+      ]
+    },
+    {
+      "case_id": "ACC-OS-AUTH-EMPTYLIST-001",
+      "tier": "required",
+      "capability_selector": "global.token.get; global.devices.list",
+      "region_cluster": "overseas: singapore (isgpopen.ezvizlife.com)",
+      "account_role_permissions": "developer appKey/appSecret; recorded account only",
+      "device_requirements": "none (empty list observed)",
+      "surface": ["sync"],
+      "risk": "read_only",
+      "preconditions": [
+        "authorized overseas developer credentials for the recorded account",
+        "explicit auth_base_url for the confirmed regional origin"
+      ],
+      "expected_evidence": {
+        "read": "authentication succeeded via explicit regional origin; one-page device list succeeded and was empty for that account",
+        "write": "none",
+        "physical": "none"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "recorded",
+      "recovery_plan": "n/a; read-only",
+      "source_refs": [
+        "docs/validation/live/2026-11-14-overseas/README.md",
+        "contracts/sdk-bindings.json"
+      ],
+      "code_artifact_evidence_refs": [
+        "tools/live/verify_devices.py",
+        "docs/validation/live/2026-11-14-overseas/overseas.json",
+        "docs/validation/live/2026-11-14-overseas/overseas-default-auth.json"
+      ],
+      "result": "recorded_evidence",
+      "blockers": [
+        "Only this account's authentication + empty one-page list is evidenced; default documented origin returned business code 10017 for this account; empty list proves nothing about device availability, other clusters, or async."
+      ]
+    },
+    {
+      "case_id": "ACC-OS-DEVICE-READONLY-001",
+      "tier": "required",
+      "capability_selector": "global.token.get; global.devices.list; global.devices.get; global.devices.channels; global.device.status; global.diagnostics.capabilities; global.diagnostics.version",
+      "region_cluster": "overseas: cluster to be confirmed per account",
+      "account_role_permissions": "developer appKey/appSecret; device-visible scope unknown",
+      "device_requirements": "at least one ordinary device bound and visible to the authorized account; channel 1",
+      "surface": ["sync"],
+      "risk": "read_only",
+      "preconditions": [
+        "an overseas account that actually has a bound device and a confirmed regional origin",
+        "a frozen bounded read-only scenario before execution"
+      ],
+      "expected_evidence": {
+        "read": "same bounded read-only logical chain as the domestic case (devices.list + inspect_device five), on an overseas device",
+        "write": "none",
+        "physical": "none"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "n/a; read-only",
+      "source_refs": [
+        "docs/validation/live/2026-11-14-overseas/README.md",
+        "contracts/sdk-bindings.json"
+      ],
+      "code_artifact_evidence_refs": [
+        "tools/live/verify_devices.py"
+      ],
+      "result": "awaiting_resource_confirmation",
+      "resource_state": "user_confirmed_no_bound_device",
+      "blockers": [
+        "User confirmed on 2026-11-17 that the overseas account currently has no bound device; account cluster and device-visible permissions are still unconfirmed. Cannot fabricate device/account values."
+      ]
+    },
+    {
+      "case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
+      "tier": "required",
+      "capability_selector": "each new business domain admitted to the matrix (e.g., account/managed, cloud storage/cloud recording, AI, cloud access)",
+      "region_cluster": "per domain",
+      "account_role_permissions": "per domain; contract-declared only",
+      "device_requirements": "per domain",
+      "surface": ["sync", "async"],
+      "risk": "offline_only",
+      "preconditions": [
+        "domain admitted with a reviewed contract set and bindings",
+        "diagnostic coverage updated for the new entry points"
+      ],
+      "expected_evidence": {
+        "read": "per-domain offline contract eval pass plus error-path and diagnostics coverage for every new entry point, before any live claim",
+        "write": "none at this tier",
+        "physical": "none"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "n/a",
+      "source_refs": [
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/source-issues.json",
+        "docs/plans/2026-11-17-sdk-product-completion.md"
+      ],
+      "code_artifact_evidence_refs": [
+        "harness/contract_eval.py",
+        "harness/audit.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics.md"
+      ],
+      "result": "pending_execution",
+      "blockers": [
+        "Matrix semantic review (SP003) still in progress; concrete domain rows must be bound to this acceptance file and frozen before implementation is claimed.",
+        "This wildcard row is a policy placeholder only: every concrete capability admitted to the matrix must derive its own concrete acceptance row (specific capability selector, region/cluster, bounded requests/operations, authorization status, result criteria) and be frozen before execution; this wildcard row cannot substitute for per-item rows, and items still in needs_review or blocked_source are not admitted and not counted complete."
+      ]
+    },
+    {
+      "case_id": "ACC-PLATFORM-MESSAGE-001",
+      "tier": "required",
+      "capability_selector": "platform message push (inbound webhook verify/parse/ack semantics)",
+      "region_cluster": "per service enablement",
+      "account_role_permissions": "service-enabled account with message push configured and an independent secret",
+      "device_requirements": "a target type whose events generate real platform messages",
+      "surface": ["sync", "async"],
+      "risk": "read_only",
+      "preconditions": [
+        "message push service enabled for the account",
+        "reachable callback endpoint under test control",
+        "independent secret for signature verification",
+        "authorization to trigger a real message of the target type",
+        "dedup and platform redelivery semantics defined before execution (which header/field is the dedup key, how redelivery is distinguished from a new message)",
+        "authorization covering documented configuration side effects: enabling/modifying the message service takes ~2h to take effect, stops the same-phone-number EZVIZ App device-message reminders, and disabling the service does not auto-restore them (customer-service/ticket required); console 'message test' suspends the original callback and temporarily opens all message types — the prior read-only scope does not cover these operations"
+      ],
+      "expected_evidence": {
+        "read": "real callback received at the controlled endpoint; signature verified over the raw body/headers exactly as delivered (not over re-serialized JSON); the correct ACK contract actually returned to the platform per the source (success=HTTP 200 plus body containing messageId); observed behavior for at least one platform duplicate/redelivery of the same message and how it was classified; observed timeout or non-2xx handling on at least one controlled failure path; error-path handling verified (bad signature rejected, malformed body rejected, unexpected type tolerated); replay boundary explicitly demonstrated (an out-of-window or previously-acked message is not treated as a fresh accepted message). Domestic header 't' timestamp is confirmed as milliseconds (5130); overseas 't' unit, freshness window, timeout/limits (2s vs 'usually 3 tries / ~5s' conflict) and ciphertext wording conflicts remain unconfirmed pending configuration review; none of the unconfirmed values are invented here.",
+        "write": "none to devices",
+        "physical": "none"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "callback endpoint torn down; secret rotated if exposed",
+      "source_refs": [
+        "docs/plans/2026-11-17-sdk-product-completion.md",
+        "docs/research/2026-11-15-message-ingestion.md",
+        "docs/research/2026-11-15-webhook-helpers.md",
+        "docs/research/2026-11-17-message-scope-review.md"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/webhooks.py"
+      ],
+      "result": "awaiting_resource_confirmation",
+      "resource_state": "unknown_awaiting_configuration_check",
+      "blockers": [
+        "Pure-function helpers and synthetic vectors do not substitute for platform real callbacks; signature freshness, duplicate delivery semantics, timeout, and ciphertext semantics remain open questions per the source review. Service, endpoint, secret, target type, and trigger authorization are all unconfirmed; user stated on 2026-11-17 they do not know the platform message service or which callback entry is usable, so the exact service/configuration state is unknown_awaiting_configuration_check. Configuration side effects (App reminder suppression, ~2h effective delay, console test temporarily suspending the original callback and opening all types) require explicit authorization beyond the prior read-only scope. A single successful callback alone does not close this required row."
+      ]
+    },
+    {
+      "case_id": "ACC-MEDIA-OFFICIAL-INTEGRATION-001",
+      "tier": "scenario",
+      "capability_selector": "official media component integration path (EZUIKit-JavaScript / official SDKs) vs SDK server-side calls",
+      "region_cluster": "per component support",
+      "account_role_permissions": "per token type (platform token vs playback/RTC token; not interchangeable)",
+      "device_requirements": "a device supporting the media feature under test",
+      "surface": ["sync"],
+      "risk": "read_only",
+      "preconditions": [
+        "a documented integration plan naming the official component, its version, and the SDK-side calls it needs",
+        "a frozen integration acceptance scenario distinct from the plan document"
+      ],
+      "expected_evidence": {
+        "read": "integration plan deliverable reviewed first; real integration acceptance is a separate later row with its own bounded scenario",
+        "write": "none",
+        "physical": "none"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "n/a",
+      "source_refs": [
+        "docs/research/2026-11-15-official-ecosystem-reuse.md"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_design",
+      "blockers": [
+        "No integration plan yet; playback/codec/RTC engine remain official-component scope, not SDK rewrites. Token types must not be conflated."
+      ]
+    },
+    {
+      "case_id": "ACC-WRITE-OPERATIONS-001",
+      "tier": "scenario",
+      "capability_selector": "all write/binding/permission/paid/upgrade/delete/format operations across domains",
+      "region_cluster": "per resource scope",
+      "account_role_permissions": "explicitly authorized account and resource scope only",
+      "device_requirements": "a specifically designated device/subject with confirmed consent",
+      "surface": ["sync", "async"],
+      "risk": "write_bounded",
+      "preconditions": [
+        "concrete resource scope (which device/account/resource)",
+        "frozen max operation count and cost/budget cap",
+        "a documented recovery plan",
+        "explicit per-execution authorization"
+      ],
+      "expected_evidence": {
+        "read": "pre-state read evidence recorded before write",
+        "write": "exactly the authorized write, within frozen bounds, with public receipt",
+        "physical": "post-state verification scoped to the authorized effect"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "per-case documented rollback/restore; must exist before authorization",
+      "source_refs": [
+        "docs/plans/2026-11-17-sdk-product-completion.md",
+        "docs/releasing.md"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "No write, bind/unbind, permission change, paid operation, upgrade, delete, or format is authorized for automatic execution. Each must be bound to a concrete acceptance row, frozen (resource scope, count, cost cap, recovery), and explicitly authorized first."
+      ]
+    }
+  ],
+  "release_gates": [
+    {
+      "gate_id": "REL-PRODUCT-SCOPE-RATIFIED",
+      "item": "product prerequisite: scope/capability matrix reviewed and ratified (no source row left unreviewed); every matrix capability has a recorded disposition",
+      "status": "pending_determination",
+      "notes": "needs_review, blocked_source, and unratified items are not admissible evidence and cannot be silently excluded or counted as complete; each must be resolved to a concrete disposition (implement / reuse_official_component / not_an_api / duplicate / deprecated / phase_2) with evidence before release. Engineering checks passing does not satisfy this gate."
+    },
+    {
+      "gate_id": "REL-PRODUCT-REQUIRED-COMPLETE",
+      "item": "product prerequisite: every required-tier acceptance row implemented, documented, and acceptance-completed per its own criteria; example/CLI required rows exercised; required source-semantic issues dispositioned",
+      "status": "pending_determination",
+      "notes": "all required rows must reach recorded_evidence (or an explicitly justified not_applicable disposition), not merely pending_execution/awaiting_*; needs_review/blocked_source/unratified required rows mean the gate fails. The pre-gates are an AND condition with the engineering gates below — green Ruff/mypy/pytest/audit alone does not permit upload."
+    },
+    {
+      "gate_id": "REL-VERSION",
+      "item": "release version and artifact naming",
+      "status": "pending_determination",
+      "notes": "current pyproject declares 0.1.0a1; the plan states the release version must be proposed after scope/compatibility are fixed, not assumed already published"
+    },
+    {
+      "gate_id": "REL-PYPI-OWNERSHIP",
+      "item": "PyPI project ownership, publishing identity/permissions, and authorization to upload",
+      "status": "pending_determination",
+      "notes": "no upload has been executed; the PyPI account/permissions are not yet confirmed. A public-page check on 2026-11-17 returned 404, which only reflects that-moment visibility and does not guarantee the project name is available. Account/Trusted Publisher can be prepared in advance (https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/) and the first authorized upload creates the project; the user is not required to provide a token now and nothing is uploaded until the product is complete and the pre-gates pass."
+    },
+    {
+      "gate_id": "REL-FROZEN-ARTIFACTS",
+      "item": "immutable artifact hashes for the exact release commit",
+      "status": "pending_execution",
+      "notes": "hashes identify the verified build; rebuilt artifacts must be re-verified rather than reusing prior hashes"
+    },
+    {
+      "gate_id": "REL-STATIC-CHECKS",
+      "item": "Ruff, mypy, pytest, harness.audit, harness.contract_eval, diagnostic coverage checks",
+      "status": "pending_execution",
+      "notes": "must run on the release candidate commit"
+    },
+    {
+      "gate_id": "REL-ARTIFACT-CONTENTS",
+      "item": "wheel/sdist content secret scan, layout/metadata validation, Twine check",
+      "status": "pending_execution",
+      "notes": "check_artifacts covers layout/metadata only; content-level secret scan is a distinct gate"
+    },
+    {
+      "gate_id": "REL-CLEAN-INSTALL",
+      "item": "clean-install verification (wheel + sdist, isolated envs, mock smoke, source tests)",
+      "status": "pending_execution",
+      "notes": "tools/release/verify_installations.py; installation verification is not device/network verification"
+    },
+    {
+      "gate_id": "REL-CI",
+      "item": "PR and main-branch CI at the release SHA",
+      "status": "pending_execution",
+      "notes": "actual Actions checks govern; recorded main CI 43878741197 passed for the diagnostics-v1 merge on 3.12-3.15 but does not cover future release commits"
+    },
+    {
+      "gate_id": "REL-INDEX-INSTALL",
+      "item": "post-publish index check, download hash match, and install verification from the index",
+      "status": "awaiting_authorization",
+      "notes": "only after an authorized upload that itself requires the product pre-gates (REL-PRODUCT-SCOPE-RATIFIED + REL-PRODUCT-REQUIRED-COMPLETE) and the engineering gates to pass; build is not release"
+    }
+  ],
+  "phase_2_deferred": [
+    "app_adapter",
+    "selective_telemetry",
+    "independent_model_evaluation",
+    "controlled_rsi"
+  ],
+  "open_questions": [
+    "Whether the current domestic device is still online and the device/account configuration has changed since 2026-11-16 is unconfirmed; prior evidence does not assert it.",
+    "Bounded async and CLI live scenarios (max requests/operations) are not yet designed; they must be frozen before execution.",
+    "Overseas device read-only acceptance is awaiting_resource_confirmation with resource_state=user_confirmed_no_bound_device (user confirmed on 2026-11-17 the account currently has no bound device); the account cluster and device-visible permissions remain unconfirmed, and no device/account values are fabricated.",
+    "Platform message push requires enabled service, reachable callback, independent secret, target type, and trigger authorization; resource_state=unknown_awaiting_configuration_check because the user stated on 2026-11-17 they do not know the platform message service or which callback entry is usable. Dedup/redelivery semantics must be defined before execution. Domestic header 't' timestamp unit is confirmed milliseconds (5130); the overseas 't' unit, freshness window, the 2s vs ~5s timeout conflict, and ciphertext wording remain unconfirmed. Configuration side effects (App reminder stop, ~2h delay, console test temporarily suspending the original callback) need explicit authorization beyond the prior read-only scope.",
+    "Release version is undetermined. PyPI account/permissions and upload authorization are unconfirmed; no upload has been executed. The 2026-11-17 public-page 404 only reflects that-moment visibility and does not guarantee name availability. Account/Trusted Publisher may be prepared now (https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/) and the first authorized upload creates the project; the user is not required to provide a token now.",
+    "New business domains must be bound to concrete acceptance rows and frozen before implementation claims; the per-new-domain wildcard row is a policy placeholder, not a substitute for per-item rows."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "status": "accepted",
+  "model": "devin/swe-2",
+  "effort": "max",
+  "input_commit": "81b86b462825739db8f059a418d5de235db88c87",
+  "write_scope": "data/official-docs/2026-11-17-sdk-product-reference/overseas",
+  "command": ".venv/bin/python tools/documents/reference_collectors/overseas_sdk.py --output data/official-docs/2026-11-17-sdk-product-reference/overseas --refresh",
+  "actual_tool_result_verified": true,
+  "html_hashes_verified": true,
+  "remaining": "fresh primary-portal seed comparison and semantic classification",
+  "accepted_scope": "source foundation or provisional acceptance structure only",
+  "evidence": "docs/validation/2026-11-17-sdk-product-foundation/checks.json",
+  "product_complete": false
+}

@@ -11,6 +11,13 @@ are not API totals, support statements, or SDK coverage.
 
 Run:
     python -m tools.documents.endpoint_inventory --input ARCHIVE [--contracts FILE] [--summary-only]
+    python -m tools.documents.endpoint_inventory --input ARCHIVE --output NEW_FILE
+
+``--output`` writes the same payload to a brand-new path instead of
+stdout; the target must not already exist (regular file, directory,
+symlink, or dangling symlink) and must not resolve inside the input
+archive. The payload is staged in the output directory and published
+with a hard link so a concurrently created target is never overwritten.
 """
 
 from __future__ import annotations
@@ -19,8 +26,10 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import re
 import sys
+import tempfile
 from pathlib import Path
 
 if __package__:
@@ -590,6 +599,65 @@ class _Parser(argparse.ArgumentParser):
         raise InventoryError(message)
 
 
+def _write_report(payload, target, archive_root):
+    """Publish payload bytes to a brand-new path; never overwrites.
+
+    The target must be lexically absent (no file, directory, symlink, or
+    dangling symlink) and must not resolve inside the verified input
+    archive. The bytes are staged in the target's own directory and
+    published via os.link so a path appearing concurrently is rejected
+    instead of overwritten. Returns the written payload's sha256.
+    """
+    try:
+        resolved_archive = Path(archive_root).resolve()
+        target = Path(target)
+        # Resolve before mkdir: containment is judged on the fully resolved
+        # destination so no directory is created inside the input archive.
+        resolved_target = target.resolve()
+        if resolved_target == resolved_archive or resolved_target.is_relative_to(resolved_archive):
+            raise InventoryError("output path must not be inside the input archive")
+        resolved_parent = resolved_target.parent
+        resolved_parent.mkdir(parents=True, exist_ok=True)
+        # lexists covers dangling symlinks; both the lexical and resolved
+        # forms are checked so a symlinked final component is still refused.
+        if os.path.lexists(target) or os.path.lexists(resolved_target):
+            raise InventoryError("output path already exists")
+        temporary = None
+        try:
+            with tempfile.NamedTemporaryFile(
+                mode="wb",
+                prefix=".endpoint-inventory-",
+                dir=resolved_parent,
+                delete=False,
+            ) as handle:
+                handle.write(payload)
+                temporary = Path(handle.name)
+            # link() refuses to overwrite an existing or raced target, so a
+            # path created between the lexists check and now still fails.
+            os.link(temporary, resolved_target)
+        finally:
+            if temporary is not None:
+                try:
+                    temporary.unlink()
+                except OSError:
+                    pass
+    except InventoryError:
+        raise
+    except OSError:
+        raise InventoryError("output path not writable")
+    return _sha256(payload)
+
+
+def _receipt(result, report_sha256):
+    """Fixed small stdout receipt; carries the real pre-selection summary."""
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "evidence": EVIDENCE,
+        "report_sha256": report_sha256,
+        "summary": result["summary"],
+    }
+
+
 def main(argv=None) -> int:
     parser = _Parser(
         prog="tools.documents.endpoint_inventory",
@@ -604,15 +672,29 @@ def main(argv=None) -> int:
     parser.add_argument(
         "--summary-only", action="store_true", help="emit only the fixed summary block"
     )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help="write the report to a brand-new file path instead of stdout",
+    )
     try:
         args = parser.parse_args(argv)
         result = build_inventory(args.input, contracts_path=args.contracts)
+        report = result
         if args.summary_only:
-            result = {key: result[key] for key in SUMMARY_ONLY_KEYS}
+            report = {key: result[key] for key in SUMMARY_ONLY_KEYS}
         # Serialization and UTF-8 encoding stay inside the guard so
         # unencodable metadata can never print a traceback.
-        payload = (json.dumps(result, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-        sys.stdout.buffer.write(payload)
+        payload = (json.dumps(report, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+        if args.output is not None:
+            digest = _write_report(payload, args.output, args.input)
+            receipt = (json.dumps(_receipt(result, digest), ensure_ascii=False) + "\n").encode(
+                "utf-8"
+            )
+            sys.stdout.buffer.write(receipt)
+        else:
+            sys.stdout.buffer.write(payload)
     except SystemExit as exc:
         if exc.code == 0:
             return 0
