@@ -1,0 +1,5311 @@
+{
+  "schema_version": 1,
+  "task_id": "SP088",
+  "baseline_commit": "78b61956cc844433c8b8ac092a92b45bc15813a0",
+  "purpose": "Reviewed source and scenario input snapshot for required candidates; not a second capability or execution-result database.",
+  "input_pins": {
+    "SP078-first-cohort-declaration-routes.json": "84510cef31a01f3b502607980a4ad335799a6b9260718fd6ce6cb628bc8e8fed",
+    "SP081-unresolved-declaration-syntax-review.json": "2d26e541a50707e03618fc516feb7e8fff497d0d04f64cec94cd63f84ad90122",
+    "SP084-D1-final.json": "dce419ad6278c30c628f68187c6c8107859015cfb627e1dd2c5f9ef630ab415b",
+    "SP084-D2-final.json": "ea3ac0c2fcb5eaad793dd0a38afb3a1275427fa1683cdbe2ad5063b0f7d86a51",
+    "SP084-D3-final.json": "2860f3b2209ac3a406533a6677ffe4dea0b5d3177e45ce4492abcfbbdc3b4684",
+    "SP084-PENDING6-final.json": "a1d7890071e399b4d36b199b1ab1e376782219bc51498cd7a481133dcf08765e"
+  },
+  "privacy_profile": "public_declared_schema_and_routes_only_no_example_or_runtime_values",
+  "entries": [
+    {
+      "capability_id": "candidate:domestic:685:d0",
+      "source_id": "portal-2026-11-17:domestic:685",
+      "source_pins": {
+        "raw_file": "pages/domestic/685.source.json",
+        "raw_file_sha256": "0ebcf9dffc942c670ea13fa98df64d5e31fa5700e768e4a0e5ac243879faad4b",
+        "content_sha256": "a4d6b5f58c13f21707bec1b9c36b0a894cdb48cc8d1606ff211343df0ee58b1f",
+        "structure_file": "derived/domestic/685.structure.json",
+        "structure_sha256": "4f2851965ab340176037672ea921d1f5af7c2df4cb38a19522ab664a44450d2a"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "云台控制",
+          "全景图片抓拍"
+        ]
+      ],
+      "scenario": "请求全景图片抓拍",
+      "family": "panoramic_snapshot",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/cloudrecord/pic/panoramic/compose",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "合成是同步返回图片/地址还是异步任务，返回地址是否即等于可访问图片待核。",
+        "对设备云台能力、型号或云服务订阅的前提要求待核。",
+        "请求/响应合同与权限范围需原source/observation材料核定。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:688:d0",
+      "source_id": "portal-2026-11-17:domestic:688",
+      "source_pins": {
+        "raw_file": "pages/domestic/688.source.json",
+        "raw_file_sha256": "c0427d167322c1edd6d9c9dd49ca07046fa96329257a5641ea9c65b296ca1f5e",
+        "content_sha256": "71256f0a77e1c141f2f39c4ce051822cf2d8a39ba13118f9c2d981250a52725e",
+        "structure_file": "derived/domestic/688.structure.json",
+        "structure_sha256": "12a026da1f76a12106d9fcc19e8b8c00ed47b3dea1e966ddcec2fc37513509fb"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "客流统计",
+          "获取客流统计开关状态"
+        ]
+      ],
+      "scenario": "查询设备客流统计开关状态",
+      "family": "passenger_flow",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/passengerflow/switch/status",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "开关状态的作用范围是设备级还是通道级待核。",
+        "与candidate:domestic:689:d0设置开关是否读写同一属性待核。",
+        "请求/响应合同与权限前提需原材料核定。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:689:d0",
+      "source_id": "portal-2026-11-17:domestic:689",
+      "source_pins": {
+        "raw_file": "pages/domestic/689.source.json",
+        "raw_file_sha256": "e9f54c1b26c600b65628c515d354ffd75197fb6a1d1a5718db047bdadc0c9b6c",
+        "content_sha256": "345c794eca50e471c807f6ce0704dc118e110b6f563037b427c93cc21be05d38",
+        "structure_file": "derived/domestic/689.structure.json",
+        "structure_sha256": "033c7d8fb180d972cbabc8b57a3d2bfd24acc133d6a3286945d88096844ba8b3"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "客流统计",
+          "设置客流统计开关"
+        ]
+      ],
+      "scenario": "设置设备客流统计开关",
+      "family": "passenger_flow",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/passengerflow/switch/set",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "开关取值语义与生效时机（即时/延迟）待核。",
+        "与candidate:domestic:688:d0状态查询是否同一开关属性待核。",
+        "开启统计是否依赖candidate:domestic:692:d0客流配置先行待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:690:d0",
+      "source_id": "portal-2026-11-17:domestic:690",
+      "source_pins": {
+        "raw_file": "pages/domestic/690.source.json",
+        "raw_file_sha256": "c10b3b281ef68912ad56300c6a1fc52bd228e6f44c45936d8ecd7a72d7025d5f",
+        "content_sha256": "6a76e6ff991c2789a99e8cfcc583784734cae43815b5275ec9c445799c8c4fee",
+        "structure_file": "derived/domestic/690.structure.json",
+        "structure_sha256": "fdee193a1505a395d1c49ac503d9b3b1f447572c5e2172d8f465fce3925c3097"
+      },
+      "declaration_ordinal": 0,
+      "section_index": null,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "客流统计",
+          "查询设备某一天的统计客流数据"
+        ]
+      ],
+      "scenario": "查询设备某一天的客流统计数据",
+      "family": "passenger_flow",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/passengerflow/daily",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "统计口径（进出方向、计数规则）与日期/时区语义待核。",
+        "与candidate:domestic:691:d0按小时数据是汇总与明细关系还是独立口径待核。",
+        "数据可得性是否依赖开关开启与历史采集周期待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:691:d0",
+      "source_id": "portal-2026-11-17:domestic:691",
+      "source_pins": {
+        "raw_file": "pages/domestic/691.source.json",
+        "raw_file_sha256": "781ad6b043838943ec8b3aeeb7a776589f28c8e0000a2c9b7d95c6676adced9c",
+        "content_sha256": "bba12191de8a2b19f56adaed4807307299f5b8ee9f67914d3a5572ba40fda6f9",
+        "structure_file": "derived/domestic/691.structure.json",
+        "structure_sha256": "c3bf42cfbf2ab038d8f657fbb0f1ddf1457ce5726dbce68f4c85821154c40d7f"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "客流统计",
+          "查询设备某一天每小时的客流数据"
+        ]
+      ],
+      "scenario": "查询设备某一天逐小时粒度的客流统计数据",
+      "family": "passenger_flow",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/passengerflow/hourly",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "小时粒度划分与时区口径待核。",
+        "与candidate:domestic:690:d0按天统计数据的关系待核。",
+        "请求/响应合同需原材料核定。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:692:d0",
+      "source_id": "portal-2026-11-17:domestic:692",
+      "source_pins": {
+        "raw_file": "pages/domestic/692.source.json",
+        "raw_file_sha256": "52c3c66c390c288a2e5c64e85865e22021f37e91b0b27c4450f3e3d4525f3d63",
+        "content_sha256": "99db58f007459b5b1caa558fe595dd1a6a1df599b19f22a7e88f087f7859a567",
+        "structure_file": "derived/domestic/692.structure.json",
+        "structure_sha256": "2eadbfe69cf0d176f20344d419b1c23b566f16170436ece12a4957ecd900113b"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "客流统计",
+          "配置客流统计信息"
+        ]
+      ],
+      "scenario": "配置设备客流统计信息",
+      "family": "passenger_flow",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/passengerflow/config/set",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "可配置项范围（统计规则、区域、上报周期等）待核。",
+        "与candidate:domestic:693:d0配置查询的属性对应关系待核。",
+        "配置生效是否依赖客流开关状态待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:693:d0",
+      "source_id": "portal-2026-11-17:domestic:693",
+      "source_pins": {
+        "raw_file": "pages/domestic/693.source.json",
+        "raw_file_sha256": "fa523e6b361e86611debdf998db11811deebfd3a41cc53a035146e01f1b468dc",
+        "content_sha256": "819923a8720fd7bd9d6561588871afde9e1900cc7ca29fe6e9fbbe4f6475117d",
+        "structure_file": "derived/domestic/693.structure.json",
+        "structure_sha256": "e797e4af41811565f44b8824d515b49faea6bf29c5adaa37a1ae8dd9f099476d"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "客流统计",
+          "获取客流统计配置信息"
+        ]
+      ],
+      "scenario": "查询设备客流统计配置信息",
+      "family": "passenger_flow",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/passengerflow/config/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "返回配置项与candidate:domestic:692:d0可设置项是否一致待核。",
+        "设备适用范围与权限前提待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:714:d0",
+      "source_id": "portal-2026-11-17:domestic:714",
+      "source_pins": {
+        "raw_file": "pages/domestic/714.source.json",
+        "raw_file_sha256": "a554a183c4f9bdac9ce9b95a43ce265f2fdb50ceb34a990af7d0427518e5360d",
+        "content_sha256": "0a98082e50a7a0afbab84265613ce3679a7978b924ac4ff1de85a68a81f57fe5",
+        "structure_file": "derived/domestic/714.structure.json",
+        "structure_sha256": "a04109c1d65d31b152aaab5098bc81de76c7cb51b931eb7318350b040d16d3d5"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "获取移动侦测灵敏度配置"
+        ]
+      ],
+      "scenario": "查询设备移动侦测灵敏度配置",
+      "family": "motion_detection",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/device/algorithm/config/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "该算法配置接口除移动侦测灵敏度外是否覆盖其它算法项待核。",
+        "灵敏度取值范围与档位语义待核。",
+        "与candidate:domestic:715:d0设置接口是否同一配置项待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:715:d0",
+      "source_id": "portal-2026-11-17:domestic:715",
+      "source_pins": {
+        "raw_file": "pages/domestic/715.source.json",
+        "raw_file_sha256": "589b79bf45ab3e6d8135bde8b2bb86a6e173751931e215c8ca67cbfbcdd522ac",
+        "content_sha256": "1470ed136a4e915f74e8ed22340dd7822eb7b775776ef749673c6f596d93b1ab",
+        "structure_file": "derived/domestic/715.structure.json",
+        "structure_sha256": "0b4dd46eb8622598919b8e2bfc017316e2dae6e4bdec9d05661a1f49b9df0acc"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置移动侦测灵敏度"
+        ]
+      ],
+      "scenario": "设置设备移动侦测灵敏度",
+      "family": "motion_detection",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/device/algorithm/config/set",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "灵敏度取值范围与生效时机待核。",
+        "与candidate:domestic:714:d0查询接口的属性对应关系待核。",
+        "设备与权限前提需原材料核定。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:719:d0",
+      "source_id": "portal-2026-11-17:domestic:719",
+      "source_pins": {
+        "raw_file": "pages/domestic/719.source.json",
+        "raw_file_sha256": "c6ab22b490b03be966c5c8a9dce41fa8bf0db7659e447cae7fdbe07feff07445",
+        "content_sha256": "40190beb440351044c0e5b7780777a960c6bfc3e9b05dd883d14bcf53da4251c",
+        "structure_file": "derived/domestic/719.structure.json",
+        "structure_sha256": "466ce4087ba434e5bdc20533d91af24770dfed5703226853b25a4b55b26203aa"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "开启或关闭设备下线通知"
+        ]
+      ],
+      "scenario": "设置设备下线通知的开关",
+      "family": "device_offline_notify",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/device/notify/switch",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "开关作用对象是设备级还是账号级通知待核。",
+        "通知触达渠道与接收方范围待核。",
+        "请求/响应合同与权限前提需原材料核定。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:722:d0",
+      "source_id": "portal-2026-11-17:domestic:722",
+      "source_pins": {
+        "raw_file": "pages/domestic/722.source.json",
+        "raw_file_sha256": "9c58c21409ef6f41abf8520beb7987f2f4c8f5274791218dc9be2e817393ffd7",
+        "content_sha256": "1186da0532fe69545c427fbc979ac519700fa68cce182cf64d6cfc46d57fa5f0",
+        "structure_file": "derived/domestic/722.structure.json",
+        "structure_sha256": "45a818697d10d8ceef5a9031f2258431a2ecbc332cd088ee26e928baaa8cc307"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置设备移动跟踪开关"
+        ]
+      ],
+      "scenario": "设置设备移动跟踪开关",
+      "family": "mobile_tracking",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/device/mobile/status/set",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "移动跟踪与candidate:domestic:728:d0/candidate:domestic:729:d0人形追踪是不同能力还是同一能力不同表述待核。",
+        "生效前提（云台能力、跟踪模式）待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:723:d0",
+      "source_id": "portal-2026-11-17:domestic:723",
+      "source_pins": {
+        "raw_file": "pages/domestic/723.source.json",
+        "raw_file_sha256": "5fa8ca17357bdd74b551b9a4c196ed39226055be73acc6e3517f67fddf6671e5",
+        "content_sha256": "4f11b19412f3a11140d211def8389f355b573522a797a20b44bc2db699297cf4",
+        "structure_file": "derived/domestic/723.structure.json",
+        "structure_sha256": "6b457691bd54f1a799854a58916fc91bfb573d4f990bd27da056c68eb2761510"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "获取设备移动跟踪开关状态"
+        ]
+      ],
+      "scenario": "查询设备移动跟踪开关状态",
+      "family": "mobile_tracking",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/device/mobile/status/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "与candidate:domestic:722:d0设置接口是否同一开关属性待核。",
+        "与candidate:domestic:728:d0人形追踪状态查询的能力边界待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:725:d0",
+      "source_id": "portal-2026-11-17:domestic:725",
+      "source_pins": {
+        "raw_file": "pages/domestic/725.source.json",
+        "raw_file_sha256": "116d0739830a19fc672b5b39df62ca3d5028e0acf2753559dea3e04327001d62",
+        "content_sha256": "576465aaa3bbc3221ea55084acc131ed2138202c7ac0eaf5ceec46194b2a463d",
+        "structure_file": "derived/domestic/725.structure.json",
+        "structure_sha256": "4d8635a676290c392623551ffaa07fa439e2da2e582cd1081cc15c5229c67482"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置设备的OSD名称"
+        ]
+      ],
+      "scenario": "设置设备的OSD名称",
+      "family": "device_osd",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/device/update/osd/name",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "可设置的OSD项范围（通道名/叠加文字）与字符约束待核。",
+        "与candidate:domestic:1721:d0查询接口的属性对应关系待核。",
+        "设备前提与权限范围需原材料核定。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:726:d0",
+      "source_id": "portal-2026-11-17:domestic:726",
+      "source_pins": {
+        "raw_file": "pages/domestic/726.source.json",
+        "raw_file_sha256": "6c8a1355c4ef7b7a7e5178cac4f65ddad544779a91b1ba049f843fd1b7543a2b",
+        "content_sha256": "a89b63174b4e1299668e61a94cfacf0124b9cb4f418922a9434a59d6f0bb88ca",
+        "structure_file": "derived/domestic/726.structure.json",
+        "structure_sha256": "69d1ad160aaaf6dcb26e92fd60207f7509360e8a61f1be10f7da23385a06a584"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "获取智能检测开关状态"
+        ]
+      ],
+      "scenario": "查询设备智能检测开关状态",
+      "family": "intelligent_detection",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/device/intelligence/detection/switch/status",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "智能检测覆盖的检测类型范围待核。",
+        "与candidate:domestic:727:d0设置接口是否同一开关属性待核。",
+        "与candidate:domestic:1724:d0人形/PIR检测开关的能力边界待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:727:d0",
+      "source_id": "portal-2026-11-17:domestic:727",
+      "source_pins": {
+        "raw_file": "pages/domestic/727.source.json",
+        "raw_file_sha256": "9a4c1493a417ecd58ae3735bed0b44efb75620119b09ccc869ae37c9cd5f233c",
+        "content_sha256": "d3513160c55976f21e2d58144b0299e3a503784c0e1c6232b2cdf7fa26a2d2f2",
+        "structure_file": "derived/domestic/727.structure.json",
+        "structure_sha256": "7a8a548782e7d8aa79dcd1a5fd37644a7bc6cfa7b27865416e89635eafd1e491"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置智能检测开关状态"
+        ]
+      ],
+      "scenario": "设置设备智能检测开关状态",
+      "family": "intelligent_detection",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/device/intelligence/detection/switch/set",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "检测类型选择与取值语义待核。",
+        "与candidate:domestic:726:d0状态查询的对应关系待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:728:d0",
+      "source_id": "portal-2026-11-17:domestic:728",
+      "source_pins": {
+        "raw_file": "pages/domestic/728.source.json",
+        "raw_file_sha256": "43261cdb5d20ba21baa7c68bf3c3543ca5e4abf61942cbe27cec5d5c19b1d465",
+        "content_sha256": "101f9602c5a0c416406c9e88ca53110a5a62966980d37c5f80492aa6e1e87fef",
+        "structure_file": "derived/domestic/728.structure.json",
+        "structure_sha256": "2833f966e6e0a73898498b49f1f1033de561f0505ab69bbe509f8303fa89e296"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "获取人形追踪开关状态"
+        ]
+      ],
+      "scenario": "查询设备人形追踪开关状态",
+      "family": "human_tracking",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/switch/human/track",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "人形追踪与candidate:domestic:722:d0/candidate:domestic:723:d0移动跟踪是否同一能力待核。",
+        "开关状态作用范围与设备前提待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:729:d0",
+      "source_id": "portal-2026-11-17:domestic:729",
+      "source_pins": {
+        "raw_file": "pages/domestic/729.source.json",
+        "raw_file_sha256": "585900c7e15068bbb0e6da46ce877c438f6b30f4e3421a5aab9cf6edd1e3593d",
+        "content_sha256": "b3bfe5b6ab2597f3170c11629d136105cf464c23a50d12b9f63695fa1f523223",
+        "structure_file": "derived/domestic/729.structure.json",
+        "structure_sha256": "93eb4a1b08910e618a6fb2e306f8fb209441bb3cf2898526bcbbfd19077f8976"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "配置人形追踪开关状态"
+        ]
+      ],
+      "scenario": "配置设备人形追踪开关状态",
+      "family": "human_tracking",
+      "declared_transport": {
+        "method": "PUT",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/switch/human/track",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "与candidate:domestic:728:d0状态查询是否同一开关属性待核。",
+        "生效时机与设备前提（云台/算法依赖）待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:730:d0",
+      "source_id": "portal-2026-11-17:domestic:730",
+      "source_pins": {
+        "raw_file": "pages/domestic/730.source.json",
+        "raw_file_sha256": "7f9843060b426354fdab694382c7f4017563ff0c8bbdc00ffa99605f8facaaaf",
+        "content_sha256": "865d22e5185a1eb2477d5ece3c684e26622b47a292f76fcbbd610ffc69b425d2",
+        "structure_file": "derived/domestic/730.structure.json",
+        "structure_sha256": "2ef5fb680efac03cb1d78561b816fb6b9d9c6040cf3b85d82c86282b0d3a62d4"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "智能设备AI算法管理",
+          "查询设备支持的智能算法列表"
+        ]
+      ],
+      "scenario": "查询设备支持的智能算法列表",
+      "family": "device_ai_algorithm",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/intelligent/model/device/support",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "返回算法列表的口径（设备已支持/平台可下发）待核。",
+        "与candidate:domestic:732:d0下发接口的算法标识对应关系待核。",
+        "设备适用范围与权限前提待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:731:d0",
+      "source_id": "portal-2026-11-17:domestic:731",
+      "source_pins": {
+        "raw_file": "pages/domestic/731.source.json",
+        "raw_file_sha256": "0f0074b82d96d23c0dde61ad6bac75886ff081d7548a348b85fd5b0b9b8bdded",
+        "content_sha256": "d994adb4379b21f3b66e7e2ee577df210f9e3fe48dbc83564640c1d38a609ede",
+        "structure_file": "derived/domestic/731.structure.json",
+        "structure_sha256": "9391be7f1411b705206b39b28da8c1831dc7defb8341cf4009615c23048b3197"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "智能设备AI算法管理",
+          "查询智能设备列表"
+        ]
+      ],
+      "scenario": "查询智能设备列表",
+      "family": "device_ai_algorithm",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/intelligent/model/device",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "列表范围（账号下智能设备/支持算法设备）与筛选维度待核。",
+        "返回字段合同尚未提供，需原材料核定。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:732:d0",
+      "source_id": "portal-2026-11-17:domestic:732",
+      "source_pins": {
+        "raw_file": "pages/domestic/732.source.json",
+        "raw_file_sha256": "ae860f5d6010ee87d820b500c8d68c576e8dbfe522ee6ea263fb2c67b5bf4bce",
+        "content_sha256": "331a7fa0b415b0e5bf0053218067c4f8d59703e65e5843a0713ba804c62e7e5c",
+        "structure_file": "derived/domestic/732.structure.json",
+        "structure_sha256": "481f616155cef26e3ad2bcd7750ff920893a53f29ef81d0a8f5f3d1d8802278c"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "智能设备AI算法管理",
+          "设备智能算法下发"
+        ]
+      ],
+      "scenario": "请求向设备下发智能算法",
+      "family": "device_ai_algorithm",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/intelligent/model/app/load",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "下发为同步完成还是异步任务、结果确认方式待核。",
+        "算法来源与版本指定方式待核。",
+        "设备在线状态与权限前提待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:733:d0",
+      "source_id": "portal-2026-11-17:domestic:733",
+      "source_pins": {
+        "raw_file": "pages/domestic/733.source.json",
+        "raw_file_sha256": "046783fbadef3d20adc273c56de6b74da35c08b1f35cdcece03e2cd973e589b7",
+        "content_sha256": "e2bc4788cee14b35a88550f2955ec8c757e8c62be800e8d40aedeb0ca21acd98",
+        "structure_file": "derived/domestic/733.structure.json",
+        "structure_sha256": "1408f44ea0602439721cebc8772fd84b2cf9a277692a9771eef3fdcbe5bc2d98"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "智能设备AI算法管理",
+          "设备启用/停用智能算法"
+        ]
+      ],
+      "scenario": "设置设备智能算法的启用或停用",
+      "family": "device_ai_algorithm",
+      "declared_transport": {
+        "method": "PUT",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/intelligent/model/device/onoffline",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "启停作用对象是设备整体还是单个算法待核。",
+        "与candidate:domestic:732:d0算法下发的先后依赖关系待核。",
+        "请求/响应合同需原材料核定。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1259:d0",
+      "source_id": "portal-2026-11-17:domestic:1259",
+      "source_pins": {
+        "raw_file": "pages/domestic/1259.source.json",
+        "raw_file_sha256": "c30f1e6cb92dcd24d64e785a5288eacbde443990af727ef91e83b38b8612a4be",
+        "content_sha256": "87a70cd31835dad67777e6d481f60bcfc1fd89ada7fd507ed1ec563440a0b741",
+        "structure_file": "derived/domestic/1259.structure.json",
+        "structure_sha256": "ede52692952e45b3f10315e1bad38723415694eccb5d839b4c91a98f8a4947a2"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "设备语音能力",
+          "获取设备语音列表接口"
+        ]
+      ],
+      "scenario": "查询设备语音列表",
+      "family": "device_voice",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/route/voice/v3/devices/voices",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "possible_variant_of_existing",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "与既有device_voice族候选槽位场景的边界与等价关系待核，路由一致不证明等价。",
+        "语音列表的筛选维度与分页口径待核。",
+        "请求/响应合同需原source/observation材料核定。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1263:d0",
+      "source_id": "portal-2026-11-17:domestic:1263",
+      "source_pins": {
+        "raw_file": "pages/domestic/1263.source.json",
+        "raw_file_sha256": "d35f2d3d21fa21de73d2f04787c5477382c86e2e11246803846d659a91839a1f",
+        "content_sha256": "81d83aef9718c573cfd098584da81163cba8bc96e85a10aba7d4f167c6bd338c",
+        "structure_file": "derived/domestic/1263.structure.json",
+        "structure_sha256": "a525cdfe7b22279b6ec0303854d075d80d9fbcb97af569b83be4f8a0e01b322f"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "设备语音能力",
+          "新增设备语音接口"
+        ]
+      ],
+      "scenario": "请求新增设备语音",
+      "family": "device_voice",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/route/voice/v3/devices/voices",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "possible_variant_of_existing",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "语音内容来源（文本合成/音频文件）与格式约束待核。",
+        "与既有device_voice槽位场景的等价关系待核。",
+        "设备前提与权限范围待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1273:d0",
+      "source_id": "portal-2026-11-17:domestic:1273",
+      "source_pins": {
+        "raw_file": "pages/domestic/1273.source.json",
+        "raw_file_sha256": "8f8d084c66a511ea4cf6c821c40e45ce4d1700551d15f06825aee71859b7bf23",
+        "content_sha256": "57728e8a673496d5d81f8ab4031741550fd28d48bc6a2456394f923b07a61d9d",
+        "structure_file": "derived/domestic/1273.structure.json",
+        "structure_sha256": "96aecce8d55d085c729d5fe8ffb7d0a330f2f1feeb73168c6dd217e7660f8abe"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "设备语音能力",
+          "修改设备语音名称接口"
+        ],
+        [
+          "OPEN API",
+          "设备云组件仓",
+          "跌倒检测毫米波雷达",
+          "基础功能",
+          "人形侦测 （HumanDetection）",
+          "修改设备语音名称接口"
+        ]
+      ],
+      "scenario": "请求修改设备语音名称",
+      "family": "device_voice",
+      "declared_transport": {
+        "method": "PUT",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/route/voice/v3/devices/voices",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "possible_variant_of_existing",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "该声明同时挂于云接入语音能力与毫米波雷达组件两个目录位置，实际业务归属与设备适用范围待核。",
+        "可修改字段范围（仅名称/含其它属性）待核。",
+        "与既有device_voice槽位场景的等价关系待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1277:d0",
+      "source_id": "portal-2026-11-17:domestic:1277",
+      "source_pins": {
+        "raw_file": "pages/domestic/1277.source.json",
+        "raw_file_sha256": "d0bbb69ecbd155b3dce86a7455fa0ccbb3c308e500126c52a46c5c292ef05395",
+        "content_sha256": "b604a496185542e6d20a2291bf175266c306a8217d696f993be5d692a2f28651",
+        "structure_file": "derived/domestic/1277.structure.json",
+        "structure_sha256": "3cb62515fa43860e7bb8765666c1d8ecb1d44ce45a30d1c75f8f3423efa7fd23"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "设备语音能力",
+          "设备告警提示音设置接口"
+        ]
+      ],
+      "scenario": "设置设备告警提示音",
+      "family": "device_voice",
+      "declared_transport": {
+        "method": "PUT",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/route/alarm/v3/devices/{deviceSerial}/alarm/sound",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "possible_variant_of_existing",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "提示音来源（预置/自定义语音）与告警事件的绑定方式待核。",
+        "作用范围是设备级还是按告警类型区分待核。",
+        "与既有device_voice槽位场景的等价关系待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1281:d0",
+      "source_id": "portal-2026-11-17:domestic:1281",
+      "source_pins": {
+        "raw_file": "pages/domestic/1281.source.json",
+        "raw_file_sha256": "06ec4b3d9c2315e194ec7432a171e799c15e7300c49715056ce43a321cc9c40b",
+        "content_sha256": "3e981319d1ac2e60af5030e0f6041c9bafa1e04b74094e5bb3e3c72766288978",
+        "structure_file": "derived/domestic/1281.structure.json",
+        "structure_sha256": "b89357c03eab90e2b3b05e959bebb963877990facc6bbdf9a24e410cac8f1b99"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "设备语音能力",
+          "删除设备语音接口"
+        ]
+      ],
+      "scenario": "请求删除设备语音",
+      "family": "device_voice",
+      "declared_transport": {
+        "method": "DELETE",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/route/voice/v3/devices/voices",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "possible_variant_of_existing",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "删除的作用对象与是否影响已下发到设备的语音待核。",
+        "删除是否可恢复的语义待核。",
+        "与既有device_voice槽位场景的等价关系待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1532:d0",
+      "source_id": "portal-2026-11-17:domestic:1532",
+      "source_pins": {
+        "raw_file": "pages/domestic/1532.source.json",
+        "raw_file_sha256": "eaa448152c0536917d747bf928c4994b729aba004d7fb80979fb04f418df7b20",
+        "content_sha256": "0c7275b55634602127b09ab7d73cb48dba3fce61673a4c3483fa3f55107cf8a0",
+        "structure_file": "derived/domestic/1532.structure.json",
+        "structure_sha256": "f0a904dfe297ad73b183c04b6278ef4e2e9f1c5639353f170e4815b2927a4260"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "发送系统操作命令（远程重启）"
+        ]
+      ],
+      "scenario": "请求发送系统操作命令（目录标注为远程重启）",
+      "family": "device_system_operation",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/systemOperate",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "支持的系统操作命令范围是仅远程重启还是含其它命令待核。",
+        "命令执行为同步确认还是异步生效待核。",
+        "权限范围与设备前提需原材料核定。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1718:d0",
+      "source_id": "portal-2026-11-17:domestic:1718",
+      "source_pins": {
+        "raw_file": "pages/domestic/1718.source.json",
+        "raw_file_sha256": "e3115bc5f5ada89fc1f40f5a25df1418d02a980ce562c061be69df97696a1d99",
+        "content_sha256": "1400e7a675e3a5cca34170d785954064fffcbfeca1175e46f30a82c7662430e5",
+        "structure_file": "derived/domestic/1718.structure.json",
+        "structure_sha256": "3b299763ed97fb0adbac384c901b3dc4c84e8fdff45fc12f436326dd3f6a3dc2"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "配置音量"
+        ]
+      ],
+      "scenario": "设置设备音量",
+      "family": "speaker_volume",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/talkSpeakerVolume",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "音量取值范围与档位语义待核。",
+        "作用于对讲扬声器还是设备全部音频输出待核。",
+        "与candidate:domestic:1719:d0查询接口的属性对应关系待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1719:d0",
+      "source_id": "portal-2026-11-17:domestic:1719",
+      "source_pins": {
+        "raw_file": "pages/domestic/1719.source.json",
+        "raw_file_sha256": "11bb34c40efe25fbb43b7b79e66445b6afe394c8f4d09bb20748e18bab06b343",
+        "content_sha256": "f80fbd07f98b6fbb80adcb37914c1c6e589e3097b70bf26488acd5898701cb4c",
+        "structure_file": "derived/domestic/1719.structure.json",
+        "structure_sha256": "82d7a8d5b24383fad9e0cbf4780ad164d187a7fd8a88ab0b53bd6d2556dfbfab"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询音量"
+        ]
+      ],
+      "scenario": "查询设备音量",
+      "family": "speaker_volume",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/talkSpeakerVolume",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "返回音量与candidate:domestic:1718:d0设置项是否同一属性待核。",
+        "设备前提与权限范围待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1721:d0",
+      "source_id": "portal-2026-11-17:domestic:1721",
+      "source_pins": {
+        "raw_file": "pages/domestic/1721.source.json",
+        "raw_file_sha256": "8ba5ffe8dbc97e1b9035971a098957873a898d34f1320f0552d31ce4a01a32b8",
+        "content_sha256": "bd3b4407d97f3fa10e96c4048f54c69912cf9a96f73f18fe9dbeb5adc79ec930",
+        "structure_file": "derived/domestic/1721.structure.json",
+        "structure_sha256": "a563054acc41c86ef0f4d25a9a2fe174aff5581a0dfcdf4dfe50a474474f72d7"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询设备的OSD名称"
+        ]
+      ],
+      "scenario": "查询设备的OSD名称",
+      "family": "device_osd",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/osd",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "返回的OSD项范围与candidate:domestic:725:d0可设置项的对应关系待核。",
+        "请求/响应合同需原材料核定。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1723:d0",
+      "source_id": "portal-2026-11-17:domestic:1723",
+      "source_pins": {
+        "raw_file": "pages/domestic/1723.source.json",
+        "raw_file_sha256": "dd6ecf485b8624b45bfd4189b4fb8ffac45b2d33f7e4359728654f9b9a75b3e0",
+        "content_sha256": "690bfdab9dccd05dea8733c58a1d2c5b6bf42a393378f80cf211e4a9c07083a9",
+        "structure_file": "derived/domestic/1723.structure.json",
+        "structure_sha256": "737e5a9e7cb9364af1937a64ccc5fb5ddaa3f06ae3058b315ff39f8446fe3f2d"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询设备工作模式计划"
+        ]
+      ],
+      "scenario": "查询设备工作模式计划",
+      "family": "device_work_plan",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/timing/plan/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "工作模式计划的构成（时段划分、模式类型）待核。",
+        "是否存在对应设置接口及读写属性对关系待核。",
+        "设备适用范围与权限前提待核。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1724:d0",
+      "source_id": "portal-2026-11-17:domestic:1724",
+      "source_pins": {
+        "raw_file": "pages/domestic/1724.source.json",
+        "raw_file_sha256": "58650923cf26b055ac380f8b7a36537c2f62ab67e74cecd12f7970900c05c21a",
+        "content_sha256": "cbebab4d10d46247a8ca76bbcc1d29302d4e385a2f9731c59367159b66f1b370",
+        "structure_file": "derived/domestic/1724.structure.json",
+        "structure_sha256": "8b4b00f8ff3a3d73d06b37d89838841d15aff386f3d7bc7522f0f463a819f2bb"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "开启人形/PIR检测"
+        ]
+      ],
+      "scenario": "设置设备人形/PIR检测开关",
+      "family": "human_pir_detection",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/alarm/detect/switch/set",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "人形与PIR检测是分别控制还是组合开关待核。",
+        "与candidate:domestic:726:d0/candidate:domestic:727:d0智能检测开关的能力边界待核。",
+        "生效前提与权限范围需原材料核定。"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1725:d0",
+      "source_id": "portal-2026-11-17:domestic:1725",
+      "source_pins": {
+        "raw_file": "pages/domestic/1725.source.json",
+        "raw_file_sha256": "f815ddc130c482655dbc31fbc3ff887b5e57e755e66a05217ccb049c825b2630",
+        "content_sha256": "25838a0d74f9ba3c97a18272407b96b22aa9665a3d12954d7e90e95550a2ecdf",
+        "structure_file": "derived/domestic/1725.structure.json",
+        "structure_sha256": "1f3dcda3e1d1d31b70fe6d00d0d728a21f625a14a8e28b8fff698003c98891ca"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询人形/PIR检测状态"
+        ]
+      ],
+      "scenario": "请求查询设备人形/PIR检测开关状态",
+      "family": "device_detection_config",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/alarm/detect/switch/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "查询结果覆盖人形与PIR两类检测还是需指定类型待核",
+        "适用设备范围与权限前提待核",
+        "与其他侦测开关接口的状态口径是否一致待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1727:d0",
+      "source_id": "portal-2026-11-17:domestic:1727",
+      "source_pins": {
+        "raw_file": "pages/domestic/1727.source.json",
+        "raw_file_sha256": "3442e41c6e1884dd2ae8c5cd4152dec16c87a31274fa7f914b0aadfccd1758dc",
+        "content_sha256": "e7441f106f05d5377fd8a5d5b35ad357225e1bb0fc9673afe150fe9392db8d8d",
+        "structure_file": "derived/domestic/1727.structure.json",
+        "structure_sha256": "ab892af5e8c3dbbb28448232a7e1a3ffa476dd88343c4dd838adb1e46829da61"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "播放铃声"
+        ]
+      ],
+      "scenario": "请求触发设备播放铃声",
+      "family": "device_ringtone_audition",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/audition",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "铃声来源是内置项、指定标识还是自定义资源待核",
+        "触发后是单次试听还是持续响铃待核",
+        "适用设备与发声硬件前提待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1728:d0",
+      "source_id": "portal-2026-11-17:domestic:1728",
+      "source_pins": {
+        "raw_file": "pages/domestic/1728.source.json",
+        "raw_file_sha256": "39d5bcb7f43bfc54586f25e2c453a3022f38ec1914f8c563f04089afef3c51b1",
+        "content_sha256": "06264211a88b57397d75b8405a62eee484872e9e5ca5a57aaf2da4d7717fe421",
+        "structure_file": "derived/domestic/1728.structure.json",
+        "structure_sha256": "bc3893f84b6069a362c98a8aba9f92d00d48bbc47758803efbace9fd89c59201"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置侦测开关"
+        ]
+      ],
+      "scenario": "请求设置设备侦测功能开关",
+      "family": "device_detection_config",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/detect/switch/set",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "开关覆盖的检测类型范围（移动/人形/PIR等）待核",
+        "与candidate:domestic:1725:d0所查询状态是否同一组开关待核",
+        "开关生效范围是整机还是通道级待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1730:d0",
+      "source_id": "portal-2026-11-17:domestic:1730",
+      "source_pins": {
+        "raw_file": "pages/domestic/1730.source.json",
+        "raw_file_sha256": "e0d0a840f2daf5f6954d4dff7c1112e000761df60190eeb30342d2c92e6010a8",
+        "content_sha256": "c7cb15d3fe73172611c9142937d123c6a02e367d88b3d35da1cf554bd5edc847",
+        "structure_file": "derived/domestic/1730.structure.json",
+        "structure_sha256": "09c83a1a2bff067d4fedc185aa90d12e31302aaf7bb44e56f897bf181dd337d1"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置PIR检测区域"
+        ]
+      ],
+      "scenario": "请求设置设备PIR检测区域",
+      "family": "device_detection_config",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/pir/set",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "检测区域的表示格式与坐标语义待核",
+        "区域设置与PIR开关状态的依赖关系待核",
+        "适用设备范围前提待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1731:d0",
+      "source_id": "portal-2026-11-17:domestic:1731",
+      "source_pins": {
+        "raw_file": "pages/domestic/1731.source.json",
+        "raw_file_sha256": "7d6a09c383bc0056567c3e15a6340da9419ab1635c6c3f9fe08638b522f35a4b",
+        "content_sha256": "004783ab798aece8924adc8da47d95cd3a49c66e932b066397830d110544f9be",
+        "structure_file": "derived/domestic/1731.structure.json",
+        "structure_sha256": "f3405a46a936f2a347f4aa60dd14a367606fdceff7160393dff9976a69b731f6"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询人形检测区域"
+        ]
+      ],
+      "scenario": "请求查询设备人形检测区域配置",
+      "family": "device_detection_config",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/motion/detect/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "返回区域结构与candidate:domestic:1730:d0的PIR区域是否为同一格式待核",
+        "是否仅覆盖人形检测而非全部侦测类型待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1733:d0",
+      "source_id": "portal-2026-11-17:domestic:1733",
+      "source_pins": {
+        "raw_file": "pages/domestic/1733.source.json",
+        "raw_file_sha256": "f239e8f573e5897a576661264585900d50a4cf6237160dedc2e2f25cf60011d9",
+        "content_sha256": "a26c0d4c8816d5a023aa7699a6458b43b6d73ba9039035088373efa2e78f0596",
+        "structure_file": "derived/domestic/1733.structure.json",
+        "structure_sha256": "8c5aee2f23e2c3a7aa7a0c541749489b563fe7d009c17a0394d494a2254c45cf"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "获取检测灵敏度"
+        ]
+      ],
+      "scenario": "请求查询设备检测灵敏度配置",
+      "family": "device_detection_config",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/detect/config/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "灵敏度适用的检测类型范围待核",
+        "返回是单一值还是按类型/时段分组待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1734:d0",
+      "source_id": "portal-2026-11-17:domestic:1734",
+      "source_pins": {
+        "raw_file": "pages/domestic/1734.source.json",
+        "raw_file_sha256": "90dec2b7ea541db7a67c1c69f40c9f90241aa63f68a69b426103fc6541990a18",
+        "content_sha256": "4175c99bd93cd696e3f0a3cc0804d93fd10ad40ddb3162c3edf4bec929dd8d52",
+        "structure_file": "derived/domestic/1734.structure.json",
+        "structure_sha256": "cf0918de735a5369e899357cee670b774c4254108353fd9cbaeba19e8020b281"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置检测灵敏度"
+        ]
+      ],
+      "scenario": "请求设置设备检测灵敏度",
+      "family": "device_detection_config",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/detect/config/set",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "与candidate:domestic:1733:d0是否构成同一灵敏度配置的读写对、检测类型口径是否一致待核",
+        "灵敏度取值结构与分级语义待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1735:d0",
+      "source_id": "portal-2026-11-17:domestic:1735",
+      "source_pins": {
+        "raw_file": "pages/domestic/1735.source.json",
+        "raw_file_sha256": "528e00c62c8bb6cd616a9019c6b02e878f7226b461246a207ab81a04a4185c31",
+        "content_sha256": "bf0c95df6ec198286d3e88a8ed7c590b4f088be1443ff3115b7d0e73a99f7b68",
+        "structure_file": "derived/domestic/1735.structure.json",
+        "structure_sha256": "1df9d3a43e33821a84c95f29d337b339ed1da48e428c389b5fc470ff5a28f196"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置设备图像风格"
+        ]
+      ],
+      "scenario": "请求设置设备图像风格模式",
+      "family": "device_display_mode",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/display/mode/set",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "图像风格可选模式集合待核",
+        "与图像参数（candidate:domestic:3679:d0）、白平衡（candidate:domestic:3681:d0）的作用边界待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1736:d0",
+      "source_id": "portal-2026-11-17:domestic:1736",
+      "source_pins": {
+        "raw_file": "pages/domestic/1736.source.json",
+        "raw_file_sha256": "5028b768da7277926c3a6974297d7364047f7d27f20de8a8528dc6241b7663ad",
+        "content_sha256": "cc9220a75adc8687b6eb0357357cb556f257c2049a1dbda92d61176a74fc72bd",
+        "structure_file": "derived/domestic/1736.structure.json",
+        "structure_sha256": "db8b3c391cb3f1ec255707b8db369cab7d00aa1245618c08f1c0851492382b94"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询图像风格"
+        ]
+      ],
+      "scenario": "请求查询设备当前图像风格",
+      "family": "device_display_mode",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/display/mode/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "返回的风格模式枚举与candidate:domestic:1735:d0可设置集合是否一致待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1739:d0",
+      "source_id": "portal-2026-11-17:domestic:1739",
+      "source_pins": {
+        "raw_file": "pages/domestic/1739.source.json",
+        "raw_file_sha256": "6261376095ac5b933337f072af0a0bb6260b2b8705015b10b66818d4b2f2eff9",
+        "content_sha256": "b13e1645d21e12e2346ed9381ad53171b2787ab5a8dab7c359c9dee5e62f9d4a",
+        "structure_file": "derived/domestic/1739.structure.json",
+        "structure_sha256": "9ae8b76554de007ebbfcce893e44e98d8362f044974e6161bd7bb5faa352f8de"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询电池充电状态"
+        ]
+      ],
+      "scenario": "请求查询设备电池充电状态",
+      "family": "device_power_status",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/power/status/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "返回是否仅充电状态还是包含电量/供电方式信息待核",
+        "适用设备为电池机型的前提待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1740:d0",
+      "source_id": "portal-2026-11-17:domestic:1740",
+      "source_pins": {
+        "raw_file": "pages/domestic/1740.source.json",
+        "raw_file_sha256": "0bb2d40bc921d66c4c41b249039ee4e4c349f4f5fccbdadc3558512e1f0f7751",
+        "content_sha256": "092f75da2a89b7a1a441cb335e0fbdcd1a270d0d999d52f0743304d368438ab1",
+        "structure_file": "derived/domestic/1740.structure.json",
+        "structure_sha256": "10ae7e73e2336b9a0909b5770ce53fb91a1dc7a12405cd52e7b29295c680ba64"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "平台向设备设置各种开关量"
+        ]
+      ],
+      "scenario": "请求平台向设备下发开关量设置",
+      "family": "device_switch_status",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/switchStatus/set",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "“各种开关量”可设置开关项的枚举范围待核",
+        "开关项是否因设备能力不同而动态变化待核",
+        "下发语义是立即生效还是需设备确认待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1741:d0",
+      "source_id": "portal-2026-11-17:domestic:1741",
+      "source_pins": {
+        "raw_file": "pages/domestic/1741.source.json",
+        "raw_file_sha256": "04468d78df7ee4519ebcf3c7deb7cd8468ce9434cc2636ce7abd85c2d03055d1",
+        "content_sha256": "1b1aa0ae8913a2b7699fe9625c9c0d5ccb1b1f627b5a2587c0e0d19aa7ecf701",
+        "structure_file": "derived/domestic/1741.structure.json",
+        "structure_sha256": "4991571248594dec46f0a84079c470be0889cd58181c3bee635bfd1f49fc8202"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询开关状态"
+        ]
+      ],
+      "scenario": "请求查询设备开关量状态",
+      "family": "device_switch_status",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/switchStatus/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "可查询开关项集合与candidate:domestic:1740:d0可设置集合是否一致待核",
+        "返回是全部开关还是按项查询待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1742:d0",
+      "source_id": "portal-2026-11-17:domestic:1742",
+      "source_pins": {
+        "raw_file": "pages/domestic/1742.source.json",
+        "raw_file_sha256": "71219c26afabf65e144119b9035beef03eb1698a843ff566288c83f155cccc46",
+        "content_sha256": "757d9f4517dafbcb9a935e8b9791c5422a6b944ab7d9fb9f8085ab1d477884fc",
+        "structure_file": "derived/domestic/1742.structure.json",
+        "structure_sha256": "2a3be6fbc5bfc4febbf0a27c288da30fa3dea72fdb5d4727e945456b56f4fdc0"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询高级告警侦测类型"
+        ]
+      ],
+      "scenario": "请求查询设备高级告警侦测类型配置",
+      "family": "device_alarm_detection",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/das/device/detect/switch/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "“高级告警侦测”与普通侦测开关（candidate:domestic:1725:d0/candidate:domestic:1728:d0）的业务边界待核",
+        "返回是支持的侦测类型清单还是各类型启停状态待核",
+        "该通道是否面向特定设备类别或服务开通前提待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:3679:d0",
+      "source_id": "portal-2026-11-17:domestic:3679",
+      "source_pins": {
+        "raw_file": "pages/domestic/3679.source.json",
+        "raw_file_sha256": "d970f4fae81cd19b922fc4ca10f324495d40d456ccd29347f64df517a0883ff4",
+        "content_sha256": "815cb87573c600954ead7affc764ec2e0f2d9eca49e454ea2943ee1842be1745",
+        "structure_file": "derived/domestic/3679.structure.json",
+        "structure_sha256": "271c30fbff9757c0a0a4edcc2078f214865359b00deb977e5d41eeb1a002069f"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置设备图像参数"
+        ]
+      ],
+      "scenario": "请求设置设备图像参数",
+      "family": "device_image_params",
+      "declared_transport": {
+        "method": "PUT",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/video/image/params",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "可调图像参数项集合与取值结构待核",
+        "与图像风格（candidate:domestic:1735:d0）、白平衡（candidate:domestic:3681:d0）的参数边界待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:3681:d0",
+      "source_id": "portal-2026-11-17:domestic:3681",
+      "source_pins": {
+        "raw_file": "pages/domestic/3681.source.json",
+        "raw_file_sha256": "3453fb654da41cf3d68e7e87dce1ea764bbcf43e909284b4cdf23308c371b45a",
+        "content_sha256": "b30b0575ac508059aec9f19ac33c5333bff9e2b9e615526774a13ba4b93e1d19",
+        "structure_file": "derived/domestic/3681.structure.json",
+        "structure_sha256": "75f7a7641dafea3fe90d66a6f2e1af2362f6037701138104936b1a2a854a86d5"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置设备白平衡参数"
+        ]
+      ],
+      "scenario": "请求设置设备白平衡参数",
+      "family": "device_image_params",
+      "declared_transport": {
+        "method": "PUT",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/video/white/balance",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "白平衡模式或取值域待核",
+        "是否仅覆盖白平衡单项而非整体图像参数待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4478:d0",
+      "source_id": "portal-2026-11-17:domestic:4478",
+      "source_pins": {
+        "raw_file": "pages/domestic/4478.source.json",
+        "raw_file_sha256": "921079d34c286abda431814a90b4f0e914ed0b1b65bcedb5345c5d496b7eb8ad",
+        "content_sha256": "460ba7b24c411b9b2cb3c73542dda2e6671ec0f3c88d7cccebd0f60e3acb5eb7",
+        "structure_file": "derived/domestic/4478.structure.json",
+        "structure_sha256": "ab16ad5510b39392f54bd4f0aed8284c76478a86f588781a6be4569df440f765"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询设备归位点模式"
+        ]
+      ],
+      "scenario": "请求经通用键值操作通道查询设备归位点模式",
+      "family": "device_home_point",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/keyValue/{deviceSerial}/{channelNo}/op",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "该通用通道中归位点模式的操作标识与取值集合待核",
+        "与自定义归位点（candidate:domestic:4480:d0/candidate:domestic:4481:d0）的语义关系待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4479:d0",
+      "source_id": "portal-2026-11-17:domestic:4479",
+      "source_pins": {
+        "raw_file": "pages/domestic/4479.source.json",
+        "raw_file_sha256": "2fc7afaf907c67a8707529a6c4180f4bbdaaca61eb35b1ce91b49a8db909c187",
+        "content_sha256": "9ab9d7223952631ef8ddb6990514116c836dd40aee90f01474cc33721f8b3d89",
+        "structure_file": "derived/domestic/4479.structure.json",
+        "structure_sha256": "4a2fb6e73b4db94148d129faf73003842eea34120665d93acc2844cc985d64f9"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置设备归位点模式"
+        ]
+      ],
+      "scenario": "请求经通用键值操作通道设置设备归位点模式",
+      "family": "device_home_point",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/keyValue/{deviceSerial}/{channelNo}/op",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "与candidate:domestic:4478:d0是否构成同一模式的读写对、可设置取值待核",
+        "模式切换对已有归位点配置的影响待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4480:d0",
+      "source_id": "portal-2026-11-17:domestic:4480",
+      "source_pins": {
+        "raw_file": "pages/domestic/4480.source.json",
+        "raw_file_sha256": "bf54f6a4f0943d4474b7be17941052edb8e04f9ee9bbb234ba1ba9d5a47b2a27",
+        "content_sha256": "7bb3d793096eca0ab8897b85291c83debac50cee6e3ec982a12e3a18df4c3618",
+        "structure_file": "derived/domestic/4480.structure.json",
+        "structure_sha256": "9fd5074f598f0843907c2d9ad4928544ffbabf49e6d3b3a93e323e9ca3d9506d"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询自定义归位点设置状态"
+        ]
+      ],
+      "scenario": "请求经通用键值操作通道查询自定义归位点设置状态",
+      "family": "device_home_point",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/keyValue/{deviceSerial}/{channelNo}/op",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "“设置状态”指配置是否已写入还是启用状态待核",
+        "与归位点模式（candidate:domestic:4478:d0/candidate:domestic:4479:d0）的状态口径区别待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4481:d0",
+      "source_id": "portal-2026-11-17:domestic:4481",
+      "source_pins": {
+        "raw_file": "pages/domestic/4481.source.json",
+        "raw_file_sha256": "b5fba8a7cc617fd2950f954228c13000b710ce0f98fadc62c9e72dcaa05c45e1",
+        "content_sha256": "a4dd121ff25b52440835a1d516ab5e3a10d4edcfce01a4a75bc89e2094d8c5ef",
+        "structure_file": "derived/domestic/4481.structure.json",
+        "structure_sha256": "e80cb75c0d470b512a608d8e8600c4c8fb0fccbcd9c852a8c47b2683a38f20b2"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置自定义归位点"
+        ]
+      ],
+      "scenario": "请求经通用键值操作通道设置自定义归位点",
+      "family": "device_home_point",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/keyValue/{deviceSerial}/{channelNo}/op",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "归位点的标识与位置表示方式待核",
+        "是否以归位点模式开启为生效前提待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4483:d0",
+      "source_id": "portal-2026-11-17:domestic:4483",
+      "source_pins": {
+        "raw_file": "pages/domestic/4483.source.json",
+        "raw_file_sha256": "80602200acb26f8bc75d9b0614126a22aa1711dc570ebc0a8d30cd2108c7f0f1",
+        "content_sha256": "ba302beb432b7f43224280f0683a1629d6f8b7528be9db21f9daba67aebb836a",
+        "structure_file": "derived/domestic/4483.structure.json",
+        "structure_sha256": "88e9a74a950e20de475f618ab34258427586977ef7afab0d34731a126f4a5226"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "云台控制",
+          "八向云台控制"
+        ]
+      ],
+      "scenario": "请求经OTAP动作通道下发八向云台控制",
+      "family": "device_ptz_control",
+      "declared_transport": {
+        "method": "PUT",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/otap/action",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "possible_variant_of_existing",
+        "operation_refs": [
+          "cn.otap.invoke_action"
+        ]
+      },
+      "pending_questions": [
+        "八向方向与该动作通道的动作标识/参数映射待核",
+        "与已登记同类操作的选择子差异是否仅属性取值待核",
+        "控制语义是点动、持续还是含停止指令待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5061:d0",
+      "source_id": "portal-2026-11-17:domestic:5061",
+      "source_pins": {
+        "raw_file": "pages/domestic/5061.source.json",
+        "raw_file_sha256": "7e3c7127c8d2086990d02ed126f1ec665fc4b9740f7186abf1a7b5f3ba06134b",
+        "content_sha256": "ddda44ee0c944c7ea049eaf34401ccffa62998b9fe122da131cc477d115d3472",
+        "structure_file": "derived/domestic/5061.structure.json",
+        "structure_sha256": "61218e5175d4190df3b03de18d26647287b5addd9696a6d50c71e415c149eee6"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        0,
+        4,
+        5
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询暖光调节、亮灯时长（GET）"
+        ]
+      ],
+      "scenario": "请求经通用键值操作通道查询设备暖光调节与亮灯时长配置",
+      "family": "device_warm_light",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/keyValue/{deviceSerial}/{channelNo}/op",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "暖光调节与亮灯时长是合并返回还是分项读取待核",
+        "该通道中本场景的操作标识待核",
+        "与设备照明能力的适用前提待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5062:d0",
+      "source_id": "portal-2026-11-17:domestic:5062",
+      "source_pins": {
+        "raw_file": "pages/domestic/5062.source.json",
+        "raw_file_sha256": "cbaf10980b0d81213099f1d441e3ce76a28bd6eebe3cebbbe3dd282cf9f22e43",
+        "content_sha256": "0d47c3cd9c75b3075f489c838f1bfc722dfa156133a53897a708d50f2702f4db",
+        "structure_file": "derived/domestic/5062.structure.json",
+        "structure_sha256": "50298d0540c904f445e068efe99e9bf9081bded86d3a5b6ebcf7e710648493ba"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        0,
+        4,
+        5
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置暖光调节、亮灯时长（PUT）"
+        ]
+      ],
+      "scenario": "请求经通用键值操作通道设置设备暖光调节与亮灯时长",
+      "family": "device_warm_light",
+      "declared_transport": {
+        "method": "PUT",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/keyValue/{deviceSerial}/{channelNo}/op",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "与candidate:domestic:5061:d0是否构成同一配置的读写对待核",
+        "暖光档位与时长结构待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5064:d0",
+      "source_id": "portal-2026-11-17:domestic:5064",
+      "source_pins": {
+        "raw_file": "pages/domestic/5064.source.json",
+        "raw_file_sha256": "6e1305c6ec0884f436bef88697f68156f90941663a84f6df610432f8ce6c6717",
+        "content_sha256": "7391ba55b7be7f9c5a13af7bdf5307a2d27281f5f35502e897e408de41808268",
+        "structure_file": "derived/domestic/5064.structure.json",
+        "structure_sha256": "7027dcd2d3ceb877bebca58c0df8cab0d393935d059564ea2a9d7c84492d8a23"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        0,
+        4,
+        5
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "云台控制",
+          "设置自动巡航开关（POST）"
+        ]
+      ],
+      "scenario": "请求设置设备自动巡航开关",
+      "family": "device_ptz_cruise",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/ptz/cruise/auto/switch",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "开关仅启停自动巡航还是可附带巡航参数待核",
+        "与预置点/巡航计划的依赖关系待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5088:d0",
+      "source_id": "portal-2026-11-17:domestic:5088",
+      "source_pins": {
+        "raw_file": "pages/domestic/5088.source.json",
+        "raw_file_sha256": "93d78f0ed6c420efbd246e7366af2df08f94384e011285c757ce8b364802fc31",
+        "content_sha256": "ed26bfd97a674dfd9d3b102c881268da3cb110a81f3aba6020bcbc81402d1d4f",
+        "structure_file": "derived/domestic/5088.structure.json",
+        "structure_sha256": "6c6e9b99345ca26358e38202336e7c4b26cc99a1ebf4cec01711d82458e1707f"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        0,
+        4,
+        5
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "查询人脸识别解锁开关（GET）"
+        ]
+      ],
+      "scenario": "请求经OTAP属性通道查询设备人脸识别解锁开关状态",
+      "family": "device_face_unlock",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/otap/prop",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "possible_variant_of_existing",
+        "operation_refs": [
+          "cn.otap.get_property"
+        ]
+      },
+      "pending_questions": [
+        "人脸识别解锁对应的属性标识与选择子待核",
+        "适用设备类别前提待核",
+        "与已登记属性查询操作是否仅属性标识不同待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5089:d0",
+      "source_id": "portal-2026-11-17:domestic:5089",
+      "source_pins": {
+        "raw_file": "pages/domestic/5089.source.json",
+        "raw_file_sha256": "d6631a3912c3a5ff490aeca88ed9e3aa2a19ae6fdfa77ecc9138fa8de8aa1c65",
+        "content_sha256": "5b3b18df0ccfcfd74ebea932f1081fc30113cc8637be99bc5993dccf853c7011",
+        "structure_file": "derived/domestic/5089.structure.json",
+        "structure_sha256": "1eda34dc737dc22f9d25390f2386e8ca8f6243996e0d6c4988b364c8e99e1f1c"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        0,
+        4,
+        5
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置人脸识别解锁开关（PUT）"
+        ]
+      ],
+      "scenario": "请求经OTAP属性通道设置设备人脸识别解锁开关",
+      "family": "device_face_unlock",
+      "declared_transport": {
+        "method": "PUT",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/otap/prop",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "possible_variant_of_existing",
+        "operation_refs": [
+          "cn.otap.set_property"
+        ]
+      },
+      "pending_questions": [
+        "该场景的属性标识与开关取值域待核",
+        "与candidate:domestic:5088:d0是否构成同一属性读写对待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5103:d0",
+      "source_id": "portal-2026-11-17:domestic:5103",
+      "source_pins": {
+        "raw_file": "pages/domestic/5103.source.json",
+        "raw_file_sha256": "d7d18d123c5d3b57557087c9c214b81cb3bfc122fcd7e9b07e2cab91b79b3520",
+        "content_sha256": "f2e3d4e7a3a08ee9f7c7a289478d56d6f159236db1745516e70fa06d4b25f485",
+        "structure_file": "derived/domestic/5103.structure.json",
+        "structure_sha256": "1c086b9ccdb61948270b18fd481971a6a99bfad9bdc2dde1eba1eacad6dc8042"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        8,
+        9,
+        12,
+        13
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设置自动人脸解锁计划（POST）"
+        ]
+      ],
+      "scenario": "请求批量设置设备自动人脸解锁计划",
+      "family": "device_face_unlock",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/timing/plan/set/batch",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "计划的时间结构与批量覆盖/追加语义待核",
+        "与人脸识别解锁开关（candidate:domestic:5088:d0/candidate:domestic:5089:d0）的联动条件待核",
+        "计划是否区分按天/按周等周期模式待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5201:d0",
+      "source_id": "portal-2026-11-17:domestic:5201",
+      "source_pins": {
+        "raw_file": "pages/domestic/5201.source.json",
+        "raw_file_sha256": "ee664e346d8618ab4d5de99394b6c6ca6efe000010345841d47a9b398fe1be71",
+        "content_sha256": "159c2ef647e6ddef9084e61074b2b9748e755d25ec3228c7a396abd78db6b2b1",
+        "structure_file": "derived/domestic/5201.structure.json",
+        "structure_sha256": "1bf0f01c0b32eec3ef36c2be5d5d3d25d5b35933a2e36a33c2f259bb9276eafe"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "多行OSD配置（POST）"
+        ]
+      ],
+      "scenario": "请求设置设备多行OSD叠加配置",
+      "family": "device_osd",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/osd/multi/set",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "多行OSD的行数上限与单行内容结构待核",
+        "每行是否支持独立位置/样式设置待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5202:d0",
+      "source_id": "portal-2026-11-17:domestic:5202",
+      "source_pins": {
+        "raw_file": "pages/domestic/5202.source.json",
+        "raw_file_sha256": "1dc97a345642cc3ba1d5b39a7108c605a5a97c08fa9c5eb0fde354420d31bc91",
+        "content_sha256": "af50d8586de04f3e123ee0450bb5e7824340d5447e62113648c5167864895d80",
+        "structure_file": "derived/domestic/5202.structure.json",
+        "structure_sha256": "3a5d6a92200ae4d778fd4c868911db9603cccac77f47c84917b1a589f47b05d9"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        0,
+        4,
+        5
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备运维",
+          "设备配置",
+          "设备延时休眠（POST）"
+        ]
+      ],
+      "scenario": "请求设置设备延时休眠",
+      "family": "device_sleep",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/sleep/delay",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "延时参数结构与生效时机（立即倒计时/到点休眠）待核",
+        "是否可取消已设置延时待核",
+        "适用设备为低功耗机型的前提待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5289:d0",
+      "source_id": "portal-2026-11-17:domestic:5289",
+      "source_pins": {
+        "raw_file": "pages/domestic/5289.source.json",
+        "raw_file_sha256": "81db29cb3667ef116dffff7789a0d767ba69d78be00d50bf36c384110f68262f",
+        "content_sha256": "93ac8ec82d2c2cf27bd058cbc5b10fc435f20a4f7fe7808e747cc38f7824748c",
+        "structure_file": "derived/domestic/5289.structure.json",
+        "structure_sha256": "8c7d4212928b98bda180f858450b158f4feeb5139beea6622fa701e12f221ce8"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "设备能力",
+          "云台控制",
+          "修改物模型协议设备镜像模式"
+        ]
+      ],
+      "scenario": "请求经OTAP属性通道修改物模型设备镜像模式",
+      "family": "device_mirror",
+      "declared_transport": {
+        "method": "PUT",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/otap/prop",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "possible_variant_of_existing",
+        "operation_refs": [
+          "cn.otap.set_property"
+        ]
+      },
+      "pending_questions": [
+        "镜像模式的属性标识与可选模式集合待核",
+        "与candidate:domestic:5089:d0同通道区别是否仅属性标识待核",
+        "镜像模式与图像翻转类配置的关系待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:983:d0",
+      "source_id": "portal-2026-11-17:domestic:983",
+      "source_pins": {
+        "raw_file": "pages/domestic/983.source.json",
+        "raw_file_sha256": "7b9ad943ed530a2d46aee73258dea957f36ebffc58e476fd6f1ff364b6af319d",
+        "content_sha256": "90ef6dd9f76d5ad80f0a55e6b50a4113ac7b9010b7204c4ac949473352c802f3",
+        "structure_file": "derived/domestic/983.structure.json",
+        "structure_sha256": "793a5050561847fd7cb4c4e97903ce5bc10ea69605f7b4e53c3ac54e095e51a1"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云信令",
+          "消息订阅（后续不更新维护）",
+          "创建消费者"
+        ]
+      ],
+      "scenario": "请求创建云信令消息订阅消费者",
+      "family": "cloud_message_subscription",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/mq/v2/consumer/{consumerName}",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "消费者命名与归属约束待核",
+        "目录标注后续不更新维护对该场景保留/替代通道的影响待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:984:d0",
+      "source_id": "portal-2026-11-17:domestic:984",
+      "source_pins": {
+        "raw_file": "pages/domestic/984.source.json",
+        "raw_file_sha256": "d9dba1a5317429fafb010272c45c13fa044c2720bc0a7f9c181d288822c05938",
+        "content_sha256": "954ea4ec43816d45c8a619c004abb98b5f826a0df13e53461a024999a72df40d",
+        "structure_file": "derived/domestic/984.structure.json",
+        "structure_sha256": "2f49b0e06aaf64671c1f728da1fcc039f89795db89852c4597afc3e45171a3f6"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云信令",
+          "消息订阅（后续不更新维护）",
+          "消费者消费信息"
+        ]
+      ],
+      "scenario": "请求消费者消费云信令订阅消息",
+      "family": "cloud_message_subscription",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/mq/v2/consumer/messages",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "消息获取语义是批量拉取、长轮询还是需确认机制待核",
+        "是否以先创建消费者（candidate:domestic:983:d0）为前提待核",
+        "消息范围（告警/设备事件等）待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1422:d0",
+      "source_id": "portal-2026-11-17:domestic:1422",
+      "source_pins": {
+        "raw_file": "pages/domestic/1422.source.json",
+        "raw_file_sha256": "27faf7ea2afeb6128fd1aaf9fbdabb9a859529f9af2df1a553553cf626e763d0",
+        "content_sha256": "ca091619e6519e71927789be8ea9bf1aad71dfda98d8ab702cd1c49de16e2c95",
+        "structure_file": "derived/domestic/1422.structure.json",
+        "structure_sha256": "6be68125d4c51c16b3f51103625fb725212bb56190ddf8bf030c7fc1a53a19b4"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "录像文件查询",
+          "云存储录像查询",
+          "根据时间获取存储文件信息"
+        ]
+      ],
+      "scenario": "请求按时间查询云存储录像文件信息",
+      "family": "cloud_record_query",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/video/by/time",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "返回为录像文件元信息清单还是含播放/下载地址待核",
+        "云存储服务开通与时间范围上限前提待核",
+        "查询按设备通道还是按存储计划维度进行待核"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1424:d0",
+      "source_id": "portal-2026-11-17:domestic:1424",
+      "source_pins": {
+        "raw_file": "pages/domestic/1424.source.json",
+        "raw_file_sha256": "e0ce9c594205c2b3a4c875d16b30490257b832c3c3b2527156ca03b4ee76947a",
+        "content_sha256": "bb32216f8ec61f7f9593a550cefbd8ad49839e33d2f14e60bba752a9def0fbb8",
+        "structure_file": "derived/domestic/1424.structure.json",
+        "structure_sha256": "ecd6951cf4524215e31ca4dc99c8f8af1f88f5ad1d0f5d4d1a0778c7c2ace0cc"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "用量查询",
+          "流量查询",
+          "查询账号下流量消耗汇总"
+        ]
+      ],
+      "scenario": "请求查询当前账号下流量消耗的汇总数据",
+      "family": "live_traffic_usage",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/traffic/user/total",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "汇总统计的时间范围与粒度（总量/按天/按月）如何界定？",
+        "统计口径是否区分直播、回放、云存储等不同业务流量？",
+        "统计主体是否仅限账号本身而不含下级子账号？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1425:d0",
+      "source_id": "portal-2026-11-17:domestic:1425",
+      "source_pins": {
+        "raw_file": "pages/domestic/1425.source.json",
+        "raw_file_sha256": "030286c35e0fdbfe3a666428f81d562bcf5272b4f519ff61bc5b802f5885fedf",
+        "content_sha256": "b94ad67299190e3bb8b2a8b07423901b78c4839af89343fac16a0682a450acae",
+        "structure_file": "derived/domestic/1425.structure.json",
+        "structure_sha256": "523517650820a536624e65590f17e484e5b8642f8405d3e549a33aa06a2cdbba"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "用量查询",
+          "流量查询",
+          "查询账户下流量消耗详情"
+        ]
+      ],
+      "scenario": "请求查询账户下流量消耗的明细数据",
+      "family": "live_traffic_usage",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/traffic/user/detail",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "与流量汇总场景在返回维度（按设备/按天/按流）上的区别是什么？",
+        "是否支持时间范围过滤与分页？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1426:d0",
+      "source_id": "portal-2026-11-17:domestic:1426",
+      "source_pins": {
+        "raw_file": "pages/domestic/1426.source.json",
+        "raw_file_sha256": "8d46f2e29f22b6d99b81a07e0875bc3a22037d5849e98db6d5f0ef9e42627113",
+        "content_sha256": "3490fe5f9fb75869109e716f35cfdc252feca3e3810ff339668908beb98a6dbc",
+        "structure_file": "derived/domestic/1426.structure.json",
+        "structure_sha256": "70b3797f668bef37a21ec61a18083822142eefdae534eb88a2685430a4f6707f"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "用量查询",
+          "流量查询",
+          "查询账户下某天流量消耗详情"
+        ]
+      ],
+      "scenario": "请求查询账户下指定某一天的流量消耗明细",
+      "family": "live_traffic_usage",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/traffic/day/detail",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "与账户流量详情查询的差别是否仅在限定单日？",
+        "日期参数的时区归属与可选历史范围如何？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1427:d0",
+      "source_id": "portal-2026-11-17:domestic:1427",
+      "source_pins": {
+        "raw_file": "pages/domestic/1427.source.json",
+        "raw_file_sha256": "62522018fe5c5c5f6b29947bcdf0c19c88bc087a117031b8e79d9b607817600a",
+        "content_sha256": "c6d92b66d60a1d29b3e075cb5c0f5aef8df74535f3588629f49afb8c351eb0ef",
+        "structure_file": "derived/domestic/1427.structure.json",
+        "structure_sha256": "62b5b4b2faaa46f2de87a396894e18c6c3c885f3f8f503bedc6a04c9f317cc9c"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "用量查询",
+          "流量查询",
+          "查询指定设备在某一时间段消耗流量数据"
+        ]
+      ],
+      "scenario": "请求查询指定设备在一段时间内的流量消耗数据",
+      "family": "live_traffic_usage",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/traffic/device/detail",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "设备维度与账户维度流量是否为同一统计的不同切片？",
+        "时间段边界、最大跨度与多设备支持如何？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1595:d0",
+      "source_id": "portal-2026-11-17:domestic:1595",
+      "source_pins": {
+        "raw_file": "pages/domestic/1595.source.json",
+        "raw_file_sha256": "28c52869fec8695902d79180bafea14497c41c6ea0156d3e390925419b755e9a",
+        "content_sha256": "4365f6138b8026792174362977074616208e90a8c527a2afdc38815186ecf97c",
+        "structure_file": "derived/domestic/1595.structure.json",
+        "structure_sha256": "feb53b77e7717b37c895ff602abb3eb786287ceec083557d09aa2329fd225159"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "设备视频编码格式",
+          "设备视频编码格式",
+          "编码格式查询"
+        ]
+      ],
+      "scenario": "请求查询设备的视频编码格式信息",
+      "family": "device_video_encode",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/das/device/video/encode",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "返回是设备当前生效的编码格式还是设备支持的编码能力集？",
+        "多通道设备是否按通道分别返回？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1816:d0",
+      "source_id": "portal-2026-11-17:domestic:1816",
+      "source_pins": {
+        "raw_file": "pages/domestic/1816.source.json",
+        "raw_file_sha256": "af984b52d4d6d42f7d29388181cb4df59e25d283c1b2c0e496eeca50e2490644",
+        "content_sha256": "60520c5ce755b93048674fad74ca725e01d5f09ceca62bb04c52c165a554e87a",
+        "structure_file": "derived/domestic/1816.structure.json",
+        "structure_sha256": "915d77e84afdafd766a35179577811b6eb98c38f59fca16b5fdef03dfd612bfe"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "并发限制及查询",
+          "并发限制及查询",
+          "查询用户取流限制信息"
+        ]
+      ],
+      "scenario": "请求查询用户取流并发限制的配置信息",
+      "family": "live_concurrency_limit",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/mall/online/user/limit/live",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "限制信息的作用粒度是账号级、设备级还是单路流级？",
+        "未显式配置时是否返回默认限制？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1817:d0",
+      "source_id": "portal-2026-11-17:domestic:1817",
+      "source_pins": {
+        "raw_file": "pages/domestic/1817.source.json",
+        "raw_file_sha256": "4d6e42f474460716ef3fa897528a2370460c6145c3c63bd2a70f9da483deb0dd",
+        "content_sha256": "ba707f042a3e8862e8024d0850bc3382864ec259355c925fcba64bd2288f35a3",
+        "structure_file": "derived/domestic/1817.structure.json",
+        "structure_sha256": "c8d153fe09185afc5271c1c25ca1bb6155abb532c88c4d3130a2ba421941f11e"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "并发限制及查询",
+          "并发限制及查询",
+          "添加或者更新用户取流限制信息"
+        ]
+      ],
+      "scenario": "请求添加或更新用户取流并发限制配置",
+      "family": "live_concurrency_limit",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/mall/online/user/limit/live",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "添加与更新是否由同一入口按配置是否已存在区分？",
+        "限制配置的作用范围与生效时间如何？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:1818:d0",
+      "source_id": "portal-2026-11-17:domestic:1818",
+      "source_pins": {
+        "raw_file": "pages/domestic/1818.source.json",
+        "raw_file_sha256": "816c74a16b20629a11b273311db183527051b0534d70a949037eb9f548d46341",
+        "content_sha256": "c2a91cf8d19d8ae45e6c5a0a83aa55135567901c4c2d0398fc306545b6e48b44",
+        "structure_file": "derived/domestic/1818.structure.json",
+        "structure_sha256": "e358636d4801ddd713276c5eb511b018116d16065c43361a8734c83563f1cbd9"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "并发限制及查询",
+          "并发限制及查询",
+          "删除用户取流限制信息"
+        ]
+      ],
+      "scenario": "请求删除用户取流并发限制配置",
+      "family": "live_concurrency_limit",
+      "declared_transport": {
+        "method": "DELETE",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/mall/online/user/limit/live",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "删除对象的粒度是全部限制项还是指定项？",
+        "删除后是否回落到平台默认限制？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:3735:d0",
+      "source_id": "portal-2026-11-17:domestic:3735",
+      "source_pins": {
+        "raw_file": "pages/domestic/3735.source.json",
+        "raw_file_sha256": "8a280339d62c9a1a658c04f2a6c7a4064f29bed536e8b752ab5502fdb779ed9d",
+        "content_sha256": "1fb218b003c06f42f19a2f50a6d638c07c5d6d0b7733bd704fcf4f8bb577f96c",
+        "structure_file": "derived/domestic/3735.structure.json",
+        "structure_sha256": "59b71565ebf684ce0585f91c63d28ffae90732feb9dd4080b35772f6bab3c1c4"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        31,
+        32,
+        35,
+        36
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "音频转码",
+          "音频格式转码为AAC"
+        ]
+      ],
+      "scenario": "请求将音频转码为AAC格式（设置或提交转码的意图待核）",
+      "family": "audio_transcoding",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/media/aac/transfer",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "该操作语义是开启自动转码开关还是提交一次性转码任务？",
+        "作用对象是实时流、录像文件还是上传音频？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:3736:d0",
+      "source_id": "portal-2026-11-17:domestic:3736",
+      "source_pins": {
+        "raw_file": "pages/domestic/3736.source.json",
+        "raw_file_sha256": "6f452ffedef8346e56a690085d0e832f0cc3f628e7ec351c7315d8a995cce62e",
+        "content_sha256": "9387533e0fd6bd82c9b02981ab3f0a5087f0dc6d6791340fcadbdcfb2dea4e2c",
+        "structure_file": "derived/domestic/3736.structure.json",
+        "structure_sha256": "a997f0f9690ff3140c91cfac92183497f69d7b0fa451760916d343906789c5f7"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "音频转码",
+          "查询是否将音频格式转码为AAC"
+        ]
+      ],
+      "scenario": "请求查询音频是否转码为AAC的状态或配置",
+      "family": "audio_transcoding",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/media/aac/transfer",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "查询的是转码开关状态还是转码任务进度？",
+        "与同路由的转码操作是否构成配置-查询对？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4060:d0",
+      "source_id": "portal-2026-11-17:domestic:4060",
+      "source_pins": {
+        "raw_file": "pages/domestic/4060.source.json",
+        "raw_file_sha256": "801a240f79c205209a9db6ab0fff5c595c833ffb54a6d3e21cbb1a19b2fac931",
+        "content_sha256": "eda188bf9a8c416fe6d23a58d47f78e9a58b329f82a8b13041a007f2c160fcc7",
+        "structure_file": "derived/domestic/4060.structure.json",
+        "structure_sha256": "c48211f957ec27524ae8ce3d5ebc39965baaee01f9239a3249aca3ee9cecbac8"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "直播流管理",
+          "创建直播流（设备接入）"
+        ]
+      ],
+      "scenario": "请求创建以设备接入方式的直播流",
+      "family": "live_stream_management",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/media/streammanage/stream",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "与同路由的RTMP推流接入创建是否仅由接入类型参数区分（可能为同一路由的不同变体）？",
+        "创建返回的流标识与后续取流/管理操作的关联如何？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4066:d0",
+      "source_id": "portal-2026-11-17:domestic:4066",
+      "source_pins": {
+        "raw_file": "pages/domestic/4066.source.json",
+        "raw_file_sha256": "4eb959520ef72a926402b10653a27c6d41c0b3bb9cefcd93ace0ba099c8a722c",
+        "content_sha256": "a7ebf4776b5d49b4176c00fd07b150c129651abd4ecb66e4b16ca72e68d13d43",
+        "structure_file": "derived/domestic/4066.structure.json",
+        "structure_sha256": "08c6d16be87fd59ceb441c8811a9b2b889b92ba6ea2b1afc305a0437fdf526e1"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        0,
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "直播流管理",
+          "查询直播流列表"
+        ]
+      ],
+      "scenario": "请求查询直播流列表",
+      "family": "live_stream_management",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/media/streammanage/stream/list",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "列表是否同时覆盖设备接入与RTMP推流两类流？",
+        "支持的过滤条件与分页方式如何？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4433:d0",
+      "source_id": "portal-2026-11-17:domestic:4433",
+      "source_pins": {
+        "raw_file": "pages/domestic/4433.source.json",
+        "raw_file_sha256": "05fd1585455b53cd3b35d7a92aa7e986fac7e70d884b767ac137244d9697f08c",
+        "content_sha256": "5af3b36c584bf97b471c3b6714bd3acd40e4b1fdbbabc9fc5cbbd0a050a4eca2",
+        "structure_file": "derived/domestic/4433.structure.json",
+        "structure_sha256": "4a764396d0bc7e932b96986ed75310e802433818aeba1a9d46a212c1a712fea2"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "直播流管理",
+          "创建直播流（RTMP推流接入）"
+        ]
+      ],
+      "scenario": "请求创建以RTMP推流接入方式的直播流",
+      "family": "live_stream_management",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/media/streammanage/stream",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "与同路由的设备接入创建是否仅由接入方式参数区分（可能为同一路由的不同变体）？",
+        "返回是否包含推流接入所需的地址类信息？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4751:d0",
+      "source_id": "portal-2026-11-17:domestic:4751",
+      "source_pins": {
+        "raw_file": "pages/domestic/4751.source.json",
+        "raw_file_sha256": "618f0cd3bc979d311d358448a240101cadf9ff5b50601d5e731ee8bca22cb452",
+        "content_sha256": "aa59ded19e4b70aab1851d920549e03ca280f81395b3cef657cc3af94f04b1c4",
+        "structure_file": "derived/domestic/4751.structure.json",
+        "structure_sha256": "6b39976e45482c1ef0d1bab978697958eef3c1941edb3ae0557b656f4f65a265"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "直播录制至云点播",
+          "流管理：录制源文件查询"
+        ]
+      ],
+      "scenario": "请求查询直播录制至云点播的录制源文件信息",
+      "family": "live_vod_recording",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/media/streammanage/stream/file/info",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "录制源文件与云点播文件是同一对象还是源-产物关系？",
+        "查询前提是否为直播流已开启录制至云点播？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4757:d0",
+      "source_id": "portal-2026-11-17:domestic:4757",
+      "source_pins": {
+        "raw_file": "pages/domestic/4757.source.json",
+        "raw_file_sha256": "d3990f0f0934c6d280b2e0ee272f1cec38e841095a52b29ac45d0770de541eef",
+        "content_sha256": "405bcd34c7bd2dc6626c66ed942456f3276a1728ef35bd152f521cf3075439e3",
+        "structure_file": "derived/domestic/4757.structure.json",
+        "structure_sha256": "fdf07fd5f298f6df0904afdafc9b6343b379a3d2ab19dc2bfc11fe420e924c14"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "直播录制至云点播",
+          "直播流：云点播文件获取"
+        ]
+      ],
+      "scenario": "请求获取直播流对应的云点播文件",
+      "family": "live_vod_recording",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/media/streammanage/stream/index/file",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "获取的是文件元数据、下载地址还是播放地址？",
+        "与录制源文件查询在入参维度与用途上的分工如何？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:663:d0",
+      "source_id": "portal-2026-11-17:domestic:663",
+      "source_pins": {
+        "raw_file": "pages/domestic/663.source.json",
+        "raw_file_sha256": "d77f0174798565e74270d042d13211919aa42dd248d9bc48e29f825cf929a395",
+        "content_sha256": "2b4a75b0d7a9d57fde42d973c31ebe822e1a44e8e8eca3599bdbfa0256dbe92d",
+        "structure_file": "derived/domestic/663.structure.json",
+        "structure_sha256": "f1bd629eb68a49cfa440c05ec173079fbf62e7ecca2828a20dffcc0d1a386ce5"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        7,
+        8,
+        11,
+        12
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "通用设备管理",
+          "设备添加与删除",
+          "生成设备配网二维码"
+        ]
+      ],
+      "scenario": "请求生成设备Wi-Fi配网二维码",
+      "family": "device_provisioning",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/device/wifi/qrcode",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "二维码承载的配网信息类型与适用设备范围（是否仅限Wi-Fi类设备）？",
+        "生成二维码与设备实际完成配网上线之间还有哪些环节？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:671:d0",
+      "source_id": "portal-2026-11-17:domestic:671",
+      "source_pins": {
+        "raw_file": "pages/domestic/671.source.json",
+        "raw_file_sha256": "fa0fed3bf1474031d5bab5db03202c17dbbe95d3dcdd9b3e143d5eef8d8c49ee",
+        "content_sha256": "ff7c34b90d6c749a6e5d89f6027b004f2863685e0ce18db7853bee20ca4a423e",
+        "structure_file": "derived/domestic/671.structure.json",
+        "structure_sha256": "ef5b79d4d0f7c8983b048fe13a7d2803df4a3f7ed161af9ad074b62db53d7030"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "通用设备管理",
+          "设备信息查询",
+          "获取国标License列表"
+        ]
+      ],
+      "scenario": "请求查询国标设备的License列表",
+      "family": "device_license",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/v3/device/register/gb/license/list",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "License与已注册国标设备的绑定关系如何体现？",
+        "是否分页及是否含License状态维度？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:820:d0",
+      "source_id": "portal-2026-11-17:domestic:820",
+      "source_pins": {
+        "raw_file": "pages/domestic/820.source.json",
+        "raw_file_sha256": "7a9f00b177ca13fefe819f496f4a2dabb765dbd44c2ad9cdfdafc2402d18db08",
+        "content_sha256": "e8012f18ea5b5bd27e7c3886ad97f20e96e6fe1d3cf2d9f995e167c99722b7fa",
+        "structure_file": "derived/domestic/820.structure.json",
+        "structure_sha256": "2b1cec13e9ee51201fa46034f159a2f61a32a5061e54e170956cbcad25f5fc48"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "萤石用户连接",
+          "设备托管",
+          "集成开发回调",
+          "获取授权token"
+        ]
+      ],
+      "scenario": "请求获取托管设备的授权token",
+      "family": "device_trust",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/trust/device/token/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "token的作用范围（单设备/单托管关系）与有效期如何？",
+        "与统一令牌版本在适用接口与覆盖面上有何差异？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:822:d0",
+      "source_id": "portal-2026-11-17:domestic:822",
+      "source_pins": {
+        "raw_file": "pages/domestic/822.source.json",
+        "raw_file_sha256": "9ccb539da2cbfed2e68ac97b11cf7d5e655b8bdd9bff4678a9a9b3780ba1b5a4",
+        "content_sha256": "87f1ea06da34c0e871f5d5a0def9f581575d9e93630234852f411c8b9d57725f",
+        "structure_file": "derived/domestic/822.structure.json",
+        "structure_sha256": "1f5882c20467441ea5c26c6dbebaa229d0326b08559b499bbcf48e5d7c8f7439"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "萤石用户连接",
+          "设备托管",
+          "集成开发回调",
+          "获取所有托管设备统一令牌"
+        ]
+      ],
+      "scenario": "请求获取覆盖所有托管设备的统一令牌",
+      "family": "device_trust",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/trust/device/v2/token/get",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "统一令牌与candidate:domestic:820:d0所述授权token在签发主体、资源范围和适用接口上有哪些已声明区别？",
+        "令牌是否覆盖签发后新增的托管设备？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:826:d0",
+      "source_id": "portal-2026-11-17:domestic:826",
+      "source_pins": {
+        "raw_file": "pages/domestic/826.source.json",
+        "raw_file_sha256": "be065d2452c765c0155bc91cd0bf9aff0a92ad90afdb1024a3dce027b995d076",
+        "content_sha256": "3e8e3cd169070c7991989903a8cb2ce0e6546d62dbdd3d47da5a2f544df8ea13",
+        "structure_file": "derived/domestic/826.structure.json",
+        "structure_sha256": "c94129d7a53e08a86082c892d2ae0d70edc4d2ff11b3892fdf9445913b423d77"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "萤石用户连接",
+          "设备托管",
+          "获取授权信息",
+          "取消设备托管"
+        ]
+      ],
+      "scenario": "请求取消设备托管授权",
+      "family": "device_trust",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/trust/cancel",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "取消的对象粒度是单设备还是整组托管关系？",
+        "取消后已签发的托管token是否同时失效？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:2846:d0",
+      "source_id": "portal-2026-11-17:domestic:2846",
+      "source_pins": {
+        "raw_file": "pages/domestic/2846.source.json",
+        "raw_file_sha256": "a91fe19d4bc434d736590cf77e81b9f8ea2ba35c7b6fb8cb72f2214d6d0b88ac",
+        "content_sha256": "9c33942fc519a8aa68443d10b3828b01a5ac2967bf9538842e6db1a791cbd383",
+        "structure_file": "derived/domestic/2846.structure.json",
+        "structure_sha256": "f829e40dd36f0005f3162be4771e3a247526ab0fdba4678476d0156f3c356add"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "通用设备管理",
+          "B端设备添加工具",
+          "创建授权连接"
+        ]
+      ],
+      "scenario": "请求创建B端设备添加用的授权链接",
+      "family": "device_add_authorization",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/device/add/tokenUrl",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "授权链接的使用对象、有效期与使用次数限制如何？",
+        "创建授权链接与最终完成设备添加之间的流程关系如何？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:2847:d0",
+      "source_id": "portal-2026-11-17:domestic:2847",
+      "source_pins": {
+        "raw_file": "pages/domestic/2847.source.json",
+        "raw_file_sha256": "55afdfee6bc4be9e1d6b45ce5ae87b52ffb530e1dac7194334165ad0b1bae081",
+        "content_sha256": "15250bf41c9ff176001562ed1389dd7ee616d25563e37eb1319fa78a165162d0",
+        "structure_file": "derived/domestic/2847.structure.json",
+        "structure_sha256": "e618ddeffc8e4d1b955c0089508b7e6fb9d53f0fc489cf591754338915478f78"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "通用设备管理",
+          "B端设备添加工具",
+          "设备备注信息查询"
+        ]
+      ],
+      "scenario": "请求查询B端设备添加工具中的设备备注信息",
+      "family": "device_add_authorization",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/device/add/tokenNote",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "备注依附于授权链接还是已添加设备？",
+        "查询入参标识是授权链接还是设备标识？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:2848:d0",
+      "source_id": "portal-2026-11-17:domestic:2848",
+      "source_pins": {
+        "raw_file": "pages/domestic/2848.source.json",
+        "raw_file_sha256": "736b6f3193d516a3ed231d896d248b385a2f430792d033b1b1be86904021da86",
+        "content_sha256": "dde22f8f35c88b8cecd16ca33d08e392e357e2345f8caa37148164a17d563bd5",
+        "structure_file": "derived/domestic/2848.structure.json",
+        "structure_sha256": "a6b727bd1bf596cf72cb80525908dca98b317e8d75b2360a03dcd2b137ba292a"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "通用设备管理",
+          "B端设备添加工具",
+          "开发者授权列表查询"
+        ]
+      ],
+      "scenario": "请求查询B端设备添加工具中的开发者授权列表",
+      "family": "device_add_authorization",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/device/add/tokenUrls",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "列表是否覆盖该工具创建的全部授权链接及其状态？",
+        "分页与过滤维度如何？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:3947:d0",
+      "source_id": "portal-2026-11-17:domestic:3947",
+      "source_pins": {
+        "raw_file": "pages/domestic/3947.source.json",
+        "raw_file_sha256": "ee2e44f0d91f7f332881dc36798d42a3f3f9681d64c69e624d9e575b3488bfb0",
+        "content_sha256": "f430e2b2ef897b436fb48103bb14e558c2a46c67829f49642176f702414367b3",
+        "structure_file": "derived/domestic/3947.structure.json",
+        "structure_sha256": "0530837e54eed291bb138b8ac4ebb4f519d23879645ff0e5296e11d053a03bdc"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "通用设备管理",
+          "设备信息查询",
+          "根据设备主键id分页查询设备列表"
+        ]
+      ],
+      "scenario": "请求按设备主键ID分页查询设备列表",
+      "family": "device_info_query",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/lapp/device/list",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "possible_variant_of_existing",
+        "operation_refs": [
+          "cn.devices.list"
+        ]
+      },
+      "pending_questions": [
+        "与既有设备列表操作在选择器（按主键ID分页）与返回范围上是否有实质差异？",
+        "主键ID是设备序列号还是另一内部标识？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5364:d0",
+      "source_id": "portal-2026-11-17:domestic:5364",
+      "source_pins": {
+        "raw_file": "pages/domestic/5364.source.json",
+        "raw_file_sha256": "f7e9d8b4b438ef4351d8a34b85898350346cd1e2236cc99df85c44a8b3bf9f28",
+        "content_sha256": "618d770d29e5a37dd3f017dd64e945c2682154a56cf227efeca9c65548292246",
+        "structure_file": "derived/domestic/5364.structure.json",
+        "structure_sha256": "67a568d1bca686ba5313fc70bdb0630491afb0320996b609e3c60a5293fd226c"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "三方协议设备接入",
+          "服务开通"
+        ]
+      ],
+      "scenario": "请求开通指定三方协议的设备接入服务",
+      "family": "third_party_protocol_access",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/thirdproto/{protocolType}/project",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "protocolType的取值集合与开通粒度（项目级/账号级）如何？",
+        "开通是即时生效还是异步申请-生效流程？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5365:d0",
+      "source_id": "portal-2026-11-17:domestic:5365",
+      "source_pins": {
+        "raw_file": "pages/domestic/5365.source.json",
+        "raw_file_sha256": "0e30c7934e737c8ce093b74d8cf499e040303a1ceae178b34a5f02d2856bc084",
+        "content_sha256": "7946dbb6aea587df8a8d4cb18ee9a514460be641517192d83e28941a0be0ef77",
+        "structure_file": "derived/domestic/5365.structure.json",
+        "structure_sha256": "c7b3b3ab6535dba76c2cd5ad3fc63e2215f1c5c3fece563d3c4084455b2f2973"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "三方协议设备接入",
+          "查询已开通服务"
+        ]
+      ],
+      "scenario": "请求查询已开通的三方协议接入服务",
+      "family": "third_party_protocol_access",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/thirdproto/{protocolType}/project",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "返回是某protocolType下的服务状态还是全部已开通协议列表？",
+        "与服务开通操作是否构成同一资源的读写对？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5366:d0",
+      "source_id": "portal-2026-11-17:domestic:5366",
+      "source_pins": {
+        "raw_file": "pages/domestic/5366.source.json",
+        "raw_file_sha256": "720ee6211b335a6083584476b4633c80ecebe5c98c4f8aabd53cdb8c5525f246",
+        "content_sha256": "24f763492f32f7d9e895af42b4d27a08033b27c07b9ec2725d40a6db76cc11c6",
+        "structure_file": "derived/domestic/5366.structure.json",
+        "structure_sha256": "4e92135f80fd4a3a1ba224ae2e015cdd498cee1723847dd18d92aefe5f57819b"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "三方协议设备接入",
+          "申请单个设备"
+        ]
+      ],
+      "scenario": "请求申请单个三方协议设备的接入License",
+      "family": "third_party_protocol_access",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/thirdproto/{protocolType}/deviceLicense/apply",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "申请入参标识与返回内容如何？",
+        "与批量申请是否共享同一License额度池？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5367:d0",
+      "source_id": "portal-2026-11-17:domestic:5367",
+      "source_pins": {
+        "raw_file": "pages/domestic/5367.source.json",
+        "raw_file_sha256": "387fa767ab36b8631cb0d99b04e08714f104d607461f7f1e81f59c6c58de3cbe",
+        "content_sha256": "cf56846d75c8e5afe19d7dd4a0d6cff725249f15312820b2e112019fba21c2cb",
+        "structure_file": "derived/domestic/5367.structure.json",
+        "structure_sha256": "b14dd736d578d2a9a8231ce6ada915b7f65b34066a02bed188a9f7cff5d801d9"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "三方协议设备接入",
+          "批量申请设备"
+        ]
+      ],
+      "scenario": "请求批量申请三方协议设备接入License",
+      "family": "third_party_protocol_access",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/thirdproto/{protocolType}/licenses/apply",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "批量申请是否为异步任务并经任务查询获取结果？",
+        "批量上限与部分失败语义如何？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5368:d0",
+      "source_id": "portal-2026-11-17:domestic:5368",
+      "source_pins": {
+        "raw_file": "pages/domestic/5368.source.json",
+        "raw_file_sha256": "f976887461150124d711bf7c424024469ccf63a6bfa9dfac8dfe4bda789b3254",
+        "content_sha256": "4407dda2ffc0098a0ccf5308d83e5ff658b8976b69f308f5cff6131295fb6a10",
+        "structure_file": "derived/domestic/5368.structure.json",
+        "structure_sha256": "110623f58dfcb928551662284bde0bd3d720711135d97fc625d19402a27fc5fc"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "三方协议设备接入",
+          "批量申请设备结果查询"
+        ]
+      ],
+      "scenario": "请求查询批量申请设备License的任务结果",
+      "family": "third_party_protocol_access",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/thirdproto/{protocolType}/licenses/task",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "任务标识是否来自批量申请响应？",
+        "结果明细粒度（成功/失败逐条）如何？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5369:d0",
+      "source_id": "portal-2026-11-17:domestic:5369",
+      "source_pins": {
+        "raw_file": "pages/domestic/5369.source.json",
+        "raw_file_sha256": "cc9a4006338ada32faeaf34a45ed1366e8a51e1fefbde6d5921635a50bacddc7",
+        "content_sha256": "3025db851cf4fe3f8f4ee3242d31319aca03cb06c2a78a233d0f8bda864c809f",
+        "structure_file": "derived/domestic/5369.structure.json",
+        "structure_sha256": "9eb68d9d9b5b907a78ae7320aef4804512b2ff93af2d5bc078746d61c8839fa5"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "三方协议设备接入",
+          "分页查询设备信息"
+        ]
+      ],
+      "scenario": "请求分页查询三方协议接入的设备信息",
+      "family": "third_party_protocol_access",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/thirdproto/{protocolType}/devices/page",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "查询范围是否仅限该protocolType下已接入设备？",
+        "与通用设备列表查询在字段与口径上的差异如何？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:5370:d0",
+      "source_id": "portal-2026-11-17:domestic:5370",
+      "source_pins": {
+        "raw_file": "pages/domestic/5370.source.json",
+        "raw_file_sha256": "8a7d766a19409461892b4caf5dd89bcbcc47c8b7c4070036628dbbe82e3a628d",
+        "content_sha256": "239222a5b6091e9e6d9a9e59edcca8929d7dae07a6bfaaf3abbb49f3421640be",
+        "structure_file": "derived/domestic/5370.structure.json",
+        "structure_sha256": "5185b499ecf9a768096a1adfe9a379faea1ea2d7363c13cf020915bad9cce977"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "三方协议设备接入",
+          "设备名称和密码修改"
+        ]
+      ],
+      "scenario": "请求修改三方协议设备的名称和密码",
+      "family": "third_party_protocol_access",
+      "declared_transport": {
+        "method": "POST",
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/thirdproto/{protocolType}/licenses/edit",
+        "has_query": false,
+        "safe_query_field_names": []
+      },
+      "syntax_status": "reviewed_public_static_declaration",
+      "direct_syntax_facts": null,
+      "relationship": {
+        "kind": "new_scenario_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "'密码'指设备接入凭证还是平台侧管理口令？",
+        "修改对象是License记录还是设备实体，是否影响已接入设备？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4062:d0",
+      "source_id": "portal-2026-11-17:domestic:4062",
+      "source_pins": {
+        "raw_file": "pages/domestic/4062.source.json",
+        "raw_file_sha256": "3ababb3f63cc77f99f03e8d36e6da535b80861f5f320bbf3af578ad2e8687974",
+        "content_sha256": "b66deba827ceece8e0c5f1abbe224d01e0ca71b00f7cd290ae90ca42fd8adca7",
+        "structure_file": "derived/domestic/4062.structure.json",
+        "structure_sha256": "19f5f845815a7ee11f3a63bc6abf2311d82b92c27d416f7f290b1f69693c14f4"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        2,
+        3
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "直播流管理",
+          "修改直播流"
+        ]
+      ],
+      "scenario": "请求修改云直播流配置",
+      "family": "live_stream_management",
+      "declared_transport": {
+        "method": "PUT",
+        "scheme": null,
+        "authority": null,
+        "path": "/api/service/media/streammanage/stream",
+        "has_query": false,
+        "safe_query_field_names": [],
+        "value_anchor": 3,
+        "label_anchor": 2,
+        "status": "safe_explicit_relative_declaration_not_absolute_route"
+      },
+      "syntax_status": "explicit_method_plus_relative_target_same_address_value",
+      "direct_syntax_facts": {
+        "address_label_anchor": 2,
+        "address_value_anchor": 3,
+        "next_request_section_anchor": 4,
+        "whole_value_matches_method_then_relative_target": true,
+        "explicit_http_method_tokens": [
+          "PUT"
+        ],
+        "absolute_url_scheme_or_authority_in_value": false,
+        "relative_target_static_lexical_guard_passes": true,
+        "has_query": false,
+        "has_fragment": false,
+        "separate_method_value_extracted_by_current_parser": false,
+        "label_misplacement_proven": false
+      },
+      "relationship": {
+        "kind": "unresolved_declaration_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "该相对目标声明应绑定到哪个已批准来源域，或需何种设计核定？",
+        "修改请求如何指定目标流，可修改字段及未提供字段的处理语义是什么？",
+        "修改请求的授权范围、返回结果及失败后的恢复或重试边界如何约定？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4063:d0",
+      "source_id": "portal-2026-11-17:domestic:4063",
+      "source_pins": {
+        "raw_file": "pages/domestic/4063.source.json",
+        "raw_file_sha256": "794560a09f32219c590e5484747eb8004d2e5f8c947f1aca0e431011fe250695",
+        "content_sha256": "255b6425d287be85b18437583923a7c546bfee57313e8df648dfa45fe13a0be6",
+        "structure_file": "derived/domestic/4063.structure.json",
+        "structure_sha256": "e2ff937238f66fafd6d8ba352d0954443c174f5c01b8835f0734e502936c523f"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        2,
+        3
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "直播流管理",
+          "删除直播流"
+        ]
+      ],
+      "scenario": "删除指定的云直播流",
+      "family": "live_stream_management",
+      "declared_transport": {
+        "method": "DELETE",
+        "scheme": null,
+        "authority": null,
+        "path": "/api/service/media/streammanage/stream",
+        "has_query": false,
+        "safe_query_field_names": [],
+        "value_anchor": 3,
+        "label_anchor": 2,
+        "status": "safe_explicit_relative_declaration_not_absolute_route"
+      },
+      "syntax_status": "explicit_method_plus_relative_target_same_address_value",
+      "direct_syntax_facts": {
+        "address_label_anchor": 2,
+        "address_value_anchor": 3,
+        "next_request_section_anchor": 4,
+        "whole_value_matches_method_then_relative_target": true,
+        "explicit_http_method_tokens": [
+          "DELETE"
+        ],
+        "absolute_url_scheme_or_authority_in_value": false,
+        "relative_target_static_lexical_guard_passes": true,
+        "has_query": false,
+        "has_fragment": false,
+        "separate_method_value_extracted_by_current_parser": false,
+        "label_misplacement_proven": false
+      },
+      "relationship": {
+        "kind": "unresolved_declaration_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "该相对目标声明应绑定到哪个已批准来源域，或需何种设计核定？",
+        "删除请求如何指定目标流，删除作用范围是否包含关联数据或资源？",
+        "删除请求的授权、结果确认和可恢复性如何界定？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4064:d0",
+      "source_id": "portal-2026-11-17:domestic:4064",
+      "source_pins": {
+        "raw_file": "pages/domestic/4064.source.json",
+        "raw_file_sha256": "4f9551e987232433034d1260b40561cba92e8cd87f984b48ae82cd230f9db7ad",
+        "content_sha256": "2ffd03e5225e647110b93dacdbfd05323b4ed2d9cd33c6edf9e384d3fa43dc13",
+        "structure_file": "derived/domestic/4064.structure.json",
+        "structure_sha256": "2def3f4feac154b8e0b63196b60e738ad1bd1417f07ce155ad7576bfb48472b0"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        0,
+        5,
+        6,
+        9,
+        10
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "播放地址",
+          "获取播放地址（直播流管理）"
+        ]
+      ],
+      "scenario": "获取云直播流的播放地址供客户端播放",
+      "family": "live_playback_address",
+      "declared_transport": {
+        "scheme": "https",
+        "host": "open.ys7.com",
+        "path": "/api/service/media/streammanage/stream/address",
+        "has_query": false,
+        "safe_query_field_names": [],
+        "address_anchors": [
+          5,
+          6,
+          7
+        ],
+        "method": null,
+        "status": "safe_static_address_with_unresolved_method_conflict"
+      },
+      "syntax_status": "conflicting_explicit_method_annotations",
+      "direct_syntax_facts": {
+        "address_label_anchor": 5,
+        "address_value_anchor": 6,
+        "address_code_child_anchor": 7,
+        "method_label_anchor": 9,
+        "method_value_anchor": 10,
+        "method_code_child_anchor": 11,
+        "method_field_is_single_literal_token": true,
+        "explicit_method_annotations": [
+          {
+            "http_token": "GET",
+            "anchor": 0,
+            "evidence_kind": "explicit_HTTP_title_annotation"
+          },
+          {
+            "http_token": "POST",
+            "anchor": 10,
+            "evidence_kind": "request_method_field_literal"
+          }
+        ],
+        "business_title_verb_was_not_used_to_infer_method": true,
+        "single_method_not_established": true
+      },
+      "relationship": {
+        "kind": "unresolved_declaration_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "标题注解与请求方式字段两处显式方法冲突时，本操作应采用哪一种，或确认原文是否覆盖两个不同场景？",
+        "请求如何定位直播流，返回地址的类型、有效期及访问授权边界如何约定？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4065:d0",
+      "source_id": "portal-2026-11-17:domestic:4065",
+      "source_pins": {
+        "raw_file": "pages/domestic/4065.source.json",
+        "raw_file_sha256": "ce515b0d9953840a7b8813e40b2dc105fac734be83e9a8786ce41dfa16a80d18",
+        "content_sha256": "ae306bd22c95329b005f7509cb12d1c981dc4b038c627499d101fe44695ab9d1",
+        "structure_file": "derived/domestic/4065.structure.json",
+        "structure_sha256": "d1fdca8b50430f702d0d29954080f028854974a0c594ba3a989e8a92b6217cd7"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        2,
+        3
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "直播流管理",
+          "修改直播流状态"
+        ]
+      ],
+      "scenario": "请求修改云直播流状态",
+      "family": "live_stream_management",
+      "declared_transport": {
+        "method": "PUT",
+        "scheme": null,
+        "authority": null,
+        "path": "/api/service/media/streammanage/stream/status",
+        "has_query": false,
+        "safe_query_field_names": [],
+        "value_anchor": 3,
+        "label_anchor": 2,
+        "status": "safe_explicit_relative_declaration_not_absolute_route"
+      },
+      "syntax_status": "explicit_method_plus_relative_target_same_address_value",
+      "direct_syntax_facts": {
+        "address_label_anchor": 2,
+        "address_value_anchor": 3,
+        "next_request_section_anchor": 4,
+        "whole_value_matches_method_then_relative_target": true,
+        "explicit_http_method_tokens": [
+          "PUT"
+        ],
+        "absolute_url_scheme_or_authority_in_value": false,
+        "relative_target_static_lexical_guard_passes": true,
+        "has_query": false,
+        "has_fragment": false,
+        "separate_method_value_extracted_by_current_parser": false,
+        "label_misplacement_proven": false
+      },
+      "relationship": {
+        "kind": "unresolved_declaration_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "该相对目标声明应绑定到哪个已批准来源域，或需何种设计核定？",
+        "状态请求如何指定目标流，合法状态及转换各表示什么业务含义？",
+        "状态修改的授权范围、返回结果所确认的阶段及失败后的恢复边界如何约定？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:4068:d0",
+      "source_id": "portal-2026-11-17:domestic:4068",
+      "source_pins": {
+        "raw_file": "pages/domestic/4068.source.json",
+        "raw_file_sha256": "db3be6c770b69a166ef6a449a097ce61e88a1ddb5ab7c019f9e99d6ee34bfb15",
+        "content_sha256": "926c9480fef498aba7377cd88093d17239a8ee4242d8f53e227a4c692eac4554",
+        "structure_file": "derived/domestic/4068.structure.json",
+        "structure_sha256": "28cc3c69e53af7ec1461f961a4ccd38e222c04a0083d9cbbb5867767490f28ef"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 0,
+      "element_indices": [
+        2,
+        3
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云直播",
+          "直播流管理",
+          "查询直播流推流记录列表"
+        ]
+      ],
+      "scenario": "查询云直播流的推流记录列表",
+      "family": "live_stream_management",
+      "declared_transport": {
+        "method": "GET",
+        "scheme": null,
+        "authority": null,
+        "path": "/api/service/media/streammanage/stream/record/list",
+        "has_query": false,
+        "safe_query_field_names": [],
+        "value_anchor": 3,
+        "label_anchor": 2,
+        "status": "safe_explicit_relative_declaration_not_absolute_route"
+      },
+      "syntax_status": "explicit_method_plus_relative_target_same_address_value",
+      "direct_syntax_facts": {
+        "address_label_anchor": 2,
+        "address_value_anchor": 3,
+        "next_request_section_anchor": 4,
+        "whole_value_matches_method_then_relative_target": true,
+        "explicit_http_method_tokens": [
+          "GET"
+        ],
+        "absolute_url_scheme_or_authority_in_value": false,
+        "relative_target_static_lexical_guard_passes": true,
+        "has_query": false,
+        "has_fragment": false,
+        "separate_method_value_extracted_by_current_parser": false,
+        "label_misplacement_proven": false
+      },
+      "relationship": {
+        "kind": "unresolved_declaration_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "该相对目标声明应绑定到哪个已批准来源域，或需何种设计核定？",
+        "记录查询的对象与筛选范围、是否分页如何定义？",
+        "响应中记录的业务含义、排序及授权可见范围如何约定？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    },
+    {
+      "capability_id": "candidate:domestic:694:d0",
+      "source_id": "portal-2026-11-17:domestic:694",
+      "source_pins": {
+        "raw_file": "pages/domestic/694.source.json",
+        "raw_file_sha256": "cfba7d4e24d0dc8fddb3281a6ff232f3e847d5982342a1116a646631602291d8",
+        "content_sha256": "44c30977f278f3f5b5fb9fc4b328f069afa003fec336dab2a433ead07dca0170",
+        "structure_file": "derived/domestic/694.structure.json",
+        "structure_sha256": "8276b313100230edf5c4aba5a2ee18a3e3b2dc3b5d289df2868d832ad0d49d87"
+      },
+      "declaration_ordinal": 0,
+      "section_index": 2,
+      "element_indices": [
+        9,
+        10,
+        13,
+        14
+      ],
+      "catalog_context": [
+        [
+          "OPEN API",
+          "云接入",
+          "ISAPI协议",
+          "ISAPI下行指令透传",
+          "ISAPI下行指令透传"
+        ]
+      ],
+      "scenario": "经云端通道向设备透传ISAPI下行指令",
+      "family": "isapi_command_passthrough",
+      "declared_transport": null,
+      "syntax_status": "cloud_carrier_template_and_method_scope_unresolved",
+      "direct_syntax_facts": {
+        "address_label_anchor": 9,
+        "address_value_anchor": 10,
+        "address_code_child_anchor": 11,
+        "method_label_anchor": 13,
+        "method_value_anchor": 14,
+        "next_parameter_section_anchor": 16,
+        "explicit_http_tokens_in_method_field": [
+          "POST",
+          "PUT"
+        ],
+        "method_field_has_additional_annotation_text": true,
+        "entire_method_field_is_simple_method_list": false,
+        "method_field_negation_or_exclusion_marker_detected": false,
+        "approved_cloud_authority_present_in_address_value": true,
+        "address_value_contains_whitespace": true,
+        "braced_placeholder_count": 1,
+        "placeholder_contains_ISAPI_marker": true,
+        "placeholder_is_not_simple_ascii_identifier": true,
+        "entire_declared_path_passes_static_guard": false
+      },
+      "relationship": {
+        "kind": "unresolved_declaration_candidate",
+        "operation_refs": []
+      },
+      "pending_questions": [
+        "请求方式附注中各动词分别对应云端承载还是下游ISAPI方法，其选择规则为何？",
+        "ISAPI标记占位的语义、拼接与编码规则以及可安全披露的模板形态为何？",
+        "含空白与非简单标识占位的声明如何界定云路径与下游实例部分的边界？"
+      ],
+      "protocol_frozen": false,
+      "implementation_admitted": false,
+      "whole_source_reviewed": false
+    }
+  ],
+  "limits": [
+    "场景来自已审目录与正式声明，仅核定调用目的；请求/响应/权限/影响合同尚待审。",
+    "同一路由只是候选关系，不能证明语义等价、已实现或重复。",
+    "四条相对声明的方法和路径已知，origin未定；4064保留GET/POST冲突；694保留云承载与ISAPI边界。",
+    "无HTTP声明的131项、同页其它观察及全范围其它来源仍需审查。",
+    "101是本次候选工作量，保留5个既有语音槽位并新增96个待审槽位，不是官方能力总量。"
+  ]
+}

@@ -1,0 +1,626 @@
+{
+  "schema_version": 1,
+  "task_id": "SP090",
+  "baseline_commit": "78b61956cc844433c8b8ac092a92b45bc15813a0",
+  "input_after_SP089": {
+    "scope": "7dd96c357248460768eb48b49a85767a3c4db7037eeecd2a43dc663869e12ad2",
+    "acceptance": "26d39b18b6b905017979786933161096fbc99dd7ce9c5cf543b1e9290c3102cc"
+  },
+  "output_scope_sha256": "d5bbe06536b9b9b5fd03008f22f7c8ce3d03197d4da342a77fdaf0ecd295745f",
+  "output_acceptance_sha256": "121fa0e55bec7c40af6f182c1f4597129a9ec7d042707845d813ebe2d897f7b8",
+  "source_candidates_sha256": "3bb1b8c8008a24833ab7c93cb705100670d004fd7d93ca9b92c57636c693c3e2",
+  "updates": [
+    {
+      "capability_id": "candidate:overseas:1000007:d0",
+      "scenario": "删除门锁用户（破坏性权限变更）",
+      "family": "lock_user",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D0-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O001",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d1",
+      "scenario": "修改门锁用户备注",
+      "family": "lock_user",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D1-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O002",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d10",
+      "scenario": "查询已绑定门锁终端列表",
+      "family": "lock_device_binding",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D10-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O003",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d11",
+      "scenario": "请求为门锁绑定或解绑终端；成功绑定后仍需实际开锁激活",
+      "family": "lock_device_binding",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D11-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O004",
+      "text_adjusted": true,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d12",
+      "scenario": "生成或获取远程开锁随机码",
+      "family": "remote_unlock",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D12-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O005",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d13",
+      "scenario": "请求远程开锁",
+      "family": "remote_unlock",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D13-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O006",
+      "text_adjusted": true,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d2",
+      "scenario": "设置门锁用户永久或限时有效期",
+      "family": "lock_user",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D2-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O007",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d3",
+      "scenario": "查询门锁用户列表",
+      "family": "lock_user",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D3-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O008",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d4",
+      "scenario": "查询门锁用户详情",
+      "family": "lock_user",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D4-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O009",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d5",
+      "scenario": "查询开锁记录（限近60天）",
+      "family": "lock_open_records",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D5-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O010",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d6",
+      "scenario": "新增临时开门密码并通知邮箱或手机",
+      "family": "temporary_password",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D6-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O011",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d7",
+      "scenario": "删除临时密码",
+      "family": "temporary_password",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D7-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O012",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d8",
+      "scenario": "查询临时密码",
+      "family": "temporary_password",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D8-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O013",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:d9",
+      "scenario": "设置远程开锁功能开关",
+      "family": "remote_unlock",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-D9-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O014",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:1000007:message-integration",
+      "scenario": "接收设备与平台事件的消息推送回调",
+      "family": "message_push",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-MESSAGE-INTEGRATION-OFFLINE-001",
+      "nature": "message_protocol",
+      "surface": [],
+      "candidate_ref": "O015",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:3722:d0",
+      "scenario": "查询移动侦测联动灯开关状态",
+      "family": "light_linkage",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3722-D0-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O016",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:3723:d0",
+      "scenario": "设置移动侦测联动灯开关",
+      "family": "light_linkage",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3723-D0-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O017",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:3724:d0",
+      "scenario": "查询工作模式定时计划",
+      "family": "timing_plan",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3724-D0-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O018",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:3725:d0",
+      "scenario": "设置工作模式定时计划",
+      "family": "timing_plan",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3725-D0-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O019",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:3726:d0",
+      "scenario": "查询告警音模式",
+      "family": "alarm_sound",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3726-D0-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O020",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:3727:d0",
+      "scenario": "设置告警音模式",
+      "family": "alarm_sound",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3727-D0-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O021",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:3728:d0",
+      "scenario": "查询移动侦测区域配置",
+      "family": "device_settings",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3728-D0-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O022",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "candidate:overseas:3729:d0",
+      "scenario": "设置设备移动侦测区域",
+      "family": "device_settings",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3729-D0-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O023",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:3730:d0",
+      "scenario": "请求设备播放试音",
+      "family": "device_control",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3730-D0-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O024",
+      "text_adjusted": true,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.1",
+      "scenario": "构建终端用户OAuth登录地址并解析回跳",
+      "family": "oauth",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-1-OFFLINE-001",
+      "nature": "authorization_flow",
+      "surface": [],
+      "candidate_ref": "O025",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.11",
+      "scenario": "查询DDNS分享列表",
+      "family": "ddns",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-11-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O026",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.3",
+      "scenario": "刷新终端用户OAuth访问令牌",
+      "family": "oauth",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-3-OFFLINE-001",
+      "nature": "authorization_flow",
+      "surface": [],
+      "candidate_ref": "O027",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.4",
+      "scenario": "查询设备DDNS映射信息",
+      "family": "ddns",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-4-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O028",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.5",
+      "scenario": "修改设备DDNS域名",
+      "family": "ddns",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-5-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O029",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.6",
+      "scenario": "切换DDNS为自动映射模式",
+      "family": "ddns",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-6-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O030",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.7",
+      "scenario": "切换DDNS为手动端口映射模式",
+      "family": "ddns",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-7-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O031",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.8",
+      "scenario": "列出账户DDNS映射",
+      "family": "ddns",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-8-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O032",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:469:1.9",
+      "scenario": "授予其他账户DDNS访问权限",
+      "family": "ddns",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-9-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O033",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:476:1.4",
+      "scenario": "按UUID查询已捕获图片",
+      "family": "snapshots",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-476-1-4-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O034",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:477:1.20",
+      "scenario": "读取UTC变体设备信息",
+      "family": "device_management",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-477-1-20-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O035",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.1",
+      "scenario": "列出A1主机已关联探测器",
+      "family": "detectors",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-1-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O036",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.2",
+      "scenario": "按安全模式设置探测器启用状态",
+      "family": "detectors",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-2-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O037",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.3",
+      "scenario": "删除探测器关联",
+      "family": "detectors",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-3-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O038",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.4",
+      "scenario": "列出可关联探测器的IPC",
+      "family": "detectors",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-4-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O039",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.5",
+      "scenario": "列出探测器已关联的IPC",
+      "family": "detectors",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-5-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O040",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.6",
+      "scenario": "绑定或解绑探测器与IPC",
+      "family": "detectors",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-6-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O041",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.7",
+      "scenario": "重命名探测器",
+      "family": "detectors",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-7-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O042",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.8",
+      "scenario": "清除A1告警状态",
+      "family": "detectors",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-8-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O043",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "candidate:overseas:481:1.9",
+      "scenario": "将探测器关联到A1主机",
+      "family": "detectors",
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-9-OFFLINE-001",
+      "nature": "server_api",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "candidate_ref": "O044",
+      "text_adjusted": false,
+      "family_normalized": false
+    }
+  ],
+  "all_previous_cases_and_implementation_source_material_cohort_release_states_preserved": true,
+  "new_sdk_or_live_execution": false,
+  "new_admission": false,
+  "scope_complete": false,
+  "counts_are_not_official_capability_totals": true
+}
