@@ -8,6 +8,8 @@
 
 本地录像、云台、巡航、诊断、设备开关、管理、图像参数、视频配置、播放地址、抓拍、告警、云存储、统一存储、RAM子账户、维护、补光、加密/布撤防、单步确权、OTAP物模型与B1/B2账户托管接口已加入，国内/海外共用入口并保留协议差异（OTAP与账户托管目前仅国内有据）；当前登记数量、地区分布与验证状态见[机器生成的覆盖清单](contracts/coverage.json)，真实支持情况另列。
 
+产品能力范围的权威登记见 [docs/capabilities/README.md](docs/capabilities/README.md)：按 `capability_id` → `acceptance_case_refs` 定位验收证据，并区分 `implementation.status`、`review`、`result`、`freeze_state` 与 `requirement=required` 口径；登记数量与 wire 证据不代表覆盖率或产品级验收通过。
+
 ## 设备查询
 
 首次使用请按[接入指南](docs/getting-started.md)安装并运行同步/异步示例；示例显式选择地区，仅查询首个分页，默认不输出设备身份信息。

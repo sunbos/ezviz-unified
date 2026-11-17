@@ -1,0 +1,903 @@
+{
+  "schema_version": 1,
+  "task_id": "SP089",
+  "baseline_commit": "78b61956cc844433c8b8ac092a92b45bc15813a0",
+  "input_after_SP088": {
+    "scope": "f1438d0dbca96714ffad69b17f2a445a5027aa0d54656719bbc10ef2e7ed5a18",
+    "acceptance": "f32fd4bac111ea6dff740e02201cbb70d7949801f6a622d52b42d6dd7abc83ea"
+  },
+  "output_scope_sha256": "7dd96c357248460768eb48b49a85767a3c4db7037eeecd2a43dc663869e12ad2",
+  "output_acceptance_sha256": "26d39b18b6b905017979786933161096fbc99dd7ce9c5cf543b1e9290c3102cc",
+  "integration_mode": "incremental_on_reviewed_SP088_not_rebuilding_from_old_plan",
+  "scenario_updates": [
+    {
+      "capability_id": "contract:cn.arming.get_schedule",
+      "scenario": "查询设备布撤防计划配置",
+      "family": "device_security",
+      "candidate_ref": "K095",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:cn.arming.set_schedule",
+      "scenario": "设置设备布撤防计划时段",
+      "family": "device_security",
+      "candidate_ref": "K096",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.calendar",
+      "scenario": "按月查询加密云录像日历",
+      "family": "cloud_recording",
+      "candidate_ref": "K097",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.create_instant_plan",
+      "scenario": "创建即时云录制计划",
+      "family": "cloud_recording",
+      "candidate_ref": "K098",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.create_one_off_plan",
+      "scenario": "创建一次性云录制计划",
+      "family": "cloud_recording",
+      "candidate_ref": "K099",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.delete_one_off_plan",
+      "scenario": "删除一次性云录制计划",
+      "family": "cloud_recording",
+      "candidate_ref": "K100",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.hls_recordings",
+      "scenario": "查询时段内云录像HLS信息列表",
+      "family": "cloud_recording",
+      "candidate_ref": "K101",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.one_off_plan",
+      "scenario": "查询一次性云录制计划详情",
+      "family": "cloud_recording",
+      "candidate_ref": "K102",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.plan_devices",
+      "scenario": "查询录制计划包含的设备列表",
+      "family": "cloud_recording",
+      "candidate_ref": "K103",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.plans",
+      "scenario": "分页查询空间内云录制计划列表",
+      "family": "cloud_recording",
+      "candidate_ref": "K104",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.recordings",
+      "scenario": "查询时段内云录像信息列表",
+      "family": "cloud_recording",
+      "candidate_ref": "K105",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.running_tasks",
+      "scenario": "查询设备执行中的云录制任务",
+      "family": "cloud_recording",
+      "candidate_ref": "K106",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.space",
+      "scenario": "查询云录制空间信息",
+      "family": "cloud_recording",
+      "candidate_ref": "K107",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.stop_one_off_plan",
+      "scenario": "终止一次性云录制计划",
+      "family": "cloud_recording",
+      "candidate_ref": "K108",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.tasks",
+      "scenario": "查询录制计划下的任务列表",
+      "family": "cloud_recording",
+      "candidate_ref": "K109",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.templates",
+      "scenario": "分页查询云录制模板列表",
+      "family": "cloud_recording",
+      "candidate_ref": "K110",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_recording.update_one_off_plan",
+      "scenario": "修改一次性云录制计划设备列表",
+      "family": "cloud_recording",
+      "candidate_ref": "K111",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_storage.activate_card",
+      "scenario": "使用卡密为设备开通云存储",
+      "family": "cloud_storage",
+      "candidate_ref": "K112",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_storage.available_types",
+      "scenario": "查询设备可开通的云存储类型",
+      "family": "cloud_storage",
+      "candidate_ref": "K113",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_storage.info_v1",
+      "scenario": "查询设备云存储信息（V1）",
+      "family": "cloud_storage",
+      "candidate_ref": "K114",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_storage.info_v2",
+      "scenario": "查询设备云存储信息（V2）",
+      "family": "cloud_storage",
+      "candidate_ref": "K115",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_storage.open_service",
+      "scenario": "用余额资源包为设备开通云存储",
+      "family": "cloud_storage",
+      "candidate_ref": "K116",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_storage.opening_status",
+      "scenario": "查询设备云存储是否开通中",
+      "family": "cloud_storage",
+      "candidate_ref": "K117",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_storage.set_enabled",
+      "scenario": "暂停或开启设备云存储服务",
+      "family": "cloud_storage",
+      "candidate_ref": "K118",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_storage.start_trial",
+      "scenario": "为设备开通云存储试用",
+      "family": "cloud_storage",
+      "candidate_ref": "K119",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.cloud_storage.transfer",
+      "scenario": "在设备间转移云存储服务",
+      "family": "cloud_storage",
+      "candidate_ref": "K120",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.components.chime_power.set",
+      "scenario": "设置智能门铃剩余电量属性",
+      "family": "components",
+      "candidate_ref": "K121",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.components.face_voice_lock.get",
+      "scenario": "查询门锁域人脸识别开门语音提示开关",
+      "family": "components",
+      "candidate_ref": "K122",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.components.face_voice_video.get",
+      "scenario": "查询视频通道人脸识别开门语音提示开关",
+      "family": "components",
+      "candidate_ref": "K123",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.components.face_voice_video.set",
+      "scenario": "设置视频通道人脸识别开门语音提示开关",
+      "family": "components",
+      "candidate_ref": "K124",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.components.gas_countdown.query",
+      "scenario": "查询天然气传感器电源开关倒计时",
+      "family": "components",
+      "candidate_ref": "K125",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.components.smoke_countdown.get",
+      "scenario": "查询火灾探测报警器电源倒计时信息",
+      "family": "components",
+      "candidate_ref": "K126",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.components.temperature.get",
+      "scenario": "查询温湿度传感器当前温度",
+      "family": "components",
+      "candidate_ref": "K127",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.devices.unlink_ipc",
+      "scenario": "解绑设备下已关联的IPC",
+      "family": "device_management",
+      "candidate_ref": "K128",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:cn.storage.create_space",
+      "scenario": "创建统一存储空间",
+      "family": "storage",
+      "candidate_ref": "K129",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.storage.delete_space",
+      "scenario": "删除统一存储空间",
+      "family": "storage",
+      "candidate_ref": "K130",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.storage.download_urls",
+      "scenario": "批量获取通用空间文件下载地址",
+      "family": "storage",
+      "candidate_ref": "K131",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.storage.search_files",
+      "scenario": "按空间与时间条件搜索统一存储文件",
+      "family": "storage",
+      "candidate_ref": "K132",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.storage.set_file_retention",
+      "scenario": "批量修改存储文件的过期保留天数",
+      "family": "storage",
+      "candidate_ref": "K133",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.storage.spaces",
+      "scenario": "按时间范围分页查询存储空间列表",
+      "family": "storage",
+      "candidate_ref": "K134",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.storage.update_space",
+      "scenario": "修改指定存储空间的名称及配置",
+      "family": "storage",
+      "candidate_ref": "K135",
+      "text_adjusted": true,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.subaccounts.add_statement",
+      "scenario": "为子账号添加RAM权限策略语句",
+      "family": "subaccounts",
+      "candidate_ref": "K136",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:cn.subaccounts.create",
+      "scenario": "创建RAM子账号并设置初始密码",
+      "family": "subaccounts",
+      "candidate_ref": "K137",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.alarms.for_device",
+      "scenario": "按条件查询指定设备的告警消息列表",
+      "family": "alarms",
+      "candidate_ref": "K138",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.alarms.list",
+      "scenario": "分页查询账号下设备的告警消息",
+      "family": "alarms",
+      "candidate_ref": "K139",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.arming.get_schedule",
+      "scenario": "查询指定设备的布防计划配置",
+      "family": "device_security",
+      "candidate_ref": "K140",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.arming.set_mode",
+      "scenario": "设置设备布防或撤防状态",
+      "family": "device_security",
+      "candidate_ref": "K141",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.arming.set_schedule",
+      "scenario": "配置设备的定时布防计划",
+      "family": "device_security",
+      "candidate_ref": "K142",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.cloud_storage.activate_card",
+      "scenario": "使用充值卡为设备开通云存储服务",
+      "family": "cloud_storage",
+      "candidate_ref": "K143",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.cloud_storage.info_v1",
+      "scenario": "查询设备云存储服务的开通信息",
+      "family": "cloud_storage",
+      "candidate_ref": "K144",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.device.status",
+      "scenario": "查询指定设备的状态信息",
+      "family": "device_management",
+      "candidate_ref": "K145",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.devices.bind",
+      "scenario": "将设备添加绑定到当前账号",
+      "family": "device_management",
+      "candidate_ref": "K146",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.devices.cameras",
+      "scenario": "分页查询账号下的摄像头列表",
+      "family": "device_management",
+      "candidate_ref": "K147",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.devices.channels",
+      "scenario": "查询指定设备下的通道列表",
+      "family": "device_management",
+      "candidate_ref": "K148",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.devices.get",
+      "scenario": "查询指定设备的详细信息",
+      "family": "device_management",
+      "candidate_ref": "K149",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.devices.link_ipc",
+      "scenario": "将IPC关联添加到指定设备通道",
+      "family": "device_management",
+      "candidate_ref": "K150",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.devices.list",
+      "scenario": "分页查询账号下的设备列表",
+      "family": "device_management",
+      "candidate_ref": "K151",
+      "text_adjusted": true,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.devices.rename",
+      "scenario": "修改指定设备的名称",
+      "family": "device_management",
+      "candidate_ref": "K152",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.devices.unbind",
+      "scenario": "从账号解绑删除指定设备",
+      "family": "device_management",
+      "candidate_ref": "K153",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.devices.unlink_ipc",
+      "scenario": "解除IPC与指定设备的关联",
+      "family": "device_management",
+      "candidate_ref": "K154",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.diagnostics.capabilities",
+      "scenario": "查询设备支持的能力集",
+      "family": "diagnostics",
+      "candidate_ref": "K155",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.diagnostics.storage_status",
+      "scenario": "查询设备磁盘格式化状态",
+      "family": "storage",
+      "candidate_ref": "K156",
+      "text_adjusted": true,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.diagnostics.version",
+      "scenario": "查询设备当前固件版本信息",
+      "family": "diagnostics",
+      "candidate_ref": "K157",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.illumination.get_mode",
+      "scenario": "查询设备补光灯当前模式",
+      "family": "illumination",
+      "candidate_ref": "K158",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.illumination.set_mode",
+      "scenario": "设置设备补光灯模式",
+      "family": "illumination",
+      "candidate_ref": "K159",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.local.recordings",
+      "scenario": "按时间与类型查询设备本地录像",
+      "family": "recordings",
+      "candidate_ref": "K160",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.maintenance.format_disk",
+      "scenario": "对设备指定磁盘执行格式化",
+      "family": "storage",
+      "candidate_ref": "K161",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.maintenance.upgrade_firmware",
+      "scenario": "发起设备固件升级",
+      "family": "maintenance",
+      "candidate_ref": "K162",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.maintenance.upgrade_status",
+      "scenario": "查询设备固件升级状态",
+      "family": "maintenance",
+      "candidate_ref": "K163",
+      "text_adjusted": true,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.playback.create",
+      "scenario": "按协议获取设备视频的播放地址",
+      "family": "media_addresses",
+      "candidate_ref": "K164",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.playback.invalidate",
+      "scenario": "停用已生成的设备播放地址",
+      "family": "media_addresses",
+      "candidate_ref": "K165",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.ptz.add_preset",
+      "scenario": "为设备通道添加云台预置点",
+      "family": "ptz",
+      "candidate_ref": "K166",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.ptz.clear_preset",
+      "scenario": "删除设备通道的指定云台预置点",
+      "family": "ptz",
+      "candidate_ref": "K167",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.ptz.mirror",
+      "scenario": "下发云台画面镜像翻转控制命令",
+      "family": "ptz",
+      "candidate_ref": "K168",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.ptz.move_preset",
+      "scenario": "控制云台转动到指定预置点",
+      "family": "ptz",
+      "candidate_ref": "K169",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.ptz.start",
+      "scenario": "按指定方向与速度启动云台转动",
+      "family": "ptz",
+      "candidate_ref": "K170",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.ptz.stop",
+      "scenario": "停止指定方向的云台转动",
+      "family": "ptz",
+      "candidate_ref": "K171",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.security.disable_encryption",
+      "scenario": "凭验证码关闭设备视频加密",
+      "family": "device_security",
+      "candidate_ref": "K172",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.security.enable_encryption",
+      "scenario": "开启设备视频加密",
+      "family": "device_security",
+      "candidate_ref": "K173",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.security.update_password",
+      "scenario": "修改设备视频加密密码",
+      "family": "device_security",
+      "candidate_ref": "K174",
+      "text_adjusted": false,
+      "family_normalized": true
+    },
+    {
+      "capability_id": "contract:global.settings.get_chime",
+      "scenario": "查询设备铃声配置",
+      "family": "device_settings",
+      "candidate_ref": "K175",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.get_infrared",
+      "scenario": "查询设备红外开关状态",
+      "family": "device_settings",
+      "candidate_ref": "K176",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.get_language",
+      "scenario": "查询设备语言设置",
+      "family": "device_settings",
+      "candidate_ref": "K177",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.get_pir_area",
+      "scenario": "查询设备PIR侦测区域配置",
+      "family": "device_settings",
+      "candidate_ref": "K178",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.list_timezones",
+      "scenario": "查询平台支持的时区列表",
+      "family": "device_settings",
+      "candidate_ref": "K179",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.microphone.get",
+      "scenario": "查询摄像机麦克风拾音开关状态",
+      "family": "device_settings",
+      "candidate_ref": "K180",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.microphone.set",
+      "scenario": "设置摄像机麦克风拾音开关",
+      "family": "device_settings",
+      "candidate_ref": "K181",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.scene.get",
+      "scenario": "查询设备场景模式开关状态",
+      "family": "device_settings",
+      "candidate_ref": "K182",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.scene.set",
+      "scenario": "设置设备场景模式开关",
+      "family": "device_settings",
+      "candidate_ref": "K183",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.set_chime",
+      "scenario": "设置设备铃声类型与时长",
+      "family": "device_settings",
+      "candidate_ref": "K184",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.set_infrared",
+      "scenario": "设置设备红外开关",
+      "family": "device_settings",
+      "candidate_ref": "K185",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.set_language",
+      "scenario": "设置设备语言",
+      "family": "device_settings",
+      "candidate_ref": "K186",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.set_pir_area",
+      "scenario": "设置设备PIR侦测区域",
+      "family": "device_settings",
+      "candidate_ref": "K187",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.set_timezone",
+      "scenario": "设置设备时区与时间格式",
+      "family": "device_settings",
+      "candidate_ref": "K188",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.sound_localization.get",
+      "scenario": "查询设备声源定位开关状态",
+      "family": "device_settings",
+      "candidate_ref": "K189",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.sound_localization.set",
+      "scenario": "设置设备声源定位开关",
+      "family": "device_settings",
+      "candidate_ref": "K190",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.wifi_prompt.get",
+      "scenario": "查询设备Wi-Fi提示音开关状态",
+      "family": "device_settings",
+      "candidate_ref": "K191",
+      "text_adjusted": true,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.settings.wifi_prompt.set",
+      "scenario": "设置设备Wi-Fi提示音开关",
+      "family": "device_settings",
+      "candidate_ref": "K192",
+      "text_adjusted": true,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.snapshots.capture",
+      "scenario": "抓取设备指定通道画面截图",
+      "family": "snapshots",
+      "candidate_ref": "K193",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.subaccounts.add_statement",
+      "scenario": "为子账户添加授权语句",
+      "family": "subaccounts",
+      "candidate_ref": "K194",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.subaccounts.change_password",
+      "scenario": "修改子账户登录密码",
+      "family": "subaccounts",
+      "candidate_ref": "K195",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.subaccounts.create",
+      "scenario": "创建子账户",
+      "family": "subaccounts",
+      "candidate_ref": "K196",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.subaccounts.delete",
+      "scenario": "删除子账户",
+      "family": "subaccounts",
+      "candidate_ref": "K197",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.subaccounts.get",
+      "scenario": "查询子账户信息",
+      "family": "subaccounts",
+      "candidate_ref": "K198",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.subaccounts.issue_token",
+      "scenario": "为子账户签发访问令牌",
+      "family": "subaccounts",
+      "candidate_ref": "K199",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.subaccounts.list",
+      "scenario": "分页查询子账户列表",
+      "family": "subaccounts",
+      "candidate_ref": "K200",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.subaccounts.remove_device_permissions",
+      "scenario": "移除子账户的指定设备授权",
+      "family": "subaccounts",
+      "candidate_ref": "K201",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.subaccounts.set_policy",
+      "scenario": "设置子账户权限策略",
+      "family": "subaccounts",
+      "candidate_ref": "K202",
+      "text_adjusted": false,
+      "family_normalized": false
+    },
+    {
+      "capability_id": "contract:global.token.get",
+      "scenario": "使用应用凭证获取访问令牌",
+      "family": "account_authorization",
+      "candidate_ref": "K203",
+      "text_adjusted": false,
+      "family_normalized": true
+    }
+  ],
+  "wire_evidence_commit": "7c4d954c0619152af7df2baa1072d98fce214786",
+  "wire_input_pins": {
+    "contracts/reviewed-transport-contracts.json": "055c501618370fcd3ecf4dffa8fe42ea5cb43f0196a5030cf36cd4d9c4474b16",
+    "contracts/sdk-bindings.json": "0fcc2b0a0c28ab64fe631eb3ff6e03812163c4ff59a90960750c79ceff04624c",
+    "evals/contracts/cases.json": "90f3f4cdfc36dc600bdbfae6d2ffab566c2a8a7e2b9a396caa40a37f1ee422e6",
+    "harness/contract_eval.py": "27fee73361acaed8c34beb760f8a9105435d9de1f8bb7fbd8536b7a64e80748d",
+    "harness/wire_eval.py": "9027a45849818108b90e6d397824edecc849ba9185c537d8c22b2497f03f1063",
+    "harness/_contract_worker.py": "68dd0ef69b8ca152e299d2f1fdc87039c8d7444fbfc86feb2f6620e375b78175",
+    ".github/workflows/ci.yml": "6df5c4cc2e37b80c388b213ee4fa61abcb1a58de113c0c53743432c7fab02974"
+  },
+  "sdk_source_hashes_checked": 43,
+  "concrete_existing_wire_cases_added": 109,
+  "synthetic_subset_cells": 904,
+  "executed_new_sdk_or_live_checks": false,
+  "all_previous_cases_and_source_material_cohort_release_states_preserved": true,
+  "scope_complete": false,
+  "counts_are_not_official_capability_totals": true
+}
