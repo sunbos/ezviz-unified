@@ -16,7 +16,8 @@
     "authentication_succeeded_explicit_regional_origin": 1,
     "empty_list_succeeded_application_token": 1,
     "empty_list_succeeded_singapore": 1,
-    "not_verified": 192,
+    "not_verified": 191,
+    "public_area_catalog_succeeded_documented_origin": 1,
     "public_timezone_catalog_succeeded_singapore": 1,
     "request_failed_http_500": 1,
     "single_device_readonly_response_checked": 6

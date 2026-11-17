@@ -73,9 +73,9 @@ with Client(
 
 `client.settings.get_switch(device_serial, DeviceSwitch.INDICATOR_LIGHT)`读取状态；`set_switch(device_serial, switch, enabled, channel=None)`设置状态。enabled必须为bool，写请求不重放。省略channel表示设备本身，麦克风不接受channel。六类开关、地区限制和原文差异见[开关说明](docs/research/2026-11-14-switch-settings.md)。SOUND_LOCALIZATION是声源定位，与TLS无关；所有真实设置效果仍未验证。
 
-海外`client.settings`另提供九项设备设置与两项公开目录：`get_pir_area`/`set_pir_area`（`area`为官方原始字符串）、`get_chime`/`set_chime`、`get_infrared`/`set_infrared`、`set_timezone`、`get_language`/`set_language`，以及无凭据的`list_timezones`时区目录和`list_areas`国家/地区目录；以上仅海外，写操作不自动重放。`Client(anonymous=True, region=RegionConfig.overseas(api_base_url=...))`提供显式匿名模式调用公开操作。`timezone`须用目录返回的`tzCode`，`timeFormat`必填性、duration单位等来源缺项与匿名约束见[海外设备设置与公开目录](docs/research/2026-11-15-overseas-settings.md)；`list_areas`为显式GET（源同时声明POST但未文档化其形状），契约与边界见[公开国家/地区目录](docs/research/2026-11-17-public-areas.md)。仅新加坡公开时区目录经SDK真实查询验证；国家/地区目录与九项设备接口仍为离线验证。
+海外`client.settings`另提供九项设备设置与两项公开目录：`get_pir_area`/`set_pir_area`（`area`为官方原始字符串）、`get_chime`/`set_chime`、`get_infrared`/`set_infrared`、`set_timezone`、`get_language`/`set_language`，以及无凭据的`list_timezones`时区目录和`list_areas`国家/地区目录；以上仅海外，写操作不自动重放。`Client(anonymous=True, region=RegionConfig.overseas(api_base_url=...))`提供显式匿名模式调用公开操作。`timezone`须用目录返回的`tzCode`，`timeFormat`必填性、duration单位等来源缺项与匿名约束见[海外设备设置与公开目录](docs/research/2026-11-15-overseas-settings.md)；`list_areas`为显式GET（源同时声明POST但未文档化其形状），契约与边界见[公开国家/地区目录](docs/research/2026-11-17-public-areas.md)。新加坡公开时区目录与`open.ezvizlife.com`公开国家/地区目录均已经SDK同步/异步真实查询验证（后者见[SDK实测记录](docs/validation/live/2026-11-17-public-area-directory/sdk.json)，仅GET、identity编码、固定origin、两次调用）；九项设备接口仍为离线验证，其他origin、POST变体、压缩响应路径与集群路由未实测。
 
-`examples/public_areas`为无凭据示例，固定使用`https://open.ezvizlife.com`，stdout只输出顶层数组条数（`status=ok`、`items=<len>`），非数组顶层返回固定`unexpected_data_type`/`items=null`并以1退出；不输出字段级验收、原始值或未知key，无env读取、无凭据、无文件写入。
+`examples/public_areas`为无凭据示例，固定使用`https://open.ezvizlife.com`，stdout只输出顶层数组条数（`status=ok`、`items=<len>`），非数组顶层返回固定`unexpected_data_type`/`items=null`并以1退出；不输出字段级验收、原始值或未知key，无env读取、无凭据、无文件写入。该示例CLI本身的固定数量输出与上述验收证据相互独立；验收走独立origin构造与有界回执，不借CLI输出充当证据。
 
 ## 视频配置
 

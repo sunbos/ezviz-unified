@@ -33,5 +33,7 @@
 ## 验证状态
 
 - 2026-11-17采集海外469（`https://open.ys7.com/help/en/469`），正文SHA与归档一致。
-- 已添加离线测试（MockTransport契约测试与`wire_eval`对冻结契约的8格评测），当前targeted结果为3 failed / 311 passed，修订后待复核；未做真实设备/真实origin调用，不能声称目录在任意origin可用。
-- 绑定`live_status="not_verified"`、`offline_status="pending"`；SDK实测与发布仍pending，未上PyPI。
+- **离线验证（已过，证据 [checks.json](../validation/2026-11-17-public-areas/checks.json)，代码 commit `58e7881`）**：初始 targeted 3 failed / 311 passed，经定向修订（修正 facade/request 诊断期望、隔离 CLI argv、补诊断失败等价性与有界 CLI 摘要；未删除断言换取通过，3 条历史失败记录保留于 `initial_targeted_result`）后全部通过——SDK/harness targeted 327、示例 22、全量 4580 + 35 subtests、registered contracts 204 / wire executions 1664 全过、mypy 43 文件、Ruff check/format 通过；wheel/sdist `0.1.0a1` 已构建、内容检查、Twine 校验与干净安装（sdist 2744 测试通过；安装依赖走网络，SDK smoke/测试不触真实 API）。`max_requests=0` 指真实云请求，MockTransport 调用不冒充真实操作。
+- **SDK 真实验收（已过，证据 [sdk.json](../validation/live/2026-11-17-public-area-directory/sdk.json)，同一 commit）**：UTC 2026-11-17T02:52:27 对固定 `https://open.ezvizlife.com` 匿名 sync/async 各一次，合计 2 HTTP / 2 逻辑调用；两 mode 均 HTTP 200 + 业务码 `"200"`，`data` 为 240 项数组且全部 240 项 `id:int`/`name:str`/`region:str`/`telephoneCode:int` 四字段类型匹配；identity 编码、原始响应字节每 mode 16442 字节、客户端与 transport 均正确关闭。回执只保存计数/类型/状态/来源与代码 hash（46 项输入 pin 与 code58 Git 版本一致），报告 SHA `88cce20d…7adc`。
+- **边界**：240 是当次观察值而非固定目录大小或保证；仅验证 GET + identity 协商，不证明其他 origin、POST 变体、压缩响应路径、集群路由、海外设备或硬件；SP016 的 raw HTTP 观察（`raw-http.json`）是历史协议结构证据，不充作 SDK 实测。该 cohort 通过不解除海外无绑定设备、消息配置未知等其它 required 行的阻塞。
+- 产品范围仍 `provisional`：本方法所在 cohort `PUBLIC-AREAS-001` 已按 `scope_revision=2026-11-17-r1` 验证，但 scope-register 当前为 `2026-11-17-r2`（253 槽位，其中 5 条国内 voice 仅为 review 候选、无实现或 G1/live 授权），`product_complete=false`，未上 PyPI。

@@ -1,0 +1,214 @@
+{
+  "schema": "official_component_artifact_evidence_snapshot/v1",
+  "description": "Immutable per-batch source evidence snapshot of official component archive bytes and package identity pins. This is not a third maintained-results database. Paths are repo-relative; the original data archive is not packaged with the SDK. No raw locator, query, token, or maintainer information is recorded.",
+  "schema_version": 1,
+  "evidence": "official_component_archive_byte_and_package_identity_pins_only",
+  "observed_date": "2026-11-17",
+  "baseline_commit": "641d6cc10010b11a49c65c9d6783f92eefda00d3",
+  "official_metadata_manifest_sha256": "ee8fd597506c7a8f51d82b091e9c79e07dce0f979d0be305d7f260716fbab2b9",
+  "source_manifests": {
+    "data/official-components/2026-11-17/npm-artifacts-bounded/manifest.json": "4cfe868c156982e2d9910940af89955c722cdb9a31d6f7c5f7e08209837e2d57",
+    "data/official-components/2026-11-17/npm-mirror-probe/manifest.json": "28aa406694a4adfaa6cf1dd7dc05a026243f76f71879c04a5afed691aef389b3",
+    "data/official-components/2026-11-17/npm-mirror-remaining/manifest.json": "d7e8c7700c58c170134ee16e22fabea38624dc01346db0df164db8938dfb6b67",
+    "data/official-components/2026-11-17/npm-mirror-resumed/manifest.json": "7871845079775f4d057d61ef343757facf9199b23b48f80d2d177f8c5dd46b01",
+    "data/official-components/2026-11-17/npm-flv-final-bounded/manifest.json": "1294597ff780efa0d76712f52a3a1f10726608689c5819f808e1ec9fb0170824"
+  },
+  "artifacts": [
+    {
+      "package": "@ezuikit/multi-screen",
+      "version": "0.1.0",
+      "official_metadata_sha256": "09abda0849c1f772f0f1475cb7de901a826838f828944595cbd15163bb721c71",
+      "official_registry_git_head": "1d4448a1ac626e67d039b5dffff740e2f1c132f1",
+      "artifact_sha256": "abdf162aa0d442240ef67a2dcc0256af99385abda142f06ea511e968bdaa1d80",
+      "artifact_bytes": 89137,
+      "archive_path": "data/official-components/2026-11-17/npm-mirror-remaining/abdf162aa0d442240ef67a2dcc0256af99385abda142f06ea511e968bdaa1d80.tgz",
+      "evidence_manifest": "data/official-components/2026-11-17/npm-mirror-remaining/manifest.json",
+      "evidence_manifest_sha256": "d7e8c7700c58c170134ee16e22fabea38624dc01346db0df164db8938dfb6b67",
+      "retrieval_route": "npmmirror_cache_verified_against_official_npm",
+      "official_sha512_and_sha1_verified": true,
+      "package_identity_verified": true,
+      "member_count": 10,
+      "declared_license": "MIT",
+      "archive_package_license": "MIT",
+      "license_files": [
+        {
+          "path": "package/LICENSE",
+          "sha256": "c4427834453dcd7bbbf8bd005c9b45931a78ee7163ae8af8b8b7cec92d6cefd0",
+          "bytes": 1062
+        }
+      ],
+      "installed": false,
+      "executed": false,
+      "selected_for_runtime_adoption": false,
+      "integration_verified": false
+    },
+    {
+      "package": "@ezuikit/player-hls",
+      "version": "2.0.0",
+      "official_metadata_sha256": "e2eed18ace2ebd573c8fc7b0e9e8822a770a2ebf035f79a613f425c62504c363",
+      "official_registry_git_head": "ae5dd3699d69f6175e8085fc47454ad9e317c558",
+      "artifact_sha256": "8f7de1d2c96d310025e4d72a1221176d2584f5c98b6fc858dfd9daccca5087c9",
+      "artifact_bytes": 1182065,
+      "archive_path": "data/official-components/2026-11-17/npm-mirror-resumed/8f7de1d2c96d310025e4d72a1221176d2584f5c98b6fc858dfd9daccca5087c9.tgz",
+      "evidence_manifest": "data/official-components/2026-11-17/npm-mirror-resumed/manifest.json",
+      "evidence_manifest_sha256": "7871845079775f4d057d61ef343757facf9199b23b48f80d2d177f8c5dd46b01",
+      "retrieval_route": "npmmirror_cache_verified_against_official_npm",
+      "official_sha512_and_sha1_verified": true,
+      "package_identity_verified": true,
+      "member_count": 12,
+      "declared_license": null,
+      "archive_package_license": null,
+      "license_files": [
+        {
+          "path": "package/LICENSE",
+          "sha256": "457b7570faa5833762b4bd9c852985e323cfd832183e0892f1c7824e324e922f",
+          "bytes": 116
+        }
+      ],
+      "installed": false,
+      "executed": false,
+      "selected_for_runtime_adoption": false,
+      "integration_verified": false
+    },
+    {
+      "package": "@ezuikit/utils-logger",
+      "version": "2.1.0",
+      "official_metadata_sha256": "8b464ed0be68a1b67855720b0e7c2e45482a10ff3e107fe159cec12666e15df3",
+      "official_registry_git_head": null,
+      "artifact_sha256": "f0bfd5c6ee564c937e6206b32e925f154c02bcd2cffd6424b70ea2273eccf77a",
+      "artifact_bytes": 28882,
+      "archive_path": "data/official-components/2026-11-17/npm-mirror-probe/f0bfd5c6ee564c937e6206b32e925f154c02bcd2cffd6424b70ea2273eccf77a.tgz",
+      "evidence_manifest": "data/official-components/2026-11-17/npm-mirror-probe/manifest.json",
+      "evidence_manifest_sha256": "28aa406694a4adfaa6cf1dd7dc05a026243f76f71879c04a5afed691aef389b3",
+      "retrieval_route": "npmmirror_cache_verified_against_official_npm",
+      "official_sha512_and_sha1_verified": true,
+      "package_identity_verified": true,
+      "member_count": 6,
+      "declared_license": "MIT",
+      "archive_package_license": "MIT",
+      "license_files": [],
+      "installed": false,
+      "executed": false,
+      "selected_for_runtime_adoption": false,
+      "integration_verified": false
+    },
+    {
+      "package": "@ezviz/openplatform-sdk",
+      "version": "1.0.0-beta.1",
+      "official_metadata_sha256": "cb51d9b34574cdbab0f7da3f6c4b9253e611e5fa4c9741d779667a89ad03aed1",
+      "official_registry_git_head": "84b629afb6657c97b04c379bb5ed49d7ac90515e",
+      "artifact_sha256": "509e4ab7107c1996f7dd080deeb10cd573847a4bbec993d3918732eb48486c6b",
+      "artifact_bytes": 22095,
+      "archive_path": "data/official-components/2026-11-17/npm-artifacts-bounded/509e4ab7107c1996f7dd080deeb10cd573847a4bbec993d3918732eb48486c6b.tgz",
+      "evidence_manifest": "data/official-components/2026-11-17/npm-artifacts-bounded/manifest.json",
+      "evidence_manifest_sha256": "4cfe868c156982e2d9910940af89955c722cdb9a31d6f7c5f7e08209837e2d57",
+      "retrieval_route": "official_npm",
+      "official_sha512_and_sha1_verified": true,
+      "package_identity_verified": true,
+      "member_count": 14,
+      "declared_license": "Apache-2.0",
+      "archive_package_license": "Apache-2.0",
+      "license_files": [
+        {
+          "path": "package/LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "bytes": 11357
+        }
+      ],
+      "installed": false,
+      "executed": false,
+      "selected_for_runtime_adoption": false,
+      "integration_verified": false
+    },
+    {
+      "package": "ertc-web",
+      "version": "2.1.2",
+      "official_metadata_sha256": "295e22d192855b8ffe705568612403c4ae33884fe851f262ee329229146652c6",
+      "official_registry_git_head": null,
+      "artifact_sha256": "22b4a0b380511bcbf3148437192a2092c86d195ec32e82eb69d07a41856f53e9",
+      "artifact_bytes": 522404,
+      "archive_path": "data/official-components/2026-11-17/npm-mirror-resumed/22b4a0b380511bcbf3148437192a2092c86d195ec32e82eb69d07a41856f53e9.tgz",
+      "evidence_manifest": "data/official-components/2026-11-17/npm-mirror-resumed/manifest.json",
+      "evidence_manifest_sha256": "7871845079775f4d057d61ef343757facf9199b23b48f80d2d177f8c5dd46b01",
+      "retrieval_route": "npmmirror_cache_verified_against_official_npm",
+      "official_sha512_and_sha1_verified": true,
+      "package_identity_verified": true,
+      "member_count": 9,
+      "declared_license": "ISC",
+      "archive_package_license": "ISC",
+      "license_files": [
+        {
+          "path": "package/LICENSE",
+          "sha256": "7679896a3f270685720de2a10333bf32bce8893d3d827a71cbb35dfa636356df",
+          "bytes": 34845
+        }
+      ],
+      "installed": false,
+      "executed": false,
+      "selected_for_runtime_adoption": false,
+      "integration_verified": false
+    },
+    {
+      "package": "ezuikit-flv",
+      "version": "2.1.2-beta.2",
+      "official_metadata_sha256": "3f95413028508a8341b7d6010bc20c65219c31dd42fb52e93ece9e0d5053f91f",
+      "official_registry_git_head": "1e033a4dd8f2bcd38651274f5c3c52f2cc34fcb3",
+      "artifact_sha256": "4f5d247f1a1c0dbeec439c4fcde1bba5067f5a55d16d9f7368a0b9ca570601fc",
+      "artifact_bytes": 1192055,
+      "archive_path": "data/official-components/2026-11-17/npm-flv-final-bounded/4f5d247f1a1c0dbeec439c4fcde1bba5067f5a55d16d9f7368a0b9ca570601fc.tgz",
+      "evidence_manifest": "data/official-components/2026-11-17/npm-flv-final-bounded/manifest.json",
+      "evidence_manifest_sha256": "1294597ff780efa0d76712f52a3a1f10726608689c5819f808e1ec9fb0170824",
+      "retrieval_route": "npmmirror_cache_verified_against_official_npm",
+      "official_sha512_and_sha1_verified": true,
+      "package_identity_verified": true,
+      "member_count": 55,
+      "declared_license": null,
+      "archive_package_license": null,
+      "license_files": [
+        {
+          "path": "package/LICENSE",
+          "sha256": "b2f0e1fecb7d842662d19842e1a3bfc81dcbc7f6423c89f608dd0c975d5b5604",
+          "bytes": 46513
+        }
+      ],
+      "installed": false,
+      "executed": false,
+      "selected_for_runtime_adoption": false,
+      "integration_verified": false
+    },
+    {
+      "package": "ezuikit-js",
+      "version": "9.0.26",
+      "official_metadata_sha256": "d4de61fa62527f4b11cac8f60de4eb662f34abadc2f84390f66cd551dee57172",
+      "official_registry_git_head": "1f6f475dd0d050934ff6b698e40fe344cb2fcc8b",
+      "artifact_sha256": "3f7275b0fd2d07cc0f02eff7a318ec7fa2cb05c1aae9c84c65ead49a301947b6",
+      "artifact_bytes": 8874656,
+      "archive_path": "data/official-components/2026-11-17/npm-mirror-resumed/3f7275b0fd2d07cc0f02eff7a318ec7fa2cb05c1aae9c84c65ead49a301947b6.tgz",
+      "evidence_manifest": "data/official-components/2026-11-17/npm-mirror-resumed/manifest.json",
+      "evidence_manifest_sha256": "7871845079775f4d057d61ef343757facf9199b23b48f80d2d177f8c5dd46b01",
+      "retrieval_route": "npmmirror_cache_verified_against_official_npm",
+      "official_sha512_and_sha1_verified": true,
+      "package_identity_verified": true,
+      "member_count": 15,
+      "declared_license": "ISC",
+      "archive_package_license": "ISC",
+      "license_files": [],
+      "installed": false,
+      "executed": false,
+      "selected_for_runtime_adoption": false,
+      "integration_verified": false
+    }
+  ],
+  "summary": {
+    "pinned_package_versions": 7,
+    "integrity_and_identity_verified": 7,
+    "installed_or_executed": 0,
+    "integration_verified": 0
+  },
+  "limits": [
+    "Prior download failures retained; subsequent successful byte retrieval does not erase them.",
+    "Mirrors are byte retrieval routes only, original npm metadata is the identity anchor.",
+    "Archive identity does not determine license compatibility or approve runtime adoption.",
+    "This does not verify component integration, devices, SDK product completeness, or release."
+  ]
+}

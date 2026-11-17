@@ -2612,9 +2612,10 @@
         "Settings.list_areas",
         "AsyncSettings.list_areas"
       ],
-      "offline_status": "pending",
-      "live_status": "not_verified",
-      "public_entry": "settings.list_areas"
+      "offline_status": "passed",
+      "live_status": "public_area_catalog_succeeded_documented_origin",
+      "public_entry": "settings.list_areas",
+      "live_evidence": "docs/validation/live/2026-11-17-public-area-directory/sdk.json"
     },
     {
       "operation_id": "global.settings.list_timezones",

@@ -13,22 +13,24 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
-## 已记录证据（仅复用条件，非新实测）
+## 已记录证据（含历史复用行与 SP036 新通过行，均不超出各自边界）
 
 | case_id | 结论边界 |
 | --- | --- |
 | `ACC-CN-SYNC-READONLY-001` | 国内同步单设备只读链已合并证据：[live 记录](live/2026-11-16-diagnostics-v1/README.md)。2026-11-16 21:24:44（Asia/Shanghai），首页 `page_size=1` 首台普通设备、通道 1。6 个业务逻辑入口 = `devices.list` 1 次 + `inspect_device` 固定五项（`devices.get`/`devices.channels`/`devices.status`/`diagnostics.capabilities`/`diagnostics.version`）；认证另占 1 次 HTTP，共 7 次 HTTP。该回执执行器为 `tools/live/verify_diagnostics.py`（`--serve`，scope `bounded_domestic_diagnostic_v1`），非 `verify_devices.py`。64 事件、`dropped_events=0`、`recording_errors=0`，运行所用 SDK 源码与预检快照哈希一致（commit `99613ea`），main CI `43878741197` 已通过 3.12–3.15，回归 4419 tests + 11 subtests。仅同步、单设备、单通道样本；真实当前设备配置尚未提供，不得声称仍在线。 |
 | `ACC-OS-PUBLIC-TIMEZONE-001` | 新加坡集群公开时区 sync/async 证据：[singapore.json](live/2026-11-15-public-timezones/singapore.json)。仅覆盖该集群匿名目录调用，不代表硬件或其他集群。 |
 | `ACC-OS-AUTH-EMPTYLIST-001` | 新加坡账号显式区域入口认证 + 一页空设备列表：[overseas.json](live/2026-11-14-overseas/overseas.json)。默认入口对本账号返回业务码 10017；空列表只证明当次账号当次范围，不证明设备可用、其他集群或 async。 |
+| `ACC-OS-PUBLIC-AREAS-OFFLINE-001` | 公开国家/地区目录离线验收已通过（`execution_outcome=passed`，verified code commit `58e7881`）：证据 [checks.json](2026-11-17-public-areas/checks.json)（说明见 [README](2026-11-17-public-areas/README.md)）。初始 targeted 3 failed / 311 passed，定向修订后 SDK/harness targeted 327、示例 22、全量 4580+35 subtests、registered contracts 204 / wire 1664 全过，mypy 43 文件、Ruff 通过；`0.1.0a1` wheel/sdist 构建、内容检查、Twine、干净安装（sdist 2744 测试）完成，安装依赖走网络、SDK smoke 不触真实 API。属 code58 开发候选验证，**非最终 SDK 产品 release 或 PyPI 发布**。 |
+| `ACC-OS-PUBLIC-AREAS-SDK-001` | 公开国家/地区目录 SDK 真实验收已通过（`execution_outcome=passed`，同一 commit）：证据 [sdk.json](live/2026-11-17-public-area-directory/sdk.json)（说明见 [README](live/2026-11-17-public-area-directory/README.md)）。UTC 2026-11-17T02:52:27 固定 `https://open.ezvizlife.com` 匿名 sync/async 各一次，合计 2 HTTP/2 逻辑调用；两 mode HTTP 200 + 业务码 `"200"`，`data` 240 项且四字段类型全部匹配，identity 编码每 mode 16442 字节，client/transport 均关闭；回执只存计数/类型/状态/hash（SHA `88cce20d…7adc`），46 输入 pin 与 code58 一致。240 为当次观察值非保证；仅 GET+identity，未覆盖其他 origin/POST/压缩路径/集群路由/设备。 |
 
-## 已冻结待执行（frozen_for_implementation，不算完成也不算准入）
+## 公开国家/地区目录 case 结果说明（SP036，scope_revision=2026-11-17-r1）
 
-以下两个公开国家/地区目录 case 在 `scope_revision=2026-11-17-r1` 下冻结为具体实现合同：`freeze_state=frozen_for_implementation` 只表示接口与判据已定，**不表示 G0 范围核定、G1 cohort 实施准入、live 执行或发布已批准**；二者 `result=pending_execution`、全部 criterion 为 `pending`，不能因为文档或来源存在就标 met。
+两 case 在 `scope_revision=2026-11-17-r1` 下冻结并在 code commit `58e7881a3e7aee4c3ffc431b5016b019cefb447c` 上通过：`result=recorded_evidence`、`execution_outcome=passed`、`blockers=[]`，criterion_assessment 各项均为 `met`（offline 12 项、SDK 8 项，明细见 JSON）。SP036 决策记录（[acceptance.json](../coordination/SP036/acceptance.json)，scope_revision `2026-11-17-r2`）只把这两条 case 记为通过；**其它旧 case 与 release gates 全部不变，不升级**。frozen 判据与历史注记保留于 JSON `historical_freeze_notes`/`limitations`（GET-only、POST 形状未核定保留为 source issue、240 非固定数量、SP016 raw HTTP 不继承为 SDK 证据等），此处不再复述。
 
-- `ACC-OS-PUBLIC-AREAS-OFFLINE-001`（required, offline_only）：`Settings.list_areas()`/`AsyncSettings.list_areas()` 返回 `ApiResponse`，复用现有 DTO 不转换 `data`；`GET /api/lapp/area/list`、`token_location=none`、`read_only`、无 query/body、不调用 token provider（即使 client 持有 provider）、无自动认证或重试，沿用调用方显式 `api_base_url`。冻结判据覆盖 sync/async 准确 GET 与空 query/body/无 token、provider 零调用、成功 `data` 额外字段与空数组原样保留、国内 region/缺 public `api_base_url`/closed client 在发请求前按现异常失败、业务/传输/格式错误不重试、async 取消传播、diagnostic on/off 返回值与异常语义一致及新白名单/覆盖审计更新；只用合成 fixtures，SDK 测试不导入 harness。`max_requests=0`/`max_operations=0` 只指真实云请求/业务效果，测试内有限 MockTransport 调用不冒充真实操作。
-- `ACC-OS-PUBLIC-AREAS-SDK-001`（required, read_only）：来源与版本冻结后，匿名 `Client` 与 `AsyncClient` 各一次显式 `api_base_url=https://open.ezvizlife.com` 真实调用，合计 2 HTTP/2 逻辑操作；无凭据、不跟 redirect、不重试、不访问设备，每阶段 timeout 10s、解压响应 1 MiB 上限由验收 transport 边界控制（不改 HTTPX 全局），各自正确 close/aclose。判据为两 mode policy 成功（HTTP 200 + 业务码 "200"）、`data` 为非空 list 且至少一个元素含 `id:int`/`name:str`/`region:str`/`telephoneCode:int` 四类型；有界回执只保存数量、字段类型聚合、代码/来源版本 hash 与状态，不保存原始响应字段值。`authorization_status=n/a`（公开匿名读取，已有 Goal 授权）；`resource_state`/`physical` 记 `not_applicable`（无账号/设备/物理效果），不影响海外绑定设备必需 case 仍 `user_confirmed_no_bound_device` 阻塞。
+- `ACC-OS-PUBLIC-AREAS-OFFLINE-001`（required, offline_only）：判据覆盖 sync/async 准确 GET 与空 query/body/无 token、provider 零调用、成功 `data` 额外字段与空数组原样保留、国内 region/缺 public `api_base_url`/closed client 前置失败、业务/传输/格式错误不重试、async 取消传播、diagnostic on/off 语义一致与白名单/覆盖审计更新。`max_requests=0`/`max_operations=0` 只指真实云请求/业务效果。
+- `ACC-OS-PUBLIC-AREAS-SDK-001`（required, read_only）：匿名 `Client`/`AsyncClient` 各一次显式 `api_base_url=https://open.ezvizlife.com` 真实调用；无凭据、不跟 redirect、不重试、不访问设备，每阶段 timeout 10s、解压响应 1 MiB 上限由验收 transport 边界控制，各自正确 close/aclose。`limitations` 明确：GET-only、公共目录不证明集群路由/绑定设备/硬件、identity-only 协商未覆盖压缩响应与其他 origin。`resource_state=not_applicable` 不解除海外绑定设备必需 case 的 `user_confirmed_no_bound_device` 阻塞。
 
-两 case 的 `capability_ids=[candidate:overseas:469:1.12]`、`operation_ids=[global.settings.list_areas]`；`settings.list_areas` 是 runtime/diagnostic entrypoint，**不是** registry operation_id。来源 overseas:469 §1.12（e1459 固定 origin、e1463 列 GET/POST、e1468 GET 示例、e1476 字段表）声明 GET 与 POST，SDK 明确只选 GET；POST 语义未核定保留为 source issue，不伪造 declared_pair 或提升 parser 恢复数。2026-11-16 SP016 单次匿名原始 HTTP 观察（HTTP 200、code "200"、240 项）仅为协议结构证据、不是 SDK 测试，不继承为 live 成功；240 是一次观察值、不是固定通过数量或目录总量保证。
+两 case 的 `capability_ids=[candidate:overseas:469:1.12]`、`operation_ids=[global.settings.list_areas]`；`settings.list_areas` 是 runtime/diagnostic entrypoint，**不是** registry operation_id。来源 overseas:469 §1.12（e1459 固定 origin、e1463 列 GET/POST、e1468 GET 示例、e1476 字段表）；SDK 明确只选 GET，POST 语义未核定保留为 source issue，不伪造 declared_pair 或提升 parser 恢复数。
 
 ## 待设计/待资源（不算完成）
 
@@ -59,4 +61,4 @@ App adapter、选择性遥测、独立模型评测、受控 RSI 均为第二轮�
 
 ## 未决问题
 
-见 JSON `open_questions`：当前国内设备在线状态未确认；async/CLI bounded 场景未设计；海外账号当前无绑定设备（`user_confirmed_no_bound_device`），集群与设备可见权限仍未核定；平台消息服务/可用回调入口未知（`unknown_awaiting_configuration_check`），去重与重复投递语义须先定义，国内 `t` 毫秒已确认、海外单位/时限冲突/密文措辞仍待核定，开通与测试的配置副作用须显式授权；版本与 PyPI 账户/权限/上传授权未确认（未执行发布，2026-11-17 公开页 404 仅为当次可见性，可提前备账号/Trusted Publisher）；新业务域须先绑定具体验收行，通配行不替代逐项；公开区域目录 cohort（`candidate:overseas:469:1.12`）已 `frozen_for_implementation`（`scope_revision=2026-11-17-r1`），但 G0 范围核定与 G1 cohort 准入仍待 scope-register 审核，两条新 case 均 `pending_execution`、无 criterion 达成；SP016 原始 HTTP 观察仅为协议证据，240 项非固定数量，`/api/lapp/area/list` 的 POST 形态/认证未核定保留为 source issue（SDK 仅选 GET）。
+见 JSON `open_questions`：当前国内设备在线状态未确认；async/CLI bounded 场景未设计；海外账号当前无绑定设备（`user_confirmed_no_bound_device`），集群与设备可见权限仍未核定；平台消息服务/可用回调入口未知（`unknown_awaiting_configuration_check`），去重与重复投递语义须先定义，国内 `t` 毫秒已确认、海外单位/时限冲突/密文措辞仍待核定，开通与测试的配置副作用须显式授权；版本与 PyPI 主体/账户/权限/上传授权未确认（未执行发布，2026-11-17 公开页 404 仅为当次可见性，可提前备账号/Trusted Publisher）；新业务域须先绑定具体验收行，通配行不替代逐项；公开区域目录 cohort（`candidate:overseas:469:1.12`）两条 case 已于 code58 通过（见上文），但该通过不扩展其边界：240 项非固定数量，`/api/lapp/area/list` 的 POST 形态/认证未核定保留为 source issue（SDK 仅选 GET），其他 origin/压缩路径/集群路由未实测，SP016 原始 HTTP 观察仅为协议证据。scope-register 当前 `2026-11-17-r2`（4051 source/3019 observation 身份集、253 槽位、204 已登记 operation）：5 条国内 `device_voice` 仅为 review 候选、无实现或 G1/live 授权；七个官方 npm 版本 archive 完整性与包身份已核定，但 11 repo 内容/34 binary/许可证兼容与集成验收仍未完成；`product_complete=false`；本批 PR exact-head 与 main 验证仍待独立 Git 证据，不预设已合并。

@@ -17,3 +17,13 @@
 - 结构化观察：[raw-http.json](raw-http.json)
 - 派单与固定边界：[SP016 request](../../../coordination/SP016/request.md)
 - 相关批次：[来源基础验收](../../2026-11-17-sdk-product-foundation/README.md)、[live 索引](../README.md)
+
+## SDK 实测证据（2026-11-17，独立于上方 SP016 记录）
+
+上方 SP016 是一次性 raw HTTP 结构观察，不是 SDK 测试，也不被继承为 live 成功。`ACC-OS-PUBLIC-AREAS-SDK-001` 的真实 SDK 验收在实现完成后单独执行，证据为 [sdk.json](sdk.json)（报告 SHA `88cce20d448f196d6b9cfd7986e12186173a656ff53b2a3c9a7abfbf2bac7adc`）：
+
+- 时刻：UTC 2026-11-17T02:52:27.820528；SDK code commit `58e7881a3e7aee4c3ffc431b5016b019cefb447c`，scope_revision `2026-11-17-r1`，cohort `PUBLIC-AREAS-001`。
+- 调用：匿名 `Client` 与 `AsyncClient` 各一次 `settings.list_areas()`，固定 `https://open.ezvizlife.com`（文档声明 origin，无 cluster 推导），合计 2 HTTP / 2 逻辑调用；无凭据、不跟 redirect、不重试、不访问设备，每阶段 timeout 10s、解压响应上限 1 MiB，client/transport 均正确关闭。
+- 结果：两 mode 均 HTTP 200 + 业务码 `"200"`；`data` 为 240 项 list，全部 240 项 `id:int`/`name:str`/`region:str`/`telephoneCode:int` 类型匹配；identity 编码、原始响应字节每 mode 16442 字节；46 项输入 pin 与 code58 Git 版本一致。
+- 记录纪律：回执只保存计数、字段类型聚合、状态、来源与代码 hash，不含原始字段值；240 为当次观察值而非固定目录大小或保证。
+- `does_not_verify` 明确：海外账号设备、集群路由、物理硬件、POST 变体、压缩响应路径、平台消息接入与发布均不在本次证据范围内；仅 GET + identity 协商被实测。

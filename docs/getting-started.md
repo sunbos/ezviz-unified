@@ -132,7 +132,7 @@ with Client(
     areas = response.data
 ```
 
-每次调用恰好一次GET `/api/lapp/area/list`，无query、无body、无token；`.data`为原始目录数组，文档字段为`id`/`name`/`region`/`telephoneCode`，额外字段与空数组原样保留，SDK不推导cluster/`apiDomain`/`authDomain`。源同时声明POST但其形状未文档化，SDK只实现GET。该方法尚未做真实联网验收，仅为离线契约验证；细节见[公开国家/地区目录](research/2026-11-17-public-areas.md)。
+每次调用恰好一次GET `/api/lapp/area/list`，无query、无body、无token；`.data`为原始目录数组，文档字段为`id`/`name`/`region`/`telephoneCode`，额外字段与空数组原样保留，SDK不推导cluster/`apiDomain`/`authDomain`。源同时声明POST但其形状未文档化，SDK只实现GET。该方法已于UTC 2026-11-17经同步/异步各一次匿名调用在上述固定`open.ezvizlife.com`地址完成真实验收（均HTTP 200、业务码"200"、data为240项数组且四字段类型匹配，identity编码、客户端正确关闭；回执见[SDK实测记录](validation/live/2026-11-17-public-area-directory/sdk.json)）。该验收仅限固定origin的GET：其他海外origin、POST变体、压缩响应路径、集群路由与任何设备行为均未实测，240是当次观察值而非固定目录大小；细节见[公开国家/地区目录](research/2026-11-17-public-areas.md)。
 
 CLI示例（固定`open.ezvizlife.com`，无凭据、无env读取、无文件写入）：
 
@@ -157,4 +157,4 @@ CLI示例（固定`open.ezvizlife.com`，无凭据、无env读取、无文件写
 
 ## 验证状态
 
-本批示例尚未做真实联网验收（只读检查助手经 tools/live 在国内单设备实测过一次，观察时刻为UTC 2026-11-14（Asia/Shanghai 2026-11-15），该路径不经过示例 CLI，记录见 `docs/validation/live/2026-11-15-domestic-inspection/`）。仓库离线测试范围：`tests/test_examples.py` 用 `MockTransport` 覆盖同步/异步、国内/海外的成功、空列表、异常载荷、认证失败、配置校验与脱敏输出；`tests/test_examples_inspection.py` 离线覆盖单设备检查示例的两个区域、逐项失败、认证中断、配置前置校验与脱敏输出；`tests/test_examples_diagnostics.py` 离线覆盖诊断示例的报告结构、失败仍导出报告、应用异常捕获、脱敏与不自动写文件。由主导方运行后记录结果，不据此宣称真实网络已验收。
+本批示例尚未做真实联网验收（只读检查助手经 tools/live 在国内单设备实测过一次，观察时刻为UTC 2026-11-14（Asia/Shanghai 2026-11-15），该路径不经过示例 CLI，记录见 `docs/validation/live/2026-11-15-domestic-inspection/`）。匿名公开目录示例同理：`examples/public_areas` 的 CLI 路径未单独联网验收，但其调用的 `settings.list_areas` 方法本身已于 2026-11-17 在固定 `open.ezvizlife.com` 经 sync/async 各一次真实验收（见上文与 `docs/validation/live/2026-11-17-public-area-directory/sdk.json`）。仓库离线测试范围：`tests/test_examples.py` 用 `MockTransport` 覆盖同步/异步、国内/海外的成功、空列表、异常载荷、认证失败、配置校验与脱敏输出；`tests/test_examples_inspection.py` 离线覆盖单设备检查示例的两个区域、逐项失败、认证中断、配置前置校验与脱敏输出；`tests/test_examples_diagnostics.py` 离线覆盖诊断示例的报告结构、失败仍导出报告、应用异常捕获、脱敏与不自动写文件。由主导方运行后记录结果，不据此宣称真实网络已验收。
