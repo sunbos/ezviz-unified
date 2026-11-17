@@ -2604,6 +2604,19 @@
       "public_entry": "settings.set_infrared"
     },
     {
+      "operation_id": "global.settings.list_areas",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.list_areas",
+        "AsyncSettings.list_areas"
+      ],
+      "offline_status": "pending",
+      "live_status": "not_verified",
+      "public_entry": "settings.list_areas"
+    },
+    {
       "operation_id": "global.settings.list_timezones",
       "region": "overseas",
       "source_doc_id": "477",

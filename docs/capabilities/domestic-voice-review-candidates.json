@@ -1,0 +1,581 @@
+{
+  "schema_version": 1,
+  "evidence": "review_candidates_from_pinned_official_sources",
+  "task_id": "SP029",
+  "product_complete": false,
+  "semantic_review_complete": false,
+  "g0_scope_ratification": false,
+  "g1_cohort_admission": false,
+  "scope": {
+    "source_set": "portal-2026-11-17",
+    "reviewed_at": "2026-11-17",
+    "batch_note": "5 pinned domestic source documents under OPEN API/云接入/设备能力/设备语音能力 only; these are the docs reviewed in this batch, not the domestic corpus and not an API total. No coverage percentage is implied.",
+    "element_pointer_convention": "d = HTTP declaration ordinal; e = element_index in the archived source structure snapshot per content_sha256.",
+    "baseline_commit": "641d6cc10010b11a49c65c9d6783f92eefda00d3",
+    "scope_revision": "2026-11-17-cn-voice-review-r1",
+    "sources": [
+      { "source_id": "portal-2026-11-17:domestic:1259", "doc_id": "1259", "content_sha256": "87a70cd31835dad67777e6d481f60bcfc1fd89ada7fd507ed1ec563440a0b741" },
+      { "source_id": "portal-2026-11-17:domestic:1263", "doc_id": "1263", "content_sha256": "81d83aef9718c573cfd098584da81163cba8bc96e85a10aba7d4f167c6bd338c" },
+      { "source_id": "portal-2026-11-17:domestic:1273", "doc_id": "1273", "content_sha256": "57728e8a673496d5d81f8ab4031741550fd28d48bc6a2456394f923b07a61d9d" },
+      { "source_id": "portal-2026-11-17:domestic:1277", "doc_id": "1277", "content_sha256": "b604a496185542e6d20a2291bf175266c306a8217d696f993be5d692a2f28651" },
+      { "source_id": "portal-2026-11-17:domestic:1281", "doc_id": "1281", "content_sha256": "3e981319d1ac2e60af5030e0f6041c9bafa1e04b74094e5bb3e3c72766288978" }
+    ],
+    "source_reviews": [
+      { "source_id": "portal-2026-11-17:domestic:1259", "content_sha256": "87a70cd31835dad67777e6d481f60bcfc1fd89ada7fd507ed1ec563440a0b741", "review_state": "in_review", "whole_source_reviewed": false },
+      { "source_id": "portal-2026-11-17:domestic:1263", "content_sha256": "81d83aef9718c573cfd098584da81163cba8bc96e85a10aba7d4f167c6bd338c", "review_state": "in_review", "whole_source_reviewed": false },
+      { "source_id": "portal-2026-11-17:domestic:1273", "content_sha256": "57728e8a673496d5d81f8ab4031741550fd28d48bc6a2456394f923b07a61d9d", "review_state": "in_review", "whole_source_reviewed": false },
+      { "source_id": "portal-2026-11-17:domestic:1277", "content_sha256": "b604a496185542e6d20a2291bf175266c306a8217d696f993be5d692a2f28651", "review_state": "in_review", "whole_source_reviewed": false },
+      { "source_id": "portal-2026-11-17:domestic:1281", "content_sha256": "3e981319d1ac2e60af5030e0f6041c9bafa1e04b74094e5bb3e3c72766288978", "review_state": "in_review", "whole_source_reviewed": false }
+    ],
+    "observation_reviews": [
+      { "observation_ref": "portal-2026-11-17:domestic:1259:declaration:0", "source_ref": "portal-2026-11-17:domestic:1259", "kind": "declaration", "element_indices": [5, 6, 9, 10], "review_state": "in_review", "capability_refs": ["candidate:domestic:1259:d0"] },
+      { "observation_ref": "portal-2026-11-17:domestic:1259:example:0", "source_ref": "portal-2026-11-17:domestic:1259", "kind": "example", "element_indices": [36], "review_state": "in_review", "capability_refs": ["candidate:domestic:1259:d0"], "note": "Codex safe structural cross-check only: method/path-template/query-name set match declaration, no explicit body or Content-Type; instance values not supplied, not live verification" },
+      { "observation_ref": "portal-2026-11-17:domestic:1263:declaration:0", "source_ref": "portal-2026-11-17:domestic:1263", "kind": "declaration", "element_indices": [5, 6, 9, 10], "review_state": "in_review", "capability_refs": ["candidate:domestic:1263:d0"] },
+      { "observation_ref": "portal-2026-11-17:domestic:1263:example:0", "source_ref": "portal-2026-11-17:domestic:1263", "kind": "example", "element_indices": [48], "review_state": "in_review", "capability_refs": ["candidate:domestic:1263:d0"], "note": "Codex safe structural cross-check only: method/path-template/query-name set match declaration, no explicit body or Content-Type; instance values not supplied, not live verification" },
+      { "observation_ref": "portal-2026-11-17:domestic:1273:declaration:0", "source_ref": "portal-2026-11-17:domestic:1273", "kind": "declaration", "element_indices": [5, 6, 9, 10], "review_state": "in_review", "capability_refs": ["candidate:domestic:1273:d0"] },
+      { "observation_ref": "portal-2026-11-17:domestic:1273:example:0", "source_ref": "portal-2026-11-17:domestic:1273", "kind": "example", "element_indices": [54], "review_state": "in_review", "capability_refs": ["candidate:domestic:1273:d0"], "note": "Codex safe structural cross-check only: method/path-template/query-name set match declaration, no explicit body or Content-Type; instance values not supplied, not live verification" },
+      { "observation_ref": "portal-2026-11-17:domestic:1277:declaration:0", "source_ref": "portal-2026-11-17:domestic:1277", "kind": "declaration", "element_indices": [5, 6, 9, 10], "review_state": "in_review", "capability_refs": ["candidate:domestic:1277:d0"] },
+      { "observation_ref": "portal-2026-11-17:domestic:1277:example:0", "source_ref": "portal-2026-11-17:domestic:1277", "kind": "example", "element_indices": [54], "review_state": "in_review", "capability_refs": ["candidate:domestic:1277:d0"], "note": "Codex safe structural cross-check only: method/path-template/query-name set match declaration, no explicit body or Content-Type; instance values not supplied, not live verification" },
+      { "observation_ref": "portal-2026-11-17:domestic:1281:declaration:0", "source_ref": "portal-2026-11-17:domestic:1281", "kind": "declaration", "element_indices": [5, 6, 9, 10], "review_state": "in_review", "capability_refs": ["candidate:domestic:1281:d0"] },
+      { "observation_ref": "portal-2026-11-17:domestic:1281:example:0", "source_ref": "portal-2026-11-17:domestic:1281", "kind": "example", "element_indices": [54], "review_state": "in_review", "capability_refs": ["candidate:domestic:1281:d0"], "note": "Codex safe structural cross-check only: method/path-template/query-name set match declaration, no explicit body or Content-Type; instance values not supplied, not live verification" }
+    ],
+    "cross_cutting_source_facts": {
+      "body_and_content_type": "All five sources: parameter tables declare no body parameters and request examples carry no explicit body or Content-Type (verified via Codex safe structural cross-check of elements 36/48/54/54/54). Choosing params-only requests with no business Content-Type is an SDK design choice supported by that cross-check, not an official ban on bodies.",
+      "response_envelope": "meta.code is documented Int with success=200; meta.message String; meta.moreInfo documented Object while response examples show null — recorded as both, neither forced. 1259 returns top-level voiceInfos array; 1263 top-level voiceInfo object; 1273/1277/1281 examples carry meta only. No data envelope is declared; no data layer may be invented.",
+      "same_path_distinct_methods": "GET/POST/PUT/DELETE all share /api/route/voice/v3/devices/voices across 1259/1263/1273/1281; each is a distinct operation and must not be merged by path.",
+      "token_transport_reuse": "accessToken is a query parameter in all five; existing query-token transport (src/ezviz_unified/operations.py:15, src/ezviz_unified/client.py:183) is reusable; it must not be relocated to header for facade consistency."
+    }
+  },
+  "capabilities": [
+    {
+      "capability_id": "candidate:domestic:1259:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:domestic:1259",
+          "content_sha256": "87a70cd31835dad67777e6d481f60bcfc1fd89ada7fd507ed1ec563440a0b741",
+          "section": "获取设备语音列表接口",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e6", "e9", "e10", "e14", "e44", "e92"]
+        }
+      ],
+      "observation_refs": [
+        "portal-2026-11-17:domestic:1259:declaration:0",
+        "portal-2026-11-17:domestic:1259:example:0"
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "domestic",
+        "origin": "https://open.ys7.com",
+        "method": "GET",
+        "path": "/api/route/voice/v3/devices/voices",
+        "auth": "accessToken in query",
+        "permissions": "unknown (minimum permission, whitelist and model applicability not stated)",
+        "request": "query accessToken + deviceSerial, both String required (e14)",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:domestic:1259 parameter_table_element 14",
+          "location": "query",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "query" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "query" }
+          ],
+          "request_schema_status": "partial_pending_full_contract_review"
+        },
+        "body_type": "none declared; example carries no explicit body or Content-Type (params-only is an SDK choice, not an official body ban)",
+        "response": "meta.code integer 200; top-level voiceInfos array of {voiceId Int, voiceName String, voiceUrl String, status Int, time Int}; no data layer",
+        "response_field_facts": {
+          "source_table": "portal-2026-11-17:domestic:1259 response_table_element 44",
+          "envelope": "top_level_fields_no_data_wrapper",
+          "fields": [
+            { "name": "meta", "type": "Object" },
+            { "name": "meta.code", "type": "Int", "success_value": 200 },
+            { "name": "meta.message", "type": "String" },
+            { "name": "meta.moreInfo", "type": "Object in field table; null in response example — both recorded, neither forced" },
+            { "name": "voiceInfos", "type": "Array" },
+            { "name": "voiceInfos[].voiceId", "type": "Int" },
+            { "name": "voiceInfos[].voiceName", "type": "String" },
+            { "name": "voiceInfos[].voiceUrl", "type": "String" },
+            { "name": "voiceInfos[].status", "type": "Int", "enum": { "0": "同步完成", "1": "正在同步", "2": "同步失败" } },
+            { "name": "voiceInfos[].time", "type": "Int" }
+          ]
+        },
+        "error_table": "element 92; reviewed content: single row 200 操作成功/请求成功 — no failure codes declared in this table; undocumented failure codes are still possible and platform error handling stays in place",
+        "effect": "read-only query of device voice resources and their platform/device sync status",
+        "hardware_constraints": "none stated; documented_models null — absence of a declared restriction is not a declaration of unrestricted support"
+      },
+      "source_uncertainties": [
+        "voiceInfos[].time unit (seconds/ms/formatted) is not stated (e44)",
+        "pagination, result limit and ordering are not declared",
+        "meta.moreInfo documented as Object but example shows null; internal structure not projected",
+        "status 0/1/2 is platform/device voice sync state only — not playback quality or device health evidence",
+        "minimum permission, whitelist, sub-account/hosted applicability and model scope not declared",
+        "voiceUrl values are opaque resource locators; no real values are copied or required for design"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "Registry (203 contracts) has no match for this source or route; comparators (704/705 wifi prompt, 720/721 microphone, 2372 audio codec, 477 overseas chime, 775 face-voice component) differ in region/method/path/effect. Generic request transport is not business support."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "device_voice (proposed unified facade for this domain; name not frozen)",
+        "entry": "device_voice.list (proposed; e.g. cn.voice.list — operation name pending Codex freeze)",
+        "status": "proposal",
+        "notes": "Read-only. voiceInfos stays a top-level response field, not folded into data. status modeled as documented enum 0/1/2. voiceUrl passed through as opaque string: no download, transcode, reachability check, or logging of values. No auto-pagination (no paging params declared); no time unit conversion. Query-token transport reused as-is."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: GET https://open.ys7.com/api/route/voice/v3/devices/voices with accessToken+deviceSerial in query; no body, no business Content-Type",
+          "parameter: exactly accessToken/deviceSerial required String in query; no invented paging or filter params",
+          "response: meta.code Int 200; voiceInfos top-level array parsed verbatim incl. status enum; moreInfo accepted as Object-or-null per table-vs-example record",
+          "retry: read_only — platform invalid-token refresh+single replay per existing client policy; no blanket retry",
+          "diagnostics sync+async: entry registered in _diagnostic_registry; no voiceUrl or token values echoed"
+        ],
+        "live": [
+          "real resources required: a domestic account with a bound device that has voice resources",
+          "read authorization: awaiting_resource_confirmation — bounded domestic read scenario to be instantiated; existing inspection live success is not inherited",
+          "write authorization: n/a",
+          "blocked_no_bound_device: yes for non-empty payload validation"
+        ]
+      },
+      "blocking_resources": [
+        "domestic account with bound device carrying voice resources",
+        "explicit read-scenario authorization and resource scope"
+      ],
+      "decision_basis": [
+        "SP027A candidate record (SHA-pinned elements 5/6/9/10 declaration, 14 params, 44 response, 92 error)",
+        "Codex supplement cross-check: request example element 36 matches method/template/query names with no explicit body or Content-Type; response example element 40 shape meta+voiceInfos with moreInfo null",
+        "registry_comparators逐项比对无同route同method命中"
+      ]
+    },
+    {
+      "capability_id": "candidate:domestic:1263:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:domestic:1263",
+          "content_sha256": "81d83aef9718c573cfd098584da81163cba8bc96e85a10aba7d4f167c6bd338c",
+          "section": "新增设备语音接口",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e6", "e9", "e10", "e14", "e56", "e88"]
+        }
+      ],
+      "observation_refs": [
+        "portal-2026-11-17:domestic:1263:declaration:0",
+        "portal-2026-11-17:domestic:1263:example:0"
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "domestic",
+        "origin": "https://open.ys7.com",
+        "method": "POST",
+        "path": "/api/route/voice/v3/devices/voices",
+        "auth": "accessToken in query",
+        "permissions": "unknown",
+        "request": "query accessToken + deviceSerial + voiceName + voiceUrl, all String required (e14)",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:domestic:1263 parameter_table_element 14",
+          "location": "query",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "query" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "query" },
+            { "name": "voiceName", "type": "String", "required": true, "location": "query" },
+            { "name": "voiceUrl", "type": "String", "required": true, "location": "query" }
+          ],
+          "request_schema_status": "partial_pending_full_contract_review"
+        },
+        "body_type": "none declared; example carries no explicit body or Content-Type (params-only is an SDK choice, not an official body ban)",
+        "response": "meta.code integer 200; top-level voiceInfo object {voiceId Int}; no data layer",
+        "response_field_facts": {
+          "source_table": "portal-2026-11-17:domestic:1263 response_table_element 56",
+          "envelope": "top_level_fields_no_data_wrapper",
+          "fields": [
+            { "name": "meta", "type": "Object" },
+            { "name": "meta.code", "type": "Int", "success_value": 200 },
+            { "name": "meta.message", "type": "String" },
+            { "name": "meta.moreInfo", "type": "Object in field table; null in response example — both recorded, neither forced" },
+            { "name": "voiceInfo", "type": "Object" },
+            { "name": "voiceInfo.voiceId", "type": "Int" }
+          ]
+        },
+        "error_table": "element 88; reviewed content: single row 200 操作成功/请求成功 — no failure codes declared",
+        "effect": "creates a platform voice resource referencing caller-supplied voiceUrl and issues it to the device; a controlled write. meta.code=200 plus voiceInfo.voiceId returns a platform business success code and resource identifier — it does not prove mere request acceptance, device sync completion, or playback success; the platform/device sync relationship is not officially stated here",
+        "hardware_constraints": "none stated; documented_models null"
+      },
+      "source_uncertainties": [
+        "voiceUrl constraints (format/duration/size/encoding/hosting domain/validity) not declared in this source; cannot be imported from 1277 error codes",
+        "whether this is a binary upload is not supported by the source — voiceUrl references an existing resource; SDK must not download/transcode/upload or construct storage URLs",
+        "idempotency and duplicate voiceName/voiceUrl handling not declared; repeated POST may create duplicate entries",
+        "sync completion timeline and failure surfacing not stated; whether to poll via 1259 status is a caller/orchestration choice",
+        "quota/billing/rollback, minimum permission, whitelist, model scope not declared — recorded as unknown, not as known side effects"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No registry contract matches this source or POST route; comparator check against all seven registry_comparators (incl. domestic writes 2372/775) found no same path+method hit; voice keyword overlap is not duplication."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "device_voice (proposed)",
+        "entry": "device_voice.create (proposed; e.g. cn.voice.create — pending Codex freeze)",
+        "status": "proposal",
+        "notes": "Controlled write; same path as 1259 but POST — registered as a distinct operation. All four params in query; no body. voiceUrl is a required caller input passed through opaquely: no download/transcode/upload/default value. No automatic retry (idempotency undeclared); no built-in polling of 1259. Marked controlled-write for ACC-WRITE-OPERATIONS-001 class acceptance."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: POST https://open.ys7.com/api/route/voice/v3/devices/voices with accessToken+deviceSerial+voiceName+voiceUrl in query; no body, no business Content-Type",
+          "parameter: all four required String in query; voiceUrl emitted verbatim, never fetched or logged",
+          "response: meta.code Int 200; top-level voiceInfo.voiceId parsed; moreInfo Object-or-null per table-vs-example record",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: entry registered in _diagnostic_registry; no voiceUrl/token values echoed"
+        ],
+        "live": [
+          "real resources required: bound device plus a caller-owned, already-hosted voiceUrl; explicit write authorization with resource class, attempt count/budget and recovery plan",
+          "read authorization: pre/post state via 1259 list as a separately adjudicated scenario",
+          "write authorization: not_authorized — resource creation/device config change; this review grants no execution authorization",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": [
+        "bound domestic device",
+        "caller-owned hosted voiceUrl",
+        "write authorization with budget and recovery plan"
+      ],
+      "decision_basis": [
+        "SP027A candidate record (elements 5/6/9/10 declaration, 14 params, 56 response, 88 error)",
+        "Codex supplement: request example element 48 carries accessToken/deviceSerial/voiceName/voiceUrl query names with no explicit body/Content-Type; response example element 52 shape meta+voiceInfo; SUP-03 wording corrected — success code plus resource id asserted, not mere acceptance or device sync",
+        "same-path distinct-method separation from 1259/1273/1281 preserved"
+      ]
+    },
+    {
+      "capability_id": "candidate:domestic:1273:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:domestic:1273",
+          "content_sha256": "57728e8a673496d5d81f8ab4031741550fd28d48bc6a2456394f923b07a61d9d",
+          "section": "修改设备语音名称接口",
+          "declaration": "d0",
+          "element_pointers": ["e3", "e5", "e6", "e9", "e10", "e14", "e62", "e86"]
+        }
+      ],
+      "observation_refs": [
+        "portal-2026-11-17:domestic:1273:declaration:0",
+        "portal-2026-11-17:domestic:1273:example:0"
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "domestic",
+        "origin": "https://open.ys7.com",
+        "method": "PUT",
+        "path": "/api/route/voice/v3/devices/voices",
+        "auth": "accessToken in query",
+        "permissions": "unknown",
+        "request": "query accessToken + deviceSerial + voiceId(Int) + voiceName + voiceUrl, all required (e14)",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:domestic:1273 parameter_table_element 14",
+          "location": "query",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "query" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "query" },
+            { "name": "voiceId", "type": "Int", "required": true, "location": "query" },
+            { "name": "voiceName", "type": "String", "required": true, "location": "query" },
+            { "name": "voiceUrl", "type": "String", "required": true, "location": "query" }
+          ],
+          "request_schema_status": "partial_pending_full_contract_review"
+        },
+        "body_type": "none declared; example carries no explicit body or Content-Type (params-only is an SDK choice, not an official body ban)",
+        "response": "meta.code integer 200; response example carries meta only — no business data layer may be invented",
+        "response_field_facts": {
+          "source_table": "portal-2026-11-17:domestic:1273 response_table_element 62",
+          "envelope": "meta_only",
+          "fields": [
+            { "name": "meta", "type": "Object" },
+            { "name": "meta.code", "type": "Int", "success_value": 200 },
+            { "name": "meta.message", "type": "String" },
+            { "name": "meta.moreInfo", "type": "Object in field table; null in response example — both recorded, neither forced" }
+          ]
+        },
+        "error_table": "element 86; reviewed content: single row 200 操作成功/请求成功 — no failure codes declared",
+        "effect": "documented as a configuration write that modifies a device voice name; the role of required voiceUrl and whether the file binding is re-associated are unexplained — no claim of metadata-only change, non-destructiveness, or reversibility",
+        "hardware_constraints": "documented_models=[CSEPMR511] (e3): '本文档仅适用于设备型号 CSEPMR511，其余型号不保证可用。' Restriction applies to this source only; other models are not proven unsupported"
+      },
+      "source_uncertainties": [
+        "voiceUrl is required (e14 marks Y) although the title says rename; its real role — must equal bound file, may reference a different file, or validated-but-unused — is not explained; do not drop it and do not assert file immutability",
+        "voiceName length/charset/duplicate-name rules not declared",
+        "write atomicity and retry/idempotency behavior not documented",
+        "minimum permission, whitelist not declared",
+        "model restriction is verbatim from e3 and applies to this source only — it must not propagate to the four sibling sources, and the second membership (设备云组件仓/跌倒检测毫米波雷达/人形侦测) does not create an OTAP capability; execution owner stays batch_1_A"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No registry contract matches this source or PUT route; comparator cn.components.face_voice_video.set (775) is an OTAP component prop route, not this business endpoint."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "device_voice (proposed)",
+        "entry": "device_voice.update_name (proposed; e.g. cn.voice.update — pending Codex freeze)",
+        "status": "proposal",
+        "notes": "Controlled write. Signature must carry all five required query params including voiceUrl; no reduced rename(deviceSerial, voiceId, voiceName) shortcut while voiceUrl's role is unexplained. Exactly one capability despite dual membership — no OTAP/component variant. CSEPMR511 restriction documented on this entry only. Token stays in query."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: PUT https://open.ys7.com/api/route/voice/v3/devices/voices with accessToken+deviceSerial+voiceId+voiceName+voiceUrl in query; no body, no business Content-Type",
+          "parameter: all five required per e14 — voiceId Int, others String; voiceUrl kept required and passed through opaquely",
+          "response: meta.code Int 200; meta-only body; no data layer fabricated; moreInfo Object-or-null per record",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: entry registered in _diagnostic_registry; documented CSEPMR511 scope noted, no model gate invented for siblings"
+        ],
+        "live": [
+          "real resources required: a CSEPMR511 device with an existing voiceId; explicit write authorization; name-restore plan",
+          "read authorization: pre/post state via 1259 list as a separately adjudicated scenario",
+          "write authorization: not_authorized — config write whose voiceUrl side-effect scope is unresolved",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": [
+        "CSEPMR511 device with an existing voice resource",
+        "write authorization and name-restore plan"
+      ],
+      "decision_basis": [
+        "SP027B candidate record corrected per Codex supplement SUP-01/SUP-05: 'non-destructive as documented / side effect bounded to rename' removed — effect documented as config write with unexplained voiceUrl role; CSEPMR511 sentence kept verbatim at e3, not propagated",
+        "Codex supplement: request example element 54 query names accessToken/deviceSerial/voiceId/voiceName/voiceUrl, no explicit body/Content-Type; response example element 58 meta only",
+        "dual membership preserved with single owner batch_1_A/SP027B; no second OTAP capability created"
+      ]
+    },
+    {
+      "capability_id": "candidate:domestic:1277:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:domestic:1277",
+          "content_sha256": "b604a496185542e6d20a2291bf175266c306a8217d696f993be5d692a2f28651",
+          "section": "设备告警提示音设置接口",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e6", "e9", "e10", "e14", "e62", "e86"]
+        }
+      ],
+      "observation_refs": [
+        "portal-2026-11-17:domestic:1277:declaration:0",
+        "portal-2026-11-17:domestic:1277:example:0"
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "domestic",
+        "origin": "https://open.ys7.com",
+        "method": "PUT",
+        "path": "/api/route/alarm/v3/devices/{deviceSerial}/alarm/sound",
+        "auth": "accessToken in query",
+        "permissions": "unknown",
+        "request": "deviceSerial in path; query accessToken + enable(Int) + soundType(Int) required, voiceId(Int) optional per table but documented effective when soundType=3",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:domestic:1277 parameter_table_element 14",
+          "location": "mixed",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "query" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "path" },
+            { "name": "voiceId", "type": "Int", "required": false, "location": "query", "documented_condition": "soundType=3时有效；是否条件必填未证明" },
+            { "name": "enable", "type": "Int", "required": true, "location": "query", "enum": { "0": "关闭", "1": "开启" } },
+            { "name": "soundType", "type": "Int", "required": true, "location": "query", "enum": { "0": "短叫", "1": "长叫", "2": "静音", "3": "自定义语音" } }
+          ],
+          "request_schema_status": "partial_pending_full_contract_review"
+        },
+        "body_type": "none declared; example carries no explicit body or Content-Type (params-only is an SDK choice, not an official body ban)",
+        "response": "meta.code integer 200; response example carries meta only",
+        "response_field_facts": {
+          "source_table": "portal-2026-11-17:domestic:1277 response_table_element 62",
+          "envelope": "meta_only",
+          "fields": [
+            { "name": "meta", "type": "Object" },
+            { "name": "meta.code", "type": "Int", "success_value": 200 },
+            { "name": "meta.message", "type": "String" },
+            { "name": "meta.moreInfo", "type": "Object in field table; null in response example — both recorded, neither forced" }
+          ]
+        },
+        "error_table": "element 86; reviewed content: 200 操作成功/请求成功 plus failure constants 111001 语音文件格式错误, 111002 语音文件时长不合法, 111003 语音文件上传失败, 111004 语音文件转换失败, 111005 语音文件时长获取 (verbatim — the source message ends without 失败 or a stated condition; do not complete it), 111006 语音文件列表获取失败, 111007 下发的语音文件URL不存在, 111008 参数错误，语音文件不能为空, 111009 参数错误，语音文件URL不能为空, 111010 参数错误，设备序列号不能为空, 111011 参数错误，通道号不能为空",
+        "effect": "writes the alarm prompt-sound configuration (enable + soundType + optional custom voiceId); whether it sounds immediately, the real alarm trigger conditions, and recovery semantics are not stated",
+        "hardware_constraints": "none stated; documented_models null"
+      },
+      "source_uncertainties": [
+        "voiceId is required=N with note 'soundType=3时有效'; conditional requiredness is unproven — keep optional, do not invent required_if",
+        "error table covers channel and media themes (e.g. 111011 channel-empty, format/duration/upload/convert) that the request table does not declare; the relationship between error coverage and declared request fields is unexplained — keep verbatim, do not add a channel parameter and do not infer missing params or media limits",
+        "enable=0 semantics for soundType/voiceId and default behavior unknown",
+        "voiceId provenance (voice-resource domain) is out of this source's scope; 1259/1263 voiceId fields are safe cross-source leads, not proof any voiceId is valid here",
+        "configuration write vs actual alarm ringing/immediate sound are separate domains; do not merge with Wi-Fi prompt, microphone, overseas chime/audition, or door-lock face-voice switches",
+        "minimum permission, whitelist, model scope not declared"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No registry contract matches this source or /api/route/alarm/v3/devices/{deviceSerial}/alarm/sound; keyword overlap with comparators (chime/microphone/audition/face-voice) is not duplication — distinct route and effect class."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "device_voice (proposed) — alarm prompt-sound configuration slice",
+        "entry": "device_voice.set_alarm_sound (proposed; e.g. cn.alarm.prompt_sound.set — pending Codex freeze)",
+        "status": "proposal",
+        "notes": "Controlled configuration write. deviceSerial bound in the path template; accessToken/enable/soundType/voiceId in query. enable and soundType modeled as documented enums 0/1 and 0/1/2/3 only. voiceId stays optional with documented effective-when-soundType=3 note; no channel or media-format params invented; error constants mapped verbatim including the unfinished 111005 message. Distinct from lapp-style form endpoints."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: PUT https://open.ys7.com/api/route/alarm/v3/devices/{deviceSerial}/alarm/sound with serial substituted in path and accessToken+enable+soundType(+voiceId) in query; no body, no business Content-Type",
+          "parameter: enable/soundType restricted to documented enum values; voiceId omitted unless caller supplies it (documented effective when soundType=3); no channel param",
+          "response: meta.code Int 200; meta-only; error table constants incl. 111001-111011 mapped verbatim (111005 kept unfinished)",
+          "retry: write; never auto-replayed",
+          "diagnostics sync+async: entry registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: a bound device supporting alarm prompt sound plus an authorized custom voiceId scenario if soundType=3; explicit write authorization; restore plan for prior config",
+          "read authorization: pre-state config capture method not documented — adjudicate separately",
+          "write authorization: not_authorized — device alarm configuration change; immediate ringing unproven and not asserted",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": [
+        "bound domestic device supporting alarm prompt sound",
+        "write authorization with config-restore plan",
+        "a valid custom voiceId for the soundType=3 scenario"
+      ],
+      "decision_basis": [
+        "SP027C candidate record corrected per Codex supplement SUP-04: error-table coverage of channel/media themes recorded as unexplained scope, not a proven parameter gap — no channel added, no media limits derived",
+        "Codex supplement: request example element 54 query names accessToken/voiceId/enable/soundType with serial in path template, no explicit body/Content-Type; response example element 58 meta only; error table element 86 constants 200+111001-111011 cross-checked verbatim",
+        "config-write vs alarm-trigger/immediate-sound domains kept separate"
+      ]
+    },
+    {
+      "capability_id": "candidate:domestic:1281:d0",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:domestic:1281",
+          "content_sha256": "3e981319d1ac2e60af5030e0f6041c9bafa1e04b74094e5bb3e3c72766288978",
+          "section": "删除设备语音接口",
+          "declaration": "d0",
+          "element_pointers": ["e5", "e6", "e9", "e10", "e14", "e62", "e86"]
+        }
+      ],
+      "observation_refs": [
+        "portal-2026-11-17:domestic:1281:declaration:0",
+        "portal-2026-11-17:domestic:1281:example:0"
+      ],
+      "nature": "server_api",
+      "official_facts": {
+        "region": "domestic",
+        "origin": "https://open.ys7.com",
+        "method": "DELETE",
+        "path": "/api/route/voice/v3/devices/voices",
+        "auth": "accessToken in query",
+        "permissions": "unknown",
+        "request": "query accessToken + deviceSerial + voiceId(Int) + voiceName + voiceUrl, all required (e14)",
+        "request_field_facts": {
+          "source_table": "portal-2026-11-17:domestic:1281 parameter_table_element 14",
+          "location": "query",
+          "fields": [
+            { "name": "accessToken", "type": "String", "required": true, "location": "query" },
+            { "name": "deviceSerial", "type": "String", "required": true, "location": "query" },
+            { "name": "voiceId", "type": "Int", "required": true, "location": "query" },
+            { "name": "voiceName", "type": "String", "required": true, "location": "query" },
+            { "name": "voiceUrl", "type": "String", "required": true, "location": "query" }
+          ],
+          "request_schema_status": "partial_pending_full_contract_review"
+        },
+        "body_type": "none declared; example carries no explicit body or Content-Type (params-only is an SDK choice, not an official body ban)",
+        "response": "meta.code integer 200; response example carries meta only",
+        "response_field_facts": {
+          "source_table": "portal-2026-11-17:domestic:1281 response_table_element 62",
+          "envelope": "meta_only",
+          "fields": [
+            { "name": "meta", "type": "Object" },
+            { "name": "meta.code", "type": "Int", "success_value": 200 },
+            { "name": "meta.message", "type": "String" },
+            { "name": "meta.moreInfo", "type": "Object in field table; null in response example — both recorded, neither forced" }
+          ]
+        },
+        "error_table": "element 86; reviewed content: single row 200 操作成功/请求成功 — no failure codes declared",
+        "effect": "deletes a voice resource from the device — a destructive write; the post-delete state must not be equated with the pre-delete state, and repeat-delete/not-found responses are undocumented",
+        "hardware_constraints": "none stated; documented_models null — the CSEPMR511 restriction from 1273 must NOT be imported here"
+      },
+      "source_uncertainties": [
+        "voiceName and voiceUrl are required on delete (e14) contrary to REST habit; their purpose (matching/validation/audit) is unexplained — keep all five params, do not reduce to voiceId-only",
+        "delete scope (on-device vs account-level voice library) and platform/device sync timing unknown",
+        "behavior when the voice is still referenced by an alarm configuration (1277) unknown",
+        "idempotency, repeat-delete and missing-resource responses undocumented",
+        "no documented undo/restore — irreversibility unverified",
+        "minimum permission, whitelist, model scope not declared"
+      ],
+      "existing_support": {
+        "status": "no_binding",
+        "detail": "No registry contract matches this source or DELETE route; same path as 1259/1263/1273 but different method and effect class — not flattened."
+      },
+      "disposition": "implement",
+      "sdk_design_proposal": {
+        "facade": "device_voice (proposed)",
+        "entry": "device_voice.delete (proposed; e.g. cn.voice.delete — pending Codex freeze)",
+        "status": "proposal",
+        "notes": "Destructive controlled write. Signature keeps all five required query params including voiceName+voiceUrl; do not reduce to delete(deviceSerial, voiceId). Documentation must not imply undo, idempotency, or that post-delete state equals pre-delete state. Any future live-write scenario needs captured pre-delete state and an explicit recovery plan designed separately."
+      },
+      "implementation_status": "missing",
+      "offline_status": "not_evaluated",
+      "live_read_status": "not_verified",
+      "live_write_status": "not_authorized",
+      "acceptance_criteria": {
+        "offline": [
+          "offline wire: DELETE https://open.ys7.com/api/route/voice/v3/devices/voices with accessToken+deviceSerial+voiceId+voiceName+voiceUrl in query; no body, no business Content-Type",
+          "parameter: all five required per e14 — voiceId Int, others String; voiceName/voiceUrl passed through verbatim, not dropped",
+          "response: meta.code Int 200; meta-only; no data layer fabricated",
+          "retry: destructive write; never auto-replayed",
+          "diagnostics sync+async: entry registered in _diagnostic_registry"
+        ],
+        "live": [
+          "real resources required: a bound device with a deletable voice resource; captured pre-delete state; explicit recovery plan; write authorization",
+          "read authorization: pre/post state via 1259 list as a separately adjudicated scenario",
+          "write authorization: not_authorized — destructive delete with unverified irreversibility and unknown in-use behavior",
+          "blocked_no_bound_device: yes"
+        ]
+      },
+      "blocking_resources": [
+        "bound domestic device with a deletable voice resource",
+        "captured pre-delete state and explicit recovery plan",
+        "write authorization"
+      ],
+      "decision_basis": [
+        "SP027B candidate record (elements 5/6/9/10 declaration, 14 params, 62 response, 86 error)",
+        "Codex supplement: request example element 54 query names accessToken/deviceSerial/voiceId/voiceName/voiceUrl, no explicit body/Content-Type; response example element 58 meta only",
+        "required voiceName/voiceUrl on delete preserved as official fact; separate operation from 1273 PUT"
+      ]
+    }
+  ],
+  "summary": {
+    "candidate_count": 5,
+    "by_disposition": {
+      "implement": 5,
+      "duplicate": 0,
+      "needs_review": 0,
+      "source_alignment": 0,
+      "reuse_official_component": 0
+    },
+    "by_nature": {
+      "server_api": 5
+    },
+    "sources_in_scope": 5,
+    "observations_in_scope": 10,
+    "notes": [
+      "Counts cover only this batch of 5 pinned domestic sources and their 10 observations; they are review-record statistics, not API totals and not the domestic corpus.",
+      "All five are new candidates with no registry binding; 'implement' disposition marks a proposed direction only — nothing here is implemented, tested, or admitted by G0/G1.",
+      "Sources remain in_review with whole_source_reviewed=false; the remaining 321 sources of batch_1_A stay required_review.",
+      "The four voice-resource calls share one path across four HTTP methods; they are registered as four distinct operations. 1277 lives on a separate alarm route with the serial in the path.",
+      "Params-only requests (no body, no extra Content-Type) are SDK design choices supported by the Codex example cross-check, not official prohibitions; moreInfo recorded as Object(table)+null(example) everywhere; no data layer fabricated.",
+      "CSEPMR511 model restriction applies to 1273 only; 111005 kept verbatim unfinished; 111011 channel error kept without inventing a channel param.",
+      "voiceUrl/voiceName required flags on 1273/1281 kept per tables; voiceUrl values treated as opaque locators — no download, upload, transcode, polling, playback, or auto-retry proposed.",
+      "All four writes (1263/1273/1277/1281) are not_authorized for live; no device operations, tests, SDK changes, or shared-file writes were performed."
+    ]
+  }
+}

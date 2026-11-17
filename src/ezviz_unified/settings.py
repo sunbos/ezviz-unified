@@ -4,12 +4,16 @@ Covers the reviewed switch operations (Wi-Fi configuration prompt, scene
 lens occlusion / video tampering, sound source localization, indicator
 light, all-day recording, and microphone) plus the overseas-only settings
 batch: PIR detection area, doorbell chime, infrared switch, device
-timezone, device language, and the public timezone directory list.
+timezone, device language, the public timezone directory list, and the
+public country/region directory.
 
 All endpoints are POST with form-encoded bodies and a top-level
-code/msg/data envelope where the string "200" marks success. Authenticated
-operations carry the access token in the form; ``list_timezones`` is an
-explicit public operation that carries no token at all.
+code/msg/data envelope where the string "200" marks success — except the
+public area directory, which the SDK deliberately calls with GET because
+the source demonstrates a parameterless GET while the declared POST's
+shape is undocumented. Authenticated operations carry the access token in
+the form; ``list_timezones`` and ``list_areas`` are explicit public
+operations that carry no token at all.
 
 Overseas batch notes from the reviewed sources: the PIR ``area`` string is
 forwarded verbatim (no reordering, bitmask conversion, or grid inference);
@@ -18,7 +22,11 @@ specified in the source; ``timeFormat`` is a required keyword-only SDK
 argument even though the source does not mark it required; and
 ``daylightSaving`` is sent as the string "0"/"1". The timezone directory
 ``language`` accepts only ENGLISH or SIMPCN, while the device ``language``
-accepts any non-blank UTF-8 string.
+accepts any non-blank UTF-8 string. The area directory returns the raw
+``data`` array untouched: its documented item fields ``id`` (int),
+``name`` (string), ``region`` (string) and ``telephoneCode`` (int) are not
+validated per element, extra fields and an empty array are preserved, and
+no cluster, ``apiDomain`` or ``authDomain`` is derived from it.
 """
 
 from __future__ import annotations
@@ -262,6 +270,19 @@ def _overseas_op(
     )
 
 
+def _overseas_get_op(name: str, path: str, *, read_only: bool) -> Operation:
+    """Build a GET operation without folding the method into ``_overseas_op``."""
+    return Operation(
+        f"settings.{name}",
+        "GET",
+        path,
+        token_location="none",
+        regions=_OVERSEAS_REGIONS,
+        read_only=read_only,
+        policy=_POLICY,
+    )
+
+
 def _pir_area_get_request(
     serial: object, channel: int | None, scope: str
 ) -> tuple[Operation, dict[str, str | int]]:
@@ -348,6 +369,11 @@ def _timezone_list_request(language: object, scope: str) -> tuple[Operation, dic
         ),
         data,
     )
+
+
+def _area_list_request(scope: str) -> Operation:
+    _require_overseas(scope)
+    return _overseas_get_op("list_areas", "/api/lapp/area/list", read_only=True)
 
 
 def _timezone_set_request(
@@ -506,6 +532,24 @@ class Settings:
         with _diagnostic_scope(self._client, entrypoint="settings.list_timezones", mode="sync"):
             op, data = _timezone_list_request(language, self._client.region.scope)
             return self._client.request(op, data=data)
+
+    def list_areas(self) -> ApiResponse:
+        """List the public country/region directory (overseas region only).
+
+        Sends exactly one GET to ``/api/lapp/area/list`` as an explicit
+        public request: no query, no body, and no token regardless of
+        client credentials. The source also declares a POST variant whose
+        request shape is undocumented; the SDK deliberately selects GET
+        only. ``.data`` is the raw directory array — documented item
+        fields are ``id`` (int), ``name`` (string), ``region`` (string)
+        and ``telephoneCode`` (int); extra fields and an empty array are
+        preserved verbatim and no cluster, ``apiDomain`` or ``authDomain``
+        is derived from them. The caller chooses the business origin via
+        ``RegionConfig.overseas(api_base_url=...)``; the documented public
+        origin is ``https://open.ezvizlife.com``.
+        """
+        with _diagnostic_scope(self._client, entrypoint="settings.list_areas", mode="sync"):
+            return self._client.request(_area_list_request(self._client.region.scope))
 
     def set_timezone(
         self,
@@ -666,6 +710,24 @@ class AsyncSettings:
         with _diagnostic_scope(self._client, entrypoint="settings.list_timezones", mode="async"):
             op, data = _timezone_list_request(language, self._client.region.scope)
             return await self._client.request(op, data=data)
+
+    async def list_areas(self) -> ApiResponse:
+        """List the public country/region directory (overseas region only).
+
+        Sends exactly one GET to ``/api/lapp/area/list`` as an explicit
+        public request: no query, no body, and no token regardless of
+        client credentials. The source also declares a POST variant whose
+        request shape is undocumented; the SDK deliberately selects GET
+        only. ``.data`` is the raw directory array — documented item
+        fields are ``id`` (int), ``name`` (string), ``region`` (string)
+        and ``telephoneCode`` (int); extra fields and an empty array are
+        preserved verbatim and no cluster, ``apiDomain`` or ``authDomain``
+        is derived from them. The caller chooses the business origin via
+        ``RegionConfig.overseas(api_base_url=...)``; the documented public
+        origin is ``https://open.ezvizlife.com``.
+        """
+        with _diagnostic_scope(self._client, entrypoint="settings.list_areas", mode="async"):
+            return await self._client.request(_area_list_request(self._client.region.scope))
 
     async def set_timezone(
         self,

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "decision_id": "SP030",
+  "baseline_commit": "641d6cc10010b11a49c65c9d6783f92eefda00d3",
+  "scope_revision": "2026-11-17-r1",
+  "decision_at_utc": "2026-11-17T01:30:14.498296+00:00",
+  "decision_owner": "Codex",
+  "initial_register_sha256": "dc341e780014489f63791915af190a9241cc1ff43f7a65438b9af36e19286497",
+  "initializer_sha256": "5f483399702057ed4f0056805161f552e43a82b79b05363f8740505556ddce33",
+  "acceptance_input_sha256": "7d79fd82a6bc33167853cac57e4776743e9bf75bb04d1929002b0e8ff6237090",
+  "frozen_area_plan_before_admission_sha256": "c13a16cbd8ce654ffec86eeb620d78c7c88e09f8f0366c003b5008120a373994",
+  "evidence": {
+    "initializer_command": "SP023-run2",
+    "actual_tool_result_is_error": false,
+    "independent_identity_and_reference_check": "SP023-independent-acceptance",
+    "sources": 4051,
+    "observations": 3019,
+    "existing_contracts": 203,
+    "new_candidate_slots": 45,
+    "source_relations": 4,
+    "linked_candidate_declarations": 47,
+    "package_reviews": 7,
+    "material_reviews": 59
+  },
+  "g0": {
+    "scope_and_priority_ratified": true,
+    "meaning": "All declared source sets, observations, known reviewed contracts/candidates and related-material review obligations have accountable queues; pending sources and blocked materials remain mandatory. This is not semantic closure or an API-total claim.",
+    "priority": [
+      "source_alignment_and_public_foundations",
+      "batch_1_A",
+      "batch_1_B",
+      "batch_1_C",
+      "batch_2_A",
+      "batch_2_B",
+      "batch_2_C",
+      "batch_3_A",
+      "batch_3_B",
+      "overseas_portal_remaining",
+      "related_material_reviews"
+    ],
+    "pending_review_input": "SP029 domestic voice candidates are under Codex review; their five sources and ten observations remain required under batch_1_A, no implementation admission is implied."
+  },
+  "g1": {
+    "cohort_id": "PUBLIC-AREAS-001",
+    "capability_id": "candidate:overseas:469:1.12",
+    "registry_operation_id": "global.settings.list_areas",
+    "runtime_name": "settings.list_areas",
+    "admitted_for_implementation": true,
+    "frozen_plan": "docs/plans/2026-11-17-public-area-directory.md",
+    "acceptance_case_ids": [
+      "ACC-OS-PUBLIC-AREAS-OFFLINE-001",
+      "ACC-OS-PUBLIC-AREAS-SDK-001"
+    ],
+    "live_execution_state": "pending_implementation_review_and_offline_acceptance",
+    "live_bound": {
+      "http_requests": 2,
+      "logical_operations": 2,
+      "sync": 1,
+      "async": 1,
+      "credentials": false,
+      "device_access": false
+    },
+    "write_execution_authorized": false
+  },
+  "remaining_gates": {
+    "all_semantics_dispositioned": false,
+    "required_acceptance_complete": false,
+    "pypi_published": false,
+    "product_complete": false
+  },
+  "phase_2_deferred": [
+    "app_adapter",
+    "selective_telemetry",
+    "independent_model_evaluation",
+    "controlled_rsi"
+  ]
+}

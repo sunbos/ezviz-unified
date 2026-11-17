@@ -896,6 +896,26 @@
       "description": "参数表 Body data Boolean Y 与 curl 示例 --header 'Content-Type: application/json' + --data 'true' 相互印证：请求体为裸 Boolean 根值，body 类型已知（--data 与 --data-raw 的差异不构成歧义）。未确认项为：参数表未列 Content-Type 而 curl 携带，Content-Type 是否必选未知。另路径模板与适用型号未确认（已另列 issue），路径未确认故该接口当前不可调用。",
       "status": "unresolved_source_semantics",
       "sdk_handling": "仅登记问题，不生成契约/绑定；body 已确认为裸 Boolean 根值，不得再标注 body 编码未知；Content-Type 必填性与路径模板未确认前不可调用。"
+    },
+    {
+      "id": "global.settings.list_areas.post_variant_undocumented",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "source_url": "https://open.ys7.com/help/en/469",
+      "source_content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+      "description": "§1.12 declares GET and POST for /api/lapp/area/list (e1463) and demonstrates only a parameterless GET (e1468); the POST request shape — parameters, body encoding, and whether it requires a token — is not documented.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK selects GET only (global.settings.list_areas): one tokenless GET with no query and no body. The POST variant is recorded here rather than fabricated as a declared_pair or counted as a parser recovery."
+    },
+    {
+      "id": "global.settings.list_areas.get_method_is_sdk_choice",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "source_url": "https://open.ys7.com/help/en/469",
+      "source_content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+      "description": "The single 2026-11-16 SP016 anonymous GET observation (HTTP 200, code \"200\", 240 items) is protocol-structure evidence, not SDK proof; 240 is a one-time count, not a guaranteed directory size, and other origins are unevidenced.",
+      "status": "documented_prerequisite",
+      "sdk_handling": "Contract pins GET /api/lapp/area/list on documented origin open.ezvizlife.com; SDK preserves the raw data array including extra fields and empty arrays, derives no cluster/apiDomain/authDomain, and hardcodes no item count."
     }
   ]
 }

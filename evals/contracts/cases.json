@@ -4677,6 +4677,28 @@
       "data": null
     },
     {
+      "operation_id": "global.settings.list_areas",
+      "args": [],
+      "kwargs": {},
+      "fields": {},
+      "data": [
+        {
+          "id": 90001,
+          "name": "评测地区甲",
+          "region": "EVAL-REGION-1",
+          "telephoneCode": 9001,
+          "_eval_marker": "global.settings.list_areas"
+        },
+        {
+          "id": 90002,
+          "name": "Eval Area Beta",
+          "region": "EVAL-REGION-2",
+          "telephoneCode": 9002,
+          "evalExtra": "preserved-verbatim"
+        }
+      ]
+    },
+    {
       "operation_id": "global.settings.list_timezones",
       "args": [],
       "kwargs": {
