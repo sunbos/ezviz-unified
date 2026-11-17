@@ -47,6 +47,8 @@ with Client(
 
 模块级`parse_webhook`使用原始UTF-8正文、`t`、`Signature`与单独配置的`webhook_secret`先核验MAC再解析；`parse_unverified_webhook`是显式不做认证的入口。返回值保留未知body字段与类型，`ack()`只构造messageId字典，HTTP响应和去重由应用负责。签名匹配不证明当前发送者身份或消息新鲜度；本批依据国内归档协议离线验证，未接收真实回调，也不自动使用AppSecret、配置消息服务或下载媒体。详见[消息助手](docs/research/2026-11-15-webhook-helpers.md)及[源资料差异](docs/research/2026-11-15-message-ingestion.md)。
 
+仓库内另附一个把这些纯助手接到本地有界HTTP链上的[独立接收示例](docs/webhook-receiver.md)：需在仓库checkout内显式启动，受理范围仅是配置签名secret的明文JSON投递（signed-only是本示例接入策略，非官方必选）。上述纯helpers本身的语义不变，也不能称它们已借此真实接入平台。平台消息/设备事件的国内与海外验收状态各自单列，见[验收登记](docs/validation/sdk-product-acceptance.json)中的webhook行；当前均未标完成。
+
 ## 统一存储
 
 统一存储入口为`client.storage`，提供空间列表/创建/更新/删除、文件搜索/保留期修改及签名下载地址查询，目前仅国内。文件查询使用`StorageFileQuery`，保留官方选择器优先级；`None`不发送，更新不注入创建默认值。统一存储永久保留使用`-1`，与旧云录制空间的`0`不同。下载地址仅返回，不获取媒体；[完整规则与来源限制](docs/research/2026-11-14-unified-storage.md)列明单位、编码推导及权限，全部新能力仍为离线验证。
