@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "task_id": "SP083",
+  "evidence": "reviewed_scenario_descriptions_and_exact_existing_wire_evidence_binding",
+  "reviewed_against_commit": "7c4d954c0619152af7df2baa1072d98fce214786",
+  "input_pins": {
+    "scope_register": "52afe56d2e74e607a4402cb47cd826c0d285451bc70ff5983f33c0dd12f4cc68",
+    "sdk_product_acceptance": "3a6c3ebf3a821b5ba3d0a1df1b573f5f3b6dd5f3704a5539a2865d78fff86014",
+    "reviewed_contracts": "055c501618370fcd3ecf4dffa8fe42ea5cb43f0196a5030cf36cd4d9c4474b16",
+    "sdk_bindings": "0fcc2b0a0c28ab64fe631eb3ff6e03812163c4ff59a90960750c79ceff04624c"
+  },
+  "output_pins": {
+    "docs/capabilities/scope-register.json": "c6836dade55914829ea0cc6d39f223a0ed7ceaabd7f138ff80b134b173b014b2",
+    "docs/validation/sdk-product-acceptance.json": "78a0d4eea4a0f101858c63e60573543db70f44d559771d24f5fff84954f35917"
+  },
+  "changes": {
+    "existing_capabilities_described": 94,
+    "new_concrete_wire_cases": 94,
+    "synthetic_cells_referenced": 752,
+    "family_corrections": "Three module-upgrade operations use maintenance, not OTAP; source binding namespace supports this grouping.",
+    "new_capabilities_or_operation_ids": 0
+  },
+  "validation": {
+    "exact_source_content_contract_and_binding_matches": true,
+    "case_and_fixture_json_pointers_resolve_to_same_operation": true,
+    "current_sdk_source_hashes_match_recorded_checks": true,
+    "current_registry_binding_fixture_driver_and_workflow_bytes_match_verified_commit": true,
+    "prior_cases_unchanged": true,
+    "all_other_source_observation_material_cohort_scope_entries_unchanged": true,
+    "implementation_and_live_states_unchanged": true,
+    "new_execution_this_task": false
+  },
+  "existing_evidence_refs": [
+    "docs/validation/2026-11-17-public-areas/checks.json",
+    "https://github.com/sunbos/ezviz-unified/actions/runs/44055558994",
+    "harness/contract_eval.py",
+    "harness/wire_eval.py",
+    "harness/_contract_worker.py",
+    ".github/workflows/ci.yml"
+  ],
+  "limits": [
+    "Scenario/family text describes scoped SDK invocation purpose, not observed hardware success.",
+    "Wire evidence covers registered sync/async, response-layout, success/auth/permission/HTTP-fault cells and the associated driver expectations only.",
+    "Input-edge, diagnostics, cancellation/close, CLI/install, live read/write, physical and component-integration applicability/cases remain separately required.",
+    "Existing G0 remains valid; this update grants no new G1 or release admission.",
+    "Source/material semantic obligations and all four deferred phase-2 topics remain unchanged; counts are work items, not official capability totals."
+  ],
+  "all_semantics_dispositioned": false,
+  "required_acceptance_complete": false,
+  "product_complete": false,
+  "pypi_published": false
+}
