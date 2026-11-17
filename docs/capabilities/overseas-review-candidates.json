@@ -9,22 +9,86 @@
     "batch_note": "16 pinned overseas source documents only; these are the docs reviewed in this batch, not the total overseas corpus. No coverage percentage or API total is implied.",
     "element_pointer_convention": "d = HTTP declaration ordinal; e = element_index in derived/overseas/<doc_id>.structure.json snapshot.",
     "sources": [
-      { "source_id": "portal-2026-11-17:overseas:469", "doc_id": "469", "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8" },
-      { "source_id": "portal-2026-11-17:overseas:476", "doc_id": "476", "content_sha256": "82a0152058592e8c4b5e11f4f968edce7a4e39d5e16b527db606d5957bf8f858" },
-      { "source_id": "portal-2026-11-17:overseas:477", "doc_id": "477", "content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62" },
-      { "source_id": "portal-2026-11-17:overseas:481", "doc_id": "481", "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e" },
-      { "source_id": "portal-2026-11-17:overseas:534", "doc_id": "534", "content_sha256": "94f2eedda4e0e15f2f20d1d255a3e45699ebc51341851f07259d4b14ff6302dd" },
-      { "source_id": "portal-2026-11-17:overseas:2868", "doc_id": "2868", "content_sha256": "1dfff933af774a00e1a567610b9d1cfbb6648b5abbcf7bccc156f6d9c9ce7d12" },
-      { "source_id": "portal-2026-11-17:overseas:3722", "doc_id": "3722", "content_sha256": "5b6a1bcbdf331c3bb35997f76527587c2ecc0bd6b86cc6e32785c3061ec551c6" },
-      { "source_id": "portal-2026-11-17:overseas:3723", "doc_id": "3723", "content_sha256": "36812eeb04ef69ea54b3c37dafb0260f40b254a2e15b1baf3ff2c903fa2b23c6" },
-      { "source_id": "portal-2026-11-17:overseas:3724", "doc_id": "3724", "content_sha256": "7ef3e49f33cf52a11879c12db273522c3e8c8b527163739828c6582ff033f010" },
-      { "source_id": "portal-2026-11-17:overseas:3725", "doc_id": "3725", "content_sha256": "aa017fdeb22f9fde09b6c814b28d3f7ec2cb8a25e9a500c29666635b570a01f2" },
-      { "source_id": "portal-2026-11-17:overseas:3726", "doc_id": "3726", "content_sha256": "f2ec2e45a80e4b4d3ad7eec1d323a4126901d02cb147bd87d2ff754810f371b5" },
-      { "source_id": "portal-2026-11-17:overseas:3727", "doc_id": "3727", "content_sha256": "748ee92cab93ce0f7627d9e6d8b4a5f2e38c9882d05ff85f951c08fd4c8bb9a0" },
-      { "source_id": "portal-2026-11-17:overseas:3728", "doc_id": "3728", "content_sha256": "fdc18ec8ee9d85d33473f21603b4fda8c0308d9bb10dbf888e2ec3c2ef5d1ecd" },
-      { "source_id": "portal-2026-11-17:overseas:3729", "doc_id": "3729", "content_sha256": "dd9efadcceec76eecbaae3f01ab56f72d3c6107d79bd1c06f0f41283a7878535" },
-      { "source_id": "portal-2026-11-17:overseas:3730", "doc_id": "3730", "content_sha256": "84203aedfcca87134b5df1ac6ecfd5d086717370a2c619ca456a747d4ad74d8b" },
-      { "source_id": "portal-2026-11-17:overseas:1000007", "doc_id": "1000007", "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4" }
+      {
+        "source_id": "portal-2026-11-17:overseas:469",
+        "doc_id": "469",
+        "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:476",
+        "doc_id": "476",
+        "content_sha256": "82a0152058592e8c4b5e11f4f968edce7a4e39d5e16b527db606d5957bf8f858"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:477",
+        "doc_id": "477",
+        "content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:481",
+        "doc_id": "481",
+        "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:534",
+        "doc_id": "534",
+        "content_sha256": "94f2eedda4e0e15f2f20d1d255a3e45699ebc51341851f07259d4b14ff6302dd"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:2868",
+        "doc_id": "2868",
+        "content_sha256": "1dfff933af774a00e1a567610b9d1cfbb6648b5abbcf7bccc156f6d9c9ce7d12"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:3722",
+        "doc_id": "3722",
+        "content_sha256": "5b6a1bcbdf331c3bb35997f76527587c2ecc0bd6b86cc6e32785c3061ec551c6"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:3723",
+        "doc_id": "3723",
+        "content_sha256": "36812eeb04ef69ea54b3c37dafb0260f40b254a2e15b1baf3ff2c903fa2b23c6"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:3724",
+        "doc_id": "3724",
+        "content_sha256": "7ef3e49f33cf52a11879c12db273522c3e8c8b527163739828c6582ff033f010"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:3725",
+        "doc_id": "3725",
+        "content_sha256": "aa017fdeb22f9fde09b6c814b28d3f7ec2cb8a25e9a500c29666635b570a01f2"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:3726",
+        "doc_id": "3726",
+        "content_sha256": "f2ec2e45a80e4b4d3ad7eec1d323a4126901d02cb147bd87d2ff754810f371b5"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:3727",
+        "doc_id": "3727",
+        "content_sha256": "748ee92cab93ce0f7627d9e6d8b4a5f2e38c9882d05ff85f951c08fd4c8bb9a0"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:3728",
+        "doc_id": "3728",
+        "content_sha256": "fdc18ec8ee9d85d33473f21603b4fda8c0308d9bb10dbf888e2ec3c2ef5d1ecd"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:3729",
+        "doc_id": "3729",
+        "content_sha256": "dd9efadcceec76eecbaae3f01ab56f72d3c6107d79bd1c06f0f41283a7878535"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:3730",
+        "doc_id": "3730",
+        "content_sha256": "84203aedfcca87134b5df1ac6ecfd5d086717370a2c619ca456a747d4ad74d8b"
+      },
+      {
+        "source_id": "portal-2026-11-17:overseas:1000007",
+        "doc_id": "1000007",
+        "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4"
+      }
     ]
   },
   "capabilities": [
@@ -36,7 +100,12 @@
           "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
           "section": "1.1",
           "declaration": null,
-          "element_pointers": ["e75", "e77", "e120", "e122"]
+          "element_pointers": [
+            "e75",
+            "e77",
+            "e120",
+            "e122"
+          ]
         }
       ],
       "nature": "authorization_flow",
@@ -52,10 +121,40 @@
           "source_table": "portal-2026-11-17:overseas:469 table_element_index 77",
           "location": "query",
           "fields": [
-            { "name": "areaId", "type": "int", "required": null, "required_cell": "unreviewed", "location": "query" },
-            { "name": "response_type", "type": "String", "required": null, "required_cell": "unreviewed", "location": "query" },
-            { "name": "client_type", "type": "int", "required": null, "required_cell": "String (abnormal error text, not Y/N)", "location": "query" },
-            { "name": "bundleId", "type": "String", "required": null, "required_cell": "unreviewed", "location": "query", "required_when": { "client_type": [11, 13] } }
+            {
+              "name": "areaId",
+              "type": "int",
+              "required": null,
+              "required_cell": "unreviewed",
+              "location": "query"
+            },
+            {
+              "name": "response_type",
+              "type": "String",
+              "required": null,
+              "required_cell": "unreviewed",
+              "location": "query"
+            },
+            {
+              "name": "client_type",
+              "type": "int",
+              "required": null,
+              "required_cell": "String (abnormal error text, not Y/N)",
+              "location": "query"
+            },
+            {
+              "name": "bundleId",
+              "type": "String",
+              "required": null,
+              "required_cell": "unreviewed",
+              "location": "query",
+              "required_when": {
+                "client_type": [
+                  11,
+                  13
+                ]
+              }
+            }
           ],
           "other_rows_not_in_this_packet": 1,
           "request_schema_status": "partial_pending_full_contract_review"
@@ -119,7 +218,12 @@
           "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
           "section": "1.2",
           "declaration": "d0",
-          "element_pointers": ["e158", "e170", "e190", "e198"]
+          "element_pointers": [
+            "e158",
+            "e170",
+            "e190",
+            "e198"
+          ]
         }
       ],
       "nature": "server_api",
@@ -182,7 +286,11 @@
           "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
           "section": "1.3",
           "declaration": "d1",
-          "element_pointers": ["e269", "e319", "e355"]
+          "element_pointers": [
+            "e269",
+            "e319",
+            "e355"
+          ]
         }
       ],
       "nature": "authorization_flow",
@@ -198,13 +306,48 @@
           "source_table": "portal-2026-11-17:overseas:469 table_element_index 269",
           "location": "form",
           "fields": [
-            { "name": "refresh_token", "type": "String", "required": true, "location": "form" },
-            { "name": "grant_type", "type": "String", "required": true, "location": "form" },
-            { "name": "client_id", "type": "String", "required": true, "location": "form" },
-            { "name": "openId", "type": "String", "required": true, "location": "form" },
-            { "name": "bundleId", "type": "String", "required": true, "location": "form" },
-            { "name": "scope", "type": "String", "required": false, "location": "form" },
-            { "name": "state", "type": "String", "required": false, "location": "form" }
+            {
+              "name": "refresh_token",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            },
+            {
+              "name": "grant_type",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            },
+            {
+              "name": "client_id",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            },
+            {
+              "name": "openId",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            },
+            {
+              "name": "bundleId",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            },
+            {
+              "name": "scope",
+              "type": "String",
+              "required": false,
+              "location": "form"
+            },
+            {
+              "name": "state",
+              "type": "String",
+              "required": false,
+              "location": "form"
+            }
           ],
           "other_rows_not_in_this_packet": 0,
           "request_schema_status": "partial_pending_full_contract_review"
@@ -267,7 +410,12 @@
           "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
           "section": "1.4",
           "declaration": "d2",
-          "element_pointers": ["e436", "e447", "e472", "e500"]
+          "element_pointers": [
+            "e436",
+            "e447",
+            "e472",
+            "e500"
+          ]
         }
       ],
       "nature": "server_api",
@@ -334,7 +482,10 @@
           "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
           "section": "1.5",
           "declaration": "d3",
-          "element_pointers": ["e593", "e604"]
+          "element_pointers": [
+            "e593",
+            "e604"
+          ]
         }
       ],
       "nature": "server_api",
@@ -402,7 +553,10 @@
           "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
           "section": "1.6",
           "declaration": "d4",
-          "element_pointers": ["e686", "e697"]
+          "element_pointers": [
+            "e686",
+            "e697"
+          ]
         }
       ],
       "nature": "server_api",
@@ -419,7 +573,9 @@
         "effect": "switches DDNS mapping to automatic mode",
         "hardware_constraints": "none stated"
       },
-      "source_uncertainties": ["minimum permission class not stated"],
+      "source_uncertainties": [
+        "minimum permission class not stated"
+      ],
       "existing_support": {
         "status": "no_binding",
         "detail": "No DDNS facade."
@@ -450,7 +606,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["bound device", "write authorization"],
+      "blocking_resources": [
+        "bound device",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 469 §1.6 (e686/e697)"
       ]
@@ -463,7 +622,10 @@
           "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
           "section": "1.7",
           "declaration": "d5",
-          "element_pointers": ["e778", "e789"]
+          "element_pointers": [
+            "e778",
+            "e789"
+          ]
         }
       ],
       "nature": "server_api",
@@ -514,7 +676,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["bound device", "write authorization"],
+      "blocking_resources": [
+        "bound device",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 469 §1.7 (e778/e789)"
       ]
@@ -527,7 +692,12 @@
           "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
           "section": "1.8",
           "declaration": "d6",
-          "element_pointers": ["e880", "e891", "e924", "e948"]
+          "element_pointers": [
+            "e880",
+            "e891",
+            "e924",
+            "e948"
+          ]
         }
       ],
       "nature": "server_api",
@@ -593,7 +763,10 @@
           "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
           "section": "1.9",
           "declaration": "d7",
-          "element_pointers": ["e1053", "e1064"]
+          "element_pointers": [
+            "e1053",
+            "e1064"
+          ]
         }
       ],
       "nature": "server_api",
@@ -661,7 +834,11 @@
           "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
           "section": "1.10",
           "declaration": "d8",
-          "element_pointers": ["e1162", "e1173", "e1198"]
+          "element_pointers": [
+            "e1162",
+            "e1173",
+            "e1198"
+          ]
         }
       ],
       "nature": "server_api",
@@ -727,7 +904,10 @@
           "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
           "section": "1.11",
           "declaration": "d9",
-          "element_pointers": ["e1283", "e1294"]
+          "element_pointers": [
+            "e1283",
+            "e1294"
+          ]
         }
       ],
       "nature": "server_api",
@@ -778,7 +958,10 @@
           "blocked_no_bound_device: yes for non-empty payload"
         ]
       },
-      "blocking_resources": ["overseas account", "bound device + prior share for non-empty payload"],
+      "blocking_resources": [
+        "overseas account",
+        "bound device + prior share for non-empty payload"
+      ],
       "decision_basis": [
         "Codex review record for doc 469 §1.11 (e1283/e1294)"
       ]
@@ -791,7 +974,12 @@
           "content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
           "section": "1.12",
           "declaration": "d10",
-          "element_pointers": ["e1459", "e1463", "e1468", "e1476"]
+          "element_pointers": [
+            "e1459",
+            "e1463",
+            "e1468",
+            "e1476"
+          ]
         }
       ],
       "nature": "server_api",
@@ -843,7 +1031,9 @@
           "blocked_no_bound_device: n/a (public/account-level, not hardware)"
         ]
       },
-      "blocking_resources": ["reachable overseas regional host open.ezvizlife.com"],
+      "blocking_resources": [
+        "reachable overseas regional host open.ezvizlife.com"
+      ],
       "decision_basis": [
         "Codex review record for doc 469 §1.12 (e1459/e1463/e1468/e1476); e1459 actual origin open.ezvizlife.com"
       ]
@@ -856,7 +1046,11 @@
           "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
           "section": "1.1",
           "declaration": "d0",
-          "element_pointers": ["e59", "e71", "e97"]
+          "element_pointers": [
+            "e59",
+            "e71",
+            "e97"
+          ]
         }
       ],
       "nature": "server_api",
@@ -907,7 +1101,9 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["A1 host device"],
+      "blocking_resources": [
+        "A1 host device"
+      ],
       "decision_basis": [
         "Codex review record for doc 481 §1.1 (e59/e71/e97)"
       ]
@@ -920,7 +1116,10 @@
           "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
           "section": "1.2",
           "declaration": "d1",
-          "element_pointers": ["e256", "e268"]
+          "element_pointers": [
+            "e256",
+            "e268"
+          ]
         }
       ],
       "nature": "server_api",
@@ -971,7 +1170,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["associated detector", "write authorization"],
+      "blocking_resources": [
+        "associated detector",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 481 §1.2 (e256/e268)"
       ]
@@ -984,7 +1186,10 @@
           "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
           "section": "1.3",
           "declaration": "d2",
-          "element_pointers": ["e372", "e384"]
+          "element_pointers": [
+            "e372",
+            "e384"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1001,7 +1206,9 @@
         "effect": "deletes the detector association — a destructive association change",
         "hardware_constraints": "requires an associated detector"
       },
-      "source_uncertainties": ["minimum permission class not stated"],
+      "source_uncertainties": [
+        "minimum permission class not stated"
+      ],
       "existing_support": {
         "status": "no_binding",
         "detail": "No detectors facade."
@@ -1032,7 +1239,11 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["associated detector", "write authorization", "recovery/re-association plan"],
+      "blocking_resources": [
+        "associated detector",
+        "write authorization",
+        "recovery/re-association plan"
+      ],
       "decision_basis": [
         "Codex review record for doc 481 §1.3 (e372/e384)"
       ]
@@ -1045,7 +1256,10 @@
           "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
           "section": "1.4",
           "declaration": "d3",
-          "element_pointers": ["e470", "e482"]
+          "element_pointers": [
+            "e470",
+            "e482"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1096,7 +1310,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["A1 host device", "candidate IPCs"],
+      "blocking_resources": [
+        "A1 host device",
+        "candidate IPCs"
+      ],
       "decision_basis": [
         "Codex review record for doc 481 §1.4 (e470/e482; e508 type discrepancy)"
       ]
@@ -1109,7 +1326,10 @@
           "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
           "section": "1.5",
           "declaration": "d4",
-          "element_pointers": ["e572", "e584"]
+          "element_pointers": [
+            "e572",
+            "e584"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1160,7 +1380,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["associated detector", "bound IPCs"],
+      "blocking_resources": [
+        "associated detector",
+        "bound IPCs"
+      ],
       "decision_basis": [
         "Codex review record for doc 481 §1.5 (e572/e584)"
       ]
@@ -1173,7 +1396,10 @@
           "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
           "section": "1.6",
           "declaration": "d5",
-          "element_pointers": ["e675", "e687"]
+          "element_pointers": [
+            "e675",
+            "e687"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1189,11 +1415,36 @@
           "source_table": "portal-2026-11-17:overseas:481 table_element_index 687",
           "location": "form",
           "fields": [
-            { "name": "accessToken", "type": "String", "required": true, "location": "form" },
-            { "name": "deviceSerial", "type": "String", "required": true, "location": "form" },
-            { "name": "detectorSerial", "type": "String", "required": true, "location": "form" },
-            { "name": "ipcSerial", "type": "String", "required": true, "location": "form" },
-            { "name": "operation", "type": "int", "required": true, "location": "form" }
+            {
+              "name": "accessToken",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            },
+            {
+              "name": "deviceSerial",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            },
+            {
+              "name": "detectorSerial",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            },
+            {
+              "name": "ipcSerial",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            },
+            {
+              "name": "operation",
+              "type": "int",
+              "required": true,
+              "location": "form"
+            }
           ],
           "other_rows_not_in_this_packet": 0,
           "request_schema_status": "partial_pending_full_contract_review"
@@ -1237,7 +1488,11 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["associated detector", "candidate IPC", "write authorization"],
+      "blocking_resources": [
+        "associated detector",
+        "candidate IPC",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 481 §1.6 (e675/e687)"
       ]
@@ -1250,7 +1505,12 @@
           "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
           "section": "1.7",
           "declaration": "d6",
-          "element_pointers": ["e795", "e798", "e799", "e829"]
+          "element_pointers": [
+            "e795",
+            "e798",
+            "e799",
+            "e829"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1266,10 +1526,30 @@
           "source_table": "portal-2026-11-17:overseas:481 table_element_index 799",
           "location": "form",
           "fields": [
-            { "name": "accessToken", "type": "String", "required": true, "location": "form" },
-            { "name": "deviceSerial", "type": "String", "required": true, "location": "form" },
-            { "name": "detectorSerial", "type": "String", "required": true, "location": "form" },
-            { "name": "newName", "type": "String", "required": true, "location": "form" }
+            {
+              "name": "accessToken",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            },
+            {
+              "name": "deviceSerial",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            },
+            {
+              "name": "detectorSerial",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            },
+            {
+              "name": "newName",
+              "type": "String",
+              "required": true,
+              "location": "form"
+            }
           ],
           "other_rows_not_in_this_packet": 0,
           "request_schema_status": "partial_pending_full_contract_review"
@@ -1313,7 +1593,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["associated detector", "write authorization"],
+      "blocking_resources": [
+        "associated detector",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 481 §1.7 (e795/e798/e799/e829) — parser artifact resolved"
       ]
@@ -1326,7 +1609,10 @@
           "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
           "section": "1.8",
           "declaration": "d7",
-          "element_pointers": ["e890", "e902"]
+          "element_pointers": [
+            "e890",
+            "e902"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1377,7 +1663,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["A1 host in alarm state", "write authorization"],
+      "blocking_resources": [
+        "A1 host in alarm state",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 481 §1.8 (e890/e902)"
       ]
@@ -1390,7 +1679,13 @@
           "content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
           "section": "1.9",
           "declaration": "d8",
-          "element_pointers": ["e984", "e994", "e995", "e1000", "e1102"]
+          "element_pointers": [
+            "e984",
+            "e994",
+            "e995",
+            "e1000",
+            "e1102"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1458,7 +1753,11 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "keylock user delete",
           "declaration": "d0",
-          "element_pointers": ["e3", "e9", "e37"]
+          "element_pointers": [
+            "e3",
+            "e9",
+            "e37"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1506,7 +1805,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05-R201-WBCP-GR lock", "write authorization"],
+      "blocking_resources": [
+        "online CS-DL05-R201-WBCP-GR lock",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d0 (e3/e9/e37)"
       ]
@@ -1519,7 +1821,11 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "keylock user remark modify",
           "declaration": "d1",
-          "element_pointers": ["e105", "e111", "e145"]
+          "element_pointers": [
+            "e105",
+            "e111",
+            "e145"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1567,7 +1873,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock", "write authorization"],
+      "blocking_resources": [
+        "online CS-DL05 lock",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d1 (e105/e111/e145)"
       ]
@@ -1580,7 +1889,11 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "keylock user expiryDate",
           "declaration": "d2",
-          "element_pointers": ["e213", "e219", "e289"]
+          "element_pointers": [
+            "e213",
+            "e219",
+            "e289"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1630,7 +1943,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock", "write authorization"],
+      "blocking_resources": [
+        "online CS-DL05 lock",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d2 (e213/e219/e289)"
       ]
@@ -1643,7 +1959,11 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "keylock user list",
           "declaration": "d3",
-          "element_pointers": ["e357", "e363", "e391"]
+          "element_pointers": [
+            "e357",
+            "e363",
+            "e391"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1693,7 +2013,9 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock with users"],
+      "blocking_resources": [
+        "online CS-DL05 lock with users"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d3 (e357/e363/e391)"
       ]
@@ -1706,7 +2028,11 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "keylock user info",
           "declaration": "d4",
-          "element_pointers": ["e513", "e519", "e553"]
+          "element_pointers": [
+            "e513",
+            "e519",
+            "e553"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1754,7 +2080,9 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock with a user"],
+      "blocking_resources": [
+        "online CS-DL05 lock with a user"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d4 (e513/e519/e553)"
       ]
@@ -1767,7 +2095,11 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "keylock open list",
           "declaration": "d5",
-          "element_pointers": ["e687", "e693", "e745"]
+          "element_pointers": [
+            "e687",
+            "e693",
+            "e745"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1817,7 +2149,9 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock with records"],
+      "blocking_resources": [
+        "online CS-DL05 lock with records"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d5 (e687/e693/e745)"
       ]
@@ -1830,7 +2164,11 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "TemporaryPassword / AddTemporaryPassword",
           "declaration": "d6",
-          "element_pointers": ["e803", "e809", "e897"]
+          "element_pointers": [
+            "e803",
+            "e809",
+            "e897"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1846,12 +2184,42 @@
           "source_table": "portal-2026-11-17:overseas:1000007 (AddTemporaryPassword parameter table, header/body location rows)",
           "location": "header+body",
           "fields": [
-            { "name": "accessToken", "type": "String", "required": true, "location": "header" },
-            { "name": "deviceSerial", "type": "String", "required": true, "location": "header" },
-            { "name": "localIndex", "type": "String", "required": true, "location": "header" },
-            { "name": "resourceCategory", "type": "String", "required": true, "location": "header" },
-            { "name": "domainIdentifier", "type": "String", "required": true, "location": "header" },
-            { "name": "actionIdentifier", "type": "String", "required": true, "location": "header" }
+            {
+              "name": "accessToken",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "deviceSerial",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "localIndex",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "resourceCategory",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "domainIdentifier",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "actionIdentifier",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            }
           ],
           "other_rows_not_in_this_packet": 7,
           "request_schema_status": "partial_pending_full_contract_review",
@@ -1900,7 +2268,11 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock", "write authorization", "revocation plan"],
+      "blocking_resources": [
+        "online CS-DL05 lock",
+        "write authorization",
+        "revocation plan"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d6 (e803/e809/e897)"
       ]
@@ -1913,7 +2285,10 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "TemporaryPassword / DeleteTemporaryPassword",
           "declaration": "d7",
-          "element_pointers": ["e969", "e975"]
+          "element_pointers": [
+            "e969",
+            "e975"
+          ]
         }
       ],
       "nature": "server_api",
@@ -1929,14 +2304,54 @@
           "source_table": "portal-2026-11-17:overseas:1000007 table_element_index 975",
           "location": "header+body",
           "fields": [
-            { "name": "accessToken", "type": "String", "required": true, "location": "header" },
-            { "name": "deviceSerial", "type": "String", "required": true, "location": "header" },
-            { "name": "localIndex", "type": "String", "required": true, "location": "header" },
-            { "name": "resourceCategory", "type": "String", "required": true, "location": "header" },
-            { "name": "domainIdentifier", "type": "String", "required": true, "location": "header" },
-            { "name": "actionIdentifier", "type": "String", "required": true, "location": "header" },
-            { "name": "passwordID", "type": "Int", "required": true, "location": "body" },
-            { "name": "opType", "type": "Int", "required": true, "location": "body" }
+            {
+              "name": "accessToken",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "deviceSerial",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "localIndex",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "resourceCategory",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "domainIdentifier",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "actionIdentifier",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "passwordID",
+              "type": "Int",
+              "required": true,
+              "location": "body"
+            },
+            {
+              "name": "opType",
+              "type": "Int",
+              "required": true,
+              "location": "body"
+            }
           ],
           "other_rows_not_in_this_packet": 1,
           "request_schema_status": "partial_pending_full_contract_review"
@@ -1981,7 +2396,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock", "write authorization"],
+      "blocking_resources": [
+        "online CS-DL05 lock",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d7 (e969/e975)"
       ]
@@ -1994,7 +2412,10 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "TemporaryPassword / QueryTemporaryPassword",
           "declaration": "d8",
-          "element_pointers": ["e1107", "e1113"]
+          "element_pointers": [
+            "e1107",
+            "e1113"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2010,13 +2431,48 @@
           "source_table": "portal-2026-11-17:overseas:1000007 table_element_index 1113",
           "location": "header+body",
           "fields": [
-            { "name": "accessToken", "type": "String", "required": true, "location": "header" },
-            { "name": "deviceSerial", "type": "String", "required": true, "location": "header" },
-            { "name": "localIndex", "type": "String", "required": true, "location": "header" },
-            { "name": "resourceCategory", "type": "String", "required": true, "location": "header" },
-            { "name": "domainIdentifier", "type": "String", "required": true, "location": "header" },
-            { "name": "actionIdentifier", "type": "String", "required": true, "location": "header" },
-            { "name": "enabled", "type": "Boolean", "required": true, "location": "body" }
+            {
+              "name": "accessToken",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "deviceSerial",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "localIndex",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "resourceCategory",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "domainIdentifier",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "actionIdentifier",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "enabled",
+              "type": "Boolean",
+              "required": true,
+              "location": "body"
+            }
           ],
           "other_rows_not_in_this_packet": 1,
           "request_schema_status": "partial_pending_full_contract_review"
@@ -2062,7 +2518,9 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock with temporary passwords"],
+      "blocking_resources": [
+        "online CS-DL05 lock with temporary passwords"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d8 (e1107/e1113)"
       ]
@@ -2075,7 +2533,11 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "DoorLockMgr / RemoteUnlockSwitch",
           "declaration": "d9",
-          "element_pointers": ["e1267", "e1273", "e1331"]
+          "element_pointers": [
+            "e1267",
+            "e1273",
+            "e1331"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2127,7 +2589,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock", "write authorization"],
+      "blocking_resources": [
+        "online CS-DL05 lock",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d9 (e1267/e1273/e1331)"
       ]
@@ -2140,7 +2605,10 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "DoorLockMgr / DeviceBoundList",
           "declaration": "d10",
-          "element_pointers": ["e1395", "e1401"]
+          "element_pointers": [
+            "e1395",
+            "e1401"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2190,7 +2658,9 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock with bound terminals"],
+      "blocking_resources": [
+        "online CS-DL05 lock with bound terminals"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d10 (e1395/e1401)"
       ]
@@ -2203,7 +2673,10 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "DoorLockMgr / OperateBindToDevice",
           "declaration": "d11",
-          "element_pointers": ["e1511", "e1517"]
+          "element_pointers": [
+            "e1511",
+            "e1517"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2219,12 +2692,42 @@
           "source_table": "portal-2026-11-17:overseas:1000007 (OperateBindToDevice parameter table, header rows; body fields not in this packet)",
           "location": "header",
           "fields": [
-            { "name": "accessToken", "type": "String", "required": true, "location": "header" },
-            { "name": "deviceSerial", "type": "String", "required": true, "location": "header" },
-            { "name": "localIndex", "type": "String", "required": true, "location": "header" },
-            { "name": "resourceCategory", "type": "String", "required": true, "location": "header" },
-            { "name": "domainIdentifier", "type": "String", "required": true, "location": "header" },
-            { "name": "actionIdentifier", "type": "String", "required": true, "location": "header" }
+            {
+              "name": "accessToken",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "deviceSerial",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "localIndex",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "resourceCategory",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "domainIdentifier",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "actionIdentifier",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            }
           ],
           "other_rows_not_in_this_packet": 4,
           "request_schema_status": "partial_pending_full_contract_review",
@@ -2270,7 +2773,11 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock", "target terminal", "write authorization"],
+      "blocking_resources": [
+        "online CS-DL05 lock",
+        "target terminal",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d11 (e1511/e1517)"
       ]
@@ -2283,7 +2790,11 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "DoorLockMgr / QueryRemoteUnlockRandomCode",
           "declaration": "d12",
-          "element_pointers": ["e1647", "e1653", "e1699"]
+          "element_pointers": [
+            "e1647",
+            "e1653",
+            "e1699"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2299,12 +2810,42 @@
           "source_table": "portal-2026-11-17:overseas:1000007 (QueryRemoteUnlockRandomCode parameter table, header rows)",
           "location": "header",
           "fields": [
-            { "name": "accessToken", "type": "String", "required": true, "location": "header" },
-            { "name": "deviceSerial", "type": "String", "required": true, "location": "header" },
-            { "name": "localIndex", "type": "String", "required": true, "location": "header" },
-            { "name": "resourceCategory", "type": "String", "required": true, "location": "header" },
-            { "name": "domainIdentifier", "type": "String", "required": true, "location": "header" },
-            { "name": "actionIdentifier", "type": "String", "required": true, "location": "header" }
+            {
+              "name": "accessToken",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "deviceSerial",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "localIndex",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "resourceCategory",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "domainIdentifier",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "actionIdentifier",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            }
           ],
           "other_rows_not_in_this_packet": 0,
           "request_schema_status": "partial_pending_full_contract_review",
@@ -2351,7 +2892,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock", "challenge-fetch authorization"],
+      "blocking_resources": [
+        "online CS-DL05 lock",
+        "challenge-fetch authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d12 (e1647/e1653/e1699)"
       ]
@@ -2364,7 +2908,11 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "DoorLockMgr / RemoteUnlockReq",
           "declaration": "d13",
-          "element_pointers": ["e1759", "e1765", "e1847"]
+          "element_pointers": [
+            "e1759",
+            "e1765",
+            "e1847"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2380,12 +2928,42 @@
           "source_table": "portal-2026-11-17:overseas:1000007 (RemoteUnlockReq parameter table, header rows; unLockInfo body rows not in this packet)",
           "location": "header",
           "fields": [
-            { "name": "accessToken", "type": "String", "required": true, "location": "header" },
-            { "name": "deviceSerial", "type": "String", "required": true, "location": "header" },
-            { "name": "localIndex", "type": "String", "required": true, "location": "header" },
-            { "name": "resourceCategory", "type": "String", "required": true, "location": "header" },
-            { "name": "domainIdentifier", "type": "String", "required": true, "location": "header" },
-            { "name": "actionIdentifier", "type": "String", "required": true, "location": "header" }
+            {
+              "name": "accessToken",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "deviceSerial",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "localIndex",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "resourceCategory",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "domainIdentifier",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            },
+            {
+              "name": "actionIdentifier",
+              "type": "String",
+              "required": true,
+              "location": "header"
+            }
           ],
           "other_rows_not_in_this_packet": 6,
           "request_schema_status": "partial_pending_full_contract_review",
@@ -2431,7 +3009,12 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["online CS-DL05 lock", "designated physical door", "explicit write authorization", "safety/recovery plan"],
+      "blocking_resources": [
+        "online CS-DL05 lock",
+        "designated physical door",
+        "explicit write authorization",
+        "safety/recovery plan"
+      ],
       "decision_basis": [
         "Codex review record for doc 1000007 d13 (e1759/e1765/e1847)"
       ]
@@ -2444,7 +3027,11 @@
           "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
           "section": "message integration",
           "declaration": null,
-          "element_pointers": ["e1905", "e1920", "e1926"]
+          "element_pointers": [
+            "e1905",
+            "e1920",
+            "e1926"
+          ]
         }
       ],
       "nature": "message_protocol",
@@ -2488,7 +3075,7 @@
           "parameter: raw-body signature over bytes as delivered; no re-serialization",
           "response: ACK contract per service (HTTP 200 + messageId) — exact overseas wording to be re-read",
           "retry: dedup by messageId must be defined before live acceptance",
-          "diagnostics sync+async: webhook receiver example registered separately; helpers already registered"
+          "diagnostics boundary: standalone webhook helpers are excluded from diagnostics v1 automatic collection; receiver-example fixed counters are a separate acceptance scope, not automatic SDK recorder coverage."
         ],
         "live": [
           "real resources required: enabled message-push service + public reachable callback + independent secret + bound device + authorization for config side effects",
@@ -2516,7 +3103,13 @@
           "content_sha256": "82a0152058592e8c4b5e11f4f968edce7a4e39d5e16b527db606d5957bf8f858",
           "section": "1.4",
           "declaration": "d3",
-          "element_pointers": ["e437", "e443", "e454", "e479", "e485"]
+          "element_pointers": [
+            "e437",
+            "e443",
+            "e454",
+            "e479",
+            "e485"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2566,7 +3159,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["Linktom bound device", "a UUID produced via the device-SDK capture flow (not any capture UUID)"],
+      "blocking_resources": [
+        "Linktom bound device",
+        "a UUID produced via the device-SDK capture flow (not any capture UUID)"
+      ],
       "decision_basis": [
         "Codex review record for doc 476 §1.4 (e437/e443/e454/e479/e485)"
       ]
@@ -2579,7 +3175,12 @@
           "content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
           "section": "1.20",
           "declaration": "d19",
-          "element_pointers": ["e2374", "e2390", "e2416", "e2424"]
+          "element_pointers": [
+            "e2374",
+            "e2390",
+            "e2416",
+            "e2424"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2631,7 +3232,9 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["bound device"],
+      "blocking_resources": [
+        "bound device"
+      ],
       "decision_basis": [
         "Codex review record for doc 477 §1.20 (e2374/e2390/e2416/e2424)"
       ]
@@ -2644,7 +3247,12 @@
           "content_sha256": "5b6a1bcbdf331c3bb35997f76527587c2ecc0bd6b86cc6e32785c3061ec551c6",
           "section": "switchStatus get",
           "declaration": "d0",
-          "element_pointers": ["e5", "e8", "e30", "e47"]
+          "element_pointers": [
+            "e5",
+            "e8",
+            "e30",
+            "e47"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2694,7 +3302,9 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["bound device supporting linked light"],
+      "blocking_resources": [
+        "bound device supporting linked light"
+      ],
       "decision_basis": [
         "Codex review record for doc 3722 d0 (e5/e8/e30/e47)"
       ]
@@ -2707,7 +3317,11 @@
           "content_sha256": "36812eeb04ef69ea54b3c37dafb0260f40b254a2e15b1baf3ff2c903fa2b23c6",
           "section": "switchStatus set",
           "declaration": "d0",
-          "element_pointers": ["e5", "e8", "e30"]
+          "element_pointers": [
+            "e5",
+            "e8",
+            "e30"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2755,7 +3369,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["device supporting linked light", "write authorization"],
+      "blocking_resources": [
+        "device supporting linked light",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 3723 d0 (e5/e8/e30)"
       ]
@@ -2768,7 +3385,11 @@
           "content_sha256": "7ef3e49f33cf52a11879c12db273522c3e8c8b527163739828c6582ff033f010",
           "section": "timing plan get",
           "declaration": "d0",
-          "element_pointers": ["e5", "e8", "e31"]
+          "element_pointers": [
+            "e5",
+            "e8",
+            "e31"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2816,7 +3437,9 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["device supporting timing plans"],
+      "blocking_resources": [
+        "device supporting timing plans"
+      ],
       "decision_basis": [
         "Codex review record for doc 3724 d0 (e5/e8/e31)"
       ]
@@ -2829,7 +3452,12 @@
           "content_sha256": "aa017fdeb22f9fde09b6c814b28d3f7ec2cb8a25e9a500c29666635b570a01f2",
           "section": "timing plan set",
           "declaration": "d0",
-          "element_pointers": ["e5", "e8", "e30", "e71"]
+          "element_pointers": [
+            "e5",
+            "e8",
+            "e30",
+            "e71"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2881,7 +3509,11 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["device supporting timing plans", "write authorization", "encoding resolution"],
+      "blocking_resources": [
+        "device supporting timing plans",
+        "write authorization",
+        "encoding resolution"
+      ],
       "decision_basis": [
         "Codex review record for doc 3725 d0 (e5/e8/e30/e71)"
       ]
@@ -2894,7 +3526,11 @@
           "content_sha256": "f2ec2e45a80e4b4d3ad7eec1d323a4126901d02cb147bd87d2ff754810f371b5",
           "section": "alarmSound enabled get",
           "declaration": "d0",
-          "element_pointers": ["e5", "e8", "e31"]
+          "element_pointers": [
+            "e5",
+            "e8",
+            "e31"
+          ]
         }
       ],
       "nature": "server_api",
@@ -2944,7 +3580,9 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["device supporting alarm sound"],
+      "blocking_resources": [
+        "device supporting alarm sound"
+      ],
       "decision_basis": [
         "Codex review record for doc 3726 d0 (e5/e8/e31)"
       ]
@@ -2957,7 +3595,11 @@
           "content_sha256": "748ee92cab93ce0f7627d9e6d8b4a5f2e38c9882d05ff85f951c08fd4c8bb9a0",
           "section": "alarmSound enabled set",
           "declaration": "d0",
-          "element_pointers": ["e5", "e8", "e30"]
+          "element_pointers": [
+            "e5",
+            "e8",
+            "e30"
+          ]
         }
       ],
       "nature": "server_api",
@@ -3005,7 +3647,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["device supporting alarm sound", "write authorization"],
+      "blocking_resources": [
+        "device supporting alarm sound",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 3727 d0 (e5/e8/e30)"
       ]
@@ -3018,7 +3663,11 @@
           "content_sha256": "fdc18ec8ee9d85d33473f21603b4fda8c0308d9bb10dbf888e2ec3c2ef5d1ecd",
           "section": "motion detect get",
           "declaration": "d0",
-          "element_pointers": ["e5", "e8", "e37"]
+          "element_pointers": [
+            "e5",
+            "e8",
+            "e37"
+          ]
         }
       ],
       "nature": "server_api",
@@ -3068,7 +3717,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["device supporting motion detection", "origin anomaly resolution (open.ys7.com declared per e5, needs cross-source verification)"],
+      "blocking_resources": [
+        "device supporting motion detection",
+        "origin anomaly resolution (open.ys7.com declared per e5, needs cross-source verification)"
+      ],
       "decision_basis": [
         "Codex review record for doc 3728 d0 (e5/e8/e37)"
       ]
@@ -3081,7 +3733,11 @@
           "content_sha256": "dd9efadcceec76eecbaae3f01ab56f72d3c6107d79bd1c06f0f41283a7878535",
           "section": "motion detect set",
           "declaration": "d0",
-          "element_pointers": ["e5", "e8", "e36"]
+          "element_pointers": [
+            "e5",
+            "e8",
+            "e36"
+          ]
         }
       ],
       "nature": "server_api",
@@ -3131,7 +3787,11 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["device supporting motion detection", "write authorization", "area encoding resolution"],
+      "blocking_resources": [
+        "device supporting motion detection",
+        "write authorization",
+        "area encoding resolution"
+      ],
       "decision_basis": [
         "Codex review record for doc 3729 d0 (e5/e8/e36)"
       ]
@@ -3144,7 +3804,11 @@
           "content_sha256": "84203aedfcca87134b5df1ac6ecfd5d086717370a2c619ca456a747d4ad74d8b",
           "section": "audition",
           "declaration": "d0",
-          "element_pointers": ["e5", "e8", "e30"]
+          "element_pointers": [
+            "e5",
+            "e8",
+            "e30"
+          ]
         }
       ],
       "nature": "server_api",
@@ -3192,7 +3856,10 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["device with speaker", "write authorization"],
+      "blocking_resources": [
+        "device with speaker",
+        "write authorization"
+      ],
       "decision_basis": [
         "Codex review record for doc 3730 d0 (e5/e8/e30)"
       ]
@@ -3205,7 +3872,11 @@
           "content_sha256": "94f2eedda4e0e15f2f20d1d255a3e45699ebc51341851f07259d4b14ff6302dd",
           "section": "1.2",
           "declaration": "d1",
-          "element_pointers": ["e152", "e155", "e189"]
+          "element_pointers": [
+            "e152",
+            "e155",
+            "e189"
+          ]
         }
       ],
       "nature": "server_api",
@@ -3258,7 +3929,9 @@
           "blocked_no_bound_device: yes (needs a real playback URL)"
         ]
       },
-      "blocking_resources": ["a live playback address"],
+      "blocking_resources": [
+        "a live playback address"
+      ],
       "decision_basis": [
         "Codex review record for doc 534 §1.2 (e152/e155/e189); contracts/source-issues.json global.playback.invalidation_scope"
       ]
@@ -3271,7 +3944,11 @@
           "content_sha256": "1dfff933af774a00e1a567610b9d1cfbb6648b5abbcf7bccc156f6d9c9ce7d12",
           "section": "password update",
           "declaration": "d0",
-          "element_pointers": ["e7", "e10", "e49"]
+          "element_pointers": [
+            "e7",
+            "e10",
+            "e49"
+          ]
         }
       ],
       "nature": "server_api",
@@ -3324,7 +4001,11 @@
           "blocked_no_bound_device: yes"
         ]
       },
-      "blocking_resources": ["a physical device", "write authorization", "credential-recovery plan"],
+      "blocking_resources": [
+        "a physical device",
+        "write authorization",
+        "credential-recovery plan"
+      ],
       "decision_basis": [
         "Codex review record for doc 2868 d0 (e7/e10/e49); contracts/source-issues.json global.security.password_example_origin"
       ]

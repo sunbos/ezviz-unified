@@ -19,7 +19,8 @@
     "94个同源同内容已审能力补充了具体离线wire案例，绑定既有精确版本评测/CI证据；本次未重跑测试或执行真实业务，未把其它必要验收层升级为通过。每个案例的verified_code_commit和适用层独立于本文件初始baseline。",
     "SP088登记101个具体国内候选离线案例，全部awaiting_design；候选身份和已审场景可追溯，但合同与精确断言尚未冻结，不批准G1。",
     "SP089为其余109个已有合同补充具体wire案例，复用7c4d954对应输入和实际评测/CI证据；904个合成单元仅是该子集测试范围，未新跑SDK或提升真实验收状态。",
-    "SP090为44个既有海外候选补齐场景与具体待设计案例；41个server_api暂列sync/async，2个authorization_flow和1个message_protocol的surface仍待冻结。公共地区目录既有实现与验收保持，候选谱系本身不决定是否已准入。"
+    "SP090为44个既有海外候选补齐场景与具体待设计案例；41个server_api暂列sync/async，2个authorization_flow和1个message_protocol的surface仍待冻结。公共地区目录既有实现与验收保持，候选谱系本身不决定是否已准入。",
+    "WEBHOOK-RECEIVER-001只准入独立仓库接收示例：三项本地case先冻结，国内/海外平台case保持资源/授权待定；不新增SDK业务operation，也不宣称纯helpers在诊断v1自动采集范围内。"
   ],
   "case_schema": {
     "case_id": "stable identifier",
@@ -37,7 +38,10 @@
       "sync",
       "async",
       "cli_example",
-      "installed_package"
+      "installed_package",
+      "receiver_core",
+      "loopback_http",
+      "platform_callback"
     ],
     "risk": "read_only | write_bounded | destructive_guarded | release | offline_only",
     "preconditions": [
@@ -27003,6 +27007,275 @@
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
       ]
+    },
+    {
+      "case_id": "ACC-WEBHOOK-CORE-001",
+      "tier": "required",
+      "case_origin": "bounded_webhook_receiver_cohort",
+      "capability_selector": "integration:webhooks.bounded_receiver",
+      "capability_ids": [
+        "integration:webhooks.bounded_receiver"
+      ],
+      "operation_ids": [],
+      "scope_revision": "2026-11-18-r8-webhook-receiver-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic_and_overseas_signature_profiles_synthetic_only",
+      "account_role_permissions": "仅合成secret；不读取真实配置或凭据。",
+      "device_requirements": "无需真实设备。",
+      "surface": [
+        "receiver_core"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "按冻结计划构造，fixtures全部合成；默认禁止外部网络。",
+        "SDK webhooks helpers及诊断自动采集边界保持；示例独立计数不冒充SDK recorder。"
+      ],
+      "expected_evidence": {
+        "read": "核对计划第3节中本case对应层，记录实际命令与结果；raw bytes验签、内存受理、重复/冲突、固定错误、安全输出和退出资源边界均不能只用文件存在证明。",
+        "write": "仅合成请求，零外部SDK业务。",
+        "physical": "无真实物理效果结论。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "本地case的零值指真实外部平台/SDK业务；测试receiver每次实际run最多8个loopback连接、5秒，平台层次数仍未冻结。",
+        "max_loopback_connections_per_receiver_run": 8,
+        "max_seconds_per_receiver_run": 5
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "本地关闭监听/连接，显式清理合成inbox；无外部状态改变。",
+      "source_refs": [
+        "docs/plans/2026-11-18-webhook-receiver.md",
+        "docs/research/2026-11-17-message-scope-review.md",
+        "docs/coordination/SP094/source-facts.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "raw_bytes_and_signature_before_parse": "pending",
+        "regional_timestamp_policy": "pending",
+        "bounded_inbox_and_dedup_semantics": "pending",
+        "sensitive_data_not_in_public_output": "pending"
+      },
+      "result": "pending_execution",
+      "blockers": [],
+      "limitations": [
+        "离线/loopback通过不升级为平台或设备事件验收；unsigned投递和消息消费/确认等其它协议仍保留。"
+      ]
+    },
+    {
+      "case_id": "ACC-WEBHOOK-HTTP-001",
+      "tier": "required",
+      "case_origin": "bounded_webhook_receiver_cohort",
+      "capability_selector": "integration:webhooks.bounded_receiver",
+      "capability_ids": [
+        "integration:webhooks.bounded_receiver"
+      ],
+      "operation_ids": [],
+      "scope_revision": "2026-11-18-r8-webhook-receiver-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic_and_overseas_signature_profiles_synthetic_only",
+      "account_role_permissions": "仅合成secret；不读取真实配置或凭据。",
+      "device_requirements": "无需真实设备。",
+      "surface": [
+        "loopback_http"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "按冻结计划构造，fixtures全部合成；默认禁止外部网络。",
+        "SDK webhooks helpers及诊断自动采集边界保持；示例独立计数不冒充SDK recorder。"
+      ],
+      "expected_evidence": {
+        "read": "核对计划第3节中本case对应层，记录实际命令与结果；raw bytes验签、内存受理、重复/冲突、固定错误、安全输出和退出资源边界均不能只用文件存在证明。",
+        "write": "仅合成请求，零外部SDK业务。",
+        "physical": "无真实物理效果结论。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "本地case的零值指真实外部平台/SDK业务；测试receiver每次实际run最多8个loopback连接、5秒，平台层次数仍未冻结。",
+        "max_loopback_connections_per_receiver_run": 8,
+        "max_seconds_per_receiver_run": 5
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "本地关闭监听/连接，显式清理合成inbox；无外部状态改变。",
+      "source_refs": [
+        "docs/plans/2026-11-18-webhook-receiver.md",
+        "docs/research/2026-11-17-message-scope-review.md",
+        "docs/coordination/SP094/source-facts.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "real_loopback_http_to_inbox_and_ACK": "pending",
+        "absolute_header_body_and_run_deadlines": "pending",
+        "fixed_http_errors_and_no_reflection": "pending",
+        "bounded_connections_and_cleanup": "pending"
+      },
+      "result": "pending_execution",
+      "blockers": [],
+      "limitations": [
+        "离线/loopback通过不升级为平台或设备事件验收；unsigned投递和消息消费/确认等其它协议仍保留。"
+      ]
+    },
+    {
+      "case_id": "ACC-WEBHOOK-CLI-001",
+      "tier": "required",
+      "case_origin": "bounded_webhook_receiver_cohort",
+      "capability_selector": "integration:webhooks.bounded_receiver",
+      "capability_ids": [
+        "integration:webhooks.bounded_receiver"
+      ],
+      "operation_ids": [],
+      "scope_revision": "2026-11-18-r8-webhook-receiver-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic_and_overseas_signature_profiles_synthetic_only",
+      "account_role_permissions": "仅合成secret；不读取真实配置或凭据。",
+      "device_requirements": "无需真实设备。",
+      "surface": [
+        "cli_example"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "按冻结计划构造，fixtures全部合成；默认禁止外部网络。",
+        "SDK webhooks helpers及诊断自动采集边界保持；示例独立计数不冒充SDK recorder。"
+      ],
+      "expected_evidence": {
+        "read": "核对计划第3节中本case对应层，记录实际命令与结果；raw bytes验签、内存受理、重复/冲突、固定错误、安全输出和退出资源边界均不能只用文件存在证明。",
+        "write": "仅合成请求，零外部SDK业务。",
+        "physical": "无真实物理效果结论。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "本地case的零值指真实外部平台/SDK业务；测试receiver每次实际run最多8个loopback连接、5秒，平台层次数仍未冻结。",
+        "max_loopback_connections_per_receiver_run": 8,
+        "max_seconds_per_receiver_run": 5
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "本地关闭监听/连接，显式清理合成inbox；无外部状态改变。",
+      "source_refs": [
+        "docs/plans/2026-11-18-webhook-receiver.md",
+        "docs/research/2026-11-17-message-scope-review.md",
+        "docs/coordination/SP094/source-facts.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "explicit_start_and_no_import_listener": "pending",
+        "hidden_secret_and_no_env_config_read": "pending",
+        "safe_output_and_return_codes": "pending",
+        "help_and_non_tty_behavior": "pending"
+      },
+      "result": "pending_execution",
+      "blockers": [],
+      "limitations": [
+        "离线/loopback通过不升级为平台或设备事件验收；unsigned投递和消息消费/确认等其它协议仍保留。"
+      ]
+    },
+    {
+      "case_id": "ACC-WEBHOOK-PLATFORM-CN-001",
+      "tier": "required",
+      "case_origin": "bounded_webhook_receiver_cohort",
+      "capability_selector": "integration:webhooks.bounded_receiver",
+      "capability_ids": [
+        "integration:webhooks.bounded_receiver"
+      ],
+      "operation_ids": [],
+      "scope_revision": "2026-11-18-r8-webhook-receiver-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "消息服务和账户/套餐/签名/回调配置待核；配置变更需具体授权。",
+      "device_requirements": "代表事件及设备/型号与触发方式待资源确认，不能以模拟消息代替设备事件。",
+      "surface": [
+        "platform_callback"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "先核定实际服务/地区/集群、回调入口、secret本地配置和具体消息类型。",
+        "冻结事件触发、重复投递及受控失败注入的窗口和次数。",
+        "涉及开通/修改服务、控制台消息测试或设备写入时取得具体范围与必要恢复方案授权；已有国内只读授权不覆盖这些操作。"
+      ],
+      "expected_evidence": {
+        "read": "真实平台回调收到并按来源规则ACK；核验真实设备事件、重投/重复和受控失败路径。控制台模拟仅证明平台到接收器，不能代替设备到平台。",
+        "write": "所有配置/触发/失败注入限定于事先授权范围，恢复原配置并记录恢复结果。",
+        "physical": "只对已冻结代表事件链作结论，不从HTTP成功推导所有硬件功能正确。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "尚无可执行的平台次数/窗口授权，禁止运行。"
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "恢复原回调与消息类型；国内App提醒影响按平台客服/工单方案确认，当前未授权变更。",
+      "source_refs": [
+        "docs/plans/2026-11-18-webhook-receiver.md",
+        "docs/research/2026-11-17-message-scope-review.md",
+        "docs/coordination/SP094/source-facts.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {},
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "用户尚不清楚服务与回调配置；配置类操作授权及恢复方案未冻结。"
+      ],
+      "limitations": [
+        "离线/loopback通过不升级为平台或设备事件验收；unsigned投递和消息消费/确认等其它协议仍保留。"
+      ],
+      "resource_state": "unknown_awaiting_configuration_check"
+    },
+    {
+      "case_id": "ACC-WEBHOOK-PLATFORM-OS-001",
+      "tier": "required",
+      "case_origin": "bounded_webhook_receiver_cohort",
+      "capability_selector": "integration:webhooks.bounded_receiver",
+      "capability_ids": [
+        "integration:webhooks.bounded_receiver"
+      ],
+      "operation_ids": [],
+      "scope_revision": "2026-11-18-r8-webhook-receiver-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:cluster_not_frozen",
+      "account_role_permissions": "消息服务和账户/套餐/签名/回调配置待核；配置变更需具体授权。",
+      "device_requirements": "代表事件及设备/型号与触发方式待资源确认，不能以模拟消息代替设备事件。",
+      "surface": [
+        "platform_callback"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "先核定实际服务/地区/集群、回调入口、secret本地配置和具体消息类型。",
+        "冻结事件触发、重复投递及受控失败注入的窗口和次数。",
+        "涉及开通/修改服务、控制台消息测试或设备写入时取得具体范围与必要恢复方案授权；已有国内只读授权不覆盖这些操作。"
+      ],
+      "expected_evidence": {
+        "read": "真实平台回调收到并按来源规则ACK；核验真实设备事件、重投/重复和受控失败路径。控制台模拟仅证明平台到接收器，不能代替设备到平台。",
+        "write": "所有配置/触发/失败注入限定于事先授权范围，恢复原配置并记录恢复结果。",
+        "physical": "只对已冻结代表事件链作结论，不从HTTP成功推导所有硬件功能正确。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "尚无可执行的平台次数/窗口授权，禁止运行。"
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "恢复原回调与消息类型；国内App提醒影响按平台客服/工单方案确认，当前未授权变更。",
+      "source_refs": [
+        "docs/plans/2026-11-18-webhook-receiver.md",
+        "docs/research/2026-11-17-message-scope-review.md",
+        "docs/coordination/SP094/source-facts.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {},
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "服务/回调资源与配置授权未冻结；海外尚无已绑定设备。"
+      ],
+      "limitations": [
+        "离线/loopback通过不升级为平台或设备事件验收；unsigned投递和消息消费/确认等其它协议仍保留。"
+      ],
+      "resource_state": "user_confirmed_no_bound_device"
     }
   ],
   "release_gates": [

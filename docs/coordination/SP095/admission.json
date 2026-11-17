@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "cohort_id": "WEBHOOK-RECEIVER-001",
+  "baseline_commit": "9285fcfd87b0074021f3e5dcd997bc22d9b828b8",
+  "input_after_SP094": {
+    "scope": "885b3067528c6c3fb2aa5d702a5f8cc9bc7c3a663a3bfd3fe0bd01a4913d5569",
+    "acceptance": "121fa0e55bec7c40af6f182c1f4597129a9ec7d042707845d813ebe2d897f7b8"
+  },
+  "plan_sha256": "2a25be37cd7cbdc3c8b8e5c3a6888f3f8d4db2941e33846ca191c1bef36ddad8",
+  "output_scope_sha256": "6af48a97126fe20d478368c47eba2f537f1558ed658643ce46469f29d00f957f",
+  "output_acceptance_sha256": "1dbf3921404cd68043f2f20f1c6ba98b29cbc188215f0abc44032453cbc20003",
+  "G0_reused": "docs/coordination/SP030/admission.json",
+  "G1_decision": "admit_local_repository_receiver_implementation_only",
+  "basis": [
+    "国内原始bytes/HMAC/ACK与毫秒事实见SP007。",
+    "海外2392 e29/e81/e99直接支持同算法与UTF8，未推断t单位。",
+    "接口/输入/容量/超时/ACK/重投和固定输出的本地设计已写入计划。",
+    "三项本地case已先冻结；平台资源未知不阻塞独立本地实现。"
+  ],
+  "no_new_sdk_business_operation": true,
+  "sdk_diagnostics_boundary_preserved": true,
+  "platform_enablement_or_real_callback_execution_authorized": false,
+  "other_required_scope_preserved": true,
+  "product_complete": false,
+  "pre_implementation_clarification": "计数分层与正常结束原因明确化；未改变协议、文件范围或待执行验收。",
+  "implementation_route_update": "大块原生生成遇到终态服务断流；拆出内部DeadlineSocketIO，公共接口/协议/验收不变。",
+  "hash_semantics_note": "input/output scope/acceptance hashes describe the historical output of this named stage, not the current files after later updates. They are preserved and do not imply any new execution.",
+  "plan_reference_note": "plan_sha256 is the current authoritative plan reference after clarification/internal I/O split. It is not asserted to be the original admission-plan hash or new execution evidence."
+}
