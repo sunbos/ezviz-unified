@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "case_id": "ACC-OS-PUBLIC-AREAS-OFFLINE-001",
+  "code_commit": "58e7881a3e7aee4c3ffc431b5016b019cefb447c",
+  "evidence": "actual_command_results_and_scoped_code_review",
+  "summary": {
+    "sdk_harness_targeted_passed": 327,
+    "example_tests_passed": 22,
+    "full_suite_passed": 4580,
+    "full_suite_subtests_passed": 35,
+    "registered_contracts_evaluated": 204,
+    "wire_executions_passed": 1664,
+    "wire_failed": 0,
+    "mypy_source_files": 43,
+    "diagnostic_business_entries": 133
+  },
+  "initial_targeted_result": {
+    "passed": 311,
+    "failed": 3,
+    "status": "failed_then_revised",
+    "fixes": [
+      "exact facade/request diagnostic expectations",
+      "isolated CLI argv",
+      "additional diagnostic failure parity and bounded CLI summary"
+    ]
+  },
+  "steps": [
+    {
+      "task": "SP026R1-sdk-tests",
+      "command": ".venv/bin/python -m pytest -q tests/test_sdk_public_areas.py tests/test_harness_public_areas.py tests/test_harness_diagnostic_coverage.py",
+      "actual_tool_result_is_error": false,
+      "execution_receipt_sha256": "dfc00aa4de0a3a6935d37cf88b994c4bc65df78101a291a8a968bc622b6a7256",
+      "model": "devin/swe-2",
+      "effort": "max"
+    },
+    {
+      "task": "SP026R1-example",
+      "command": ".venv/bin/python -m pytest -q tests/test_examples_public_areas.py",
+      "actual_tool_result_is_error": false,
+      "execution_receipt_sha256": "4eec68e5c99854541830107206803810b2adf4b025792af7feb39f7ded8a65c2",
+      "model": "devin/swe-2",
+      "effort": "max"
+    },
+    {
+      "task": "SP026-audit",
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "actual_tool_result_is_error": false,
+      "execution_receipt_sha256": "95ebf8a9d4fb26bb61a23e1f1cd60a99be0458facc91df8c49af9ce0d6fa0420",
+      "model": "devin/swe-2",
+      "effort": "max"
+    },
+    {
+      "task": "SP026-eval",
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "actual_tool_result_is_error": false,
+      "execution_receipt_sha256": "058fc222a6631c880d1183ae6aaeafb505f541f8f93f4fceccfa1e9ba0ee86d1",
+      "model": "devin/swe-2",
+      "effort": "max"
+    },
+    {
+      "task": "SP026-types",
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "actual_tool_result_is_error": false,
+      "execution_receipt_sha256": "78cace3e9d239d31c6a5f212c6ae8b2d2e821c17534cee4fbca42bcb93d7a536",
+      "model": "devin/swe-2",
+      "effort": "max"
+    },
+    {
+      "task": "SP026R1-lint",
+      "command": ".venv/bin/python -m ruff check tests/test_sdk_public_areas.py tests/test_harness_public_areas.py tests/test_examples_public_areas.py examples/public_areas.py",
+      "actual_tool_result_is_error": false,
+      "execution_receipt_sha256": "bbef4f548d594dead5402898d87eda300fa4e23c9aa086b20a45415210a6f205",
+      "model": "devin/swe-2",
+      "effort": "max"
+    },
+    {
+      "task": "SP026-format-final",
+      "command": ".venv/bin/python -m ruff format --check tests/test_sdk_public_areas.py tests/test_harness_public_areas.py tests/test_examples_public_areas.py",
+      "actual_tool_result_is_error": false,
+      "execution_receipt_sha256": "ec028aa54a57a26ca3a01cbb362bc67366fcd2af28e3d11f1dc49d6a161b75ab",
+      "model": "devin/swe-2",
+      "effort": "max"
+    },
+    {
+      "task": "SP026-full",
+      "command": ".venv/bin/python -m pytest -q",
+      "actual_tool_result_is_error": false,
+      "execution_receipt_sha256": "e0067fc2c2eed827a0c076fa805f9ecc895042b0f0ad397c333c80141b1fea65",
+      "model": "devin/swe-2",
+      "effort": "max"
+    },
+    {
+      "task": "SP026-build",
+      "command": ".venv/bin/python -m build",
+      "actual_tool_result_is_error": false,
+      "execution_receipt_sha256": "aea56767da50e8c4274728eef16c8d5af09b2fd4c679500fb3b819959faa5e32",
+      "model": "devin/swe-2",
+      "effort": "max"
+    },
+    {
+      "task": "SP026-artifacts",
+      "command": ".venv/bin/python tools/release/check_artifacts.py",
+      "actual_tool_result_is_error": false,
+      "execution_receipt_sha256": "b796d7f9d0e6cddb33a8bf521d1457ea2f5123a2c765afedec50d3be0734d1d0",
+      "model": "devin/swe-2",
+      "effort": "max"
+    },
+    {
+      "task": "SP026-twine",
+      "command": ".venv/bin/python -m twine check dist/*",
+      "actual_tool_result_is_error": false,
+      "execution_receipt_sha256": "3996ea7c802c9a1e6678b670836d2e1ee262b3f110965aff0e198de96ff7f08f",
+      "model": "devin/swe-2",
+      "effort": "max"
+    },
+    {
+      "task": "SP026-installations",
+      "command": ".venv/bin/python tools/release/verify_installations.py --installer pip",
+      "actual_tool_result_is_error": false,
+      "execution_receipt_sha256": "ab4b08303cdfa96163ef884e316b51f2caf05b0e59d966f89a3d554bbcb115ff",
+      "model": "devin/swe-2",
+      "effort": "max"
+    }
+  ],
+  "artifacts": {
+    "artifacts": [
+      {
+        "filename": "ezviz_unified-0.1.0a1-py3-none-any.whl",
+        "kind": "wheel",
+        "member_count": 49,
+        "sha256": "423e80171a6d4a4baa1ab663c3cce6990cc6f39c050cc2bafe4a366451c19518"
+      },
+      {
+        "filename": "ezviz_unified-0.1.0a1.tar.gz",
+        "kind": "sdist",
+        "member_count": 116,
+        "sha256": "524fe8f8efac59559612242db02ef4ee147411f6fb0bcaa573adf89e7a48f167"
+      }
+    ],
+    "name": "ezviz-unified",
+    "validation": "metadata_and_contents_only",
+    "version": "0.1.0a1"
+  },
+  "clean_installation": {
+    "installer": "pip",
+    "name": "ezviz-unified",
+    "offline": false,
+    "python": "3.12.13",
+    "real_api_used": false,
+    "results": [
+      {
+        "artifact_sha256": "423e80171a6d4a4baa1ab663c3cce6990cc6f39c050cc2bafe4a366451c19518",
+        "clean_install": true,
+        "filename": "ezviz_unified-0.1.0a1-py3-none-any.whl",
+        "install_offline": false,
+        "kind": "wheel",
+        "smoke": "Installed SDK sync/async mock smoke passed"
+      },
+      {
+        "artifact_sha256": "524fe8f8efac59559612242db02ef4ee147411f6fb0bcaa573adf89e7a48f167",
+        "clean_install": true,
+        "filename": "ezviz_unified-0.1.0a1.tar.gz",
+        "install_offline": false,
+        "kind": "sdist",
+        "smoke": "Installed SDK sync/async mock smoke passed",
+        "source_archive_tests": "2744 passed in 10.21s"
+      }
+    ],
+    "source_tests": true,
+    "validation": "clean_install_and_offline_smoke",
+    "version": "0.1.0a1"
+  },
+  "wire_report_boundary": "require-all CLI actual tool result reports204 contracts/1664 passed cells; the CLI checked its complete worker report. The external Claude output-file link expired, so no separately retained per-cell output is claimed.",
+  "sdk_source_sha256": {
+    "src/ezviz_unified/__init__.py": "a5d9aa7a6c7fd008899e32205543d4e4e646f71f492b0ffc1e87c3738bd2f115",
+    "src/ezviz_unified/_diagnostic_registry.py": "602767ad93d3ecfd924180cbf5fe3380546f5382476eeb22850545f1e3bae5cc",
+    "src/ezviz_unified/_path.py": "d292b93654b81af90276cdf508035353e382a5ab25efd97f88b8acc1376077bc",
+    "src/ezviz_unified/_request_values.py": "01c7484f52e36b6b173a6151e378ca7a90c814f872b7e5e011cc6b6a93bc194d",
+    "src/ezviz_unified/alarms.py": "b8563da22258056976bceade05306cd7d34097e098a591d65dbfad8ffb5428e0",
+    "src/ezviz_unified/arming.py": "687f954f1312f74436aebde3ec9a0ffbdf331027c5effffdad14cb8fd191602b",
+    "src/ezviz_unified/auth.py": "e6b53a75fefa81af507c6a7ab2fd2bbfc60420092f82152e5bde631d9608c9b1",
+    "src/ezviz_unified/auth_models.py": "206afefa42e605b7b1f2567b8f2f48a572e7cc9067fa25fd8f4247a7fc345ad6",
+    "src/ezviz_unified/client.py": "0753611ab6ed25306aba122f8db0d31f0780ac8b8cd8c441d5a929cddf211f52",
+    "src/ezviz_unified/cloud_recording.py": "502c0376e4b6fe0b4b4d4847acf0b269e279cb1f39dd2f7a07f3a2967a856733",
+    "src/ezviz_unified/cloud_recording_plans.py": "95b9f270439d9e281ca006f197ddcfe6121531c16e6a528de9df20616278a6e9",
+    "src/ezviz_unified/cloud_storage.py": "13a56120d13f5105ee690e06b52567d058f41cb796f719c72dec9d0873739faf",
+    "src/ezviz_unified/components.py": "b9e52a4440ce92101977717c5f1186f3d176363f449241c95b6d6b997dbaafdc",
+    "src/ezviz_unified/cruise.py": "495b6448f91183629e8f086c58cbb5567b390eb2d718150714e965949861dd7f",
+    "src/ezviz_unified/delegation.py": "0dea0991d445deb7253a76efbd5ed33cef744488d05a9fa604d7535410eff786",
+    "src/ezviz_unified/devices.py": "954b87af61b41c87a755157143f51057432d1502ad83bd345ff9ed5e5296adfa",
+    "src/ezviz_unified/diagnostic_report.py": "a51bc53010fe8e62e41f2b43cc57390562bccc84b67c03d529c69edff2558083",
+    "src/ezviz_unified/diagnostics.py": "f8bb12a10e5e7581560c3e0fc06a637ad257f4e42de8e0490c934577117396df",
+    "src/ezviz_unified/errors.py": "4eb697065529ae95eac0f6d6f07a675527c0b62358a6d0975d6acb15be8b4437",
+    "src/ezviz_unified/illumination.py": "c0938903c3de36bb18c6e8d24c410698fd1f82f7a8c08a96a510b0a77ac65d38",
+    "src/ezviz_unified/imaging.py": "c4b2bcdd6da6f93126b922c4007845c4faf10ff7933d754d1c14a955f749b4b9",
+    "src/ezviz_unified/inspection.py": "65ec20d3ef66e2b18b9e68b43e6a4d37cbae4d88c3141ac8e5a3214b49f0866a",
+    "src/ezviz_unified/maintenance.py": "76a65c07243498b2544495a4ca98903f688c7be627cc2128324dd7d1d5bd5128",
+    "src/ezviz_unified/management.py": "58dfb523feb7c9c8c5880b84e6448db20e01e6b2050cc3fb4be4590895b68908",
+    "src/ezviz_unified/models.py": "e578f021b578fdfef49e6dd5b0e138d6fd61bc4a5a4c2af355562562b65a2d71",
+    "src/ezviz_unified/operations.py": "fda7103e1b0e1bce9eda49fa7ec39083e38ad27b90e5352c5cf2f6d63a17944f",
+    "src/ezviz_unified/otap.py": "3742ebabb58cab972d87296a536ed46b3ee4958a44380d2b0036eddb736f89ed",
+    "src/ezviz_unified/ownership.py": "0d7e55e673e639cef84fe39b3bd72834227ebc4bed683610b1308624dc21ae69",
+    "src/ezviz_unified/playback.py": "9186a3d033816ca84e6b1123a14f5751bee87a2b76215be3a9f81bd5e36d33c8",
+    "src/ezviz_unified/providers.py": "3095319721e73cc1923348722d8ff8e6f5133c99c47d64d3a5a6f32a04576940",
+    "src/ezviz_unified/ptz.py": "5129116dc216ec7fa93bf7af2ab10260c18d28b4cf0a98f3e834f3bdfa1bc2ca",
+    "src/ezviz_unified/ram_models.py": "ef21cda34746714fa889ef82af20fb42768cf56273a4e965ed25c2b8a80b4f0d",
+    "src/ezviz_unified/recordings.py": "fddeb6d54632044c3152fc47c75cfa47e0ff90c8470365264f28be938cc54c2f",
+    "src/ezviz_unified/response.py": "2eb50d65ec3fc8b65049c3863ba51c033a8e895af646b771d34f966fe0ec4db7",
+    "src/ezviz_unified/security.py": "44b174a7d4452e1c30af08c42fe2474e2c6e427f98b3955400948340098af7c6",
+    "src/ezviz_unified/settings.py": "2c472a620d1159fe78ff44020813c94a3233ffc3f6793d2c4ad0e1fefe5bdc1d",
+    "src/ezviz_unified/snapshots.py": "40b3f5036f014aca82c96e778476dfd3bdb0c54bd0910b1dbd9e3fbaad2021cb",
+    "src/ezviz_unified/storage.py": "9ac47a0c0f14a83191c977ce0b94c0e00a0b5a563b297dfc8f11f51c4fe15829",
+    "src/ezviz_unified/storage_models.py": "29f0798d82c8acca2b87c6414ef7a02e92597320ef833f40d5a286775afddada",
+    "src/ezviz_unified/subaccounts.py": "b5580261419fce7da353f78e2f49b48a2028c00af3e85d6aac30aaed6ca8cbed",
+    "src/ezviz_unified/transport.py": "39a7f91201aaf204f12e6edb05e9a1d7d570689f1a8d52b327926a5fd5101cfd",
+    "src/ezviz_unified/video.py": "32eed052c976f09776384db882b8bfa802aefe5a9a0736f748384df4265d5ac1",
+    "src/ezviz_unified/webhooks.py": "a3f16dc9e1cf1b6236e3a91e947676546b1a3067200d13e289cfc349bcffa70f"
+  },
+  "candidate_only": true,
+  "pypi_published": false,
+  "product_complete": false
+}

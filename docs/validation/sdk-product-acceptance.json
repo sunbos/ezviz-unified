@@ -11,18 +11,34 @@
     "bounded.max_requests / max_operations are null and freeze_required=true wherever no executed tool or explicit authorization defines a bound; no values are invented for unknown devices, accounts, or counts.",
     "result distinguishes recorded_evidence (an existing evidence file) from awaiting_resource_confirmation, awaiting_authorization, awaiting_design, blocked, and pending_execution; blocked is never counted as passed. resource_state qualifies resource readiness (e.g. user_confirmed_no_bound_device, unknown_awaiting_configuration_check) and never marks a row complete.",
     "The domestic sync row's 7-request bound and 6-business-logical-call count come from tools/live/verify_diagnostics.py (the executor of the 2026-11-16-diagnostics-v1 receipt): devices.list plus the inspect_device five (get/channels/status/capabilities/version) = 6 business logical entries, plus one auth HTTP call = 7 total; verify_devices.py is not the executor of that receipt.",
-    "No tokens, serials, raw business responses, or account/device identifiers appear in this file."
+    "ACC-OS-PUBLIC-AREAS-OFFLINE-001 and ACC-OS-PUBLIC-AREAS-SDK-001 freeze the public country/region directory interface and cases for scope_revision 2026-11-17-r1 (capability candidate:overseas:469:1.12, registry operation global.settings.list_areas, runtime/diagnostic entrypoint settings.list_areas). freeze_state=frozen_for_implementation fixes these conditions as the implementation contract only; it does not grant G0/G1 admission, live execution, or release, and product scope stays provisional_pending_capability_review.",
+    "For the offline area case, bounded.max_requests=0 / max_operations=0 refers to real cloud requests and business effects only; finite MockTransport calls inside tests are not claimed as real operations. For the SDK case, max_requests=2 / max_operations=2 covers one sync + one async anonymous call to the frozen documented origin only.",
+    "The 2026-11-16 SP016 raw HTTP observation (one anonymous GET, HTTP 200, code \"200\", 240 items) is protocol-structure evidence only, not an SDK test, and is not inherited as live success; 240 is not a frozen count. The source declares GET and POST; the SDK selects GET only, and POST request shape/auth stay unknown as a source issue rather than a fabricated declared_pair.",
+    "No tokens, serials, raw business responses, or account/device identifiers appear in this file.",
+    "SP036 records only the two public-area cases as passed on SDK commit58e7881a3e7aee4c3ffc431b5016b019cefb447c; all other existing cases and release gates are unchanged. Product completion remains false."
   ],
   "case_schema": {
     "case_id": "stable identifier",
     "tier": "required | scenario",
     "capability_selector": "capability_id, operation_id set, or domain label; may reference reviewed contracts by prefix",
+    "capability_ids": "optional explicit capability-id list for concrete cases bound to the scope register; a candidate: id keeps the source lineage and does not itself mean admission",
+    "operation_ids": "optional explicit registry operation_id list (e.g. global.settings.list_areas); distinct from runtime/diagnostic entrypoint names such as settings.list_areas",
+    "scope_revision": "optional scope-register revision tag (e.g. 2026-11-17-r1) that this case's inputs were frozen against",
+    "freeze_state": "optional freeze qualifier; frozen_for_implementation means the interface and case conditions below are fixed as the implementation contract, not that G0/G1 admission, live execution, or release has been approved",
+    "template_case_id": "optional link from a concrete instance back to the template/policy row it was derived from",
     "region_cluster": "domestic | overseas:<cluster> | n/a",
     "account_role_permissions": "role/permission class only; never a real identity",
     "device_requirements": "device class requirements only; no real identifiers",
-    "surface": ["sync", "async", "cli_example", "installed_package"],
+    "surface": [
+      "sync",
+      "async",
+      "cli_example",
+      "installed_package"
+    ],
     "risk": "read_only | write_bounded | destructive_guarded | release | offline_only",
-    "preconditions": ["..."],
+    "preconditions": [
+      "..."
+    ],
     "expected_evidence": {
       "read": "...",
       "write": "...",
@@ -35,11 +51,21 @@
     },
     "authorization_status": "recorded | reuse_existing_scope | awaiting_resource_confirmation | awaiting_authorization | not_authorized | n/a",
     "recovery_plan": "...",
-    "source_refs": ["..."],
-    "code_artifact_evidence_refs": ["..."],
+    "source_refs": [
+      "..."
+    ],
+    "code_artifact_evidence_refs": [
+      "..."
+    ],
+    "criterion_assessment": "optional per-criterion assessment map: each key names a frozen criterion and its value is pending | met | not_met | not_applicable (with an explicit applicability reason); a file's mere existence never sets met",
     "result": "recorded_evidence | awaiting_resource_confirmation | awaiting_authorization | awaiting_design | blocked | pending_execution",
-    "resource_state": "optional qualifier on resource readiness, e.g. user_confirmed_no_bound_device | unknown_awaiting_configuration_check; never marks a row complete",
-    "blockers": ["..."]
+    "resource_state": "optional qualifier on resource readiness, e.g. user_confirmed_no_bound_device | unknown_awaiting_configuration_check | not_applicable with reason; never marks a row complete",
+    "blockers": [
+      "..."
+    ],
+    "execution_outcome": "optional observed execution outcome; passed requires matching criterion evidence",
+    "execution_evidence_refs": "optional immutable command/live receipt references; results are not inferred from file existence",
+    "verified_code_commit": "optional exact SDK code commit tested; does not imply current future commits were live-tested"
   },
   "cases": [
     {
@@ -49,7 +75,9 @@
       "region_cluster": "domestic (open.ys7.com)",
       "account_role_permissions": "developer appKey/appSecret; ordinary device scope",
       "device_requirements": "first ordinary device from page_size=1 list; channel 1",
-      "surface": ["sync"],
+      "surface": [
+        "sync"
+      ],
       "risk": "read_only",
       "preconditions": [
         "authorized domestic developer credentials",
@@ -91,7 +119,9 @@
       "region_cluster": "domestic (open.ys7.com)",
       "account_role_permissions": "developer appKey/appSecret; ordinary device scope",
       "device_requirements": "same first-ordinary-device / channel 1 policy as the sync row",
-      "surface": ["async"],
+      "surface": [
+        "async"
+      ],
       "risk": "read_only",
       "preconditions": [
         "authorized domestic developer credentials",
@@ -129,7 +159,9 @@
       "region_cluster": "domestic (open.ys7.com)",
       "account_role_permissions": "developer appKey/appSecret; ordinary device scope",
       "device_requirements": "same read-only device policy; CLI must not widen it",
-      "surface": ["cli_example"],
+      "surface": [
+        "cli_example"
+      ],
       "risk": "read_only",
       "preconditions": [
         "authorized domestic developer credentials via the local loopback form",
@@ -172,7 +204,10 @@
       "region_cluster": "overseas: singapore (isgpopen.ezvizlife.com)",
       "account_role_permissions": "none required; unauthenticated public catalog",
       "device_requirements": "none",
-      "surface": ["sync", "async"],
+      "surface": [
+        "sync",
+        "async"
+      ],
       "risk": "read_only",
       "preconditions": [
         "reachable overseas regional host"
@@ -208,7 +243,9 @@
       "region_cluster": "overseas: singapore (isgpopen.ezvizlife.com)",
       "account_role_permissions": "developer appKey/appSecret; recorded account only",
       "device_requirements": "none (empty list observed)",
-      "surface": ["sync"],
+      "surface": [
+        "sync"
+      ],
       "risk": "read_only",
       "preconditions": [
         "authorized overseas developer credentials for the recorded account",
@@ -247,7 +284,9 @@
       "region_cluster": "overseas: cluster to be confirmed per account",
       "account_role_permissions": "developer appKey/appSecret; device-visible scope unknown",
       "device_requirements": "at least one ordinary device bound and visible to the authorized account; channel 1",
-      "surface": ["sync"],
+      "surface": [
+        "sync"
+      ],
       "risk": "read_only",
       "preconditions": [
         "an overseas account that actually has a bound device and a confirmed regional origin",
@@ -285,7 +324,10 @@
       "region_cluster": "per domain",
       "account_role_permissions": "per domain; contract-declared only",
       "device_requirements": "per domain",
-      "surface": ["sync", "async"],
+      "surface": [
+        "sync",
+        "async"
+      ],
       "risk": "offline_only",
       "preconditions": [
         "domain admitted with a reviewed contract set and bindings",
@@ -327,7 +369,10 @@
       "region_cluster": "per service enablement",
       "account_role_permissions": "service-enabled account with message push configured and an independent secret",
       "device_requirements": "a target type whose events generate real platform messages",
-      "surface": ["sync", "async"],
+      "surface": [
+        "sync",
+        "async"
+      ],
       "risk": "read_only",
       "preconditions": [
         "message push service enabled for the account",
@@ -371,7 +416,9 @@
       "region_cluster": "per component support",
       "account_role_permissions": "per token type (platform token vs playback/RTC token; not interchangeable)",
       "device_requirements": "a device supporting the media feature under test",
-      "surface": ["sync"],
+      "surface": [
+        "sync"
+      ],
       "risk": "read_only",
       "preconditions": [
         "a documented integration plan naming the official component, its version, and the SDK-side calls it needs",
@@ -405,7 +452,10 @@
       "region_cluster": "per resource scope",
       "account_role_permissions": "explicitly authorized account and resource scope only",
       "device_requirements": "a specifically designated device/subject with confirmed consent",
-      "surface": ["sync", "async"],
+      "surface": [
+        "sync",
+        "async"
+      ],
       "risk": "write_bounded",
       "preconditions": [
         "concrete resource scope (which device/account/resource)",
@@ -433,6 +483,186 @@
       "result": "awaiting_authorization",
       "blockers": [
         "No write, bind/unbind, permission change, paid operation, upgrade, delete, or format is authorized for automatic execution. Each must be bound to a concrete acceptance row, frozen (resource scope, count, cost cap, recovery), and explicitly authorized first."
+      ]
+    },
+    {
+      "case_id": "ACC-OS-PUBLIC-AREAS-OFFLINE-001",
+      "tier": "required",
+      "capability_selector": "settings.list_areas (public country/region directory)",
+      "capability_ids": [
+        "candidate:overseas:469:1.12"
+      ],
+      "operation_ids": [
+        "global.settings.list_areas"
+      ],
+      "scope_revision": "2026-11-17-r1",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "overseas: public origin open.ezvizlife.com (documented source origin; no cluster derivation)",
+      "account_role_permissions": "none required; unauthenticated public catalog",
+      "device_requirements": "none",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "G0/G1 scope-register admission reviewed before implementation begins (frozen_for_implementation is not admission)",
+        "implementation uses only synthetic fixtures and MockTransport; SDK tests do not import harness/eval/docs/data internals",
+        "diagnostic coverage manifest, ENTRYPOINTS/OPERATIONS whitelist, registry/bindings/eval cases, and source issues are updated to include settings.list_areas / global.settings.list_areas"
+      ],
+      "expected_evidence": {
+        "read": "offline wire conformance for Settings.list_areas/AsyncSettings.list_areas against synthetic fixtures: exactly one business request each, GET /api/lapp/area/list with no query, empty body, no accessToken/Authorization anywhere on the wire, and zero token-provider calls even when the client holds a refreshable provider; successful ApiResponse preserves extra data fields and an empty data array verbatim; domestic region, missing public api_base_url, and closed client fail before any request via existing error semantics; business/transport/format errors are not retried; async cancellation propagates and aclose completes; diagnostic on/off does not change return values or exception semantics, each mode covers success/precondition-validation/business-failure/transport-failure paths, and the diagnostic registry/operation-name whitelist/coverage manifest/audit stay consistent",
+        "write": "none",
+        "physical": "none; public catalog does not touch hardware"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "n/a",
+      "source_refs": [
+        "docs/plans/2026-11-17-public-area-directory.md",
+        "docs/plans/2026-11-17-capability-scope-register.md",
+        "docs/capabilities/overseas-review-candidates.json (candidate:overseas:469:1.12)",
+        "docs/validation/live/2026-11-17-public-area-directory/raw-http.json",
+        "docs/validation/live/2026-11-17-public-area-directory/README.md"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/transport.py",
+        "src/ezviz_unified/operations.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "contracts/source-issues.json",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_settings.py",
+        "tests/test_sdk_settings_extended.py",
+        "tests/test_sdk_anonymous.py",
+        "tests/test_harness_public_operations.py",
+        "tests/test_harness_diagnostic_coverage.py"
+      ],
+      "criterion_assessment": {
+        "sync_exact_get_empty_query_body_no_token": "met",
+        "async_exact_get_empty_query_body_no_token": "met",
+        "provider_never_called_including_client_holding_provider": "met",
+        "success_data_extra_fields_and_empty_array_preserved": "met",
+        "domestic_region_fails_before_request": "met",
+        "missing_public_api_base_url_fails_before_request": "met",
+        "closed_client_fails_before_request": "met",
+        "business_transport_format_errors_not_retried": "met",
+        "async_cancellation_propagates": "met",
+        "diagnostic_on_off_return_and_exception_parity": "met",
+        "diagnostic_whitelist_and_coverage_audit_updated": "met",
+        "synthetic_fixtures_only_no_harness_import_in_sdk_tests": "met"
+      },
+      "result": "recorded_evidence",
+      "resource_state": "not_applicable (offline-only; no real account/device/cluster resources required)",
+      "historical_freeze_notes": [
+        "Interface and case conditions are frozen_for_implementation only: they fix the implementation contract but do not grant G0 scope ratification or G1 cohort admission, and do not mark live execution or release as approved.",
+        "The 2026-11-16 raw HTTP observation recorded 240 items once; 240 is not a frozen required count, directory total, or guarantee. The SP016 record is HTTP structure observation only, not SDK evidence, and is not inherited as live success.",
+        "The source declares both GET and POST for /api/lapp/area/list; the SDK deliberately selects GET only. POST request shape/auth remain unknown and are preserved as a source issue, not fabricated as a declared_pair or counted as a parser recovery.",
+        "settings.list_areas is the runtime/diagnostic entrypoint name and is not a registry operation_id; the registry row must be added as global.settings.list_areas together with bindings/eval cases/whitelist/coverage updates."
+      ],
+      "blockers": [],
+      "execution_outcome": "passed",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-17-public-areas/checks.json"
+      ],
+      "verified_code_commit": "58e7881a3e7aee4c3ffc431b5016b019cefb447c",
+      "admission_evidence_ref": "docs/coordination/SP030/admission.json",
+      "limitations": [
+        "GET only; undocumented POST shape/auth not implemented.",
+        "Public country/region catalog, not cluster routing, bound devices or physical hardware."
+      ]
+    },
+    {
+      "case_id": "ACC-OS-PUBLIC-AREAS-SDK-001",
+      "tier": "required",
+      "capability_selector": "settings.list_areas (public country/region directory via real SDK)",
+      "capability_ids": [
+        "candidate:overseas:469:1.12"
+      ],
+      "operation_ids": [
+        "global.settings.list_areas"
+      ],
+      "scope_revision": "2026-11-17-r1",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "overseas: explicit documented origin https://open.ezvizlife.com only",
+      "account_role_permissions": "none required; anonymous public catalog",
+      "device_requirements": "none",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "source content and interface version frozen (overseas:469 sha fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8; scope_revision 2026-11-17-r1)",
+        "implementation of Settings.list_areas/AsyncSettings.list_areas exists and matches the frozen signature before this case runs",
+        "anonymous Client and AsyncClient with explicit api_base_url=https://open.ezvizlife.com and caller-controlled transport; per-phase timeout 10s, decompressed response cap 1 MiB enforced by the acceptance transport boundary, not by changing SDK/HTTPX global defaults",
+        "no credentials, no redirect following, no retry, no device access; each client is closed/aclose'd"
+      ],
+      "expected_evidence": {
+        "read": "one sync and one async anonymous SDK call to the frozen documented origin (total 2 HTTP requests / 2 logical operations); both return policy success (HTTP 200 + business code \"200\"), data is a non-empty list, and at least one element exposes the four known field types id:int, name:str, region:str, telephoneCode:int; the bounded public receipt saves only count, field-type aggregate, code/source version hash, and per-mode success status — never raw response field values or URL parameter values",
+        "write": "none",
+        "physical": "none; public catalog does not prove device, cluster routing, or hardware"
+      },
+      "bounded": {
+        "max_requests": 2,
+        "max_operations": 2,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "n/a; read-only",
+      "source_refs": [
+        "docs/plans/2026-11-17-public-area-directory.md",
+        "docs/plans/2026-11-17-capability-scope-register.md",
+        "docs/capabilities/overseas-review-candidates.json (candidate:overseas:469:1.12)",
+        "docs/validation/live/2026-11-17-public-area-directory/raw-http.json",
+        "docs/validation/live/2026-11-17-public-area-directory/README.md",
+        "docs/coordination/SP016/request.md"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/transport.py",
+        "src/ezviz_unified/operations.py",
+        "docs/validation/live/2026-11-17-public-area-directory/raw-http.json",
+        "docs/validation/live/2026-11-17-public-area-directory/README.md"
+      ],
+      "criterion_assessment": {
+        "sync_mode_policy_success": "met",
+        "async_mode_policy_success": "met",
+        "exactly_two_http_requests_two_logical_operations": "met",
+        "no_credentials_redirect_retry_device_access": "met",
+        "data_non_empty_list_with_four_field_types": "met",
+        "bounded_receipt_saves_only_count_type_version_hash_status": "met",
+        "per_phase_timeout_10s_and_1mib_response_cap_via_acceptance_transport": "met",
+        "clients_closed_aclose": "met"
+      },
+      "result": "recorded_evidence",
+      "resource_state": "not_applicable (anonymous public read; no account or bound device needed; does not unblock the overseas bound-device required cases which remain blocked)",
+      "historical_freeze_notes": [
+        "Cannot run before the frozen interface is implemented and the source/version are pinned; frozen_for_implementation fixes conditions, it does not grant G0/G1 admission or live execution approval.",
+        "The raw SP016 HTTP observation is not an SDK test and is not inherited as live success; this case requires two fresh SDK-mode executions after implementation.",
+        "240 items was a one-time observation, not a fixed pass count; the bounded receipt records count/type/version-hash/status only and must not save raw field values.",
+        "Public catalog success does not prove overseas account devices, cluster routing, or hardware; the overseas bound-device required case remains blocked under user_confirmed_no_bound_device."
+      ],
+      "blockers": [],
+      "execution_outcome": "passed",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-17-public-area-directory/sdk.json"
+      ],
+      "verified_code_commit": "58e7881a3e7aee4c3ffc431b5016b019cefb447c",
+      "admission_evidence_ref": "docs/coordination/SP030/admission.json",
+      "limitations": [
+        "GET only; undocumented POST shape/auth not implemented.",
+        "Public country/region catalog, not cluster routing, bound devices or physical hardware.",
+        "Two fresh SDK calls used identity-only response negotiation; compression handling and other origins are not live-verified by this receipt."
       ]
     }
   ],
@@ -510,6 +740,7 @@
     "Overseas device read-only acceptance is awaiting_resource_confirmation with resource_state=user_confirmed_no_bound_device (user confirmed on 2026-11-17 the account currently has no bound device); the account cluster and device-visible permissions remain unconfirmed, and no device/account values are fabricated.",
     "Platform message push requires enabled service, reachable callback, independent secret, target type, and trigger authorization; resource_state=unknown_awaiting_configuration_check because the user stated on 2026-11-17 they do not know the platform message service or which callback entry is usable. Dedup/redelivery semantics must be defined before execution. Domestic header 't' timestamp unit is confirmed milliseconds (5130); the overseas 't' unit, freshness window, the 2s vs ~5s timeout conflict, and ciphertext wording remain unconfirmed. Configuration side effects (App reminder stop, ~2h delay, console test temporarily suspending the original callback) need explicit authorization beyond the prior read-only scope.",
     "Release version is undetermined. PyPI account/permissions and upload authorization are unconfirmed; no upload has been executed. The 2026-11-17 public-page 404 only reflects that-moment visibility and does not guarantee name availability. Account/Trusted Publisher may be prepared now (https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/) and the first authorized upload creates the project; the user is not required to provide a token now.",
-    "New business domains must be bound to concrete acceptance rows and frozen before implementation claims; the per-new-domain wildcard row is a policy placeholder, not a substitute for per-item rows."
+    "New business domains must be bound to concrete acceptance rows and frozen before implementation claims; the per-new-domain wildcard row is a policy placeholder, not a substitute for per-item rows.",
+    "PUBLIC-AREAS-001 G0/G1 admission and the two frozen GET cases are verified on code58e7881a3e7aee4c3ffc431b5016b019cefb447c (SP030/SP036, checks.json and live/sdk.json). Other origins, POST shape/auth, compressed response behavior, account/device and hardware evidence remain outside this bounded result; overall product/release gates stay open."
   ]
 }

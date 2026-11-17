@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "decision_id": "SP036",
+  "scope_revision": "2026-11-17-r2",
+  "decision_owner": "Codex",
+  "code_commit": "58e7881a3e7aee4c3ffc431b5016b019cefb447c",
+  "public_area_cases": {
+    "offline": "passed",
+    "live_sdk": "passed",
+    "case_scope_revision": "2026-11-17-r1",
+    "evidence_refs": [
+      "docs/validation/2026-11-17-public-areas/checks.json",
+      "docs/validation/live/2026-11-17-public-area-directory/sdk.json"
+    ]
+  },
+  "sdk_live_receipt_sha256": "88cce20d448f196d6b9cfd7986e12186173a656ff53b2a3c9a7abfbf2bac7adc",
+  "candidate_intake": {
+    "input": "docs/capabilities/domestic-voice-review-candidates.json",
+    "sha256": "a8b53d007e80c568295a172e84076fdef5b2538b7c669d3a292364454a65e132",
+    "capability_slots": 5,
+    "implementation_admitted": false,
+    "live_authorized": false
+  },
+  "component_archive_evidence": {
+    "input": "docs/capabilities/official-component-artifacts-2026-11-17.json",
+    "sha256": "94809f665058bace862c15447d930198231623f6093e4826d203c5b0728508ed",
+    "verified_versions": 7,
+    "runtime_adoption_approved": false,
+    "integration_verified": false
+  },
+  "source_and_observation_identity_sets_preserved": true,
+  "current_register_counts": {
+    "source_reviews": 4051,
+    "observation_reviews": 3019,
+    "capability_slots": 253,
+    "registered_operations": 204
+  },
+  "counts_are_not_official_api_totals": true,
+  "remaining": [
+    "source and material semantic review",
+    "remaining SDK domains and message ingress/integration",
+    "required domestic async/CLI and overseas bound-device acceptance",
+    "specific write authorization and restoration plans",
+    "publisher/version/target authorization and release gates",
+    "PR exact-head and main verification for this batch"
+  ],
+  "phase_2_deferred": [
+    "app_adapter",
+    "selective_telemetry",
+    "independent_model_evaluation",
+    "controlled_rsi"
+  ],
+  "product_complete": false
+}

@@ -13500,6 +13500,60 @@
       }
     },
     {
+      "operation_id": "global.settings.list_areas",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "source_url": "https://open.ys7.com/help/en/469",
+      "source_content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+      "method": "GET",
+      "path": "/api/lapp/area/list",
+      "base_url": "https://open.ezvizlife.com",
+      "body_encoding": "unknown",
+      "token_location": "none",
+      "parameters": [],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "Return Data example (e1472) shows a top-level string \"code\": \"200\" with a data array; the 2026-11-16 SP016 raw HTTP observation confirmed the same shape; the SDK selects the documented parameterless GET",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "the SDK-selected GET carries no query and no request body",
+          "evidence": "e1468 demonstrates a bare GET https://open.ezvizlife.com/api/lapp/area/list; no parameter table declares query or body fields for it"
+        },
+        {
+          "fact": "the documented response item fields are id:int, name:string, region:string, telephoneCode:int",
+          "evidence": "e1476 Return Field table; the 2026-11-16 SP016 observation confirmed those four types on every returned item"
+        },
+        {
+          "fact": "the source declares GET and POST for the same path; the SDK deliberately selects GET only",
+          "evidence": "e1463 lists both methods; the POST request shape (parameters, encoding, token) is not documented — see source-issues.json, not a fabricated declared_pair"
+        },
+        {
+          "fact": "the actual request origin is open.ezvizlife.com, not the {areaDomain} business host",
+          "evidence": "e1459 fixed address https://open.ezvizlife.com/api/lapp/area/list"
+        },
+        {
+          "fact": "data is a public country/region directory preserved verbatim; no cluster/apiDomain/authDomain is derived from it",
+          "evidence": "SDK contract; the 2026-11-16 observation returned no apiDomain/authDomain fields"
+        }
+      ],
+      "uncertainties": [
+        "the declared POST variant's request shape, body encoding and auth requirement are undocumented; recorded as a source issue rather than implemented",
+        "whether the service accepts a trailing query or repeated calls at other origins is undocumented; only open.ezvizlife.com is evidenced"
+      ],
+      "transport_evidence": {
+        "method": "GET (e1463 declares GET and POST; e1468 shows the GET example; SDK selects GET)",
+        "path": "https://open.ezvizlife.com/api/lapp/area/list",
+        "encoding": "no request body for the SDK-selected GET (body_encoding unknown per registry rules; the POST variant's encoding is undocumented)"
+      }
+    },
+    {
       "operation_id": "global.settings.list_timezones",
       "region": "overseas",
       "source_doc_id": "477",

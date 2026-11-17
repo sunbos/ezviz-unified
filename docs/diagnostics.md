@@ -61,7 +61,7 @@ text = recorder.to_json()      # 仅返回 str
 
 自动覆盖明细以冻结清单 `docs/diagnostics-v1-coverage.json` 为准：
 
-- 132 个公共业务入口的同步/异步方法体（共 264 处，含设备管理继承方法、云录制计划继承方法与 `ptz.cruise`）：kind=`call`，记 `started` 与终态；作用域在 docstring 之后、首条校验之前，不改签名、不重复包装继承方法。`components.call` 在 `operation_id` 查找前进入作用域，未知 operation 记 `other`。
+- 133 个公共业务入口的同步/异步方法体（共 266 处，含设备管理继承方法、云录制计划继承方法与 `ptz.cruise`）：kind=`call`，记 `started` 与终态；作用域在 docstring 之后、首条校验之前，不改签名、不重复包装继承方法。`components.call` 在 `operation_id` 查找前进入作用域，未知 operation 记 `other`。新增的 `settings.list_areas`（公开国家/地区目录，GET `/api/lapp/area/list`）与其余入口相同，地区校验失败在子 scope 之前发生。
 - `Client.request`/`AsyncClient.request`：含关闭拒绝与 `_prepare`。
 - `authentication`：`get_token`、同步上下文对协程的拒绝、`await`、`validate_provider_token`；普通 provider 异常保留阶段信息。匿名路径（`anonymous=True`）不产生 authentication 事件。`authentication` 记 `succeeded` 可能命中既有 token 缓存，不代表本次发出过认证 HTTP 请求。
 - `transport_setup`：仅 transport factory/origin 校验与注入，不含任何真实请求。

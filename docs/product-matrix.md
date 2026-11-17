@@ -151,3 +151,13 @@ disclaimer/limitations 固定声明
 - 复用 `harness.audit.audit_repository` 做已登记实现的 AST/registry 审计（不重写审计器）；`registry_audit` 只显式投影已核定字段：`evidence` 固定 `registry_and_static_ast_only`、`registry_summary` 仅 `contracts`/`bindings`/`source_documents`/`source_issues` 四个整型计数、`code_summary` 仅 `bindings_checked`/`symbols_checked` 两个整型计数、`inputs_sha256` 仅 `contracts/reviewed-transport-contracts.json`、`contracts/sdk-bindings.json`、`contracts/source-issues.json` 三个已核对 hash；审计对象的任何未知子键一律不进入报告，不从输入动态扩白名单；`inputs_sha256` 与 contracts 文件二次核对，防审计后漂移。
 - 只读：不修改任何输入文件；`--output` 拒绝一切已存在路径与快照根内路径，发布用不可覆盖 `os.link`。
 - 报告不称实机、不称全产品完成；`product_complete=false`、`denominator_defined=false` 固定。
+
+## 与 scope-register 的分层（机械 ledger ≠ 语义/责任层）
+
+本工具产出的是 **schema 2 机械 source ledger**（`data/reports/sdk-product-matrix-public-v2-2026-11-17.json`）：按六字段精确 join 机械恢复观察→契约关联，冻结基线为 203 条既有契约——201 条精确恢复、2 条为已知的单侧反引号 parser 例外（`global.playback.invalidate`、`global.security.update_password`）。它回答的是「来源快照与注册表结构上能对齐什么」，证据层级 `source_and_registry_matrix_only`。
+
+**scope-register**（`docs/capabilities/scope-register.json`，当前 `2026-11-17-r2`）是其上的语义/责任层：保留 4051 source / 3019 observation 身份集，登记 253 个 capability 槽位（初始 203 + 45 槽位再纳 5 条国内 `device_voice` review 候选）与 204 个已登记 operation，并承载 review/disposition、cohort 准入、验收 case 绑定与 owner 队列。**253 槽位不是官方 API 分母**，4051/3019 是已登记身份集而非能力总量；`denominator_defined=false` 在两处均成立。
+
+新增能力的通过**不伪造机械恢复**：例如 `candidate:overseas:469:1.12`（公开国家/地区目录）经人工来源映射把 overseas:469 §1.12 的 `declaration:10`（e1459 固定 origin、e1463 GET/POST 双声明、e1476 字段表）与 `example:10`（e1468 GET 示例）绑定到 chosen-GET 的 `global.settings.list_areas`，配合独立 SDK chosen-GET 实测证据（`docs/validation/live/2026-11-17-public-area-directory/sdk.json`）记为通过；来源同声明的 POST 变体未文档化，保留为 source issue，不计为 `declared_pair` 也不提升机械恢复计数。
+
+另外，本工具与 scope-register 的 JSON 现均为一条记录一行，便于逐条定位与 diff；这是序列化格式约定，不是新框架或新 schema。
