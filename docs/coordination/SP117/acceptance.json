@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "task_id": "SP117",
+  "code_commit": "11cd8af8e455ded6b2c60771f41e0d259abda328",
+  "input_snapshot": {
+    "scope": "5443e21cd761a77d4c23230d9f7c90abe398c31b26dd56a96cd494867b48311a",
+    "acceptance": "1dbf3921404cd68043f2f20f1c6ba98b29cbc188215f0abc44032453cbc20003"
+  },
+  "output_snapshot": {
+    "scope_sha256": "839b2c331fcbee95849485560d80367bb55be81b4d1198b19c6379fb7a63f497",
+    "acceptance_sha256": "e60807d07971531441e445b3527db99a307bc657eb5b0a839e1b69fdb6ff5339",
+    "checks_sha256": "83a4d955b035b3c9130e9d393e10ab55781d3866111edc4aef3f20f5938d457d"
+  },
+  "historical_stage_outputs_preserved": [
+    "SP094",
+    "SP095",
+    "SP097"
+  ],
+  "local_cases_accepted": [
+    "ACC-WEBHOOK-CLI-001",
+    "ACC-WEBHOOK-CORE-001",
+    "ACC-WEBHOOK-HTTP-001"
+  ],
+  "all_other_case_objects_preserved": true,
+  "SDK_runtime_unchanged": true,
+  "platform_cases_and_original_message_policy_unchanged": true,
+  "source_observation_material_review_states_not_changed_by_local_success": true,
+  "whole_product_complete": false,
+  "published_to_pypi": false
+}

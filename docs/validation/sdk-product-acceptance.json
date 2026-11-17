@@ -20,7 +20,8 @@
     "SP088登记101个具体国内候选离线案例，全部awaiting_design；候选身份和已审场景可追溯，但合同与精确断言尚未冻结，不批准G1。",
     "SP089为其余109个已有合同补充具体wire案例，复用7c4d954对应输入和实际评测/CI证据；904个合成单元仅是该子集测试范围，未新跑SDK或提升真实验收状态。",
     "SP090为44个既有海外候选补齐场景与具体待设计案例；41个server_api暂列sync/async，2个authorization_flow和1个message_protocol的surface仍待冻结。公共地区目录既有实现与验收保持，候选谱系本身不决定是否已准入。",
-    "WEBHOOK-RECEIVER-001只准入独立仓库接收示例：三项本地case先冻结，国内/海外平台case保持资源/授权待定；不新增SDK业务operation，也不宣称纯helpers在诊断v1自动采集范围内。"
+    "WEBHOOK-RECEIVER-001只准入独立仓库接收示例：三项本地case先冻结，国内/海外平台case保持资源/授权待定；不新增SDK业务operation，也不宣称纯helpers在诊断v1自动采集范围内。",
+    "SP117依据代码11cd8af及真实全回归/loopback/CLI/PTY证据，仅将WEBHOOK-RECEIVER-001三项本地case记为通过；两个平台case与原平台policy保持资源/授权待定，产品与发布不升级。"
   ],
   "case_schema": {
     "case_id": "stable identifier",
@@ -27050,18 +27051,31 @@
         "docs/research/2026-11-17-message-scope-review.md",
         "docs/coordination/SP094/source-facts.json"
       ],
-      "code_artifact_evidence_refs": [],
+      "code_artifact_evidence_refs": [
+        "examples/_webhook_receiver.py",
+        "examples/_webhook_http_io.py",
+        "examples/webhook_receiver.py",
+        "docs/webhook-receiver.md",
+        "tests/test_webhook_receiver_core.py",
+        "tests/test_webhook_receiver_core_regressions.py"
+      ],
       "criterion_assessment": {
-        "raw_bytes_and_signature_before_parse": "pending",
-        "regional_timestamp_policy": "pending",
-        "bounded_inbox_and_dedup_semantics": "pending",
-        "sensitive_data_not_in_public_output": "pending"
+        "raw_bytes_and_signature_before_parse": "met",
+        "regional_timestamp_policy": "met",
+        "bounded_inbox_and_dedup_semantics": "met",
+        "sensitive_data_not_in_public_output": "met"
       },
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "blockers": [],
       "limitations": [
         "离线/loopback通过不升级为平台或设备事件验收；unsigned投递和消息消费/确认等其它协议仍保留。"
-      ]
+      ],
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-webhook-receiver/checks.json"
+      ],
+      "verified_code_commit": "11cd8af8e455ded6b2c60771f41e0d259abda328",
+      "execution_outcome": "passed",
+      "execution_note": "仅对应本地验收层；真实命令/源码与测试pin见checks，平台和设备验收未执行。"
     },
     {
       "case_id": "ACC-WEBHOOK-HTTP-001",
@@ -27105,18 +27119,32 @@
         "docs/research/2026-11-17-message-scope-review.md",
         "docs/coordination/SP094/source-facts.json"
       ],
-      "code_artifact_evidence_refs": [],
+      "code_artifact_evidence_refs": [
+        "examples/_webhook_receiver.py",
+        "examples/_webhook_http_io.py",
+        "examples/webhook_receiver.py",
+        "docs/webhook-receiver.md",
+        "tests/test_webhook_receiver_http.py",
+        "tests/test_webhook_http_boundary_regressions.py",
+        "tests/test_webhook_http_io_regressions.py"
+      ],
       "criterion_assessment": {
-        "real_loopback_http_to_inbox_and_ACK": "pending",
-        "absolute_header_body_and_run_deadlines": "pending",
-        "fixed_http_errors_and_no_reflection": "pending",
-        "bounded_connections_and_cleanup": "pending"
+        "real_loopback_http_to_inbox_and_ACK": "met",
+        "absolute_header_body_and_run_deadlines": "met",
+        "fixed_http_errors_and_no_reflection": "met",
+        "bounded_connections_and_cleanup": "met"
       },
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "blockers": [],
       "limitations": [
         "离线/loopback通过不升级为平台或设备事件验收；unsigned投递和消息消费/确认等其它协议仍保留。"
-      ]
+      ],
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-webhook-receiver/checks.json"
+      ],
+      "verified_code_commit": "11cd8af8e455ded6b2c60771f41e0d259abda328",
+      "execution_outcome": "passed",
+      "execution_note": "仅对应本地验收层；真实命令/源码与测试pin见checks，平台和设备验收未执行。"
     },
     {
       "case_id": "ACC-WEBHOOK-CLI-001",
@@ -27160,18 +27188,30 @@
         "docs/research/2026-11-17-message-scope-review.md",
         "docs/coordination/SP094/source-facts.json"
       ],
-      "code_artifact_evidence_refs": [],
+      "code_artifact_evidence_refs": [
+        "examples/_webhook_receiver.py",
+        "examples/_webhook_http_io.py",
+        "examples/webhook_receiver.py",
+        "docs/webhook-receiver.md",
+        "tests/test_webhook_receiver_cli.py"
+      ],
       "criterion_assessment": {
-        "explicit_start_and_no_import_listener": "pending",
-        "hidden_secret_and_no_env_config_read": "pending",
-        "safe_output_and_return_codes": "pending",
-        "help_and_non_tty_behavior": "pending"
+        "explicit_start_and_no_import_listener": "met",
+        "hidden_secret_and_no_env_config_read": "met",
+        "safe_output_and_return_codes": "met",
+        "help_and_non_tty_behavior": "met"
       },
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "blockers": [],
       "limitations": [
         "离线/loopback通过不升级为平台或设备事件验收；unsigned投递和消息消费/确认等其它协议仍保留。"
-      ]
+      ],
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-webhook-receiver/checks.json"
+      ],
+      "verified_code_commit": "11cd8af8e455ded6b2c60771f41e0d259abda328",
+      "execution_outcome": "passed",
+      "execution_note": "仅对应本地验收层；真实命令/源码与测试pin见checks，平台和设备验收未执行。"
     },
     {
       "case_id": "ACC-WEBHOOK-PLATFORM-CN-001",

@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "cohort_id": "WEBHOOK-RECEIVER-001",
+  "code_commit": "11cd8af8e455ded6b2c60771f41e0d259abda328",
+  "evidence_scope": "offline_synthetic_and_real_local_loopback_only",
+  "execution_model": {
+    "requested": "devin/swe-2",
+    "effort": "max",
+    "observed": "devin/swe-2"
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "result": "passed",
+      "tests": 4705,
+      "subtests": 35,
+      "seconds": 42.14,
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP114-TEST",
+      "artifact_sha256": "6aa3a6f79d45baa9c6a85183a76e90582a54161e7495e5134a781d857079a7ca"
+    },
+    {
+      "command": ".venv/bin/python -m ruff check examples/_webhook_receiver.py examples/_webhook_http_io.py examples/webhook_receiver.py tests/test_webhook_receiver_core.py tests/test_webhook_receiver_core_regressions.py tests/test_webhook_http_io_regressions.py tests/test_webhook_receiver_http.py tests/test_webhook_receiver_cli.py tests/test_webhook_http_boundary_regressions.py",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP114-LINT",
+      "artifact_sha256": "21e450f9c4be2ec8a38be0969cdebc5c8001b0f03890cf26bc524241f43e4963"
+    }
+  ],
+  "tested_file_sha256": {
+    "examples/_webhook_receiver.py": "3c02a4fa0fdd26bd51e05d27e6ec78e6c6c1328309308943c636c9520223fe1f",
+    "examples/_webhook_http_io.py": "e2a4a51134c40356b1991f66f0cb26d9f6a63ea04a548ac70f99c884e607c352",
+    "examples/webhook_receiver.py": "f8590fb6fb4097596752a7469dffd3ac187aa744a1d9fb503e214b1e13bca388",
+    "tests/test_webhook_receiver_core.py": "92d28ca4346bcbff15ba4dfe7604276e6fa0946b47ae85cb40030468a78498bb",
+    "tests/test_webhook_receiver_core_regressions.py": "5ed64a477ef6d2d0de99c0ed2b5b9cc0d9fa4bf27d3b97e57bee841d0cf20611",
+    "tests/test_webhook_http_io_regressions.py": "6616b0584abfdd98b4d61047d2692b42e5a90818b6578c2aea8788097562b1b0",
+    "tests/test_webhook_receiver_http.py": "a68398095e4880178d6afb84dd7747e16a18a8653ae533ccaeafa89e28c7b62e",
+    "tests/test_webhook_receiver_cli.py": "151c3d6abf0b818fce0028f00bafd6aa4fa8aa442e1bd05c12575eb3db90e009",
+    "tests/test_webhook_http_boundary_regressions.py": "e09fb49fe424ccf19703f4521859fbf5fa995227c9bcd0813886e5f6022a8035"
+  },
+  "real_cli_subprocess_checks": {
+    "schema_version": 1,
+    "checks": [
+      {
+        "argv": [
+          "-m",
+          "examples.webhook_receiver",
+          "--help"
+        ],
+        "return_code": 0,
+        "expected_output_shape": true,
+        "secret_prompt_absent": true,
+        "real_platform_or_device_calls": 0
+      },
+      {
+        "argv": [
+          "-m",
+          "examples.webhook_receiver",
+          "--port",
+          "0",
+          "--max-seconds",
+          "1",
+          "--max-connections",
+          "1"
+        ],
+        "return_code": 1,
+        "expected_output_shape": true,
+        "secret_prompt_absent": true,
+        "real_platform_or_device_calls": 0
+      }
+    ],
+    "scope": "real CLI subprocess help and non-TTY refusal only; no secret, listener, platform or device acceptance"
+  },
+  "real_local_pty_cli_check": {
+    "schema_version": 1,
+    "argv": [
+      "-m",
+      "examples.webhook_receiver",
+      "--port",
+      "0",
+      "--max-seconds",
+      "0.2",
+      "--max-connections",
+      "1"
+    ],
+    "return_code": 0,
+    "terminal_echo_disabled_before_input": true,
+    "synthetic_secret_absent_from_capture": true,
+    "safe_summary": {
+      "accepted": 0,
+      "authentication_failed": 0,
+      "body_too_large": 0,
+      "capacity_rejected": 0,
+      "closed": 0,
+      "connections": 0,
+      "deadline_exceeded": 0,
+      "duplicate": 0,
+      "id_conflict": 0,
+      "invalid_message": 0,
+      "request_errors": 0,
+      "schema_version": 1,
+      "stop_reason": "deadline"
+    },
+    "real_platform_or_device_calls": 0,
+    "scope": "real local PTY CLI startup with synthetic secret, no inbound platform message"
+  },
+  "cli_probe_driver_sha256": {
+    "SP115": "013d77faf545de80da86a0d8ff095c283506b873e283e37d517fcb453a3018c7",
+    "SP116": "8dfc5c88d66c8d9f64834ccf6ca627fa1931610332494453e3eedb67ae7375cd"
+  },
+  "review_evidence": {
+    "core_and_io": {
+      "local_artifact_id": "SP107-core-io-review",
+      "sha256": "464f248bc2ccaa01cc8e4fa3ae99c868bbb9dfe1a34ab44457b07417c49ca9c0",
+      "outcome": "no_functional_blocking; docstring correction applied"
+    },
+    "final_HTTP_findings": {
+      "local_artifact_id": "SP113-final-http-review",
+      "sha256": "a1caf049df210e6bcd45f2c654a3b70c9d6d1891af90407c862a2c336e43a36f",
+      "outcome": "three_blocking_findings_closed_before_final_tests"
+    }
+  },
+  "case_evidence": {
+    "ACC-WEBHOOK-CORE-001": {
+      "tests": [
+        "tests/test_webhook_receiver_core.py",
+        "tests/test_webhook_receiver_core_regressions.py"
+      ],
+      "meaning": "签名/JSON层、地区时间策略、容量/去重/TTL/截止/关闭和安全输出均在合成数据上验证。"
+    },
+    "ACC-WEBHOOK-HTTP-001": {
+      "tests": [
+        "tests/test_webhook_receiver_http.py",
+        "tests/test_webhook_http_boundary_regressions.py",
+        "tests/test_webhook_http_io_regressions.py"
+      ],
+      "meaning": "真实loopback TCP到有界inbox与JSON ACK；HTTP限制、绝对截止、异常原对象传播、空连接和成功计数、Content-Type及资源清理。"
+    },
+    "ACC-WEBHOOK-CLI-001": {
+      "tests": [
+        "tests/test_webhook_receiver_cli.py"
+      ],
+      "additional_process_evidence": [
+        "real_cli_subprocess_checks",
+        "real_local_pty_cli_check"
+      ],
+      "meaning": "参数/默认值/退出码、非TTY拒绝、真实本机PTY关闭echo及合成secret无回显、安全统计输出。"
+    }
+  },
+  "network_and_data_boundary": {
+    "real_platform_or_device_business_requests": 0,
+    "real_account_or_device_configuration_read": false,
+    "all_message_and_secret_test_data_synthetic": true,
+    "loopback_connections_only_to_test_selected_literal_address": true,
+    "max_connections_per_receiver_run": 8,
+    "max_seconds_per_receiver_run": 5,
+    "SDK_src_contracts_dependencies_transport_or_retry_changed": false
+  },
+  "retained_failure_evidence": [
+    {
+      "artifact": "SP102-REG-RED",
+      "result": "13_failed_2_passed",
+      "purpose": "core/IO defects reproduced, tests retained"
+    },
+    {
+      "artifact": "SP104-HTTP-RED",
+      "result": "7_failed",
+      "purpose": "port/unknown-error/CL failures retained"
+    },
+    {
+      "artifact": "SP107-ORIGIN-RED",
+      "result": "3_failed_7_passed",
+      "purpose": "exception origin and empty-peer counters retained"
+    },
+    {
+      "artifact": "SP110-RED",
+      "result": "4_failed_17_passed",
+      "purpose": "final positive counters/TimeoutError/invalid MIME defects retained"
+    }
+  ],
+  "limits": [
+    "只验证本地示例与已冻结签名明文JSON范围；没有真实平台回调或设备事件链证据。",
+    "签名可选的官方其它接入、983/984消费协议、其它消息场景仍待核；海外t单位未推断。",
+    "inbox非持久、无跨重启去重/exactly-once，释放引用非安全擦除。",
+    "独立webhook helpers仍在SDK诊断v1自动采集排除范围，receiver计数不等SDK全诊断。",
+    "当前PR/合并main的构建、安装和CI由Git验收另核；此处不预写。"
+  ],
+  "platform_cases_accepted": false,
+  "pypi_published": false,
+  "product_complete": false
+}
