@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "case_id": "ACC-CN-ASYNC-READONLY-001",
+  "scope": "offline_runner_validation_only",
+  "code_commit": "898dbcd65d2c7f7c7faefe041df7e630a21f7cd4",
+  "source_test_sha256": {
+    "tests/test_live_diagnostics_async.py": "942e7a627dc7b59f8c077e62f419ac0aa25b6a7512f69b07ceb75eb1085172f6",
+    "tools/live/verify_diagnostics.py": "61dcb57539a300a5748f347f82476edb76a3a4a9256128039311948b367e7b88",
+    "tools/live/verify_diagnostics_async.py": "a8975b64026b5fc341edaecd4b1e2702954c2919b6d794ef02cf4204738eaafd"
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q -W error::pytest.PytestUnraisableExceptionWarning --tb=short tests/test_live_diagnostics.py tests/test_live_diagnostics_async.py",
+      "local_receipt_sha256": "8dab5a41b0d779de2d1e1982c25a2d266bfec7e2c2fe13d35d7f174a38592026",
+      "tool_error": false,
+      "summary": "174 passed in 1.78s"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "local_receipt_sha256": "a392cef00a097eee770374c216c555e4bbf7b46f39251afb66a931052c96ff8e",
+      "tool_error": false,
+      "summary": "7313 passed, 35 subtests passed in 55.92s"
+    }
+  ],
+  "live_executed": false,
+  "limits": "只证明模拟传输、请求上限、诊断投影与本地隐藏输入/输出保护；实际账号、设备和异步业务响应待联调。"
+}

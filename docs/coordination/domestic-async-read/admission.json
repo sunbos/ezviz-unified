@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "case_id": "ACC-CN-ASYNC-READONLY-001",
+  "scope_revision": "2026-11-19-r18-domestic-async-read-design",
+  "baseline_commit": "56b14fb190645b41405ba2625ad42baf19faaf4d",
+  "interface": "async def verify(config: dict[str, str]) -> dict[str, object]",
+  "command": "python -m tools.live.verify_diagnostics_async --prompt [--output NEW_JSON_FILE]",
+  "source_refs": [
+    {
+      "doc_id": "81",
+      "operation_id": "cn.token.get",
+      "content_sha256": "f89f439095194409b0e3cdc8a8d8c188254c70ef510e61f4799694c863865ef3",
+      "anchors": {
+        "formal_parameters": "T1/E24",
+        "formal_response_fields": "T2/E56",
+        "return_codes": "T3/E72",
+        "method_path_authority": "contracts/reviewed-transport-contracts.json operation_id=cn.token.get (same HTML hash)"
+      }
+    },
+    {
+      "doc_id": "673",
+      "operation_id": "cn.devices.list",
+      "content_sha256": "9b6636cd7a15e0660ffa100dfaa67f7a5a55b856b758e79e6d46622c5d69bce3",
+      "anchors": {
+        "formal_parameters": "T1/E14",
+        "formal_response_fields": "T2/E56",
+        "return_codes": "T3/E140",
+        "method_path_authority": "contracts/reviewed-transport-contracts.json operation_id=cn.devices.list (same HTML hash)"
+      }
+    },
+    {
+      "doc_id": "672",
+      "operation_id": "cn.devices.get",
+      "content_sha256": "9a914b090262952baaf49601c36140f57b264d4fc1020df2fd24fd577828b2e8",
+      "anchors": {
+        "formal_parameters": "T1/E14",
+        "formal_response_fields": "T2/E50",
+        "return_codes": "T3/E146",
+        "method_path_authority": "contracts/reviewed-transport-contracts.json operation_id=cn.devices.get (same HTML hash)"
+      }
+    },
+    {
+      "doc_id": "1478",
+      "operation_id": "cn.devices.channels",
+      "content_sha256": "3805a44c99b81283abbd56941a5a7647bb4869eaf8f15cb14864c061785562c9",
+      "anchors": {
+        "formal_parameters": "T1/E14",
+        "formal_response_fields": "T2/E44",
+        "return_codes": "T3/E124",
+        "method_path_authority": "contracts/reviewed-transport-contracts.json operation_id=cn.devices.channels (same HTML hash)"
+      }
+    },
+    {
+      "doc_id": "675",
+      "operation_id": "cn.device.status",
+      "content_sha256": "ea009238b1eab936a99f45f1cafbc67b7f0a1495e2b073e55917070e8171d59c",
+      "anchors": {
+        "formal_parameters": "T1/E14",
+        "formal_response_fields": "T2/E57",
+        "return_codes": "T3/E122",
+        "method_path_authority": "contracts/reviewed-transport-contracts.json operation_id=cn.device.status (same HTML hash)"
+      }
+    },
+    {
+      "doc_id": "678",
+      "operation_id": "cn.diagnostics.capabilities",
+      "content_sha256": "8e29e58cffb169d8ef08be7702fca557c64c67f023acda1b9ed7a1d780fac1e6",
+      "anchors": {
+        "formal_parameters": "T1/E17",
+        "formal_response_fields": "T2/E56",
+        "return_codes": "T3/E224",
+        "method_path_authority": "contracts/reviewed-transport-contracts.json operation_id=cn.diagnostics.capabilities (same HTML hash)"
+      }
+    },
+    {
+      "doc_id": "734",
+      "operation_id": "cn.diagnostics.version",
+      "content_sha256": "4ee5deaf0dc9c3ade4c4500505b2c900bb353e3845002918c3f55ce2ce46f90d",
+      "anchors": {
+        "formal_parameters": "T1/E20",
+        "formal_response_fields": "T2/E48",
+        "return_codes": "T3/E78",
+        "method_path_authority": "contracts/reviewed-transport-contracts.json operation_id=cn.diagnostics.version (same HTML hash)"
+      }
+    }
+  ],
+  "read_scope": {
+    "ordered_business_entries": [
+      "devices.list(page_start=0,page_size=1)",
+      "devices.get(bound_device)",
+      "devices.channels(bound_device)",
+      "devices.status(bound_device,channel=1)",
+      "diagnostics.capabilities(bound_device,channel=1 -> wire channelNo=1)",
+      "diagnostics.version(bound_device)"
+    ],
+    "allowed_origin": "https://open.ys7.com default443 only",
+    "allowed_method_path_pairs": [
+      "POST /api/lapp/token/get",
+      "POST /api/lapp/device/list",
+      "POST /api/lapp/device/info",
+      "POST /api/lapp/device/camera/list",
+      "POST /api/lapp/device/status/get",
+      "POST /api/lapp/device/capacity",
+      "POST /api/lapp/device/version/info"
+    ],
+    "budget": "一个共享预算含auth+business：总7、每route1；禁止redirect/alternate origin/托管fallback/其它页或设备/媒体URL请求。budget rejection必须记失败，不把实际次数夹成上限。",
+    "normal_success_http_count": 7,
+    "normal_success_business_count": 6,
+    "normal_success_target": "从本次第一普通设备首页选择一个非空serial，内存原值绑定，其余五步重复该值；不从历史回执猜目标、不输出或hash标识。",
+    "invalid_token_behavior": "生产SDK仍按其读策略处理；本验收guard不授权第二次同route网络请求，重复auth/业务会在delegate前拒绝，该次case失败，不静默扩大7次边界。",
+    "no_target": "仅一页；空/缺ID不自动分页/改managed接口/猜第一个其它设备。"
+  },
+  "report_fields": {
+    "schema_version": "exact int 1",
+    "scope": "domestic_async_device_inspection",
+    "outcome": "passed|not_verified|failed",
+    "mode": "async",
+    "read_only": "exact bool true",
+    "http_requests": "admitted delegate calls: int 0..7",
+    "logical_calls": "completed terminal SDK business call events: int 0..6, count observed even on failure, no clamping",
+    "attempted_routes": "ordered list of admitted fixed route labels only: auth/list/info/channels/status/capabilities/version, no duplicates",
+    "successful_steps": "actual succeeded facade terminals, fixed labels only: list/info/channels/status/capabilities/version",
+    "diagnostics_intact": "bool; require passed diagnostic checks for full success",
+    "closed": "bool from actual completion of AsyncClient.aclose()",
+    "boundary_rejected": "bool from any rejected outgoing request"
+  },
+  "implementation": [
+    "Repository verifier only. Reuse AsyncClient, inspect_device_async, DiagnosticRecorder and existing synchronous verifier pure input/origin/form/route/budget rules. Extract only the existing field predicate into a shared function in verify_diagnostics.py; retain old synchronous interface and outcomes. Use genuine AsyncBaseTransport with async delegate, no sync-to-thread wrapper. Intercept before delegate; enforce fixed origin, exact raw route, exact POST form field set/values/one copy, canonical form content type, one per route, shared 7-call budget, fixed order, no redirection/proxies or transport retries.",
+    "Use real first page page_start=0/page_size=1. A missing/empty first serial or empty list returns not_verified. No broader discovery. Invalid payload/permission/timeouts/close failures/route rejection return failed. One guard order/accepted list shared across auth and business. Refuse forwarded custom auth headers or query credentials. Logical action count and route count come from observed calls, never a predicted value.",
+    "verify obtains a fresh recorder and budget per call. After closure verify real ordered outcomes, mode=async and region=domestic, six successes plus inspect_device_async inspection and client.aclose close spans, recorder zero errors/drops, exactly seven admitted distinct routes, zero rejection. An incomplete/compromised report never yields passed. Preserve cancellation on verify; close on exception/cancellation. Handle data and credentials only within this process. Return the finite projection listed, never the raw diagnostic report, response, identifiers or free-form errors.",
+    "For live use only via explicit interactive local --prompt. No CLI secrets, browser server, real data fixtures, env auto-discovery, file input, SDK global changes, or background service. Require interactive TTY; hidden getpass for BOTH inputs under warnings.filterwarnings(error, category=GetPassWarning), abort before networking on fallback/empty/missing and do not echo. Overall network run under asyncio.timeout(90), HTTP timeout 10; read-only. No external upload. Optional --output opens exclusively before networking, refuses pre-existing files/symlinks; use mode 0600, no automatic file for ordinary usage; clean empty/partial on failure. Emit only the allowlisted report, fatal preflight prints fixed safe message and nonzero. Cancellation/interrupt never becomes passed.",
+    "Tests use AsyncClient real request path, mock only HTTP transport; require correct six async calls and success projection, empty target and explicit business errors, no cross-device or extra fields/duplicate token, forbidden origins/route/query, repeated route/refresh blocked before delegate, cancellation closure, output exclusivity and no low-level secret echo. No independently authored browser form. Output and recorded git source pins must be checked before updating real outcome."
+  ],
+  "authorized": "Domestic ordinary-device read-only scope carried from existing authorization. No device writes; account credentials entered only at user terminal. Real success requires a fresh matched receipt and offline checks on current implementation.",
+  "files": [
+    "tools/live/verify_diagnostics.py",
+    "tools/live/verify_diagnostics_async.py",
+    "tests/test_live_diagnostics_async.py",
+    "tools/live/README.md"
+  ],
+  "cases_kept_separate": [
+    "ACC-CN-SYNC-READONLY-001",
+    "ACC-CN-CLI-EXAMPLE-001"
+  ],
+  "live_outcome": "not_verified"
+}

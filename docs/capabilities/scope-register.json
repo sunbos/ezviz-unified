@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope_revision": "2026-11-19-r17-capture-messaging-hubs-offline-acceptance",
+  "scope_revision": "2026-11-19-r18-domestic-async-read-design",
   "baseline_commit": "641d6cc10010b11a49c65c9d6783f92eefda00d3",
   "inputs": {
     "reviewed_contracts": {
@@ -42,7 +42,7 @@
     "acceptance": {
       "path": "docs/validation/sdk-product-acceptance.json",
       "schema": 1,
-      "sha256": "c50fbd1027a782c3f816aa8377a967b17a50b89343d63185a06e9349fac84913"
+      "sha256": "6f0c9cdad2de505568f42d36518f9ea2b3486c09e908a72c0027ea816df42f48"
     },
     "plan_scope_register": {
       "path": "docs/plans/2026-11-17-capability-scope-register.md",
@@ -125,6 +125,16 @@
       "path": "docs/validation/2026-11-19-capture-messaging-hubs/checks.json",
       "schema": 1,
       "sha256": "22f184c8c9a7f9c30746bf5006045ec3c8d56a6955fc6b85479461d4c6f8241d"
+    },
+    "domestic_async_acceptance_design": {
+      "path": "docs/coordination/domestic-async-read/admission.json",
+      "schema": 1,
+      "sha256": "101542c050c76f33a28836a589a6df916f0458d7503d9b77899243db8208989f"
+    },
+    "domestic_async_runner_offline": {
+      "path": "docs/validation/2026-11-19-domestic-async-read/offline.json",
+      "schema": 1,
+      "sha256": "640b17a2d7649e6a3d5c82c77a3ea89c2c900135ae7ca7a9b9d0a7e05a7f8a07"
     }
   },
   "scope_state": {
@@ -134,7 +144,7 @@
     "required_acceptance_complete": false,
     "product_complete": false,
     "ratification_ref": "docs/coordination/SP030/admission.json",
-    "latest_update_ref": "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
+    "latest_update_ref": "docs/coordination/domestic-async-read/admission.json"
   },
   "queues": [
     {"queue_id":"batch_1_A","batch":1,"worker":"A","owner":"第一批A","scope":"OPEN API非组件来源（包括1273）及一级云接入","source_count":326,"component_families":[],"classification_counts":{"D":195,"E":4,"Z":127,"M":0},"candidate_intake_refs":["docs/capabilities/domestic-voice-review-candidates.json"]},
