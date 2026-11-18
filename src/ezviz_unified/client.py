@@ -31,6 +31,7 @@ from .arming import Arming, AsyncArming
 from .auth import AsyncTokenManager, TokenManager
 from .auth_models import RegionConfig, Token
 from .cloud_recording import AsyncCloudRecording, CloudRecording
+from .cloud_recording_v1 import AsyncCloudRecordingV1, CloudRecordingV1
 from .cloud_storage import AsyncCloudStorage, CloudStorage
 from .components import AsyncComponents, Components
 from .delegation import AsyncDelegation, Delegation
@@ -56,6 +57,7 @@ from .storage import AsyncStorage, Storage
 from .subaccounts import AsyncSubaccounts, Subaccounts
 from .transport import AsyncTransport, ParamMapping, SyncTransport
 from .video import AsyncVideo, Video
+from .vod import AsyncVod, Vod
 
 __all__ = ["AsyncClient", "Client"]
 
@@ -307,6 +309,8 @@ class Client:
         self.cloud_storage = CloudStorage(self)
         self.storage = Storage(self)
         self.cloud_recording = CloudRecording(self)
+        self.cloud_recording_v1 = CloudRecordingV1(self)
+        self.vod = Vod(self)
         self.subaccounts = Subaccounts(self)
         self.maintenance = Maintenance(self)
         self.illumination = Illumination(self)
@@ -615,6 +619,8 @@ class AsyncClient:
         self.cloud_storage = AsyncCloudStorage(self)
         self.storage = AsyncStorage(self)
         self.cloud_recording = AsyncCloudRecording(self)
+        self.cloud_recording_v1 = AsyncCloudRecordingV1(self)
+        self.vod = AsyncVod(self)
         self.subaccounts = AsyncSubaccounts(self)
         self.maintenance = AsyncMaintenance(self)
         self.illumination = AsyncIllumination(self)

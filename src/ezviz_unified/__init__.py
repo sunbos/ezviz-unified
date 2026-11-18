@@ -10,6 +10,7 @@ from .auth_models import RegionConfig, Token, parse_token
 from .client import AsyncClient, Client
 from .cloud_recording import AsyncCloudRecording, CloudRecording
 from .cloud_recording_plans import CloudRecordingDevice
+from .cloud_recording_v1 import AsyncCloudRecordingV1, CloudRecordingV1
 from .cloud_storage import AsyncCloudStorage, CloudStorage, StorageOrderOptions
 from .components import AsyncComponents, ComponentInfo, Components
 from .cruise import AsyncCruise, Cruise, CruisePeriod
@@ -58,6 +59,7 @@ from .storage_models import StorageFileQuery
 from .subaccounts import AsyncSubaccounts, Subaccounts
 from .transport import AsyncTransport, SyncTransport
 from .video import AsyncVideo, PreviewEncoding, Video, VideoSwitch
+from .vod import AsyncVod, Vod
 from .webhooks import (
     WebhookMessage,
     parse_unverified_webhook,
@@ -80,6 +82,7 @@ __all__ = [
     "AsyncCloudStorage",
     "AsyncStorage",
     "AsyncCloudRecording",
+    "AsyncCloudRecordingV1",
     "AsyncComponents",
     "AsyncSubaccounts",
     "AsyncIllumination",
@@ -103,6 +106,7 @@ __all__ = [
     "AsyncTokenProvider",
     "AsyncTransport",
     "AsyncTokenManager",
+    "AsyncVod",
     "AuthenticationError",
     "Client",
     "CloudStorage",
@@ -112,6 +116,7 @@ __all__ = [
     "StorageFileQuery",
     "CloudRecording",
     "CloudRecordingDevice",
+    "CloudRecordingV1",
     "Cruise",
     "CruisePeriod",
     "Delegation",
@@ -155,6 +160,7 @@ __all__ = [
     "TransportError",
     "Video",
     "VideoSwitch",
+    "Vod",
     "WebhookMessage",
     "__version__",
     "decode_response",

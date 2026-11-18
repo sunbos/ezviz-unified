@@ -916,6 +916,105 @@
       "description": "The single 2026-11-16 SP016 anonymous GET observation (HTTP 200, code \"200\", 240 items) is protocol-structure evidence, not SDK proof; 240 is a one-time count, not a guaranteed directory size, and other origins are unevidenced.",
       "status": "documented_prerequisite",
       "sdk_handling": "Contract pins GET /api/lapp/area/list on documented origin open.ezvizlife.com; SDK preserves the raw data array including extra fields and empty arrays, derives no cluster/apiDomain/authDomain, and hardcodes no item count."
+    },
+    {
+      "id": "cn.cloud_recording_v1.id_regex_dialect",
+      "region": "domestic",
+      "source_doc_id": "5341",
+      "source_url": "https://open.ys7.com/help/5341",
+      "source_content_sha256": "d0b6a93e3d2c9402d35e1ae4295b52ad938f96f1f69084e797866e0707cdbe85",
+      "description": "5341 对 projectId 声明 word 1..32、fileId 普通形 1..32 或 E1 前缀最大 128（辅证 1380），但 word 正则方言（\\w 引擎/是否含 Unicode）未说明，服务端实际接受的字符集未确认。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 采用 ASCII [A-Za-z0-9_]{1,32} 作为防御性选择并内联披露，可能拒绝服务端支持的 Unicode projectId；不做归一化。",
+      "evidence": []
+    },
+    {
+      "id": "cn.cloud_recording_v1.unfreeze_lifecycle_undocumented",
+      "region": "domestic",
+      "source_doc_id": "5341",
+      "source_url": "https://open.ys7.com/help/5341",
+      "source_content_sha256": "d0b6a93e3d2c9402d35e1ae4295b52ad938f96f1f69084e797866e0707cdbe85",
+      "description": "5341（辅证 1380）仅声明 unfreeze 为异步触发，完成判据、保留时长、费用/账号层级均未建立；文中 1–5 分钟非 SLA。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "契约 read_only=false、仅触发不自动轮询/重试/下载；完成判据与费用语义保留为 uncertainties，不推断就绪状态。",
+      "evidence": []
+    },
+    {
+      "id": "cn.cloud_recording_v1.error_layering",
+      "region": "domestic",
+      "source_doc_id": "5341",
+      "source_url": "https://open.ys7.com/help/5341",
+      "source_content_sha256": "d0b6a93e3d2c9402d35e1ae4295b52ad938f96f1f69084e797866e0707cdbe85",
+      "description": "5341 未给出 HTTP 状态码与 meta.code 业务码的映射或分层规则，错误表层级未知。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "仅以 meta.code∈[200] 判定成功并保留 raw；不虚构 HTTP-vs-业务码映射。",
+      "evidence": []
+    },
+    {
+      "id": "cn.cloud_recording_v1.file_info.time_format_and_unfreeze_readiness",
+      "region": "domestic",
+      "source_doc_id": "1375",
+      "source_url": "https://open.ys7.com/help/1375",
+      "source_content_sha256": "7a09f9bdf9e901131d51d2e1abd810fd6c849bb8f7e570f6c17da02e1ab0bd6e",
+      "description": "1375 中 expireTime 为 String 但格式/时区未说明；文档无 unfreezeTime 字段及任何 complete/ready 谓词，字段必填性未声明；错误码分层未知。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "expireTime 原样透传不解析；不因 unfreezeTime 缺失推断就绪；未知字段保留。",
+      "evidence": []
+    },
+    {
+      "id": "cn.cloud_recording_v1.download.expire_unit_and_content_type_default",
+      "region": "domestic",
+      "source_doc_id": "1377",
+      "source_url": "https://open.ys7.com/help/1377",
+      "source_content_sha256": "dc16cf7660def0688bb7acaff11dd5e1db002b4599f4ae366d84c744276ecd7a",
+      "description": "1377 中 data.expire 单位未说明；contentType 五种列出格式是否排他、省略时默认值均未确认。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "data.expire 原样透传不换算；content_type=None 时省略该 query 参数，任何非空 UTF-8 字符串原样发送，不设默认、不作排他校验。",
+      "evidence": []
+    },
+    {
+      "id": "cn.cloud_recording_v1.download.unfreeze_state_not_uniquely_indicated",
+      "region": "domestic",
+      "source_doc_id": "1377",
+      "source_url": "https://open.ys7.com/help/1377",
+      "source_content_sha256": "dc16cf7660def0688bb7acaff11dd5e1db002b4599f4ae366d84c744276ecd7a",
+      "description": "1377 中 404 与空 urls 均非未解冻状态的唯一指示码，无法据此区分归档未解冻与其他失败；错误分层未知。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "不将 404/空 urls 映射为未解冻语义；保留 raw，不发明状态码。",
+      "evidence": []
+    },
+    {
+      "id": "cn.vod.files.filenodeids_array_vs_csv",
+      "region": "domestic",
+      "source_doc_id": "5342",
+      "source_url": "https://open.ys7.com/help/5342",
+      "source_content_sha256": "12e5fe8a0d7b1896d17ce37296c9f1c0e209d7cafd3b4721d51e6013e5448271",
+      "description": "5342 声明 fileNodeIds 类型为 Array，辅证 4187 给出的线上 wire 形式为 CSV String，两者类型表述不一致。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "采用 4187 明确的 CSV wire 形式（逗号连接、无转义），单个 id 内含逗号即拒绝；类型分歧在契约 uncertainties 中保留。",
+      "evidence": []
+    },
+    {
+      "id": "cn.vod.files.response_reference_4444_mismatch",
+      "region": "domestic",
+      "source_doc_id": "5342",
+      "source_url": "https://open.ys7.com/help/5342",
+      "source_content_sha256": "12e5fe8a0d7b1896d17ce37296c9f1c0e209d7cafd3b4721d51e6013e5448271",
+      "description": "4187 引用 4444 的响应结构，但 4444 是不同 POST 接口且使用 data.result 分页布局，与 5342 的 GET/data 数组布局不同，不能直接引入。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "契约按 5342 声明 data 为数组；不引入 4444 的 data.result 分页，不自动翻页。",
+      "evidence": []
+    },
+    {
+      "id": "cn.vod.files.error_layering_and_field_gaps",
+      "region": "domestic",
+      "source_doc_id": "5342",
+      "source_url": "https://open.ys7.com/help/5342",
+      "source_content_sha256": "12e5fe8a0d7b1896d17ce37296c9f1c0e209d7cafd3b4721d51e6013e5448271",
+      "description": "5342 与 4187 的错误表存在差异，HTTP 与业务码分层未给出；选择器组合规则（多 selector 同时生效的语义）、响应字段必填性、fileSize/totalSize 单位、fileType/fileChildType 类型、URL 有效期与部分命中行为均未说明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "所有已给 selector 原样发送、优先级交服务端裁决；不虚构错误映射、单位、必填性或部分结果语义。",
+      "evidence": []
     }
   ]
 }

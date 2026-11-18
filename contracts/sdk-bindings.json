@@ -2781,6 +2781,58 @@
       },
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.unfreeze_file",
+      "region": "domestic",
+      "source_doc_id": "5341",
+      "module": "src/ezviz_unified/cloud_recording_v1.py",
+      "symbols": [
+        "CloudRecordingV1.unfreeze_file",
+        "AsyncCloudRecordingV1.unfreeze_file"
+      ],
+      "public_entry": "cloud_recording_v1.unfreeze_file",
+      "offline_status": "not_verified",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.file_info",
+      "region": "domestic",
+      "source_doc_id": "1375",
+      "module": "src/ezviz_unified/cloud_recording_v1.py",
+      "symbols": [
+        "CloudRecordingV1.file_info",
+        "AsyncCloudRecordingV1.file_info"
+      ],
+      "public_entry": "cloud_recording_v1.file_info",
+      "offline_status": "not_verified",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.download_urls",
+      "region": "domestic",
+      "source_doc_id": "1377",
+      "module": "src/ezviz_unified/cloud_recording_v1.py",
+      "symbols": [
+        "CloudRecordingV1.download_urls",
+        "AsyncCloudRecordingV1.download_urls"
+      ],
+      "public_entry": "cloud_recording_v1.download_urls",
+      "offline_status": "not_verified",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.vod.files",
+      "region": "domestic",
+      "source_doc_id": "5342",
+      "module": "src/ezviz_unified/vod.py",
+      "symbols": [
+        "Vod.files",
+        "AsyncVod.files"
+      ],
+      "public_entry": "vod.files",
+      "offline_status": "not_verified",
+      "live_status": "not_verified"
     }
   ]
 }

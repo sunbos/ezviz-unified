@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "cohort_id": "CLOUD-FILE-001",
+  "baseline_commit": "e71f8dc15a6e1f0a682c9908cde56d7f501d73b2",
+  "scope_revision": "2026-11-18-r11-cloud-file-admission",
+  "G0_reused": "docs/coordination/SP030/admission.json",
+  "G1_decision": "approved_for_bounded_offline_implementation",
+  "architecture_sha256": "4153d47144c0c6cc66776c769051001041389fae1c1f55ad97834d18e1d60357",
+  "source_review_sha256": {
+    "SP120-archive-retrieval-review.json": "c3824ee08abaa741370b04d34f54d54532e52fcd1ac58f5f4f30fc3bd3e242aa",
+    "SP120-vod-metadata-review.json": "d3dfa996e6869471e4f695d76827145b5706d6328218630948b217df265ec1bd"
+  },
+  "source_review_receipt_location": ".claude/coordination/ (local reviewed receipts; hashes identify inputs, not execution evidence)",
+  "capability_ids": [
+    "candidate:domestic:5341:d0",
+    "candidate:domestic:1375:d0",
+    "candidate:domestic:1377:d0",
+    "candidate:domestic:5342:d0"
+  ],
+  "operation_ids": [
+    "cn.cloud_recording_v1.unfreeze_file",
+    "cn.cloud_recording_v1.file_info",
+    "cn.cloud_recording_v1.download_urls",
+    "cn.vod.files"
+  ],
+  "entries": [
+    {
+      "capability_id": "candidate:domestic:5341:d0",
+      "operation_id": "cn.cloud_recording_v1.unfreeze_file",
+      "entry": "cloud_recording_v1.unfreeze_file",
+      "signature": "unfreeze_file(project_id: str, file_id: str) -> ApiResponse",
+      "scenario": "显式触发云录制1.0归档文件取回；不将触发成功解释为取回完成",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:domestic:5341",
+          "content_sha256": "d0b6a93e3d2c9402d35e1ae4295b52ad938f96f1f69084e797866e0707cdbe85",
+          "declaration": "d0",
+          "element_pointers": [
+            "e0",
+            "e1",
+            "e10",
+            "e38",
+            "e76",
+            "e92",
+            "e95",
+            "e118"
+          ]
+        },
+        {
+          "source_id": "portal-2026-11-17:domestic:1380",
+          "content_sha256": "2704bbb84f3a6bb4b12e2a80c58604d901bdf7a2680c8530e657c8242c8a21d0",
+          "declaration": "d0",
+          "element_pointers": [
+            "e0",
+            "e1",
+            "e7",
+            "e32",
+            "e65",
+            "e77",
+            "e98"
+          ]
+        }
+      ],
+      "wire": "POST /api/open/cloud/v1/file/unfreeze；平铺form accessToken/projectId/fileId；Content-Type application/x-www-form-urlencoded；token只在form；read_only=False。",
+      "specific": "project_id按冻结SDK选择ASCII word1..32；file_id常规ASCII word1..32或E1 opaque前缀且总长<=128，E1本身有效且不拒$；所有文本非空白且UTF-8可编码；meta整数200/data null/raw原样；即使幂等也不重放，不查询/轮询/取URL。",
+      "read_only": false,
+      "unknowns": [
+        "account_permission_scope",
+        "fees_and_repeat_billing",
+        "id_regex_dialect",
+        "unfreeze_completion_predicate",
+        "error_layering"
+      ]
+    },
+    {
+      "capability_id": "candidate:domestic:1375:d0",
+      "operation_id": "cn.cloud_recording_v1.file_info",
+      "entry": "cloud_recording_v1.file_info",
+      "signature": "file_info(project_id: str, file_id: str) -> ApiResponse",
+      "scenario": "显式查询云录制1.0单文件信息，保留未知字段而不推断解冻状态",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:domestic:1375",
+          "content_sha256": "7a09f9bdf9e901131d51d2e1abd810fd6c849bb8f7e570f6c17da02e1ab0bd6e",
+          "declaration": "d0",
+          "element_pointers": [
+            "e0",
+            "e1",
+            "e4",
+            "e25",
+            "e58",
+            "e100",
+            "e103",
+            "e118"
+          ]
+        }
+      ],
+      "wire": "GET /api/open/cloud/v1/file；query accessToken/projectId/fileId；token只在query；无body/不注入Content-Type；read_only=True。",
+      "specific": "project_id仅非空白UTF-8 str，不套32或ASCII上限；file_id按已冻结1.0规则；fileSize bytes/duration seconds原样，expireTime String不parse；合成未知unfreezeTime仅证明保留，不产生ready属性；不自动unfreeze/poll/下载。",
+      "read_only": true,
+      "unknowns": [
+        "account_permission_scope",
+        "fees",
+        "id_regex_dialect",
+        "expire_time_format_and_timezone",
+        "unfreeze_completion_predicate",
+        "error_layering"
+      ]
+    },
+    {
+      "capability_id": "candidate:domestic:1377:d0",
+      "operation_id": "cn.cloud_recording_v1.download_urls",
+      "entry": "cloud_recording_v1.download_urls",
+      "signature": "download_urls(project_id: str, file_id: str, *, content_type: str | None = None, expire_seconds: int | None = None) -> ApiResponse",
+      "scenario": "显式获取云录制1.0文件下载或在线播放地址，仅返回地址不访问媒体",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:domestic:1377",
+          "content_sha256": "dc16cf7660def0688bb7acaff11dd5e1db002b4599f4ae366d84c744276ecd7a",
+          "declaration": "d0",
+          "element_pointers": [
+            "e0",
+            "e1",
+            "e14",
+            "e41",
+            "e95",
+            "e115",
+            "e118",
+            "e141"
+          ]
+        }
+      ],
+      "wire": "GET /api/service/cloudrecord/file/official/download；Header accessToken；query projectId/fileId/可选contentType/expireSeconds；无body/不注入Content-Type；read_only=True。",
+      "specific": "project_id ASCII word1..32，file_id按1.0规则并query round-trip保留$；content_type非空白UTF-8 str原样透传，包含未列合成值，非封闭五值enum；expire_seconds int非bool，60..604800，None省略，不注入7200；data.expire单位unknown不换算；urls空/非空原样，不转ready或NotReady。",
+      "read_only": true,
+      "unknowns": [
+        "remaining_account_permission_scope",
+        "fees",
+        "id_regex_dialect",
+        "data_expire_unit",
+        "download_unfreeze_indication",
+        "content_type_default_and_server_closed_set",
+        "error_layering"
+      ]
+    },
+    {
+      "capability_id": "candidate:domestic:5342:d0",
+      "operation_id": "cn.vod.files",
+      "entry": "vod.files",
+      "signature": "files(file_node_ids: Sequence[str] | None = None, *, space_id: int | None = None, space_name: str | None = None) -> ApiResponse",
+      "scenario": "按节点或空间显式查询独立云点播文件元数据",
+      "source_refs": [
+        {
+          "source_id": "portal-2026-11-17:domestic:5342",
+          "content_sha256": "12e5fe8a0d7b1896d17ce37296c9f1c0e209d7cafd3b4721d51e6013e5448271",
+          "declaration": "d0",
+          "element_pointers": [
+            "e1",
+            "e16",
+            "e43",
+            "e88",
+            "e132",
+            "e135",
+            "e154",
+            "e169"
+          ]
+        },
+        {
+          "source_id": "portal-2026-11-17:domestic:4187",
+          "content_sha256": "3c0b4c0352b5734d93da68c227c2f28e593ccd79b216635a57fdd4a6f821e0ea",
+          "declaration": "d0",
+          "element_pointers": [
+            "e4",
+            "e22",
+            "e58",
+            "e62",
+            "e88",
+            "e98"
+          ]
+        }
+      ],
+      "wire": "GET /api/service/open/vod/files；Header accessToken；query fileNodeIds CSV/spaceId/spaceName；无body/不注入Content-Type；read_only=True。",
+      "specific": "至少一种选择器；None省略；1..50非字符串Sequence，UTF-8非空白ID、拒comma，在auth前快照并保留顺序/重复；space_id int非bool允许0/负数；space_name非空白UTF-8不套32/CJK限制；所有供给选择器原样发送由服务端处理spaceId优先；data array/raw原样，不移植4444分页或3974 HLS/统一存储语义。",
+      "read_only": true,
+      "unknowns": [
+        "additional_account_entitlements",
+        "files_collection_wire_type_source_difference",
+        "files_response_reference_source_difference",
+        "secondary_selector_relations",
+        "response_requiredness_and_result_limit",
+        "error_layering"
+      ]
+    }
+  ],
+  "single_writers": {
+    "A": [
+      "src/ezviz_unified/cloud_recording_v1.py",
+      "tests/test_sdk_cloud_recording_v1.py"
+    ],
+    "B": [
+      "src/ezviz_unified/vod.py",
+      "tests/test_sdk_vod.py"
+    ],
+    "C": [
+      "src/ezviz_unified/client.py",
+      "src/ezviz_unified/__init__.py",
+      "src/ezviz_unified/errors.py",
+      "tests/test_sdk_transport.py",
+      "src/ezviz_unified/_diagnostic_registry.py",
+      "docs/diagnostics-v1-coverage.json",
+      "tests/test_harness_diagnostic_coverage.py",
+      "docs/diagnostics.md",
+      "README.md",
+      "docs/plans/2026-11-18-cloud-recording-v1-vod.md",
+      "docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+    ]
+  },
+  "no_live_execution_authorized": true,
+  "whole_source_reviews_completed": false,
+  "other_required_scope_preserved": true,
+  "product_complete": false,
+  "privacy_boundary": "仅已知请求ID/token值使用现有脱敏；ApiResponse repr、诊断与SDK自动日志不含data/raw。未知URL若在任意自由服务器错误message中，不保证已被通用脱敏。",
+  "source_difference_boundary": "1380是5341补充来源；4187是5342补充来源且字段类型/包层/错误表差异保留；4444仅为另一分页操作的区别证据，不计新增能力、不关闭其待审责任。"
+}

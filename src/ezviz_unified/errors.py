@@ -64,6 +64,8 @@ _SENSITIVE_KEYS = (
     "planName",
     "templateId",
     "templateName",
+    "projectId",
+    "fileId",
 )
 _SENSITIVE_PARAM_RE = re.compile(
     r"\b(" + "|".join(_SENSITIVE_KEYS) + r")\s*=\s*[^\s&\"']+",

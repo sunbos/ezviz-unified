@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "admission_id": "SP142",
+  "scope_revision": "2026-11-18-r12-vod-resource-probe",
+  "decision": "bounded_resource_probe_frozen_not_executed",
+  "case_id": "ACC-CN-VOD-RESOURCE-DISCOVERY-001",
+  "baseline_commit": "e71f8dc15a6e1f0a682c9908cde56d7f501d73b2",
+  "authorized_readonly": true,
+  "live_ready": false,
+  "product_complete": false,
+  "plan": "docs/plans/2026-11-18-cloud-files-readonly-probe.md",
+  "parent_required_case": "ACC-CANDIDATE-CN-5342-D0-LIVE-001",
+  "source_operations": [
+    "cn.storage.spaces",
+    "cn.vod.files"
+  ],
+  "limits": {
+    "max_requests": 7,
+    "max_operations": 2,
+    "freeze_required": false,
+    "bound_definition": "auth<=3、spaces<=2、vod<=2含现有invalid-token恢复；一页page_size50、biz_type=vod、固定30天窗口。intake600秒/单连接绝对10秒；probe120秒是检查点软截止、不保证总时长，控制器启动时另施加900秒外层墙钟上限。响应保留payload<=1MiB，首次越界chunk拒绝并关闭，非网络/TLS读取字节上限。"
+  },
+  "source_evidence": "5230 ordinaryVODspacefields;5342metadataquery; source differences andpermissions remain in existing contracts/source-issues.json",
+  "input_safety": "one-shot local memory only, no model/log/fixture credentials; no fallback to stored historical IDs",
+  "no_feature_pass_from_empty_or_permission_failure": true
+}
