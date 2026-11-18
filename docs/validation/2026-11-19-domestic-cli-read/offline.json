@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "case_id": "ACC-CN-CLI-EXAMPLE-001",
+  "scope": "offline_example_cli_acceptance",
+  "code_commit": "d35d1f42ceff74602ffdeb05803c46470cb3ffb8",
+  "source_test_sha256": {
+    "tools/live/_cli_transport.py": "ba1618a285ab08c510eb395a987464e2f4597faaaac112966b08f49a6c19144f",
+    "tools/live/verify_example_clis.py": "5403f76afe06a83a5a1c7052a64b5d3d28893538f8560ebefa0764494b87de41",
+    "tools/live/verify_diagnostics.py": "cdc9b5ff628a33dac0dd2a70a46c33c08b0641af53604e10a21651e1a4e37b5f",
+    "tools/live/verify_diagnostics_async.py": "4b2fc04d2eda229a84a70891d183b764f884921ba2e4b2ae9f23258bde32e38f",
+    "tests/test_live_example_clis.py": "ac6e300d99cd4a527bd73aca5e54d76dadbd5419172c2147b11ebbbf30cf5dd4",
+    "tests/test_live_example_cli_boundaries.py": "295f7f2d4568ed92c085cbcf8f9b818629711892b14632bf7abba817cb1ffc68",
+    "docs/coordination/domestic-cli-read/admission.json": "7bd5e92cf2f66454ac5e77ca0f0534b962f9ecf9f2e20a3f33bb60dd53554aab"
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_live_example_clis.py tests/test_live_example_cli_boundaries.py tests/test_live_diagnostics.py tests/test_live_diagnostics_async.py",
+      "local_receipt_sha256": "e14c9bc5acd59d69b9cb01eaa62f8e3ca62354dd088db7440a108ae09ce1c6fa",
+      "tool_error": false,
+      "summary": "200 passed in 3.61s"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "local_receipt_sha256": "926a2dd855793dd2d359e2c0d19837ad57968d521a3f3cb6acdfa784d2c14fc6",
+      "tool_error": false,
+      "summary": "7339 passed, 35 subtests passed in 99.27s (0:01:39)"
+    }
+  ],
+  "observations": [
+    "六个原始 __main__ 的受控运行均使用本地模拟传输。完整样本的 HTTP 计数依次为 2、2、6、6、2、2。",
+    "无目标样本的计数为 2、2、0、0、2、2。四个仅查列表的模块通过，整体 not_verified。",
+    "认证错误、已有请求后出错或取消、巡检部分失败、未知协议输入和超长或多余输出均保留失败记录。",
+    "同步及异步示例拒绝转发来自平台响应的 Cookie。启用 TLS 密钥日志时，真实传输在任何文件或 HTTP 请求产生前被拒绝。"
+  ],
+  "live_executed": false
+}

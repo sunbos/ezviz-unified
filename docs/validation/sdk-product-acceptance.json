@@ -253,14 +253,22 @@
         "examples/inspection_async.py",
         "examples/diagnostics_sync.py",
         "examples/diagnostics_async.py",
-        "docs/validation/live/2026-11-15-domestic-inspection/README.md"
+        "docs/validation/live/2026-11-15-domestic-inspection/README.md",
+        "tools/live/_cli_transport.py",
+        "tools/live/verify_example_clis.py",
+        "tests/test_live_example_clis.py",
+        "tests/test_live_example_cli_boundaries.py",
+        "docs/validation/2026-11-19-domestic-cli-read/offline.json"
       ],
       "result": "pending_execution",
       "blockers": [
-        "等待有界示例执行器离线证据，以及单独、全新、指定版本的真实 CLI 回执。"
+        "离线执行器与约定的输出、路由和隐私检查已通过。等待用户在本机选择本批范围后生成独立真实回执。"
       ],
       "scope_revision": "2026-11-19-r19-domestic-cli-read",
-      "freeze_state": "frozen_for_implementation"
+      "freeze_state": "frozen_for_implementation",
+      "limitations": [
+        "先前设备检查的真实回执仅供参考。本案例需要受控执行六个原始 CLI 并分别验证结果。空首页最多提供四个列表型入口的真实证据。"
+      ]
     },
     {
       "case_id": "ACC-OS-PUBLIC-TIMEZONE-001",
