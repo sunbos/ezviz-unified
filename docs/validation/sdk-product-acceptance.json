@@ -138,33 +138,81 @@
       ],
       "risk": "read_only",
       "preconditions": [
-        "authorized domestic developer credentials",
-        "an async-capable bounded live runner equivalent to the sync inspection path"
+        "root批准本行明确的7个HTTP路由、7次HTTP/6次业务调用和每路由至多1次；本审查本身不执行或新增授权。",
+        "仅复用已授权国内普通设备只读范围；新鲜凭据通过受控本地输入留在进程内，不从历史回执或模型上下文获取。",
+        "已实现并离线验证native AsyncClient + AsyncBaseTransport bounded runner；不得用to_thread调用同步verify代替。",
+        "单页devices.list(page_start=0,page_size=1)可返回至少一个普通设备；序列号仅内存绑定，同一设备channel=1用于后续固定五步。",
+        "目标源码/runner/SDK版本与实际执行回执同时固定，接收报告前核对请求边界未变。"
       ],
       "expected_evidence": {
-        "read": "AsyncClient response-policy success for the same 6 business logical entries as the sync row (devices.list + inspect_device five); public receipt only",
-        "write": "none",
-        "physical": "none"
+        "read": "真实AsyncClient顺序执行devices.list一次及inspect_device_async固定五步（devices.get/channels/status(channel=1)、diagnostics.capabilities(channelNo=1)、diagnostics.version）。正常通过须恰好1次认证+6次业务HTTP，六个业务成功终态均mode=async；请求次数/路径来自真实guard观测，关闭后诊断完整且recording_errors=dropped_events=0。",
+        "write": "无设备/媒体/配置写操作；认证是7次HTTP中的独立必要调用，不冒充业务入口。",
+        "physical": "不证明硬件健康、全部能力或当前持续在线，仅记录此刻各只读API响应政策成功及有限结构。"
       },
       "bounded": {
-        "max_requests": null,
-        "max_operations": null,
-        "freeze_required": true
+        "max_requests": 7,
+        "max_operations": 6,
+        "freeze_required": false
       },
       "authorization_status": "reuse_existing_scope",
-      "recovery_plan": "n/a; read-only",
+      "recovery_plan": "读操作无需设备回滚；总预算/每路由上限在delegate前拦截。异常、超时、取消均关闭async client/transport；不因失败扩大目标或重跑。本case不允许额外认证刷新请求，SDK原有重放政策不修改，超预算尝试导致本case failed而非忽略/计passed。",
       "source_refs": [
+        "contracts/reviewed-transport-contracts.json",
         "contracts/sdk-bindings.json",
-        "docs/validation/live/2026-11-15-domestic-inspection/README.md"
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/81.source.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/673.source.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/672.source.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1478.source.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/675.source.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/678.source.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/734.source.json",
+        "docs/coordination/domestic-async-read/admission.json"
       ],
       "code_artifact_evidence_refs": [
-        "tools/live/verify_devices.py",
-        "tools/live/verify_diagnostics.py"
+        "tools/live/verify_diagnostics.py",
+        "tools/live/verify_diagnostics_async.py",
+        "tests/test_live_diagnostics_async.py",
+        "tools/live/README.md"
       ],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "No async live execution recorded; the existing bounded verifier is synchronous. A bounded async scenario (max requests/operations) must be frozen before execution."
-      ]
+        "异步验收执行器及其离线边界测试待验证。",
+        "尚无本次设备执行回执。当前进程无本地凭据。"
+      ],
+      "capability_ids": [
+        "contract:cn.token.get",
+        "contract:cn.devices.list",
+        "contract:cn.devices.get",
+        "contract:cn.devices.channels",
+        "contract:cn.device.status",
+        "contract:cn.diagnostics.capabilities",
+        "contract:cn.diagnostics.version"
+      ],
+      "operation_ids": [
+        "cn.token.get",
+        "cn.devices.list",
+        "cn.devices.get",
+        "cn.devices.channels",
+        "cn.device.status",
+        "cn.diagnostics.capabilities",
+        "cn.diagnostics.version"
+      ],
+      "scope_revision": "2026-11-19-r18-domestic-async-read-design",
+      "freeze_state": "frozen_for_implementation",
+      "resource_state": "unknown_awaiting_configuration_check",
+      "limitations": [
+        "本行只覆盖一个case的六个业务动作，不覆盖CLI运行、海外、托管设备、子账户全集、媒体访问或物理操作。",
+        "空设备列表、缺可用serial、权限/协议/网络失败均不能算成功；empty/missing resource记录not_verified或对应未就绪状态。",
+        "case.freeze_state只表达root采纳此设计后的冻结，不意味着本报告已批准live执行或跑过新G1。"
+      ],
+      "criterion_assessment": {
+        "ASYNC-DESIGN": "met",
+        "ASYNC-GUARD-OFFLINE": "pending",
+        "ASYNC-LIVE": "pending",
+        "ASYNC-DIAGNOSTIC": "pending",
+        "ASYNC-NEGATIVE-BOUNDARY": "pending",
+        "ASYNC-MATRIX-RECEIPT": "pending"
+      }
     },
     {
       "case_id": "ACC-CN-CLI-EXAMPLE-001",
