@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope_revision": "2026-11-19-r18-domestic-async-read-design",
+  "scope_revision": "2026-11-19-r19-domestic-cli-read",
   "baseline_commit": "641d6cc10010b11a49c65c9d6783f92eefda00d3",
   "inputs": {
     "reviewed_contracts": {
@@ -130,6 +130,11 @@
       "path": "docs/coordination/domestic-async-read/admission.json",
       "schema": 1,
       "sha256": "101542c050c76f33a28836a589a6df916f0458d7503d9b77899243db8208989f"
+    },
+    "domestic_cli_acceptance_design": {
+      "path": "docs/coordination/domestic-cli-read/admission.json",
+      "schema": 1,
+      "sha256": "7bd5e92cf2f66454ac5e77ca0f0534b962f9ecf9f2e20a3f33bb60dd53554aab"
     },
     "domestic_async_runner_offline": {
       "path": "docs/validation/2026-11-19-domestic-async-read/offline.json",
