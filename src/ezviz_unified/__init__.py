@@ -43,6 +43,7 @@ from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 from .otap import AsyncOtap, Otap
 from .ownership import AsyncOwnership, Ownership
+from .passenger_flow import AsyncPassengerFlow, PassengerFlow
 from .playback import AsyncPlayback, Playback, PlaybackOptions
 from .providers import (
     AsyncStaticTokenProvider,
@@ -100,6 +101,7 @@ __all__ = [
     "AsyncDevices",
     "AsyncDiagnostics",
     "AsyncHubs",
+    "AsyncPassengerFlow",
     "AsyncTraffic",
     "AsyncImaging",
     "AsyncVideo",
@@ -139,6 +141,7 @@ __all__ = [
     "ImageSetting",
     "FillLightMode",
     "Hubs",
+    "PassengerFlow",
     "Traffic",
     "Illumination",
     "Maintenance",

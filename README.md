@@ -63,6 +63,55 @@ with Client(
 
 `client.vod`另提供四个仅国内的转封装与查询入口，同步/异步共用同名方法：`create_remux_task`（官方明确非幂等的异步任务创建，不自动重放，仅返回`ApiResponse`，不变成任务句柄）、`task`与`tasks`（只读的单任务查询与任务分页列表，不自动翻页或轮询）以及`recording_urls`（按设备、通道与时段签发录像地址；其`read_only=False`是SDK为禁自动重放的选择，来源未明确无副作用，非官方写/非幂等结论）。官方声明的范围/权限边界包括：`create_remux_task`限企业用户、不支持托管/子账号且需已有对应时段云录像；`recording_urls`要求设备开通云存储且对应时段有录像、同样不支持托管/子账号；两个查询接口的来源仅明确accessToken，额外账号或套餐权限未声明，由服务端判定；SDK不把这些前提互相移植。全部参数校验、Header字符串规则与时间边界见[云点播转封装说明](docs/research/2026-11-18-vod-remux.md)；任务状态编码、地址字段名与`fileNodeId`/`taskId`各自独立，SDK不发明映射或完成判据。本批四个入口仍未做真实调用验证；各能力的验收状态见[产品能力登记](docs/capabilities/README.md)与[验收登记](docs/validation/sdk-product-acceptance.json)中对应`candidate:domestic:*`行，登记数量不代表覆盖率或产品级验收通过。
 
+## 国内设备客流统计
+
+客流统计走国内 LAPP 表单 POST，`accessToken` 放在请求体，成功以字符串 `code="200"` 判定，复用统一认证/响应策略。六个方法中 `switch_status`、`daily`、`hourly`、`get_config` 为只读，`set_switch`、`set_config` 会改变设备状态。[客流开关状态](https://open.ys7.com/help/688)
+
+| `client.passenger_flow` 方法（AsyncClient 同名，前加 `await`） | 类型 | 返回 `data` 形态 | 通道参数 |
+|---|---|---|---|
+| `switch_status(device_serial)` | 只读 | 对象 | 无 |
+| `set_switch(device_serial, *, enable, channel_no=None)` | 写 | 应答（`data` 可缺） | 可选 |
+| `daily(device_serial, channel_no, *, day=None)` | 只读 | 对象 | 必填 |
+| `hourly(device_serial, channel_no, *, date_ms=None)` | 只读 | 数组 | 必填 |
+| `set_config(device_serial, *, line, direction, channel_no=None)` | 写 | 应答（`data` 可缺） | 可选 |
+| `get_config(device_serial, *, channel_no=None)` | 只读 | 含 `line`/`direction` 的几何对象 | 可选 |
+
+序列号保留原串；通道为整数（显式拒绝 `bool`，不猜取值上下界）；可选通道与日期仅在显式提供时才发送，省略不会被替换为 0。
+
+只读示例（同步客户端；仅选择日报、明确目标设备/通道，不预检能力、不改变配置）：
+
+```python
+from datetime import datetime, timedelta, timezone
+
+# day 必须是自带时区的当地午夜；SDK 用显式 UTC epoch 差精确换算毫秒
+resp = client.passenger_flow.daily(
+    "SYNTHFLOW001",
+    1,
+    day=datetime(2019, 6, 21, tzinfo=timezone(timedelta(hours=8))),
+)
+```
+
+`day` 可省；提供时仅接受 tz-aware 的当地午夜 `datetime`，不使用主机时区，偏移无法精确表示为毫秒会被拒绝。`hourly` 的 `date_ms` 是可省的有符号 64 位整数毫秒。日报约于次日凌晨 2 点更新（以平台为准）；`hourly` 数组原样透传，不承诺固定行数，不补齐、不求和。[客流日报](https://open.ys7.com/help/690) [客流小时报](https://open.ys7.com/help/691)
+
+仓库示例读取常规国内认证配置，还需显式设置 `EZVIZ_DEVICE_SERIAL` 和 `EZVIZ_CHANNEL`。运行时只返回地区、报表种类、模式和状态。
+
+```bash
+.venv/bin/python -m examples.passenger_flow --mode sync --report daily
+```
+
+日报可提供 `EZVIZ_FLOW_DAY`（例如 `2019-06-21T00:00:00+08:00`），小时报可提供 `EZVIZ_FLOW_DATE_MS`（毫秒整数）。两者省略时使用平台默认日期。示例也支持 `--mode async` 与 `--report hourly`。
+
+`set_config` 的 `line` 与 `direction` 均为恰好含 `x1`/`y1`/`x2`/`y2` 四个字符串键的 `Mapping[str, str]`。`line` 取值须为 `[0,1]` 内 ASCII 非负普通十进制文本、至多 7 位小数、不强制补零；`direction` 为四个 ASCII 有限普通十进制字符串，原样保留、不套用 `line` 的范围与精度约束。SDK 按固定键顺序生成紧凑 JSON，交表单编码器仅编码一次（不预百分号编码、不双写、不回读暗改）；该单次编码是 SDK 侧的选择，设备端接受情况尚未实测。以下为合成示例值：
+
+```python
+line = {"x1": "0.0", "y1": "0.5", "x2": "1.0", "y2": "0.5"}
+direction = {"x1": "0.0", "y1": "0.0", "x2": "0.5", "y2": "0.0"}
+```
+
+[客流配置写入](https://open.ys7.com/help/692)
+
+写接口已在 SDK 实现但不自动重放（含 `10002`、超时、`60022`），成功应答允许缺 `data`。恢复差异：`switch_status`（688）不接受 `channelNo`，而 `set_switch`（689）可带可选通道；`get_config`（693）返回同一目标（设备+通道）当前的 `line`/`direction`，写前可先读取旧几何作为恢复依据。设备须支持客流统计。子账户读取使用 `Get`、设置使用 `Config`。688/689 声明设备级 `dev` 资源，690–693 声明通道级 `Cam` 资源。当前验收为离线模拟。真实配置须另行指定设备、目标通道、写入范围和可核实的恢复方法。[客流开关设置](https://open.ys7.com/help/689) [客流配置读取](https://open.ys7.com/help/693)
+
 ## 国内云直播归档查询
 
 `client.vod.stream_source_files(stream_id, *, file_type, query_date=None)`（异步版本为 `async_client` 同名方法）使用请求头 `accessToken` 鉴权。`stream_id` 为不透明标识；`file_type=1`（录像）必须提供规范日期 `YYYY-MM-DD`，`file_type=2`（截图）可省略。返回 `.data["fileInfo"]` 数组，创建和更新时间保留原始字符串。官方明确该接口不支持子账户。[源文件查询](https://open.ys7.com/help/4751)

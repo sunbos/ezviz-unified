@@ -3067,6 +3067,84 @@
       "public_entry": "vod.stream_index_file",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.passenger_flow.switch_status",
+      "region": "domestic",
+      "source_doc_id": "688",
+      "module": "src/ezviz_unified/passenger_flow.py",
+      "symbols": [
+        "PassengerFlow.switch_status",
+        "AsyncPassengerFlow.switch_status"
+      ],
+      "public_entry": "passenger_flow.switch_status",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.passenger_flow.set_switch",
+      "region": "domestic",
+      "source_doc_id": "689",
+      "module": "src/ezviz_unified/passenger_flow.py",
+      "symbols": [
+        "PassengerFlow.set_switch",
+        "AsyncPassengerFlow.set_switch"
+      ],
+      "public_entry": "passenger_flow.set_switch",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.passenger_flow.daily",
+      "region": "domestic",
+      "source_doc_id": "690",
+      "module": "src/ezviz_unified/passenger_flow.py",
+      "symbols": [
+        "PassengerFlow.daily",
+        "AsyncPassengerFlow.daily"
+      ],
+      "public_entry": "passenger_flow.daily",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.passenger_flow.hourly",
+      "region": "domestic",
+      "source_doc_id": "691",
+      "module": "src/ezviz_unified/passenger_flow.py",
+      "symbols": [
+        "PassengerFlow.hourly",
+        "AsyncPassengerFlow.hourly"
+      ],
+      "public_entry": "passenger_flow.hourly",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.passenger_flow.set_config",
+      "region": "domestic",
+      "source_doc_id": "692",
+      "module": "src/ezviz_unified/passenger_flow.py",
+      "symbols": [
+        "PassengerFlow.set_config",
+        "AsyncPassengerFlow.set_config"
+      ],
+      "public_entry": "passenger_flow.set_config",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.passenger_flow.get_config",
+      "region": "domestic",
+      "source_doc_id": "693",
+      "module": "src/ezviz_unified/passenger_flow.py",
+      "symbols": [
+        "PassengerFlow.get_config",
+        "AsyncPassengerFlow.get_config"
+      ],
+      "public_entry": "passenger_flow.get_config",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

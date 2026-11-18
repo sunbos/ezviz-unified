@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "scope": "domestic_passenger_flow_offline",
+  "code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+  "source_test_sha256": {
+    "src/ezviz_unified/passenger_flow.py": "1d7e557d92ef6186c79a9b85a7c86b3f76167b2af758b9a556e0ae20d1ed8093",
+    "src/ezviz_unified/_passenger_flow_forms.py": "cfc7b0fa68ab174b44ba9013342f996512d1385f25df7933341c7ec446975fb6",
+    "src/ezviz_unified/client.py": "fe424d472a348d31ffc89b7e43e12a9e04c3feba08fa3cd47200bbd04913b1f6",
+    "src/ezviz_unified/__init__.py": "711289477702cd95b344b60fb80de8c539f821aa21a7c33bb501470974d1cf27",
+    "src/ezviz_unified/_diagnostic_registry.py": "0163680a9a3719177695a24f769eb0d58d7ef58227544402c9575ab23c14b2c6",
+    "examples/passenger_flow.py": "31dbf9281ba0cd9ce803f91b1696a8e5328533c9e1fcc522864c2f7f78d8f2e1",
+    "tests/test_example_passenger_flow.py": "1d6aa7da88be4ad9376ee5d9e7727c0638648762bdd5f2cde29c92aabf929d9b",
+    "tests/test_sdk_passenger_flow.py": "48c7172c3d28612310805d804ecefa17110afa6a63e0a8ab4d90919811915651",
+    "tests/test_sdk_passenger_flow_inputs.py": "a1f90414d9ee9b93e30ca31b1cf0a5ec597518dab5aaab3412c53c3f4fec72a7",
+    "tests/test_harness_diagnostic_coverage.py": "34c2386a2bb0c8cca04c9a3e3e252940db381a35a867253dd279d8fb7ba1677d",
+    "docs/coordination/domestic-passenger-flow/admission.json": "fd9198baf4dfc5b3364a985569623c64bc45c6e316ce93df489f63212f267b0a",
+    "docs/diagnostics-v1-coverage.json": "ed6f16547bd522c2a8a8b911485beb883db23bbdfbefde8af8dc2450e93b54da",
+    "contracts/reviewed-transport-contracts.json": "0e7d5ee835e69ec77bd78904ccb087f122cd52d66a398676294d3c3747cb29db",
+    "contracts/source-issues.json": "7fde47f14ee1b69fd2a2f1d98dc90fc230ab7a9b300ab85dbb98233c083bcaee",
+    "evals/contracts/cases.json": "223a9ae4435233cdc9840c8536356ebd58e552cf28c2f8b42e66155609ed79bf"
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_passenger_flow.py tests/test_sdk_passenger_flow_inputs.py tests/test_example_passenger_flow.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "456 passed in 1.43s",
+      "local_receipt_sha256": "64e312deb1d4214b7cfb72e93000e009a03e173eb10330df9428ede5f8ed773b",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "7859 passed, 35 subtests passed in 53.88s",
+      "local_receipt_sha256": "4473bb87f1b682cde16179b29ae38d43d13e0faabaeac11719e9f8be89b805e5",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "232 registered contracts, 1888/1888 wire checks passed",
+      "local_receipt_sha256": "1df431afc46d5c79bd9ba0610fd9606054ab6c1ceb506391422bb8b80141a4e6",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 51 source files",
+      "local_receipt_sha256": "7c4e0763dbca59e6d4edeab7effb516315314989edc9ec47b56dd2208d13cb7f",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "232 registered contracts and bindings, static AST checked 464 symbols",
+      "local_receipt_sha256": "413cc66113c383c680a1657d0bbbe57ce2f9153db92239ec61d9e84df18a52e2",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "模拟传输覆盖四种读取、两种写入的请求方式和非重放、日期及四键坐标 JSON 选型。未访问真实设备，尚未确认平台对 692 的编码接受情况或设备恢复效果。"
+}

@@ -49,6 +49,7 @@ from .models import ApiResponse
 from .operations import Operation
 from .otap import AsyncOtap, Otap
 from .ownership import AsyncOwnership, Ownership
+from .passenger_flow import AsyncPassengerFlow, PassengerFlow
 from .playback import AsyncPlayback, Playback
 from .providers import AsyncTokenProvider, TokenProvider, validate_provider_token
 from .ptz import AsyncPtz, Ptz
@@ -334,6 +335,7 @@ class Client:
         self.cloud_capture = CloudCapture(self)
         self.message_subscriptions = MessageSubscriptions(self)
         self.hubs = Hubs(self)
+        self.passenger_flow = PassengerFlow(self)
         self.traffic = Traffic(self)
 
     @property
@@ -655,6 +657,7 @@ class AsyncClient:
         self.cloud_capture = AsyncCloudCapture(self)
         self.message_subscriptions = AsyncMessageSubscriptions(self)
         self.hubs = AsyncHubs(self)
+        self.passenger_flow = AsyncPassengerFlow(self)
         self.traffic = AsyncTraffic(self)
 
     @property

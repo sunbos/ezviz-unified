@@ -1,0 +1,381 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "191c6de1fd9692071ba42357deba6a99f9af03fa",
+  "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+  "operations": [
+    {
+      "doc_id": "688",
+      "capability_id": "candidate:domestic:688:d0",
+      "operation_id": "cn.passenger_flow.switch_status",
+      "entry": "passenger_flow.switch_status",
+      "name": "switch_status",
+      "signatures": {
+        "PassengerFlow": "def switch_status(device_serial: str) -> ApiResponse",
+        "AsyncPassengerFlow": "async def switch_status(device_serial: str) -> ApiResponse"
+      },
+      "path": "/api/lapp/passengerflow/switch/status",
+      "source_url": "https://open.ys7.com/help/688",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/688.source.json",
+      "html_sha256": "71256f0a77e1c141f2f39c4ce051822cf2d8a39ba13118f9c2d981250a52725e",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/688.structure.json",
+      "structure_sha256": "12a026da1f76a12106d9fcc19e8b8c00ed47b3dea1e966ddcec2fc37513509fb",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "description": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "description": "授权过程获取的access_token"
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "description": "设备序列号,存在英文字母的设备序列号，字母需为大写"
+        }
+      ],
+      "shape": "object",
+      "read_only": true,
+      "permission": "Get",
+      "resource": "dev",
+      "detail": "同一设备的开关状态，不传 channelNo。",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-688-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-688-D0-LIVE-001"
+      ]
+    },
+    {
+      "doc_id": "689",
+      "capability_id": "candidate:domestic:689:d0",
+      "operation_id": "cn.passenger_flow.set_switch",
+      "entry": "passenger_flow.set_switch",
+      "name": "set_switch",
+      "signatures": {
+        "PassengerFlow": "def set_switch(device_serial: str, *, enable: int, channel_no: int | None = None) -> ApiResponse",
+        "AsyncPassengerFlow": "async def set_switch(device_serial: str, *, enable: int, channel_no: int | None = None) -> ApiResponse"
+      },
+      "path": "/api/lapp/passengerflow/switch/set",
+      "source_url": "https://open.ys7.com/help/689",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/689.source.json",
+      "html_sha256": "345c794eca50e471c807f6ce0704dc118e110b6f563037b427c93cc21be05d38",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/689.structure.json",
+      "structure_sha256": "033c7d8fb180d972cbabc8b57a3d2bfd24acc133d6a3286945d88096844ba8b3",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "description": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "description": "授权过程获取的access_token"
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "description": "设备序列号,存在英文字母的设备序列号，字母需为大写"
+        },
+        {
+          "location": "body",
+          "name": "enable",
+          "type": "Int",
+          "required": true,
+          "description": "状态：0-关闭，1-开启"
+        },
+        {
+          "location": "body",
+          "name": "channelNo",
+          "type": "Int",
+          "required": false,
+          "description": "通道号，不传表示设备本身"
+        }
+      ],
+      "shape": "ack",
+      "read_only": false,
+      "permission": "Config",
+      "resource": "dev",
+      "detail": "开关配置，开启/关闭取整数 1/0；省略通道表示设备本身。688 未必能读取写入目标通道的原始状态。",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-689-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-689-D0-LIVE-001"
+      ]
+    },
+    {
+      "doc_id": "690",
+      "capability_id": "candidate:domestic:690:d0",
+      "operation_id": "cn.passenger_flow.daily",
+      "entry": "passenger_flow.daily",
+      "name": "daily",
+      "signatures": {
+        "PassengerFlow": "def daily(device_serial: str, channel_no: int, *, day: datetime | None = None) -> ApiResponse",
+        "AsyncPassengerFlow": "async def daily(device_serial: str, channel_no: int, *, day: datetime | None = None) -> ApiResponse"
+      },
+      "path": "/api/lapp/passengerflow/daily",
+      "source_url": "https://open.ys7.com/help/690",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/690.source.json",
+      "html_sha256": "6a76e6ff991c2789a99e8cfcc583784734cae43815b5275ec9c445799c8c4fee",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/690.structure.json",
+      "structure_sha256": "fdee193a1505a395d1c49ac503d9b3b1f447572c5e2172d8f465fce3925c3097",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "description": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "description": "授权过程获取的 access_token"
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "description": "设备序列号，存在英文字母的设备序列号，字母需为大写"
+        },
+        {
+          "location": "body",
+          "name": "channelNo",
+          "type": "Int",
+          "required": true,
+          "description": "通道号"
+        },
+        {
+          "location": "body",
+          "name": "date",
+          "type": "Long",
+          "required": false,
+          "description": "时间戳日期，精确至毫秒，默认为今天，date 参数只能是 0 时 0 分 0 秒（如 1561046400000 可以，1561050000000 不行）"
+        }
+      ],
+      "shape": "object",
+      "read_only": true,
+      "permission": "Get",
+      "resource": "Cam",
+      "detail": "支持 support_flow_statistics；数据约在次日凌晨两点更新。日报时间必须为午夜，样例与 UTC+08 午夜一致，平台采用的时区未注明。",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-690-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-690-D0-LIVE-001"
+      ]
+    },
+    {
+      "doc_id": "691",
+      "capability_id": "candidate:domestic:691:d0",
+      "operation_id": "cn.passenger_flow.hourly",
+      "entry": "passenger_flow.hourly",
+      "name": "hourly",
+      "signatures": {
+        "PassengerFlow": "def hourly(device_serial: str, channel_no: int, *, date_ms: int | None = None) -> ApiResponse",
+        "AsyncPassengerFlow": "async def hourly(device_serial: str, channel_no: int, *, date_ms: int | None = None) -> ApiResponse"
+      },
+      "path": "/api/lapp/passengerflow/hourly",
+      "source_url": "https://open.ys7.com/help/691",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/691.source.json",
+      "html_sha256": "bba12191de8a2b19f56adaed4807307299f5b8ee9f67914d3a5572ba40fda6f9",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/691.structure.json",
+      "structure_sha256": "c3bf42cfbf2ab038d8f657fbb0f1ddf1457ce5726dbce68f4c85821154c40d7f",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "description": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "description": "授权过程获取的access_token"
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "description": "设备序列号,存在英文字母的设备序列号，字母需为大写"
+        },
+        {
+          "location": "body",
+          "name": "channelNo",
+          "type": "Int",
+          "required": true,
+          "description": "通道号"
+        },
+        {
+          "location": "body",
+          "name": "date",
+          "type": "Long",
+          "required": false,
+          "description": "时间戳日期，精确至毫秒，默认为今天"
+        }
+      ],
+      "shape": "array",
+      "read_only": true,
+      "permission": "Get",
+      "resource": "Cam",
+      "detail": "可选毫秒 Long，无日报的午夜约束，不推断24行或缺行即为零。",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-691-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-691-D0-LIVE-001"
+      ]
+    },
+    {
+      "doc_id": "692",
+      "capability_id": "candidate:domestic:692:d0",
+      "operation_id": "cn.passenger_flow.set_config",
+      "entry": "passenger_flow.set_config",
+      "name": "set_config",
+      "signatures": {
+        "PassengerFlow": "def set_config(device_serial: str, *, line: Mapping[str, str], direction: Mapping[str, str], channel_no: int | None = None) -> ApiResponse",
+        "AsyncPassengerFlow": "async def set_config(device_serial: str, *, line: Mapping[str, str], direction: Mapping[str, str], channel_no: int | None = None) -> ApiResponse"
+      },
+      "path": "/api/lapp/passengerflow/config/set",
+      "source_url": "https://open.ys7.com/help/692",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/692.source.json",
+      "html_sha256": "99db58f007459b5b1caa558fe595dd1a6a1df599b19f22a7e88f087f7859a567",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/692.structure.json",
+      "structure_sha256": "2eadbfe69cf0d176f20344d419b1c23b566f16170436ece12a4957ecd900113b",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "description": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "description": "授权过程获取的access_token"
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "description": "设备序列号,存在英文字母的设备序列号，字母需为大写"
+        },
+        {
+          "location": "body",
+          "name": "line",
+          "type": "String",
+          "required": true,
+          "description": "统计线的两个坐标点，坐标范围为0到1之间的7位浮点数，(0,0)坐标在左上角，格式如{\"x1\": \"0.0\",\"y1\": \"0.5\",\"x2\": \"1\",\"y2\": \"0.5\"}"
+        },
+        {
+          "location": "body",
+          "name": "direction",
+          "type": "Int",
+          "required": true,
+          "description": "指示方向的两个坐标点，(x1,y1)为起始点，(x2,y2)为结束点格式如{\"x1\": \"0.5\",\"y1\": \"0.5\",\"x2\": \"0.5\",\"y2\": \"0.6\"}，最好与统计线保持垂直"
+        },
+        {
+          "location": "body",
+          "name": "channelNo",
+          "type": "Int",
+          "required": false,
+          "description": "非必选参数，不为空表示配置指定通道客流统计信息，为空表示配置设备本身信息"
+        }
+      ],
+      "shape": "ack",
+      "read_only": false,
+      "permission": "Config",
+      "resource": "Cam",
+      "detail": "方向类型列 Int 与描述/693 回读的坐标对象矛盾。请求示例的预编码文本再次经过 --data-urlencode，平台实际解码层数未证实。",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-692-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-692-D0-LIVE-001"
+      ]
+    },
+    {
+      "doc_id": "693",
+      "capability_id": "candidate:domestic:693:d0",
+      "operation_id": "cn.passenger_flow.get_config",
+      "entry": "passenger_flow.get_config",
+      "name": "get_config",
+      "signatures": {
+        "PassengerFlow": "def get_config(device_serial: str, *, channel_no: int | None = None) -> ApiResponse",
+        "AsyncPassengerFlow": "async def get_config(device_serial: str, *, channel_no: int | None = None) -> ApiResponse"
+      },
+      "path": "/api/lapp/passengerflow/config/get",
+      "source_url": "https://open.ys7.com/help/693",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/693.source.json",
+      "html_sha256": "819923a8720fd7bd9d6561588871afde9e1900cc7ca29fe6e9fbbe4f6475117d",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/693.structure.json",
+      "structure_sha256": "e797e4af41811565f44b8824d515b49faea6bf29c5adaa37a1ae8dd9f099476d",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "description": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "description": "授权过程获取的access_token"
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "description": "设备序列号,存在英文字母的设备序列号，字母需为大写"
+        },
+        {
+          "location": "body",
+          "name": "channelNo",
+          "type": "Int",
+          "required": false,
+          "description": "非必选参数，不为空表示获取指定通道客流统计配置信息，为空表示获取设备本身配置信息"
+        }
+      ],
+      "shape": "geometry",
+      "read_only": true,
+      "permission": "Get",
+      "resource": "Cam",
+      "detail": "同目标读取 line 与 direction 对象，保留坐标原文，不因有返回就认定可安全回滚。",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-693-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-693-D0-LIVE-001"
+      ]
+    }
+  ],
+  "sdk_choices": [
+    "国内 LAPP form POST、body accessToken、字符串 code=\"200\"，复用认证/响应策略。read_only 仅 688/690/691/693。689/692 不自动重放，包括 10002、超时或 60022。",
+    "每日 day 可省；提供时只接收自带时区、当地午夜的 datetime，通过显式 UTC epoch 差精确换算毫秒，拒绝不能准确表示为毫秒的偏移。不使用主机时区，也不把 +08 强制设为平台事实。小时 date_ms 是可省的有符号 64 位整数。",
+    "序列号复用国内 UTF-8/大写 ASCII 字母约束，保留原串。通道用整数、明确拒绝 bool，不猜取值上下界。可选通道和日期只在明确提供时发送，省略不能替换为零。",
+    "set_config 使用两份四键 Mapping[str,str]（x1,y1,x2,y2）。line 必须为范围 [0,1] 的 ASCII 非负普通十进制文本，至多 7 位小数，不强制补零。direction 采用四个 ASCII 有限普通十进制字符串，保留原文，不强加 line 的取值范围、精度或垂直条件。固定键顺序生成紧凑 JSON；交给表单编码器仅编码一次。禁止先百分号编码、双写或回读后暗改值。平台编码接受情况待实测。",
+    "689/692 成功允许缺 data，保留 ApiResponse。688/690 要求 data 对象；691 为数组，不自动补齐或求和；693 为含 line/direction 对象的 data。成功保留未知字段和原始层级。",
+    "只读示例仅选择日报或小时报，明确目标设备/通道，两种客户端均可，不预检能力、不改变配置、不公开设备标识或客流值。"
+  ],
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "live": "六项设备操作均未获本轮真实授权；只使用模拟传输测试。"
+}

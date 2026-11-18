@@ -9351,329 +9351,424 @@
       "case_id": "ACC-CANDIDATE-CN-688-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:688:d0",
+      "case_origin": "passenger_flow_frozen_before_implementation",
+      "capability_selector": "passenger_flow.switch_status",
       "capability_ids": [
         "candidate:domestic:688:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.passenger_flow.switch_status"
+      ],
+      "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "Get / dev:<设备>。",
+      "device_requirements": "仅合成 MockTransport。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用公开冻结原文和合成目标；默认断网。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询设备客流统计开关状态”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "验证同步/异步的表单、返回层级、错误、隐私及校验时机。",
+        "write": "写路径为模拟传输；不重放 10002，不做设备变更。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/1"
+        "docs/coordination/SP088/scenario-input.json#/entries/1",
+        "docs/coordination/domestic-passenger-flow/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/688.source.json"
       ],
       "pending_questions": [
-        "开关状态的作用范围是设备级还是通道级待核。",
-        "与candidate:domestic:689:d0设置开关是否读写同一属性待核。",
-        "请求/响应合同与权限前提需原材料核定。"
+        "同一设备的开关状态，不传 channelNo。",
+        "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/passenger_flow.py",
+        "src/ezviz_unified/_passenger_flow_forms.py",
+        "tests/test_sdk_passenger_flow.py",
+        "tests/test_sdk_passenger_flow_inputs.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-passenger-flow/offline.json"
       ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-689-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:689:d0",
+      "case_origin": "passenger_flow_frozen_before_implementation",
+      "capability_selector": "passenger_flow.set_switch",
       "capability_ids": [
         "candidate:domestic:689:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.passenger_flow.set_switch"
+      ],
+      "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "Config / dev:<设备>。",
+      "device_requirements": "仅合成 MockTransport。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用公开冻结原文和合成目标；默认断网。"
       ],
       "expected_evidence": {
-        "read": "围绕“设置设备客流统计开关”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "验证同步/异步的表单、返回层级、错误、隐私及校验时机。",
+        "write": "写路径为模拟传输；不重放 10002，不做设备变更。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/2"
+        "docs/coordination/SP088/scenario-input.json#/entries/2",
+        "docs/coordination/domestic-passenger-flow/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/689.source.json"
       ],
       "pending_questions": [
-        "开关取值语义与生效时机（即时/延迟）待核。",
-        "与candidate:domestic:688:d0状态查询是否同一开关属性待核。",
-        "开启统计是否依赖candidate:domestic:692:d0客流配置先行待核。"
+        "开关配置，开启/关闭取整数 1/0；省略通道表示设备本身。688 未必能读取写入目标通道的原始状态。",
+        "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/passenger_flow.py",
+        "src/ezviz_unified/_passenger_flow_forms.py",
+        "tests/test_sdk_passenger_flow.py",
+        "tests/test_sdk_passenger_flow_inputs.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-passenger-flow/offline.json"
       ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-690-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:690:d0",
+      "case_origin": "passenger_flow_frozen_before_implementation",
+      "capability_selector": "passenger_flow.daily",
       "capability_ids": [
         "candidate:domestic:690:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.passenger_flow.daily"
+      ],
+      "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "Get / Cam:<设备>:<通道>。",
+      "device_requirements": "仅合成 MockTransport。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用公开冻结原文和合成目标；默认断网。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询设备某一天的客流统计数据”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "验证同步/异步的表单、返回层级、错误、隐私及校验时机。",
+        "write": "写路径为模拟传输；不重放 10002，不做设备变更。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/3"
+        "docs/coordination/SP088/scenario-input.json#/entries/3",
+        "docs/coordination/domestic-passenger-flow/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/690.source.json"
       ],
       "pending_questions": [
-        "统计口径（进出方向、计数规则）与日期/时区语义待核。",
-        "与candidate:domestic:691:d0按小时数据是汇总与明细关系还是独立口径待核。",
-        "数据可得性是否依赖开关开启与历史采集周期待核。"
+        "支持 support_flow_statistics；数据约在次日凌晨两点更新。日报时间必须为午夜，样例与 UTC+08 午夜一致，平台采用的时区未注明。",
+        "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/passenger_flow.py",
+        "src/ezviz_unified/_passenger_flow_forms.py",
+        "tests/test_sdk_passenger_flow.py",
+        "tests/test_sdk_passenger_flow_inputs.py",
+        "evals/contracts/cases.json",
+        "README.md",
+        "examples/passenger_flow.py",
+        "tests/test_example_passenger_flow.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-passenger-flow/offline.json"
       ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-691-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:691:d0",
+      "case_origin": "passenger_flow_frozen_before_implementation",
+      "capability_selector": "passenger_flow.hourly",
       "capability_ids": [
         "candidate:domestic:691:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.passenger_flow.hourly"
+      ],
+      "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "Get / Cam:<设备>:<通道>。",
+      "device_requirements": "仅合成 MockTransport。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用公开冻结原文和合成目标；默认断网。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询设备某一天逐小时粒度的客流统计数据”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "验证同步/异步的表单、返回层级、错误、隐私及校验时机。",
+        "write": "写路径为模拟传输；不重放 10002，不做设备变更。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/4"
+        "docs/coordination/SP088/scenario-input.json#/entries/4",
+        "docs/coordination/domestic-passenger-flow/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/691.source.json"
       ],
       "pending_questions": [
-        "小时粒度划分与时区口径待核。",
-        "与candidate:domestic:690:d0按天统计数据的关系待核。",
-        "请求/响应合同需原材料核定。"
+        "可选毫秒 Long，无日报的午夜约束，不推断24行或缺行即为零。",
+        "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/passenger_flow.py",
+        "src/ezviz_unified/_passenger_flow_forms.py",
+        "tests/test_sdk_passenger_flow.py",
+        "tests/test_sdk_passenger_flow_inputs.py",
+        "evals/contracts/cases.json",
+        "README.md",
+        "examples/passenger_flow.py",
+        "tests/test_example_passenger_flow.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-passenger-flow/offline.json"
       ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-692-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:692:d0",
+      "case_origin": "passenger_flow_frozen_before_implementation",
+      "capability_selector": "passenger_flow.set_config",
       "capability_ids": [
         "candidate:domestic:692:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.passenger_flow.set_config"
+      ],
+      "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "Config / Cam:<设备>:<通道>。",
+      "device_requirements": "仅合成 MockTransport。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用公开冻结原文和合成目标；默认断网。"
       ],
       "expected_evidence": {
-        "read": "围绕“配置设备客流统计信息”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "验证同步/异步的表单、返回层级、错误、隐私及校验时机。",
+        "write": "写路径为模拟传输；不重放 10002，不做设备变更。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/5"
+        "docs/coordination/SP088/scenario-input.json#/entries/5",
+        "docs/coordination/domestic-passenger-flow/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/692.source.json"
       ],
       "pending_questions": [
-        "可配置项范围（统计规则、区域、上报周期等）待核。",
-        "与candidate:domestic:693:d0配置查询的属性对应关系待核。",
-        "配置生效是否依赖客流开关状态待核。"
+        "方向类型列 Int 与描述/693 回读的坐标对象矛盾。请求示例的预编码文本再次经过 --data-urlencode，平台实际解码层数未证实。",
+        "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/passenger_flow.py",
+        "src/ezviz_unified/_passenger_flow_forms.py",
+        "tests/test_sdk_passenger_flow.py",
+        "tests/test_sdk_passenger_flow_inputs.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-passenger-flow/offline.json"
       ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-693-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:693:d0",
+      "case_origin": "passenger_flow_frozen_before_implementation",
+      "capability_selector": "passenger_flow.get_config",
       "capability_ids": [
         "candidate:domestic:693:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.passenger_flow.get_config"
+      ],
+      "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "Get / Cam:<设备>:<通道>。",
+      "device_requirements": "仅合成 MockTransport。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用公开冻结原文和合成目标；默认断网。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询设备客流统计配置信息”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "验证同步/异步的表单、返回层级、错误、隐私及校验时机。",
+        "write": "写路径为模拟传输；不重放 10002，不做设备变更。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/6"
+        "docs/coordination/SP088/scenario-input.json#/entries/6",
+        "docs/coordination/domestic-passenger-flow/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/693.source.json"
       ],
       "pending_questions": [
-        "返回配置项与candidate:domestic:692:d0可设置项是否一致待核。",
-        "设备适用范围与权限前提待核。"
+        "同目标读取 line 与 direction 对象，保留坐标原文，不因有返回就认定可安全回滚。",
+        "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/passenger_flow.py",
+        "src/ezviz_unified/_passenger_flow_forms.py",
+        "tests/test_sdk_passenger_flow.py",
+        "tests/test_sdk_passenger_flow_inputs.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-passenger-flow/offline.json"
       ]
     },
     {
@@ -30749,6 +30844,306 @@
       ],
       "limitations": [
         "离线合成结果或文件地址的返回均不证明媒体可达或可播放。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-688-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "passenger_flow_frozen_before_implementation",
+      "capability_selector": "passenger_flow.switch_status",
+      "capability_ids": [
+        "candidate:domestic:688:d0"
+      ],
+      "operation_ids": [
+        "cn.passenger_flow.switch_status"
+      ],
+      "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "Get / dev:<设备>。",
+      "device_requirements": "支持客流统计的获准设备；在执行前指定设备级或具体通道目标。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "冻结型号、权限、目标、次数及日期窗口；另行确定真实设备授权。"
+      ],
+      "expected_evidence": {
+        "read": "指定目标和响应结构的安全回执。",
+        "write": "无。",
+        "physical": "不根据接口成功推断传感器计数准确。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，无设备状态需要回滚。",
+      "source_refs": [
+        "docs/coordination/domestic-passenger-flow/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/688.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "用户本轮真实授权仅限账号流量查询，客流设备操作未获授权。"
+      ],
+      "limitations": [
+        "同一设备的开关状态，不传 channelNo。",
+        "适用的实际型号、账号权限与平台实际返回待独立核实。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-689-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "passenger_flow_frozen_before_implementation",
+      "capability_selector": "passenger_flow.set_switch",
+      "capability_ids": [
+        "candidate:domestic:689:d0"
+      ],
+      "operation_ids": [
+        "cn.passenger_flow.set_switch"
+      ],
+      "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "Config / dev:<设备>。",
+      "device_requirements": "支持客流统计的获准设备；在执行前指定设备级或具体通道目标。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "冻结型号、权限、目标、次数及日期窗口；另行确定真实设备授权。"
+      ],
+      "expected_evidence": {
+        "read": "指定目标和响应结构的安全回执。",
+        "write": "经授权的变更、同目标回读和恢复证据。",
+        "physical": "不根据接口成功推断传感器计数准确。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "在任何真实写前确认目标和权限、原值可读、显式次数及恢复窗口。688 没有通道输入，不能据此保证任意通道开关可恢复。写入结果不明先回读，不自动重发。",
+      "source_refs": [
+        "docs/coordination/domestic-passenger-flow/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/689.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "用户本轮真实授权仅限账号流量查询，客流设备操作未获授权。"
+      ],
+      "limitations": [
+        "开关配置，开启/关闭取整数 1/0；省略通道表示设备本身。688 未必能读取写入目标通道的原始状态。",
+        "适用的实际型号、账号权限与平台实际返回待独立核实。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-690-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "passenger_flow_frozen_before_implementation",
+      "capability_selector": "passenger_flow.daily",
+      "capability_ids": [
+        "candidate:domestic:690:d0"
+      ],
+      "operation_ids": [
+        "cn.passenger_flow.daily"
+      ],
+      "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "Get / Cam:<设备>:<通道>。",
+      "device_requirements": "支持客流统计的获准设备；在执行前指定设备级或具体通道目标。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "冻结型号、权限、目标、次数及日期窗口；另行确定真实设备授权。"
+      ],
+      "expected_evidence": {
+        "read": "指定目标和响应结构的安全回执。",
+        "write": "无。",
+        "physical": "不根据接口成功推断传感器计数准确。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，无设备状态需要回滚。",
+      "source_refs": [
+        "docs/coordination/domestic-passenger-flow/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/690.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "用户本轮真实授权仅限账号流量查询，客流设备操作未获授权。"
+      ],
+      "limitations": [
+        "支持 support_flow_statistics；数据约在次日凌晨两点更新。日报时间必须为午夜，样例与 UTC+08 午夜一致，平台采用的时区未注明。",
+        "适用的实际型号、账号权限与平台实际返回待独立核实。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-691-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "passenger_flow_frozen_before_implementation",
+      "capability_selector": "passenger_flow.hourly",
+      "capability_ids": [
+        "candidate:domestic:691:d0"
+      ],
+      "operation_ids": [
+        "cn.passenger_flow.hourly"
+      ],
+      "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "Get / Cam:<设备>:<通道>。",
+      "device_requirements": "支持客流统计的获准设备；在执行前指定设备级或具体通道目标。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "冻结型号、权限、目标、次数及日期窗口；另行确定真实设备授权。"
+      ],
+      "expected_evidence": {
+        "read": "指定目标和响应结构的安全回执。",
+        "write": "无。",
+        "physical": "不根据接口成功推断传感器计数准确。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，无设备状态需要回滚。",
+      "source_refs": [
+        "docs/coordination/domestic-passenger-flow/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/691.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "用户本轮真实授权仅限账号流量查询，客流设备操作未获授权。"
+      ],
+      "limitations": [
+        "可选毫秒 Long，无日报的午夜约束，不推断24行或缺行即为零。",
+        "适用的实际型号、账号权限与平台实际返回待独立核实。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-692-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "passenger_flow_frozen_before_implementation",
+      "capability_selector": "passenger_flow.set_config",
+      "capability_ids": [
+        "candidate:domestic:692:d0"
+      ],
+      "operation_ids": [
+        "cn.passenger_flow.set_config"
+      ],
+      "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "Config / Cam:<设备>:<通道>。",
+      "device_requirements": "支持客流统计的获准设备；在执行前指定设备级或具体通道目标。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "冻结型号、权限、目标、次数及日期窗口；另行确定真实设备授权。"
+      ],
+      "expected_evidence": {
+        "read": "指定目标和响应结构的安全回执。",
+        "write": "经授权的变更、同目标回读和恢复证据。",
+        "physical": "不根据接口成功推断传感器计数准确。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "须用 693 读取同一设备/通道的完整原始两组坐标，事先验证可按原表达恢复；授权包含变更、回读、恢复和再回读的具体次数。禁止双写编码探测。",
+      "source_refs": [
+        "docs/coordination/domestic-passenger-flow/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/692.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "用户本轮真实授权仅限账号流量查询，客流设备操作未获授权。"
+      ],
+      "limitations": [
+        "方向类型列 Int 与描述/693 回读的坐标对象矛盾。请求示例的预编码文本再次经过 --data-urlencode，平台实际解码层数未证实。",
+        "适用的实际型号、账号权限与平台实际返回待独立核实。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-693-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "passenger_flow_frozen_before_implementation",
+      "capability_selector": "passenger_flow.get_config",
+      "capability_ids": [
+        "candidate:domestic:693:d0"
+      ],
+      "operation_ids": [
+        "cn.passenger_flow.get_config"
+      ],
+      "scope_revision": "2026-11-19-r22-domestic-passenger-flow",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "Get / Cam:<设备>:<通道>。",
+      "device_requirements": "支持客流统计的获准设备；在执行前指定设备级或具体通道目标。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "冻结型号、权限、目标、次数及日期窗口；另行确定真实设备授权。"
+      ],
+      "expected_evidence": {
+        "read": "指定目标和响应结构的安全回执。",
+        "write": "无。",
+        "physical": "不根据接口成功推断传感器计数准确。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，无设备状态需要回滚。",
+      "source_refs": [
+        "docs/coordination/domestic-passenger-flow/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/693.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "用户本轮真实授权仅限账号流量查询，客流设备操作未获授权。"
+      ],
+      "limitations": [
+        "同目标读取 line 与 direction 对象，保留坐标原文，不因有返回就认定可安全回滚。",
+        "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ]
     }
   ],
