@@ -514,7 +514,9 @@
         "docs/coordination/official-hls-preview/admission.json"
       ],
       "code_artifact_evidence_refs": [
-        "docs/coordination/official-hls-preview/admission.json"
+        "docs/coordination/official-hls-preview/admission.json",
+        "docs/official-hls-preview.md",
+        "docs/validation/2026-11-19-official-hls-preview/checks.json"
       ],
       "result": "awaiting_design",
       "blockers": [
@@ -522,7 +524,8 @@
       ],
       "criterion_assessment": {
         "HLS-PATH-DESIGN": "met",
-        "OTHER-COMPONENT-SCOPES": "pending"
+        "OTHER-COMPONENT-SCOPES": "pending",
+        "H264-LOCAL-BROWSER": "met"
       }
     },
     {
@@ -31197,14 +31200,34 @@
         "docs/capabilities/official-component-artifacts-2026-11-17.json",
         "docs/research/2026-11-15-official-ecosystem-reuse.md"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待实施与浏览器实测。"
+      "code_artifact_evidence_refs": [
+        "examples/hls_preview.py",
+        "examples/hls_preview_assets/index.html",
+        "examples/hls_preview_assets/preview.js",
+        "tests/test_example_hls_preview.py",
+        "tools/media/verify_hls.cjs",
+        "tools/media/package.json",
+        "tools/media/package-lock.json",
+        "docs/official-hls-preview.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "本案例不代替 H.265、RTC、海外或原生组件验收。"
-      ]
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "68ae11565045159a27c6f46f9edbe897389d1ad8",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-official-hls-preview/checks.json"
+      ],
+      "criterion_assessment": {
+        "SDK-MOCK-ADDRESS": "met",
+        "PINNED-OFFICIAL-UMD": "met",
+        "DECODED-FRAMES": "met",
+        "CLEANUP": "met",
+        "INVALID-ADDRESS": "met",
+        "PAGE-NETWORK-BOUNDARY": "met"
+      }
     },
     {
       "case_id": "ACC-MEDIA-HLS-H264-PLATFORM-001",
