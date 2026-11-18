@@ -164,6 +164,14 @@ disclaimer/limitations 固定声明
 
 另外，本工具与 scope-register 的 JSON 现均为一条记录一行，便于逐条定位与 diff；这是序列化格式约定，不是新框架或新 schema。
 
-## r16 实施准入更新
+## r16 实施准入更新（历史 G1 准入快照）
 
-r16-capture-messaging-hubs-admission 当前登记 367 槽位/402 cases（为准入计数而非覆盖率）；含 8 个 SDKop + 3 个 integration 的公共 G1，983/984 为复用。实际 registry 仍为 212（CN145/OS67），当前诊断 141/282/387；220（CN153/OS67）/149/298/403 是未来实施目标而非已实现。全部新 cases 处于 pending 或 awaiting，product_complete=false。本计划内 cloud_capture 三操作（create_interval_task、create_timing_task、task）仅获离线实施准入，新 LIVE 资源与边界未冻结，创建/消费不在既有国内只读授权内。r15 是历史 VOD 离线快照，其旧证据保留不改写。
+r16-capture-messaging-hubs-admission 登记 367 槽位/402 cases（为准入计数而非覆盖率）；含 8 个 SDK op + 3 个 integration 的公共 G1，983/984 为复用。准入时 registry 为 212（CN145/OS67），诊断 141/282/387；220（CN153/OS67）/149/298/403 当时为未来实施目标而非已实现。全部新 cases 处于 pending 或 awaiting，product_complete=false。本计划内 cloud_capture 三操作（create_interval_task、create_timing_task、task）仅获离线实施准入，新 LIVE 资源与边界未冻结，创建/消费不在既有国内只读授权内。r15 是历史 VOD 离线快照，其旧证据保留不改写。
+
+## r17 离线验收更新（当前段，实现 commit `dd105464bb68de358b555d94aff81c9689bc83b7`）
+
+scope 推进至 `2026-11-19-r17-capture-messaging-hubs-offline-acceptance`。三 cohort（`CLOUD-CAPTURE-001`/`LEGACY-MESSAGE-001`/`HUB-DISCOVERY-001`）的 **11 条 required OFFLINE（8 SDK 操作 + 3 仓库示例）`recorded_evidence`+`passed`**；对应 **11 条 required LIVE 全未执行**（`awaiting_*`/资源与授权未齐），本批未发真实云/设备/消息请求。证据 [validation/2026-11-19-capture-messaging-hubs/checks.json](validation/2026-11-19-capture-messaging-hubs/checks.json)。
+
+- registry 现为 **220**（CN153/OS67），诊断 149 business / 298 sync+async bodies；新增 8 行 binding 均 `offline_status=passed`/`live_status=not_verified`。367 capability 槽位、402 cases、1792 传输检查计数仍为槽位/案例口径，非官方 API 总数或覆盖率；`denominator_defined=false` 仍成立。
+- 本机观察（该 code commit 上）：全量 pytest **7220 + 35 subtests**、lint/format/mypy、wire 220 contracts/1792 executions、构建/Twine/干净 wheel+sdist 安装均过；sdist **4827 tests**。`0.1.0a1` 为开发构建、未上传 PyPI。
+- 本工具产出的仍是 `source_and_registry_matrix_only` 机械 ledger；上述 OFFLINE 通过不证明机械恢复提升、不宣称全产品完成。PR/main 状态以仓库按该 commit 的真实记录为准，不预报 CI 已通过；`product_complete=false` 仍成立。后续国内 async 为复用既有 SDK 的只读验收，非本批新增实现。

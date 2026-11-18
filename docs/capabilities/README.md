@@ -30,12 +30,19 @@
 - 国内只读资源发现窗口（SP166）实际**超时关闭**，无报告，`execution_outcome=not_verified`；实际 HTTP 请求数 `null`（不可声称 0 或账号无资源），不继承为 remux 实测。公开记录 [../validation/live/2026-11-18-vod-resource-discovery/attempt.json](../validation/live/2026-11-18-vod-resource-discovery/attempt.json)；凭据从未进入本任务。
 - 全 scope `all_semantics_dispositioned`/`required_acceptance_complete`/`product_complete` 仍 `false`；上述 OFFLINE 通过不等于 cohort 或产品完成。
 
-## 2026-11-18 捕获/消息/HUB 准入更新（scope `2026-11-18-r16`，G1 准入段）
+## 2026-11-18 捕获/消息/HUB 准入更新（scope `2026-11-18-r16`，历史 G1 准入快照）
 
-- 本段为 SP213 公开 admission 后的当前状态；上一节 r15 是国内 VOD remux 的**历史离线验收快照**，其通过证据保留但不扩展到本批。
+- 本段为 SP213 公开 admission 后的**历史准入快照**（已由下方 r17 离线验收段接续）；上一节 r15 是国内 VOD remux 的**历史离线验收快照**，其通过证据保留但不扩展到本批。
 - scope 推进至 `2026-11-18-r16-capture-messaging-hubs-admission`：**367 slots / 402 cases**；新增准入 **8 operations + 3 integrations**（983/984 复用原 ID）。上述 367/402 是**槽位/案例数**，不是官方 API 总量或覆盖率。
-- registry **未变**，仍为 **212**（国内 145 / 海外 67）；目标值 220（153/67）与诊断目标 149 entries / 298 bodies / 403 opnames 是冻结预期，不是已实现事实（现有 141/282/387）。
+- 准入时点 registry 为 212（国内 145 / 海外 67），诊断 141/282/387；目标 220（153/67）/149/298/403 当时是冻结预期。这些计数在 r17 已变化，见下段。
 - 新三 cohort 与全部 LIVE 均 `pending`/`awaiting_*`、未完成；G1 仅授权有界离线 SDK 与仓库示例实施，无真实云/设备调用、无发布结论。`product_complete`/`required_acceptance_complete`/`all_semantics_dispositioned` 仍 `false`。
+
+## 2026-11-19 捕获/消息/HUB 离线验收更新（scope `2026-11-19-r17`，当前段）
+
+- scope 推进至 `2026-11-19-r17-capture-messaging-hubs-offline-acceptance`，实现 commit `dd105464bb68de358b555d94aff81c9689bc83b7`；三 cohort（`CLOUD-CAPTURE-001`/`LEGACY-MESSAGE-001`/`HUB-DISCOVERY-001`）**11 条 required OFFLINE（8 SDK 操作 + 3 仓库示例）全部 `recorded_evidence`+`passed`**；对应 **11 条 required LIVE 全未执行**（`awaiting_*`/资源与授权未齐），本批未发真实云/设备/消息请求。正式证据 [../validation/2026-11-19-capture-messaging-hubs/checks.json](../validation/2026-11-19-capture-messaging-hubs/checks.json)。
+- registry 现为 **220**（国内 153 / 海外 67），诊断 149 entries / 298 bodies；本批新增 8 行 binding 均 `offline_status=passed`/`live_status=not_verified`。367 capability 槽位、402 cases、1792 传输检查计数仍为槽位/案例口径，不是官方 API 总数或覆盖率。
+- 本机观察（该 code commit 上）：全量 pytest **7220 + 35 subtests**、lint/format/mypy、wire 220 contracts/1792 executions、构建/Twine/干净 wheel+sdist 安装均过；sdist **4827 tests**。`0.1.0a1` 为开发构建、未上传 PyPI、非最终发行。
+- PR/main 状态以仓库按 commit `dd105464bb68de358b555d94aff81c9689bc83b7` 的真实记录为准，不预报 CI 已通过。`product_complete`/`required_acceptance_complete`/`all_semantics_dispositioned` 仍 `false`；上述 OFFLINE 通过不等于 cohort 或产品完成。后续国内 async 为复用既有 SDK 的只读验收，非新实现批。
 
 ## 阅读注意
 

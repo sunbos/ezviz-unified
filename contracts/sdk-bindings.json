@@ -2896,7 +2896,7 @@
         "AsyncCloudCapture.create_interval_task"
       ],
       "public_entry": "cloud_capture.create_interval_task",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2909,7 +2909,7 @@
         "AsyncCloudCapture.create_timing_task"
       ],
       "public_entry": "cloud_capture.create_timing_task",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2922,7 +2922,7 @@
         "AsyncCloudCapture.task"
       ],
       "public_entry": "cloud_capture.task",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2935,7 +2935,7 @@
         "AsyncMessageSubscriptions.create_consumer"
       ],
       "public_entry": "message_subscriptions.create_consumer",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2948,7 +2948,7 @@
         "AsyncMessageSubscriptions.consume"
       ],
       "public_entry": "message_subscriptions.consume",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2961,7 +2961,7 @@
         "AsyncHubs.list_subdevices"
       ],
       "public_entry": "hubs.list_subdevices",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2974,7 +2974,7 @@
         "AsyncHubs.subdevice_info"
       ],
       "public_entry": "hubs.subdevice_info",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2987,7 +2987,7 @@
         "AsyncHubs.channels"
       ],
       "public_entry": "hubs.channels",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

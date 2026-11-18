@@ -12597,10 +12597,8 @@
       "source_refs": [
         "docs/coordination/SP213/admission.json"
       ],
-      "result": "pending_execution",
-      "blockers": [
-        "Implementation and actual test receipts not yet complete."
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "Offline proves conformance only, not platform/hardware/permissions or full product completion."
       ],
@@ -12614,18 +12612,19 @@
         "contracts/reviewed-transport-contracts.json",
         "contracts/sdk-bindings.json",
         "evals/contracts/cases.json",
-        "docs/coordination/SP213/admission.json"
+        "docs/coordination/SP213/admission.json",
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
       ],
       "criterion_assessment": {
-        "exact_sync_async_wire_and_token_position": "pending",
-        "frozen_required_optional_enum_time_validation": "pending",
-        "region_and_validation_before_auth": "pending",
-        "response_raw_unknown_fields_and_exception_identity": "pending",
-        "per_operation_auth_replay_and_request_order": "pending",
-        "diagnostic_on_off_behavior_equivalence": "pending",
-        "known_request_values_redaction_and_payload_hidden": "pending",
-        "closed_timeout_async_cancellation_preserved": "pending",
-        "registry_bindings_cases_and_diagnostics_exact": "pending"
+        "exact_sync_async_wire_and_token_position": "met",
+        "frozen_required_optional_enum_time_validation": "met",
+        "region_and_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "per_operation_auth_replay_and_request_order": "met",
+        "diagnostic_on_off_behavior_equivalence": "met",
+        "known_request_values_redaction_and_payload_hidden": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_bindings_cases_and_diagnostics_exact": "met"
       },
       "expected_evidence": {
         "read": "Exact POST /api/lapp/mq/v2/consumer/{consumerName}, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc983.",
@@ -12648,7 +12647,12 @@
           "http_fault"
         ],
         "synthetic_evaluation_cell_count": 8
-      }
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "dd105464bb68de358b555d94aff81c9689bc83b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-984-D0-OFFLINE-001",
@@ -12686,10 +12690,8 @@
       "source_refs": [
         "docs/coordination/SP213/admission.json"
       ],
-      "result": "pending_execution",
-      "blockers": [
-        "Implementation and actual test receipts not yet complete."
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "Offline proves conformance only, not platform/hardware/permissions or full product completion."
       ],
@@ -12703,18 +12705,19 @@
         "contracts/reviewed-transport-contracts.json",
         "contracts/sdk-bindings.json",
         "evals/contracts/cases.json",
-        "docs/coordination/SP213/admission.json"
+        "docs/coordination/SP213/admission.json",
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
       ],
       "criterion_assessment": {
-        "exact_sync_async_wire_and_token_position": "pending",
-        "frozen_required_optional_enum_time_validation": "pending",
-        "region_and_validation_before_auth": "pending",
-        "response_raw_unknown_fields_and_exception_identity": "pending",
-        "per_operation_auth_replay_and_request_order": "pending",
-        "diagnostic_on_off_behavior_equivalence": "pending",
-        "known_request_values_redaction_and_payload_hidden": "pending",
-        "closed_timeout_async_cancellation_preserved": "pending",
-        "registry_bindings_cases_and_diagnostics_exact": "pending"
+        "exact_sync_async_wire_and_token_position": "met",
+        "frozen_required_optional_enum_time_validation": "met",
+        "region_and_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "per_operation_auth_replay_and_request_order": "met",
+        "diagnostic_on_off_behavior_equivalence": "met",
+        "known_request_values_redaction_and_payload_hidden": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_bindings_cases_and_diagnostics_exact": "met"
       },
       "expected_evidence": {
         "read": "Exact POST /api/lapp/mq/v2/consumer/messages, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc984.",
@@ -12737,7 +12740,12 @@
           "http_fault"
         ],
         "synthetic_evaluation_cell_count": 8
-      }
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "dd105464bb68de358b555d94aff81c9689bc83b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1422-D0-OFFLINE-001",
@@ -28817,10 +28825,8 @@
       "source_refs": [
         "docs/coordination/SP213/admission.json"
       ],
-      "result": "pending_execution",
-      "blockers": [
-        "Implementation and actual test receipts not yet complete."
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "Offline proves conformance only, not platform/hardware/permissions or full product completion."
       ],
@@ -28834,18 +28840,19 @@
         "contracts/reviewed-transport-contracts.json",
         "contracts/sdk-bindings.json",
         "evals/contracts/cases.json",
-        "docs/coordination/SP213/admission.json"
+        "docs/coordination/SP213/admission.json",
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
       ],
       "criterion_assessment": {
-        "exact_sync_async_wire_and_token_position": "pending",
-        "frozen_required_optional_enum_time_validation": "pending",
-        "region_and_validation_before_auth": "pending",
-        "response_raw_unknown_fields_and_exception_identity": "pending",
-        "per_operation_auth_replay_and_request_order": "pending",
-        "diagnostic_on_off_behavior_equivalence": "pending",
-        "known_request_values_redaction_and_payload_hidden": "pending",
-        "closed_timeout_async_cancellation_preserved": "pending",
-        "registry_bindings_cases_and_diagnostics_exact": "pending"
+        "exact_sync_async_wire_and_token_position": "met",
+        "frozen_required_optional_enum_time_validation": "met",
+        "region_and_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "per_operation_auth_replay_and_request_order": "met",
+        "diagnostic_on_off_behavior_equivalence": "met",
+        "known_request_values_redaction_and_payload_hidden": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_bindings_cases_and_diagnostics_exact": "met"
       },
       "expected_evidence": {
         "read": "Exact POST /api/v3/open/cloud/video/frame/interval/start, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc1388.",
@@ -28868,7 +28875,12 @@
           "http_fault"
         ],
         "synthetic_evaluation_cell_count": 8
-      }
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "dd105464bb68de358b555d94aff81c9689bc83b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1388-D0-LIVE-001",
@@ -28975,10 +28987,8 @@
       "source_refs": [
         "docs/coordination/SP213/admission.json"
       ],
-      "result": "pending_execution",
-      "blockers": [
-        "Implementation and actual test receipts not yet complete."
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "Offline proves conformance only, not platform/hardware/permissions or full product completion."
       ],
@@ -28992,18 +29002,19 @@
         "contracts/reviewed-transport-contracts.json",
         "contracts/sdk-bindings.json",
         "evals/contracts/cases.json",
-        "docs/coordination/SP213/admission.json"
+        "docs/coordination/SP213/admission.json",
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
       ],
       "criterion_assessment": {
-        "exact_sync_async_wire_and_token_position": "pending",
-        "frozen_required_optional_enum_time_validation": "pending",
-        "region_and_validation_before_auth": "pending",
-        "response_raw_unknown_fields_and_exception_identity": "pending",
-        "per_operation_auth_replay_and_request_order": "pending",
-        "diagnostic_on_off_behavior_equivalence": "pending",
-        "known_request_values_redaction_and_payload_hidden": "pending",
-        "closed_timeout_async_cancellation_preserved": "pending",
-        "registry_bindings_cases_and_diagnostics_exact": "pending"
+        "exact_sync_async_wire_and_token_position": "met",
+        "frozen_required_optional_enum_time_validation": "met",
+        "region_and_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "per_operation_auth_replay_and_request_order": "met",
+        "diagnostic_on_off_behavior_equivalence": "met",
+        "known_request_values_redaction_and_payload_hidden": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_bindings_cases_and_diagnostics_exact": "met"
       },
       "expected_evidence": {
         "read": "Exact POST /api/v3/open/cloud/video/frame/timing/start, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc1389.",
@@ -29026,7 +29037,12 @@
           "http_fault"
         ],
         "synthetic_evaluation_cell_count": 8
-      }
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "dd105464bb68de358b555d94aff81c9689bc83b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1389-D0-LIVE-001",
@@ -29133,10 +29149,8 @@
       "source_refs": [
         "docs/coordination/SP213/admission.json"
       ],
-      "result": "pending_execution",
-      "blockers": [
-        "Implementation and actual test receipts not yet complete."
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "Offline proves conformance only, not platform/hardware/permissions or full product completion."
       ],
@@ -29150,18 +29164,19 @@
         "contracts/reviewed-transport-contracts.json",
         "contracts/sdk-bindings.json",
         "evals/contracts/cases.json",
-        "docs/coordination/SP213/admission.json"
+        "docs/coordination/SP213/admission.json",
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
       ],
       "criterion_assessment": {
-        "exact_sync_async_wire_and_token_position": "pending",
-        "frozen_required_optional_enum_time_validation": "pending",
-        "region_and_validation_before_auth": "pending",
-        "response_raw_unknown_fields_and_exception_identity": "pending",
-        "per_operation_auth_replay_and_request_order": "pending",
-        "diagnostic_on_off_behavior_equivalence": "pending",
-        "known_request_values_redaction_and_payload_hidden": "pending",
-        "closed_timeout_async_cancellation_preserved": "pending",
-        "registry_bindings_cases_and_diagnostics_exact": "pending"
+        "exact_sync_async_wire_and_token_position": "met",
+        "frozen_required_optional_enum_time_validation": "met",
+        "region_and_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "per_operation_auth_replay_and_request_order": "met",
+        "diagnostic_on_off_behavior_equivalence": "met",
+        "known_request_values_redaction_and_payload_hidden": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_bindings_cases_and_diagnostics_exact": "met"
       },
       "expected_evidence": {
         "read": "Exact GET /api/v3/open/cloud/task/{taskId}, token=query; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc1370.",
@@ -29184,7 +29199,12 @@
           "http_fault"
         ],
         "synthetic_evaluation_cell_count": 8
-      }
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "dd105464bb68de358b555d94aff81c9689bc83b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1370-D0-LIVE-001",
@@ -29295,17 +29315,16 @@
       "source_refs": [
         "docs/coordination/SP213/admission.json"
       ],
-      "result": "pending_execution",
-      "blockers": [
-        "Implementation and actual test receipts not yet complete."
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "Offline proves conformance only, not platform/hardware/permissions or full product completion."
       ],
       "code_artifact_evidence_refs": [
         "examples/cloud_capture.py",
         "tests/test_example_cloud_capture.py",
-        "docs/coordination/SP213/admission.json"
+        "docs/coordination/SP213/admission.json",
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
       ],
       "expected_evidence": {
         "read": "Exercise exact common and specific example requirements in SP213, using the real SDK transport path.",
@@ -29313,12 +29332,17 @@
         "physical": "Real controlled platform or device scenario is separate from synthetic CLI/HTTP success."
       },
       "criterion_assessment": {
-        "explicit_bounded_sync_async_sdk_flow": "pending",
-        "import_help_no_config_or_io": "pending",
-        "strict_output_privacy": "pending",
-        "no_extra_request_after_error_cancel_close": "pending",
-        "documented_protocol_limits_and_live_evidence_boundary": "pending"
-      }
+        "explicit_bounded_sync_async_sdk_flow": "met",
+        "import_help_no_config_or_io": "met",
+        "strict_output_privacy": "met",
+        "no_extra_request_after_error_cancel_close": "met",
+        "documented_protocol_limits_and_live_evidence_boundary": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "dd105464bb68de358b555d94aff81c9689bc83b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
+      ]
     },
     {
       "case_id": "ACC-CLOUD-CAPTURE-EXAMPLE-LIVE-001",
@@ -29561,17 +29585,16 @@
       "source_refs": [
         "docs/coordination/SP213/admission.json"
       ],
-      "result": "pending_execution",
-      "blockers": [
-        "Implementation and actual test receipts not yet complete."
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "Offline proves conformance only, not platform/hardware/permissions or full product completion."
       ],
       "code_artifact_evidence_refs": [
         "examples/message_subscriptions.py",
         "tests/test_example_message_subscriptions.py",
-        "docs/coordination/SP213/admission.json"
+        "docs/coordination/SP213/admission.json",
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
       ],
       "expected_evidence": {
         "read": "Exercise exact common and specific example requirements in SP213, using the real SDK transport path.",
@@ -29579,12 +29602,17 @@
         "physical": "Real controlled platform or device scenario is separate from synthetic CLI/HTTP success."
       },
       "criterion_assessment": {
-        "explicit_bounded_sync_async_sdk_flow": "pending",
-        "import_help_no_config_or_io": "pending",
-        "strict_output_privacy": "pending",
-        "no_extra_request_after_error_cancel_close": "pending",
-        "documented_protocol_limits_and_live_evidence_boundary": "pending"
-      }
+        "explicit_bounded_sync_async_sdk_flow": "met",
+        "import_help_no_config_or_io": "met",
+        "strict_output_privacy": "met",
+        "no_extra_request_after_error_cancel_close": "met",
+        "documented_protocol_limits_and_live_evidence_boundary": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "dd105464bb68de358b555d94aff81c9689bc83b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
+      ]
     },
     {
       "case_id": "ACC-LEGACY-MESSAGE-EXAMPLE-LIVE-001",
@@ -29686,10 +29714,8 @@
       "source_refs": [
         "docs/coordination/SP213/admission.json"
       ],
-      "result": "pending_execution",
-      "blockers": [
-        "Implementation and actual test receipts not yet complete."
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "Offline proves conformance only, not platform/hardware/permissions or full product completion."
       ],
@@ -29703,18 +29729,19 @@
         "contracts/reviewed-transport-contracts.json",
         "contracts/sdk-bindings.json",
         "evals/contracts/cases.json",
-        "docs/coordination/SP213/admission.json"
+        "docs/coordination/SP213/admission.json",
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
       ],
       "criterion_assessment": {
-        "exact_sync_async_wire_and_token_position": "pending",
-        "frozen_required_optional_enum_time_validation": "pending",
-        "region_and_validation_before_auth": "pending",
-        "response_raw_unknown_fields_and_exception_identity": "pending",
-        "per_operation_auth_replay_and_request_order": "pending",
-        "diagnostic_on_off_behavior_equivalence": "pending",
-        "known_request_values_redaction_and_payload_hidden": "pending",
-        "closed_timeout_async_cancellation_preserved": "pending",
-        "registry_bindings_cases_and_diagnostics_exact": "pending"
+        "exact_sync_async_wire_and_token_position": "met",
+        "frozen_required_optional_enum_time_validation": "met",
+        "region_and_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "per_operation_auth_replay_and_request_order": "met",
+        "diagnostic_on_off_behavior_equivalence": "met",
+        "known_request_values_redaction_and_payload_hidden": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_bindings_cases_and_diagnostics_exact": "met"
       },
       "expected_evidence": {
         "read": "Exact POST /api/lapp/hub/device/sub/list, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc1356.",
@@ -29737,7 +29764,12 @@
           "http_fault"
         ],
         "synthetic_evaluation_cell_count": 8
-      }
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "dd105464bb68de358b555d94aff81c9689bc83b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1356-D0-LIVE-001",
@@ -29845,10 +29877,8 @@
       "source_refs": [
         "docs/coordination/SP213/admission.json"
       ],
-      "result": "pending_execution",
-      "blockers": [
-        "Implementation and actual test receipts not yet complete."
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "Offline proves conformance only, not platform/hardware/permissions or full product completion."
       ],
@@ -29862,18 +29892,19 @@
         "contracts/reviewed-transport-contracts.json",
         "contracts/sdk-bindings.json",
         "evals/contracts/cases.json",
-        "docs/coordination/SP213/admission.json"
+        "docs/coordination/SP213/admission.json",
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
       ],
       "criterion_assessment": {
-        "exact_sync_async_wire_and_token_position": "pending",
-        "frozen_required_optional_enum_time_validation": "pending",
-        "region_and_validation_before_auth": "pending",
-        "response_raw_unknown_fields_and_exception_identity": "pending",
-        "per_operation_auth_replay_and_request_order": "pending",
-        "diagnostic_on_off_behavior_equivalence": "pending",
-        "known_request_values_redaction_and_payload_hidden": "pending",
-        "closed_timeout_async_cancellation_preserved": "pending",
-        "registry_bindings_cases_and_diagnostics_exact": "pending"
+        "exact_sync_async_wire_and_token_position": "met",
+        "frozen_required_optional_enum_time_validation": "met",
+        "region_and_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "per_operation_auth_replay_and_request_order": "met",
+        "diagnostic_on_off_behavior_equivalence": "met",
+        "known_request_values_redaction_and_payload_hidden": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_bindings_cases_and_diagnostics_exact": "met"
       },
       "expected_evidence": {
         "read": "Exact POST /api/lapp/hub/device/sub/info, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc1357.",
@@ -29896,7 +29927,12 @@
           "http_fault"
         ],
         "synthetic_evaluation_cell_count": 8
-      }
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "dd105464bb68de358b555d94aff81c9689bc83b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1357-D0-LIVE-001",
@@ -30004,10 +30040,8 @@
       "source_refs": [
         "docs/coordination/SP213/admission.json"
       ],
-      "result": "pending_execution",
-      "blockers": [
-        "Implementation and actual test receipts not yet complete."
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "Offline proves conformance only, not platform/hardware/permissions or full product completion."
       ],
@@ -30021,18 +30055,19 @@
         "contracts/reviewed-transport-contracts.json",
         "contracts/sdk-bindings.json",
         "evals/contracts/cases.json",
-        "docs/coordination/SP213/admission.json"
+        "docs/coordination/SP213/admission.json",
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
       ],
       "criterion_assessment": {
-        "exact_sync_async_wire_and_token_position": "pending",
-        "frozen_required_optional_enum_time_validation": "pending",
-        "region_and_validation_before_auth": "pending",
-        "response_raw_unknown_fields_and_exception_identity": "pending",
-        "per_operation_auth_replay_and_request_order": "pending",
-        "diagnostic_on_off_behavior_equivalence": "pending",
-        "known_request_values_redaction_and_payload_hidden": "pending",
-        "closed_timeout_async_cancellation_preserved": "pending",
-        "registry_bindings_cases_and_diagnostics_exact": "pending"
+        "exact_sync_async_wire_and_token_position": "met",
+        "frozen_required_optional_enum_time_validation": "met",
+        "region_and_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "per_operation_auth_replay_and_request_order": "met",
+        "diagnostic_on_off_behavior_equivalence": "met",
+        "known_request_values_redaction_and_payload_hidden": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_bindings_cases_and_diagnostics_exact": "met"
       },
       "expected_evidence": {
         "read": "Exact POST /api/lapp/hub/device/camera/list, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc1358.",
@@ -30055,7 +30090,12 @@
           "http_fault"
         ],
         "synthetic_evaluation_cell_count": 8
-      }
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "dd105464bb68de358b555d94aff81c9689bc83b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1358-D0-LIVE-001",
@@ -30166,17 +30206,16 @@
       "source_refs": [
         "docs/coordination/SP213/admission.json"
       ],
-      "result": "pending_execution",
-      "blockers": [
-        "Implementation and actual test receipts not yet complete."
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "Offline proves conformance only, not platform/hardware/permissions or full product completion."
       ],
       "code_artifact_evidence_refs": [
         "examples/hub_discovery.py",
         "tests/test_example_hub_discovery.py",
-        "docs/coordination/SP213/admission.json"
+        "docs/coordination/SP213/admission.json",
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
       ],
       "expected_evidence": {
         "read": "Exercise exact common and specific example requirements in SP213, using the real SDK transport path.",
@@ -30184,12 +30223,17 @@
         "physical": "Real controlled platform or device scenario is separate from synthetic CLI/HTTP success."
       },
       "criterion_assessment": {
-        "explicit_bounded_sync_async_sdk_flow": "pending",
-        "import_help_no_config_or_io": "pending",
-        "strict_output_privacy": "pending",
-        "no_extra_request_after_error_cancel_close": "pending",
-        "documented_protocol_limits_and_live_evidence_boundary": "pending"
-      }
+        "explicit_bounded_sync_async_sdk_flow": "met",
+        "import_help_no_config_or_io": "met",
+        "strict_output_privacy": "met",
+        "no_extra_request_after_error_cancel_close": "met",
+        "documented_protocol_limits_and_live_evidence_boundary": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "dd105464bb68de358b555d94aff81c9689bc83b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-capture-messaging-hubs/checks.json"
+      ]
     },
     {
       "case_id": "ACC-HUB-DISCOVERY-EXAMPLE-LIVE-001",

@@ -12,26 +12,23 @@ python -m examples.message_subscriptions --help
 python -m examples.hub_discovery --help
 ```
 
-实际运行形态（凭据用安全占位值，不要复用真实值；消息示例的 `--execute` 确认会改变服务端状态，仅限已获授权的账号执行）：
+先在安全的本地环境中配置下方列出的变量（值留在本地环境，不写进命令行、脚本、日志或 stdout）；随后只需三条 `python -m` 命令：
 
 ```sh
-EZVIZ_APP_KEY=<app-key> EZVIZ_APP_SECRET=<app-secret> EZVIZ_REGION=domestic \
-  EZVIZ_CLOUD_TASK_ID=<task-id> python -m examples.cloud_capture --mode sync
-EZVIZ_APP_KEY=<app-key> EZVIZ_APP_SECRET=<app-secret> EZVIZ_REGION=domestic \
-  EZVIZ_MESSAGE_GROUP=group1 python -m examples.message_subscriptions --mode sync --execute
-EZVIZ_APP_KEY=<app-key> EZVIZ_APP_SECRET=<app-secret> EZVIZ_REGION=domestic \
-  EZVIZ_HUB_SERIAL=<hub-serial> EZVIZ_SUBDEVICE_SERIAL=<sub-serial> \
-  python -m examples.hub_discovery --mode sync
+python -m examples.cloud_capture --mode sync
+python -m examples.hub_discovery --mode sync
+python -m examples.message_subscriptions --mode sync --execute
 ```
 
-确切配置项（仅列变量名，不要打印或记录其值）：
+- 前两条是只读查询，在已授权账号下运行；`--mode` 可换 `async`。
+- `message_subscriptions` 必须显式带 `--execute` 才发请求；其 `consume` 会在服务端自动提交上一批已读消息（at-least-once，属于副作用动作），仅限已获授权的账号执行。不带 `--execute` 时不发任何请求。
+
+确切配置项（仅列变量名，不要打印或记录其值；不要在命令行内联密钥或示例账号/设备 ID）：
 
 - 通用：`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET`、`EZVIZ_REGION`（须为 `domestic`）、`EZVIZ_AUTH_BASE_URL`（国内拒绝）
 - 云抽帧：`EZVIZ_CLOUD_TASK_ID`
 - 消息：`EZVIZ_MESSAGE_GROUP`（取值 `group1`..`group5`）
 - HUB：`EZVIZ_HUB_SERIAL`、`EZVIZ_SUBDEVICE_SERIAL`
-
-`message_subscriptions` 还需显式 `--execute` 确认，否则不发任何请求。
 
 ## client.cloud_capture（抽帧任务）
 

@@ -76,6 +76,16 @@ main 已含 **PR #16 合并头 `254ea73acafc5dd2f81c90c4a867fa0fb56a2d26`**（�
 
 **历史批次（云文件，commit `b251b11`，已随 PR #16 合并入 main `254ea73`）**：四个入口 `cloud_recording_v1.unfreeze_file`/`file_info`/`download_urls`、`vod.files` 已实现；四条 OFFLINE required（`5341`/`1375`/`1377`/`5342`）`recorded_evidence`+`passed`，四条 LIVE required 仍 `awaiting_*`。以下计数属于该旧 code 的当时观察，与上面 `fce298b` 的计数分开、不混用：全量 pytest 5448 + 35 subtests（45.39 s）、mypy 45、wire 208 contracts/1696 executions、诊断 137 入口/sync+async body 274、cloud-wire 190、Vod 145、云 behaviour+表单 312，sdist 3371 passed 10.39s；证据 [checks.json](2026-11-18-cloud-files/checks.json)（说明见 [README](2026-11-18-cloud-files/README.md)），计划 [2026-11-18-cloud-files-readonly-probe](../plans/2026-11-18-cloud-files-readonly-probe.md) 与 [2026-11-18-cloud-recording-v1-vod](../plans/2026-11-18-cloud-recording-v1-vod.md)。
 
-## r16 三业务域实施准入
+## r16 三业务域实施准入（历史 G1 准入快照）
 
 新增 G1（LEGACY-MESSAGE-001 消息订阅域，docs 983/984，facade message_subscriptions，2 SDK op + 1 integration）与公开 SP213 G1 及案例已登记 r16；367 slots/402 cases 为非覆盖计数。本轮 8 SDK op + 3 integration 属新增准入，983/984 复用原 ID。actual registry 212（145/67）、诊断 141/282/387；target 220（153/67）/149/298/403 仅为目标值而非支持事实。11 项新 LIVE required 的具体资源与次数未冻结，消息创建/消费未获授权；既有国内只读授权延用但不覆盖消息提交副作用。全部 product/发布未完成；r15 旧 VOD 证据仅作历史保留，不构成本域证据。
+
+## r17 三业务域离线验收（当前段，实现 commit `dd105464bb68de358b555d94aff81c9689bc83b7`）
+
+scope 推进至 `2026-11-19-r17-capture-messaging-hubs-offline-acceptance`。三 cohort（`CLOUD-CAPTURE-001`/`LEGACY-MESSAGE-001`/`HUB-DISCOVERY-001`）的 **11 条 required OFFLINE（8 SDK 操作 + 3 仓库示例）`recorded_evidence`+`passed`**；对应 **11 条 required LIVE 全未执行**（`awaiting_*`/资源与授权未齐），**本批未发真实云/设备/消息请求**。正式证据：[checks.json](2026-11-19-capture-messaging-hubs/checks.json)。
+
+- 覆盖入口：云抽帧 `cloud_capture.create_interval_task`/`create_timing_task`/`task`，消息 `message_subscriptions.create_consumer`/`consume`，HUB `hubs.list_subdevices`/`subdevice_info`/`channels`；示例 `examples/cloud_capture.py`/`message_subscriptions.py`/`hub_discovery.py`。
+- registry 现为 **220**（国内 153 / 海外 67），诊断 149 business / 298 sync+async bodies；本批新增 8 行 binding 均 `offline_status=passed`/`live_status=not_verified`。367 capability 槽位、402 cases、1792 传输检查计数为槽位/案例口径，非 API 总数或覆盖率。
+- 本机观察（该 code commit 上）：全量 pytest **7220 + 35 subtests**（62.34 s）、lint/format/mypy、wire 220 contracts/1792 executions、构建/Twine/干净 wheel+sdist 安装均过；sdist **4827 tests**（18.70 s）。`0.1.0a1` 为开发构建、未冻结最终发行、未上传 PyPI；安装依赖走网络但 `real_api_used=false`。
+- 限制沿用 checks.json `limitations`：真实抽帧任务、真实消息投递与提交、HUB 与实际子设备的对应关系尚待有界联调；账号套餐、设备型号覆盖、收费、媒体可用性与 PyPI 发布均未由本批离线结果验证。后续国内 async 为复用既有 SDK 的只读验收，不是本批新增实现。
+- PR/main 状态请读仓库按 commit `dd105464bb68de358b555d94aff81c9689bc83b7` 的对应 PR/CI 真实记录，不预报 CI 已通过。`product_complete`/`required_acceptance_complete`/`all_semantics_dispositioned` 仍 `false`；上述 OFFLINE 通过不等于 cohort 或产品完成。
