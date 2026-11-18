@@ -13672,19 +13672,28 @@
         "节点可访问性与文件保留状态未经实测。",
         "官方明确不支持子账户。截图可省日期，未声明禁止传入。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "等待实现与独立回执。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/vod.py",
+        "tests/test_sdk_stream_archive.py",
+        "evals/contracts/cases.json",
+        "examples/stream_archive.py",
+        "tests/test_example_stream_archive.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "WIRE": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "EXAMPLE-DOCS": "pending"
-      }
+        "WIRE": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "EXAMPLE-DOCS": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "f9ac98fb392496b1ed2e499d614e7763d71703d2",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-stream-archive/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4757-D0-OFFLINE-001",
@@ -13733,19 +13742,28 @@
         "节点可访问性与文件保留状态未经实测。",
         "子账户权限、URL 有效期与时区未声明。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "等待实现与独立回执。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/vod.py",
+        "tests/test_sdk_stream_archive.py",
+        "evals/contracts/cases.json",
+        "examples/stream_archive.py",
+        "tests/test_example_stream_archive.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "WIRE": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "EXAMPLE-DOCS": "pending"
-      }
+        "WIRE": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "EXAMPLE-DOCS": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "f9ac98fb392496b1ed2e499d614e7763d71703d2",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-stream-archive/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-663-D0-OFFLINE-001",

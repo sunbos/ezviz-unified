@@ -3052,7 +3052,7 @@
         "AsyncVod.stream_source_files"
       ],
       "public_entry": "vod.stream_source_files",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3065,7 +3065,7 @@
         "AsyncVod.stream_index_file"
       ],
       "public_entry": "vod.stream_index_file",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

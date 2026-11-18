@@ -32,6 +32,10 @@
 
 两 case 的 `capability_ids=[candidate:overseas:469:1.12]`、`operation_ids=[global.settings.list_areas]`；`settings.list_areas` 是 runtime/diagnostic entrypoint，**不是** registry operation_id。来源 overseas:469 §1.12（e1459 固定 origin、e1463 列 GET/POST、e1468 GET 示例、e1476 字段表）；SDK 明确只选 GET，POST 语义未核定保留为 source issue，不伪造 declared_pair 或提升 parser 恢复数。
 
+## 国内直播流归档文件
+
+源文件查询与点播索引查询已通过同步和异步离线验收，覆盖表单、响应层级、时间边界、错误消息中的媒体地址和示例输出。两项既有离线案例沿用原 ID，另增两项真实只读案例，必需案例分母从 403 增至 405。本轮账号流量授权不含归档查询。见[来源和判据](../coordination/domestic-stream-archive/admission.json)及[离线记录](2026-11-19-domestic-stream-archive/offline.json)。
+
 ## 国内云直播流量查询
 
 四个国内接口均已通过同步和异步的离线验收。账号汇总、按日用量、指定日的通道明细已获本轮真实只读授权，指定设备明细另待授权。每项真实验收独立记录。四个既有离线案例继续使用原 ID，并为它们分别新增真实案例，必需案例分母从 399 变为 403。参见[离线结果](2026-11-19-domestic-traffic/offline.json)和[账号查询范围](../coordination/domestic-traffic/account-read.json)。

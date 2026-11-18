@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "scope": "domestic_stream_archive_offline",
+  "code_commit": "f9ac98fb392496b1ed2e499d614e7763d71703d2",
+  "source_test_sha256": {
+    "src/ezviz_unified/vod.py": "2eea61aaee5f506fe007f2edbc43b00a0e3d3da102c5a9d7e5dd6523c0125025",
+    "src/ezviz_unified/response.py": "37c2629090cc05b9f79c9053d0961d6127fb439b509d6836b0fcb75a9c61e0c5",
+    "src/ezviz_unified/models.py": "f7500d32c589ac54dceead405bff209af25d7890adb7a77c6409d594fa1b2d96",
+    "src/ezviz_unified/errors.py": "77ebf8eb6d3a1ede8f20fb3933377c562382805f9a9b098b2143107dff27e726",
+    "src/ezviz_unified/_diagnostic_registry.py": "fcc0cb903a4d589f2c071c7f014f0d5cee732bf8a6a19f73f6952389fffa8d38",
+    "examples/stream_archive.py": "bdaf208d2b54470209555e992facf64ca91ff8bf3eaf69a92143514665ba679b",
+    "tests/test_sdk_stream_archive.py": "a6e707aa8be12dabb8e4aa670fbe04cab7e9d85255da090f8a2cee214af58dd1",
+    "tests/test_example_stream_archive.py": "62060047840e627456f6955a2d60f22fcb52699df733ab91828ec168ec04446a",
+    "tests/test_harness_diagnostic_coverage.py": "47732810506ecd02a2b8dcd83d08eb63d47c36accae37212ddd4d5a733b49e80",
+    "docs/coordination/domestic-stream-archive/admission.json": "95a45ffdb77a0c956b2330b7c0ea1aa0e3551f557688940e5520fec569d74e70",
+    "docs/diagnostics-v1-coverage.json": "9338b891d2ef198e8bf230146a17da70d9c949c82ebccff437d12b39807aa46e",
+    "contracts/reviewed-transport-contracts.json": "9e9a2f7f06ae5705aef0d27d6800c5b4221fb955c50abd06c026d8511c64b671",
+    "contracts/source-issues.json": "b8a3948fc4e24c7691d3bfbc4813b9e2d350ed10b74794b98cbe97cecb53b111",
+    "evals/contracts/cases.json": "89814835f851b5d6d701f739421bc04a1249fb4eab048fec50a83c7c4ff56536"
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_stream_archive.py tests/test_example_stream_archive.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "443 passed in 1.39s",
+      "local_receipt_sha256": "07611b7579acf1e8c29819c6cd8a8c929b17fa3675edafedde5b3c15358e09c2",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "7717 passed, 35 subtests passed in 61.03s (0:01:01)",
+      "local_receipt_sha256": "50fd4a0604206ecb752f5a3abc11914ff348a44f38029c8e5dca9390b53d3822",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "226 registered contracts, 1840/1840 wire checks passed",
+      "local_receipt_sha256": "e29f1e61e0a10f720605cce3bc526ce7851247ae5b2bc566b802b6445aceb79f",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 49 source files",
+      "local_receipt_sha256": "f572f1637f9d7d7493982800bfa7215d4771014cd1097d0434d6a8b12f4e1b9c",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "226 registered contracts and bindings, static AST checked 452 symbols",
+      "local_receipt_sha256": "f953594400ac1fcff00ca7386de77d0e3aef39713449d43b59edcb3e3d9fa550",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "模拟传输仅验证请求、响应层级、隐私与边界。未查询真实流或访问媒体地址。"
+}
