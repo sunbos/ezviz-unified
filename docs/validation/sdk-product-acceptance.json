@@ -28068,7 +28068,7 @@
       "preconditions": [
         "G0沿用SP030；SP169冻结hash和本G1条目匹配；root先落盘capability/case/cohort再派实现。",
         "默认网络guard启用；不读取真实配置/原始敏感示例；SDK测试不依赖harness/docs/data运行时。",
-        "下列文件引用是预期验收目标，不是现存文件或执行通过的证明；需在代码交付后对对应提交运行。"
+        "冻结目标现已有对应实现/测试；执行证据与源码哈希见本case execution_evidence_refs。"
       ],
       "expected_evidence": {
         "read": "POST /api/service/open/vod/media/trans/code；ResponsePolicy(meta.code,meta.message,data,success_values=(200,));创建任务仅返回ApiResponse，不变成TaskHandle。 1/7/71及7缺spaceId；71+HLS拒绝、71+None省略；10秒/48小时边界、低于10秒/超48小时/aware/microseconds拒绝；8类None/显式字段分别核对。 非幂等写：失效token、500、timeout/断连均业务请求只一次，无自动task查询/取址/默认空间查询。加密条件不自动探测，validate_code显式值原样表单。",
@@ -28102,7 +28102,8 @@
         "tests/test_harness_vod_remux.py",
         "tests/test_harness_diagnostic_coverage.py",
         "README.md",
-        "docs/research/2026-11-18-vod-remux.md"
+        "docs/research/2026-11-18-vod-remux.md",
+        "docs/validation/2026-11-18-vod-remux/checks.json"
       ],
       "wire_eval_scope": {
         "operation_id": "cn.vod.create_remux_task",
@@ -28123,24 +28124,28 @@
         "expectation_rule": "冻结read_only=false；auth_fault沿现有driver预期AuthenticationError，1业务/1认证。这不证明真实云端运行。"
       },
       "criterion_assessment": {
-        "exact_sync_async_wire_and_header_token": "pending",
-        "required_conditional_enum_none_default_validation": "pending",
-        "domestic_and_header_utf8_time_validation_before_auth": "pending",
-        "response_raw_unknown_fields_and_exception_identity": "pending",
-        "frozen_per_operation_replay_policy": "pending",
-        "diagnostic_on_off_scope_wire_order_counts": "pending",
-        "known_request_values_redacted_without_code_collision": "pending",
-        "closed_timeout_async_cancellation_preserved": "pending",
-        "registry_binding_wire_and_exact_diagnostic_counts": "pending"
+        "exact_sync_async_wire_and_header_token": "met",
+        "required_conditional_enum_none_default_validation": "met",
+        "domestic_and_header_utf8_time_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "frozen_per_operation_replay_policy": "met",
+        "diagnostic_on_off_scope_wire_order_counts": "met",
+        "known_request_values_redacted_without_code_collision": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_binding_wire_and_exact_diagnostic_counts": "met"
       },
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "resource_state": "not_applicable (offline-only; no real resources)",
-      "blockers": [
-        "实现、相关文档与真实离线tool_result尚未完成。"
-      ],
+      "blockers": [],
       "limitations": [
-        "code_artifact引用与source hash不是测试通过；不得预写passed/execution_evidence/verified_code_commit。",
-        "所有输入SDK选择以SP169为准；不抹平taskType双编码/时间/权限/响应包层。"
+        "离线合成验证不证明真实云功能、权限、任务完成或媒体可用。",
+        "未知自由错误文本不保证全量脱敏；已知请求值及诊断/自动日志边界见checks。",
+        "接口参数、地区、响应及SDK自主选择边界保持SP169冻结。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "fce298b34911eac89e6c5813b203c5b267e80095",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-vod-remux/checks.json"
       ]
     },
     {
@@ -28230,7 +28235,7 @@
       "preconditions": [
         "G0沿用SP030；SP169冻结hash和本G1条目匹配；root先落盘capability/case/cohort再派实现。",
         "默认网络guard启用；不读取真实配置/原始敏感示例；SDK测试不依赖harness/docs/data运行时。",
-        "下列文件引用是预期验收目标，不是现存文件或执行通过的证明；需在代码交付后对对应提交运行。"
+        "冻结目标现已有对应实现/测试；执行证据与源码哈希见本case execution_evidence_refs。"
       ],
       "expected_evidence": {
         "read": "GET /api/service/open/vod/task；ApiResponse原样；既有meta.code整数200策略、meta.message可缺；taskType=1/taskSubType80/81/82/taskStatus/progressRate不归一、不强制字段完整。 task_id UTF8/query roundtrip；空白/非str前置拒绝。meta无message可按现有policy成功；taskType=1/subtype与未知字段保持，不解释progressRate或完成状态。 只有已确认invalid_token可一次刷新；一般API/HTTP/网络错误不重放。",
@@ -28264,7 +28269,8 @@
         "tests/test_harness_vod_remux.py",
         "tests/test_harness_diagnostic_coverage.py",
         "README.md",
-        "docs/research/2026-11-18-vod-remux.md"
+        "docs/research/2026-11-18-vod-remux.md",
+        "docs/validation/2026-11-18-vod-remux/checks.json"
       ],
       "wire_eval_scope": {
         "operation_id": "cn.vod.task",
@@ -28285,24 +28291,28 @@
         "expectation_rule": "冻结read_only=true；auth_fault沿现有driver预期恢复成功，2业务/2认证。这不证明真实云端运行。"
       },
       "criterion_assessment": {
-        "exact_sync_async_wire_and_header_token": "pending",
-        "required_conditional_enum_none_default_validation": "pending",
-        "domestic_and_header_utf8_time_validation_before_auth": "pending",
-        "response_raw_unknown_fields_and_exception_identity": "pending",
-        "frozen_per_operation_replay_policy": "pending",
-        "diagnostic_on_off_scope_wire_order_counts": "pending",
-        "known_request_values_redacted_without_code_collision": "pending",
-        "closed_timeout_async_cancellation_preserved": "pending",
-        "registry_binding_wire_and_exact_diagnostic_counts": "pending"
+        "exact_sync_async_wire_and_header_token": "met",
+        "required_conditional_enum_none_default_validation": "met",
+        "domestic_and_header_utf8_time_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "frozen_per_operation_replay_policy": "met",
+        "diagnostic_on_off_scope_wire_order_counts": "met",
+        "known_request_values_redacted_without_code_collision": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_binding_wire_and_exact_diagnostic_counts": "met"
       },
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "resource_state": "not_applicable (offline-only; no real resources)",
-      "blockers": [
-        "实现、相关文档与真实离线tool_result尚未完成。"
-      ],
+      "blockers": [],
       "limitations": [
-        "code_artifact引用与source hash不是测试通过；不得预写passed/execution_evidence/verified_code_commit。",
-        "所有输入SDK选择以SP169为准；不抹平taskType双编码/时间/权限/响应包层。"
+        "离线合成验证不证明真实云功能、权限、任务完成或媒体可用。",
+        "未知自由错误文本不保证全量脱敏；已知请求值及诊断/自动日志边界见checks。",
+        "接口参数、地区、响应及SDK自主选择边界保持SP169冻结。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "fce298b34911eac89e6c5813b203c5b267e80095",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-vod-remux/checks.json"
       ]
     },
     {
@@ -28392,7 +28402,7 @@
       "preconditions": [
         "G0沿用SP030；SP169冻结hash和本G1条目匹配；root先落盘capability/case/cohort再派实现。",
         "默认网络guard启用；不读取真实配置/原始敏感示例；SDK测试不依赖harness/docs/data运行时。",
-        "下列文件引用是预期验收目标，不是现存文件或执行通过的证明；需在代码交付后对对应提交运行。"
+        "冻结目标现已有对应实现/测试；执行证据与源码哈希见本case execution_evidence_refs。"
       ],
       "expected_evidence": {
         "read": "GET /api/service/open/vod/tasks；ApiResponse原样data.result[] + pageStart/pageSize/total；不是data[]/lastId/hasNext。taskType7/8和taskStatus原值保留；不自动分页。 task_type7/8接受，bool/其它值拒；page_start/page_sizeNone不发送，未声明负数/上界不擅自限缩。 start/end分别省略或单侧传入、非空原字符串包括未声明格式值原样；不套datetime/排序/跨度规则；data.result及分页元数据原样，不跟下一页。",
@@ -28426,7 +28436,8 @@
         "tests/test_harness_vod_remux.py",
         "tests/test_harness_diagnostic_coverage.py",
         "README.md",
-        "docs/research/2026-11-18-vod-remux.md"
+        "docs/research/2026-11-18-vod-remux.md",
+        "docs/validation/2026-11-18-vod-remux/checks.json"
       ],
       "wire_eval_scope": {
         "operation_id": "cn.vod.tasks",
@@ -28447,24 +28458,28 @@
         "expectation_rule": "冻结read_only=true；auth_fault沿现有driver预期恢复成功，2业务/2认证。这不证明真实云端运行。"
       },
       "criterion_assessment": {
-        "exact_sync_async_wire_and_header_token": "pending",
-        "required_conditional_enum_none_default_validation": "pending",
-        "domestic_and_header_utf8_time_validation_before_auth": "pending",
-        "response_raw_unknown_fields_and_exception_identity": "pending",
-        "frozen_per_operation_replay_policy": "pending",
-        "diagnostic_on_off_scope_wire_order_counts": "pending",
-        "known_request_values_redacted_without_code_collision": "pending",
-        "closed_timeout_async_cancellation_preserved": "pending",
-        "registry_binding_wire_and_exact_diagnostic_counts": "pending"
+        "exact_sync_async_wire_and_header_token": "met",
+        "required_conditional_enum_none_default_validation": "met",
+        "domestic_and_header_utf8_time_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "frozen_per_operation_replay_policy": "met",
+        "diagnostic_on_off_scope_wire_order_counts": "met",
+        "known_request_values_redacted_without_code_collision": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_binding_wire_and_exact_diagnostic_counts": "met"
       },
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "resource_state": "not_applicable (offline-only; no real resources)",
-      "blockers": [
-        "实现、相关文档与真实离线tool_result尚未完成。"
-      ],
+      "blockers": [],
       "limitations": [
-        "code_artifact引用与source hash不是测试通过；不得预写passed/execution_evidence/verified_code_commit。",
-        "所有输入SDK选择以SP169为准；不抹平taskType双编码/时间/权限/响应包层。"
+        "离线合成验证不证明真实云功能、权限、任务完成或媒体可用。",
+        "未知自由错误文本不保证全量脱敏；已知请求值及诊断/自动日志边界见checks。",
+        "接口参数、地区、响应及SDK自主选择边界保持SP169冻结。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "fce298b34911eac89e6c5813b203c5b267e80095",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-vod-remux/checks.json"
       ]
     },
     {
@@ -28554,7 +28569,7 @@
       "preconditions": [
         "G0沿用SP030；SP169冻结hash和本G1条目匹配；root先落盘capability/case/cohort再派实现。",
         "默认网络guard启用；不读取真实配置/原始敏感示例；SDK测试不依赖harness/docs/data运行时。",
-        "下列文件引用是预期验收目标，不是现存文件或执行通过的证明；需在代码交付后对对应提交运行。"
+        "冻结目标现已有对应实现/测试；执行证据与源码哈希见本case execution_evidence_refs。"
       ],
       "expected_evidence": {
         "read": "POST /api/service/open/vod/file/address/hls；ApiResponse原样data[]，保留hlsAddress/stopTime/expireTime字段名；format=MP4也不造mp4Address，不转换expireTime。 format必填MP4/HLS，0时长与48小时按建议规则接受；超过48小时或逆序拒，不引入10秒下限。 expire_seconds1/604800边界、None省略、0/超限/bool拒；没有validateCode/busType/taskId/form extra。 root已决定Operation.read_only=False：auth_fault本调用不刷新重放，正常与认证失败均仅一次业务请求；对应wire case固定认证错误期望。data[]/empty/未知字段、hlsAddress与stopTime/expireTime原样；绝不访问地址或创建转封装。",
@@ -28588,7 +28603,8 @@
         "tests/test_harness_vod_remux.py",
         "tests/test_harness_diagnostic_coverage.py",
         "README.md",
-        "docs/research/2026-11-18-vod-remux.md"
+        "docs/research/2026-11-18-vod-remux.md",
+        "docs/validation/2026-11-18-vod-remux/checks.json"
       ],
       "wire_eval_scope": {
         "operation_id": "cn.vod.recording_urls",
@@ -28609,24 +28625,28 @@
         "expectation_rule": "冻结read_only=false；auth_fault沿现有driver预期AuthenticationError，1业务/1认证。这不证明真实云端运行。"
       },
       "criterion_assessment": {
-        "exact_sync_async_wire_and_header_token": "pending",
-        "required_conditional_enum_none_default_validation": "pending",
-        "domestic_and_header_utf8_time_validation_before_auth": "pending",
-        "response_raw_unknown_fields_and_exception_identity": "pending",
-        "frozen_per_operation_replay_policy": "pending",
-        "diagnostic_on_off_scope_wire_order_counts": "pending",
-        "known_request_values_redacted_without_code_collision": "pending",
-        "closed_timeout_async_cancellation_preserved": "pending",
-        "registry_binding_wire_and_exact_diagnostic_counts": "pending"
+        "exact_sync_async_wire_and_header_token": "met",
+        "required_conditional_enum_none_default_validation": "met",
+        "domestic_and_header_utf8_time_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "frozen_per_operation_replay_policy": "met",
+        "diagnostic_on_off_scope_wire_order_counts": "met",
+        "known_request_values_redacted_without_code_collision": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_binding_wire_and_exact_diagnostic_counts": "met"
       },
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "resource_state": "not_applicable (offline-only; no real resources)",
-      "blockers": [
-        "实现、相关文档与真实离线tool_result尚未完成。"
-      ],
+      "blockers": [],
       "limitations": [
-        "code_artifact引用与source hash不是测试通过；不得预写passed/execution_evidence/verified_code_commit。",
-        "所有输入SDK选择以SP169为准；不抹平taskType双编码/时间/权限/响应包层。"
+        "离线合成验证不证明真实云功能、权限、任务完成或媒体可用。",
+        "未知自由错误文本不保证全量脱敏；已知请求值及诊断/自动日志边界见checks。",
+        "接口参数、地区、响应及SDK自主选择边界保持SP169冻结。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "fce298b34911eac89e6c5813b203c5b267e80095",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-vod-remux/checks.json"
       ]
     },
     {

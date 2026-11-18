@@ -22,6 +22,14 @@
 - 四条 **OFFLINE** required case `recorded_evidence`+`passed`；四条 **LIVE** required 仍 `awaiting_*` 未执行。scenario case `ACC-CN-VOD-RESOURCE-DISCOVERY-001`（`2026-11-18-r12` 登记）自身 `result=pending_execution`——`pending_execution` 是 case `result` 枚举值。**`local_execution_state=passed` 与 `live_execution_state=not_executed_pending_current_ci_and_local_credentials` 是 cohort `CLOUD-FILE-001` 的字段，不是该 scenario case 的字段**，不要写成 scenario 的属性。
 - 全 scope `all_semantics_dispositioned`/`required_acceptance_complete`/`product_complete` 仍 `false`；上述 OFFLINE 通过不是全 cohort 通过或产品完成。
 
+## 2026-11-18 国内 VOD remux 与任务 API cohort 更新（scope `2026-11-18-r15`）
+
+- 新增 cohort `VOD-REMUX-001`，`code_commit=fce298b34911eac89e6c5813b203c5b267e80095`，`offline_evidence_ref` `docs/validation/2026-11-18-vod-remux/checks.json`（`verified_code_commit` 是 OFFLINE case 字段，不是 cohort 字段）。本批为四个国内 VOD 入口：`cn.vod.create_remux_task`（`vod.create_remux_task`）、`cn.vod.task`（`vod.task`）、`cn.vod.tasks`（`vod.tasks`）、`cn.vod.recording_urls`（`vod.recording_urls`），对应 capability `candidate:domestic:3971/3972/4941/3973:d0`，准入记录 `docs/coordination/SP169/admission.json`。**不扩展**到其它待审候选。
+- 四条 **OFFLINE** required case `recorded_evidence`+`passed`（`ACC-CANDIDATE-CN-3971-D0-OFFLINE-001`/`ACC-CANDIDATE-CN-3972-D0-OFFLINE-001`/`ACC-CANDIDATE-CN-4941-D0-OFFLINE-001`/`ACC-CANDIDATE-CN-3973-D0-OFFLINE-001`）；对应四条 **LIVE** required 仍未执行/未授权或资源未齐——**本批未发真实云/设备请求**。
+- scope 当前为 `2026-11-18-r15-vod-remux-offline-acceptance`：358 capability 槽位、382 cases、212 registry（国内 145 / 海外 67）、107 条已登记 source issues；诊断 141 business / 282 sync+async bodies；source 身份集 4051 / observation 3019 不变。槽位/计数非官方 API 总数或覆盖率。
+- 国内只读资源发现窗口（SP166）实际**超时关闭**，无报告，`execution_outcome=not_verified`；实际 HTTP 请求数 `null`（不可声称 0 或账号无资源），不继承为 remux 实测。公开记录 [../validation/live/2026-11-18-vod-resource-discovery/attempt.json](../validation/live/2026-11-18-vod-resource-discovery/attempt.json)；凭据从未进入本任务。
+- 全 scope `all_semantics_dispositioned`/`required_acceptance_complete`/`product_complete` 仍 `false`；上述 OFFLINE 通过不等于 cohort 或产品完成。
+
 ## 阅读注意
 
 - 源数、矩阵行数、方法数均非覆盖率；填 `scenario` 不等于完成全语义处置。

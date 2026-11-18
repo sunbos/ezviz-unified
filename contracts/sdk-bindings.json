@@ -2844,7 +2844,7 @@
         "AsyncVod.create_remux_task"
       ],
       "public_entry": "vod.create_remux_task",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2857,7 +2857,7 @@
         "AsyncVod.task"
       ],
       "public_entry": "vod.task",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2870,7 +2870,7 @@
         "AsyncVod.tasks"
       ],
       "public_entry": "vod.tasks",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2883,7 +2883,7 @@
         "AsyncVod.recording_urls"
       ],
       "public_entry": "vod.recording_urls",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
