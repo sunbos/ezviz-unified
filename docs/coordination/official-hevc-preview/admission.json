@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "scope_revision": "2026-11-19-r24-official-hevc-preview",
+  "baseline_commit": "53f2b99908ac40fa7cc445108559720399b90f64",
+  "parent_case": "ACC-MEDIA-OFFICIAL-INTEGRATION-001",
+  "local_case": "ACC-MEDIA-HLS-HEVC-LOCAL-001",
+  "platform_case": "ACC-MEDIA-HLS-HEVC-PLATFORM-001",
+  "component": {
+    "package": "@ezuikit/player-hls",
+    "version": "2.0.0",
+    "archive_sha256": "8f7de1d2c96d310025e4d72a1221176d2584f5c98b6fc858dfd9daccca5087c9",
+    "member_sha256": {
+      "package/dist/index.umd.js": "afb2f9c1f3e32c865db90aa6ee6dbb7a1ef61a90cf4911c1787ac8732fa28e1c",
+      "package/dist/decoder.worker.js": "fd24bc9d975183ecaee66e0ad0db79a8c192cb8f2f34abd4c4aa82b7128fe709",
+      "package/dist/decoder.wasm": "acc7bc90ce79c2d1e28a82dc4785437f58dbd1628497145d7d38861bcc75d644"
+    }
+  },
+  "reuse": [
+    "docs/coordination/official-hls-preview/admission.json",
+    "docs/official-hls-preview.md",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "sdk": {
+    "operation": "cn.playback.create",
+    "entry": "Client.playback.create",
+    "region": "domestic",
+    "wire": {
+      "channelNo": "1",
+      "protocol": "2",
+      "type": "1",
+      "supportH265": "1",
+      "containerFormat": "0"
+    },
+    "auth": "synthetic MockTransport only, once",
+    "business": "once per demo server; actual platform calls zero",
+    "source": {
+      "source_id": "portal-2026-11-17:domestic:1414",
+      "content_sha256": "2bfe50f2aab9caded4b129a904011d1526b65791c15fca83c3a1605675d21df3"
+    }
+  },
+  "interface": {
+    "server": "python -m examples.hls_preview --archive ARCHIVE [--codec h264|h265] [--port N]",
+    "browser": "node tools/media/verify_hls.cjs --base LOOPBACK_URL [--codec h264|h265] [--chrome PATH]",
+    "h264": "原有命令和 /media/preview.m3u8 默认为 H.264；成功及失败生命周期保留。",
+    "h265": "仅在显式 h265 模式生成 /media/hevc.m3u8，SDK 返回同一本地清单。前端仅允许两个固定同源清单，后者选用官方 soft。地址 JSON 仍仅含 url 字段。",
+    "fixture": "有限 320×180 MPEG-TS HEVC 8-bit yuv420p，无音轨；左侧白色参考区，右侧按红、绿、蓝每秒循环（12 秒）。生成器使用 libx265，验收以 ffprobe 检查被实际请求分片的字节。"
+  },
+  "criteria": [
+    "浏览器使用未修改的 UMD、专属 decoder.worker.js 与 decoder.wasm；核验归档、实际加载资源的固定摘要、同源路径和 MIME，记录独立 worker 启动与关闭。",
+    "须在 visible 页面实际观察由官方播放器创建的 WebGL Canvas；官方事件给出 soft、HEVC 以及 320×180 元信息。在白色参考区和着色区采样，至少观测连续三种按红→绿→蓝循环出现的颜色、与这段观测相符的媒体时间推进。单凭时钟或非黑像素不算通过。",
+    "停止后调用真实 pause/destroy；页面保持打开时 Canvas 移除、专属 worker 退出，并在观测窗内没有新增媒体请求。错误地址不能构造实例、加载解码器或媒体。捕捉可观察的脚本/worker 错误和跨源请求，公共回执只保留白名单指标。",
+    "真实 H.265 地址签发、设备播放、10-bit、fMP4、RTC 及海外属于其他场景。此次不访问平台、真实流或设备，不改变原有 Python SDK 发行依赖。"
+  ]
+}

@@ -511,7 +511,8 @@
       "recovery_plan": "n/a",
       "source_refs": [
         "docs/research/2026-11-15-official-ecosystem-reuse.md",
-        "docs/coordination/official-hls-preview/admission.json"
+        "docs/coordination/official-hls-preview/admission.json",
+        "docs/coordination/official-hevc-preview/admission.json"
       ],
       "code_artifact_evidence_refs": [
         "docs/coordination/official-hls-preview/admission.json",
@@ -525,7 +526,8 @@
       "criterion_assessment": {
         "HLS-PATH-DESIGN": "met",
         "OTHER-COMPONENT-SCOPES": "pending",
-        "H264-LOCAL-BROWSER": "met"
+        "H264-LOCAL-BROWSER": "met",
+        "HEVC-SOFT-LOCAL": "pending"
       }
     },
     {
@@ -31280,6 +31282,112 @@
       ],
       "limitations": [
         "本案例不代替 H.265、RTC、海外或原生组件验收。"
+      ]
+    },
+    {
+      "case_id": "ACC-MEDIA-HLS-HEVC-LOCAL-001",
+      "tier": "required",
+      "case_origin": "official_hevc_frozen_before_execution",
+      "template_case_id": "ACC-MEDIA-OFFICIAL-INTEGRATION-001",
+      "capability_selector": "国内 MPEG-TS H.265 软件解码 真实本地官方组件",
+      "capability_ids": [
+        "integration:media.domestic_hls_preview"
+      ],
+      "operation_ids": [
+        "cn.playback.create"
+      ],
+      "scope_revision": "2026-11-19-r24-official-hevc-preview",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "纯合成 SDK 传输，无凭据。",
+      "device_requirements": "本机 Chrome、WebGL、Web Audio 与自生成 HEVC 片段。",
+      "surface": [
+        "sync",
+        "official_component",
+        "browser"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "docs/coordination/official-hevc-preview/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "验证 8-bit TS、WASM、真实 Canvas 画面推进及 worker 释放。",
+        "write": "本地无真实签发。",
+        "physical": "本地没有设备。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "真实外部平台请求和操作；本机浏览器使用本地媒体。"
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "停止服务、销毁播放器并关闭临时浏览器。",
+      "source_refs": [
+        "docs/coordination/official-hevc-preview/admission.json",
+        "docs/coordination/official-hls-preview/admission.json",
+        "docs/capabilities/official-component-artifacts-2026-11-17.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "pending_execution",
+      "blockers": [
+        "等待实际软件解码与画面验收。"
+      ],
+      "limitations": [
+        "H.264、原生浏览器解码或取得 WASM 均不构成这项软解画面证据。"
+      ]
+    },
+    {
+      "case_id": "ACC-MEDIA-HLS-HEVC-PLATFORM-001",
+      "tier": "required",
+      "case_origin": "official_hevc_frozen_before_execution",
+      "template_case_id": "ACC-MEDIA-OFFICIAL-INTEGRATION-001",
+      "capability_selector": "国内 MPEG-TS H.265 软件解码 真实平台设备",
+      "capability_ids": [
+        "integration:media.domestic_hls_preview"
+      ],
+      "operation_ids": [
+        "cn.playback.create"
+      ],
+      "scope_revision": "2026-11-19-r24-official-hevc-preview",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "另行明确地址签发、授权设备和浏览器消费媒体的权限。",
+      "device_requirements": "单独获准的 HEVC 设备、通道和媒体时间窗。",
+      "surface": [
+        "sync",
+        "official_component",
+        "browser"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "docs/coordination/official-hevc-preview/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "验证 8-bit TS、WASM、真实 Canvas 画面推进及 worker 释放。",
+        "write": "签发范围与权限须另定。",
+        "physical": "另行核定代表性设备预览。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "真实外部平台请求和操作；本机浏览器使用本地媒体。"
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "签发前确定媒体权限、时长及终止方式；需要作废时另定范围。",
+      "source_refs": [
+        "docs/coordination/official-hevc-preview/admission.json",
+        "docs/coordination/official-hls-preview/admission.json",
+        "docs/capabilities/official-component-artifacts-2026-11-17.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "没有云端签发、真实设备和媒体读取授权。"
+      ],
+      "limitations": [
+        "H.264、原生浏览器解码或取得 WASM 均不构成这项软解画面证据。"
       ]
     }
   ],
