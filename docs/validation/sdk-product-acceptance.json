@@ -12865,218 +12865,243 @@
       "case_id": "ACC-CANDIDATE-CN-1424-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:1424:d0",
+      "case_origin": "domestic_traffic_frozen_before_implementation",
+      "capability_selector": "traffic.account_summary",
       "capability_ids": [
         "candidate:domestic:1424:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.traffic.account_summary"
+      ],
+      "scope_revision": "2026-11-19-r20-domestic-traffic",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "已授权的国内开发者主账户，子账户 token 无权。不需要调用者提供设备序列号。",
+      "device_requirements": "离线使用合成记录。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "冻结国内 1424 的来源、接口与合成传输判据。无真实请求。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求查询当前账号下流量消耗的汇总数据”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "同步/异步、精确表单与省略、返回层级、既有错误/诊断/单次只读重放边界。",
+        "write": "无远端写入。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/64"
+        "docs/coordination/SP088/scenario-input.json#/entries/64",
+        "docs/coordination/domestic-traffic/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1424.source.json"
       ],
       "pending_questions": [
-        "汇总统计的时间范围与粒度（总量/按天/按月）如何界定？",
-        "统计口径是否区分直播、回放、云存储等不同业务流量？",
-        "统计主体是否仅限账号本身而不含下级子账号？"
+        "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
+        "企业版 totalFlow 的实际取值未规定。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "等待实现与独立验收回执。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "WIRE": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "DOCUMENTATION": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1425-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:1425:d0",
+      "case_origin": "domestic_traffic_frozen_before_implementation",
+      "capability_selector": "traffic.account_details",
       "capability_ids": [
         "candidate:domestic:1425:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.traffic.account_details"
+      ],
+      "scope_revision": "2026-11-19-r20-domestic-traffic",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "已授权的国内开发者主账户，子账户 token 无权。不需要调用者提供设备序列号。",
+      "device_requirements": "离线使用合成记录。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "冻结国内 1425 的来源、接口与合成传输判据。无真实请求。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求查询账户下流量消耗的明细数据”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "同步/异步、精确表单与省略、返回层级、既有错误/诊断/单次只读重放边界。",
+        "write": "无远端写入。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/65"
+        "docs/coordination/SP088/scenario-input.json#/entries/65",
+        "docs/coordination/domestic-traffic/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1425.source.json"
       ],
       "pending_questions": [
-        "与流量汇总场景在返回维度（按设备/按天/按流）上的区别是什么？",
-        "是否支持时间范围过滤与分页？"
+        "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
+        "平台时区、日期窗口与分页末页行为未实测。",
+        "同页示例 startTime 晚于 endTime；表格未规定客户端应拒绝或交换。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "等待实现与独立验收回执。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "WIRE": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "DOCUMENTATION": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1426-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:1426:d0",
+      "case_origin": "domestic_traffic_frozen_before_implementation",
+      "capability_selector": "traffic.day_details",
       "capability_ids": [
         "candidate:domestic:1426:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.traffic.day_details"
+      ],
+      "scope_revision": "2026-11-19-r20-domestic-traffic",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "已授权的国内开发者主账户，子账户 token 无权。不需要调用者提供设备序列号。",
+      "device_requirements": "离线使用合成记录。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "冻结国内 1426 的来源、接口与合成传输判据。无真实请求。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求查询账户下指定某一天的流量消耗明细”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "同步/异步、精确表单与省略、返回层级、既有错误/诊断/单次只读重放边界。",
+        "write": "无远端写入。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/66"
+        "docs/coordination/SP088/scenario-input.json#/entries/66",
+        "docs/coordination/domestic-traffic/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1426.source.json"
       ],
       "pending_questions": [
-        "与账户流量详情查询的差别是否仅在限定单日？",
-        "日期参数的时区归属与可选历史范围如何？"
+        "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
+        "平台时区、日期窗口与分页末页行为未实测。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "等待实现与独立验收回执。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "WIRE": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "DOCUMENTATION": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1427-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:1427:d0",
+      "case_origin": "domestic_traffic_frozen_before_implementation",
+      "capability_selector": "traffic.device_details",
       "capability_ids": [
         "candidate:domestic:1427:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.traffic.device_details"
+      ],
+      "scope_revision": "2026-11-19-r20-domestic-traffic",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "已授权的国内开发者主账户，子账户 token 无权。需要明确准许查询的设备序列号。",
+      "device_requirements": "离线使用合成记录。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "冻结国内 1427 的来源、接口与合成传输判据。无真实请求。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求查询指定设备在一段时间内的流量消耗数据”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "同步/异步、精确表单与省略、返回层级、既有错误/诊断/单次只读重放边界。",
+        "write": "无远端写入。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/67"
+        "docs/coordination/SP088/scenario-input.json#/entries/67",
+        "docs/coordination/domestic-traffic/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1427.source.json"
       ],
       "pending_questions": [
-        "设备维度与账户维度流量是否为同一统计的不同切片？",
-        "时间段边界、最大跨度与多设备支持如何？"
+        "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
+        "平台时区、日期窗口与分页末页行为未实测。",
+        "同页示例 startTime 晚于 endTime；表格未规定客户端应拒绝或交换。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "等待实现与独立验收回执。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "WIRE": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "DOCUMENTATION": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1595-D0-OFFLINE-001",
@@ -30359,6 +30384,202 @@
         "documented_protocol_limits_and_live_evidence_boundary": "pending"
       },
       "resource_state": "awaiting_frozen_resource_and_request_scope"
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1424-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_traffic_frozen_before_implementation",
+      "capability_selector": "traffic.account_summary",
+      "capability_ids": [
+        "candidate:domestic:1424:d0"
+      ],
+      "operation_ids": [
+        "cn.traffic.account_summary"
+      ],
+      "scope_revision": "2026-11-19-r20-domestic-traffic",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "已授权的国内开发者主账户，子账户 token 无权。不需要调用者提供设备序列号。",
+      "device_requirements": "无设备标识要求。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "先确认对应主账户业务数据的只读范围及本机凭据。每个模式用独立客户端，限定各一次认证、一次查询，禁止重试、翻页或扩大目标。"
+      ],
+      "expected_evidence": {
+        "read": "两种模式分别记录受控真实查询的成功状态和 object 层级；不公开流量、标识或原始响应。",
+        "write": "无。",
+        "physical": "无。"
+      },
+      "bounded": {
+        "max_requests": 4,
+        "max_operations": 2,
+        "freeze_required": false
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "只读，无远端状态回滚。遇到拒绝即停止，不通过绑定、购买或产生流量来制造数据。",
+      "source_refs": [
+        "docs/coordination/domestic-traffic/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1424.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "主账户及可读取的账号流量范围待确认。"
+      ],
+      "limitations": [
+        "离线通过或返回成功不能证明统计数据准确或设备功能。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1425-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_traffic_frozen_before_implementation",
+      "capability_selector": "traffic.account_details",
+      "capability_ids": [
+        "candidate:domestic:1425:d0"
+      ],
+      "operation_ids": [
+        "cn.traffic.account_details"
+      ],
+      "scope_revision": "2026-11-19-r20-domestic-traffic",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "已授权的国内开发者主账户，子账户 token 无权。不需要调用者提供设备序列号。",
+      "device_requirements": "无设备标识要求。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "先确认对应主账户业务数据的只读范围及本机凭据。每个模式用独立客户端，限定各一次认证、一次查询，禁止重试、翻页或扩大目标。"
+      ],
+      "expected_evidence": {
+        "read": "两种模式分别记录受控真实查询的成功状态和 array 层级；不公开流量、标识或原始响应。",
+        "write": "无。",
+        "physical": "无。"
+      },
+      "bounded": {
+        "max_requests": 4,
+        "max_operations": 2,
+        "freeze_required": false
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "只读，无远端状态回滚。遇到拒绝即停止，不通过绑定、购买或产生流量来制造数据。",
+      "source_refs": [
+        "docs/coordination/domestic-traffic/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1425.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "主账户及可读取的账号流量范围待确认。"
+      ],
+      "limitations": [
+        "离线通过或返回成功不能证明统计数据准确或设备功能。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1426-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_traffic_frozen_before_implementation",
+      "capability_selector": "traffic.day_details",
+      "capability_ids": [
+        "candidate:domestic:1426:d0"
+      ],
+      "operation_ids": [
+        "cn.traffic.day_details"
+      ],
+      "scope_revision": "2026-11-19-r20-domestic-traffic",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "已授权的国内开发者主账户，子账户 token 无权。不需要调用者提供设备序列号。",
+      "device_requirements": "无设备标识要求。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "先确认对应主账户业务数据的只读范围及本机凭据。每个模式用独立客户端，限定各一次认证、一次查询，禁止重试、翻页或扩大目标。"
+      ],
+      "expected_evidence": {
+        "read": "两种模式分别记录受控真实查询的成功状态和 array 层级；不公开流量、标识或原始响应。",
+        "write": "无。",
+        "physical": "无。"
+      },
+      "bounded": {
+        "max_requests": 4,
+        "max_operations": 2,
+        "freeze_required": false
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "只读，无远端状态回滚。遇到拒绝即停止，不通过绑定、购买或产生流量来制造数据。",
+      "source_refs": [
+        "docs/coordination/domestic-traffic/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1426.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "主账户及可读取的账号流量范围待确认。"
+      ],
+      "limitations": [
+        "离线通过或返回成功不能证明统计数据准确或设备功能。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1427-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_traffic_frozen_before_implementation",
+      "capability_selector": "traffic.device_details",
+      "capability_ids": [
+        "candidate:domestic:1427:d0"
+      ],
+      "operation_ids": [
+        "cn.traffic.device_details"
+      ],
+      "scope_revision": "2026-11-19-r20-domestic-traffic",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "已授权的国内开发者主账户，子账户 token 无权。需要明确准许查询的设备序列号。",
+      "device_requirements": "必须有明确授权设备，仅查询这一台。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "先确认对应主账户业务数据的只读范围及本机凭据。每个模式用独立客户端，限定各一次认证、一次查询，禁止重试、翻页或扩大目标。"
+      ],
+      "expected_evidence": {
+        "read": "两种模式分别记录受控真实查询的成功状态和 array 层级；不公开流量、标识或原始响应。",
+        "write": "无。",
+        "physical": "无。"
+      },
+      "bounded": {
+        "max_requests": 4,
+        "max_operations": 2,
+        "freeze_required": false
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "只读，无远端状态回滚。遇到拒绝即停止，不通过绑定、购买或产生流量来制造数据。",
+      "source_refs": [
+        "docs/coordination/domestic-traffic/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1427.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "主账户及可读取的账号流量范围待确认。设备级查询还需已授权目标。"
+      ],
+      "limitations": [
+        "离线通过或返回成功不能证明统计数据准确或设备功能。"
+      ]
     }
   ],
   "release_gates": [

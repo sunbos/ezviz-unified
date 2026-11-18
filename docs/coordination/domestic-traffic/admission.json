@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "scope_revision": "2026-11-19-r20-domestic-traffic",
+  "baseline_commit": "658f945d297894c6a494cf25a2268f5a1584d7f5",
+  "operations": [
+    {
+      "doc_id": "1424",
+      "capability_id": "candidate:domestic:1424:d0",
+      "operation_id": "cn.traffic.account_summary",
+      "entry": "traffic.account_summary",
+      "method": "account_summary",
+      "signatures": {
+        "Traffic": "def account_summary() -> ApiResponse",
+        "AsyncTraffic": "async def account_summary() -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/1424",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1424.source.json",
+      "html_sha256": "bb32216f8ec61f7f9593a550cefbd8ad49839e33d2f14e60bba752a9def0fbb8",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1424.structure.json",
+      "structure_sha256": "ecd6951cf4524215e31ca4dc99c8f8af1f88f5ad1d0f5d4d1a0778c7c2ace0cc",
+      "path": "/api/lapp/traffic/user/total",
+      "wire_parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true
+        }
+      ],
+      "response_data": "object",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1424-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1424-D0-LIVE-001"
+      ],
+      "permissions": "已授权的国内开发者主账户，子账户 token 无权。不需要调用者提供设备序列号。",
+      "unknowns": [
+        "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
+        "企业版 totalFlow 的实际取值未规定。"
+      ]
+    },
+    {
+      "doc_id": "1425",
+      "capability_id": "candidate:domestic:1425:d0",
+      "operation_id": "cn.traffic.account_details",
+      "entry": "traffic.account_details",
+      "method": "account_details",
+      "signatures": {
+        "Traffic": "def account_details(*, start_time: int | None = None, end_time: int | None = None, page_start: int | None = None, page_size: int | None = None) -> ApiResponse",
+        "AsyncTraffic": "async def account_details(*, start_time: int | None = None, end_time: int | None = None, page_start: int | None = None, page_size: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/1425",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1425.source.json",
+      "html_sha256": "b94ad67299190e3bb8b2a8b07423901b78c4839af89343fac16a0682a450acae",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1425.structure.json",
+      "structure_sha256": "523517650820a536624e65590f17e484e5b8642f8405d3e549a33aa06a2cdbba",
+      "path": "/api/lapp/traffic/user/detail",
+      "wire_parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true
+        },
+        {
+          "location": "body",
+          "name": "startTime",
+          "type": "Long",
+          "required": false
+        },
+        {
+          "location": "body",
+          "name": "endTime",
+          "type": "Long",
+          "required": false
+        },
+        {
+          "location": "body",
+          "name": "pageStart",
+          "type": "Int",
+          "required": false
+        },
+        {
+          "location": "body",
+          "name": "pageSize",
+          "type": "Int",
+          "required": false
+        }
+      ],
+      "response_data": "array",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1425-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1425-D0-LIVE-001"
+      ],
+      "permissions": "已授权的国内开发者主账户，子账户 token 无权。不需要调用者提供设备序列号。",
+      "unknowns": [
+        "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
+        "平台时区、日期窗口与分页末页行为未实测。",
+        "同页示例 startTime 晚于 endTime；表格未规定客户端应拒绝或交换。"
+      ]
+    },
+    {
+      "doc_id": "1426",
+      "capability_id": "candidate:domestic:1426:d0",
+      "operation_id": "cn.traffic.day_details",
+      "entry": "traffic.day_details",
+      "method": "day_details",
+      "signatures": {
+        "Traffic": "def day_details(*, flow_time: int | None = None, page_start: int | None = None, page_size: int | None = None) -> ApiResponse",
+        "AsyncTraffic": "async def day_details(*, flow_time: int | None = None, page_start: int | None = None, page_size: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/1426",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1426.source.json",
+      "html_sha256": "3490fe5f9fb75869109e716f35cfdc252feca3e3810ff339668908beb98a6dbc",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1426.structure.json",
+      "structure_sha256": "70b3797f668bef37a21ec61a18083822142eefdae534eb88a2685430a4f6707f",
+      "path": "/api/lapp/traffic/day/detail",
+      "wire_parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true
+        },
+        {
+          "location": "body",
+          "name": "flowTime",
+          "type": "Long",
+          "required": false
+        },
+        {
+          "location": "body",
+          "name": "pageStart",
+          "type": "Int",
+          "required": false
+        },
+        {
+          "location": "body",
+          "name": "pageSize",
+          "type": "Int",
+          "required": false
+        }
+      ],
+      "response_data": "array",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1426-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1426-D0-LIVE-001"
+      ],
+      "permissions": "已授权的国内开发者主账户，子账户 token 无权。不需要调用者提供设备序列号。",
+      "unknowns": [
+        "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
+        "平台时区、日期窗口与分页末页行为未实测。"
+      ]
+    },
+    {
+      "doc_id": "1427",
+      "capability_id": "candidate:domestic:1427:d0",
+      "operation_id": "cn.traffic.device_details",
+      "entry": "traffic.device_details",
+      "method": "device_details",
+      "signatures": {
+        "Traffic": "def device_details(device_serial: str, *, start_time: int | None = None, end_time: int | None = None, page_start: int | None = None, page_size: int | None = None) -> ApiResponse",
+        "AsyncTraffic": "async def device_details(device_serial: str, *, start_time: int | None = None, end_time: int | None = None, page_start: int | None = None, page_size: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/1427",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1427.source.json",
+      "html_sha256": "c6d92b66d60a1d29b3e075cb5c0f5aef8df74535f3588629f49afb8c351eb0ef",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1427.structure.json",
+      "structure_sha256": "62b5b4b2faaa46f2de87a396894e18c6c3c885f3f8f503bedc6a04c9f317cc9c",
+      "path": "/api/lapp/traffic/device/detail",
+      "wire_parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true
+        },
+        {
+          "location": "body",
+          "name": "startTime",
+          "type": "Long",
+          "required": false
+        },
+        {
+          "location": "body",
+          "name": "endTime",
+          "type": "Long",
+          "required": false
+        },
+        {
+          "location": "body",
+          "name": "pageStart",
+          "type": "Int",
+          "required": false
+        },
+        {
+          "location": "body",
+          "name": "pageSize",
+          "type": "Int",
+          "required": false
+        }
+      ],
+      "response_data": "array",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1427-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1427-D0-LIVE-001"
+      ],
+      "permissions": "已授权的国内开发者主账户，子账户 token 无权。需要明确准许查询的设备序列号。",
+      "unknowns": [
+        "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
+        "平台时区、日期窗口与分页末页行为未实测。",
+        "同页示例 startTime 晚于 endTime；表格未规定客户端应拒绝或交换。"
+      ]
+    }
+  ],
+  "scope": "国内服务端云直播流量查询。复用已有 LAPP SDK 认证、表单、错误处理及本地诊断。",
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "sdk_choices": [
+    "以 Client.traffic / AsyncClient.traffic 为公共入口，返回既有 ApiResponse，并保留原始字段及未知字段。不锁定每一行数值。成功时只校验 data 的约定外层 dict 或 list；缺失、null 或错层抛固定 ProtocolError。",
+    "POST form，accessToken 由通用客户端注入。成功以字符串 200 为准。仅沿用既有 10002 只读刷新行为。四页未提供子账户权限专用返回码。",
+    "可选参数默认 None，不发字段。时间采用有符号 64 位整数毫秒，允许分别省略、负数及原样逆序，不猜平台时区或注入当前日期。page_start ≥0，无设备列表的 400 页上限。page_size 采用既有 1..50 本地校验；原文规定最大 50。拒绝 bool、错误类型。",
+    "1427 的序列号为可编码为 UTF-8 的非空白字符串，原样发送，不额外限制大小写/长度。",
+    "1424 无分页和设备输入，1425/1426/1427 成功 data 为数组。不自动翻页、不合计、不推算费用或企业版哨兵。"
+  ],
+  "criteria": [
+    "四条登记绑定及独立传输样例。两种客户端真实 facade 路径均验证正常、可选字段省略、非法参数在认证前拒绝、地区限制、业务/认证/权限/传输失败、错误 data 形状和敏感字段保护。",
+    "文档与最小示例用占位符；示例运行入口 exercises 1424，一次账号汇总，输出可分享的状态，不输出流量、凭据或原始对象。另三项提供调用说明。",
+    "保留四个独立真实只读条件，两种模式各一次认证加一次业务，样本未就绪时不计通过。"
+  ]
+}
