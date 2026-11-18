@@ -9393,19 +9393,29 @@
         "同一设备的开关状态，不传 channelNo。",
         "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待实现与验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/passenger_flow.py",
+        "src/ezviz_unified/_passenger_flow_forms.py",
+        "tests/test_sdk_passenger_flow.py",
+        "tests/test_sdk_passenger_flow_inputs.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-passenger-flow/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-689-D0-OFFLINE-001",
@@ -9453,19 +9463,29 @@
         "开关配置，开启/关闭取整数 1/0；省略通道表示设备本身。688 未必能读取写入目标通道的原始状态。",
         "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待实现与验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/passenger_flow.py",
+        "src/ezviz_unified/_passenger_flow_forms.py",
+        "tests/test_sdk_passenger_flow.py",
+        "tests/test_sdk_passenger_flow_inputs.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-passenger-flow/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-690-D0-OFFLINE-001",
@@ -9513,19 +9533,31 @@
         "支持 support_flow_statistics；数据约在次日凌晨两点更新。日报时间必须为午夜，样例与 UTC+08 午夜一致，平台采用的时区未注明。",
         "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待实现与验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/passenger_flow.py",
+        "src/ezviz_unified/_passenger_flow_forms.py",
+        "tests/test_sdk_passenger_flow.py",
+        "tests/test_sdk_passenger_flow_inputs.py",
+        "evals/contracts/cases.json",
+        "README.md",
+        "examples/passenger_flow.py",
+        "tests/test_example_passenger_flow.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-passenger-flow/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-691-D0-OFFLINE-001",
@@ -9573,19 +9605,31 @@
         "可选毫秒 Long，无日报的午夜约束，不推断24行或缺行即为零。",
         "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待实现与验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/passenger_flow.py",
+        "src/ezviz_unified/_passenger_flow_forms.py",
+        "tests/test_sdk_passenger_flow.py",
+        "tests/test_sdk_passenger_flow_inputs.py",
+        "evals/contracts/cases.json",
+        "README.md",
+        "examples/passenger_flow.py",
+        "tests/test_example_passenger_flow.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-passenger-flow/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-692-D0-OFFLINE-001",
@@ -9633,19 +9677,29 @@
         "方向类型列 Int 与描述/693 回读的坐标对象矛盾。请求示例的预编码文本再次经过 --data-urlencode，平台实际解码层数未证实。",
         "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待实现与验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/passenger_flow.py",
+        "src/ezviz_unified/_passenger_flow_forms.py",
+        "tests/test_sdk_passenger_flow.py",
+        "tests/test_sdk_passenger_flow_inputs.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-passenger-flow/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-693-D0-OFFLINE-001",
@@ -9693,19 +9747,29 @@
         "同目标读取 line 与 direction 对象，保留坐标原文，不因有返回就认定可安全回滚。",
         "适用的实际型号、账号权限与平台实际返回待独立核实。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待实现与验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/passenger_flow.py",
+        "src/ezviz_unified/_passenger_flow_forms.py",
+        "tests/test_sdk_passenger_flow.py",
+        "tests/test_sdk_passenger_flow_inputs.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "6ca7e604f8c18cbaee0c418bcb958ca4b95db1c4",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-passenger-flow/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-714-D0-OFFLINE-001",

@@ -3078,7 +3078,7 @@
         "AsyncPassengerFlow.switch_status"
       ],
       "public_entry": "passenger_flow.switch_status",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3091,7 +3091,7 @@
         "AsyncPassengerFlow.set_switch"
       ],
       "public_entry": "passenger_flow.set_switch",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3104,7 +3104,7 @@
         "AsyncPassengerFlow.daily"
       ],
       "public_entry": "passenger_flow.daily",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3117,7 +3117,7 @@
         "AsyncPassengerFlow.hourly"
       ],
       "public_entry": "passenger_flow.hourly",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3130,7 +3130,7 @@
         "AsyncPassengerFlow.set_config"
       ],
       "public_entry": "passenger_flow.set_config",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3143,7 +3143,7 @@
         "AsyncPassengerFlow.get_config"
       ],
       "public_entry": "passenger_flow.get_config",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

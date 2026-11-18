@@ -32,6 +32,10 @@
 
 两 case 的 `capability_ids=[candidate:overseas:469:1.12]`、`operation_ids=[global.settings.list_areas]`；`settings.list_areas` 是 runtime/diagnostic entrypoint，**不是** registry operation_id。来源 overseas:469 §1.12（e1459 固定 origin、e1463 列 GET/POST、e1468 GET 示例、e1476 字段表）；SDK 明确只选 GET，POST 语义未核定保留为 source issue，不伪造 declared_pair 或提升 parser 恢复数。
 
+## 国内设备客流统计
+
+四个读取与两个配置写入的同步、异步入口均已通过离线验收。测试验证写失败不会被自动重放，日报拒绝不存在的当地午夜，坐标字段按 SDK 选择的一层表单编码发送。六条既有离线案例保留原 ID，另增六条独立的真实设备案例，必需案例由 405 项增至 411 项。设备读写均未在本批实际执行，平台对 692 编码的接受情况和恢复能力仍待分别确认。见[协议与权限判据](../coordination/domestic-passenger-flow/admission.json)及[离线回执](2026-11-19-domestic-passenger-flow/offline.json)。
+
 ## 国内直播流归档文件
 
 源文件查询与点播索引查询已通过同步和异步离线验收，覆盖表单、响应层级、时间边界、错误消息中的媒体地址和示例输出。两项既有离线案例沿用原 ID，另增两项真实只读案例，必需案例分母从 403 增至 405。本轮账号流量授权不含归档查询。见[来源和判据](../coordination/domestic-stream-archive/admission.json)及[离线记录](2026-11-19-domestic-stream-archive/offline.json)。
