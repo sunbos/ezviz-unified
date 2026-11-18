@@ -28020,23 +28020,696 @@
       ],
       "criterion_assessment": {
         "offline_verifier_safety_and_sdk_regressions": "met",
-        "exact_source_pins_and_current_ci": "pending",
+        "exact_source_pins_and_current_ci": "met",
         "single_local_input_no_secret_persistence": "pending",
         "bounded_transport_no_extra_business_requests": "pending",
         "observed_resource_query_and_type_receipt": "pending",
         "limitations_and_parent_case_not_promoted": "pending"
       },
-      "result": "pending_execution",
-      "resource_state": "credentials_absent_in_current_process_account_resources_unknown",
+      "result": "awaiting_resource_confirmation",
+      "resource_state": "local_input_window_closed_without_valid_submission",
       "blockers": [
-        "当前提交PR/main CI仍待验证。",
-        "需要用户通过一次性本地输入提供凭据；未发真实云请求。"
+        "本机一次性输入窗口已关闭，未收到有效凭据提交、未取得云接口回执；需在用户方便时重开输入。"
       ],
       "limitations": [
         "30天createTime窗口漏检旧空间；空页/无合格项不证明账号无功能。",
         "权限或业务错误只属于本次组合，不自动开通服务。",
         "本场景仅sync辅助发现；父required VOD live和其它必须项独立保持未完成。",
-        "若无法走到VOD array结果，整体记not_verified/failed，不把已记录阻塞当能力验收完成。"
+        "若无法走到VOD array结果，整体记not_verified/failed，不把已记录阻塞当能力验收完成。",
+        "本次输入窗口超时不证明账号资源/权限是否存在；没有回执不编造实际HTTP数量。"
+      ],
+      "execution_outcome": "not_verified",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-18-vod-resource-discovery/attempt.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-3971-D0-OFFLINE-001",
+      "tier": "required",
+      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
+      "case_origin": "vod_remux_cohort_frozen_before_implementation",
+      "capability_selector": "vod.create_remux_task",
+      "capability_ids": [
+        "candidate:domestic:3971:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.create_remux_task"
+      ],
+      "scope_revision": "2026-11-18-r14-vod-remux-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "离线仅合成凭据；不据此核定真实账号的角色/套餐。",
+      "device_requirements": "无真实设备/任务/录像/空间；全部fixture合成。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "G0沿用SP030；SP169冻结hash和本G1条目匹配；root先落盘capability/case/cohort再派实现。",
+        "默认网络guard启用；不读取真实配置/原始敏感示例；SDK测试不依赖harness/docs/data运行时。",
+        "冻结目标现已有对应实现/测试；执行证据与源码哈希见本case execution_evidence_refs。"
+      ],
+      "expected_evidence": {
+        "read": "POST /api/service/open/vod/media/trans/code；ResponsePolicy(meta.code,meta.message,data,success_values=(200,));创建任务仅返回ApiResponse，不变成TaskHandle。 1/7/71及7缺spaceId；71+HLS拒绝、71+None省略；10秒/48小时边界、低于10秒/超48小时/aware/microseconds拒绝；8类None/显式字段分别核对。 非幂等写：失效token、500、timeout/断连均业务请求只一次，无自动task查询/取址/默认空间查询。加密条件不自动探测，validate_code显式值原样表单。",
+        "write": "只在MockTransport中验证冻结语义：此操作无自动重放，invalid_token/HTTP/API/timeout/断连均只一次业务请求。",
+        "physical": "离线不证明任务完成、精确产物绑定、媒体可用或硬件效果。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "两项均指真实外部请求/业务；合成wire格由wire_eval_scope固定，另有冻结边界/诊断测试。"
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "纯离线无远端状态变化；本批源码与登记增量按唯一writer范围可回退。",
+      "source_refs": [
+        "docs/coordination/SP169/admission.json#/operations/0",
+        "portal-2026-11-17:domestic:3971",
+        "docs/coordination/SP169/admission.json#/distinction_only_source_refs"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/vod.py",
+        "src/ezviz_unified/errors.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "contracts/source-issues.json",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_vod_remux.py",
+        "tests/test_sdk_vod_remux_behaviour.py",
+        "tests/test_harness_vod_remux.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "README.md",
+        "docs/research/2026-11-18-vod-remux.md",
+        "docs/validation/2026-11-18-vod-remux/checks.json"
+      ],
+      "wire_eval_scope": {
+        "operation_id": "cn.vod.create_remux_task",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8,
+        "expectation_rule": "冻结read_only=false；auth_fault沿现有driver预期AuthenticationError，1业务/1认证。这不证明真实云端运行。"
+      },
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_header_token": "met",
+        "required_conditional_enum_none_default_validation": "met",
+        "domestic_and_header_utf8_time_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "frozen_per_operation_replay_policy": "met",
+        "diagnostic_on_off_scope_wire_order_counts": "met",
+        "known_request_values_redacted_without_code_collision": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_binding_wire_and_exact_diagnostic_counts": "met"
+      },
+      "result": "recorded_evidence",
+      "resource_state": "not_applicable (offline-only; no real resources)",
+      "blockers": [],
+      "limitations": [
+        "离线合成验证不证明真实云功能、权限、任务完成或媒体可用。",
+        "未知自由错误文本不保证全量脱敏；已知请求值及诊断/自动日志边界见checks。",
+        "接口参数、地区、响应及SDK自主选择边界保持SP169冻结。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "fce298b34911eac89e6c5813b203c5b267e80095",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-vod-remux/checks.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-3971-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "vod_remux_cohort_live_followup_not_executable",
+      "capability_selector": "vod.create_remux_task",
+      "capability_ids": [
+        "candidate:domestic:3971:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.create_remux_task"
+      ],
+      "scope_revision": "2026-11-18-r14-vod-remux-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic: https://open.ys7.com",
+      "account_role_permissions": "企业用户；已有对应时段云录像；不支持托管/子账号。其余未声明限制保留；真实授权待具体范围冻结。",
+      "device_requirements": "现成有对应时段录像的设备/通道及允许使用的空间；不为测试自动录制/上传/创建资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "该能力OFFLINE通过并固定实际测试代码提交后，另行冻结live资源、模式、请求/认证/重放次数、超时与回执字段。",
+        "本G1未批准任何真实执行；SP166只有timeout无报告，不可作为实测或扩大授权。",
+        "所有回执只含固定字段类型/计数/布尔判定/代码与source hash，不含实际设备/任务/空间ID及其hash、token、validateCode、URL或raw。"
+      ],
+      "expected_evidence": {
+        "read": "在具体授权的现成录像/时段/空间上只提交冻结次数的转封装，验证原始业务成功和taskId结构但不打印实体值；创建成功不等于任务完成或媒体可播。",
+        "write": "只有另获具体任务创建、录像时段、次数、费用/配额与恢复/清理限制授权才允许执行；结果未知不自动重建。",
+        "physical": "不证明设备物理效果或媒体可播放；任务创建/状态、地址、产物身份与媒体验证各有独立边界。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "尚未冻结真实资源与请求预算，当前不可执行；将认证及可能允许的查询重放计入总次数。"
+      },
+      "authorization_status": "awaiting_authorization",
+      "recovery_plan": "执行前确认费用、产物存储占用、任务取消/删除可用性与不可撤回边界；任何清理也需具体授权，不编造自动撤销。",
+      "source_refs": [
+        "docs/coordination/SP169/admission.json#/operations/0",
+        "portal-2026-11-17:domestic:3971",
+        "docs/coordination/SP169/admission.json#/distinction_only_source_refs"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "resource_and_account_scope_frozen": "pending",
+        "explicit_execution_authorization_and_bounds": "pending",
+        "matching_code_and_bounded_sdk_response_evidence": "pending",
+        "receipt_without_sensitive_values": "pending",
+        "semantic_layers_not_conflated": "pending"
+      },
+      "result": "awaiting_authorization",
+      "resource_state": "unknown_awaiting_configuration_check",
+      "blockers": [
+        "真实资源和执行次数/窗口未冻结；本批尚未执行。",
+        "创建任务的费用/恢复边界及具体写授权缺失。"
+      ],
+      "limitations": [
+        "全部未执行；不继承SP166或其它域的历史/离线成功。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-3972-D0-OFFLINE-001",
+      "tier": "required",
+      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
+      "case_origin": "vod_remux_cohort_frozen_before_implementation",
+      "capability_selector": "vod.task",
+      "capability_ids": [
+        "candidate:domestic:3972:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.task"
+      ],
+      "scope_revision": "2026-11-18-r14-vod-remux-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "离线仅合成凭据；不据此核定真实账号的角色/套餐。",
+      "device_requirements": "无真实设备/任务/录像/空间；全部fixture合成。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "G0沿用SP030；SP169冻结hash和本G1条目匹配；root先落盘capability/case/cohort再派实现。",
+        "默认网络guard启用；不读取真实配置/原始敏感示例；SDK测试不依赖harness/docs/data运行时。",
+        "冻结目标现已有对应实现/测试；执行证据与源码哈希见本case execution_evidence_refs。"
+      ],
+      "expected_evidence": {
+        "read": "GET /api/service/open/vod/task；ApiResponse原样；既有meta.code整数200策略、meta.message可缺；taskType=1/taskSubType80/81/82/taskStatus/progressRate不归一、不强制字段完整。 task_id UTF8/query roundtrip；空白/非str前置拒绝。meta无message可按现有policy成功；taskType=1/subtype与未知字段保持，不解释progressRate或完成状态。 只有已确认invalid_token可一次刷新；一般API/HTTP/网络错误不重放。",
+        "write": "只在MockTransport中验证冻结语义：此操作只有已确认invalid_token的一次恢复，其他失败不重放。",
+        "physical": "离线不证明任务完成、精确产物绑定、媒体可用或硬件效果。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "两项均指真实外部请求/业务；合成wire格由wire_eval_scope固定，另有冻结边界/诊断测试。"
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "纯离线无远端状态变化；本批源码与登记增量按唯一writer范围可回退。",
+      "source_refs": [
+        "docs/coordination/SP169/admission.json#/operations/1",
+        "portal-2026-11-17:domestic:3972",
+        "docs/coordination/SP169/admission.json#/distinction_only_source_refs"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/vod.py",
+        "src/ezviz_unified/errors.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "contracts/source-issues.json",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_vod_remux.py",
+        "tests/test_sdk_vod_remux_behaviour.py",
+        "tests/test_harness_vod_remux.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "README.md",
+        "docs/research/2026-11-18-vod-remux.md",
+        "docs/validation/2026-11-18-vod-remux/checks.json"
+      ],
+      "wire_eval_scope": {
+        "operation_id": "cn.vod.task",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8,
+        "expectation_rule": "冻结read_only=true；auth_fault沿现有driver预期恢复成功，2业务/2认证。这不证明真实云端运行。"
+      },
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_header_token": "met",
+        "required_conditional_enum_none_default_validation": "met",
+        "domestic_and_header_utf8_time_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "frozen_per_operation_replay_policy": "met",
+        "diagnostic_on_off_scope_wire_order_counts": "met",
+        "known_request_values_redacted_without_code_collision": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_binding_wire_and_exact_diagnostic_counts": "met"
+      },
+      "result": "recorded_evidence",
+      "resource_state": "not_applicable (offline-only; no real resources)",
+      "blockers": [],
+      "limitations": [
+        "离线合成验证不证明真实云功能、权限、任务完成或媒体可用。",
+        "未知自由错误文本不保证全量脱敏；已知请求值及诊断/自动日志边界见checks。",
+        "接口参数、地区、响应及SDK自主选择边界保持SP169冻结。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "fce298b34911eac89e6c5813b203c5b267e80095",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-vod-remux/checks.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-3972-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "vod_remux_cohort_live_followup_not_executable",
+      "capability_selector": "vod.task",
+      "capability_ids": [
+        "candidate:domestic:3972:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.task"
+      ],
+      "scope_revision": "2026-11-18-r14-vod-remux-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic: https://open.ys7.com",
+      "account_role_permissions": "accessToken。其余未声明限制保留；真实授权待具体范围冻结。",
+      "device_requirements": "现成且获授权的任务ID/业务任务集合；不为查询测试创建任务。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "该能力OFFLINE通过并固定实际测试代码提交后，另行冻结live资源、模式、请求/认证/重放次数、超时与回执字段。",
+        "本G1未批准任何真实执行；SP166只有timeout无报告，不可作为实测或扩大授权。",
+        "所有回执只含固定字段类型/计数/布尔判定/代码与source hash，不含实际设备/任务/空间ID及其hash、token、validateCode、URL或raw。"
+      ],
+      "expected_evidence": {
+        "read": "使用现成且获授权的任务ID有界调用单任务查询，核对meta/data与状态/进度字段结构；保留本端点taskType=1+subType，不从分页页推断完成判据。",
+        "write": "无写操作；不创建任务/录像/空间，不用写请求准备测试资源。",
+        "physical": "不证明设备物理效果或媒体可播放；任务创建/状态、地址、产物身份与媒体验证各有独立边界。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "尚未冻结真实资源与请求预算，当前不可执行；将认证及可能允许的查询重放计入总次数。"
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "只读；无远端修改，但必须关闭客户端并停止于冻结次数。",
+      "source_refs": [
+        "docs/coordination/SP169/admission.json#/operations/1",
+        "portal-2026-11-17:domestic:3972",
+        "docs/coordination/SP169/admission.json#/distinction_only_source_refs"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "resource_and_account_scope_frozen": "pending",
+        "explicit_execution_authorization_and_bounds": "pending",
+        "matching_code_and_bounded_sdk_response_evidence": "pending",
+        "receipt_without_sensitive_values": "pending",
+        "semantic_layers_not_conflated": "pending"
+      },
+      "result": "awaiting_resource_confirmation",
+      "resource_state": "unknown_awaiting_configuration_check",
+      "blockers": [
+        "真实资源和执行次数/窗口未冻结；本批尚未执行。",
+        "须先确认现成获授权任务，禁止以创建任务替代资源确认。"
+      ],
+      "limitations": [
+        "全部未执行；不继承SP166或其它域的历史/离线成功。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4941-D0-OFFLINE-001",
+      "tier": "required",
+      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
+      "case_origin": "vod_remux_cohort_frozen_before_implementation",
+      "capability_selector": "vod.tasks",
+      "capability_ids": [
+        "candidate:domestic:4941:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.tasks"
+      ],
+      "scope_revision": "2026-11-18-r14-vod-remux-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "离线仅合成凭据；不据此核定真实账号的角色/套餐。",
+      "device_requirements": "无真实设备/任务/录像/空间；全部fixture合成。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "G0沿用SP030；SP169冻结hash和本G1条目匹配；root先落盘capability/case/cohort再派实现。",
+        "默认网络guard启用；不读取真实配置/原始敏感示例；SDK测试不依赖harness/docs/data运行时。",
+        "冻结目标现已有对应实现/测试；执行证据与源码哈希见本case execution_evidence_refs。"
+      ],
+      "expected_evidence": {
+        "read": "GET /api/service/open/vod/tasks；ApiResponse原样data.result[] + pageStart/pageSize/total；不是data[]/lastId/hasNext。taskType7/8和taskStatus原值保留；不自动分页。 task_type7/8接受，bool/其它值拒；page_start/page_sizeNone不发送，未声明负数/上界不擅自限缩。 start/end分别省略或单侧传入、非空原字符串包括未声明格式值原样；不套datetime/排序/跨度规则；data.result及分页元数据原样，不跟下一页。",
+        "write": "只在MockTransport中验证冻结语义：此操作只有已确认invalid_token的一次恢复，其他失败不重放。",
+        "physical": "离线不证明任务完成、精确产物绑定、媒体可用或硬件效果。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "两项均指真实外部请求/业务；合成wire格由wire_eval_scope固定，另有冻结边界/诊断测试。"
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "纯离线无远端状态变化；本批源码与登记增量按唯一writer范围可回退。",
+      "source_refs": [
+        "docs/coordination/SP169/admission.json#/operations/2",
+        "portal-2026-11-17:domestic:4941",
+        "docs/coordination/SP169/admission.json#/distinction_only_source_refs"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/vod.py",
+        "src/ezviz_unified/errors.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "contracts/source-issues.json",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_vod_remux.py",
+        "tests/test_sdk_vod_remux_behaviour.py",
+        "tests/test_harness_vod_remux.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "README.md",
+        "docs/research/2026-11-18-vod-remux.md",
+        "docs/validation/2026-11-18-vod-remux/checks.json"
+      ],
+      "wire_eval_scope": {
+        "operation_id": "cn.vod.tasks",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8,
+        "expectation_rule": "冻结read_only=true；auth_fault沿现有driver预期恢复成功，2业务/2认证。这不证明真实云端运行。"
+      },
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_header_token": "met",
+        "required_conditional_enum_none_default_validation": "met",
+        "domestic_and_header_utf8_time_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "frozen_per_operation_replay_policy": "met",
+        "diagnostic_on_off_scope_wire_order_counts": "met",
+        "known_request_values_redacted_without_code_collision": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_binding_wire_and_exact_diagnostic_counts": "met"
+      },
+      "result": "recorded_evidence",
+      "resource_state": "not_applicable (offline-only; no real resources)",
+      "blockers": [],
+      "limitations": [
+        "离线合成验证不证明真实云功能、权限、任务完成或媒体可用。",
+        "未知自由错误文本不保证全量脱敏；已知请求值及诊断/自动日志边界见checks。",
+        "接口参数、地区、响应及SDK自主选择边界保持SP169冻结。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "fce298b34911eac89e6c5813b203c5b267e80095",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-vod-remux/checks.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4941-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "vod_remux_cohort_live_followup_not_executable",
+      "capability_selector": "vod.tasks",
+      "capability_ids": [
+        "candidate:domestic:4941:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.tasks"
+      ],
+      "scope_revision": "2026-11-18-r14-vod-remux-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic: https://open.ys7.com",
+      "account_role_permissions": "accessToken。其余未声明限制保留；真实授权待具体范围冻结。",
+      "device_requirements": "现成且获授权的任务ID/业务任务集合；不为查询测试创建任务。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "该能力OFFLINE通过并固定实际测试代码提交后，另行冻结live资源、模式、请求/认证/重放次数、超时与回执字段。",
+        "本G1未批准任何真实执行；SP166只有timeout无报告，不可作为实测或扩大授权。",
+        "所有回执只含固定字段类型/计数/布尔判定/代码与source hash，不含实际设备/任务/空间ID及其hash、token、validateCode、URL或raw。"
+      ],
+      "expected_evidence": {
+        "read": "使用现成且获授权的任务资源，固定task_type和一页查询范围，核对data.result与分页/状态结构；不自动翻页或查询本场景之外的账号资源。",
+        "write": "无写操作；不创建任务/录像/空间，不用写请求准备测试资源。",
+        "physical": "不证明设备物理效果或媒体可播放；任务创建/状态、地址、产物身份与媒体验证各有独立边界。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "尚未冻结真实资源与请求预算，当前不可执行；将认证及可能允许的查询重放计入总次数。"
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "只读；无远端修改，但必须关闭客户端并停止于冻结次数。",
+      "source_refs": [
+        "docs/coordination/SP169/admission.json#/operations/2",
+        "portal-2026-11-17:domestic:4941",
+        "docs/coordination/SP169/admission.json#/distinction_only_source_refs"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "resource_and_account_scope_frozen": "pending",
+        "explicit_execution_authorization_and_bounds": "pending",
+        "matching_code_and_bounded_sdk_response_evidence": "pending",
+        "receipt_without_sensitive_values": "pending",
+        "semantic_layers_not_conflated": "pending"
+      },
+      "result": "awaiting_resource_confirmation",
+      "resource_state": "unknown_awaiting_configuration_check",
+      "blockers": [
+        "真实资源和执行次数/窗口未冻结；本批尚未执行。",
+        "须先确认现成获授权任务，禁止以创建任务替代资源确认。"
+      ],
+      "limitations": [
+        "全部未执行；不继承SP166或其它域的历史/离线成功。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-3973-D0-OFFLINE-001",
+      "tier": "required",
+      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
+      "case_origin": "vod_remux_cohort_frozen_before_implementation",
+      "capability_selector": "vod.recording_urls",
+      "capability_ids": [
+        "candidate:domestic:3973:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.recording_urls"
+      ],
+      "scope_revision": "2026-11-18-r14-vod-remux-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "离线仅合成凭据；不据此核定真实账号的角色/套餐。",
+      "device_requirements": "无真实设备/任务/录像/空间；全部fixture合成。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "G0沿用SP030；SP169冻结hash和本G1条目匹配；root先落盘capability/case/cohort再派实现。",
+        "默认网络guard启用；不读取真实配置/原始敏感示例；SDK测试不依赖harness/docs/data运行时。",
+        "冻结目标现已有对应实现/测试；执行证据与源码哈希见本case execution_evidence_refs。"
+      ],
+      "expected_evidence": {
+        "read": "POST /api/service/open/vod/file/address/hls；ApiResponse原样data[]，保留hlsAddress/stopTime/expireTime字段名；format=MP4也不造mp4Address，不转换expireTime。 format必填MP4/HLS，0时长与48小时按建议规则接受；超过48小时或逆序拒，不引入10秒下限。 expire_seconds1/604800边界、None省略、0/超限/bool拒；没有validateCode/busType/taskId/form extra。 root已决定Operation.read_only=False：auth_fault本调用不刷新重放，正常与认证失败均仅一次业务请求；对应wire case固定认证错误期望。data[]/empty/未知字段、hlsAddress与stopTime/expireTime原样；绝不访问地址或创建转封装。",
+        "write": "只在MockTransport中验证冻结语义：此操作无自动重放，invalid_token/HTTP/API/timeout/断连均只一次业务请求。 recording_urls的read_only=False仅是SDK自动重放策略，非官方明确写操作事实。",
+        "physical": "离线不证明任务完成、精确产物绑定、媒体可用或硬件效果。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "两项均指真实外部请求/业务；合成wire格由wire_eval_scope固定，另有冻结边界/诊断测试。"
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "纯离线无远端状态变化；本批源码与登记增量按唯一writer范围可回退。",
+      "source_refs": [
+        "docs/coordination/SP169/admission.json#/operations/3",
+        "portal-2026-11-17:domestic:3973",
+        "docs/coordination/SP169/admission.json#/distinction_only_source_refs"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/vod.py",
+        "src/ezviz_unified/errors.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "contracts/source-issues.json",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_vod_remux.py",
+        "tests/test_sdk_vod_remux_behaviour.py",
+        "tests/test_harness_vod_remux.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "README.md",
+        "docs/research/2026-11-18-vod-remux.md",
+        "docs/validation/2026-11-18-vod-remux/checks.json"
+      ],
+      "wire_eval_scope": {
+        "operation_id": "cn.vod.recording_urls",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8,
+        "expectation_rule": "冻结read_only=false；auth_fault沿现有driver预期AuthenticationError，1业务/1认证。这不证明真实云端运行。"
+      },
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_header_token": "met",
+        "required_conditional_enum_none_default_validation": "met",
+        "domestic_and_header_utf8_time_validation_before_auth": "met",
+        "response_raw_unknown_fields_and_exception_identity": "met",
+        "frozen_per_operation_replay_policy": "met",
+        "diagnostic_on_off_scope_wire_order_counts": "met",
+        "known_request_values_redacted_without_code_collision": "met",
+        "closed_timeout_async_cancellation_preserved": "met",
+        "registry_binding_wire_and_exact_diagnostic_counts": "met"
+      },
+      "result": "recorded_evidence",
+      "resource_state": "not_applicable (offline-only; no real resources)",
+      "blockers": [],
+      "limitations": [
+        "离线合成验证不证明真实云功能、权限、任务完成或媒体可用。",
+        "未知自由错误文本不保证全量脱敏；已知请求值及诊断/自动日志边界见checks。",
+        "接口参数、地区、响应及SDK自主选择边界保持SP169冻结。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "fce298b34911eac89e6c5813b203c5b267e80095",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-vod-remux/checks.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-3973-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "vod_remux_cohort_live_followup_not_executable",
+      "capability_selector": "vod.recording_urls",
+      "capability_ids": [
+        "candidate:domestic:3973:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.recording_urls"
+      ],
+      "scope_revision": "2026-11-18-r14-vod-remux-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic: https://open.ys7.com",
+      "account_role_permissions": "已有accessToken；设备开通云存储且对应时段有录像；不支持托管/子账号。其余未声明限制保留；真实授权待具体范围冻结。",
+      "device_requirements": "现成有对应时段录像的设备/通道及允许使用的空间；不为测试自动录制/上传/创建资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "该能力OFFLINE通过并固定实际测试代码提交后，另行冻结live资源、模式、请求/认证/重放次数、超时与回执字段。",
+        "本G1未批准任何真实执行；SP166只有timeout无报告，不可作为实测或扩大授权。",
+        "所有回执只含固定字段类型/计数/布尔判定/代码与source hash，不含实际设备/任务/空间ID及其hash、token、validateCode、URL或raw。",
+        "风险字段write_bounded只用于未明确无副作用的地址签发执行限界；不得据此改写官方语义。"
+      ],
+      "expected_evidence": {
+        "read": "在单独批准的设备/通道/录像时段/可选空间上有界显式取址，核对meta/data[]与已声明字段类型；不得访问返回URL，不由URL解析任务或文件节点，不把地址存在记为媒体播放通过。",
+        "write": "仅将地址签发按潜在状态影响审慎限界，不认定官方明确写操作；单独具体授权前不执行，SDK绝不自动重放。",
+        "physical": "不证明设备物理效果或媒体可播放；任务创建/状态、地址、产物身份与媒体验证各有独立边界。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "尚未冻结真实资源与请求预算，当前不可执行；将认证及可能允许的查询重放计入总次数。"
+      },
+      "authorization_status": "awaiting_authorization",
+      "recovery_plan": "冻结地址签发的范围/有效期与可能服务端记录边界；不宣称有撤销接口，不自动访问媒体。",
+      "source_refs": [
+        "docs/coordination/SP169/admission.json#/operations/3",
+        "portal-2026-11-17:domestic:3973",
+        "docs/coordination/SP169/admission.json#/distinction_only_source_refs"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "resource_and_account_scope_frozen": "pending",
+        "explicit_execution_authorization_and_bounds": "pending",
+        "matching_code_and_bounded_sdk_response_evidence": "pending",
+        "receipt_without_sensitive_values": "pending",
+        "semantic_layers_not_conflated": "pending"
+      },
+      "result": "awaiting_authorization",
+      "resource_state": "unknown_awaiting_configuration_check",
+      "blockers": [
+        "真实资源和执行次数/窗口未冻结；本批尚未执行。",
+        "地址签发具体scope未授权；read_only=False只是不自动重放，risk=write_bounded是保守验收分类、非官方写事实。"
+      ],
+      "limitations": [
+        "全部未执行；不继承SP166或其它域的历史/离线成功。"
       ]
     }
   ],

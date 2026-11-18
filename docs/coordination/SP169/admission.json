@@ -1,0 +1,610 @@
+{
+  "schema_version": 1,
+  "cohort_id": "VOD-REMUX-001",
+  "baseline_commit": "254ea73acafc5dd2f81c90c4a867fa0fb56a2d26",
+  "scope_revision": "2026-11-18-r14-vod-remux-admission",
+  "G0_reused": "docs/coordination/SP030/admission.json",
+  "G1_decision": "admit_bounded_offline_sdk_implementation_only",
+  "architecture_freeze_sha256": "ed641778c32676ab2878593a61551d98e6cda3e2bf035dd13a80b5f1bb465c19",
+  "architecture_proposal_sha256": "971083910de4da5d9c5fe7e7b8178568422313efc9531eca0dddea8c28661285",
+  "source_cards_sha256": {
+    "SP126-next-cloud-scope-review.json": "dec4e9bb9f67460514c91304b87755ebf06c5de6c8c4a40bdb8ce2c915c9b569",
+    "SP131-vod-task-contract-review.json": "e7e68c38dcee8fae5455c21e977f478dd28da3f0e02978678bcb680da7d85c4a",
+    "SP131-vod-task-query-review.json": "ba216ed8a2b0ef66fc2647edb41eb0422161a5b04e2a084b57911dcf017ac19f"
+  },
+  "source_receipt_location": ".claude/coordination/ local reviewed source cards; exact hashes above identify reviewed inputs, not runtime evidence",
+  "operations": [
+    {
+      "method_name": "create_remux_task",
+      "source_doc_id": "3971",
+      "runtime_name": "vod.create_remux_task",
+      "operation_id": "cn.vod.create_remux_task",
+      "candidate_id": "candidate:domestic:3971:d0",
+      "official_method_path": "POST /api/service/open/vod/media/trans/code",
+      "wire": {
+        "token_location": "header",
+        "business_headers": [
+          "deviceSerial",
+          "localIndex"
+        ],
+        "body": "flat form_urlencoded",
+        "params": {},
+        "form_required": [
+          "busType",
+          "startTime",
+          "endTime"
+        ],
+        "form_optional": [
+          "format",
+          "spaceId",
+          "resultSpaceId",
+          "validateCode",
+          "acceleration"
+        ],
+        "content_type": "application/x-www-form-urlencoded"
+      },
+      "response": "ResponsePolicy(meta.code,meta.message,data,success_values=(200,));创建任务仅返回ApiResponse，不变成TaskHandle。",
+      "read_only": {
+        "recommendation": false,
+        "evidence": "官方明确非幂等、异步创建任务。",
+        "strategy": "写请求不因10002/500/timeout/断连自动重放；超时可能已有任务，保留未知结果。"
+      },
+      "permissions": {
+        "official": [
+          "企业用户",
+          "已有对应时段云录像",
+          "不支持托管/子账号"
+        ],
+        "sdk": "仅地区前置拒绝；不由token provider猜身份、自动探测加密、创建录像或开通套餐。",
+        "unknown": [
+          "费用/配额/高速转封装扣量",
+          "去重/idempotency key",
+          "任务保留期"
+        ]
+      },
+      "validation": [
+        "device_serial/local_index均必填str，按下述Header SDK规则验证；不默认通道1、不把local_index限定整数/正数或转换。",
+        "bus_type严格str且只接受已列1/7/71；Literal注解之外仍有运行时校验。",
+        "start/end整秒naive datetime，格式yyyy-MM-dd HH:mm:ss；10<=end-start<=172800秒含端点；不默认时区或静默转换。",
+        "bus_type=7且space_id为None前置拒绝；其它bus_type显式space_id仍发送，不人为丢弃。",
+        "bus_type=71且显式format=HLS前置拒绝；format=None允许且省略，不注入MP4；1/7省略format默认unknown保留。",
+        "space_id/result_space_id分别int非bool，0/负数不由SDK凭空拒绝；None分别省略，不相互填充。",
+        "validate_code为None省略，否则非空白UTF-8 str；加密条件由调用方满足，SDK不探测或总是强制。",
+        "acceleration为None省略；显式int非bool且0/1；不注入官方默认0。"
+      ],
+      "preserved_unknowns": [
+        "时间时区",
+        "spaceId与旧/统一空间确切映射",
+        "busType1/7默认format",
+        "加密状态判定协议",
+        "错误信封/HTTP层映射"
+      ],
+      "public_signatures": {
+        "Vod": "def create_remux_task(device_serial: str, *, local_index: str, bus_type: Literal[\"1\", \"7\", \"71\"], start_time: datetime, end_time: datetime, format: Literal[\"HLS\", \"MP4\"] | None = None, space_id: int | None = None, result_space_id: int | None = None, validate_code: str | None = None, acceleration: Literal[0, 1] | None = None) -> ApiResponse",
+        "AsyncVod": "async def create_remux_task(device_serial: str, *, local_index: str, bus_type: Literal[\"1\", \"7\", \"71\"], start_time: datetime, end_time: datetime, format: Literal[\"HLS\", \"MP4\"] | None = None, space_id: int | None = None, result_space_id: int | None = None, validate_code: str | None = None, acceleration: Literal[0, 1] | None = None) -> ApiResponse"
+      },
+      "region": "domestic only",
+      "region_guard": "在_diagnostic_scope内首先_require_domestic，之后才执行参数验证；Operation.regions也限定domestic。",
+      "parameter_contracts": [
+        {
+          "public_parameter": "device_serial",
+          "wire_name": "deviceSerial",
+          "location": "header",
+          "required": true,
+          "None_policy": "拒绝",
+          "validation": "root SDK安全选择：str非空白、ASCII、拒控制字符/DEL与首尾空格，保留中间普通空格，无strip/数值推断"
+        },
+        {
+          "public_parameter": "local_index",
+          "wire_name": "localIndex",
+          "location": "header",
+          "required": true,
+          "None_policy": "拒绝，无默认",
+          "validation": "root SDK安全选择：str非空白、ASCII、拒控制字符/DEL与首尾空格，保留中间普通空格，无strip/数值推断"
+        },
+        {
+          "public_parameter": "bus_type",
+          "wire_name": "busType",
+          "location": "form body",
+          "required": true,
+          "None_policy": "拒绝",
+          "validation": "str且1/7/71"
+        },
+        {
+          "public_parameter": "start_time",
+          "wire_name": "startTime",
+          "location": "form body",
+          "required": true,
+          "None_policy": "拒绝",
+          "validation": "datetime，整秒naive，yyyy-MM-dd HH:mm:ss；无时区推断"
+        },
+        {
+          "public_parameter": "end_time",
+          "wire_name": "endTime",
+          "location": "form body",
+          "required": true,
+          "None_policy": "拒绝",
+          "validation": "datetime，整秒naive，yyyy-MM-dd HH:mm:ss；无时区推断；与start间隔10..172800秒含端点"
+        },
+        {
+          "public_parameter": "format",
+          "wire_name": "format",
+          "location": "form body",
+          "required": false,
+          "None_policy": "省略；不注入默认",
+          "validation": "HLS/MP4；bus_type=71只允许显式MP4，但None仍可省略"
+        },
+        {
+          "public_parameter": "space_id",
+          "wire_name": "spaceId",
+          "location": "form body",
+          "required": "bus_type=7时必填，其它为可选",
+          "None_policy": "7时拒绝，其它省略",
+          "validation": "int非bool，不猜正数或未声明上限"
+        },
+        {
+          "public_parameter": "result_space_id",
+          "wire_name": "resultSpaceId",
+          "location": "form body",
+          "required": false,
+          "None_policy": "省略，默认空间交服务端；不发vodspace字符串",
+          "validation": "int非bool，不猜正数或未声明上限"
+        },
+        {
+          "public_parameter": "validate_code",
+          "wire_name": "validateCode",
+          "location": "form body",
+          "required": "官方加密设备条件必填；SDK不探测状态",
+          "None_policy": "省略；调用方负责提供加密所需值",
+          "validation": "str非空白且UTF-8可编码；原样保留"
+        },
+        {
+          "public_parameter": "acceleration",
+          "wire_name": "acceleration",
+          "location": "form body",
+          "required": false,
+          "None_policy": "省略；不注入0",
+          "validation": "int非bool且0/1"
+        }
+      ],
+      "managed_auth": {
+        "wire_name": "accessToken",
+        "location": "header",
+        "required": true,
+        "public_parameter": false,
+        "injection": "沿用Client token provider注入；不提供facade token参数，不在query/form重复发送。"
+      },
+      "root_interface_approved": true
+    },
+    {
+      "method_name": "task",
+      "source_doc_id": "3972",
+      "runtime_name": "vod.task",
+      "operation_id": "cn.vod.task",
+      "candidate_id": "candidate:domestic:3972:d0",
+      "official_method_path": "GET /api/service/open/vod/task",
+      "wire": {
+        "token_location": "header",
+        "business_headers": [],
+        "body": "none",
+        "query": [
+          "taskId"
+        ],
+        "content_type": "not injected",
+        "registry_body_encoding": "unknown"
+      },
+      "response": "ApiResponse原样；既有meta.code整数200策略、meta.message可缺；taskType=1/taskSubType80/81/82/taskStatus/progressRate不归一、不强制字段完整。",
+      "read_only": {
+        "recommendation": true,
+        "evidence": "3972正文明确只读。",
+        "strategy": "仅沿既有已确认invalid-token、provider可refresh时的一次恢复；没有一般网络重试/轮询。"
+      },
+      "permissions": {
+        "official": [
+          "accessToken"
+        ],
+        "sdk": "不移植3971企业/主子账号限制，不自动设备查询。",
+        "unknown": [
+          "本页未给额外账号/套餐范围",
+          "progressRate单位/范围",
+          "本页taskStatus各值含义"
+        ]
+      },
+      "validation": [
+        "task_id仅非空白UTF-8 str，原样query编码；不发明长度/正则/数值范围。"
+      ],
+      "preserved_unknowns": [
+        "taskStatus完成值不能从4941复制为本页事实",
+        "progressRate不能假定0..100百分比",
+        "响应没有产物node或URL的合同"
+      ],
+      "public_signatures": {
+        "Vod": "def task(task_id: str) -> ApiResponse",
+        "AsyncVod": "async def task(task_id: str) -> ApiResponse"
+      },
+      "region": "domestic only",
+      "region_guard": "在_diagnostic_scope内首先_require_domestic，之后才执行参数验证；Operation.regions也限定domestic。",
+      "parameter_contracts": [
+        {
+          "public_parameter": "task_id",
+          "wire_name": "taskId",
+          "location": "query",
+          "required": true,
+          "None_policy": "拒绝",
+          "validation": "str非空白且UTF-8可编码；原样保留；无长度/正则/数值假设"
+        }
+      ],
+      "managed_auth": {
+        "wire_name": "accessToken",
+        "location": "header",
+        "required": true,
+        "public_parameter": false,
+        "injection": "沿用Client token provider注入；不提供facade token参数，不在query/form重复发送。"
+      },
+      "root_interface_approved": true
+    },
+    {
+      "method_name": "tasks",
+      "source_doc_id": "4941",
+      "runtime_name": "vod.tasks",
+      "operation_id": "cn.vod.tasks",
+      "candidate_id": "candidate:domestic:4941:d0",
+      "official_method_path": "GET /api/service/open/vod/tasks",
+      "wire": {
+        "token_location": "header",
+        "business_headers": [],
+        "body": "none",
+        "query_required": [
+          "taskType"
+        ],
+        "query_optional": [
+          "pageStart",
+          "pageSize",
+          "startTime",
+          "endTime"
+        ],
+        "content_type": "not injected",
+        "registry_body_encoding": "unknown"
+      },
+      "response": "ApiResponse原样data.result[] + pageStart/pageSize/total；不是data[]/lastId/hasNext。taskType7/8和taskStatus原值保留；不自动分页。",
+      "read_only": {
+        "recommendation": true,
+        "evidence": "4941 e10明确只读。",
+        "strategy": "仅既有10002恢复一次，无自动页推进或轮询。"
+      },
+      "permissions": {
+        "official": [
+          "accessToken"
+        ],
+        "sdk": "不移植3971/3973的企业、托管/子账号或设备在线前提。",
+        "unknown": [
+          "额外角色权限",
+          "时间筛选轴/格式/时区/单位",
+          "分页上下限、排序稳定性、total准确语义"
+        ]
+      },
+      "validation": [
+        "task_type严格int非bool且7/8；不能传create用的bus_type或3972内部taskType1。",
+        "page_start/page_size为None省略；否则仅int非bool，不附加未声明下/上界，不把0/10默认强行发出。",
+        "start_time/end_time为None各自省略；否则非空白UTF-8 str原样传送。不要求成对，不比较字符串顺序，不套48小时/30天或其他接口的datetime编码。"
+      ],
+      "preserved_unknowns": [
+        "原文未确认单侧时间行为；SDK透明传送是本地选择，并不承诺服务端支持任意组合",
+        "progressRate虽本页称百分比，但未给强制范围，响应不进行范围校验"
+      ],
+      "public_signatures": {
+        "Vod": "def tasks(task_type: Literal[7, 8], *, page_start: int | None = None, page_size: int | None = None, start_time: str | None = None, end_time: str | None = None) -> ApiResponse",
+        "AsyncVod": "async def tasks(task_type: Literal[7, 8], *, page_start: int | None = None, page_size: int | None = None, start_time: str | None = None, end_time: str | None = None) -> ApiResponse"
+      },
+      "region": "domestic only",
+      "region_guard": "在_diagnostic_scope内首先_require_domestic，之后才执行参数验证；Operation.regions也限定domestic。",
+      "parameter_contracts": [
+        {
+          "public_parameter": "task_type",
+          "wire_name": "taskType",
+          "location": "query",
+          "required": true,
+          "None_policy": "拒绝",
+          "validation": "int非bool且7/8"
+        },
+        {
+          "public_parameter": "page_start",
+          "wire_name": "pageStart",
+          "location": "query",
+          "required": false,
+          "None_policy": "省略；默认0交服务端",
+          "validation": "int非bool，不猜正数或未声明上限"
+        },
+        {
+          "public_parameter": "page_size",
+          "wire_name": "pageSize",
+          "location": "query",
+          "required": false,
+          "None_policy": "省略；默认10交服务端",
+          "validation": "int非bool，不猜正数或未声明上限"
+        },
+        {
+          "public_parameter": "start_time",
+          "wire_name": "startTime",
+          "location": "query",
+          "required": false,
+          "None_policy": "单独省略，不要求与end成对",
+          "validation": "str非空白且UTF-8可编码；原样保留；不解析/转换/加时间跨度限制"
+        },
+        {
+          "public_parameter": "end_time",
+          "wire_name": "endTime",
+          "location": "query",
+          "required": false,
+          "None_policy": "单独省略，不要求与start成对",
+          "validation": "str非空白且UTF-8可编码；原样保留；不解析/转换/加时间跨度限制"
+        }
+      ],
+      "managed_auth": {
+        "wire_name": "accessToken",
+        "location": "header",
+        "required": true,
+        "public_parameter": false,
+        "injection": "沿用Client token provider注入；不提供facade token参数，不在query/form重复发送。"
+      },
+      "root_interface_approved": true
+    },
+    {
+      "method_name": "recording_urls",
+      "source_doc_id": "3973",
+      "runtime_name": "vod.recording_urls",
+      "operation_id": "cn.vod.recording_urls",
+      "candidate_id": "candidate:domestic:3973:d0",
+      "official_method_path": "POST /api/service/open/vod/file/address/hls",
+      "wire": {
+        "token_location": "header",
+        "business_headers": [
+          "deviceSerial",
+          "localIndex"
+        ],
+        "body": "flat form_urlencoded",
+        "params": {},
+        "form_required": [
+          "startTime",
+          "endTime",
+          "format"
+        ],
+        "form_optional": [
+          "expireSeconds",
+          "spaceId"
+        ],
+        "content_type": "application/x-www-form-urlencoded"
+      },
+      "response": "ApiResponse原样data[]，保留hlsAddress/stopTime/expireTime字段名；format=MP4也不造mp4Address，不转换expireTime。",
+      "read_only": {
+        "value": false,
+        "status": "root_design_choice_recorded",
+        "official_explicit": false,
+        "meaning": "Operation.read_only=False在这里仅禁用自动重放，不宣称官方已明确这是写操作。",
+        "basis": "源未明确无副作用，地址签发可能存在服务端记录；同参幂等不足以授予失效token恢复重放。",
+        "retry": "本调用10002、HTTP/API错误、timeout/断连均不自动重放；调用方仍可显式再次调用，功能范围不缩减。",
+        "live": "后续live需另行具体资源/次数/权限边界，不沿用SP166。"
+      },
+      "permissions": {
+        "official": [
+          "已有accessToken",
+          "设备开通云存储且对应时段有录像",
+          "不支持托管/子账号"
+        ],
+        "sdk": "本页没有企业等级要求，不复制3971企业前提；没有validateCode/busType/taskId字段，不追加。",
+        "unknown": [
+          "签发新地址是否产生服务端记录/凭证状态",
+          "是否逐字返回同一URL",
+          "没有taskId或fileNode级产物绑定"
+        ]
+      },
+      "validation": [
+        "Header规则同create_remux_task，无默认local_index。",
+        "start/end整秒naive datetime，拒aware/microsecond和逆序；允许相等（本页无最小间隔），跨度<=48小时；不抄3971的10秒下限。",
+        "format必填且MP4/HLS，不提供默认。",
+        "expire_seconds=None省略，显式int非bool且1..604800含端点；不注入1800，不套1.0的60秒或统一存储的30秒下限。",
+        "space_id为None省略由服务端处理默认空间，显式int非bool，无正数假设；不查找/构造默认空间。"
+      ],
+      "preserved_unknowns": [
+        "响应expireTime格式/时区/单位",
+        "字段必填/nullable/排序/分段规则",
+        "来源未明示某转封装任务完成是此接口必填前提",
+        "地址返回不证明媒体可播"
+      ],
+      "public_signatures": {
+        "Vod": "def recording_urls(device_serial: str, *, local_index: str, start_time: datetime, end_time: datetime, format: Literal[\"MP4\", \"HLS\"], expire_seconds: int | None = None, space_id: int | None = None) -> ApiResponse",
+        "AsyncVod": "async def recording_urls(device_serial: str, *, local_index: str, start_time: datetime, end_time: datetime, format: Literal[\"MP4\", \"HLS\"], expire_seconds: int | None = None, space_id: int | None = None) -> ApiResponse"
+      },
+      "region": "domestic only",
+      "region_guard": "在_diagnostic_scope内首先_require_domestic，之后才执行参数验证；Operation.regions也限定domestic。",
+      "parameter_contracts": [
+        {
+          "public_parameter": "device_serial",
+          "wire_name": "deviceSerial",
+          "location": "header",
+          "required": true,
+          "None_policy": "拒绝",
+          "validation": "root SDK安全选择：str非空白、ASCII、拒控制字符/DEL与首尾空格，保留中间普通空格，无strip/数值推断"
+        },
+        {
+          "public_parameter": "local_index",
+          "wire_name": "localIndex",
+          "location": "header",
+          "required": true,
+          "None_policy": "拒绝，无默认",
+          "validation": "root SDK安全选择：str非空白、ASCII、拒控制字符/DEL与首尾空格，保留中间普通空格，无strip/数值推断"
+        },
+        {
+          "public_parameter": "start_time",
+          "wire_name": "startTime",
+          "location": "form body",
+          "required": true,
+          "None_policy": "拒绝",
+          "validation": "datetime，整秒naive，yyyy-MM-dd HH:mm:ss；无时区推断"
+        },
+        {
+          "public_parameter": "end_time",
+          "wire_name": "endTime",
+          "location": "form body",
+          "required": true,
+          "None_policy": "拒绝",
+          "validation": "datetime，整秒naive，yyyy-MM-dd HH:mm:ss；无时区推断；0<=end-start<=172800秒；无10秒下限"
+        },
+        {
+          "public_parameter": "format",
+          "wire_name": "format",
+          "location": "form body",
+          "required": true,
+          "None_policy": "拒绝，无默认",
+          "validation": "MP4/HLS"
+        },
+        {
+          "public_parameter": "expire_seconds",
+          "wire_name": "expireSeconds",
+          "location": "form body",
+          "required": false,
+          "None_policy": "省略；默认1800交服务端",
+          "validation": "int非bool，1..604800秒含端点"
+        },
+        {
+          "public_parameter": "space_id",
+          "wire_name": "spaceId",
+          "location": "form body",
+          "required": false,
+          "None_policy": "省略，默认云点播空间交服务端；不自动发现或填ID",
+          "validation": "int非bool，不猜正数或未声明上限"
+        }
+      ],
+      "managed_auth": {
+        "wire_name": "accessToken",
+        "location": "header",
+        "required": true,
+        "public_parameter": false,
+        "injection": "沿用Client token provider注入；不提供facade token参数，不在query/form重复发送。"
+      },
+      "root_interface_approved": true
+    }
+  ],
+  "root_choices": [
+    "3973 read_only=False仅禁止SDK自动重放，不宣称官方明确写入；live另行冻结，SP166授权不继承。",
+    "Header String非空白、ASCII且无控制字符/DEL/首尾空格；中间普通空格保留；local_index无数值范围/default。",
+    "任务状态与分页保留各自编码和原响应。",
+    "recording_urls zero-length interval allowed as transparent SDK choice because no documented positive minimum; no promise all server combinations succeed",
+    "create_remux_task naive whole-second datetime interval10..172800inclusive; recording_urls0..172800; four-digit year serialization; no timezone inference",
+    "tasks pagination int-not-bool with no undocumented bounds, optional raw UTF8time independently omitted; no pairedtime/48h/30daytransplant",
+    "add taskId and resultSpaceId known-sensitive keys; deviceSerial/validateCode/spaceId reused; header localIndex remains opaque str",
+    "return same ApiResponse/raw/data; separate taskType systems; no ready/is_done/mediaidentity inference"
+  ],
+  "acceptance_invariants": [
+    "exactfourwirecontracts sync/async and auth Header positions; form/query absence and None omission/defaults",
+    "domestic gate then validaterequiredtypes/enum/conditionalspace/headerASCIIcontrol/UTF8/timebounds before provider/factory/http",
+    "readtask/tasksonly existing10002replayonce; create/recording_urls no auto replay for10002/network/HTTP/servererrors; existinginvalidate semantics preserved",
+    "realdiag off=None/on Recorder; same wire/order/counts/returnexceptionidentity; capturedvalidation/auth/transport/business/closed/cancel states",
+    "actual legal identifiers/token/validatecode are known request values redacted fromerrors/automaticlogs/diagnostics; returnedURLs staydata/rawonly; nocollisionblindshortstringscan",
+    "registry208->212,diagnostics137->141/businessbodies274->282/operationnames379->387;exactassertionsupdatednotremoved",
+    "real execution distinct4LIVEcases;create needsconcretewrite/fees/recoveryapproval;recording_urls ownscopeapprovaldueunknownsideeffects;querytask/tasks needexistingauthorizedresources;SP166notextended"
+  ],
+  "implementation_architecture": "extend existing vod.py Vod/AsyncVod; shared pure builders; no new facade/DTO/TaskHandle/polling/pagefetch/mediafetch; no Client/__init__/transport/harnessdriver edits",
+  "distinction_only_source_refs": [
+    {
+      "source_ref": "portal-2026-11-17:domestic:3717",
+      "content_sha256": "0e9e8875b849329b0ba454fdaaa7ce7a39f937c39b1f8cdfabbc0ddf6a1728e3",
+      "role": "区别引用：正文限定剪辑任务产物查询，转封装导览引用存在身份边界；不新增该操作、不推断taskId到fileNodeId绑定。",
+      "anchors": [
+        "e1",
+        "e22",
+        "e47",
+        "e82"
+      ],
+      "whole_source_reviewed": false
+    },
+    {
+      "source_ref": "portal-2026-11-17:domestic:5336",
+      "content_sha256": "ff3467d27f2d26f1673f87c8e946b93a4df77216056067ed44b4c19938879a49",
+      "role": "仅核对4941任务状态/7与8外层编码及与3972内部编码的差别；不把分页状态语义移植为3972官方完成判据。",
+      "anchors": [
+        "e179",
+        "e221"
+      ],
+      "whole_source_reviewed": false
+    }
+  ],
+  "capability_ids": [
+    "candidate:domestic:3971:d0",
+    "candidate:domestic:3972:d0",
+    "candidate:domestic:4941:d0",
+    "candidate:domestic:3973:d0"
+  ],
+  "operation_ids": [
+    "cn.vod.create_remux_task",
+    "cn.vod.task",
+    "cn.vod.tasks",
+    "cn.vod.recording_urls"
+  ],
+  "acceptance_case_ids": [
+    "ACC-CANDIDATE-CN-3971-D0-OFFLINE-001",
+    "ACC-CANDIDATE-CN-3971-D0-LIVE-001",
+    "ACC-CANDIDATE-CN-3972-D0-OFFLINE-001",
+    "ACC-CANDIDATE-CN-3972-D0-LIVE-001",
+    "ACC-CANDIDATE-CN-4941-D0-OFFLINE-001",
+    "ACC-CANDIDATE-CN-4941-D0-LIVE-001",
+    "ACC-CANDIDATE-CN-3973-D0-OFFLINE-001",
+    "ACC-CANDIDATE-CN-3973-D0-LIVE-001"
+  ],
+  "single_writer_split": {
+    "common_input": "以本次main SHA及root最终冻结签名/read_only策略/源pin为共同输入；所有Claude经Magpie显式devin/swe-2、effort=max。不得在运行SP166的root改SDK/工具，应由root安排隔离worktree。",
+    "A_implementation": {
+      "files": [
+        "src/ezviz_unified/vod.py"
+      ],
+      "deliverable": "四operation/私有验证builder/sync+async方法；不改Client/__init__/sharedregistry/tests。"
+    },
+    "B_tests": {
+      "files": [
+        "tests/test_sdk_vod_remux.py",
+        "tests/test_sdk_vod_remux_behaviour.py"
+      ],
+      "deliverable": "按冻结合同独立合成wire与行为测试；现有test_sdk_vod.py只读回归输入，不并发编辑。初始候选可先写测试，执行须等待A源码/C接线数据完成；测试期望从源合同构建。"
+    },
+    "C_integration_contracts_docs": {
+      "files": [
+        "src/ezviz_unified/errors.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "tests/test_sdk_transport.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_harness_vod_remux.py",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "contracts/source-issues.json",
+        "contracts/coverage.json",
+        "evals/contracts/cases.json",
+        "docs/diagnostics-v1-coverage.json",
+        "docs/diagnostics.md",
+        "README.md",
+        "docs/plans/2026-11-18-vod-remux.md",
+        "docs/research/2026-11-18-vod-remux.md"
+      ],
+      "deliverable": "registry/binding/eval/diagnostic同步、两known-secret keys和用户入口/源缺项说明。C不写vod.py或B测试。"
+    },
+    "root_admission_and_acceptance_owner": "docs/capabilities/scope-register.json、docs/validation/sdk-product-acceptance.json及新durable G1/admission由root指定唯一writer；本提案不修改、不预设ratified/pass。",
+    "excluded_from_edits": [
+      "运行中的SP166工具/进程/真实配置/报告",
+      "src/ezviz_unified/client.py",
+      "src/ezviz_unified/__init__.py",
+      "src/ezviz_unified/cloud_recording.py",
+      "src/ezviz_unified/storage_models.py",
+      "src/ezviz_unified/transport.py",
+      "harness/code_audit.py",
+      "harness/wire_eval.py",
+      "pyproject.toml",
+      "MANIFEST.in"
+    ]
+  },
+  "no_live_execution_authorized": true,
+  "whole_source_reviews_completed": false,
+  "registered_operations_accounted_for_at_G1": 208,
+  "full_goal_preserved": true,
+  "product_complete": false,
+  "phase_2_delivered": false,
+  "prior_probe_evidence_boundary": "SP166只有父控制器报告的terminal timeout/child exit0/report=false，未产生live证明；不读取或引用该次真实报告，不继承其授权/验收到本cohort。"
+}

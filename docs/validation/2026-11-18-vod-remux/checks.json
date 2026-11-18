@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "cohort_id": "VOD-REMUX-001",
+  "code_commit": "fce298b34911eac89e6c5813b203c5b267e80095",
+  "evidence_scope": "SDK offline conformance; no real cloud/device calls",
+  "execution_model": {
+    "requested": "devin/swe-2",
+    "effort": "max",
+    "observed": "devin/swe-2"
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short --maxfail=5",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP188-FullPytest",
+      "artifact_sha256": "db00dbf29d733cc12e9459ce8644b270f5a3980faa161a423d60bbf75beb7eb3",
+      "tests": 6023,
+      "subtests": 35,
+      "seconds": 46.29
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified tests/test_sdk_vod_remux.py tests/test_sdk_vod_remux_behaviour.py tests/test_harness_vod_remux.py tests/test_sdk_transport.py tests/test_harness_diagnostic_coverage.py",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP187-Lint",
+      "artifact_sha256": "c2c78d46d91d624fa3c45a3d21809f2a4245bd9d6f6b485fd203e7060af56b31"
+    },
+    {
+      "command": ".venv/bin/python -m ruff format src/ezviz_unified/vod.py src/ezviz_unified/errors.py src/ezviz_unified/_diagnostic_registry.py tests/test_sdk_vod_remux.py tests/test_sdk_vod_remux_behaviour.py tests/test_harness_vod_remux.py tests/test_sdk_transport.py tests/test_harness_diagnostic_coverage.py",
+      "result": "completed_format_before_full_regression",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP188-Format",
+      "artifact_sha256": "a4cc72fdb444b6539fb706e93ee08076b76b76ccaa655f0201c2ad798c43cae4"
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP179-Mypy",
+      "artifact_sha256": "e6457914bf1140bbee3833ba8100fc51a8f2ef267728cbc73193994b8d4d7ded",
+      "source_files": 45
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --summary-only",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP179-Audit",
+      "artifact_sha256": "aa388bf6f37b9babae86ddc34e3286946ee72df1ec456b92bfb193011f7030b1",
+      "contracts": 212
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP179-WireEval",
+      "artifact_sha256": "bcba0f055373b587be83b99476fb458d8e38cc68a49b4df5109eb7468c8ba2f0",
+      "contracts": 212,
+      "executions": 1728,
+      "failed_executions": 0,
+      "scope": "Actual tool summary and preview; omitted persisted output not reread"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short --maxfail=5 tests/test_sdk_vod_remux.py",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP177-RemuxWireUnit",
+      "artifact_sha256": "e2e08f599d4b7a82c8c708a80c7f5caf51621d43e0cba2d16a005268ebf81fdb",
+      "tests": 246
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short --maxfail=5 tests/test_harness_vod_remux.py tests/test_harness_diagnostic_coverage.py tests/test_sdk_vod.py tests/test_sdk_transport.py",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP183-IntegrationTests",
+      "artifact_sha256": "0a521831946e8daf9fd88246edf256511f5c3c7e355eb7bfc38317f412c590b9",
+      "tests": 507
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short --maxfail=5 tests/test_sdk_vod_remux_behaviour.py",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP187-Behaviour",
+      "artifact_sha256": "2ba93fbff9dd18976be1b9e4cbb26a9248a7b26e34441868b7341e84b4407056",
+      "tests": 304
+    },
+    {
+      "command": ".venv/bin/python -m build",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP191-Build",
+      "artifact_sha256": "7a3bff42e3e64e551c6ed315620b79e2beeddfbe6dfc2d6e2f7d62c660301942"
+    },
+    {
+      "command": ".venv/bin/python tools/release/check_artifacts.py",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP191-Artifacts",
+      "artifact_sha256": "997505dba65432c2218fac25210fe6524e7e96b12419660136dc9eb8a07c0220"
+    },
+    {
+      "command": ".venv/bin/python -m twine check dist/*",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP191-Twine",
+      "artifact_sha256": "3f102bb32bd926e5199823f64e38e9b1935bce574d820860112660412bcf2a62"
+    },
+    {
+      "command": ".venv/bin/python tools/release/verify_installations.py --installer pip",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP191-CleanInstall",
+      "artifact_sha256": "480507f5c3303da7998ca1ed99bbaee996fbe6202b4da15d0adca9371c551ece"
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "result": "passed",
+      "actual_tool_result_is_error": false,
+      "local_execution_artifact_id": "SP196-AuditSummary",
+      "artifact_sha256": "a218fbee5ab55cc2a156a2b6115c5c1529f6acdfa6c3b4c54d773acbfae5ead7",
+      "scope": "post-acceptance registry metadata and summary"
+    }
+  ],
+  "tested_file_sha256": {
+    ".github/workflows/ci.yml": "621de8295625ff9a7cb502a3d3709d35d076fbadb254fa600c25a27c47e75cc6",
+    "MANIFEST.in": "a5ae8ad30071cd8632f861ffcf1d5d91a5c1ec29976b4001478583c490c60f8a",
+    "README.md": "a44da25eee43dad4f3317c59ca21695379d39b177da653eb670bb4e8f354acf2",
+    "contracts/reviewed-transport-contracts.json": "9ed51d4d7f901d94b64a8e677a48b76829b3a1a05772d0045909f38ba848724b",
+    "docs/diagnostics-v1-coverage.json": "960487201aff8bcff0567e9f97700fcbca2a2f0bc2c77f6417c46e2c2e984639",
+    "evals/contracts/cases.json": "d47df9d8e0651cba47ddfccb0634b0a25e039b9c9ea61abc18c7a5d7d0a85f07",
+    "pyproject.toml": "5cee26d6cb89ccb3966589c93eeb51f3e0df057e522fd1179e1f66dce172a229",
+    "src/ezviz_unified/__init__.py": "499078840aec3cc13475bce986a676ad1ef1d6bc1545bfb2c72d9be7afcc8149",
+    "src/ezviz_unified/_diagnostic_registry.py": "ab01dcada9b6210671262619e09b00e2daab9621bced35e9a8e8b0458d5e0eb4",
+    "src/ezviz_unified/_path.py": "d292b93654b81af90276cdf508035353e382a5ab25efd97f88b8acc1376077bc",
+    "src/ezviz_unified/_request_values.py": "01c7484f52e36b6b173a6151e378ca7a90c814f872b7e5e011cc6b6a93bc194d",
+    "src/ezviz_unified/alarms.py": "b8563da22258056976bceade05306cd7d34097e098a591d65dbfad8ffb5428e0",
+    "src/ezviz_unified/arming.py": "687f954f1312f74436aebde3ec9a0ffbdf331027c5effffdad14cb8fd191602b",
+    "src/ezviz_unified/auth.py": "e6b53a75fefa81af507c6a7ab2fd2bbfc60420092f82152e5bde631d9608c9b1",
+    "src/ezviz_unified/auth_models.py": "206afefa42e605b7b1f2567b8f2f48a572e7cc9067fa25fd8f4247a7fc345ad6",
+    "src/ezviz_unified/client.py": "bf332a2a7488265c15910130a02b5ce3afa006bfc27897bea6d28a3911a27a3a",
+    "src/ezviz_unified/cloud_recording.py": "502c0376e4b6fe0b4b4d4847acf0b269e279cb1f39dd2f7a07f3a2967a856733",
+    "src/ezviz_unified/cloud_recording_plans.py": "95b9f270439d9e281ca006f197ddcfe6121531c16e6a528de9df20616278a6e9",
+    "src/ezviz_unified/cloud_recording_v1.py": "24a594b1463de567554d146477a5599e604e4ff84376339cafd1c06289b0a6de",
+    "src/ezviz_unified/cloud_storage.py": "13a56120d13f5105ee690e06b52567d058f41cb796f719c72dec9d0873739faf",
+    "src/ezviz_unified/components.py": "b9e52a4440ce92101977717c5f1186f3d176363f449241c95b6d6b997dbaafdc",
+    "src/ezviz_unified/cruise.py": "495b6448f91183629e8f086c58cbb5567b390eb2d718150714e965949861dd7f",
+    "src/ezviz_unified/delegation.py": "0dea0991d445deb7253a76efbd5ed33cef744488d05a9fa604d7535410eff786",
+    "src/ezviz_unified/devices.py": "954b87af61b41c87a755157143f51057432d1502ad83bd345ff9ed5e5296adfa",
+    "src/ezviz_unified/diagnostic_report.py": "a51bc53010fe8e62e41f2b43cc57390562bccc84b67c03d529c69edff2558083",
+    "src/ezviz_unified/diagnostics.py": "f8bb12a10e5e7581560c3e0fc06a637ad257f4e42de8e0490c934577117396df",
+    "src/ezviz_unified/errors.py": "310bacfd5288bd56eb45f08d9f39028b118fe57b2594e235209112c70514e1bd",
+    "src/ezviz_unified/illumination.py": "c0938903c3de36bb18c6e8d24c410698fd1f82f7a8c08a96a510b0a77ac65d38",
+    "src/ezviz_unified/imaging.py": "c4b2bcdd6da6f93126b922c4007845c4faf10ff7933d754d1c14a955f749b4b9",
+    "src/ezviz_unified/inspection.py": "65ec20d3ef66e2b18b9e68b43e6a4d37cbae4d88c3141ac8e5a3214b49f0866a",
+    "src/ezviz_unified/maintenance.py": "76a65c07243498b2544495a4ca98903f688c7be627cc2128324dd7d1d5bd5128",
+    "src/ezviz_unified/management.py": "58dfb523feb7c9c8c5880b84e6448db20e01e6b2050cc3fb4be4590895b68908",
+    "src/ezviz_unified/models.py": "e578f021b578fdfef49e6dd5b0e138d6fd61bc4a5a4c2af355562562b65a2d71",
+    "src/ezviz_unified/operations.py": "fda7103e1b0e1bce9eda49fa7ec39083e38ad27b90e5352c5cf2f6d63a17944f",
+    "src/ezviz_unified/otap.py": "3742ebabb58cab972d87296a536ed46b3ee4958a44380d2b0036eddb736f89ed",
+    "src/ezviz_unified/ownership.py": "0d7e55e673e639cef84fe39b3bd72834227ebc4bed683610b1308624dc21ae69",
+    "src/ezviz_unified/playback.py": "9186a3d033816ca84e6b1123a14f5751bee87a2b76215be3a9f81bd5e36d33c8",
+    "src/ezviz_unified/providers.py": "3095319721e73cc1923348722d8ff8e6f5133c99c47d64d3a5a6f32a04576940",
+    "src/ezviz_unified/ptz.py": "5129116dc216ec7fa93bf7af2ab10260c18d28b4cf0a98f3e834f3bdfa1bc2ca",
+    "src/ezviz_unified/ram_models.py": "ef21cda34746714fa889ef82af20fb42768cf56273a4e965ed25c2b8a80b4f0d",
+    "src/ezviz_unified/recordings.py": "fddeb6d54632044c3152fc47c75cfa47e0ff90c8470365264f28be938cc54c2f",
+    "src/ezviz_unified/response.py": "2eb50d65ec3fc8b65049c3863ba51c033a8e895af646b771d34f966fe0ec4db7",
+    "src/ezviz_unified/security.py": "44b174a7d4452e1c30af08c42fe2474e2c6e427f98b3955400948340098af7c6",
+    "src/ezviz_unified/settings.py": "2c472a620d1159fe78ff44020813c94a3233ffc3f6793d2c4ad0e1fefe5bdc1d",
+    "src/ezviz_unified/snapshots.py": "40b3f5036f014aca82c96e778476dfd3bdb0c54bd0910b1dbd9e3fbaad2021cb",
+    "src/ezviz_unified/storage.py": "9ac47a0c0f14a83191c977ce0b94c0e00a0b5a563b297dfc8f11f51c4fe15829",
+    "src/ezviz_unified/storage_models.py": "29f0798d82c8acca2b87c6414ef7a02e92597320ef833f40d5a286775afddada",
+    "src/ezviz_unified/subaccounts.py": "b5580261419fce7da353f78e2f49b48a2028c00af3e85d6aac30aaed6ca8cbed",
+    "src/ezviz_unified/transport.py": "39a7f91201aaf204f12e6edb05e9a1d7d570689f1a8d52b327926a5fd5101cfd",
+    "src/ezviz_unified/video.py": "32eed052c976f09776384db882b8bfa802aefe5a9a0736f748384df4265d5ac1",
+    "src/ezviz_unified/vod.py": "f545b31ba8d52f81c287ccb32d774a1b4359476ac3c109f129e028f60149d72d",
+    "src/ezviz_unified/webhooks.py": "a3f16dc9e1cf1b6236e3a91e947676546b1a3067200d13e289cfc349bcffa70f",
+    "tests/test_harness_diagnostic_coverage.py": "021242777b0aa2dd092693e8e81d2436b9bdc4b9f2556061639334f2f458de1f",
+    "tests/test_harness_vod_remux.py": "60c6ad3ad48969d7c0a4c25d3001b4e4df726f98fc9dd8b823fdf8ab819308b1",
+    "tests/test_live_cloud_files.py": "d2f0fbf225b0f6f14c02cdf341c445574fb5860d90ca7aa5fcf74f4794d6fd34",
+    "tests/test_live_cloud_files_deadlines.py": "f18c7b29f11d66f3c49a9e658788a3480387f23af7d8f429f9e95d6820d0bef8",
+    "tests/test_live_cloud_files_form.py": "5cd00a500e615e8c4cace59cb6d47a70ebad9280d5699f1544cab6142811a77f",
+    "tests/test_sdk_cloud_recording_v1.py": "d118e002eeb86191a7403cbddc473ff309ad0ba2ec7ebcd3b781d48cdbe70c93",
+    "tests/test_sdk_cloud_recording_v1_behaviour.py": "61a469ca2aacca7ad31902c34a19170b28736ded78de3bb63a23947f88e14a58",
+    "tests/test_sdk_transport.py": "477f8c61589b3991e9e7dfa91ac66db83026db775fd7b615a19bd68509c2e73e",
+    "tests/test_sdk_vod.py": "db95ddbdb2c0d5b2c9967021b57ea3048392f6415773f1e29e15bd19964c4faa",
+    "tests/test_sdk_vod_remux.py": "70347caec7cf1c94e40b4d0bddcccb5efb3807e6ba301ca2bc2e5fdbf28aee36",
+    "tests/test_sdk_vod_remux_behaviour.py": "6f62467cf4d560877a1d0b12f18661228bcfc0e3c54864d461b060a587054015",
+    "tools/live/verify_cloud_files.py": "99fa272febd5781cdc8c71de081f54ebb910fcf3d2e2fa278b6aa796eab1d27a"
+  },
+  "build_artifacts": {
+    "artifacts": [
+      {
+        "filename": "ezviz_unified-0.1.0a1-py3-none-any.whl",
+        "kind": "wheel",
+        "member_count": 51,
+        "sha256": "b3b56fbe7d2b25942694aff9c29714491abb1f4bc85e356d2d61ff5ef35a2b07"
+      },
+      {
+        "filename": "ezviz_unified-0.1.0a1.tar.gz",
+        "kind": "sdist",
+        "member_count": 123,
+        "sha256": "e60600ad17417853e44975521bba03f3351189da5a22df43c089953135a4a0c4"
+      }
+    ],
+    "name": "ezviz-unified",
+    "validation": "metadata_and_contents_only",
+    "version": "0.1.0a1"
+  },
+  "clean_install": {
+    "installer": "pip",
+    "name": "ezviz-unified",
+    "offline": false,
+    "python": "3.12.13",
+    "real_api_used": false,
+    "results": [
+      {
+        "artifact_sha256": "b3b56fbe7d2b25942694aff9c29714491abb1f4bc85e356d2d61ff5ef35a2b07",
+        "clean_install": true,
+        "filename": "ezviz_unified-0.1.0a1-py3-none-any.whl",
+        "install_offline": false,
+        "kind": "wheel",
+        "smoke": "Installed SDK sync/async mock smoke passed"
+      },
+      {
+        "artifact_sha256": "e60600ad17417853e44975521bba03f3351189da5a22df43c089953135a4a0c4",
+        "clean_install": true,
+        "filename": "ezviz_unified-0.1.0a1.tar.gz",
+        "install_offline": false,
+        "kind": "sdist",
+        "smoke": "Installed SDK sync/async mock smoke passed",
+        "source_archive_tests": "3925 passed in 11.75s"
+      }
+    ],
+    "source_tests": true,
+    "validation": "clean_install_and_offline_smoke",
+    "version": "0.1.0a1"
+  },
+  "accepted_offline_cases": [
+    "ACC-CANDIDATE-CN-3971-D0-OFFLINE-001",
+    "ACC-CANDIDATE-CN-3972-D0-OFFLINE-001",
+    "ACC-CANDIDATE-CN-4941-D0-OFFLINE-001",
+    "ACC-CANDIDATE-CN-3973-D0-OFFLINE-001"
+  ],
+  "coverage_boundaries": [
+    "Registered contracts, diagnostic entries and test cases are not official capability totals or coverage percentages.",
+    "Unknown URLs and unsent identifiers in arbitrary server error text are not universally scrubbed; known request values are redacted. Diagnostic exports and automatic body logs exclude such text.",
+    "No task completion, fileNodeId/taskId mapping, media availability, physical effects or live permissions are established.",
+    "recording_urls no-replay is an SDK policy, not an official non-idempotent/write classification.",
+    "Zero-length recording_urls interval is accepted locally as transparent input; server acceptance is unknown.",
+    "Packaging dependencies used network; SDK business validation remained synthetic."
+  ],
+  "retained_failures": [
+    {
+      "receipt": "SP175-vod-code-review",
+      "issue": "task_type float accepted by numeric equality",
+      "handling": "integer validation added before enum; strict rejection retained in tests"
+    },
+    {
+      "receipt": "SP181/SP184",
+      "issue": "test expectations exceeded existing error-redaction/header contracts and off/on collision setup omitted recorder",
+      "handling": "corrected against frozen contract, passed real recorders, asserted actual sent secrets and excluded diagnostic/log text; prior failures retained locally"
+    },
+    {
+      "area": "acceptance state guard",
+      "reviews": [
+        "SP196",
+        "SP201",
+        "SP204"
+      ],
+      "handling": "Replaced blanket not_verified with exact frozen criterion and evidence linkage checks. After two command-identity review failures, inspected task definition/permissions and replaced substring matching by explicit command tokens; retained negative cases. See SP205 route review and post_acceptance_validation."
+    }
+  ],
+  "not_completed": {
+    "four_required_live_cases": true,
+    "overseas_device_live": true,
+    "platform_message_live": true,
+    "full_product_release": true,
+    "pypi_upload": true
+  },
+  "product_complete": false,
+  "registry_metadata_sha256_after_acceptance": {
+    "contracts/reviewed-transport-contracts.json": "9ed51d4d7f901d94b64a8e677a48b76829b3a1a05772d0045909f38ba848724b",
+    "contracts/sdk-bindings.json": "1b05a02ede7a6181c73164f885e64baf79f91f24ead7864534879b47a4b555d2",
+    "contracts/source-issues.json": "47bf495f79354ab037e2c3de8e4459381f430e60d991067168b7509fe7fa3a81"
+  },
+  "runtime_artifact_review": {
+    "artifact_id": "SP193-runtime-artifact-review",
+    "sha256": "96539b538d2ad4c9449b69f409766638ca576b4894898eece6851ec444b72398",
+    "scope": "Archive source bytes match code commit; RECORD and runtime dependencies; five lexical patterns only, not absolute secret-free claim"
+  },
+  "post_acceptance_validation": {
+    "base_sdk_code_commit": "fce298b34911eac89e6c5813b203c5b267e80095",
+    "scope": "Acceptance metadata guard only; original tested_file_sha256 remains the fce298b historical snapshot. Final PR/main CI checks the integrated HEAD.",
+    "tested_file_sha256": {
+      "tests/test_harness_vod_remux.py": "6cb489981269c50c71762ab5d3116484f7595b502f8b4758a331ab188425e43e",
+      "tests/test_harness_diagnostic_coverage.py": "021242777b0aa2dd092693e8e81d2436b9bdc4b9f2556061639334f2f458de1f"
+    },
+    "checks": [
+      {
+        "command": ".venv/bin/python -m ruff format tests/test_harness_vod_remux.py",
+        "actual_tool_result_is_error": false,
+        "result": "format_completed",
+        "local_execution_artifact_id": "SP206-GuardFormat",
+        "artifact_sha256": "bc7c5c098c46f6ee4dbc58d16c3b15b80fd86555bd870209202a9efb4283ae3e"
+      },
+      {
+        "command": ".venv/bin/python -m pytest -q --tb=short --maxfail=5 tests/test_harness_vod_remux.py tests/test_harness_diagnostic_coverage.py",
+        "actual_tool_result_is_error": false,
+        "result": "passed",
+        "local_execution_artifact_id": "SP206-GuardTests",
+        "artifact_sha256": "0f62a2f294e5e655971a1a06823fc24665d32aac4684296f4ceda7c63748a4e8",
+        "tests": 300,
+        "seconds": 0.99
+      },
+      {
+        "command": ".venv/bin/python -m ruff check tests/test_harness_vod_remux.py",
+        "actual_tool_result_is_error": false,
+        "result": "passed",
+        "local_execution_artifact_id": "SP206-GuardLint",
+        "artifact_sha256": "67c0a3085b1d417270398e82b3c67c999af63f5d1bef1a4e29ff535840926dfe"
+      }
+    ],
+    "sdk_and_packaged_sdk_tests_unchanged": true,
+    "rebuild_required": false,
+    "root_review_artifact": "SP207-root-guard-review",
+    "root_review_sha256": "c7b62b10afd8bdecc7ae2964f63031cb1dab3623000cdc9b2141548937c823db"
+  }
+}

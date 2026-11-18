@@ -1,0 +1,22 @@
+{
+  "case_id": "ACC-CN-VOD-RESOURCE-DISCOVERY-001",
+  "execution_main_sha": "254ea73acafc5dd2f81c90c4a867fa0fb56a2d26",
+  "main_ci_run": 44236090511,
+  "process_terminal": true,
+  "observed_stdout_state": "verification timed out",
+  "valid_submission_observed": false,
+  "cloud_receipt_exists": false,
+  "execution_outcome": "not_verified",
+  "reason": "local_input_window_closed_without_valid_submission",
+  "actual_http_requests": null,
+  "static_max_http_requests": 7,
+  "no_feature_availability_inference": true,
+  "user_credentials_persisted": false,
+  "requires_new_local_input_window": true,
+  "whole_goal_complete": false,
+  "schema_version": 1,
+  "code_commit": "b251b11389405075ba30838cf9b2a594e1477ca6",
+  "pr": 16,
+  "head_ci_run": 44235604644,
+  "source_and_ci_evidence": "docs/validation/2026-11-18-cloud-files/checks.json; PR16/main Actions at the recorded SHA"
+}
