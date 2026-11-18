@@ -49,7 +49,11 @@ def _normalize_envelope_paths(values: object) -> tuple[str, ...]:
 
 @dataclass(frozen=True)
 class ResponsePolicy:
-    """Dotted-path locations of status fields inside an EZVIZ-style envelope."""
+    """Dotted-path locations of status fields inside an EZVIZ-style envelope.
+
+    redact_message_urls is an opt-in: mask HTTP(S) URLs from message/error
+    rendering; ``data`` and ``raw`` remain intact.
+    """
 
     code_path: str = "code"
     message_path: str = "msg"
@@ -60,6 +64,7 @@ class ResponsePolicy:
     device_success_values: tuple[ScalarCode, ...] = (0, "0")
     require_device_code: bool = False
     envelope_paths: tuple[str, ...] = ("",)
+    redact_message_urls: bool = False
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "envelope_paths", _normalize_envelope_paths(self.envelope_paths))
@@ -85,6 +90,8 @@ class ResponsePolicy:
         )
         if not isinstance(self.require_device_code, bool):
             raise ValueError("require_device_code must be a bool")
+        if not isinstance(self.redact_message_urls, bool):
+            raise ValueError("redact_message_urls must be a bool")
         if self.require_device_code and not self.device_code_path:
             raise ValueError("require_device_code needs device_code_path to be set")
         if self.device_message_path and not self.device_code_path:

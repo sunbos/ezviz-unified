@@ -1611,6 +1611,38 @@
       "evidence": [
         "T1/E14;E66"
       ]
+    },
+    {
+      "id": "cn.vod.stream_source_files.stream_id_length",
+      "region": "domestic",
+      "source_doc_id": "4751",
+      "source_url": "https://open.ys7.com/help/4751",
+      "source_content_sha256": "aa59ded19e4b70aab1851d920549e03ca280f81395b3cef657cc3af94f04b1c4",
+      "description": "输入表未规定 streamId 长度；返回表称 32 位，但请求/响应示例均为 18 字符。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "使用原始非空白 UTF-8 文本，不自动改写或据此为服务端声明任何输入长度。",
+      "evidence": [
+        "T1/E14",
+        "T2/E56",
+        "E48",
+        "E52"
+      ]
+    },
+    {
+      "id": "cn.vod.stream_index_file.stream_id_length",
+      "region": "domestic",
+      "source_doc_id": "4757",
+      "source_url": "https://open.ys7.com/help/4757",
+      "source_content_sha256": "405bcd34c7bd2dc6626c66ed942456f3276a1728ef35bd152f521cf3075439e3",
+      "description": "输入表未规定 streamId 长度；返回表称 32 位，但请求/响应示例均为 18 字符。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "使用原始非空白 UTF-8 文本，不自动改写或据此为服务端声明任何输入长度。",
+      "evidence": [
+        "T1/E14",
+        "T2/E56",
+        "E48",
+        "E52"
+      ]
     }
   ]
 }
