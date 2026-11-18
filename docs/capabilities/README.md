@@ -51,3 +51,7 @@
 - wire 证据仅证明已执行的离线验收层（合成协议执行），不能替代真实设备、真实消息、媒体与产品级验收。
 - 官方消息接入与媒体组件本轮 `requirement=required`；仅四项第二轮工作延期。
 - 关联：[原始产品计划](../plans/2026-11-17-sdk-product-completion.md)、[候选来源 scenario-input.json](../coordination/SP088/scenario-input.json)、[诊断 v1 实测记录](../validation/live/2026-11-16-diagnostics-v1/README.md)、[公共地区目录实测](../validation/live/2026-11-17-public-area-directory/sdk.json)。
+
+## 官方 HLS 播放器的本地验收
+
+2026-11-17 的归档清单记录了组件采集时的状态。随后在固定版本 `@ezuikit/player-hls@2.0.0` 上完成了本机 H.264 解码与播放器释放验证。SDK 地址签发使用模拟传输，真实平台验收另列。见[浏览器记录](../validation/2026-11-19-official-hls-preview/checks.json)。

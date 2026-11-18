@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "scope": "local_real_official_component_h264_synthetic_sdk_transport",
+  "observed_utc": "2026-11-18T23:40:21+00:00",
+  "code_commit": "68ae11565045159a27c6f46f9edbe897389d1ad8",
+  "server_and_python_tests_commit": "4b2730f90eb6c171ba35118f410c4aab7e1940ee",
+  "source_sha256": {
+    "examples/hls_preview.py": "e978bc6ca041f271a8f2d3d0b4ec115817129f02bd496ac30e616b4b304465d0",
+    "examples/hls_preview_assets/index.html": "62c3a0c796626bbf3be264da29b2120297353b840fed2d17e06cc276773920a5",
+    "examples/hls_preview_assets/preview.js": "b3aa25f2c396af15bbf2f61041d25aaf54a3c4242b73adafa617fd1df03a0e6b",
+    "tests/test_example_hls_preview.py": "d29722efdb0991cd7174ffd8e5faafe6eb5334f450fd2cb068d4c5b1218dcc4d",
+    "tools/media/verify_hls.cjs": "79d78a24f5bc5296e6840304e70bf899f102a2ea85feaa830e7ff1c0810ce136",
+    "tools/media/package.json": "a99bf5923bc38b387a9127a7124990717d63c828c2ac272ab2c6082daecbd75b",
+    "tools/media/package-lock.json": "90c0c7696cb8c5f316726d7b6390b5990733eb29ab655815a4d9b3572a919957",
+    "docs/official-hls-preview.md": "2c4a644cda0b617b8644fb4d26fb770a3d3334340c9dc0df2ba9e490bd2098b1",
+    "docs/coordination/official-hls-preview/admission.json": "acf8b896be0b219fec674a5f4e9525ec90b698f52b8e67e20a20b4c5f3e9cf55",
+    "src/ezviz_unified/playback.py": "9186a3d033816ca84e6b1123a14f5751bee87a2b76215be3a9f81bd5e36d33c8"
+  },
+  "component": {
+    "name": "@ezuikit/player-hls",
+    "version": "2.0.0",
+    "archive_sha256": "8f7de1d2c96d310025e4d72a1221176d2584f5c98b6fc858dfd9daccca5087c9",
+    "member_sha256": {
+      "package/dist/index.umd.js": "afb2f9c1f3e32c865db90aa6ee6dbb7a1ef61a90cf4911c1787ac8732fa28e1c",
+      "package/dist/style/css.css": "505e207820ca175c72e3764d0a6362c16ca8c69e8b7bb038fcba26670f34226b",
+      "package/dist/decoder.worker.js": "fd24bc9d975183ecaee66e0ad0db79a8c192cb8f2f34abd4c4aa82b7128fe709",
+      "package/dist/decoder.wasm": "acc7bc90ce79c2d1e28a82dc4785437f58dbd1628497145d7d38861bcc75d644"
+    },
+    "browser_umd_bytes_verified": true,
+    "redistributed": false
+  },
+  "sdk": {
+    "entry": "Client.playback.create",
+    "operation_id": "cn.playback.create",
+    "real_public_facade": true,
+    "transport": "httpx.MockTransport",
+    "auth_requests": 1,
+    "business_requests": 1,
+    "real_platform_requests": 0,
+    "browser_input": "data.url"
+  },
+  "fixture": {
+    "generator": "FFmpeg lavfi testsrc2",
+    "encoder": "libx264",
+    "ffmpeg_version": "8.1",
+    "hls_mode": "finite_playlist",
+    "audio": false
+  },
+  "node_version": "v24.22.2",
+  "browser_receipt": {
+    "result": "pass",
+    "stage": "done",
+    "browser": "157.0.8103.79",
+    "pw": "1.57.0",
+    "versionOk": true,
+    "versionReported": "exact",
+    "bundleVerified": true,
+    "video": {
+      "w": 320,
+      "h": 180
+    },
+    "frames": {
+      "n": 5,
+      "mediaDeltaMs": 167
+    },
+    "decoder": "hard",
+    "life": {
+      "constructed": 1,
+      "pause": 1,
+      "destroy": 1,
+      "detached": true,
+      "stopped": true,
+      "mediaStable": true
+    },
+    "pos": {
+      "manifest": 1,
+      "segments": 11,
+      "addressFetches": 1,
+      "playing": true
+    },
+    "neg": {
+      "failed": true,
+      "mediaBefore": 12,
+      "constructed": 0,
+      "addressFetches": 1,
+      "mediaDelta": 0,
+      "refetch": 0
+    },
+    "net": {
+      "unexpected": 0,
+      "ws": 0,
+      "cspBlocked": 0
+    }
+  },
+  "browser_receipt_sha256": "1b281bf5e146815e07f7fdc4fe25c0afed10c0749ca5327ee63756ecf934002f",
+  "python_checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_hls_preview.py",
+      "summary": "18 passed in 0.59s",
+      "local_receipt_sha256": "ff211b047ff43554f022e61588bf09052a432ba2ab44cf8e56b1a7cbe466111f"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "7877 passed, 35 subtests passed in 54.53s",
+      "local_receipt_sha256": "d56dce75b529f9cbfd3cea0c136937e21348983bce7442a9825ef3624a4a8119"
+    }
+  ],
+  "limits": [
+    "真实 SDK 客户端采用合成认证和地址签发响应。浏览器播放本机 H.264 内容。",
+    "页面网络计数仅涵盖受控 Playwright 页面/上下文及观测窗口。回执中的 addressFetches 是浏览器对本地地址资源的读取次数。",
+    "未进行云端签发、真实设备播放、H.265/WASM、RTC、海外或原生组件验证。"
+  ]
+}

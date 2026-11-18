@@ -1,0 +1,13 @@
+{
+  "name": "ezviz-unified-hls-acceptance",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Optional browser acceptance tooling for the source-checkout HLS preview",
+  "devDependencies": {
+    "playwright-core": "1.57.0"
+  },
+  "scripts": {
+    "check": "node --check verify_hls.cjs && node --check ../../examples/hls_preview_assets/preview.js",
+    "verify": "node verify_hls.cjs"
+  }
+}
