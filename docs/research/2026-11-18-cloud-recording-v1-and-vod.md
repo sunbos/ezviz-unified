@@ -112,4 +112,6 @@ asyncio.run(main())
 
 ## 验证状态
 
-四个入口当前为**实现候选**：定向脱敏回归已扩展 `projectId`/`fileId`，诊断登记 133→137 入口与相应 operation 白名单已更新；但模块自身的测试与 registry/binding/wire case 后置集成仍待独立验收，不预写 `passed`。已通过的 59 项定向 pytest 只覆盖共享 transport 脱敏路径，**不等同**四个新入口的功能验证。全部四个入口的 `live_status` 均为 `not_verified`：`file_info`/`download_urls`/`vod.files` 缺已授权现成资源与权限确认，`unfreeze_file` 为写操作需单独授权。不宣称已覆盖旧 download 路由变体，不推广到海外或托管/子账号。
+四个入口当前为**已实现、离线验收已通过、live 未验证**：定向脱敏回归已扩展 `projectId`/`fileId`，诊断登记 133→137 入口与相应 operation 白名单已更新。registry/binding/wire case 后置集成与离线一致性已在 commit `b251b11` 上通过——证据见 [../validation/2026-11-18-cloud-files/checks.json](../validation/2026-11-18-cloud-files/checks.json)（说明 [README](../validation/2026-11-18-cloud-files/README.md)）：全量 5448+35 subtests、新 lint、mypy 45、wire 208 contracts/1696 executions、诊断 137 入口 sync/async body 274（诊断覆盖 pytest 278）、cloud-wire 190、Vod 145、云 behaviour+表单 312、构建/产物/Twine/干净 wheel+sdist 安装均过，sdist 3371 passed 10.39s（均为已执行测试单元/已登记契约，非覆盖率）。
+
+四条 OFFLINE required case（`5341`/`1375`/`1377`/`5342`）`recorded_evidence`+`passed`。注意区分两类状态：**四条 LIVE required case** 的状态是 `awaiting_resource_confirmation`/`awaiting_authorization`（未执行，非 `not_verified`）；而四个入口在 `sdk-bindings.json` 中的 **`binding.live_status` 为 `not_verified`**——`not_verified` 是 binding 的 live_status，不等于 case 状态。`file_info`/`download_urls`/`vod.files` 缺已授权现成资源与权限确认，`unfreeze_file` 为写操作需单独授权。保留失败回归（测试夹具修正与 oversize parser 初始化 bug）不作废；本批未发真实云请求。不宣称已覆盖旧 download 路由变体，不推广到海外或托管/子账号。

@@ -1,8 +1,8 @@
 # 有界国内 VOD 资源只读探测计划（SP130 冻结 + SP134 更正 + SP142 准入）
 
-一次性候选探测设计，非产品验收完成。用户已允许"先试试现成账号功能"：现成资源、有界、只读。**无**创建/解冻/付费/媒体下载授权；不替代全产品验收，也不替代新四入口的全部 live 验收。本文件整合 SP130 冻结与 SP134 架构更正；实现仍是候选、尚未通过合成验收，不预写"已修"或"已执行 live"。
+一次性候选探测设计，非产品验收完成。用户已允许"先试试现成账号功能"：现成资源、有界、只读。**无**创建/解冻/付费/媒体下载授权；不替代全产品验收，也不替代新四入口的全部 live 验收。本文件整合 SP130 冻结与 SP134 架构更正。实现已在 commit `b251b11` 通过离线一致性与本机合成验收（含真实 loopback TCP GET+POST 与核心 deadline 测试），证据 [../validation/2026-11-18-cloud-files/checks.json](../validation/2026-11-18-cloud-files/checks.json)；但 **live 未执行**——scenario case 仍 `pending_execution`，真实云探测待部署前置满足，不预写"已执行 live"。
 
-SP142（`docs/coordination/SP142/admission.json`，scope_revision `2026-11-18-r12-vod-resource-probe`）已公开批准新增 scenario case `ACC-CN-VOD-RESOURCE-DISCOVERY-001`：`bounded_resource_probe_frozen_not_executed`、`live_ready=false`、`authorized_readonly=true`、`max_requests=7`/`max_operations=2`，父 required `ACC-CANDIDATE-CN-5342-D0-LIVE-001` 仍未完成——本 probe 只做 sync 辅助资源发现，不替代 async 或其它方法的 live。
+SP142（`docs/coordination/SP142/admission.json`，scope_revision `2026-11-18-r12-vod-resource-probe`）已公开批准新增 scenario case `ACC-CN-VOD-RESOURCE-DISCOVERY-001`：`bounded_resource_probe_frozen_not_executed`、`live_ready=false`、`authorized_readonly=true`、`max_requests=7`/`max_operations=2`，父 required `ACC-CANDIDATE-CN-5342-D0-LIVE-001` 仍未完成——本 probe 只做 sync 辅助资源发现，不替代 async 或其它方法的 live。当前 scope `2026-11-18-r13-cloud-file-offline-acceptance` 下其 `offline_verifier_safety_and_sdk_regressions=met`（离线安全判据），其余判据 `pending`。
 
 ## 范围与边界
 
@@ -66,9 +66,17 @@ SP130 曾误写"网络/transport 实际读取最多 1MiB+1"。HTTPX `BaseTranspo
 - 既有 401/403 等只经 `error_family` 报告，不引原始错误码文本。
 - 未知字段或资源缺失不等于"无此功能"：本探测只覆盖 sync `spaces`+`vod.files` 两个入口的辅助资源发现；父 required 行 `ACC-CANDIDATE-CN-5342-D0-LIVE-001` 仍未完成，本 probe 不能替代 async 或 1.0 任何方法的 live 验收。
 
-## 验收条目（先合成，后才允许真实表单）
+## 验收条目（合成验证已通过，真实执行前置仍待满足）
 
-实现仍是候选、未通过；以下未完成前**不**启动真实表单：
+本地合成/真实 localhost TCP 验证已在 `b251b11` 完成并通过（含 probe core/deadline 与表单测试，见 [checks.json](../validation/2026-11-18-cloud-files/checks.json)）；第 1–7 项合成判据已落实。**真实云探测部署的前置仍未齐备**。在启动本地表单之前须先完成（这些是表单启动的前置，不是表单启动后的循环）：
+
+- **CI 验证**：当前发布候选/合并后 main HEAD 的实际 CI 须通过。CI 核对的是**实际待执行 HEAD** 及其 SDK/工具输入与 `b251` 检查记录 pins 的一致性；`b251b11` 从未单独 push/PR，因此不要求它有独立的 push/PR CI 记录——后续 metadata 提交若无代码变化也应正确引用同一 pins，不继承旧 CI 当本批通过。
+- **源码/工具 hash 匹配**：待执行 SDK 源码与 `tools/live/verify_cloud_files.py` 的 hash 须与 `b251` checks.json `tested_file_sha256` 记录逐项一致。
+- **外层控制器**：实际 live 运行时控制器须在 probe 之外另施加 900 s 外层墙钟上限（属验收控制器，非 SDK 隐式后台任务）。
+
+满足上述三项后才启动本地 loopback 表单；用户在表单启动后输入凭据，只有**有效提交**才执行云请求。**不能以"用户已输入凭据"作为启动表单的前置循环条件**。
+
+原始合成验收条目（供回归追溯）：
 
 1. 预算/路由：`authentication≤3/spaces≤2/vod≤2`、合计≤7；额外 route/origin/query/body、无绑定资源的请求在发送前拒绝。
 2. 契约：空页/错误形状/候选筛选（服务端顺序首个合格行）/窗口与时区序列化/invalid-token 重放须重发同一冻结窗口。
@@ -76,7 +84,7 @@ SP130 曾误写"网络/transport 实际读取最多 1MiB+1"。HTTPX `BaseTranspo
 4. 用真实 SDK `MockTransport` 精确 wire 验证三路由。
 5. 报告：未知键/值拒绝、sentinel 隐私、固定枚举与类型桶、白名单校验先于写盘。
 6. 表单：Host/Origin/Content-Type/重复字段/超限/二次提交/超时/日志不回显/`--output` 仅 1 份且不覆盖。
-7. 云 behaviour、probe tests、完整回归与本批发布检查完成后，方可启动真实表单。
+7. 云 behaviour、probe tests、完整回归与本批发布检查——**已通过**，对应 scenario case 的 `offline_verifier_safety_and_sdk_regressions=met`。
 
 ## 依赖与运行时
 

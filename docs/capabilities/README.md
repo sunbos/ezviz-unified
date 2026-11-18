@@ -16,6 +16,12 @@
 - 109 条既有合同追加 `scenario`/`family` 与已跑 wire 证据引用；904 个合成 cells 仅对应测试范围，本批未新跑 SDK。
 - 44 条海外候选补描述、案例状态 `awaiting_design`；公共国家/地区目录沿用原候选 ID，已有离线验收和有界 SDK 实测记录。
 
+## 2026-11-18 云文件 cohort 更新（scope `2026-11-18-r13`）
+
+- 新增 cohort `CLOUD-FILE-001`：`admission_state=implemented_offline_acceptance_passed_live_pending`，`verified_code_commit=b251b11`，`admission_ref` SP122，`acceptance_evidence_ref` `docs/validation/2026-11-18-cloud-files/checks.json`。capability_refs 为四个完整 ID `candidate:domestic:5341:d0`/`candidate:domestic:1375:d0`/`candidate:domestic:1377:d0`/`candidate:domestic:5342:d0`（其它文档中的 `candidate:domestic:5341/1375/1377/5342:d0` 只是这四个 ID 的列举短写，不是一个真实 capability_id）。这是本批 4 个国内云文件入口的 G1 准入（`cn.cloud_recording_v1.unfreeze_file`/`file_info`/`download_urls`、`cn.vod.files`），**不扩展**到其它待审候选。
+- 四条 **OFFLINE** required case `recorded_evidence`+`passed`；四条 **LIVE** required 仍 `awaiting_*` 未执行。scenario case `ACC-CN-VOD-RESOURCE-DISCOVERY-001`（`2026-11-18-r12` 登记）自身 `result=pending_execution`——`pending_execution` 是 case `result` 枚举值。**`local_execution_state=passed` 与 `live_execution_state=not_executed_pending_current_ci_and_local_credentials` 是 cohort `CLOUD-FILE-001` 的字段，不是该 scenario case 的字段**，不要写成 scenario 的属性。
+- 全 scope `all_semantics_dispositioned`/`required_acceptance_complete`/`product_complete` 仍 `false`；上述 OFFLINE 通过不是全 cohort 通过或产品完成。
+
 ## 阅读注意
 
 - 源数、矩阵行数、方法数均非覆盖率；填 `scenario` 不等于完成全语义处置。

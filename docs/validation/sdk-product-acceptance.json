@@ -27375,7 +27375,8 @@
         "evals/contracts/cases.json",
         "tests/test_harness_diagnostic_coverage.py",
         "README.md",
-        "docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        "docs/research/2026-11-18-cloud-recording-v1-and-vod.md",
+        "docs/validation/2026-11-18-cloud-files/checks.json"
       ],
       "wire_eval_scope": {
         "operation_id": "cn.cloud_recording_v1.unfreeze_file",
@@ -27396,24 +27397,27 @@
         "expectation_rule": "按现有driver：鉴权读auth_fault为2业务/2认证并成功；写auth_fault为1业务/1认证并抛原认证异常。其余场景沿既有严格响应/错误语义。"
       },
       "criterion_assessment": {
-        "exact_sync_async_wire_and_token_position": "pending",
-        "types_bounds_none_and_utf8_before_auth": "pending",
-        "domestic_gate_before_provider_factory_http": "pending",
-        "raw_data_unknown_fields_and_identity_preserved": "pending",
-        "declared_read_only_retry_and_error_layering": "pending",
-        "diagnostic_on_off_return_exception_wire_order_parity": "pending",
-        "known_id_token_redaction_and_payload_hidden": "pending",
-        "closed_timeout_cancellation_semantics": "pending",
-        "registry_bindings_cases_and_exact_diagnostic_counts": "pending"
+        "exact_sync_async_wire_and_token_position": "met",
+        "types_bounds_none_and_utf8_before_auth": "met",
+        "domestic_gate_before_provider_factory_http": "met",
+        "raw_data_unknown_fields_and_identity_preserved": "met",
+        "declared_read_only_retry_and_error_layering": "met",
+        "diagnostic_on_off_return_exception_wire_order_parity": "met",
+        "known_id_token_redaction_and_payload_hidden": "met",
+        "closed_timeout_cancellation_semantics": "met",
+        "registry_bindings_cases_and_exact_diagnostic_counts": "met"
       },
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "resource_state": "not_applicable (offline only; no real resources)",
-      "blockers": [
-        "实现与实际离线命令验收尚未完成。"
-      ],
+      "blockers": [],
       "limitations": [
         "synthetic conformance不是live验收；ApiResponse保留data/raw不代表媒体或解冻已验证。",
         "已知请求值脱敏不等于任意自由错误message的未知URL过滤。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "b251b11389405075ba30838cf9b2a594e1477ca6",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-cloud-files/checks.json"
       ]
     },
     {
@@ -27534,7 +27538,8 @@
         "evals/contracts/cases.json",
         "tests/test_harness_diagnostic_coverage.py",
         "README.md",
-        "docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        "docs/research/2026-11-18-cloud-recording-v1-and-vod.md",
+        "docs/validation/2026-11-18-cloud-files/checks.json"
       ],
       "wire_eval_scope": {
         "operation_id": "cn.cloud_recording_v1.file_info",
@@ -27555,24 +27560,27 @@
         "expectation_rule": "按现有driver：鉴权读auth_fault为2业务/2认证并成功；写auth_fault为1业务/1认证并抛原认证异常。其余场景沿既有严格响应/错误语义。"
       },
       "criterion_assessment": {
-        "exact_sync_async_wire_and_token_position": "pending",
-        "types_bounds_none_and_utf8_before_auth": "pending",
-        "domestic_gate_before_provider_factory_http": "pending",
-        "raw_data_unknown_fields_and_identity_preserved": "pending",
-        "declared_read_only_retry_and_error_layering": "pending",
-        "diagnostic_on_off_return_exception_wire_order_parity": "pending",
-        "known_id_token_redaction_and_payload_hidden": "pending",
-        "closed_timeout_cancellation_semantics": "pending",
-        "registry_bindings_cases_and_exact_diagnostic_counts": "pending"
+        "exact_sync_async_wire_and_token_position": "met",
+        "types_bounds_none_and_utf8_before_auth": "met",
+        "domestic_gate_before_provider_factory_http": "met",
+        "raw_data_unknown_fields_and_identity_preserved": "met",
+        "declared_read_only_retry_and_error_layering": "met",
+        "diagnostic_on_off_return_exception_wire_order_parity": "met",
+        "known_id_token_redaction_and_payload_hidden": "met",
+        "closed_timeout_cancellation_semantics": "met",
+        "registry_bindings_cases_and_exact_diagnostic_counts": "met"
       },
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "resource_state": "not_applicable (offline only; no real resources)",
-      "blockers": [
-        "实现与实际离线命令验收尚未完成。"
-      ],
+      "blockers": [],
       "limitations": [
         "synthetic conformance不是live验收；ApiResponse保留data/raw不代表媒体或解冻已验证。",
         "已知请求值脱敏不等于任意自由错误message的未知URL过滤。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "b251b11389405075ba30838cf9b2a594e1477ca6",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-cloud-files/checks.json"
       ]
     },
     {
@@ -27691,7 +27699,8 @@
         "evals/contracts/cases.json",
         "tests/test_harness_diagnostic_coverage.py",
         "README.md",
-        "docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        "docs/research/2026-11-18-cloud-recording-v1-and-vod.md",
+        "docs/validation/2026-11-18-cloud-files/checks.json"
       ],
       "wire_eval_scope": {
         "operation_id": "cn.cloud_recording_v1.download_urls",
@@ -27712,24 +27721,27 @@
         "expectation_rule": "按现有driver：鉴权读auth_fault为2业务/2认证并成功；写auth_fault为1业务/1认证并抛原认证异常。其余场景沿既有严格响应/错误语义。"
       },
       "criterion_assessment": {
-        "exact_sync_async_wire_and_token_position": "pending",
-        "types_bounds_none_and_utf8_before_auth": "pending",
-        "domestic_gate_before_provider_factory_http": "pending",
-        "raw_data_unknown_fields_and_identity_preserved": "pending",
-        "declared_read_only_retry_and_error_layering": "pending",
-        "diagnostic_on_off_return_exception_wire_order_parity": "pending",
-        "known_id_token_redaction_and_payload_hidden": "pending",
-        "closed_timeout_cancellation_semantics": "pending",
-        "registry_bindings_cases_and_exact_diagnostic_counts": "pending"
+        "exact_sync_async_wire_and_token_position": "met",
+        "types_bounds_none_and_utf8_before_auth": "met",
+        "domestic_gate_before_provider_factory_http": "met",
+        "raw_data_unknown_fields_and_identity_preserved": "met",
+        "declared_read_only_retry_and_error_layering": "met",
+        "diagnostic_on_off_return_exception_wire_order_parity": "met",
+        "known_id_token_redaction_and_payload_hidden": "met",
+        "closed_timeout_cancellation_semantics": "met",
+        "registry_bindings_cases_and_exact_diagnostic_counts": "met"
       },
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "resource_state": "not_applicable (offline only; no real resources)",
-      "blockers": [
-        "实现与实际离线命令验收尚未完成。"
-      ],
+      "blockers": [],
       "limitations": [
         "synthetic conformance不是live验收；ApiResponse保留data/raw不代表媒体或解冻已验证。",
         "已知请求值脱敏不等于任意自由错误message的未知URL过滤。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "b251b11389405075ba30838cf9b2a594e1477ca6",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-cloud-files/checks.json"
       ]
     },
     {
@@ -27849,7 +27861,8 @@
         "evals/contracts/cases.json",
         "tests/test_harness_diagnostic_coverage.py",
         "README.md",
-        "docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        "docs/research/2026-11-18-cloud-recording-v1-and-vod.md",
+        "docs/validation/2026-11-18-cloud-files/checks.json"
       ],
       "wire_eval_scope": {
         "operation_id": "cn.vod.files",
@@ -27870,24 +27883,27 @@
         "expectation_rule": "按现有driver：鉴权读auth_fault为2业务/2认证并成功；写auth_fault为1业务/1认证并抛原认证异常。其余场景沿既有严格响应/错误语义。"
       },
       "criterion_assessment": {
-        "exact_sync_async_wire_and_token_position": "pending",
-        "types_bounds_none_and_utf8_before_auth": "pending",
-        "domestic_gate_before_provider_factory_http": "pending",
-        "raw_data_unknown_fields_and_identity_preserved": "pending",
-        "declared_read_only_retry_and_error_layering": "pending",
-        "diagnostic_on_off_return_exception_wire_order_parity": "pending",
-        "known_id_token_redaction_and_payload_hidden": "pending",
-        "closed_timeout_cancellation_semantics": "pending",
-        "registry_bindings_cases_and_exact_diagnostic_counts": "pending"
+        "exact_sync_async_wire_and_token_position": "met",
+        "types_bounds_none_and_utf8_before_auth": "met",
+        "domestic_gate_before_provider_factory_http": "met",
+        "raw_data_unknown_fields_and_identity_preserved": "met",
+        "declared_read_only_retry_and_error_layering": "met",
+        "diagnostic_on_off_return_exception_wire_order_parity": "met",
+        "known_id_token_redaction_and_payload_hidden": "met",
+        "closed_timeout_cancellation_semantics": "met",
+        "registry_bindings_cases_and_exact_diagnostic_counts": "met"
       },
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "resource_state": "not_applicable (offline only; no real resources)",
-      "blockers": [
-        "实现与实际离线命令验收尚未完成。"
-      ],
+      "blockers": [],
       "limitations": [
         "synthetic conformance不是live验收；ApiResponse保留data/raw不代表媒体或解冻已验证。",
         "已知请求值脱敏不等于任意自由错误message的未知URL过滤。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "b251b11389405075ba30838cf9b2a594e1477ca6",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-cloud-files/checks.json"
       ]
     },
     {
@@ -27999,9 +28015,11 @@
         "https://open.ys7.com/help/5230",
         "https://open.ys7.com/help/5342"
       ],
-      "code_artifact_evidence_refs": [],
+      "code_artifact_evidence_refs": [
+        "docs/validation/2026-11-18-cloud-files/checks.json"
+      ],
       "criterion_assessment": {
-        "offline_verifier_safety_and_sdk_regressions": "pending",
+        "offline_verifier_safety_and_sdk_regressions": "met",
         "exact_source_pins_and_current_ci": "pending",
         "single_local_input_no_secret_persistence": "pending",
         "bounded_transport_no_extra_business_requests": "pending",
@@ -28011,8 +28029,8 @@
       "result": "pending_execution",
       "resource_state": "credentials_absent_in_current_process_account_resources_unknown",
       "blockers": [
-        "探测器合成测试和本批完整回归尚未完成。",
-        "需要用户通过本地表单重新输入凭据；旧表单凭据未保留。"
+        "当前提交PR/main CI仍待验证。",
+        "需要用户通过一次性本地输入提供凭据；未发真实云请求。"
       ],
       "limitations": [
         "30天createTime窗口漏检旧空间；空页/无合格项不证明账号无功能。",

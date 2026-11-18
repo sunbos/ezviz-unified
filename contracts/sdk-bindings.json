@@ -2792,7 +2792,7 @@
         "AsyncCloudRecordingV1.unfreeze_file"
       ],
       "public_entry": "cloud_recording_v1.unfreeze_file",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2805,7 +2805,7 @@
         "AsyncCloudRecordingV1.file_info"
       ],
       "public_entry": "cloud_recording_v1.file_info",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2818,7 +2818,7 @@
         "AsyncCloudRecordingV1.download_urls"
       ],
       "public_entry": "cloud_recording_v1.download_urls",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -2831,7 +2831,7 @@
         "AsyncVod.files"
       ],
       "public_entry": "vod.files",
-      "offline_status": "not_verified",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
