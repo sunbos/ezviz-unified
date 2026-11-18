@@ -58,6 +58,7 @@ from .settings import AsyncSettings, Settings
 from .snapshots import AsyncSnapshots, Snapshots
 from .storage import AsyncStorage, Storage
 from .subaccounts import AsyncSubaccounts, Subaccounts
+from .traffic import AsyncTraffic, Traffic
 from .transport import AsyncTransport, ParamMapping, SyncTransport
 from .video import AsyncVideo, Video
 from .vod import AsyncVod, Vod
@@ -333,6 +334,7 @@ class Client:
         self.cloud_capture = CloudCapture(self)
         self.message_subscriptions = MessageSubscriptions(self)
         self.hubs = Hubs(self)
+        self.traffic = Traffic(self)
 
     @property
     def region(self) -> RegionConfig:
@@ -653,6 +655,7 @@ class AsyncClient:
         self.cloud_capture = AsyncCloudCapture(self)
         self.message_subscriptions = AsyncMessageSubscriptions(self)
         self.hubs = AsyncHubs(self)
+        self.traffic = AsyncTraffic(self)
 
     @property
     def region(self) -> RegionConfig:

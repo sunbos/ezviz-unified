@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "scope": "domestic_traffic_offline",
+  "code_commit": "1b2a373159e4441dae74dd29eced5884613d200a",
+  "source_test_sha256": {
+    "src/ezviz_unified/traffic.py": "b76be067e7e8413463376d4f9a966d3877211d88e17619735cbbce314d1c0868",
+    "src/ezviz_unified/client.py": "766da4bfda5f6f548aa237be0a8b69bed4565b78070ad4ab3215566e918fb59c",
+    "src/ezviz_unified/_diagnostic_registry.py": "77595b235aa874e09705276bf484f54f1495cbeb635d54575e7cb2a1529fe5d9",
+    "src/ezviz_unified/__init__.py": "54981edb2e71844644087cf5f5c49d9d636924c9d4ded4fc1b2c4e9c1517d337",
+    "examples/traffic_usage.py": "ea5ca0dc2bdfa76c050cabd2295c8a568a693d721190b9884a4c1d91f19cab14",
+    "tools/live/verify_traffic_usage.py": "06f987709999364df6f334fd5302b5cd6912978bc58ff96650a5a101ef6bb8db",
+    "tools/live/_cli_transport.py": "19218c00695208b52863a60021fe61b22d6821f39c60820f23588d19e77a1e1c",
+    "tests/test_sdk_traffic.py": "f8d23bc3a03a79c75011255cd212b548ff3abbe22f803cca6f6e971dde26a364",
+    "tests/test_example_traffic_usage.py": "6437440ac68564037c229b7ecbc8a0b9ac1b0f9fe8e83f2fcf1a9fea09a7e2c7",
+    "tests/test_live_traffic_usage.py": "ab335a6724105cb278b9acbe656e3b30cc782f59dd67e70d72d58e7b1b628dae",
+    "tests/test_harness_diagnostic_coverage.py": "6dea2adc1bd3244b84bcd4313b9e0a81245c9ba8d87ac1aa0298af346e7e757c",
+    "contracts/reviewed-transport-contracts.json": "92b7ce230629144915e8a6e77ec1a66a38a3ccd19eab274839b359435a0a3ec6",
+    "contracts/source-issues.json": "83c63aedcb1e09a6a31daffc1d3c5f49ddfc5cccd5c2e04cb8f2416967ad604f",
+    "evals/contracts/cases.json": "773cd695b87b8564e401c4f252fefb91fec12d13b011de864558aeb36f39a193",
+    "docs/diagnostics-v1-coverage.json": "4755738a76d6a325898b80608e5e644cfa53334576fb978288516fa17f4b8888",
+    "docs/coordination/domestic-traffic/admission.json": "0a88854a4402547e9e78ad225a8776648c05cb5b1feb590084015569e52b3f7c",
+    "docs/coordination/domestic-traffic/account-read.json": "89001fb0eb566799bea45e30e8708208d987d937ebbe1a84bee3436ede79d96c"
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_traffic.py tests/test_example_traffic_usage.py tests/test_live_traffic_usage.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "547 passed in 3.08s",
+      "local_receipt_sha256": "80ad8e3e8ad0fbbaa9d6035c230be116d7debf4a0a0b3b7e5e1aeadb2c98acb7",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "7584 passed, 35 subtests passed in 105.97s (0:01:45)",
+      "local_receipt_sha256": "bc8ecc52c6eedaac7a03b2806f1de3847757fe5425ca9f33598dbc9b4880b276",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "224 registered contracts, 1824/1824 offline wire checks passed",
+      "local_receipt_sha256": "3822ff85fac520c0ef76f0957e699c7272acbe4b04e8fba7e413103549bde175",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 49 source files",
+      "local_receipt_sha256": "7520287cb5740e588ccdbe73b20df4be2def98bf393b302a5d1ce88e01ba8253",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "224 contracts and bindings; static audit verified 448 symbols",
+      "local_receipt_sha256": "723c091b9213405f5f4399d936155e0ea945e5d45e756fa22a79c50ed650bb24",
+      "tool_error": false
+    }
+  ],
+  "live_evidence_included": false
+}

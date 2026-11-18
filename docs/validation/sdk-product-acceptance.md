@@ -32,6 +32,10 @@
 
 两 case 的 `capability_ids=[candidate:overseas:469:1.12]`、`operation_ids=[global.settings.list_areas]`；`settings.list_areas` 是 runtime/diagnostic entrypoint，**不是** registry operation_id。来源 overseas:469 §1.12（e1459 固定 origin、e1463 列 GET/POST、e1468 GET 示例、e1476 字段表）；SDK 明确只选 GET，POST 语义未核定保留为 source issue，不伪造 declared_pair 或提升 parser 恢复数。
 
+## 国内云直播流量查询
+
+四个国内接口均已通过同步和异步的离线验收。账号汇总、按日用量、指定日的通道明细已获本轮真实只读授权，指定设备明细另待授权。每项真实验收独立记录。四个既有离线案例继续使用原 ID，并为它们分别新增真实案例，必需案例分母从 399 变为 403。参见[离线结果](2026-11-19-domestic-traffic/offline.json)和[账号查询范围](../coordination/domestic-traffic/account-read.json)。
+
 ## 待设计/待资源（不算完成）
 
 - 云录制 1.0 文件与 VOD 元数据（既有批 `b251b11`，已随 PR #16 合并入 main `254ea73`，历史结论保留）：四条 **OFFLINE** required（`ACC-CANDIDATE-CN-5341/1375/1377/5342-D0-OFFLINE-001`）已 `recorded_evidence`+`passed`，证据 [checks.json](2026-11-18-cloud-files/checks.json)；对应四条 **LIVE** required（`5341`/`1375`/`1377`/`5342` 的 `-D0-LIVE-001`）仍 `awaiting_authorization`/`awaiting_resource_confirmation`，`freeze_state=awaiting_resource_scope_and_authorization`、真实资源/权限/请求上限未冻结，`max_requests=null` 不可运行；截至当时的已核离线/历史记录中这些 case 未发真实云请求。scenario `ACC-CN-VOD-RESOURCE-DISCOVERY-001` `result=pending_execution`，仅离线安全判据 `met`；其 SP166 国内只读资源发现窗口实际**超时关闭**、无报告、`execution_outcome=not_verified`、实际 HTTP 数 `null`（不可声称 0 或账号无资源），见 [live/2026-11-18-vod-resource-discovery/attempt.json](live/2026-11-18-vod-resource-discovery/attempt.json)。**新增 VOD remux/任务批 `fce298b`**：四条 OFFLINE（`3971`/`3972`/`4941`/`3973`）已 `recorded_evidence`+`passed`（见文末当前批次），四条 LIVE 未执行/未授权或资源未齐。
@@ -85,7 +89,7 @@ main 已含 **PR #16 合并头 `254ea73acafc5dd2f81c90c4a867fa0fb56a2d26`**（�
 scope 推进至 `2026-11-19-r17-capture-messaging-hubs-offline-acceptance`。三 cohort（`CLOUD-CAPTURE-001`/`LEGACY-MESSAGE-001`/`HUB-DISCOVERY-001`）的 **11 条 required OFFLINE（8 SDK 操作 + 3 仓库示例）`recorded_evidence`+`passed`**；对应 **11 条 required LIVE 全未执行**（`awaiting_*`/资源与授权未齐），**本批未发真实云/设备/消息请求**。正式证据：[checks.json](2026-11-19-capture-messaging-hubs/checks.json)。
 
 - 覆盖入口：云抽帧 `cloud_capture.create_interval_task`/`create_timing_task`/`task`，消息 `message_subscriptions.create_consumer`/`consume`，HUB `hubs.list_subdevices`/`subdevice_info`/`channels`；示例 `examples/cloud_capture.py`/`message_subscriptions.py`/`hub_discovery.py`。
-- registry 现为 **220**（国内 153 / 海外 67），诊断 149 business / 298 sync+async bodies；本批新增 8 行 binding 均 `offline_status=passed`/`live_status=not_verified`。367 capability 槽位、402 cases、1792 传输检查计数为槽位/案例口径，非 API 总数或覆盖率。
+- 该批交付时 registry 为 **220**（国内 153 / 海外 67），诊断 149 business / 298 sync+async bodies；本批新增 8 行 binding 均 `offline_status=passed`/`live_status=not_verified`。367 capability 槽位、402 cases、1792 传输检查计数为槽位/案例口径，非 API 总数或覆盖率。
 - 本机观察（该 code commit 上）：全量 pytest **7220 + 35 subtests**（62.34 s）、lint/format/mypy、wire 220 contracts/1792 executions、构建/Twine/干净 wheel+sdist 安装均过；sdist **4827 tests**（18.70 s）。`0.1.0a1` 为开发构建、未冻结最终发行、未上传 PyPI；安装依赖走网络但 `real_api_used=false`。
 - 限制沿用 checks.json `limitations`：真实抽帧任务、真实消息投递与提交、HUB 与实际子设备的对应关系尚待有界联调；账号套餐、设备型号覆盖、收费、媒体可用性与 PyPI 发布均未由本批离线结果验证。后续国内 async 为复用既有 SDK 的只读验收，不是本批新增实现。
 - 本批已随 [PR #18](https://github.com/sunbos/ezviz-unified/pull/18) 合并入 main，其 Python 3.12–3.15 四版本 CI 已通过（[run 44372920559](https://github.com/sunbos/ezviz-unified/actions/runs/44372920559)）；该事实仅对既有三域本批代码有效，不覆盖 `tools/live/verify_diagnostics_async.py` 等新文件的本工具新 CI（尚待跑）。`product_complete`/`required_acceptance_complete`/`all_semantics_dispositioned` 仍 `false`；上述 OFFLINE 通过不等于 cohort 或产品完成。
