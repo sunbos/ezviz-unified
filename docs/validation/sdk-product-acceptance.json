@@ -12564,111 +12564,180 @@
     {
       "case_id": "ACC-CANDIDATE-CN-983-D0-OFFLINE-001",
       "tier": "required",
-      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:983:d0",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "message_subscriptions.create_consumer",
       "capability_ids": [
         "candidate:domestic:983:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.message_subscriptions.create_consumer"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
+      "account_role_permissions": "Synthetic credentials only.",
+      "device_requirements": "Synthetic only; no real resource access.",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
       ],
-      "expected_evidence": {
-        "read": "围绕“请求创建云信令消息订阅消费者”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
-      },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false,
+        "bound_definition": "Zero means real external traffic only; synthetic transport tests separately exercise frozen cells."
       },
       "authorization_status": "n/a",
-      "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
+      "recovery_plan": "Offline no remote changes.",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/61"
+        "docs/coordination/SP213/admission.json"
       ],
-      "pending_questions": [
-        "消费者命名与归属约束待核",
-        "目录标注后续不更新维护对该场景保留/替代通道的影响待核"
-      ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "Implementation and actual test receipts not yet complete."
       ],
       "limitations": [
-        "不继承其它场景的离线或实测成功状态。"
-      ]
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/message_subscriptions.py",
+        "tests/test_sdk_message_subscriptions.py",
+        "tests/test_sdk_message_subscriptions_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_token_position": "pending",
+        "frozen_required_optional_enum_time_validation": "pending",
+        "region_and_validation_before_auth": "pending",
+        "response_raw_unknown_fields_and_exception_identity": "pending",
+        "per_operation_auth_replay_and_request_order": "pending",
+        "diagnostic_on_off_behavior_equivalence": "pending",
+        "known_request_values_redaction_and_payload_hidden": "pending",
+        "closed_timeout_async_cancellation_preserved": "pending",
+        "registry_bindings_cases_and_diagnostics_exact": "pending"
+      },
+      "expected_evidence": {
+        "read": "Exact POST /api/lapp/mq/v2/consumer/{consumerName}, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc983.",
+        "write": "Synthetic only; read_only=False, assert exact auth/business counts and no other requests.",
+        "physical": "None; no effects or real platform conclusion."
+      },
+      "wire_eval_scope": {
+        "operation_id": "cn.message_subscriptions.create_consumer",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-984-D0-OFFLINE-001",
       "tier": "required",
-      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:984:d0",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "message_subscriptions.consume",
       "capability_ids": [
         "candidate:domestic:984:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.message_subscriptions.consume"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
+      "account_role_permissions": "Synthetic credentials only.",
+      "device_requirements": "Synthetic only; no real resource access.",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
       ],
-      "expected_evidence": {
-        "read": "围绕“请求消费者消费云信令订阅消息”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
-      },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false,
+        "bound_definition": "Zero means real external traffic only; synthetic transport tests separately exercise frozen cells."
       },
       "authorization_status": "n/a",
-      "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
+      "recovery_plan": "Offline no remote changes.",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/62"
+        "docs/coordination/SP213/admission.json"
       ],
-      "pending_questions": [
-        "消息获取语义是批量拉取、长轮询还是需确认机制待核",
-        "是否以先创建消费者（candidate:domestic:983:d0）为前提待核",
-        "消息范围（告警/设备事件等）待核"
-      ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "Implementation and actual test receipts not yet complete."
       ],
       "limitations": [
-        "不继承其它场景的离线或实测成功状态。"
-      ]
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/message_subscriptions.py",
+        "tests/test_sdk_message_subscriptions.py",
+        "tests/test_sdk_message_subscriptions_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_token_position": "pending",
+        "frozen_required_optional_enum_time_validation": "pending",
+        "region_and_validation_before_auth": "pending",
+        "response_raw_unknown_fields_and_exception_identity": "pending",
+        "per_operation_auth_replay_and_request_order": "pending",
+        "diagnostic_on_off_behavior_equivalence": "pending",
+        "known_request_values_redaction_and_payload_hidden": "pending",
+        "closed_timeout_async_cancellation_preserved": "pending",
+        "registry_bindings_cases_and_diagnostics_exact": "pending"
+      },
+      "expected_evidence": {
+        "read": "Exact POST /api/lapp/mq/v2/consumer/messages, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc984.",
+        "write": "Synthetic only; read_only=False, assert exact auth/business counts and no other requests.",
+        "physical": "None; no effects or real platform conclusion."
+      },
+      "wire_eval_scope": {
+        "operation_id": "cn.message_subscriptions.consume",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1422-D0-OFFLINE-001",
@@ -28711,6 +28780,1482 @@
       "limitations": [
         "全部未执行；不继承SP166或其它域的历史/离线成功。"
       ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1388-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "cloud_capture.create_interval_task",
+      "capability_ids": [
+        "candidate:domestic:1388:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_capture.create_interval_task"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "account_role_permissions": "Synthetic credentials only.",
+      "device_requirements": "Synthetic only; no real resource access.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "Zero means real external traffic only; synthetic transport tests separately exercise frozen cells."
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "Offline no remote changes.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "pending_execution",
+      "blockers": [
+        "Implementation and actual test receipts not yet complete."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_capture.py",
+        "tests/test_sdk_cloud_capture.py",
+        "tests/test_sdk_cloud_capture_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_token_position": "pending",
+        "frozen_required_optional_enum_time_validation": "pending",
+        "region_and_validation_before_auth": "pending",
+        "response_raw_unknown_fields_and_exception_identity": "pending",
+        "per_operation_auth_replay_and_request_order": "pending",
+        "diagnostic_on_off_behavior_equivalence": "pending",
+        "known_request_values_redaction_and_payload_hidden": "pending",
+        "closed_timeout_async_cancellation_preserved": "pending",
+        "registry_bindings_cases_and_diagnostics_exact": "pending"
+      },
+      "expected_evidence": {
+        "read": "Exact POST /api/v3/open/cloud/video/frame/interval/start, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc1388.",
+        "write": "Synthetic only; read_only=False, assert exact auth/business counts and no other requests.",
+        "physical": "None; no effects or real platform conclusion."
+      },
+      "wire_eval_scope": {
+        "operation_id": "cn.cloud_capture.create_interval_task",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8
+      }
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1388-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "cloud_capture.create_interval_task",
+      "capability_ids": [
+        "candidate:domestic:1388:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_capture.create_interval_task"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "account_role_permissions": "Must freeze actual account/permissions/resources before live run.",
+      "device_requirements": "Existing authorized resources and applicable model/operation scenario required.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "Not runnable until concrete request/operation limits and resources are authorized."
+      },
+      "authorization_status": "awaiting_authorization",
+      "recovery_plan": "Must establish side-effect/partial outcome/cleanup plan before execution; no blind retry.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "Concrete resources, limits and required authorization not frozen."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_capture.py",
+        "tests/test_sdk_cloud_capture.py",
+        "tests/test_sdk_cloud_capture_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Authorized exact endpoint and known resource, sync/async evidence separately; raw success is not physical completion.",
+        "write": "No write/consumer change until explicit concrete scope and recovery approved; unknown outcome is preserved.",
+        "physical": "Where applicable verify task/produced file/received controlled message/parent-child identity separately; no aggregate hardware claim."
+      },
+      "criterion_assessment": {
+        "resources_and_permission_confirmed": "pending",
+        "bounded_current_commit_execution": "pending",
+        "privacy_whitelisted_evidence": "pending",
+        "business_and_physical_effects_separated": "pending",
+        "scope_and_recovery_completed": "pending"
+      },
+      "resource_state": "awaiting_frozen_resource_and_request_scope"
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1389-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "cloud_capture.create_timing_task",
+      "capability_ids": [
+        "candidate:domestic:1389:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_capture.create_timing_task"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "account_role_permissions": "Synthetic credentials only.",
+      "device_requirements": "Synthetic only; no real resource access.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "Zero means real external traffic only; synthetic transport tests separately exercise frozen cells."
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "Offline no remote changes.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "pending_execution",
+      "blockers": [
+        "Implementation and actual test receipts not yet complete."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_capture.py",
+        "tests/test_sdk_cloud_capture.py",
+        "tests/test_sdk_cloud_capture_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_token_position": "pending",
+        "frozen_required_optional_enum_time_validation": "pending",
+        "region_and_validation_before_auth": "pending",
+        "response_raw_unknown_fields_and_exception_identity": "pending",
+        "per_operation_auth_replay_and_request_order": "pending",
+        "diagnostic_on_off_behavior_equivalence": "pending",
+        "known_request_values_redaction_and_payload_hidden": "pending",
+        "closed_timeout_async_cancellation_preserved": "pending",
+        "registry_bindings_cases_and_diagnostics_exact": "pending"
+      },
+      "expected_evidence": {
+        "read": "Exact POST /api/v3/open/cloud/video/frame/timing/start, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc1389.",
+        "write": "Synthetic only; read_only=False, assert exact auth/business counts and no other requests.",
+        "physical": "None; no effects or real platform conclusion."
+      },
+      "wire_eval_scope": {
+        "operation_id": "cn.cloud_capture.create_timing_task",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8
+      }
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1389-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "cloud_capture.create_timing_task",
+      "capability_ids": [
+        "candidate:domestic:1389:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_capture.create_timing_task"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "account_role_permissions": "Must freeze actual account/permissions/resources before live run.",
+      "device_requirements": "Existing authorized resources and applicable model/operation scenario required.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "Not runnable until concrete request/operation limits and resources are authorized."
+      },
+      "authorization_status": "awaiting_authorization",
+      "recovery_plan": "Must establish side-effect/partial outcome/cleanup plan before execution; no blind retry.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "Concrete resources, limits and required authorization not frozen."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_capture.py",
+        "tests/test_sdk_cloud_capture.py",
+        "tests/test_sdk_cloud_capture_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Authorized exact endpoint and known resource, sync/async evidence separately; raw success is not physical completion.",
+        "write": "No write/consumer change until explicit concrete scope and recovery approved; unknown outcome is preserved.",
+        "physical": "Where applicable verify task/produced file/received controlled message/parent-child identity separately; no aggregate hardware claim."
+      },
+      "criterion_assessment": {
+        "resources_and_permission_confirmed": "pending",
+        "bounded_current_commit_execution": "pending",
+        "privacy_whitelisted_evidence": "pending",
+        "business_and_physical_effects_separated": "pending",
+        "scope_and_recovery_completed": "pending"
+      },
+      "resource_state": "awaiting_frozen_resource_and_request_scope"
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1370-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "cloud_capture.task",
+      "capability_ids": [
+        "candidate:domestic:1370:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_capture.task"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "account_role_permissions": "Synthetic credentials only.",
+      "device_requirements": "Synthetic only; no real resource access.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "Zero means real external traffic only; synthetic transport tests separately exercise frozen cells."
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "Offline no remote changes.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "pending_execution",
+      "blockers": [
+        "Implementation and actual test receipts not yet complete."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_capture.py",
+        "tests/test_sdk_cloud_capture.py",
+        "tests/test_sdk_cloud_capture_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_token_position": "pending",
+        "frozen_required_optional_enum_time_validation": "pending",
+        "region_and_validation_before_auth": "pending",
+        "response_raw_unknown_fields_and_exception_identity": "pending",
+        "per_operation_auth_replay_and_request_order": "pending",
+        "diagnostic_on_off_behavior_equivalence": "pending",
+        "known_request_values_redaction_and_payload_hidden": "pending",
+        "closed_timeout_async_cancellation_preserved": "pending",
+        "registry_bindings_cases_and_diagnostics_exact": "pending"
+      },
+      "expected_evidence": {
+        "read": "Exact GET /api/v3/open/cloud/task/{taskId}, token=query; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc1370.",
+        "write": "Synthetic only; read_only=True, assert exact auth/business counts and no other requests.",
+        "physical": "None; no effects or real platform conclusion."
+      },
+      "wire_eval_scope": {
+        "operation_id": "cn.cloud_capture.task",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8
+      }
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1370-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "cloud_capture.task",
+      "capability_ids": [
+        "candidate:domestic:1370:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_capture.task"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "account_role_permissions": "Must freeze actual account/permissions/resources before live run.",
+      "device_requirements": "Existing authorized resources and applicable model/operation scenario required.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard.",
+        "Existing domestic read-only authority persists; resource selection and request limits still must be frozen, not guessed."
+      ],
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "Not runnable until concrete request/operation limits and resources are authorized."
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "Must establish side-effect/partial outcome/cleanup plan before execution; no blind retry.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "Concrete resources, limits and required authorization not frozen."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_capture.py",
+        "tests/test_sdk_cloud_capture.py",
+        "tests/test_sdk_cloud_capture_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Authorized exact endpoint and known resource, sync/async evidence separately; raw success is not physical completion.",
+        "write": "No write/consumer change until explicit concrete scope and recovery approved; unknown outcome is preserved.",
+        "physical": "Where applicable verify task/produced file/received controlled message/parent-child identity separately; no aggregate hardware claim."
+      },
+      "criterion_assessment": {
+        "resources_and_permission_confirmed": "pending",
+        "bounded_current_commit_execution": "pending",
+        "privacy_whitelisted_evidence": "pending",
+        "business_and_physical_effects_separated": "pending",
+        "scope_and_recovery_completed": "pending"
+      },
+      "resource_state": "awaiting_frozen_resource_and_request_scope"
+    },
+    {
+      "case_id": "ACC-CLOUD-CAPTURE-EXAMPLE-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "integration:cloud_capture.explicit_workflow",
+      "capability_ids": [
+        "integration:cloud_capture.explicit_workflow"
+      ],
+      "operation_ids": [
+        "cn.cloud_capture.create_interval_task",
+        "cn.cloud_capture.create_timing_task",
+        "cn.cloud_capture.task"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "risk": "offline_only",
+      "account_role_permissions": "Synthetic credentials only.",
+      "device_requirements": "Synthetic only; no real resource access.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "Zero means real external traffic only; synthetic transport tests separately exercise frozen cells."
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "Offline no remote changes.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "pending_execution",
+      "blockers": [
+        "Implementation and actual test receipts not yet complete."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "examples/cloud_capture.py",
+        "tests/test_example_cloud_capture.py",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Exercise exact common and specific example requirements in SP213, using the real SDK transport path.",
+        "write": "No external side effects in offline tests; live requires scenario-specific authorization.",
+        "physical": "Real controlled platform or device scenario is separate from synthetic CLI/HTTP success."
+      },
+      "criterion_assessment": {
+        "explicit_bounded_sync_async_sdk_flow": "pending",
+        "import_help_no_config_or_io": "pending",
+        "strict_output_privacy": "pending",
+        "no_extra_request_after_error_cancel_close": "pending",
+        "documented_protocol_limits_and_live_evidence_boundary": "pending"
+      }
+    },
+    {
+      "case_id": "ACC-CLOUD-CAPTURE-EXAMPLE-LIVE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "integration:cloud_capture.explicit_workflow",
+      "capability_ids": [
+        "integration:cloud_capture.explicit_workflow"
+      ],
+      "operation_ids": [
+        "cn.cloud_capture.create_interval_task",
+        "cn.cloud_capture.create_timing_task",
+        "cn.cloud_capture.task"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "risk": "write_bounded",
+      "account_role_permissions": "Must freeze actual account/permissions/resources before live run.",
+      "device_requirements": "Existing authorized resources and applicable model/operation scenario required.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "Not runnable until concrete request/operation limits and resources are authorized."
+      },
+      "authorization_status": "awaiting_authorization",
+      "recovery_plan": "Must establish side-effect/partial outcome/cleanup plan before execution; no blind retry.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "Concrete resources, limits and required authorization not frozen."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "examples/cloud_capture.py",
+        "tests/test_example_cloud_capture.py",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Exercise exact common and specific example requirements in SP213, using the real SDK transport path.",
+        "write": "No external side effects in offline tests; live requires scenario-specific authorization.",
+        "physical": "Real controlled platform or device scenario is separate from synthetic CLI/HTTP success."
+      },
+      "criterion_assessment": {
+        "explicit_bounded_sync_async_sdk_flow": "pending",
+        "import_help_no_config_or_io": "pending",
+        "strict_output_privacy": "pending",
+        "no_extra_request_after_error_cancel_close": "pending",
+        "documented_protocol_limits_and_live_evidence_boundary": "pending"
+      },
+      "resource_state": "awaiting_frozen_resource_and_request_scope"
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-983-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "message_subscriptions.create_consumer",
+      "capability_ids": [
+        "candidate:domestic:983:d0"
+      ],
+      "operation_ids": [
+        "cn.message_subscriptions.create_consumer"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "account_role_permissions": "Must freeze actual account/permissions/resources before live run.",
+      "device_requirements": "Existing authorized resources and applicable model/operation scenario required.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "Not runnable until concrete request/operation limits and resources are authorized."
+      },
+      "authorization_status": "awaiting_authorization",
+      "recovery_plan": "Must establish side-effect/partial outcome/cleanup plan before execution; no blind retry.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "Concrete resources, limits and required authorization not frozen."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/message_subscriptions.py",
+        "tests/test_sdk_message_subscriptions.py",
+        "tests/test_sdk_message_subscriptions_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Authorized exact endpoint and known resource, sync/async evidence separately; raw success is not physical completion.",
+        "write": "No write/consumer change until explicit concrete scope and recovery approved; unknown outcome is preserved.",
+        "physical": "Where applicable verify task/produced file/received controlled message/parent-child identity separately; no aggregate hardware claim."
+      },
+      "criterion_assessment": {
+        "resources_and_permission_confirmed": "pending",
+        "bounded_current_commit_execution": "pending",
+        "privacy_whitelisted_evidence": "pending",
+        "business_and_physical_effects_separated": "pending",
+        "scope_and_recovery_completed": "pending"
+      },
+      "resource_state": "awaiting_frozen_resource_and_request_scope"
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-984-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "message_subscriptions.consume",
+      "capability_ids": [
+        "candidate:domestic:984:d0"
+      ],
+      "operation_ids": [
+        "cn.message_subscriptions.consume"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "account_role_permissions": "Must freeze actual account/permissions/resources before live run.",
+      "device_requirements": "Existing authorized resources and applicable model/operation scenario required.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "Not runnable until concrete request/operation limits and resources are authorized."
+      },
+      "authorization_status": "awaiting_authorization",
+      "recovery_plan": "Must establish side-effect/partial outcome/cleanup plan before execution; no blind retry.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "Concrete resources, limits and required authorization not frozen."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/message_subscriptions.py",
+        "tests/test_sdk_message_subscriptions.py",
+        "tests/test_sdk_message_subscriptions_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Authorized exact endpoint and known resource, sync/async evidence separately; raw success is not physical completion.",
+        "write": "No write/consumer change until explicit concrete scope and recovery approved; unknown outcome is preserved.",
+        "physical": "Where applicable verify task/produced file/received controlled message/parent-child identity separately; no aggregate hardware claim."
+      },
+      "criterion_assessment": {
+        "resources_and_permission_confirmed": "pending",
+        "bounded_current_commit_execution": "pending",
+        "privacy_whitelisted_evidence": "pending",
+        "business_and_physical_effects_separated": "pending",
+        "scope_and_recovery_completed": "pending"
+      },
+      "resource_state": "awaiting_frozen_resource_and_request_scope"
+    },
+    {
+      "case_id": "ACC-LEGACY-MESSAGE-EXAMPLE-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "integration:message_subscriptions.bounded_consumer",
+      "capability_ids": [
+        "integration:message_subscriptions.bounded_consumer"
+      ],
+      "operation_ids": [
+        "cn.message_subscriptions.create_consumer",
+        "cn.message_subscriptions.consume"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "risk": "offline_only",
+      "account_role_permissions": "Synthetic credentials only.",
+      "device_requirements": "Synthetic only; no real resource access.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "Zero means real external traffic only; synthetic transport tests separately exercise frozen cells."
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "Offline no remote changes.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "pending_execution",
+      "blockers": [
+        "Implementation and actual test receipts not yet complete."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "examples/message_subscriptions.py",
+        "tests/test_example_message_subscriptions.py",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Exercise exact common and specific example requirements in SP213, using the real SDK transport path.",
+        "write": "No external side effects in offline tests; live requires scenario-specific authorization.",
+        "physical": "Real controlled platform or device scenario is separate from synthetic CLI/HTTP success."
+      },
+      "criterion_assessment": {
+        "explicit_bounded_sync_async_sdk_flow": "pending",
+        "import_help_no_config_or_io": "pending",
+        "strict_output_privacy": "pending",
+        "no_extra_request_after_error_cancel_close": "pending",
+        "documented_protocol_limits_and_live_evidence_boundary": "pending"
+      }
+    },
+    {
+      "case_id": "ACC-LEGACY-MESSAGE-EXAMPLE-LIVE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "integration:message_subscriptions.bounded_consumer",
+      "capability_ids": [
+        "integration:message_subscriptions.bounded_consumer"
+      ],
+      "operation_ids": [
+        "cn.message_subscriptions.create_consumer",
+        "cn.message_subscriptions.consume"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "risk": "write_bounded",
+      "account_role_permissions": "Must freeze actual account/permissions/resources before live run.",
+      "device_requirements": "Existing authorized resources and applicable model/operation scenario required.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "Not runnable until concrete request/operation limits and resources are authorized."
+      },
+      "authorization_status": "awaiting_authorization",
+      "recovery_plan": "Must establish side-effect/partial outcome/cleanup plan before execution; no blind retry.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "Concrete resources, limits and required authorization not frozen."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "examples/message_subscriptions.py",
+        "tests/test_example_message_subscriptions.py",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Exercise exact common and specific example requirements in SP213, using the real SDK transport path.",
+        "write": "No external side effects in offline tests; live requires scenario-specific authorization.",
+        "physical": "Real controlled platform or device scenario is separate from synthetic CLI/HTTP success."
+      },
+      "criterion_assessment": {
+        "explicit_bounded_sync_async_sdk_flow": "pending",
+        "import_help_no_config_or_io": "pending",
+        "strict_output_privacy": "pending",
+        "no_extra_request_after_error_cancel_close": "pending",
+        "documented_protocol_limits_and_live_evidence_boundary": "pending"
+      },
+      "resource_state": "awaiting_frozen_resource_and_request_scope"
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1356-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "hubs.list_subdevices",
+      "capability_ids": [
+        "candidate:domestic:1356:d0"
+      ],
+      "operation_ids": [
+        "cn.hubs.list_subdevices"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "account_role_permissions": "Synthetic credentials only.",
+      "device_requirements": "Synthetic only; no real resource access.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "Zero means real external traffic only; synthetic transport tests separately exercise frozen cells."
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "Offline no remote changes.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "pending_execution",
+      "blockers": [
+        "Implementation and actual test receipts not yet complete."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/hubs.py",
+        "tests/test_sdk_hubs.py",
+        "tests/test_sdk_hubs_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_token_position": "pending",
+        "frozen_required_optional_enum_time_validation": "pending",
+        "region_and_validation_before_auth": "pending",
+        "response_raw_unknown_fields_and_exception_identity": "pending",
+        "per_operation_auth_replay_and_request_order": "pending",
+        "diagnostic_on_off_behavior_equivalence": "pending",
+        "known_request_values_redaction_and_payload_hidden": "pending",
+        "closed_timeout_async_cancellation_preserved": "pending",
+        "registry_bindings_cases_and_diagnostics_exact": "pending"
+      },
+      "expected_evidence": {
+        "read": "Exact POST /api/lapp/hub/device/sub/list, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc1356.",
+        "write": "Synthetic only; read_only=True, assert exact auth/business counts and no other requests.",
+        "physical": "None; no effects or real platform conclusion."
+      },
+      "wire_eval_scope": {
+        "operation_id": "cn.hubs.list_subdevices",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8
+      }
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1356-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "hubs.list_subdevices",
+      "capability_ids": [
+        "candidate:domestic:1356:d0"
+      ],
+      "operation_ids": [
+        "cn.hubs.list_subdevices"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "account_role_permissions": "Must freeze actual account/permissions/resources before live run.",
+      "device_requirements": "Existing authorized resources and applicable model/operation scenario required.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard.",
+        "Existing domestic read-only authority persists; resource selection and request limits still must be frozen, not guessed."
+      ],
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "Not runnable until concrete request/operation limits and resources are authorized."
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "Must establish side-effect/partial outcome/cleanup plan before execution; no blind retry.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "Concrete resources, limits and required authorization not frozen."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/hubs.py",
+        "tests/test_sdk_hubs.py",
+        "tests/test_sdk_hubs_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Authorized exact endpoint and known resource, sync/async evidence separately; raw success is not physical completion.",
+        "write": "No write/consumer change until explicit concrete scope and recovery approved; unknown outcome is preserved.",
+        "physical": "Where applicable verify task/produced file/received controlled message/parent-child identity separately; no aggregate hardware claim."
+      },
+      "criterion_assessment": {
+        "resources_and_permission_confirmed": "pending",
+        "bounded_current_commit_execution": "pending",
+        "privacy_whitelisted_evidence": "pending",
+        "business_and_physical_effects_separated": "pending",
+        "scope_and_recovery_completed": "pending"
+      },
+      "resource_state": "awaiting_frozen_resource_and_request_scope"
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1357-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "hubs.subdevice_info",
+      "capability_ids": [
+        "candidate:domestic:1357:d0"
+      ],
+      "operation_ids": [
+        "cn.hubs.subdevice_info"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "account_role_permissions": "Synthetic credentials only.",
+      "device_requirements": "Synthetic only; no real resource access.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "Zero means real external traffic only; synthetic transport tests separately exercise frozen cells."
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "Offline no remote changes.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "pending_execution",
+      "blockers": [
+        "Implementation and actual test receipts not yet complete."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/hubs.py",
+        "tests/test_sdk_hubs.py",
+        "tests/test_sdk_hubs_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_token_position": "pending",
+        "frozen_required_optional_enum_time_validation": "pending",
+        "region_and_validation_before_auth": "pending",
+        "response_raw_unknown_fields_and_exception_identity": "pending",
+        "per_operation_auth_replay_and_request_order": "pending",
+        "diagnostic_on_off_behavior_equivalence": "pending",
+        "known_request_values_redaction_and_payload_hidden": "pending",
+        "closed_timeout_async_cancellation_preserved": "pending",
+        "registry_bindings_cases_and_diagnostics_exact": "pending"
+      },
+      "expected_evidence": {
+        "read": "Exact POST /api/lapp/hub/device/sub/info, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc1357.",
+        "write": "Synthetic only; read_only=True, assert exact auth/business counts and no other requests.",
+        "physical": "None; no effects or real platform conclusion."
+      },
+      "wire_eval_scope": {
+        "operation_id": "cn.hubs.subdevice_info",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8
+      }
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1357-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "hubs.subdevice_info",
+      "capability_ids": [
+        "candidate:domestic:1357:d0"
+      ],
+      "operation_ids": [
+        "cn.hubs.subdevice_info"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "account_role_permissions": "Must freeze actual account/permissions/resources before live run.",
+      "device_requirements": "Existing authorized resources and applicable model/operation scenario required.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard.",
+        "Existing domestic read-only authority persists; resource selection and request limits still must be frozen, not guessed."
+      ],
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "Not runnable until concrete request/operation limits and resources are authorized."
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "Must establish side-effect/partial outcome/cleanup plan before execution; no blind retry.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "Concrete resources, limits and required authorization not frozen."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/hubs.py",
+        "tests/test_sdk_hubs.py",
+        "tests/test_sdk_hubs_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Authorized exact endpoint and known resource, sync/async evidence separately; raw success is not physical completion.",
+        "write": "No write/consumer change until explicit concrete scope and recovery approved; unknown outcome is preserved.",
+        "physical": "Where applicable verify task/produced file/received controlled message/parent-child identity separately; no aggregate hardware claim."
+      },
+      "criterion_assessment": {
+        "resources_and_permission_confirmed": "pending",
+        "bounded_current_commit_execution": "pending",
+        "privacy_whitelisted_evidence": "pending",
+        "business_and_physical_effects_separated": "pending",
+        "scope_and_recovery_completed": "pending"
+      },
+      "resource_state": "awaiting_frozen_resource_and_request_scope"
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1358-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "hubs.channels",
+      "capability_ids": [
+        "candidate:domestic:1358:d0"
+      ],
+      "operation_ids": [
+        "cn.hubs.channels"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "account_role_permissions": "Synthetic credentials only.",
+      "device_requirements": "Synthetic only; no real resource access.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "Zero means real external traffic only; synthetic transport tests separately exercise frozen cells."
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "Offline no remote changes.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "pending_execution",
+      "blockers": [
+        "Implementation and actual test receipts not yet complete."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/hubs.py",
+        "tests/test_sdk_hubs.py",
+        "tests/test_sdk_hubs_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_token_position": "pending",
+        "frozen_required_optional_enum_time_validation": "pending",
+        "region_and_validation_before_auth": "pending",
+        "response_raw_unknown_fields_and_exception_identity": "pending",
+        "per_operation_auth_replay_and_request_order": "pending",
+        "diagnostic_on_off_behavior_equivalence": "pending",
+        "known_request_values_redaction_and_payload_hidden": "pending",
+        "closed_timeout_async_cancellation_preserved": "pending",
+        "registry_bindings_cases_and_diagnostics_exact": "pending"
+      },
+      "expected_evidence": {
+        "read": "Exact POST /api/lapp/hub/device/camera/list, token=form; validation and response contract frozen at docs/coordination/SP213/admission.json operations doc1358.",
+        "write": "Synthetic only; read_only=True, assert exact auth/business counts and no other requests.",
+        "physical": "None; no effects or real platform conclusion."
+      },
+      "wire_eval_scope": {
+        "operation_id": "cn.hubs.channels",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8
+      }
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1358-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "hubs.channels",
+      "capability_ids": [
+        "candidate:domestic:1358:d0"
+      ],
+      "operation_ids": [
+        "cn.hubs.channels"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "account_role_permissions": "Must freeze actual account/permissions/resources before live run.",
+      "device_requirements": "Existing authorized resources and applicable model/operation scenario required.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard.",
+        "Existing domestic read-only authority persists; resource selection and request limits still must be frozen, not guessed."
+      ],
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "Not runnable until concrete request/operation limits and resources are authorized."
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "Must establish side-effect/partial outcome/cleanup plan before execution; no blind retry.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "Concrete resources, limits and required authorization not frozen."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/hubs.py",
+        "tests/test_sdk_hubs.py",
+        "tests/test_sdk_hubs_behaviour.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "evals/contracts/cases.json",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Authorized exact endpoint and known resource, sync/async evidence separately; raw success is not physical completion.",
+        "write": "No write/consumer change until explicit concrete scope and recovery approved; unknown outcome is preserved.",
+        "physical": "Where applicable verify task/produced file/received controlled message/parent-child identity separately; no aggregate hardware claim."
+      },
+      "criterion_assessment": {
+        "resources_and_permission_confirmed": "pending",
+        "bounded_current_commit_execution": "pending",
+        "privacy_whitelisted_evidence": "pending",
+        "business_and_physical_effects_separated": "pending",
+        "scope_and_recovery_completed": "pending"
+      },
+      "resource_state": "awaiting_frozen_resource_and_request_scope"
+    },
+    {
+      "case_id": "ACC-HUB-DISCOVERY-EXAMPLE-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "integration:hubs.explicit_discovery",
+      "capability_ids": [
+        "integration:hubs.explicit_discovery"
+      ],
+      "operation_ids": [
+        "cn.hubs.list_subdevices",
+        "cn.hubs.subdevice_info",
+        "cn.hubs.channels"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "risk": "offline_only",
+      "account_role_permissions": "Synthetic credentials only.",
+      "device_requirements": "Synthetic only; no real resource access.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard."
+      ],
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "Zero means real external traffic only; synthetic transport tests separately exercise frozen cells."
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "Offline no remote changes.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "pending_execution",
+      "blockers": [
+        "Implementation and actual test receipts not yet complete."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "examples/hub_discovery.py",
+        "tests/test_example_hub_discovery.py",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Exercise exact common and specific example requirements in SP213, using the real SDK transport path.",
+        "write": "No external side effects in offline tests; live requires scenario-specific authorization.",
+        "physical": "Real controlled platform or device scenario is separate from synthetic CLI/HTTP success."
+      },
+      "criterion_assessment": {
+        "explicit_bounded_sync_async_sdk_flow": "pending",
+        "import_help_no_config_or_io": "pending",
+        "strict_output_privacy": "pending",
+        "no_extra_request_after_error_cancel_close": "pending",
+        "documented_protocol_limits_and_live_evidence_boundary": "pending"
+      }
+    },
+    {
+      "case_id": "ACC-HUB-DISCOVERY-EXAMPLE-LIVE-001",
+      "tier": "required",
+      "case_origin": "SP213_frozen_before_implementation",
+      "capability_selector": "integration:hubs.explicit_discovery",
+      "capability_ids": [
+        "integration:hubs.explicit_discovery"
+      ],
+      "operation_ids": [
+        "cn.hubs.list_subdevices",
+        "cn.hubs.subdevice_info",
+        "cn.hubs.channels"
+      ],
+      "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "risk": "read_only",
+      "account_role_permissions": "Must freeze actual account/permissions/resources before live run.",
+      "device_requirements": "Existing authorized resources and applicable model/operation scenario required.",
+      "preconditions": [
+        "G0 reused, SP213 G1 and exact input version recorded before code.",
+        "No real config/examples in Claude input or fixtures; default test network guard.",
+        "Existing domestic read-only authority persists; resource selection and request limits still must be frozen, not guessed."
+      ],
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "Not runnable until concrete request/operation limits and resources are authorized."
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "Must establish side-effect/partial outcome/cleanup plan before execution; no blind retry.",
+      "source_refs": [
+        "docs/coordination/SP213/admission.json"
+      ],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "Concrete resources, limits and required authorization not frozen."
+      ],
+      "limitations": [
+        "Offline proves conformance only, not platform/hardware/permissions or full product completion."
+      ],
+      "code_artifact_evidence_refs": [
+        "examples/hub_discovery.py",
+        "tests/test_example_hub_discovery.py",
+        "docs/coordination/SP213/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "Exercise exact common and specific example requirements in SP213, using the real SDK transport path.",
+        "write": "No external side effects in offline tests; live requires scenario-specific authorization.",
+        "physical": "Real controlled platform or device scenario is separate from synthetic CLI/HTTP success."
+      },
+      "criterion_assessment": {
+        "explicit_bounded_sync_async_sdk_flow": "pending",
+        "import_help_no_config_or_io": "pending",
+        "strict_output_privacy": "pending",
+        "no_extra_request_after_error_cancel_close": "pending",
+        "documented_protocol_limits_and_live_evidence_boundary": "pending"
+      },
+      "resource_state": "awaiting_frozen_resource_and_request_scope"
     }
   ],
   "release_gates": [
