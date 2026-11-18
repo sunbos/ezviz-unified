@@ -56,6 +56,8 @@
 .venv/bin/python -m tools.live.verify_example_clis --prompt
 ```
 
+同步与异步国内诊断校验器及本六个示例 CLI 验收在 `SSLKEYLOGFILE` 为非空值时，会在创建真实 HTTP transport 之前直接拒绝——0 次请求且不生成密钥日志文件，调用方可在自己的终端执行 `unset SSLKEYLOGFILE` 后再运行。同一 HTTP 防护还会在后续请求发出前拦截服务器下发的 cookie，但这不承诺其他 SDK 客户端或命令具有相同的插桩边界。
+
 - `--prompt` 通过本机终端隐藏输入 AppKey 和 AppSecret。
 - 启动时 stderr 会打印范围提示，确认本次仅为只读巡检后再继续。
 - 工具依次执行六个现有示例的原始模块入口。每个入口各自创建客户端，只读国内普通设备。
