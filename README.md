@@ -6,7 +6,7 @@
 
 当前为开发中的 `0.1.0a1`：发行名 `ezviz-unified`，导入名 `ezviz_unified`，要求 Python 3.12+，仓库为 [sunbos/ezviz-unified](https://github.com/sunbos/ezviz-unified)，尚未发布到 PyPI。已有同步/异步客户端、区域认证、设备查询和诊断脱敏；各业务域按[实施路线](docs/plans/2026-11-14-delivery-roadmap.md)逐域推进。
 
-本地录像、云台、巡航、诊断、设备开关、管理、图像参数、视频配置、播放地址、抓拍、告警、云存储、统一存储、RAM子账户、维护、补光、加密/布撤防、单步确权、OTAP物模型与B1/B2账户托管接口已加入，国内/海外共用入口并保留协议差异（OTAP与账户托管目前仅国内有据）；当前登记数量、地区分布与验证状态见[机器生成的覆盖清单](contracts/coverage.json)，真实支持情况另列。
+本地录像、云台、巡航、诊断、设备开关、管理、图像参数、视频配置、播放地址、抓拍、告警、云存储、统一存储、云录制1.0文件与云点播、RAM子账户、维护、补光、加密/布撤防、单步确权、OTAP物模型与B1/B2账户托管接口已加入，国内/海外共用入口并保留协议差异（云录制1.0文件操作与云点播VOD仅国内；OTAP与账户托管目前仅国内有据）；当前登记数量、地区分布与验证状态见[机器生成的覆盖清单](contracts/coverage.json)，真实支持情况另列。
 
 产品能力范围的权威登记见 [docs/capabilities/README.md](docs/capabilities/README.md)：按 `capability_id` → `acceptance_case_refs` 定位验收证据，并区分 `implementation.status`、`review`、`result`、`freeze_state` 与 `requirement=required` 口径；登记数量与 wire 证据不代表覆盖率或产品级验收通过。
 
@@ -56,6 +56,10 @@ with Client(
 ## 云录制2.0
 
 云录制2.0单列为`client.cloud_recording`，提供空间/一次性计划/任务查询、录像日历、片段与HLS信息、模板列表等10个只读入口，另有一次性计划创建/更新/停止/删除与即时计划创建共5个写入口，目前仅国内。时间使用整秒naive datetime；不自动翻页、下载、轮询或串联写操作；写接口需显式调用，可能创建真实录制并消耗套餐。详见[云录制约束](docs/research/2026-11-14-cloud-recording.md)与[计划管理写接口](docs/research/2026-11-15-cloud-recording-plans.md)，不等同于设备云存储套餐或本地录像。
+
+## 云录制1.0与云点播
+
+旧版云录制1.0文件操作单列为`client.cloud_recording_v1`，仅国内：`unfreeze_file(project_id, file_id)`触发归档解冻（写操作，不自动重放；仅HTTP成功且业务meta.code=200的响应证明触发已被受理，不证明解冻完成——HTTP 200本身可能携带业务失败，不能单独据此推导）、`file_info(project_id, file_id)`查询单个文件详情、`download_urls(project_id, file_id, content_type=..., expire_seconds=...)`获取官方下载/播放地址（不下载媒体）。云点播文件列表单列为`client.vod`，`files(file_node_ids=None, space_id=..., space_name=...)`至少需一个选择条件，仅国内。两套接口的`projectId`/`fileId`/`fileNodeId`互不相同，不做映射；详见[云录制1.0与VOD说明](docs/research/2026-11-18-cloud-recording-v1-and-vod.md)，本批接口均未做真实调用验证。
 
 ## 播放地址与抓拍
 

@@ -27316,6 +27316,728 @@
         "离线/loopback通过不升级为平台或设备事件验收；unsigned投递和消息消费/确认等其它协议仍保留。"
       ],
       "resource_state": "user_confirmed_no_bound_device"
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5341-D0-OFFLINE-001",
+      "tier": "required",
+      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
+      "case_origin": "cloud_file_cohort_frozen_before_implementation",
+      "capability_selector": "cloud_recording_v1.unfreeze_file",
+      "capability_ids": [
+        "candidate:domestic:5341:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.unfreeze_file"
+      ],
+      "scope_revision": "2026-11-18-r11-cloud-file-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "仅合成凭据；不核定或连接真实账号。",
+      "device_requirements": "不连接真实设备/文件/空间。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "G0沿用SP030，G1与源审卡/架构hash固定；实现和测试不得凭候选自述通过。",
+        "默认网络guard，全部fixture合成；SDK测试不import harness/docs/data。",
+        "冻结方法与参数规则见本case expected_evidence及admission条目；接口、诊断、contract/binding/wire case同步入表。"
+      ],
+      "expected_evidence": {
+        "read": "POST /api/open/cloud/v1/file/unfreeze；平铺form accessToken/projectId/fileId；Content-Type application/x-www-form-urlencoded；token只在form；read_only=False。 project_id按冻结SDK选择ASCII word1..32；file_id常规ASCII word1..32或E1 opaque前缀且总长<=128，E1本身有效且不拒$；所有文本非空白且UTF-8可编码；meta整数200/data null/raw原样；即使幂等也不重放，不查询/轮询/取URL。",
+        "write": "真实写入为零；按read_only语义核对invalid-token最多一次恢复或写操作零重放；普通网络/HTTP错误不重放。",
+        "physical": "不证明真实媒体可访问、归档解冻完成或硬件效果；返回原对象和异常identity，diag on/off及关闭/超时/取消保持。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "零值仅指真实外部请求/业务；四个合成wire场景×sync/async，另有冻结边界/错误/诊断单元。"
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线不改变远端资源；可回退本批独立文件与明确共享文件增量。",
+      "source_refs": [
+        "docs/coordination/SP122/admission.json#/entries/0",
+        "portal-2026-11-17:domestic:5341",
+        "portal-2026-11-17:domestic:1380"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_recording_v1.py",
+        "tests/test_sdk_cloud_recording_v1.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/errors.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "contracts/source-issues.json",
+        "evals/contracts/cases.json",
+        "tests/test_harness_diagnostic_coverage.py",
+        "README.md",
+        "docs/research/2026-11-18-cloud-recording-v1-and-vod.md",
+        "docs/validation/2026-11-18-cloud-files/checks.json"
+      ],
+      "wire_eval_scope": {
+        "operation_id": "cn.cloud_recording_v1.unfreeze_file",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8,
+        "expectation_rule": "按现有driver：鉴权读auth_fault为2业务/2认证并成功；写auth_fault为1业务/1认证并抛原认证异常。其余场景沿既有严格响应/错误语义。"
+      },
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_token_position": "met",
+        "types_bounds_none_and_utf8_before_auth": "met",
+        "domestic_gate_before_provider_factory_http": "met",
+        "raw_data_unknown_fields_and_identity_preserved": "met",
+        "declared_read_only_retry_and_error_layering": "met",
+        "diagnostic_on_off_return_exception_wire_order_parity": "met",
+        "known_id_token_redaction_and_payload_hidden": "met",
+        "closed_timeout_cancellation_semantics": "met",
+        "registry_bindings_cases_and_exact_diagnostic_counts": "met"
+      },
+      "result": "recorded_evidence",
+      "resource_state": "not_applicable (offline only; no real resources)",
+      "blockers": [],
+      "limitations": [
+        "synthetic conformance不是live验收；ApiResponse保留data/raw不代表媒体或解冻已验证。",
+        "已知请求值脱敏不等于任意自由错误message的未知URL过滤。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "b251b11389405075ba30838cf9b2a594e1477ca6",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-cloud-files/checks.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5341-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "cloud_file_cohort_live_followup_not_executable",
+      "capability_selector": "cloud_recording_v1.unfreeze_file",
+      "capability_ids": [
+        "candidate:domestic:5341:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.unfreeze_file"
+      ],
+      "scope_revision": "2026-11-18-r11-cloud-file-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic: https://open.ys7.com",
+      "account_role_permissions": "需要有权限accessToken；具体账户/套餐和费用未由来源明确，待资源确认。",
+      "device_requirements": "仅现成且获授权的1.0项目/文件或VOD节点/空间；不为验收创建/上传资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "先完成该能力OFFLINE验收并固定实际代码commit。",
+        "执行前冻结真实资源类别、账号权限、模式、HTTP/认证/重放请求总上限、逻辑操作数、超时及回执字段。",
+        "不把现有设备只读授权泛化为本批云文件资源授权；不自动跨入口串联、轮询或访问媒体。"
+      ],
+      "expected_evidence": {
+        "read": "在另行授权的现成1.0归档文件上核对一次明确取回触发和原始业务语义；触发成功不等于完成。完成判据需先补足独立来源/实测证据，不能由status=0、HTTP/meta200或URL存在推导。",
+        "write": "仅具体授权的归档取回；记录文件范围/次数/费用边界和不可立即撤销或恢复的限制。未取得这些边界不得执行。",
+        "physical": "不要求设备物理动作；服务取回完成与媒体访问是独立证据层，未知完成判据不能记为成功。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "资源与执行窗口未冻结，当前不可运行；包含可能认证/允许的读重放成本。"
+      },
+      "authorization_status": "awaiting_authorization",
+      "recovery_plan": "源未给撤回取回/回滚合同；执行前核定费用、保留期及恢复限制，不编造自动撤销。",
+      "source_refs": [
+        "docs/coordination/SP122/admission.json#/entries/0",
+        "portal-2026-11-17:domestic:5341",
+        "portal-2026-11-17:domestic:1380"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "frozen_resource_permission_and_request_bounds": "pending",
+        "fresh_matching_sdk_code_and_response_structure": "pending",
+        "bounded_receipt_no_identifiers_payload_or_media_urls": "pending",
+        "source_limitations_not_promoted_to_success": "pending"
+      },
+      "result": "awaiting_authorization",
+      "resource_state": "unknown_awaiting_configuration_check",
+      "blockers": [
+        "现成资源/权限与请求上限未冻结。",
+        "未取得具体写范围、次数与费用/恢复限制授权；完成判据仍待补证。"
+      ],
+      "limitations": [
+        "本case当前无执行证据；不继承已有设备、离线或历史云业务结果。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1375-D0-OFFLINE-001",
+      "tier": "required",
+      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
+      "case_origin": "cloud_file_cohort_frozen_before_implementation",
+      "capability_selector": "cloud_recording_v1.file_info",
+      "capability_ids": [
+        "candidate:domestic:1375:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.file_info"
+      ],
+      "scope_revision": "2026-11-18-r11-cloud-file-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "仅合成凭据；不核定或连接真实账号。",
+      "device_requirements": "不连接真实设备/文件/空间。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "G0沿用SP030，G1与源审卡/架构hash固定；实现和测试不得凭候选自述通过。",
+        "默认网络guard，全部fixture合成；SDK测试不import harness/docs/data。",
+        "冻结方法与参数规则见本case expected_evidence及admission条目；接口、诊断、contract/binding/wire case同步入表。"
+      ],
+      "expected_evidence": {
+        "read": "GET /api/open/cloud/v1/file；query accessToken/projectId/fileId；token只在query；无body/不注入Content-Type；read_only=True。 project_id仅非空白UTF-8 str，不套32或ASCII上限；file_id按已冻结1.0规则；fileSize bytes/duration seconds原样，expireTime String不parse；合成未知unfreezeTime仅证明保留，不产生ready属性；不自动unfreeze/poll/下载。",
+        "write": "真实写入为零；按read_only语义核对invalid-token最多一次恢复或写操作零重放；普通网络/HTTP错误不重放。",
+        "physical": "不证明真实媒体可访问、归档解冻完成或硬件效果；返回原对象和异常identity，diag on/off及关闭/超时/取消保持。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "零值仅指真实外部请求/业务；四个合成wire场景×sync/async，另有冻结边界/错误/诊断单元。"
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线不改变远端资源；可回退本批独立文件与明确共享文件增量。",
+      "source_refs": [
+        "docs/coordination/SP122/admission.json#/entries/1",
+        "portal-2026-11-17:domestic:1375"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_recording_v1.py",
+        "tests/test_sdk_cloud_recording_v1.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/errors.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "contracts/source-issues.json",
+        "evals/contracts/cases.json",
+        "tests/test_harness_diagnostic_coverage.py",
+        "README.md",
+        "docs/research/2026-11-18-cloud-recording-v1-and-vod.md",
+        "docs/validation/2026-11-18-cloud-files/checks.json"
+      ],
+      "wire_eval_scope": {
+        "operation_id": "cn.cloud_recording_v1.file_info",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8,
+        "expectation_rule": "按现有driver：鉴权读auth_fault为2业务/2认证并成功；写auth_fault为1业务/1认证并抛原认证异常。其余场景沿既有严格响应/错误语义。"
+      },
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_token_position": "met",
+        "types_bounds_none_and_utf8_before_auth": "met",
+        "domestic_gate_before_provider_factory_http": "met",
+        "raw_data_unknown_fields_and_identity_preserved": "met",
+        "declared_read_only_retry_and_error_layering": "met",
+        "diagnostic_on_off_return_exception_wire_order_parity": "met",
+        "known_id_token_redaction_and_payload_hidden": "met",
+        "closed_timeout_cancellation_semantics": "met",
+        "registry_bindings_cases_and_exact_diagnostic_counts": "met"
+      },
+      "result": "recorded_evidence",
+      "resource_state": "not_applicable (offline only; no real resources)",
+      "blockers": [],
+      "limitations": [
+        "synthetic conformance不是live验收；ApiResponse保留data/raw不代表媒体或解冻已验证。",
+        "已知请求值脱敏不等于任意自由错误message的未知URL过滤。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "b251b11389405075ba30838cf9b2a594e1477ca6",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-cloud-files/checks.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1375-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "cloud_file_cohort_live_followup_not_executable",
+      "capability_selector": "cloud_recording_v1.file_info",
+      "capability_ids": [
+        "candidate:domestic:1375:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.file_info"
+      ],
+      "scope_revision": "2026-11-18-r11-cloud-file-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic: https://open.ys7.com",
+      "account_role_permissions": "需要有权限accessToken；具体账户/套餐和费用未由来源明确，待资源确认。",
+      "device_requirements": "仅现成且获授权的1.0项目/文件或VOD节点/空间；不为验收创建/上传资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "先完成该能力OFFLINE验收并固定实际代码commit。",
+        "执行前冻结真实资源类别、账号权限、模式、HTTP/认证/重放请求总上限、逻辑操作数、超时及回执字段。",
+        "不把现有设备只读授权泛化为本批云文件资源授权；不自动跨入口串联、轮询或访问媒体。"
+      ],
+      "expected_evidence": {
+        "read": "在已授权现成1.0项目/文件上有界查询；确认meta.code类型、data根与字段类型并保留额外字段；只保存结构/计数/布尔结果，不保存资源ID或响应值，不判断解冻完成。",
+        "write": "无远端写操作。",
+        "physical": "不要求设备物理动作；服务取回完成与媒体访问是独立证据层，未知完成判据不能记为成功。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "资源与执行窗口未冻结，当前不可运行；包含可能认证/允许的读重放成本。"
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "只读，不改资源；明确不访问返回媒体URL。",
+      "source_refs": [
+        "docs/coordination/SP122/admission.json#/entries/1",
+        "portal-2026-11-17:domestic:1375"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "frozen_resource_permission_and_request_bounds": "pending",
+        "fresh_matching_sdk_code_and_response_structure": "pending",
+        "bounded_receipt_no_identifiers_payload_or_media_urls": "pending",
+        "source_limitations_not_promoted_to_success": "pending"
+      },
+      "result": "awaiting_resource_confirmation",
+      "resource_state": "unknown_awaiting_configuration_check",
+      "blockers": [
+        "现成资源/权限与请求上限未冻结。"
+      ],
+      "limitations": [
+        "本case当前无执行证据；不继承已有设备、离线或历史云业务结果。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1377-D0-OFFLINE-001",
+      "tier": "required",
+      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
+      "case_origin": "cloud_file_cohort_frozen_before_implementation",
+      "capability_selector": "cloud_recording_v1.download_urls",
+      "capability_ids": [
+        "candidate:domestic:1377:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.download_urls"
+      ],
+      "scope_revision": "2026-11-18-r11-cloud-file-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "仅合成凭据；不核定或连接真实账号。",
+      "device_requirements": "不连接真实设备/文件/空间。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "G0沿用SP030，G1与源审卡/架构hash固定；实现和测试不得凭候选自述通过。",
+        "默认网络guard，全部fixture合成；SDK测试不import harness/docs/data。",
+        "冻结方法与参数规则见本case expected_evidence及admission条目；接口、诊断、contract/binding/wire case同步入表。"
+      ],
+      "expected_evidence": {
+        "read": "GET /api/service/cloudrecord/file/official/download；Header accessToken；query projectId/fileId/可选contentType/expireSeconds；无body/不注入Content-Type；read_only=True。 project_id ASCII word1..32，file_id按1.0规则并query round-trip保留$；content_type非空白UTF-8 str原样透传，包含未列合成值，非封闭五值enum；expire_seconds int非bool，60..604800，None省略，不注入7200；data.expire单位unknown不换算；urls空/非空原样，不转ready或NotReady。",
+        "write": "真实写入为零；按read_only语义核对invalid-token最多一次恢复或写操作零重放；普通网络/HTTP错误不重放。",
+        "physical": "不证明真实媒体可访问、归档解冻完成或硬件效果；返回原对象和异常identity，diag on/off及关闭/超时/取消保持。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "零值仅指真实外部请求/业务；四个合成wire场景×sync/async，另有冻结边界/错误/诊断单元。"
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线不改变远端资源；可回退本批独立文件与明确共享文件增量。",
+      "source_refs": [
+        "docs/coordination/SP122/admission.json#/entries/2",
+        "portal-2026-11-17:domestic:1377"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_recording_v1.py",
+        "tests/test_sdk_cloud_recording_v1.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/errors.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "contracts/source-issues.json",
+        "evals/contracts/cases.json",
+        "tests/test_harness_diagnostic_coverage.py",
+        "README.md",
+        "docs/research/2026-11-18-cloud-recording-v1-and-vod.md",
+        "docs/validation/2026-11-18-cloud-files/checks.json"
+      ],
+      "wire_eval_scope": {
+        "operation_id": "cn.cloud_recording_v1.download_urls",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8,
+        "expectation_rule": "按现有driver：鉴权读auth_fault为2业务/2认证并成功；写auth_fault为1业务/1认证并抛原认证异常。其余场景沿既有严格响应/错误语义。"
+      },
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_token_position": "met",
+        "types_bounds_none_and_utf8_before_auth": "met",
+        "domestic_gate_before_provider_factory_http": "met",
+        "raw_data_unknown_fields_and_identity_preserved": "met",
+        "declared_read_only_retry_and_error_layering": "met",
+        "diagnostic_on_off_return_exception_wire_order_parity": "met",
+        "known_id_token_redaction_and_payload_hidden": "met",
+        "closed_timeout_cancellation_semantics": "met",
+        "registry_bindings_cases_and_exact_diagnostic_counts": "met"
+      },
+      "result": "recorded_evidence",
+      "resource_state": "not_applicable (offline only; no real resources)",
+      "blockers": [],
+      "limitations": [
+        "synthetic conformance不是live验收；ApiResponse保留data/raw不代表媒体或解冻已验证。",
+        "已知请求值脱敏不等于任意自由错误message的未知URL过滤。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "b251b11389405075ba30838cf9b2a594e1477ca6",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-cloud-files/checks.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1377-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "cloud_file_cohort_live_followup_not_executable",
+      "capability_selector": "cloud_recording_v1.download_urls",
+      "capability_ids": [
+        "candidate:domestic:1377:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.download_urls"
+      ],
+      "scope_revision": "2026-11-18-r11-cloud-file-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic: https://open.ys7.com",
+      "account_role_permissions": "企业版套餐；其它主/子账号限制未声明，需服务端判定。",
+      "device_requirements": "仅现成且获授权的1.0项目/文件或VOD节点/空间；不为验收创建/上传资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "先完成该能力OFFLINE验收并固定实际代码commit。",
+        "执行前冻结真实资源类别、账号权限、模式、HTTP/认证/重放请求总上限、逻辑操作数、超时及回执字段。",
+        "不把现有设备只读授权泛化为本批云文件资源授权；不自动跨入口串联、轮询或访问媒体。"
+      ],
+      "expected_evidence": {
+        "read": "先确认企业版与现成文件资源；归档已解冻条件由调用方在执行前确认。仅获取地址并核对响应结构与expire原始类型，回执不含签名URL；不访问媒体，200/非空URL不单独证明取回完成。",
+        "write": "无远端写操作。",
+        "physical": "不要求设备物理动作；服务取回完成与媒体访问是独立证据层，未知完成判据不能记为成功。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "资源与执行窗口未冻结，当前不可运行；包含可能认证/允许的读重放成本。"
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "只读，不改资源；明确不访问返回媒体URL。",
+      "source_refs": [
+        "docs/coordination/SP122/admission.json#/entries/2",
+        "portal-2026-11-17:domestic:1377"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "frozen_resource_permission_and_request_bounds": "pending",
+        "fresh_matching_sdk_code_and_response_structure": "pending",
+        "bounded_receipt_no_identifiers_payload_or_media_urls": "pending",
+        "source_limitations_not_promoted_to_success": "pending"
+      },
+      "result": "awaiting_resource_confirmation",
+      "resource_state": "unknown_awaiting_configuration_check",
+      "blockers": [
+        "现成资源/权限与请求上限未冻结。"
+      ],
+      "limitations": [
+        "本case当前无执行证据；不继承已有设备、离线或历史云业务结果。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5342-D0-OFFLINE-001",
+      "tier": "required",
+      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
+      "case_origin": "cloud_file_cohort_frozen_before_implementation",
+      "capability_selector": "vod.files",
+      "capability_ids": [
+        "candidate:domestic:5342:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.files"
+      ],
+      "scope_revision": "2026-11-18-r11-cloud-file-admission",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "仅合成凭据；不核定或连接真实账号。",
+      "device_requirements": "不连接真实设备/文件/空间。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "G0沿用SP030，G1与源审卡/架构hash固定；实现和测试不得凭候选自述通过。",
+        "默认网络guard，全部fixture合成；SDK测试不import harness/docs/data。",
+        "冻结方法与参数规则见本case expected_evidence及admission条目；接口、诊断、contract/binding/wire case同步入表。"
+      ],
+      "expected_evidence": {
+        "read": "GET /api/service/open/vod/files；Header accessToken；query fileNodeIds CSV/spaceId/spaceName；无body/不注入Content-Type；read_only=True。 至少一种选择器；None省略；1..50非字符串Sequence，UTF-8非空白ID、拒comma，在auth前快照并保留顺序/重复；space_id int非bool允许0/负数；space_name非空白UTF-8不套32/CJK限制；所有供给选择器原样发送由服务端处理spaceId优先；data array/raw原样，不移植4444分页或3974 HLS/统一存储语义。",
+        "write": "真实写入为零；按read_only语义核对invalid-token最多一次恢复或写操作零重放；普通网络/HTTP错误不重放。",
+        "physical": "不证明真实媒体可访问、归档解冻完成或硬件效果；返回原对象和异常identity，diag on/off及关闭/超时/取消保持。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "零值仅指真实外部请求/业务；四个合成wire场景×sync/async，另有冻结边界/错误/诊断单元。"
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线不改变远端资源；可回退本批独立文件与明确共享文件增量。",
+      "source_refs": [
+        "docs/coordination/SP122/admission.json#/entries/3",
+        "portal-2026-11-17:domestic:5342",
+        "portal-2026-11-17:domestic:4187"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/vod.py",
+        "tests/test_sdk_vod.py",
+        "src/ezviz_unified/client.py",
+        "src/ezviz_unified/errors.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "docs/diagnostics-v1-coverage.json",
+        "contracts/reviewed-transport-contracts.json",
+        "contracts/sdk-bindings.json",
+        "contracts/source-issues.json",
+        "evals/contracts/cases.json",
+        "tests/test_harness_diagnostic_coverage.py",
+        "README.md",
+        "docs/research/2026-11-18-cloud-recording-v1-and-vod.md",
+        "docs/validation/2026-11-18-cloud-files/checks.json"
+      ],
+      "wire_eval_scope": {
+        "operation_id": "cn.vod.files",
+        "modes": [
+          "sync",
+          "async"
+        ],
+        "layouts": [
+          ""
+        ],
+        "scenarios": [
+          "success",
+          "auth_fault",
+          "permission_fault",
+          "http_fault"
+        ],
+        "synthetic_evaluation_cell_count": 8,
+        "expectation_rule": "按现有driver：鉴权读auth_fault为2业务/2认证并成功；写auth_fault为1业务/1认证并抛原认证异常。其余场景沿既有严格响应/错误语义。"
+      },
+      "criterion_assessment": {
+        "exact_sync_async_wire_and_token_position": "met",
+        "types_bounds_none_and_utf8_before_auth": "met",
+        "domestic_gate_before_provider_factory_http": "met",
+        "raw_data_unknown_fields_and_identity_preserved": "met",
+        "declared_read_only_retry_and_error_layering": "met",
+        "diagnostic_on_off_return_exception_wire_order_parity": "met",
+        "known_id_token_redaction_and_payload_hidden": "met",
+        "closed_timeout_cancellation_semantics": "met",
+        "registry_bindings_cases_and_exact_diagnostic_counts": "met"
+      },
+      "result": "recorded_evidence",
+      "resource_state": "not_applicable (offline only; no real resources)",
+      "blockers": [],
+      "limitations": [
+        "synthetic conformance不是live验收；ApiResponse保留data/raw不代表媒体或解冻已验证。",
+        "已知请求值脱敏不等于任意自由错误message的未知URL过滤。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "b251b11389405075ba30838cf9b2a594e1477ca6",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-18-cloud-files/checks.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5342-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "cloud_file_cohort_live_followup_not_executable",
+      "capability_selector": "vod.files",
+      "capability_ids": [
+        "candidate:domestic:5342:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.files"
+      ],
+      "scope_revision": "2026-11-18-r11-cloud-file-admission",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic: https://open.ys7.com",
+      "account_role_permissions": "accessToken；5342明确不支持托管和子账号，不由provider推断实际身份。",
+      "device_requirements": "仅现成且获授权的1.0项目/文件或VOD节点/空间；不为验收创建/上传资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "先完成该能力OFFLINE验收并固定实际代码commit。",
+        "执行前冻结真实资源类别、账号权限、模式、HTTP/认证/重放请求总上限、逻辑操作数、超时及回执字段。",
+        "不把现有设备只读授权泛化为本批云文件资源授权；不自动跨入口串联、轮询或访问媒体。"
+      ],
+      "expected_evidence": {
+        "read": "在获授权主账号和现成VOD文件/空间上有界核对CSV查询与空间选择器、实际data根/字段类型；保留5342/4187响应与错误差异证据，仅输出结构/布尔/计数；不创建/上传/删除/取回/下载媒体。",
+        "write": "无远端写操作。",
+        "physical": "不要求设备物理动作；服务取回完成与媒体访问是独立证据层，未知完成判据不能记为成功。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "资源与执行窗口未冻结，当前不可运行；包含可能认证/允许的读重放成本。"
+      },
+      "authorization_status": "awaiting_resource_confirmation",
+      "recovery_plan": "只读，不改资源；明确不访问返回媒体URL。",
+      "source_refs": [
+        "docs/coordination/SP122/admission.json#/entries/3",
+        "portal-2026-11-17:domestic:5342",
+        "portal-2026-11-17:domestic:4187"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "frozen_resource_permission_and_request_bounds": "pending",
+        "fresh_matching_sdk_code_and_response_structure": "pending",
+        "bounded_receipt_no_identifiers_payload_or_media_urls": "pending",
+        "source_limitations_not_promoted_to_success": "pending"
+      },
+      "result": "awaiting_resource_confirmation",
+      "resource_state": "unknown_awaiting_configuration_check",
+      "blockers": [
+        "现成资源/权限与请求上限未冻结。"
+      ],
+      "limitations": [
+        "本case当前无执行证据；不继承已有设备、离线或历史云业务结果。"
+      ]
+    },
+    {
+      "case_id": "ACC-CN-VOD-RESOURCE-DISCOVERY-001",
+      "tier": "scenario",
+      "case_origin": "explicitly_authorized_bounded_resource_discovery",
+      "capability_selector": "storage.spaces -> vod.files(space_id)",
+      "capability_ids": [
+        "contract:cn.storage.spaces",
+        "candidate:domestic:5342:d0"
+      ],
+      "operation_ids": [
+        "cn.storage.spaces",
+        "cn.vod.files"
+      ],
+      "scope_revision": "2026-11-18-r12-vod-resource-probe",
+      "freeze_state": "frozen_pending_offline_verifier_acceptance_and_local_input",
+      "region_cluster": "domestic: https://open.ys7.com",
+      "account_role_permissions": "单组用户本地输入的应用凭据；实际账户角色/套餐/可见权限由本次结果确认，不猜测或开通。",
+      "device_requirements": "无需设备标识。仅一个30天createTime窗口的第一页中，首个服务端返回的bizType=vod、namespaceType整数1、spaceId为非bool整数的现成空间。",
+      "surface": [
+        "sync",
+        "local_input_cli"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "SDK新入口回归、探测器core/form合成测试和受控本地回环验证通过后才能启动真实表单。",
+        "冻结执行时SDK/工具输入hash与代码版本，当前提交CI不得继承旧结果。",
+        "用户仅在随机127.0.0.1表单输入凭据；不进入模型、日志、fixture、环境变量或持久配置。",
+        "接受submit之前不发外部请求。未发现可用空间立即停止，不猜ID、不翻页、不改时间窗口。"
+      ],
+      "expected_evidence": {
+        "read": "空间查询和条件满足时的一次同步VOD元数据查询，只保存固定字段的计数/类型/枚举及本工具选择的时间窗口。",
+        "write": "零资源/权限/套餐配置变更，零解冻/创建/删除/购买，零媒体访问。",
+        "physical": "不证明媒体可播放、硬件功能、云录制1.0或全账户能力；不代替父级VOD sync+async真实验收。"
+      },
+      "bounded": {
+        "max_requests": 7,
+        "max_operations": 2,
+        "freeze_required": false,
+        "bound_definition": "auth<=3、spaces<=2、vod<=2含现有invalid-token恢复；一页page_size50、biz_type=vod、固定30天窗口。intake600秒/单连接绝对10秒；probe120秒是检查点软截止、不保证总时长，控制器启动时另施加900秒外层墙钟上限。响应保留payload<=1MiB，首次越界chunk拒绝并关闭，非网络/TLS读取字节上限。"
+      },
+      "authorization_status": "authorized_user_bounded_domestic_readonly",
+      "authorization_evidence": "用户明确表示可以先试现成账号的部分功能；不包含任何写操作。",
+      "recovery_plan": "只读无远端恢复动作；停止进程/关闭client和listener；报告仅白名单内容，凭据容器finally清理引用（不宣称安全擦除内存）。",
+      "source_refs": [
+        "docs/plans/2026-11-18-cloud-files-readonly-probe.md",
+        "docs/coordination/SP142/admission.json",
+        "https://open.ys7.com/help/5230",
+        "https://open.ys7.com/help/5342"
+      ],
+      "code_artifact_evidence_refs": [
+        "docs/validation/2026-11-18-cloud-files/checks.json"
+      ],
+      "criterion_assessment": {
+        "offline_verifier_safety_and_sdk_regressions": "met",
+        "exact_source_pins_and_current_ci": "pending",
+        "single_local_input_no_secret_persistence": "pending",
+        "bounded_transport_no_extra_business_requests": "pending",
+        "observed_resource_query_and_type_receipt": "pending",
+        "limitations_and_parent_case_not_promoted": "pending"
+      },
+      "result": "pending_execution",
+      "resource_state": "credentials_absent_in_current_process_account_resources_unknown",
+      "blockers": [
+        "当前提交PR/main CI仍待验证。",
+        "需要用户通过一次性本地输入提供凭据；未发真实云请求。"
+      ],
+      "limitations": [
+        "30天createTime窗口漏检旧空间；空页/无合格项不证明账号无功能。",
+        "权限或业务错误只属于本次组合，不自动开通服务。",
+        "本场景仅sync辅助发现；父required VOD live和其它必须项独立保持未完成。",
+        "若无法走到VOD array结果，整体记not_verified/failed，不把已记录阻塞当能力验收完成。"
+      ]
     }
   ],
   "release_gates": [

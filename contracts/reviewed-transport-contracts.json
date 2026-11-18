@@ -14384,6 +14384,302 @@
         "是否需要白名单未说明"
       ],
       "transport_evidence": "GET /api/v3/otap/prop/{deviceSerial}/SmokeSensor/0/PowerMgr/CountdownInfo；curl 示例使用字面序列号 L12345678，Header 携带 accessToken 与 Content-Type: application/json，无请求体"
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.unfreeze_file",
+      "region": "domestic",
+      "source_doc_id": "5341",
+      "source_url": "https://open.ys7.com/help/5341",
+      "source_content_sha256": "d0b6a93e3d2c9402d35e1ae4295b52ad938f96f1f69084e797866e0707cdbe85",
+      "method": "POST",
+      "path": "/api/open/cloud/v1/file/unfreeze",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-pinned domestic:5341 formal request table"
+        },
+        {
+          "name": "projectId",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-pinned domestic:5341 formal parameter table"
+        },
+        {
+          "name": "fileId",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-pinned domestic:5341 formal parameter table"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Hash-pinned domestic:5341 response table; ApiResponse/raw preserved; supplementary facts explicitly described"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "5341/1380: explicit unfreeze trigger for cloud recording1.0 archive; asynchronous, not completion.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "1380: ordinary fileId1..32 or E1-prefixed max128; no minimum33.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "5341: projectId word1..32; regex dialect unspecified.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "SDK choice: write read_only=False, no automatic retry/poll/download.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        }
+      ],
+      "uncertainties": [
+        "ID regex dialect; HTTP/business error-code layering.",
+        "Unfreeze completion, retention, fees/accounttier not established;1–5minutes not SLA."
+      ]
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.file_info",
+      "region": "domestic",
+      "source_doc_id": "1375",
+      "source_url": "https://open.ys7.com/help/1375",
+      "source_content_sha256": "7a09f9bdf9e901131d51d2e1abd810fd6c849bb8f7e570f6c17da02e1ab0bd6e",
+      "method": "GET",
+      "path": "/api/open/cloud/v1/file",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-pinned domestic:1375 formal request table"
+        },
+        {
+          "name": "projectId",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-pinned domestic:1375 formal parameter table"
+        },
+        {
+          "name": "fileId",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-pinned domestic:1375 formal parameter table"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Hash-pinned domestic:1375 response table; ApiResponse/raw preserved; supplementary facts explicitly described"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "1375: read-only file info; fileSize bytes, duration seconds, expireTime String format/timezone unspecified.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "1375 does not declare projectId charset or max32; no inherited cap.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "1375 has no defined unfreezeTime, no complete/ready predicate.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        }
+      ],
+      "uncertainties": [
+        "Unfreeze readiness absent; expireTime format/timezone unknown; no declared fieldrequiredness.",
+        "Error-code layering unknown."
+      ]
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.download_urls",
+      "region": "domestic",
+      "source_doc_id": "1377",
+      "source_url": "https://open.ys7.com/help/1377",
+      "source_content_sha256": "dc16cf7660def0688bb7acaff11dd5e1db002b4599f4ae366d84c744276ecd7a",
+      "method": "GET",
+      "path": "/api/service/cloudrecord/file/official/download",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-pinned domestic:1377 formal request table"
+        },
+        {
+          "name": "projectId",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-pinned domestic:1377 formal parameter table"
+        },
+        {
+          "name": "fileId",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-pinned domestic:1377 formal parameter table"
+        },
+        {
+          "name": "contentType",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-pinned domestic:1377 formal parameter table"
+        },
+        {
+          "name": "expireSeconds",
+          "location": "query",
+          "type": "Long",
+          "required": false,
+          "evidence": "Hash-pinned domestic:1377 formal parameter table"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Hash-pinned domestic:1377 response table; ApiResponse/raw preserved; supplementary facts explicitly described"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "1377: enterprise package, existing file; archived file already unfrozen.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "expireSeconds60..604800 seconds; server default7200; SDK None omitted.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "contentType five listed formats not unambiguously exclusive; SDK passes any nonblank UTF8str as query.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "fileId E1 form may include dollar separator and max128.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "Recommended route only; older download route not proved removed.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        }
+      ],
+      "uncertainties": [
+        "data.expire unit unknown; do not convert.",
+        "contentType default unknown, list exclusivity unknown.",
+        "404/emptyurls are not unique unfreeze state codes; error layering unknown."
+      ]
+    },
+    {
+      "operation_id": "cn.vod.files",
+      "region": "domestic",
+      "source_doc_id": "5342",
+      "source_url": "https://open.ys7.com/help/5342",
+      "source_content_sha256": "12e5fe8a0d7b1896d17ce37296c9f1c0e209d7cafd3b4721d51e6013e5448271",
+      "method": "GET",
+      "path": "/api/service/open/vod/files",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "Hash-pinned domestic:5342 formal request table"
+        },
+        {
+          "name": "fileNodeIds",
+          "location": "query",
+          "type": "Array",
+          "required": false,
+          "evidence": "Hash-pinned domestic:5342 formal parameter table"
+        },
+        {
+          "name": "spaceId",
+          "location": "query",
+          "type": "Long",
+          "required": false,
+          "evidence": "Hash-pinned domestic:5342 formal parameter table"
+        },
+        {
+          "name": "spaceName",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "evidence": "Hash-pinned domestic:5342 formal parameter table"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "Hash-pinned domestic:5342 response table; ApiResponse/raw preserved; supplementary facts explicitly described"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "5342: at least one selector; max50 fileNodeIds; spaceId has server-side highest priority.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "4187 supplements CSV String wire representation for fileNodeIds;5342 declares Array.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "5342: data is array; no data.result pagination from4444.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "5342: managed/subaccounts unsupported; SDK does not infer accountrole.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        },
+        {
+          "fact": "SDK choice: reject comma in individualID, preserve snapshot/order/duplicates, send all supplied selectors.",
+          "evidence": "SP122 reviewed source/design boundary; see docs/research/2026-11-18-cloud-recording-v1-and-vod.md"
+        }
+      ],
+      "uncertainties": [
+        "5342 Array vs4187 CSV requesttype; CSV chosen with explicit supplementary source.",
+        "4187 references4444 response, but4444 is differentPOST/data.result; do not import conflicting layout.",
+        "fileSize/totalSize units unknown; fileType/fileChildType types unspecified; responsefieldrequiredness/URLexpiry/partialresults unknown.",
+        "Error tables differ; no invented HTTP-vs-business mapping orselectorcomposition."
+      ]
     }
   ],
   "reviews": [

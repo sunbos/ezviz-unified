@@ -40,6 +40,9 @@ BUSINESS_ENTRYPOINTS: frozenset[str] = frozenset(
         "cloud_recording.tasks",
         "cloud_recording.templates",
         "cloud_recording.update_one_off_plan",
+        "cloud_recording_v1.download_urls",
+        "cloud_recording_v1.file_info",
+        "cloud_recording_v1.unfreeze_file",
         "cloud_storage.activate_card",
         "cloud_storage.available_types",
         "cloud_storage.info",
@@ -152,6 +155,7 @@ BUSINESS_ENTRYPOINTS: frozenset[str] = frozenset(
         "video.set_quality",
         "video.set_switch",
         "video.set_video_codec",
+        "vod.files",
     }
 )
 
@@ -192,6 +196,9 @@ OPERATIONS: frozenset[str] = frozenset(
         "cloud_recording.tasks",
         "cloud_recording.templates",
         "cloud_recording.update_one_off_plan",
+        "cloud_recording_v1.download_urls",
+        "cloud_recording_v1.file_info",
+        "cloud_recording_v1.unfreeze_file",
         "cloud_storage.activate_card",
         "cloud_storage.available_types",
         "cloud_storage.info",
@@ -223,6 +230,9 @@ OPERATIONS: frozenset[str] = frozenset(
         "cn.cloud_recording.tasks",
         "cn.cloud_recording.templates",
         "cn.cloud_recording.update_one_off_plan",
+        "cn.cloud_recording_v1.download_urls",
+        "cn.cloud_recording_v1.file_info",
+        "cn.cloud_recording_v1.unfreeze_file",
         "cn.cloud_storage.activate_card",
         "cn.cloud_storage.available_types",
         "cn.cloud_storage.info_v1",
@@ -339,6 +349,7 @@ OPERATIONS: frozenset[str] = frozenset(
         "cn.video.set_quality",
         "cn.video.set_switch",
         "cn.video.set_video_codec",
+        "cn.vod.files",
         "components.call",
         "components.chime_power.set",
         "components.face_voice_lock.get",
@@ -542,5 +553,6 @@ OPERATIONS: frozenset[str] = frozenset(
         "video.set_quality",
         "video.set_switch",
         "video.set_video_codec",
+        "vod.files",
     }
 )

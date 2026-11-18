@@ -4905,6 +4905,91 @@
         "timeRemaining": 60,
         "switch": false
       }
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.unfreeze_file",
+      "args": [
+        "SYNTHETIC_PROJECT",
+        "SYNTHETIC_FILE"
+      ],
+      "kwargs": {},
+      "fields": {
+        "projectId": "SYNTHETIC_PROJECT",
+        "fileId": "SYNTHETIC_FILE"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.file_info",
+      "args": [
+        "SYNTHETIC_PROJECT",
+        "SYNTHETIC_FILE"
+      ],
+      "kwargs": {},
+      "fields": {
+        "projectId": "SYNTHETIC_PROJECT",
+        "fileId": "SYNTHETIC_FILE"
+      },
+      "data": {
+        "fileId": "SYNTHETIC_FILE",
+        "fileSize": 7,
+        "duration": 2,
+        "expireTime": "opaque_time",
+        "unknownField": "preserve"
+      }
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.download_urls",
+      "args": [
+        "SYNTHETIC_PROJECT",
+        "SYNTHETIC_FILE"
+      ],
+      "kwargs": {
+        "content_type": "video/custom-synthetic",
+        "expire_seconds": 60
+      },
+      "fields": {
+        "projectId": "SYNTHETIC_PROJECT",
+        "fileId": "SYNTHETIC_FILE",
+        "contentType": "video/custom-synthetic",
+        "expireSeconds": 60
+      },
+      "data": {
+        "expire": 987654,
+        "urls": [
+          "https://files.example.invalid/download?sig=SYNTHETIC"
+        ]
+      }
+    },
+    {
+      "operation_id": "cn.vod.files",
+      "args": [
+        [
+          "SYNTHETIC_NODE_A",
+          "SYNTHETIC_NODE_B"
+        ]
+      ],
+      "kwargs": {
+        "space_id": 0,
+        "space_name": "SYNTHETIC_SPACE"
+      },
+      "fields": {
+        "fileNodeIds": "SYNTHETIC_NODE_A,SYNTHETIC_NODE_B",
+        "spaceId": 0,
+        "spaceName": "SYNTHETIC_SPACE"
+      },
+      "data": [
+        {
+          "folderNode": "SYNTHETIC_NODE_A",
+          "fileName": "SYNTHETIC_NAME",
+          "fileSize": 7,
+          "createTime": 2000123,
+          "urls": {
+            "playback": "https://files.example.invalid/playback?sig=SYNTHETIC"
+          },
+          "unknownField": "preserve"
+        }
+      ]
     }
   ]
 }
