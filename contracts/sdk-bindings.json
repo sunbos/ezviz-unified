@@ -3041,6 +3041,32 @@
       "public_entry": "traffic.device_details",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.vod.stream_source_files",
+      "region": "domestic",
+      "source_doc_id": "4751",
+      "module": "src/ezviz_unified/vod.py",
+      "symbols": [
+        "Vod.stream_source_files",
+        "AsyncVod.stream_source_files"
+      ],
+      "public_entry": "vod.stream_source_files",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.vod.stream_index_file",
+      "region": "domestic",
+      "source_doc_id": "4757",
+      "module": "src/ezviz_unified/vod.py",
+      "symbols": [
+        "Vod.stream_index_file",
+        "AsyncVod.stream_index_file"
+      ],
+      "public_entry": "vod.stream_index_file",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }

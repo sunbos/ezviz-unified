@@ -16358,6 +16358,186 @@
       },
       "source_content_sha256": "c6d92b66d60a1d29b3e075cb5c0f5aef8df74535f3588629f49afb8c351eb0ef",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.vod.stream_source_files",
+      "region": "domestic",
+      "source_doc_id": "4751",
+      "source_url": "https://open.ys7.com/help/4751",
+      "source_content_sha256": "aa59ded19e4b70aab1851d920549e03ca280f81395b3cef657cc3af94f04b1c4",
+      "method": "POST",
+      "path": "/api/service/media/streammanage/stream/file/info",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": false,
+          "constant": "application/x-www-form-urlencoded",
+          "evidence": "E48 form sample; absent from T1"
+        },
+        {
+          "location": "header",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R2/E14"
+        },
+        {
+          "location": "body",
+          "name": "streamId",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R3/E14"
+        },
+        {
+          "location": "body",
+          "name": "fileType",
+          "type": "Int",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R4/E14"
+        },
+        {
+          "location": "body",
+          "name": "queryDate",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "T1/R5/E14"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "T2/E56;T3/E104;E52"
+      },
+      "constraints": [
+        {
+          "fact": "按已知 streamId 读取直播流归档；不访问返回的媒体或创建资源。",
+          "evidence": "接口功能"
+        },
+        {
+          "fact": "data.fileInfo 为源文件数组，示例中的创建/更新时间是字符串。",
+          "evidence": "T2/E56;E52"
+        },
+        {
+          "fact": "fileType=1 录像必需 queryDate；2 截图允许省略。",
+          "evidence": "T1/R4,R5/E14"
+        },
+        {
+          "fact": "该页明确不支持子账号。",
+          "evidence": "接口功能"
+        }
+      ],
+      "uncertainties": [
+        "输入表未规定 streamId 长度；返回表称 32 位，但请求/响应示例均为 18 字符。",
+        "存储是否仍可取及空结果实际表现待实测。",
+        "截图提供日期时的筛选细节未说明。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/media/streammanage/stream/file/info",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.vod.stream_index_file",
+      "region": "domestic",
+      "source_doc_id": "4757",
+      "source_url": "https://open.ys7.com/help/4757",
+      "source_content_sha256": "405bcd34c7bd2dc6626c66ed942456f3276a1728ef35bd152f521cf3075439e3",
+      "method": "POST",
+      "path": "/api/service/media/streammanage/stream/index/file",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": false,
+          "constant": "application/x-www-form-urlencoded",
+          "evidence": "E48 form sample; absent from T1"
+        },
+        {
+          "location": "header",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R2/E14"
+        },
+        {
+          "location": "body",
+          "name": "streamId",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R3/E14"
+        },
+        {
+          "location": "body",
+          "name": "startTime",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R4/E14"
+        },
+        {
+          "location": "body",
+          "name": "stopTime",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R5/E14"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "T2/E56;T3/E96;E52"
+      },
+      "constraints": [
+        {
+          "fact": "按已知 streamId 读取直播流归档；不访问返回的媒体或创建资源。",
+          "evidence": "接口功能"
+        },
+        {
+          "fact": "data.fileInfo 为索引文件对象，fileUrl 是文件地址。",
+          "evidence": "T2/E56;E52"
+        },
+        {
+          "fact": "开始和停止相差不超过一天；日期时间格式精确到秒。",
+          "evidence": "T1/R4,R5/E14"
+        }
+      ],
+      "uncertainties": [
+        "输入表未规定 streamId 长度；返回表称 32 位，但请求/响应示例均为 18 字符。",
+        "存储是否仍可取及空结果实际表现待实测。",
+        "没有声明子账户权限、时区、URL 有效期或可访问性。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/media/streammanage/stream/index/file",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "read_only": true
     }
   ],
   "reviews": [
@@ -16439,6 +16619,10 @@
     {
       "review": "docs/coordination/domestic-traffic/admission.json",
       "note": "国内 1424–1427 流量查询。各页独立来源哈希、时间示例冲突与主账户权限已记录。"
+    },
+    {
+      "review": "docs/coordination/domestic-stream-archive/admission.json",
+      "note": "按已知直播流定位归档源文件和点播索引；两项均需要独立的真实资源验收。"
     }
   ]
 }

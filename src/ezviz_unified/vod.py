@@ -1,6 +1,6 @@
 """Cloud VOD metadata queries and remux/playback-address calls for the EZVIZ client.
 
-Documented for the domestic region only (docs 5342/4187/3971/3972/4941/3973).
+Documented for the domestic region only (docs 5342/4187/3971/3972/4941/3973/4751/4757).
 ``files``, ``task`` and ``tasks`` are read-only queries; under the existing
 invalid-token policy their ``GET`` may be replayed at most once.
 ``create_remux_task`` is declared non-idempotent task creation by its spec
@@ -37,11 +37,12 @@ any authentication or network access.
 from __future__ import annotations
 
 from collections.abc import Sequence
-from dataclasses import dataclass
-from datetime import datetime, timedelta
+from dataclasses import dataclass, replace
+from datetime import date, datetime, timedelta
 from typing import TYPE_CHECKING, Literal
 
 from .diagnostic_report import _diagnostic_scope
+from .errors import ProtocolError
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 from .storage_models import _integer, _node_ids, _text
@@ -57,6 +58,11 @@ _POLICY_META = ResponsePolicy(
     data_path="data",
     success_values=(200,),
 )
+# The stream-archive reads may surface server messages carrying media URLs;
+# those are masked in rendered diagnostics while status, code and data stay.
+_POLICY_META_REDACT_URLS = replace(_POLICY_META, redact_message_urls=True)
+
+_FORM_HEADERS = {"Content-Type": "application/x-www-form-urlencoded"}
 
 _OP_FILES = Operation(
     "vod.files",
@@ -102,6 +108,24 @@ _OP_RECORDING_URLS = Operation(
     regions=frozenset({_DOMESTIC}),
     read_only=False,
     policy=_POLICY_META,
+)
+_OP_STREAM_SOURCE_FILES = Operation(
+    "vod.stream_source_files",
+    "POST",
+    "/api/service/media/streammanage/stream/file/info",
+    token_location="header",
+    regions=frozenset({_DOMESTIC}),
+    read_only=True,
+    policy=_POLICY_META_REDACT_URLS,
+)
+_OP_STREAM_INDEX_FILE = Operation(
+    "vod.stream_index_file",
+    "POST",
+    "/api/service/media/streammanage/stream/index/file",
+    token_location="header",
+    regions=frozenset({_DOMESTIC}),
+    read_only=True,
+    policy=_POLICY_META_REDACT_URLS,
 )
 
 
@@ -316,6 +340,94 @@ def _files_request(
     return _Request(_OP_FILES, params, None, {})
 
 
+_STREAM_INDEX_MAX_SPAN = timedelta(days=1)
+
+
+def _stream_id(value: object) -> str:
+    """Opaque stream id: non-blank UTF-8 string, sent verbatim.
+
+    No length cap, case coercion, stripping or alphabet restriction is
+    invented beyond the documented required String.
+    """
+    return _utf8("stream_id", _text("stream_id", value))
+
+
+def _query_date(value: object) -> str:
+    """Strict ASCII ``YYYY-MM-DD`` calendar date (doc 4751).
+
+    ``date.fromisoformat`` must parse it and round-trip to the identical
+    string, so padded, compact or non-calendar values are rejected.
+    """
+    if not isinstance(value, str) or not value.isascii():
+        raise ValueError("query_date must be a YYYY-MM-DD date string")
+    try:
+        parsed = date.fromisoformat(value)
+    except ValueError:
+        raise ValueError("query_date must be a valid YYYY-MM-DD date") from None
+    if parsed.isoformat() != value:
+        raise ValueError("query_date must be a valid YYYY-MM-DD date")
+    return value
+
+
+def _stream_source_files_request(
+    scope: str,
+    stream_id: str,
+    *,
+    file_type: int,
+    query_date: str | None,
+) -> _Request:
+    _require_domestic(scope, "stream_source_files")
+    kind = _integer("file_type", file_type)
+    if kind not in (1, 2):
+        raise ValueError("file_type must be 1 (recording) or 2 (snapshot)")
+    if kind == 1 and query_date is None:
+        raise ValueError("query_date is required when file_type is 1")
+    data: dict[str, str | int] = {
+        "streamId": _stream_id(stream_id),
+        "fileType": str(kind),
+    }
+    if query_date is not None:
+        data["queryDate"] = _query_date(query_date)
+    return _Request(_OP_STREAM_SOURCE_FILES, {}, data, dict(_FORM_HEADERS))
+
+
+def _stream_index_file_request(
+    scope: str,
+    stream_id: str,
+    *,
+    start_time: datetime,
+    stop_time: datetime,
+) -> _Request:
+    _require_domestic(scope, "stream_index_file")
+    start = _naive("start_time", start_time)
+    stop = _naive("stop_time", stop_time)
+    span = stop - start
+    if span < timedelta(0) or span > _STREAM_INDEX_MAX_SPAN:
+        raise ValueError("stop_time - start_time must be within 0..86400 seconds")
+    data: dict[str, str | int] = {
+        "streamId": _stream_id(stream_id),
+        "startTime": _stamp(start),
+        "stopTime": _stamp(stop),
+    }
+    return _Request(_OP_STREAM_INDEX_FILE, {}, data, dict(_FORM_HEADERS))
+
+
+def _expect_stream_file_info(response: ApiResponse, container: type) -> ApiResponse:
+    """Check ``data`` and ``data.fileInfo`` container levels only.
+
+    Row fields, unknown keys and timestamp strings pass through untouched;
+    a wrong container level is a protocol violation with no raw payload.
+    """
+    data = response.data
+    if not isinstance(data, dict) or not isinstance(data.get("fileInfo"), container):
+        raise ProtocolError(
+            "unexpected stream archive response shape",
+            http_status=response.http_status,
+            operation=response.operation,
+        )
+    return response
+
+
 class Vod:
     """Synchronous facade over the reviewed VOD endpoints (metadata, remux, addresses)."""
 
@@ -457,6 +569,63 @@ class Vod:
                 data=request.data,
                 headers=request.headers,
             )
+
+    def stream_source_files(
+        self,
+        stream_id: str,
+        *,
+        file_type: int,
+        query_date: str | None = None,
+    ) -> ApiResponse:
+        """List archived recordings/snapshots of one stream (read-only, doc 4751).
+
+        ``file_type`` is ``1`` (recording) or ``2`` (snapshot); ``query_date``
+        is a strict ``YYYY-MM-DD`` string, mandatory for recordings and
+        optional for snapshots. The SDK never opens or downloads any returned
+        URL.
+        """
+        with _diagnostic_scope(self._client, entrypoint="vod.stream_source_files", mode="sync"):
+            request = _stream_source_files_request(
+                self._client.region.scope,
+                stream_id,
+                file_type=file_type,
+                query_date=query_date,
+            )
+            response = self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+            return _expect_stream_file_info(response, list)
+
+    def stream_index_file(
+        self,
+        stream_id: str,
+        *,
+        start_time: datetime,
+        stop_time: datetime,
+    ) -> ApiResponse:
+        """Query the stream index file for one window (read-only, doc 4757).
+
+        Bounds are naive whole-second datetimes sent as ``startTime``/
+        ``stopTime``; the window may cross midnight and must be within
+        0..86400 seconds. The SDK never opens or downloads any returned URL.
+        """
+        with _diagnostic_scope(self._client, entrypoint="vod.stream_index_file", mode="sync"):
+            request = _stream_index_file_request(
+                self._client.region.scope,
+                stream_id,
+                start_time=start_time,
+                stop_time=stop_time,
+            )
+            response = self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+            return _expect_stream_file_info(response, dict)
 
 
 class AsyncVod:
@@ -600,3 +769,60 @@ class AsyncVod:
                 data=request.data,
                 headers=request.headers,
             )
+
+    async def stream_source_files(
+        self,
+        stream_id: str,
+        *,
+        file_type: int,
+        query_date: str | None = None,
+    ) -> ApiResponse:
+        """List archived recordings/snapshots of one stream (read-only, doc 4751).
+
+        ``file_type`` is ``1`` (recording) or ``2`` (snapshot); ``query_date``
+        is a strict ``YYYY-MM-DD`` string, mandatory for recordings and
+        optional for snapshots. The SDK never opens or downloads any returned
+        URL.
+        """
+        with _diagnostic_scope(self._client, entrypoint="vod.stream_source_files", mode="async"):
+            request = _stream_source_files_request(
+                self._client.region.scope,
+                stream_id,
+                file_type=file_type,
+                query_date=query_date,
+            )
+            response = await self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+            return _expect_stream_file_info(response, list)
+
+    async def stream_index_file(
+        self,
+        stream_id: str,
+        *,
+        start_time: datetime,
+        stop_time: datetime,
+    ) -> ApiResponse:
+        """Query the stream index file for one window (read-only, doc 4757).
+
+        Bounds are naive whole-second datetimes sent as ``startTime``/
+        ``stopTime``; the window may cross midnight and must be within
+        0..86400 seconds. The SDK never opens or downloads any returned URL.
+        """
+        with _diagnostic_scope(self._client, entrypoint="vod.stream_index_file", mode="async"):
+            request = _stream_index_file_request(
+                self._client.region.scope,
+                stream_id,
+                start_time=start_time,
+                stop_time=stop_time,
+            )
+            response = await self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+            return _expect_stream_file_info(response, dict)

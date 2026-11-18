@@ -170,6 +170,8 @@ BUSINESS_ENTRYPOINTS: frozenset[str] = frozenset(
         "vod.create_remux_task",
         "vod.files",
         "vod.recording_urls",
+        "vod.stream_index_file",
+        "vod.stream_source_files",
         "vod.task",
         "vod.tasks",
     }
@@ -383,6 +385,8 @@ OPERATIONS: frozenset[str] = frozenset(
         "cn.vod.create_remux_task",
         "cn.vod.files",
         "cn.vod.recording_urls",
+        "cn.vod.stream_index_file",
+        "cn.vod.stream_source_files",
         "cn.vod.task",
         "cn.vod.tasks",
         "components.call",
@@ -600,6 +604,8 @@ OPERATIONS: frozenset[str] = frozenset(
         "vod.create_remux_task",
         "vod.files",
         "vod.recording_urls",
+        "vod.stream_index_file",
+        "vod.stream_source_files",
         "vod.task",
         "vod.tasks",
     }

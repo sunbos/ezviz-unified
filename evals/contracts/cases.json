@@ -5461,6 +5461,64 @@
           "syntheticExtra": "kept"
         }
       ]
+    },
+    {
+      "operation_id": "cn.vod.stream_source_files",
+      "args": [
+        "SYNTH-stream"
+      ],
+      "kwargs": {
+        "file_type": 1,
+        "query_date": "2024-02-29"
+      },
+      "fields": {
+        "streamId": "SYNTH-stream",
+        "fileType": "1",
+        "queryDate": "2024-02-29"
+      },
+      "data": {
+        "streamId": "SYNTH-stream",
+        "fileInfo": [
+          {
+            "fileNodeId": "SYNTH-NODE",
+            "createTime": "0000123456789",
+            "updateTime": "0000123456790",
+            "extra": false
+          }
+        ],
+        "additional": null,
+        "fileType": 1
+      }
+    },
+    {
+      "operation_id": "cn.vod.stream_index_file",
+      "args": [
+        "SYNTH-stream"
+      ],
+      "kwargs": {
+        "start_time": {
+          "$type": "datetime",
+          "value": "2024-02-29T23:00:00"
+        },
+        "stop_time": {
+          "$type": "datetime",
+          "value": "2024-03-01T01:00:00"
+        }
+      },
+      "fields": {
+        "streamId": "SYNTH-stream",
+        "startTime": "2024-02-29 23:00:00",
+        "stopTime": "2024-03-01 01:00:00"
+      },
+      "data": {
+        "streamId": "SYNTH-stream",
+        "fileInfo": {
+          "fileNodeId": "SYNTH-NODE",
+          "fileUrl": "https://archive.example.invalid/synthetic?part=fake&proof=unused",
+          "extra": 0
+        },
+        "additional": null
+      }
     }
   ]
 }

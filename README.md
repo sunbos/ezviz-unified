@@ -63,6 +63,25 @@ with Client(
 
 `client.vod`另提供四个仅国内的转封装与查询入口，同步/异步共用同名方法：`create_remux_task`（官方明确非幂等的异步任务创建，不自动重放，仅返回`ApiResponse`，不变成任务句柄）、`task`与`tasks`（只读的单任务查询与任务分页列表，不自动翻页或轮询）以及`recording_urls`（按设备、通道与时段签发录像地址；其`read_only=False`是SDK为禁自动重放的选择，来源未明确无副作用，非官方写/非幂等结论）。官方声明的范围/权限边界包括：`create_remux_task`限企业用户、不支持托管/子账号且需已有对应时段云录像；`recording_urls`要求设备开通云存储且对应时段有录像、同样不支持托管/子账号；两个查询接口的来源仅明确accessToken，额外账号或套餐权限未声明，由服务端判定；SDK不把这些前提互相移植。全部参数校验、Header字符串规则与时间边界见[云点播转封装说明](docs/research/2026-11-18-vod-remux.md)；任务状态编码、地址字段名与`fileNodeId`/`taskId`各自独立，SDK不发明映射或完成判据。本批四个入口仍未做真实调用验证；各能力的验收状态见[产品能力登记](docs/capabilities/README.md)与[验收登记](docs/validation/sdk-product-acceptance.json)中对应`candidate:domestic:*`行，登记数量不代表覆盖率或产品级验收通过。
 
+## 国内云直播归档查询
+
+`client.vod.stream_source_files(stream_id, *, file_type, query_date=None)`（异步版本为 `async_client` 同名方法）使用请求头 `accessToken` 鉴权。`stream_id` 为不透明标识；`file_type=1`（录像）必须提供规范日期 `YYYY-MM-DD`，`file_type=2`（截图）可省略。返回 `.data["fileInfo"]` 数组，创建和更新时间保留原始字符串。官方明确该接口不支持子账户。[源文件查询](https://open.ys7.com/help/4751)
+
+`client.vod.stream_index_file(stream_id, *, start_time, stop_time)` 接受不带时区、整秒的 `datetime`，开始与停止的差值允许为 0 至 24 小时，可跨午夜。`.data["fileInfo"]` 为对象，可能含敏感 `fileUrl`。SDK 不访问该地址。官方未说明这一接口的子账户权限和地址有效期。成功的原始响应完整返回给调用方；示例和本地诊断只记录有限字段。错误消息中的 HTTP(S) 地址会被遮蔽。[点播索引查询](https://open.ys7.com/help/4757)
+
+```python
+info = client.vod.stream_source_files("SYNTHETIC-STREAM", file_type=1, query_date="2026-01-01")
+files = info.data["fileInfo"]
+```
+
+示例程序读取常规配置及 `EZVIZ_STREAM_ID` / `EZVIZ_QUERY_DATE` / `EZVIZ_STREAM_START` / `EZVIZ_STREAM_STOP`，`--kind` 取 `recording|snapshot|index`：
+
+```bash
+.venv/bin/python -m examples.stream_archive --mode sync --kind recording
+```
+
+存储对象过期或被删除后，即使已有节点 ID，也可能取不到文件。真实归档验收需另行确认可读的流和时间段。
+
 ## 国内云直播流量查询
 
 面向已认证的国内开发者主账户：`Client`/`AsyncClient` 使用客户端的既有认证配置注入 accessToken，查询方法无需接收 token。来源注明子账户 token 无权，且四页均未给出子账户权限的专用错误码。当前验证覆盖模拟传输；账号权限和实际用量仍待真实查询。
