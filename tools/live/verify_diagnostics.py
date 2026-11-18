@@ -174,6 +174,29 @@ def _parsed_form_fields(request: httpx.Request) -> dict[str, list[str]] | None:
         return None
 
 
+def _fields_allowed(route: tuple[str, str], request: httpx.Request, budget: _RequestBudget) -> bool:
+    """Exact urlencoded field contract for one allowlisted route.
+
+    Shared by the sync and async guards; body bytes must already be
+    buffered on ``request`` (this SDK always sends form bytes). Parsed
+    values stay inside the process — they only authorize the fixed field
+    contract and are never logged, echoed, or transformed.
+    """
+    fields = _parsed_form_fields(request)
+    if fields is None or set(fields) != _ROUTE_FIELDS[route]:
+        return False
+    if any(len(values) != 1 or not values[0].strip() for values in fields.values()):
+        return False
+    for key, expected in _FIXED_FIELD_VALUES.get(route, {}).items():
+        if fields.get(key) != [expected]:
+            return False
+    if route in _DEVICE_ROUTES:
+        bound = budget.bound_device
+        if bound is None or fields["deviceSerial"] != [bound]:
+            return False
+    return True
+
+
 class _GuardedTransport(httpx.BaseTransport):
     """Delegates only allowlisted domestic read requests inside the budget.
 
@@ -189,19 +212,7 @@ class _GuardedTransport(httpx.BaseTransport):
         self._budget = budget
 
     def _fields_allowed(self, route: tuple[str, str], request: httpx.Request) -> bool:
-        fields = _parsed_form_fields(request)
-        if fields is None or set(fields) != _ROUTE_FIELDS[route]:
-            return False
-        if any(len(values) != 1 or not values[0].strip() for values in fields.values()):
-            return False
-        for key, expected in _FIXED_FIELD_VALUES.get(route, {}).items():
-            if fields.get(key) != [expected]:
-                return False
-        if route in _DEVICE_ROUTES:
-            bound = self._budget.bound_device
-            if bound is None or fields["deviceSerial"] != [bound]:
-                return False
-        return True
+        return _fields_allowed(route, request, self._budget)
 
     def handle_request(self, request: httpx.Request) -> httpx.Response:
         route = (request.method, request.url.path)
