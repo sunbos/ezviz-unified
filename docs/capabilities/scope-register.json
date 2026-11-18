@@ -134,7 +134,7 @@
     "domestic_async_runner_offline": {
       "path": "docs/validation/2026-11-19-domestic-async-read/offline.json",
       "schema": 1,
-      "sha256": "8895b4cf432ab73e5625091b88c3ed5f4b79af154ca4d7cefab0643a06284456"
+      "sha256": "39b63162fa7f398e2e37c48aec101c72cb199a36913b10749be507cf1145f4dd"
     }
   },
   "scope_state": {

@@ -2,36 +2,30 @@
   "schema_version": 1,
   "case_id": "ACC-CN-ASYNC-READONLY-001",
   "scope": "offline_runner_validation_only",
-  "code_commit": "64c843a8c32605a0773498c217f42cb49908b2e4",
+  "code_commit": "cdc94e7b91d4c4ac3a325a44c055921587f84964",
   "source_test_sha256": {
-    "tests/test_live_diagnostics_async.py": "e3354550487acdf0af2974bca5ba1747ddaf83a28436625248366096e2ef4a1f",
+    "tests/test_live_diagnostics_async.py": "a5c5d1d2ec2ee9ee30763a5945b72d96393c8936ade5c27f6ab3a20c23f0e79e",
     "tools/live/verify_diagnostics.py": "61dcb57539a300a5748f347f82476edb76a3a4a9256128039311948b367e7b88",
-    "tools/live/verify_diagnostics_async.py": "961fb2e0f34c36fe85bb4f075fd71397283fc1817d6a754c2d1c0f2e6243dc0e"
+    "tools/live/verify_diagnostics_async.py": "a8975b64026b5fc341edaecd4b1e2702954c2919b6d794ef02cf4204738eaafd"
   },
   "checks": [
     {
       "command": ".venv/bin/python -m pytest -q --tb=short tests/test_live_diagnostics.py tests/test_live_diagnostics_async.py",
-      "local_receipt_sha256": "3ed785e65dc2dcbee39e0ac8b4c426fea13ef51df0d938c613c87ecaffccd3af",
+      "local_receipt_sha256": "8aa873a28f05fb707d5480d0141fd822e8cd4ee6bcb1227f34201a3ef0e2426a",
       "tool_error": false,
-      "summary": "170 passed in 1.04s"
+      "summary": "174 passed in 2.01s"
     },
     {
       "command": ".venv/bin/python -m pytest -q --tb=short",
-      "local_receipt_sha256": "ee8343d6cf9984fa4396a5fdfa07b6c70b8ec37ec2f5c1713f64bf82e865b4e0",
+      "local_receipt_sha256": "913ba14fea9855c131d040884f2dddd49e93c707f0e80d44af7211452e4eeedb",
       "tool_error": false,
-      "summary": "7309 passed, 35 subtests passed in 62.87s (0:01:02)"
+      "summary": "7313 passed, 35 subtests passed in 54.53s"
     },
     {
-      "command": ".venv/bin/python -m ruff check --fix tools/live/verify_diagnostics_async.py",
-      "local_receipt_sha256": "c13ea53a3a045ef073026453aaacf29fdbaf8e230252356da5e17776e9831c95",
+      "command": ".venv/bin/python -m ruff check tools/live/verify_diagnostics_async.py tests/test_live_diagnostics_async.py",
+      "local_receipt_sha256": "1b1fb97ed0021474c7e28b5dd6a75c12eaefcb39904a686075165d8b40e96bc9",
       "tool_error": false,
-      "summary": "Found 1 error (1 fixed, 0 remaining)."
-    },
-    {
-      "command": ".venv/bin/python -m tools.live.verify_diagnostics_async --help",
-      "local_receipt_sha256": "cff0b64e9dbe90640d1e5cd3c5d5b6adc8167105d0f6e157490259f93422f705",
-      "tool_error": false,
-      "summary": "help exited normally with no SDK call"
+      "summary": "All checks passed!"
     }
   ],
   "live_executed": false,
