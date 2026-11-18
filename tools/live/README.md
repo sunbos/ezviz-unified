@@ -83,3 +83,13 @@
 ### 证据状态
 
 当前尚无针对真实账号或设备的运行证据。本批范围与判据见[六个示例的验收约定](../../docs/coordination/domestic-cli-read/admission.json)。
+
+## 国内账户流量验收（可选）
+
+源码检出用户在交互终端执行以下命令。
+
+```bash
+.venv/bin/python -m tools.live.verify_traffic_usage --prompt
+```
+
+运行器在本机终端分别隐藏输入 AppKey 和 AppSecret，对 account_summary、account_details、day_details 各执行同步与异步共六次查询，每次使用新客户端，至多 12 次 HTTP。首个失败即停止，其余跳过。两项明细查询均取首页，`pageSize=1`、不传日期。不查单设备用量，不做设备发现、流量生成或账户修改。平台应答或含序列号，输出仅含状态、计数与对象/数组形态，绝不打印标识符或流量值。安全 stdout 回执可直接存档。与普通 SDK 允许 10002 自动续期不同，本运行器硬性拒绝任何额外鉴权。

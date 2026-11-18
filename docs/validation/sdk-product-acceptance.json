@@ -30397,7 +30397,7 @@
         "cn.traffic.account_summary"
       ],
       "scope_revision": "2026-11-19-r20-domestic-traffic",
-      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "freeze_state": "frozen_for_execution",
       "region_cluster": "domestic",
       "account_role_permissions": "已授权的国内开发者主账户，子账户 token 无权。不需要调用者提供设备序列号。",
       "device_requirements": "无设备标识要求。",
@@ -30407,7 +30407,7 @@
       ],
       "risk": "read_only",
       "preconditions": [
-        "先确认对应主账户业务数据的只读范围及本机凭据。每个模式用独立客户端，限定各一次认证、一次查询，禁止重试、翻页或扩大目标。"
+        "国内主账户本次授权覆盖汇总、按日和指定一天的通道明细，同步与异步各一次。待用户在自己的终端隐藏输入凭据。"
       ],
       "expected_evidence": {
         "read": "两种模式分别记录受控真实查询的成功状态和 object 层级；不公开流量、标识或原始响应。",
@@ -30419,16 +30419,17 @@
         "max_operations": 2,
         "freeze_required": false
       },
-      "authorization_status": "awaiting_resource_confirmation",
+      "authorization_status": "recorded",
       "recovery_plan": "只读，无远端状态回滚。遇到拒绝即停止，不通过绑定、购买或产生流量来制造数据。",
       "source_refs": [
         "docs/coordination/domestic-traffic/admission.json",
-        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1424.source.json"
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1424.source.json",
+        "docs/coordination/domestic-traffic/account-read.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_resource_confirmation",
+      "result": "pending_execution",
       "blockers": [
-        "主账户及可读取的账号流量范围待确认。"
+        "等待来自本次独立交互终端会话的受控真实回执。"
       ],
       "limitations": [
         "离线通过或返回成功不能证明统计数据准确或设备功能。"
@@ -30446,7 +30447,7 @@
         "cn.traffic.account_details"
       ],
       "scope_revision": "2026-11-19-r20-domestic-traffic",
-      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "freeze_state": "frozen_for_execution",
       "region_cluster": "domestic",
       "account_role_permissions": "已授权的国内开发者主账户，子账户 token 无权。不需要调用者提供设备序列号。",
       "device_requirements": "无设备标识要求。",
@@ -30456,7 +30457,7 @@
       ],
       "risk": "read_only",
       "preconditions": [
-        "先确认对应主账户业务数据的只读范围及本机凭据。每个模式用独立客户端，限定各一次认证、一次查询，禁止重试、翻页或扩大目标。"
+        "国内主账户本次授权覆盖汇总、按日和指定一天的通道明细，同步与异步各一次。待用户在自己的终端隐藏输入凭据。"
       ],
       "expected_evidence": {
         "read": "两种模式分别记录受控真实查询的成功状态和 array 层级；不公开流量、标识或原始响应。",
@@ -30468,16 +30469,17 @@
         "max_operations": 2,
         "freeze_required": false
       },
-      "authorization_status": "awaiting_resource_confirmation",
+      "authorization_status": "recorded",
       "recovery_plan": "只读，无远端状态回滚。遇到拒绝即停止，不通过绑定、购买或产生流量来制造数据。",
       "source_refs": [
         "docs/coordination/domestic-traffic/admission.json",
-        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1425.source.json"
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1425.source.json",
+        "docs/coordination/domestic-traffic/account-read.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_resource_confirmation",
+      "result": "pending_execution",
       "blockers": [
-        "主账户及可读取的账号流量范围待确认。"
+        "等待来自本次独立交互终端会话的受控真实回执。"
       ],
       "limitations": [
         "离线通过或返回成功不能证明统计数据准确或设备功能。"
@@ -30495,7 +30497,7 @@
         "cn.traffic.day_details"
       ],
       "scope_revision": "2026-11-19-r20-domestic-traffic",
-      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "freeze_state": "frozen_for_execution",
       "region_cluster": "domestic",
       "account_role_permissions": "已授权的国内开发者主账户，子账户 token 无权。不需要调用者提供设备序列号。",
       "device_requirements": "无设备标识要求。",
@@ -30505,7 +30507,7 @@
       ],
       "risk": "read_only",
       "preconditions": [
-        "先确认对应主账户业务数据的只读范围及本机凭据。每个模式用独立客户端，限定各一次认证、一次查询，禁止重试、翻页或扩大目标。"
+        "国内主账户本次授权覆盖汇总、按日和指定一天的通道明细，同步与异步各一次。待用户在自己的终端隐藏输入凭据。"
       ],
       "expected_evidence": {
         "read": "两种模式分别记录受控真实查询的成功状态和 array 层级；不公开流量、标识或原始响应。",
@@ -30517,16 +30519,17 @@
         "max_operations": 2,
         "freeze_required": false
       },
-      "authorization_status": "awaiting_resource_confirmation",
+      "authorization_status": "recorded",
       "recovery_plan": "只读，无远端状态回滚。遇到拒绝即停止，不通过绑定、购买或产生流量来制造数据。",
       "source_refs": [
         "docs/coordination/domestic-traffic/admission.json",
-        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1426.source.json"
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1426.source.json",
+        "docs/coordination/domestic-traffic/account-read.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_resource_confirmation",
+      "result": "pending_execution",
       "blockers": [
-        "主账户及可读取的账号流量范围待确认。"
+        "等待来自本次独立交互终端会话的受控真实回执。"
       ],
       "limitations": [
         "离线通过或返回成功不能证明统计数据准确或设备功能。"
@@ -30566,16 +30569,17 @@
         "max_operations": 2,
         "freeze_required": false
       },
-      "authorization_status": "awaiting_resource_confirmation",
+      "authorization_status": "not_authorized",
       "recovery_plan": "只读，无远端状态回滚。遇到拒绝即停止，不通过绑定、购买或产生流量来制造数据。",
       "source_refs": [
         "docs/coordination/domestic-traffic/admission.json",
-        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1427.source.json"
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1427.source.json",
+        "docs/coordination/domestic-traffic/account-read.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_resource_confirmation",
+      "result": "awaiting_authorization",
       "blockers": [
-        "主账户及可读取的账号流量范围待确认。设备级查询还需已授权目标。"
+        "用户明确本轮暂不查设备。需要另行明确设备目标和读取授权。"
       ],
       "limitations": [
         "离线通过或返回成功不能证明统计数据准确或设备功能。"

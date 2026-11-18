@@ -10,7 +10,7 @@ the first rejection latches forever.
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, Protocol
 
 import httpx
 
@@ -163,10 +163,14 @@ class ProfileGuard:
         return self._guarded()
 
 
+class _RequestGuard(Protocol):
+    def admit(self, request: httpx.Request) -> None: ...
+
+
 class _SyncGuardedTransport(httpx.BaseTransport):
     """Admit through the shared guard, then delegate; nothing else."""
 
-    def __init__(self, guard: ProfileGuard, delegate: httpx.BaseTransport) -> None:
+    def __init__(self, guard: _RequestGuard, delegate: httpx.BaseTransport) -> None:
         self._guard = guard
         self._delegate = delegate
 
@@ -181,7 +185,7 @@ class _SyncGuardedTransport(httpx.BaseTransport):
 class _AsyncGuardedTransport(httpx.AsyncBaseTransport):
     """Admit through the shared guard, then delegate; nothing else."""
 
-    def __init__(self, guard: ProfileGuard, delegate: httpx.AsyncBaseTransport) -> None:
+    def __init__(self, guard: _RequestGuard, delegate: httpx.AsyncBaseTransport) -> None:
         self._guard = guard
         self._delegate = delegate
 
