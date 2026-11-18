@@ -1,6 +1,8 @@
 # EZVIZ Unified 实施路线
 
-**2026-11-18 状态注记：** 本批为能力登记与文档元数据更新（基线 78b6195），字段口径见 [能力登记数据说明](../capabilities/README.md)；不含新 SDK 实现、实测或发行完成。诊断 v1 已交付，2026-11-16 国内只读实测见（[记录](../validation/live/2026-11-16-diagnostics-v1/README.md)）。
+**2026-11-18 本地消息接收验收更新：** 经 Codex 验收，有界签名 Webhook 仓库接收示例三项本地 case 通过；最终全量 pytest 4705 项 + 35 subtests、Ruff 9 个文件通过；链路覆盖真实 loopback TCP、CLI help 退出 0 / 非 TTY 退出 1、真实本机 PTY 合成 secret 关闭回显且 0 入站、deadline 退出 0。记录见[验收目录](../validation/2026-11-18-webhook-receiver/README.md)与[接收示例说明](../webhook-receiver.md)。上述均为合成/本地层证据，不代表平台或设备事件验收；两个平台 case 与原 policy 仍资源授权未就绪，海外仍无绑定设备；SDK 源码、依赖与传输重试未改，PyPI 未发布，完整 SDK 产品与第二轮工作均未完成；本段不预写当前 PR 合并/main CI 或发布结论，相关计数不作官方覆盖率。
+
+**2026-11-18 状态注记（此前能力登记批次（基线 78b6195）的历史状态）：** 本批为能力登记与文档元数据更新（基线 78b6195），字段口径见 [能力登记数据说明](../capabilities/README.md)；不含新 SDK 实现、实测或发行完成。诊断 v1 已交付，2026-11-16 国内只读实测见（[记录](../validation/live/2026-11-16-diagnostics-v1/README.md)）。
 
 本批数据变更：101 个国内候选槽位纳入场景说明（5 个复用既有 voice 候选 ID——这些 voice 尚未实现、未准入 G1；96 个为新增 `implementation.status=unknown` 槽位）；109 条既有合同追加 `scenario`/`family` 与已跑 wire 证据引用（904 个合成 cells 仅对应测试范围，未新跑 SDK）；44 条海外候选补描述、案例 `awaiting_design`，公共国家/地区目录沿用原候选 ID 且已有离线验收和有界 SDK 实测记录。其余口径不变：204 条已登记操作并非官方能力总量；source4051/observation3019/material59 状态不变，完整语义审核未完成；本批 101+44 待审候选无新增 G1/“通过”结论；wire 证据仅覆盖已执行的离线验收层，不能替代真实设备、真实消息、媒体与产品级验收；海外仍无绑定设备，消息服务/回调资源未知，PyPI 发布主体/版本/权限未冻结；npm 版本归档与仓库 selected source 元数据核对不等于许可证兼容或运行集成。阶段二 App adapter、选择性遥测、独立模型评测、受控 RSI 未完成；官方消息接入与媒体组件本轮 `requirement=required`，仅四项第二轮工作延期。
 

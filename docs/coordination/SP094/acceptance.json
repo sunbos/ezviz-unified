@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "task_id": "SP094",
+  "input_scope_sha256": "d5bbe06536b9b9b5fd03008f22f7c8ce3d03197d4da342a77fdaf0ecd295745f",
+  "output_scope_sha256": "885b3067528c6c3fb2aa5d702a5f8cc9bc7c3a663a3bfd3fe0bd01a4913d5569",
+  "source_evidence_sha256": "63fe5b27eec83cf502d164d9d58d23a52ee45e65b152ba5f814a7ed7196ee03b",
+  "candidate_input_correction_sha256": "503d39bf23c97cdf5e58fc3fa6e0df12f06b3d8ddd8bab84d6b645b23b72501d",
+  "source19_whole_tutorial_reviewed": true,
+  "overseas2392_only_targeted_signature_facts_in_review": true,
+  "diagnostic_claim_correction": {
+    "capability_id": "candidate:overseas:1000007:message-integration",
+    "basis": "docs/diagnostics-v1-coverage.json exclusions; docs/diagnostics.md automatic-coverage boundary",
+    "old_claim_was_wrong": true,
+    "new_claim": "diagnostics boundary: standalone webhook helpers are excluded from diagnostics v1 automatic collection; receiver-example fixed counters are a separate acceptance scope, not automatic SDK recorder coverage."
+  },
+  "no_new_api_or_runtime_or_execution_evidence": true,
+  "whole_product_complete": false,
+  "hash_semantics_note": "input/output scope/acceptance hashes describe the historical output of this named stage, not the current files after later updates. They are preserved and do not imply any new execution."
+}

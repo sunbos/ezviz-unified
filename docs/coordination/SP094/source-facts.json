@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "9285fcfd87b0074021f3e5dcd997bc22d9b828b8",
+  "source_dispositions": [
+    {
+      "source_pin": {
+        "source_id": "portal-2026-11-17:domestic:19",
+        "region": "domestic",
+        "doc_id": "19",
+        "raw_file": "pages/domestic/19.source.json",
+        "raw_file_sha256": "816a03f01454b7a41954fb14e20c1d03647e1d8198031d160d5b101117f00c91",
+        "content_sha256": "ad0b3d66fcca52dbbea9401f4d89be8d319e509c634957f6cfb202e5e387b2c1",
+        "structure_file": "derived/domestic/19.structure.json",
+        "structure_sha256": "496833c0612066e9db8e97fc21a5432cbddaa47effcdc2d7773c06033c7cfee7"
+      },
+      "classification": "tutorial",
+      "semantic_role": "authorization_guidance",
+      "whole_source_semantic_disposition_approved": true,
+      "public_claims": [
+        {
+          "fact_id": "doc19:access_token_purpose",
+          "fact_kind": "reviewed_prose_claim",
+          "statement": "该介绍将 accessToken 描述为用于校验接口访问权限的公共参数。",
+          "element_indices": [
+            1
+          ],
+          "scope_limit": "一般 token 指南；不覆盖已明确无需 token 的认证入口或公开目录等端点例外。"
+        },
+        {
+          "fact_id": "doc19:token_lifetime",
+          "fact_kind": "reviewed_prose_claim",
+          "statement": "该页说明 AccessToken 的有效期为七天且不可更改；有效期内可重复使用，业务端应处理有效性校验与失效后重新获取。",
+          "element_indices": [
+            1
+          ],
+          "scope_limit": "仅本页所述平台 AccessToken，不推广到全部客户端会话、播放地址或其它 token 类型。"
+        },
+        {
+          "fact_id": "doc19:independent_token_lifetimes",
+          "fact_kind": "reviewed_prose_claim",
+          "statement": "新签发的 Token 不会让旧 Token 自动失效；各 Token 的生命周期独立。",
+          "element_indices": [
+            1
+          ],
+          "scope_limit": "不否定其它文档明确列出的身份变更、撤销或失效条件。"
+        },
+        {
+          "fact_id": "doc19:no_perpetual_token",
+          "fact_kind": "reviewed_prose_claim",
+          "statement": "该页明确不提供永久有效的 Token。",
+          "element_indices": [
+            5
+          ],
+          "scope_limit": "不推断任何其它凭据或服务授权的期限。"
+        }
+      ],
+      "numeric_anchor_union": [
+        1,
+        5
+      ],
+      "existing_capability_relation": {
+        "target_capability_id": "contract:cn.token.get",
+        "role": "additional_source_authorization_guidance",
+        "primary_protocol_source_id": "portal-2026-11-17:domestic:81",
+        "primary_protocol_source_content_sha256": "f89f439095194409b0e3cdc8a8d8c188254c70ef510e61f4799694c863865ef3",
+        "relation_does_not_change_registry_primary_source": true
+      },
+      "preserved_boundaries": [
+        "公共accessToken说明不覆盖token获取入口自身；当前cn.token.get的token_location=none及appKey/appSecret表单合同保持。",
+        "不覆盖明确匿名请求/公开目录，也不推导全部请求必须有token或token provider必须调用。",
+        "7天仅限本指南平台AccessToken；不推广到OAuth、子账号/托管/临时token、streamToken、播放地址或会话，不把source822特定token等同通用token。",
+        "新token不自动使旧token失效不等于旧token永不撤销：source81已明示注销/密码等身份变更可使旧token失效，过期或相应认证错误仍须处理。",
+        "source19没有提供新的expireTime单位或新SDK策略；expireTime毫秒语义来自source81既有合同。不能以7天概述替代实际过期信息、撤销或错误处理。",
+        "不新增scope权限/设备前提、并发保证、缓存实现、自动重试或真实调用授权；不请求凭据、不执行认证。"
+      ],
+      "text_review_basis": "既有完整短文审核；四条claim涵盖用途与生命周期说明，无表格/代码/链接/嵌入内容，不从零HTTP计数推断分类。",
+      "new_api": false
+    }
+  ],
+  "partial_protocol_facts": [
+    {
+      "schema_version": 1,
+      "task_id": "SP094",
+      "source_id": "portal-2026-11-17:overseas:2392",
+      "content_sha256": "c33f9288f1115f8f680860af435af543b2f59467206a47a1e335975f9fc52245",
+      "raw_file": "pages/overseas/2392.source.json",
+      "raw_file_sha256": "04355e5bd34b4d8873bb56fa8fcd3db1720e793aa3d3495e2097f5a2d482b6e2",
+      "facts": [
+        {
+          "anchors": [
+            29,
+            81
+          ],
+          "claim": "消息服务配置签名密钥后，头Signature为HMAC-SHA1，对HTTP请求body与timestamp拼接计算，使用开通服务时配置的secret。"
+        },
+        {
+          "anchors": [
+            99
+          ],
+          "claim": "通用Java算法示例以HmacSHA1并使用UTF-8编码；调用参数为secret、body+timestamp，timestamp注释指定头t。该代码片段所有双引号字面量仅为HmacSHA1，无凭据或报文实例值。",
+          "code_text_sha256": "2f6fe3a0bb8fceb9e84885e985f803faa1b5df068be034c34922465c352545d6"
+        }
+      ],
+      "preserved_unknowns": [
+        "t时间单位未说明，不能套用国内毫秒新鲜度规则。",
+        "定点算法说明不代表整页或全部海外消息协议已审、实际投递完成或签名必选。"
+      ],
+      "code_executed": false,
+      "raw_request_response_or_credential_values_exported": false,
+      "whole_source_reviewed": false,
+      "live_verified": false
+    }
+  ],
+  "no_new_runtime_or_live_evidence": true
+}

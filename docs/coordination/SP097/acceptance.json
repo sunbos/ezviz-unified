@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "task_id": "SP097",
+  "input_scope_sha256": "6af48a97126fe20d478368c47eba2f537f1558ed658643ce46469f29d00f957f",
+  "output_scope_sha256": "06e4b34b113c08a1a7f3a88766f1e678a196dcef4c8b97a2df39879c2c6901a2",
+  "mapping_evidence_sha256": "a7e5c8896f47befea4c682531bbd84d612ad3de7873d020d5cc8cff98b7997dd",
+  "approved_declaration_mappings": 31,
+  "other_observations_and_all_source_capability_cohort_states_preserved": true,
+  "new_execution_or_full_product_completion": false,
+  "hash_semantics_note": "input/output scope/acceptance hashes describe the historical output of this named stage, not the current files after later updates. They are preserved and do not imply any new execution."
+}

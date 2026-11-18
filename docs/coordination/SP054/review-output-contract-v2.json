@@ -1,0 +1,191 @@
+{
+  "schema_version": 2,
+  "contract_id": "SP054-review-output-v2",
+  "baseline_commit": "aba158bd5ff836284e248a75d62b5b0a302a38af",
+  "status": "frozen_design_not_implemented",
+  "principle": "model_cites_facts_only_never_restates_them",
+  "controller_responsibilities": {
+    "injects": [
+      "input_version_pins",
+      "full_source_and_observation_identities_with_hashes",
+      "binding_refs",
+      "historical_verification_evidence",
+      "fact_index"
+    ],
+    "fact_index": "assigns one unique fact_ref to every pre-existing packet entry (source/obs/field/shape/route) and every supplemental fact; refs are the only way the model may cite evidence",
+    "validates": [
+      "every injected-kind ref (source_ref/observation_ref/fact_ref/binding_ref) resolves to an injected identity of the matching kind",
+      "exactly one source_decision per injected source_ref and exactly one observation_decision per injected observation_ref: none missing, none duplicated, none added",
+      "scenario_candidate.local_id and evidence_request.id are response-local IDs defined by this output: each unique within the output, never validated against injected identity sets, never treated as injected identities or approved operation ids",
+      "every scenario_refs entry resolves to a local_id defined in this output; every open_request_ids entry resolves to an evidence_request.id defined in this output",
+      "provenance alignment: observation_refs belong to the declared source_refs; fact_refs support the relevant source(s) or an explicitly supplied cross-source relation; relationship.kind=existing target_binding_ref matches the supplied binding context, not merely any existing id",
+      "input pins echoed by the model output are not required and not trusted; controller re-checks pins itself",
+      "derived counts are recomputed by the controller; model output is never a fact store"
+    ]
+  },
+  "model_output": {
+    "required_top_level_keys": [
+      "schema_version",
+      "source_decisions",
+      "observation_decisions",
+      "scenario_candidates",
+      "evidence_requests"
+    ],
+    "top_level_keys_are_closed": true,
+    "schema_version": 2,
+    "forbidden_top_level_or_nested_fields": [
+      "verification_layer",
+      "summary",
+      "counts",
+      "whole_source_complete",
+      "input_pins",
+      "hashes",
+      "method",
+      "path",
+      "parameters",
+      "json_shape",
+      "field_count",
+      "validation_status"
+    ]
+  },
+  "objects": {
+    "source_decision": {
+      "required": [
+        "source_ref",
+        "classification_candidates",
+        "classification_fact_refs",
+        "open_request_ids"
+      ],
+      "fields": {
+        "source_ref": {"type": "ref", "target": "injected source identity"},
+        "classification_candidates": {
+          "type": "array",
+          "item_enum": ["server_api", "message", "client_component", "tutorial", "duplicate", "deprecated", "missing", "uncertain"],
+          "note": "categories without supporting facts MUST remain uncertain; an open_request_id is not evidence and cannot substitute for a fact-backed positive classification"
+        },
+        "classification_fact_refs": {"type": "array", "items": "fact_ref"},
+        "open_request_ids": {"type": "array", "items": "evidence_request.id"}
+      },
+      "closed": true
+    },
+    "observation_decision": {
+      "required": [
+        "observation_ref",
+        "assessment",
+        "scenario_refs",
+        "open_request_ids"
+      ],
+      "fields": {
+        "observation_ref": {"type": "ref", "target": "injected observation identity"},
+        "assessment": {"type": "string", "note": "free-text judgment only; MUST NOT introduce new HTTP method/path/parameter/JSON-shape/field-count/validation-state claims"},
+        "scenario_refs": {"type": "array", "items": "scenario_candidate.local_id"},
+        "open_request_ids": {"type": "array", "items": "evidence_request.id"}
+      },
+      "closed": true
+    },
+    "scenario_candidate": {
+      "required": [
+        "local_id",
+        "source_refs",
+        "observation_refs",
+        "scenario_proposal",
+        "relationship",
+        "official_fact_refs",
+        "design_choices",
+        "open_request_ids",
+        "closure_requirements"
+      ],
+      "fields": {
+        "local_id": {"type": "string", "note": "local identifier only; NOT an approved operation id"},
+        "source_refs": {"type": "array", "items": "source_ref"},
+        "observation_refs": {"type": "array", "items": "observation_ref"},
+        "scenario_proposal": {"type": "string", "note": "design proposal / open question text; must not be phrased as official fact"},
+        "relationship": {
+          "type": "object",
+          "required": ["kind", "target_binding_ref"],
+          "fields": {
+            "kind": {"enum": ["existing", "new", "none"]},
+            "target_binding_ref": {
+              "type": ["ref", "null"],
+              "rule": "when kind=existing it MUST match an injected binding_ref; self-minted approved operation IDs are rejected; when kind!=existing it MUST be null"
+            }
+          },
+          "closed": true
+        },
+        "official_fact_refs": {
+          "type": "array",
+          "items": "fact_ref",
+          "rule": "exact picks from injected fact_refs only; no free-text facts"
+        },
+        "design_choices": {"type": "array", "items": "string"},
+        "open_request_ids": {"type": "array", "items": "evidence_request.id"},
+        "closure_requirements": {"type": "array", "items": "string"}
+      },
+      "closed": true
+    },
+    "evidence_request": {
+      "required": [
+        "id",
+        "source_refs",
+        "fact_refs",
+        "requested_safe_fact",
+        "impact",
+        "basis"
+      ],
+      "fields": {
+        "id": {"type": "string"},
+        "source_refs": {"type": "array", "items": "source_ref"},
+        "fact_refs": {"type": "array", "items": "fact_ref"},
+        "requested_safe_fact": {"type": "string", "rule": "bounded single fact; MUST NOT request raw text, code bodies, or concrete values"},
+        "impact": {"type": "string"},
+        "basis": {"type": "string"}
+      },
+      "closed": true
+    }
+  },
+  "protocol_freeze": {
+    "rule": "unknown path or unadjudicated required parameters keep protocol_freeze_blocker",
+    "non_rule": "absence of authorization is NOT automatically a protocol blocker"
+  },
+  "acceptance": {
+    "identity_conservation": [
+      "exactly one source_decision per injected source_ref; an uncertain decision may carry open_request_ids but no injected source may be missing, duplicated, or added",
+      "exactly one observation_decision per injected observation_ref",
+      "no duplicate scenario_candidate.local_id within the output; no duplicate evidence_request.id within the output (local uniqueness, not conservation against injected sets)",
+      "every relationship.kind=existing target resolves to an injected binding_ref matching the supplied binding context"
+    ],
+    "reference_integrity": [
+      "all source_ref/observation_ref/fact_ref/binding_ref fields resolve to injected identities of the matching kind",
+      "all scenario_refs resolve to a local_id defined in this output; all open_request_ids resolve to an evidence_request.id defined in this output",
+      "classification_fact_refs and official_fact_refs contain only injected fact_refs",
+      "observation_refs belong to the declared source_refs; fact_refs support the relevant source(s) or an explicitly supplied cross-source relation"
+    ]
+  },
+  "minimal_counterexamples": [
+    {
+      "id": "CE1_fake_fact_ref",
+      "input_summary": "model returns a scenario_candidate whose official_fact_refs contains 'fact-999' not present in fact_index",
+      "expected_controller_verdict": "reject: unresolvable fact_ref"
+    },
+    {
+      "id": "CE2_ready_without_path",
+      "input_summary": "model marks a source_decision classification_candidates=['server_api'] while the observation has no verified path and no open_request_id",
+      "expected_controller_verdict": "reject: path unknown, no bounded evidence request; protocol_freeze_blocker must remain"
+    },
+    {
+      "id": "CE3_shape_implies_response",
+      "input_summary": "model assessment claims a field_table or code shape proves the full response schema / success code / version branch",
+      "expected_controller_verdict": "reject: context/shape facts may only anchor position; model must not assert complete schema from them"
+    },
+    {
+      "id": "CE4_classification_without_evidence",
+      "input_summary": "source_decision emits classification_candidates=['server_api'] with empty classification_fact_refs and empty open_request_ids",
+      "expected_controller_verdict": "reject: a category without supporting facts must stay 'uncertain'; attaching an open_request_id does not authorize a positive classification"
+    },
+    {
+      "id": "CE5_minted_binding",
+      "input_summary": "scenario_candidate.relationship={kind:'existing', target_binding_ref:'op.invented'} where 'op.invented' was never injected",
+      "expected_controller_verdict": "reject: unresolvable binding_ref; self-minted approved operation ids forbidden"
+    }
+  ]
+}
