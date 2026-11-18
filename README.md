@@ -63,6 +63,10 @@ with Client(
 
 `client.vod`另提供四个仅国内的转封装与查询入口，同步/异步共用同名方法：`create_remux_task`（官方明确非幂等的异步任务创建，不自动重放，仅返回`ApiResponse`，不变成任务句柄）、`task`与`tasks`（只读的单任务查询与任务分页列表，不自动翻页或轮询）以及`recording_urls`（按设备、通道与时段签发录像地址；其`read_only=False`是SDK为禁自动重放的选择，来源未明确无副作用，非官方写/非幂等结论）。官方声明的范围/权限边界包括：`create_remux_task`限企业用户、不支持托管/子账号且需已有对应时段云录像；`recording_urls`要求设备开通云存储且对应时段有录像、同样不支持托管/子账号；两个查询接口的来源仅明确accessToken，额外账号或套餐权限未声明，由服务端判定；SDK不把这些前提互相移植。全部参数校验、Header字符串规则与时间边界见[云点播转封装说明](docs/research/2026-11-18-vod-remux.md)；任务状态编码、地址字段名与`fileNodeId`/`taskId`各自独立，SDK不发明映射或完成判据。本批四个入口仍未做真实调用验证；各能力的验收状态见[产品能力登记](docs/capabilities/README.md)与[验收登记](docs/validation/sdk-product-acceptance.json)中对应`candidate:domestic:*`行，登记数量不代表覆盖率或产品级验收通过。
 
+## 云抽帧、消息订阅与HUB（仅国内）
+
+`client.cloud_capture`（interval/timing两种抽帧任务创建+`task(task_id)`查询）、`client.message_subscriptions`（`create_consumer('group1')`+`consume(cid, offset=None)`）、`client.hubs`（`list_subdevices`/`subdevice_info`/`channels`）均为国内入口；创建任务与消费是显式副作用动作，可能计费或提交上一批偏移，不自动重放。用法、选择器边界与示例见[国内域指南](docs/cloud-capture-messages-hubs.md)；`examples/cloud_capture.py`、`message_subscriptions.py`、`hub_discovery.py`仅在源码checkout内运行。
+
 ## 播放地址与抓拍
 
 `client.playback.create(serial, PlaybackOptions(...))`按地区创建播放地址；`invalidate(serial, url_id=...)`显式失效地址。`client.snapshots.capture(serial, channel=...)`支持两地普通抓拍，国内另有`capture_to_space`。这些操作不自动重放，也不下载或播放媒体；返回URL与密码应按凭证处理。协议/时间/存储差异和未解决项见[媒体说明](docs/research/2026-11-14-media-access.md)，尚未进行真实媒体请求。

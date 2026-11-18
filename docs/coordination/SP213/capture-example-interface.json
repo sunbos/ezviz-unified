@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "scope": "完整SP213 CLOUD-CAPTURE-001 repository示例；没有SDK协议变更或新live许可。",
+  "helper_interfaces": [
+    {
+      "signature": "query_task_sync(client: Client, task_id: str) -> ApiResponse",
+      "delegate": "client.cloud_capture.task(task_id)",
+      "async_signature": "async query_task_async(client: AsyncClient, task_id: str) -> ApiResponse",
+      "async_delegate": "await client.cloud_capture.task(task_id)"
+    },
+    {
+      "signature": "search_files_sync(client: Client, query: StorageFileQuery) -> ApiResponse",
+      "delegate": "client.storage.search_files(query)",
+      "async_signature": "async search_files_async(client: AsyncClient, query: StorageFileQuery) -> ApiResponse",
+      "async_delegate": "await client.storage.search_files(query)"
+    },
+    {
+      "signature": "download_urls_sync(client: Client, file_node_ids: Sequence[str], *, expire_seconds: int | None = None) -> ApiResponse",
+      "delegate": "client.storage.download_urls(file_node_ids, expire_seconds=expire_seconds)",
+      "async_signature": "async download_urls_async(client: AsyncClient, file_node_ids: Sequence[str], *, expire_seconds: int | None = None) -> ApiResponse",
+      "async_delegate": "await client.storage.download_urls(file_node_ids, expire_seconds=expire_seconds)"
+    }
+  ],
+  "helper_invariants": [
+    "六个helper都是一次显式SDK业务调用，直接返回同一ApiResponse，不返回data/taskId-only/列表/URL字符串包装。",
+    "client由调用方拥有；helper不创建或关闭Client，不读取env、不打印、不持久化、不创建线程/task，不捕获并替换底层异常。",
+    "不提供自动完整workflow、poll、search_next_page、download_media或自动文件选择。调用方显式控制各步和错误后的继续策略。",
+    "验证依赖既有SDK和StorageFileQuery；不复制/加严ID、日期、分页限制。helper不改query，也不从task响应构造文件节点ID。"
+  ],
+  "full_required_programmatic_scenario": [
+    {
+      "step": 1,
+      "action": "文档分别提供sync和async两种显式创建选择：直接client.cloud_capture.create_interval_task(...)或create_timing_task(...)；不再另造create wrapper。",
+      "boundary": "两种创建是互斥的演示选择，不在导入/CLI默认路径或一个自动函数内同时调用；真实写入需单独授权。使用SP213冻结参数，不创建空间/录制作为隐式准备。"
+    },
+    {
+      "step": 2,
+      "action": "调用方在局部变量检查创建ApiResponse.data的taskId String（1388 E153/1389 E100），或提供已有任务ID；显式调用query_task_sync/async一次。",
+      "boundary": "保留原响应与未知字段；taskStatus0与3不合并成ready成功；不根据状态自动poll或触发下一请求。"
+    },
+    {
+      "step": 3,
+      "action": "调用方构造现有StorageFileQuery(tag_id=confirmed_task_id, page_size=5, last_id=None)，显式调用search_files_sync/async一次。",
+      "boundary": "tagId=taskId来自指南的跨来源组合证据，不是1370返回fileNodeId。也可显式使用space_ids和时间做另一查询策略，但不自动替换选择器。"
+    },
+    {
+      "step": 4,
+      "action": "调用方检查该页返回的文件身份、归属和需要的结果，再把明确选择的file_node_ids存入局部变量。",
+      "boundary": "不提供自动取首个节点或从taskId/URL/path推断节点的函数。即使hasNext=true也不自动翻页；space_ids+tag_id不得解释为AND。"
+    },
+    {
+      "step": 5,
+      "action": "显式调用download_urls_sync/async一次，接收现有storage下载地址ApiResponse。",
+      "boundary": "仅向平台取地址，不访问URL、不下载媒体、不打印URL；地址存在不证明图片可播放、任务产物完整或硬件正确。"
+    }
+  ],
+  "actual_StorageFileQuery_contract": {
+    "constructor": "StorageFileQuery为kw_only frozen dataclass",
+    "fields": [
+      "file_node_ids",
+      "space_ids",
+      "tag_id",
+      "start_time",
+      "end_time",
+      "file_type",
+      "file_child_type",
+      "page_size",
+      "last_id",
+      "sort_rule",
+      "source_type"
+    ],
+    "not_a_field": "page_start",
+    "recommended_first_page": "明确page_size=5（示例选择），last_id=None；page_size由现有SDK限制1..50。last_id是字符串游标，不是页码。",
+    "helper_behavior": "helper只接受调用方构造的query并请求一页；不强改page_size/last_id、不读hasNext推进游标。",
+    "selector_priority": "file_node_ids > tag_id > space_ids由服务端解决；SDK原样发送所有给出的选择器，不把同时提供space_ids/tag_id当联合过滤。",
+    "time_rule": "仅space_ids为active selector时需start_time+end_time；tag_id存在时不人为要求双时间。若显式给时间，仍遵守现有DTO整秒naive与起止规则。",
+    "identity_rule": "projectId、resultSpaceId、taskId、fileNodeId不可互相猜测或转换；示例中的文件选择必须发生在搜索结果检查之后。"
+  },
+  "wire_reference": [
+    {
+      "operation": "cloud_capture.create_interval_task / create_timing_task",
+      "method": "POST",
+      "paths": [
+        "/api/v3/open/cloud/video/frame/interval/start",
+        "/api/v3/open/cloud/video/frame/timing/start"
+      ],
+      "token": "flat form accessToken",
+      "policy": "meta.code/meta.message/data; success_values=(200,)",
+      "replay": "read_only=False，无自动重放；只有文档/测试显式调用，不在CLI默认路径。"
+    },
+    {
+      "operation": "cloud_capture.task",
+      "method": "GET",
+      "path": "/api/v3/open/cloud/task/{taskId}",
+      "token": "query accessToken；taskId通过现有path_params模板",
+      "body": "none；不注入Content-Type",
+      "policy": "meta.code/meta.message/data; success_values=(200,)",
+      "replay": "既有read_only恢复规则，最多一次已确认invalid_token恢复，不加一般重试。"
+    },
+    {
+      "operation": "storage.search_files",
+      "method": "POST",
+      "path": "/api/service/open/storage/engine/file/listById",
+      "token": "header accessToken",
+      "body": "flat form，由StorageFileQuery.to_form()提供；tagId/pageSize/lastId等原字段",
+      "policy": "meta.code/meta.message/data; success_values=(200,)",
+      "replay": "既有只读规则。"
+    },
+    {
+      "operation": "storage.download_urls",
+      "method": "GET",
+      "path": "/api/service/open/storage/engine/file/downloadurls",
+      "token": "query accessToken",
+      "query": "fileNodeIds CSV；expireSeconds仅非None时发送",
+      "body": "none",
+      "policy": "meta.code/meta.message/data; success_values=(200,)",
+      "existing_bounds": "file_node_ids 1..50，expire_seconds显式值30..604800；None由SDK省略。"
+    }
+  ],
+  "CLI_contract": {
+    "entry": "main(argv: Sequence[str] | None = None) -> int",
+    "invocation": "python -m examples.cloud_capture --mode sync|async",
+    "accepted_arguments": [
+      "--mode (required; sync|async)",
+      "--help"
+    ],
+    "forbidden_arguments": [
+      "凭据/ID参数",
+      "--create",
+      "--poll",
+      "--download",
+      "其它自动业务动作flag"
+    ],
+    "execution": "parse_args先于所有配置读取；实际执行时仅load_config()与读取EZVIZ_CLOUD_TASK_ID。配置domestic检查在创建Client前；Client由CLI with/async with拥有，调用对应query_task helper一次后关闭。",
+    "configuration": "复用examples._common.load_config()的EZVIZ_APP_KEY/EZVIZ_APP_SECRET/EZVIZ_REGION；任务ID仅显式本地env EZVIZ_CLOUD_TASK_ID，不默认值、不自动发现、不读.env文件；配置值不回显。",
+    "help_import": "导入和--help均零env/config读取、零Client/网络/任务；固定prog，ArgumentParser.error改为固定错误，不输出含原argv的默认报错。",
+    "success_whitelist": {
+      "status": "ok",
+      "mode": "sync|async",
+      "logical_calls": 1,
+      "task_state": "completed|queued|running|ended|abnormal_end|paused|cancelled|not_started|unknown"
+    },
+    "state_mapping": {
+      "0": "completed",
+      "1": "queued",
+      "2": "running",
+      "3": "ended",
+      "4": "abnormal_end",
+      "5": "paused",
+      "6": "cancelled",
+      "7": "not_started"
+    },
+    "state_rules": "仅type(taskStatus) is int且0..7映射；缺失、null、bool、float、String或其它值统一unknown，不输出原值。data必须dict，否则固定unexpected_response/nonzero。0与3分别保留；ok仅表示任务查询请求成功，不表示产物存在或媒体已验证。",
+    "failure_whitelist": {
+      "status": "failed",
+      "category": "configuration_error|input_error|sdk_error|unexpected_response"
+    },
+    "failure_behavior": "失败只向stderr输出该固定JSON并return1；不输出异常文本/类名/code/http_status/env值/raw。未知普通异常不换成功，process-control BaseExceptions保持传播。",
+    "output_exclusions": [
+      "task/project/space/file/device IDs及其hash",
+      "offset/cursor值",
+      "media/cover/download URLs",
+      "token/key/secret/validateCode",
+      "任意响应字段名、原始payload或异常细节"
+    ],
+    "do_not_reuse": "examples._common.print_failure会输出动态类名/code，不符合此新CLI白名单；只复用load_config/ConfigError。"
+  },
+  "tests_required_real_SDK_MockTransport": [
+    {
+      "case": "CLI正常sync/async",
+      "scope": "用真实Client/AsyncClient，合成认证+任务响应；正常恰好auth1+task1=2 HTTP，且没有创建/搜索/取址请求，close无业务请求。taskStatus=0和3输出不同固定enum。"
+    },
+    {
+      "case": "完整显式流程",
+      "scope": "参数化sync/async；调用直接SDK创建选择（interval或timing两种示范均覆盖），再由调用方依次调用query/search/download helpers；真实MockTransport记录正常auth1+4业务=5 HTTP及精确顺序/路径/token位置/编码。写调用只在这个明确合成测试里发生。"
+    },
+    {
+      "case": "已有任务最小离线链",
+      "scope": "不创建任务的query→单页search→download正常auth1+3业务=4 HTTP；search响应hasNext=true仍只有一次search，无任何返回URL的HTTP访问。"
+    },
+    {
+      "case": "selector/cursor真实性",
+      "scope": "用真实StorageFileQuery(tag_id=合成taskID,page_size=5,last_id=None)验证form键；显式space_ids+tag_id时确认都发送但文档/断言不声称AND；给last_id原样且不自动推进；禁止不存在的page_start。"
+    },
+    {
+      "case": "返回/异常与停止",
+      "scope": "每helper返回实际SDK ApiResponse，不只data；已知错误/超时/取消直接传播。CLI失败固定非零；某显式步骤异常后示例/test顺序不得自动补后续请求，尤其不创建/轮询/媒体fetch。"
+    },
+    {
+      "case": "隐私与形状",
+      "scope": "合成响应/异常携带SENTINEL ID/token/URL/未知业务code；capsys/caplog不出现值。task data非dict失败，缺失/未知taskStatus只unknown；不能把已结束3当已完成0或用空search证明账户无文件。"
+    },
+    {
+      "case": "前置输入/import/help",
+      "scope": "缺失/空白task env、非法SDK taskID、overseas、含SENTINEL非法argv，固定失败且非法输入前零业务请求；import/help拦env/socket。不得读取真实配置来填fixture。"
+    }
+  ],
+  "verified_test_plumbing": {
+    "client_api": "真实构造用auth_transport=httpx.MockTransport(auth_handler)、transport_factory=lambda origin: httpx.MockTransport(business_handler)、clock=lambda:1000.0；factory必须接origin，Client没有transport= keyword。",
+    "auth_shape": "合成认证root code为字符串200，data含合成accessToken和expireTime=2000000毫秒；与clock1000秒一致。",
+    "async_style": "asyncio.run驱动；无需pytest-asyncio，不mock业务facade方法。CLI可替换本示例Client/AsyncClient构造入口以返回真实带MockTransport的client。",
+    "fixtures": "tests/conftest只有默认网络guard；monkeypatch/capsys/caplog/tmp_path为pytest builtin；不存在全局mock_client/mock_transport/sdk fixture。",
+    "privacy": "程序化helper返回raw含URL是显式API交付，不等于自动日志；测试不得用输出raw证明步骤成功。"
+  },
+  "limits": "本卡只冻结repository示例的最小接口/输出/验收目标建议；保持SP213全部创建示范、任务观察、产物检索与地址查询场景。未实现或执行代码/SDK/测试/网络，未读取真实配置，未改public文件；唯一写入本JSON。",
+  "admission_id": "SP258",
+  "parent_admission": "docs/coordination/SP213/admission.json",
+  "decision": "root_ratified_repository_example_interface_before_implementation",
+  "sdk_api_changed": false,
+  "live_authorization_added": false
+}

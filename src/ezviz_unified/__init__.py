@@ -8,6 +8,7 @@ from .arming import ActiveDefenceAction, Arming, ArmingSchedule, AsyncArming
 from .auth import AsyncTokenManager, TokenManager
 from .auth_models import RegionConfig, Token, parse_token
 from .client import AsyncClient, Client
+from .cloud_capture import AsyncCloudCapture, CloudCapture
 from .cloud_recording import AsyncCloudRecording, CloudRecording
 from .cloud_recording_plans import CloudRecordingDevice
 from .cloud_recording_v1 import AsyncCloudRecordingV1, CloudRecordingV1
@@ -27,6 +28,7 @@ from .errors import (
     ProtocolError,
     TransportError,
 )
+from .hubs import AsyncHubs, Hubs
 from .illumination import AsyncIllumination, FillLightMode, Illumination
 from .imaging import AsyncImaging, ImageSetting, Imaging
 from .inspection import (
@@ -36,6 +38,7 @@ from .inspection import (
     inspect_device_async,
 )
 from .maintenance import AsyncMaintenance, Maintenance
+from .message_subscriptions import AsyncMessageSubscriptions, MessageSubscriptions
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 from .otap import AsyncOtap, Otap
@@ -81,18 +84,21 @@ __all__ = [
     "AsyncAlarms",
     "AsyncCloudStorage",
     "AsyncStorage",
+    "AsyncCloudCapture",
     "AsyncCloudRecording",
     "AsyncCloudRecordingV1",
     "AsyncComponents",
     "AsyncSubaccounts",
     "AsyncIllumination",
     "AsyncMaintenance",
+    "AsyncMessageSubscriptions",
     "ApiResponse",
     "AsyncClient",
     "AsyncCruise",
     "AsyncDelegation",
     "AsyncDevices",
     "AsyncDiagnostics",
+    "AsyncHubs",
     "AsyncImaging",
     "AsyncVideo",
     "AsyncPlayback",
@@ -109,6 +115,7 @@ __all__ = [
     "AsyncVod",
     "AuthenticationError",
     "Client",
+    "CloudCapture",
     "CloudStorage",
     "ComponentInfo",
     "Components",
@@ -129,8 +136,10 @@ __all__ = [
     "EzvizError",
     "ImageSetting",
     "FillLightMode",
+    "Hubs",
     "Illumination",
     "Maintenance",
+    "MessageSubscriptions",
     "Imaging",
     "InspectionResult",
     "JSON_NULL",
