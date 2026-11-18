@@ -5370,6 +5370,97 @@
           "undocumentedChannelField": "preserved"
         }
       ]
+    },
+    {
+      "operation_id": "cn.traffic.account_summary",
+      "args": [],
+      "kwargs": {},
+      "fields": {},
+      "data": {
+        "totalFlow": 4000,
+        "usedFlow": 1300,
+        "averageConsume": 123,
+        "syntheticExtra": null
+      }
+    },
+    {
+      "operation_id": "cn.traffic.account_details",
+      "args": [],
+      "kwargs": {
+        "start_time": 2000,
+        "end_time": 1000,
+        "page_start": 401,
+        "page_size": 50
+      },
+      "fields": {
+        "startTime": 2000,
+        "endTime": 1000,
+        "pageStart": 401,
+        "pageSize": 50
+      },
+      "data": [
+        {
+          "flowDate": 1200,
+          "deviceCount": 2,
+          "channelCount": 4,
+          "hlsFlow": 4,
+          "appFlow": 2,
+          "rtmpFlow": 1,
+          "flowCount": 7
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.traffic.day_details",
+      "args": [],
+      "kwargs": {
+        "flow_time": 1234,
+        "page_start": 3,
+        "page_size": 12
+      },
+      "fields": {
+        "flowTime": 1234,
+        "pageStart": 3,
+        "pageSize": 12
+      },
+      "data": [
+        {
+          "flowDate": 1234,
+          "deviceSerial": "SYNTH-a",
+          "channelNo": 1,
+          "hlsFlow": 2,
+          "appFlow": 3,
+          "rtmpFlow": 4,
+          "flowCount": 9
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.traffic.device_details",
+      "args": [
+        "SYNTH-a"
+      ],
+      "kwargs": {
+        "end_time": 1200,
+        "page_size": 1
+      },
+      "fields": {
+        "deviceSerial": "SYNTH-a",
+        "endTime": 1200,
+        "pageSize": 1
+      },
+      "data": [
+        {
+          "flowDate": 1150,
+          "deviceSerial": "SYNTH-a",
+          "channelNo": 2,
+          "hlsFlow": 0,
+          "appFlow": 1,
+          "rtmpFlow": 2,
+          "flowCount": 3,
+          "syntheticExtra": "kept"
+        }
+      ]
     }
   ]
 }

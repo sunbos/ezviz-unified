@@ -60,6 +60,7 @@ from .snapshots import AsyncSnapshots, Snapshots
 from .storage import AsyncStorage, Storage
 from .storage_models import StorageFileQuery
 from .subaccounts import AsyncSubaccounts, Subaccounts
+from .traffic import AsyncTraffic, Traffic
 from .transport import AsyncTransport, SyncTransport
 from .video import AsyncVideo, PreviewEncoding, Video, VideoSwitch
 from .vod import AsyncVod, Vod
@@ -99,6 +100,7 @@ __all__ = [
     "AsyncDevices",
     "AsyncDiagnostics",
     "AsyncHubs",
+    "AsyncTraffic",
     "AsyncImaging",
     "AsyncVideo",
     "AsyncPlayback",
@@ -137,6 +139,7 @@ __all__ = [
     "ImageSetting",
     "FillLightMode",
     "Hubs",
+    "Traffic",
     "Illumination",
     "Maintenance",
     "MessageSubscriptions",

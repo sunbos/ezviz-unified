@@ -2989,6 +2989,58 @@
       "public_entry": "hubs.channels",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.traffic.account_summary",
+      "region": "domestic",
+      "source_doc_id": "1424",
+      "module": "src/ezviz_unified/traffic.py",
+      "symbols": [
+        "Traffic.account_summary",
+        "AsyncTraffic.account_summary"
+      ],
+      "public_entry": "traffic.account_summary",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.traffic.account_details",
+      "region": "domestic",
+      "source_doc_id": "1425",
+      "module": "src/ezviz_unified/traffic.py",
+      "symbols": [
+        "Traffic.account_details",
+        "AsyncTraffic.account_details"
+      ],
+      "public_entry": "traffic.account_details",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.traffic.day_details",
+      "region": "domestic",
+      "source_doc_id": "1426",
+      "module": "src/ezviz_unified/traffic.py",
+      "symbols": [
+        "Traffic.day_details",
+        "AsyncTraffic.day_details"
+      ],
+      "public_entry": "traffic.day_details",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.traffic.device_details",
+      "region": "domestic",
+      "source_doc_id": "1427",
+      "module": "src/ezviz_unified/traffic.py",
+      "symbols": [
+        "Traffic.device_details",
+        "AsyncTraffic.device_details"
+      ],
+      "public_entry": "traffic.device_details",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }

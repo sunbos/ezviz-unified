@@ -63,6 +63,34 @@ with Client(
 
 `client.vod`另提供四个仅国内的转封装与查询入口，同步/异步共用同名方法：`create_remux_task`（官方明确非幂等的异步任务创建，不自动重放，仅返回`ApiResponse`，不变成任务句柄）、`task`与`tasks`（只读的单任务查询与任务分页列表，不自动翻页或轮询）以及`recording_urls`（按设备、通道与时段签发录像地址；其`read_only=False`是SDK为禁自动重放的选择，来源未明确无副作用，非官方写/非幂等结论）。官方声明的范围/权限边界包括：`create_remux_task`限企业用户、不支持托管/子账号且需已有对应时段云录像；`recording_urls`要求设备开通云存储且对应时段有录像、同样不支持托管/子账号；两个查询接口的来源仅明确accessToken，额外账号或套餐权限未声明，由服务端判定；SDK不把这些前提互相移植。全部参数校验、Header字符串规则与时间边界见[云点播转封装说明](docs/research/2026-11-18-vod-remux.md)；任务状态编码、地址字段名与`fileNodeId`/`taskId`各自独立，SDK不发明映射或完成判据。本批四个入口仍未做真实调用验证；各能力的验收状态见[产品能力登记](docs/capabilities/README.md)与[验收登记](docs/validation/sdk-product-acceptance.json)中对应`candidate:domestic:*`行，登记数量不代表覆盖率或产品级验收通过。
 
+## 国内云直播流量查询
+
+面向已认证的国内开发者主账户：`Client`/`AsyncClient` 使用客户端的既有认证配置注入 accessToken，查询方法无需接收 token。来源注明子账户 token 无权，且四页均未给出子账户权限的专用错误码。当前验证覆盖模拟传输；账号权限和实际用量仍待真实查询。
+
+| 方法 | `.data` 内容 |
+| --- | --- |
+| `traffic.account_summary()` | 对象，含总流量 `totalFlow`、已用流量 `usedFlow`（字节）及 `averageConsume`（字节/天）（[1424](https://open.ys7.com/help/1424)） |
+| `traffic.account_details(*, start_time=None, end_time=None, page_start=None, page_size=None)` | 数组，按日期列出设备数、通道数及流量（[1425](https://open.ys7.com/help/1425)） |
+| `traffic.day_details(*, flow_time=None, page_start=None, page_size=None)` | 数组，指定日的设备与通道用量（[1426](https://open.ys7.com/help/1426)） |
+| `traffic.device_details(device_serial, *, start_time=None, end_time=None, page_start=None, page_size=None)` | 数组，单设备按日期和通道列出的用量，`device_serial` 是唯一必填参数（[1427](https://open.ys7.com/help/1427)） |
+
+复用现有客户端（同步/异步同一路径）：
+
+```python
+summary = client.traffic.account_summary()
+rows = await async_client.traffic.day_details(page_size=1)
+```
+
+仓库检出后运行最小示例（仅调 1424 一次账号汇总，只打印 status/region/operation，不输出账户数值）：
+
+```bash
+.venv/bin/python -m examples.traffic_usage --mode sync   # 或 --mode async
+```
+
+明细查询中的时间与分页参数可分别省略，平台决定默认值。`page_size` 默认 10、服务端上限 50（本地校验 1..50），`page_start` 默认 0；每次只取固定一页，不自动翻页。时间为有符号 64 位毫秒整数。平台按最近一周、截至前一天提供数据，具体日界由平台决定。1425/1427 的 curl 示例中 startTime 晚于 endTime，故 SDK 原样保留显式传入值，不交换也不拒绝。
+
+企业版按带宽计量，官方未规定 `totalFlow` 在此情况下的实际表示。SDK 保留平台的原值。三个明细接口的 `data` 为数组、无分页封套，不暗示总数或费用；原始字段（含未知字段）原样透传。`data` 缺失、为 null 或外层类型不符时抛 `ProtocolError`。
+
 ## 云抽帧、消息订阅与HUB（仅国内）
 
 `client.cloud_capture`（interval/timing两种抽帧任务创建+`task(task_id)`查询）、`client.message_subscriptions`（`create_consumer('group1')`+`consume(cid, offset=None)`）、`client.hubs`（`list_subdevices`/`subdevice_info`/`channels`）均为国内入口；创建任务与消费是显式副作用动作，可能计费或提交上一批偏移，不自动重放。用法、选择器边界与示例见[国内域指南](docs/cloud-capture-messages-hubs.md)；`examples/cloud_capture.py`、`message_subscriptions.py`、`hub_discovery.py`仅在源码checkout内运行。

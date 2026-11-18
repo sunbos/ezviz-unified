@@ -1572,6 +1572,45 @@
         "e14",
         "prose:查询指定HUB设备关联的子设备列表"
       ]
+    },
+    {
+      "id": "cn.traffic.account_summary.source_boundary",
+      "region": "domestic",
+      "source_doc_id": "1424",
+      "source_url": "https://open.ys7.com/help/1424",
+      "source_content_sha256": "bb32216f8ec61f7f9593a550cefbd8ad49839e33d2f14e60bba752a9def0fbb8",
+      "description": "企业带宽账号不计算 totalFlow，响应中如何表示未指定。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "保留服务端汇总对象，不补零、推导余额或创建替代值。",
+      "evidence": [
+        "T2/E44"
+      ]
+    },
+    {
+      "id": "cn.traffic.account_details.source_boundary",
+      "region": "domestic",
+      "source_doc_id": "1425",
+      "source_url": "https://open.ys7.com/help/1425",
+      "source_content_sha256": "b94ad67299190e3bb8b2a8b07423901b78c4839af89343fac16a0682a450acae",
+      "description": "示例把较大的时间戳列为 startTime，与通常的区间命名产生冲突。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "按官方 Long 字段原样发送所给毫秒值，独立省略缺值，不替换顺序、不推算时区或当前窗口。",
+      "evidence": [
+        "T1/E14;E60"
+      ]
+    },
+    {
+      "id": "cn.traffic.device_details.source_boundary",
+      "region": "domestic",
+      "source_doc_id": "1427",
+      "source_url": "https://open.ys7.com/help/1427",
+      "source_content_sha256": "c6d92b66d60a1d29b3e075cb5c0f5aef8df74535f3588629f49afb8c351eb0ef",
+      "description": "示例把较大的时间戳列为 startTime，与通常的区间命名产生冲突。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "按官方 Long 字段原样发送所给毫秒值，独立省略缺值，不替换顺序、不推算时区或当前窗口。",
+      "evidence": [
+        "T1/E14;E66"
+      ]
     }
   ]
 }

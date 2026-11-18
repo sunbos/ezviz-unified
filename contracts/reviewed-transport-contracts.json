@@ -15976,6 +15976,388 @@
       },
       "source_content_sha256": "8e502a1abaed24b78f6d26aa69313ad287021bff362cc7659f07dfe04ecf4b2f",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.traffic.account_summary",
+      "region": "domestic",
+      "source_doc_id": "1424",
+      "source_url": "https://open.ys7.com/help/1424",
+      "method": "POST",
+      "path": "/api/lapp/traffic/user/total",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R2/E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R3/E14",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "T3/R2/E76;E40",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "constraints": [
+        {
+          "fact": "子账户 token 无权请求。",
+          "evidence": "接口功能"
+        },
+        {
+          "fact": "data 为 object，表中声明的业务字段包括 totalFlow, usedFlow, averageConsume。",
+          "evidence": "T2/E44"
+        },
+        {
+          "fact": "企业版以带宽能力计量，不计算 totalFlow。",
+          "evidence": "T2/E44"
+        }
+      ],
+      "uncertainties": [
+        "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
+        "企业版 totalFlow 的实际取值未规定。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/traffic/user/total",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "bb32216f8ec61f7f9593a550cefbd8ad49839e33d2f14e60bba752a9def0fbb8",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.traffic.account_details",
+      "region": "domestic",
+      "source_doc_id": "1425",
+      "source_url": "https://open.ys7.com/help/1425",
+      "method": "POST",
+      "path": "/api/lapp/traffic/user/detail",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R2/E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R3/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "startTime",
+          "type": "Long",
+          "required": false,
+          "evidence": "T1/R4/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "endTime",
+          "type": "Long",
+          "required": false,
+          "evidence": "T1/R5/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "pageStart",
+          "type": "Int",
+          "required": false,
+          "evidence": "T1/R6/E14",
+          "default": 0
+        },
+        {
+          "location": "body",
+          "name": "pageSize",
+          "type": "Int",
+          "required": false,
+          "evidence": "T1/R7/E14",
+          "default": 10
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "T3/R2/E116;E64",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "constraints": [
+        {
+          "fact": "子账户 token 无权请求。",
+          "evidence": "接口功能"
+        },
+        {
+          "fact": "data 为 array，表中声明的业务字段包括 flowDate, deviceCount, channelCount, hlsFlow, appFlow, rtmpFlow, flowCount。",
+          "evidence": "T2/E68"
+        },
+        {
+          "fact": "startTime：开始时间，时间格式为1457420564508，精确到毫秒，默认为当前日期往前推算1周。最多只能查询当前日期往前1周内的数据",
+          "evidence": "T1/R4/E14"
+        },
+        {
+          "fact": "endTime：结束时间，时间格式为1457420564508，精确到毫秒，默认为当前日期往前推算1天。只能查询1天前的数据",
+          "evidence": "T1/R5/E14"
+        },
+        {
+          "fact": "pageStart：分页起始页，从0开始，默认为0",
+          "evidence": "T1/R6/E14"
+        },
+        {
+          "fact": "pageSize：分页大小，默认为10，最大为50",
+          "evidence": "T1/R7/E14"
+        }
+      ],
+      "uncertainties": [
+        "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
+        "平台时区、日期窗口与分页末页行为未实测。",
+        "同页示例 startTime 晚于 endTime；表格未规定客户端应拒绝或交换。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/traffic/user/detail",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "b94ad67299190e3bb8b2a8b07423901b78c4839af89343fac16a0682a450acae",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.traffic.day_details",
+      "region": "domestic",
+      "source_doc_id": "1426",
+      "source_url": "https://open.ys7.com/help/1426",
+      "method": "POST",
+      "path": "/api/lapp/traffic/day/detail",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R2/E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R3/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "flowTime",
+          "type": "Long",
+          "required": false,
+          "evidence": "T1/R4/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "pageStart",
+          "type": "Int",
+          "required": false,
+          "evidence": "T1/R5/E14",
+          "default": 0
+        },
+        {
+          "location": "body",
+          "name": "pageSize",
+          "type": "Int",
+          "required": false,
+          "evidence": "T1/R6/E14",
+          "default": 10
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "T3/R2/E110;E58",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "constraints": [
+        {
+          "fact": "子账户 token 无权请求。",
+          "evidence": "接口功能"
+        },
+        {
+          "fact": "data 为 array，表中声明的业务字段包括 flowDate, deviceSerial, channelNo, hlsFlow, appFlow, rtmpFlow, flowCount。",
+          "evidence": "T2/E62"
+        },
+        {
+          "fact": "flowTime：日期，时间格式为1457420564508，精确到毫秒，默认为当前日期往前1天。只能查询当前日期往前推算7天内、1天前的数据",
+          "evidence": "T1/R4/E14"
+        },
+        {
+          "fact": "pageStart：分页起始页，从0开始，默认为0",
+          "evidence": "T1/R5/E14"
+        },
+        {
+          "fact": "pageSize：分页大小，默认为10，最大为50",
+          "evidence": "T1/R6/E14"
+        }
+      ],
+      "uncertainties": [
+        "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
+        "平台时区、日期窗口与分页末页行为未实测。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/traffic/day/detail",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "3490fe5f9fb75869109e716f35cfdc252feca3e3810ff339668908beb98a6dbc",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.traffic.device_details",
+      "region": "domestic",
+      "source_doc_id": "1427",
+      "source_url": "https://open.ys7.com/help/1427",
+      "method": "POST",
+      "path": "/api/lapp/traffic/device/detail",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R2/E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R3/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R4/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "startTime",
+          "type": "Long",
+          "required": false,
+          "evidence": "T1/R5/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "endTime",
+          "type": "Long",
+          "required": false,
+          "evidence": "T1/R6/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "pageStart",
+          "type": "Int",
+          "required": false,
+          "evidence": "T1/R7/E14",
+          "default": 0
+        },
+        {
+          "location": "body",
+          "name": "pageSize",
+          "type": "Int",
+          "required": false,
+          "evidence": "T1/R8/E14",
+          "default": 10
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "T3/R2/E122;E70",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "constraints": [
+        {
+          "fact": "子账户 token 无权请求。",
+          "evidence": "接口功能"
+        },
+        {
+          "fact": "data 为 array，表中声明的业务字段包括 flowDate, deviceSerial, channelNo, hlsFlow, appFlow, rtmpFlow, flowCount。",
+          "evidence": "T2/E74"
+        },
+        {
+          "fact": "startTime：开始时间，时间格式为1457420564508，精确到毫秒，默认为当前日期往前推算1周。最多只能查询当前日期往前1周内的数据",
+          "evidence": "T1/R5/E14"
+        },
+        {
+          "fact": "endTime：结束时间，时间格式为1457420564508，精确到毫秒，默认为当前日期往前推算1天。只能查询1天前的数据",
+          "evidence": "T1/R6/E14"
+        },
+        {
+          "fact": "pageStart：分页起始页，从0开始，默认为0",
+          "evidence": "T1/R7/E14"
+        },
+        {
+          "fact": "pageSize：分页大小，默认为10，最大为50",
+          "evidence": "T1/R8/E14"
+        }
+      ],
+      "uncertainties": [
+        "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
+        "平台时区、日期窗口与分页末页行为未实测。",
+        "同页示例 startTime 晚于 endTime；表格未规定客户端应拒绝或交换。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/traffic/device/detail",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "c6d92b66d60a1d29b3e075cb5c0f5aef8df74535f3588629f49afb8c351eb0ef",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -16053,6 +16435,10 @@
     {
       "review": "docs/coordination/S019C/contracts-review.json",
       "note": "Seven domestic unified storage engine operations; source version and cross-product boundaries retained; offline only."
+    },
+    {
+      "review": "docs/coordination/domestic-traffic/admission.json",
+      "note": "国内 1424–1427 流量查询。各页独立来源哈希、时间示例冲突与主账户权限已记录。"
     }
   ]
 }
