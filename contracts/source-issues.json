@@ -1643,6 +1643,48 @@
         "E48",
         "E52"
       ]
+    },
+    {
+      "id": "cn.passenger_flow.set_switch.source_boundary",
+      "region": "domestic",
+      "source_doc_id": "689",
+      "source_url": "https://open.ys7.com/help/689",
+      "source_content_sha256": "345c794eca50e471c807f6ce0704dc118e110b6f563037b427c93cc21be05d38",
+      "description": "状态读无通道输入，写可选择通道。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "必须得到同目标的原始开关状态与有效恢复方案，不能用设备级读推断任意通道。",
+      "evidence": [
+        "T1/E14",
+        "E54"
+      ]
+    },
+    {
+      "id": "cn.passenger_flow.daily.source_boundary",
+      "region": "domestic",
+      "source_doc_id": "690",
+      "source_url": "https://open.ys7.com/help/690",
+      "source_content_sha256": "6a76e6ff991c2789a99e8cfcc583784734cae43815b5275ec9c445799c8c4fee",
+      "description": "示例与 UTC+08 午夜吻合，原文未指定时区。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 接收带显式时区的当地午夜，精确转换为毫秒，不猜平台或主机时区。",
+      "evidence": [
+        "T1/E14",
+        "E55"
+      ]
+    },
+    {
+      "id": "cn.passenger_flow.set_config.source_boundary",
+      "region": "domestic",
+      "source_doc_id": "692",
+      "source_url": "https://open.ys7.com/help/692",
+      "source_content_sha256": "99db58f007459b5b1caa558fe595dd1a6a1df599b19f22a7e88f087f7859a567",
+      "description": "direction 类型列和形状冲突；表单解码一次后 JSON 文本是 SDK 选择，平台是否需要二次解码未经实测。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "固定四键字符串对象的紧凑 JSON，仅由 HTTP 表单执行一次百分号编码。禁止真实双写探测或自动重放。",
+      "evidence": [
+        "T1/E14",
+        "E60"
+      ]
     }
   ]
 }

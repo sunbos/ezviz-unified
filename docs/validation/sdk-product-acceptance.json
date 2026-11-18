@@ -30852,7 +30852,7 @@
         "sync",
         "async"
       ],
-      "risk": "configuration_write",
+      "risk": "write_bounded",
       "preconditions": [
         "冻结型号、权限、目标、次数及日期窗口；另行确定真实设备授权。"
       ],
@@ -31002,7 +31002,7 @@
         "sync",
         "async"
       ],
-      "risk": "configuration_write",
+      "risk": "write_bounded",
       "preconditions": [
         "冻结型号、权限、目标、次数及日期窗口；另行确定真实设备授权。"
       ],

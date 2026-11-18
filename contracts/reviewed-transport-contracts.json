@@ -16538,6 +16538,484 @@
         "encoding": "application/x-www-form-urlencoded"
       },
       "read_only": true
+    },
+    {
+      "operation_id": "cn.passenger_flow.switch_status",
+      "region": "domestic",
+      "source_doc_id": "688",
+      "source_url": "https://open.ys7.com/help/688",
+      "method": "POST",
+      "path": "/api/lapp/passengerflow/switch/status",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R2/E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R3/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R4/E14",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "message_path": "msg",
+        "data_path": "data",
+        "evidence": "E46;T3/R2/E82"
+      },
+      "constraints": [
+        {
+          "fact": "子账户最小权限 Get，资源作用域 dev；设备需要支持客流统计。",
+          "evidence": "接口功能"
+        },
+        {
+          "fact": "同一设备的开关状态，不传 channelNo。",
+          "evidence": "T1/E14;E42;E46"
+        }
+      ],
+      "uncertainties": [
+        "个别型号与当前账号权限未验证；未从成功响应推断设备精确计数或配置持久化。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/passengerflow/switch/status",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "71256f0a77e1c141f2f39c4ce051822cf2d8a39ba13118f9c2d981250a52725e",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.passenger_flow.set_switch",
+      "region": "domestic",
+      "source_doc_id": "689",
+      "source_url": "https://open.ys7.com/help/689",
+      "method": "POST",
+      "path": "/api/lapp/passengerflow/switch/set",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R2/E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R3/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R4/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "enable",
+          "type": "Int",
+          "required": true,
+          "evidence": "T1/R5/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "channelNo",
+          "type": "Int",
+          "required": false,
+          "evidence": "T1/R6/E14",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "message_path": "msg",
+        "data_path": "data",
+        "evidence": "E58;T3/R2/E78"
+      },
+      "constraints": [
+        {
+          "fact": "子账户最小权限 Config，资源作用域 dev；设备需要支持客流统计。",
+          "evidence": "接口功能"
+        },
+        {
+          "fact": "开关配置，开启/关闭取整数 1/0；省略通道表示设备本身。688 未必能读取写入目标通道的原始状态。",
+          "evidence": "T1/E14;E54;E58"
+        }
+      ],
+      "uncertainties": [
+        "个别型号与当前账号权限未验证；未从成功响应推断设备精确计数或配置持久化。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/passengerflow/switch/set",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "345c794eca50e471c807f6ce0704dc118e110b6f563037b427c93cc21be05d38",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.passenger_flow.daily",
+      "region": "domestic",
+      "source_doc_id": "690",
+      "source_url": "https://open.ys7.com/help/690",
+      "method": "POST",
+      "path": "/api/lapp/passengerflow/daily",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R2/E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R3/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R4/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "channelNo",
+          "type": "Int",
+          "required": true,
+          "evidence": "T1/R5/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "date",
+          "type": "Long",
+          "required": false,
+          "evidence": "T1/R6/E14",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "message_path": "msg",
+        "data_path": "data",
+        "evidence": "E59;T3/R2/E80"
+      },
+      "constraints": [
+        {
+          "fact": "子账户最小权限 Get，资源作用域 Cam；设备需要支持客流统计。",
+          "evidence": "接口功能"
+        },
+        {
+          "fact": "支持 support_flow_statistics；数据约在次日凌晨两点更新。日报时间必须为午夜，样例与 UTC+08 午夜一致，平台采用的时区未注明。",
+          "evidence": "T1/E14;E55;E59"
+        }
+      ],
+      "uncertainties": [
+        "个别型号与当前账号权限未验证；未从成功响应推断设备精确计数或配置持久化。",
+        "平台采用的时区未声明，不从一条样例推定所有设备的日界。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/passengerflow/daily",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "6a76e6ff991c2789a99e8cfcc583784734cae43815b5275ec9c445799c8c4fee",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.passenger_flow.hourly",
+      "region": "domestic",
+      "source_doc_id": "691",
+      "source_url": "https://open.ys7.com/help/691",
+      "method": "POST",
+      "path": "/api/lapp/passengerflow/hourly",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R2/E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R3/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R4/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "channelNo",
+          "type": "Int",
+          "required": true,
+          "evidence": "T1/R5/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "date",
+          "type": "Long",
+          "required": false,
+          "evidence": "T1/R6/E14",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "message_path": "msg",
+        "data_path": "data",
+        "evidence": "E58;T3/R2/E94"
+      },
+      "constraints": [
+        {
+          "fact": "子账户最小权限 Get，资源作用域 Cam；设备需要支持客流统计。",
+          "evidence": "接口功能"
+        },
+        {
+          "fact": "可选毫秒 Long，无日报的午夜约束，不推断24行或缺行即为零。",
+          "evidence": "T1/E14;E54;E58"
+        }
+      ],
+      "uncertainties": [
+        "个别型号与当前账号权限未验证；未从成功响应推断设备精确计数或配置持久化。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/passengerflow/hourly",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "bba12191de8a2b19f56adaed4807307299f5b8ee9f67914d3a5572ba40fda6f9",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.passenger_flow.set_config",
+      "region": "domestic",
+      "source_doc_id": "692",
+      "source_url": "https://open.ys7.com/help/692",
+      "method": "POST",
+      "path": "/api/lapp/passengerflow/config/set",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R2/E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R3/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R4/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "line",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R5/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "direction",
+          "type": "Int",
+          "required": true,
+          "evidence": "T1/R6/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "channelNo",
+          "type": "Int",
+          "required": false,
+          "evidence": "T1/R7/E14",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "message_path": "msg",
+        "data_path": "data",
+        "evidence": "E64;T2/R2/E68"
+      },
+      "constraints": [
+        {
+          "fact": "子账户最小权限 Config，资源作用域 Cam；设备需要支持客流统计。",
+          "evidence": "接口功能"
+        },
+        {
+          "fact": "方向类型列 Int 与描述/693 回读的坐标对象矛盾。请求示例的预编码文本再次经过 --data-urlencode，平台实际解码层数未证实。",
+          "evidence": "T1/E14;E60;E64"
+        }
+      ],
+      "uncertainties": [
+        "个别型号与当前账号权限未验证；未从成功响应推断设备精确计数或配置持久化。",
+        "direction 类型列和形状冲突；表单解码一次后 JSON 文本是 SDK 选择，平台是否需要二次解码未经实测。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/passengerflow/config/set",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "99db58f007459b5b1caa558fe595dd1a6a1df599b19f22a7e88f087f7859a567",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.passenger_flow.get_config",
+      "region": "domestic",
+      "source_doc_id": "693",
+      "source_url": "https://open.ys7.com/help/693",
+      "method": "POST",
+      "path": "/api/lapp/passengerflow/config/get",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "location": "header",
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R2/E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "location": "body",
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R3/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "evidence": "T1/R4/E14",
+          "default": null
+        },
+        {
+          "location": "body",
+          "name": "channelNo",
+          "type": "Int",
+          "required": false,
+          "evidence": "T1/R5/E14",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "message_path": "msg",
+        "data_path": "data",
+        "evidence": "E52;T3/R2/E72"
+      },
+      "constraints": [
+        {
+          "fact": "子账户最小权限 Get，资源作用域 Cam；设备需要支持客流统计。",
+          "evidence": "接口功能"
+        },
+        {
+          "fact": "同目标读取 line 与 direction 对象，保留坐标原文，不因有返回就认定可安全回滚。",
+          "evidence": "T1/E14;E48;E52"
+        }
+      ],
+      "uncertainties": [
+        "个别型号与当前账号权限未验证；未从成功响应推断设备精确计数或配置持久化。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/passengerflow/config/get",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "819923a8720fd7bd9d6561588871afde9e1900cc7ca29fe6e9fbbe4f6475117d",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -16623,6 +17101,10 @@
     {
       "review": "docs/coordination/domestic-stream-archive/admission.json",
       "note": "按已知直播流定位归档源文件和点播索引；两项均需要独立的真实资源验收。"
+    },
+    {
+      "review": "docs/coordination/domestic-passenger-flow/admission.json",
+      "note": "国内 688–693 客流统计，四个读取和两个配置写入分别登记，692 方向/编码冲突保留。"
     }
   ]
 }

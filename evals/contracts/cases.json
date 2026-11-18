@@ -5519,6 +5519,141 @@
         },
         "additional": null
       }
+    },
+    {
+      "operation_id": "cn.passenger_flow.switch_status",
+      "args": [
+        "FLOWTEST123"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "FLOWTEST123"
+      },
+      "data": {
+        "deviceSerial": "FLOWTEST123",
+        "channelNo": 0,
+        "enable": 1,
+        "syntheticExtra": false
+      }
+    },
+    {
+      "operation_id": "cn.passenger_flow.set_switch",
+      "args": [
+        "FLOWTEST123"
+      ],
+      "kwargs": {
+        "enable": 0,
+        "channel_no": 0
+      },
+      "fields": {
+        "deviceSerial": "FLOWTEST123",
+        "enable": "0",
+        "channelNo": "0"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.passenger_flow.daily",
+      "args": [
+        "FLOWTEST123",
+        1
+      ],
+      "kwargs": {
+        "day": {
+          "$type": "datetime",
+          "value": "2019-06-21T00:00:00+08:00"
+        }
+      },
+      "fields": {
+        "deviceSerial": "FLOWTEST123",
+        "channelNo": "1",
+        "date": "1561046400000"
+      },
+      "data": {
+        "inFlow": 11,
+        "outFlow": 8,
+        "extra": "kept"
+      }
+    },
+    {
+      "operation_id": "cn.passenger_flow.hourly",
+      "args": [
+        "FLOWTEST123",
+        2
+      ],
+      "kwargs": {
+        "date_ms": 146744312353
+      },
+      "fields": {
+        "deviceSerial": "FLOWTEST123",
+        "channelNo": "2",
+        "date": "146744312353"
+      },
+      "data": [
+        {
+          "hourIndex": 3,
+          "inFlow": 7,
+          "outFlow": 4
+        },
+        {
+          "hourIndex": 5,
+          "inFlow": 0,
+          "outFlow": 2
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.passenger_flow.set_config",
+      "args": [
+        "FLOWTEST123"
+      ],
+      "kwargs": {
+        "channel_no": 0,
+        "line": {
+          "x1": "0.0000000",
+          "y1": "0.25",
+          "x2": "1",
+          "y2": "0.25"
+        },
+        "direction": {
+          "x1": "0.5",
+          "y1": "0.25",
+          "x2": "0.5",
+          "y2": "0.75"
+        }
+      },
+      "fields": {
+        "deviceSerial": "FLOWTEST123",
+        "channelNo": "0",
+        "line": "{\"x1\":\"0.0000000\",\"y1\":\"0.25\",\"x2\":\"1\",\"y2\":\"0.25\"}",
+        "direction": "{\"x1\":\"0.5\",\"y1\":\"0.25\",\"x2\":\"0.5\",\"y2\":\"0.75\"}"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.passenger_flow.get_config",
+      "args": [
+        "FLOWTEST123"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "FLOWTEST123"
+      },
+      "data": {
+        "line": {
+          "x1": "0.0000000",
+          "y1": "0.25",
+          "x2": "1",
+          "y2": "0.25"
+        },
+        "direction": {
+          "x1": "0.5",
+          "y1": "0.25",
+          "x2": "0.5",
+          "y2": "0.75"
+        },
+        "extra": null
+      }
     }
   ]
 }

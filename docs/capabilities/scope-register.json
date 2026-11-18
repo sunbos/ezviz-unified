@@ -42,7 +42,7 @@
     "acceptance": {
       "path": "docs/validation/sdk-product-acceptance.json",
       "schema": 1,
-      "sha256": "e8c59913e68b39788b608de7e928f4dc2235fdb2540953899f91f8e69a2f13e9"
+      "sha256": "6c83621f4e5f2a2a45df0d6d7ea2cafedd83c46ae56f80c15aecdc853a247be9"
     },
     "plan_scope_register": {
       "path": "docs/plans/2026-11-17-capability-scope-register.md",
