@@ -1,0 +1,1287 @@
+{
+  "schema_version": 1,
+  "admission_id": "SP213",
+  "baseline_commit": "95aa8f8e0040e86a53dc87adc92089a8d79ebc85",
+  "scope_revision": "2026-11-18-r16-capture-messaging-hubs-admission",
+  "G0_reused": "docs/coordination/SP030/admission.json",
+  "G1_decision": "admit_bounded_offline_sdk_and_repository_example_implementation_only",
+  "operations": [
+    {
+      "source_doc_id": "1388",
+      "source_url": "https://open.ys7.com/help/1388",
+      "source_content_sha256": "923e92ae169ea3d6aef3421bb9ab9b6b16684f5931077e58fbbf13d57da1d685",
+      "candidate_id": "candidate:domestic:1388:d0",
+      "operation_id": "cn.cloud_capture.create_interval_task",
+      "runtime_name": "cloud_capture.create_interval_task",
+      "facade": "cloud_capture",
+      "module": "src/ezviz_unified/cloud_capture.py",
+      "classes": [
+        "CloudCapture",
+        "AsyncCloudCapture"
+      ],
+      "method_name": "create_interval_task",
+      "public_signatures": {
+        "CloudCapture": "def create_interval_task(device_serial: str, *, channel: int, rec_type: Literal[\"local\", \"cloud\", \"live\"], start_time: datetime, end_time: datetime, frame_interval: int, project_id: str | None = None, result_space_id: int | None = None, frame_model: Literal[0, 1, 2] | None = None, dev_proto: Literal[\"\", \"gb28181\", \"jt808\"] | None = None, stream_type: Literal[\"1\", \"2\"] | None = None, validate_code: str | None = None) -> ApiResponse",
+        "AsyncCloudCapture": "async def create_interval_task(device_serial: str, *, channel: int, rec_type: Literal[\"local\", \"cloud\", \"live\"], start_time: datetime, end_time: datetime, frame_interval: int, project_id: str | None = None, result_space_id: int | None = None, frame_model: Literal[0, 1, 2] | None = None, dev_proto: Literal[\"\", \"gb28181\", \"jt808\"] | None = None, stream_type: Literal[\"1\", \"2\"] | None = None, validate_code: str | None = None) -> ApiResponse"
+      },
+      "method": "POST",
+      "path": "/api/v3/open/cloud/video/frame/interval/start",
+      "token_location": "form",
+      "body_encoding": "form_urlencoded",
+      "response_policy": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "success_values": [
+          200
+        ]
+      },
+      "read_only": false,
+      "validation": [
+        "Mandatory device_serial nonblank UTF-8 str, unchanged; channel int not bool, no invented sign bound/default 1.",
+        "rec_type strict str local/cloud/live. Optional frame_model int not bool in 0/1/2; stream_type strict str 1/2. None omits server defaults.",
+        "project_id/result_space_id at least one non-None; both allowed and sent unchanged, retaining documented resultSpaceId priority. Do not drop/derive either selector.",
+        "validate_code None omitted, otherwise nonblank UTF-8 str; caller supplies encryption prerequisites, SDK performs no detection.",
+        "SDK choice: datetime, naive per Python utcoffset semantics and whole seconds; render yyyyMMddHHmmss with four-digit year; no timezone/current-clock inference.",
+        "frame_interval int not bool >=1, passed without unit conversion; source says seconds/multiples by mode but mapping is not defined.",
+        "SDK choice rejects end_time < start_time, permits equality transparently without claiming server acceptance; no 10-second/48-hour limit.",
+        "project_id ASCII letters/digits/underscore 1..32, ASCII interpretation is SDK choice for source \\w.",
+        "result_space_id int not bool >=1; dev_proto explicit empty/gb28181/jt808 only; None omitted, no invented empty default."
+      ],
+      "preserved_unknowns": [
+        "frameInterval mode-to-unit mapping",
+        "time timezone and maximum window",
+        "source says both two-choice and priority; both sent",
+        "fees/quotas/partial result lifecycle",
+        "error layers"
+      ],
+      "permissions_and_resources": [
+        "Official prerequisites: existing storage and recording; cloud mode needs cloud recording; local mode needs SD card recording; source states device online.",
+        "Guide 5324 identifies enterprise plan and cloud recording message integration for its workflow; do not transplant unlisted universal account restrictions.",
+        "Creation produces stored files and may cost resources; live needs specific device/time/mode/storage/quantity/fees/cleanup authorization."
+      ],
+      "region": "domestic",
+      "region_guard": "Inside diagnostic scope, before all parameter validation/auth/provider/factory; Operation.regions domestic only.",
+      "return_contract": "Return the exact ApiResponse; preserve data/raw/unknown fields and underlying exception identity; no DTO, conversion, polling, task handle or response field enforcement.",
+      "formal_parameter_tables": [
+        {
+          "table_number": 1,
+          "element_index": 12,
+          "heading": "2. 接口信息",
+          "rows": [
+            [
+              "项",
+              "值"
+            ],
+            [
+              "请求方法",
+              "POST"
+            ],
+            [
+              "请求路径",
+              "/api/v3/open/cloud/video/frame/interval/start"
+            ],
+            [
+              "内容类型",
+              "application/x-www-form-urlencoded"
+            ],
+            [
+              "鉴权方式",
+              "accessToken（Body）"
+            ],
+            [
+              "幂等性",
+              "否"
+            ],
+            [
+              "是否异步",
+              "是（返回 taskId）"
+            ]
+          ]
+        },
+        {
+          "table_number": 2,
+          "element_index": 40,
+          "heading": "3. 请求参数",
+          "rows": [
+            [
+              "参数位置",
+              "参数名",
+              "类型",
+              "必填",
+              "取值约束/枚举",
+              "说明"
+            ],
+            [
+              "body",
+              "accessToken",
+              "String",
+              "Y",
+              "—",
+              "访问令牌"
+            ],
+            [
+              "body",
+              "deviceSerial",
+              "String",
+              "Y",
+              "—",
+              "设备序列号"
+            ],
+            [
+              "body",
+              "channelNo",
+              "Int",
+              "Y",
+              "—",
+              "通道号"
+            ],
+            [
+              "body",
+              "recType",
+              "String",
+              "Y",
+              "local / cloud / live",
+              "本地录像/云存储录像/实时"
+            ],
+            [
+              "body",
+              "startTime",
+              "String",
+              "Y",
+              "yyyyMMddHHmmss",
+              "抽帧开始时间"
+            ],
+            [
+              "body",
+              "endTime",
+              "String",
+              "Y",
+              "yyyyMMddHHmmss",
+              "抽帧结束时间"
+            ],
+            [
+              "body",
+              "frameInterval",
+              "Int",
+              "Y",
+              "≥1（秒/倍数，视模式）",
+              "抽帧间隔"
+            ],
+            [
+              "body",
+              "projectId",
+              "String",
+              "N",
+              "^\\w{1,32}$",
+              "项目 ID（与 resultSpaceId 不可同时为空）"
+            ],
+            [
+              "body",
+              "resultSpaceId",
+              "Long",
+              "N",
+              "≥1",
+              "统一存储空间 id（优先；与 projectId 二选一）"
+            ],
+            [
+              "body",
+              "frameModel",
+              "Int",
+              "N",
+              "0-普通(默认)/1-低带宽模式/2-抽I帧",
+              "抽帧模式（1 旧称\"错峰抽帧\"）"
+            ],
+            [
+              "body",
+              "devProto",
+              "String",
+              "N",
+              "空/gb28181/ jt808",
+              "设备协议"
+            ],
+            [
+              "body",
+              "streamType",
+              "String",
+              "N",
+              "1-高清(默认)/2-标清",
+              "码流类型（实时抽帧可选）"
+            ],
+            [
+              "body",
+              "validateCode",
+              "String",
+              "N",
+              "—",
+              "视频解密密钥"
+            ]
+          ]
+        }
+      ],
+      "source_anchors": {
+        "tables": [
+          {
+            "table": 1,
+            "element_index": 12
+          },
+          {
+            "table": 2,
+            "element_index": 40
+          },
+          {
+            "table": 3,
+            "element_index": 153
+          },
+          {
+            "table": 4,
+            "element_index": 172
+          }
+        ],
+        "code_elements": [
+          21,
+          25,
+          29,
+          150,
+          169
+        ]
+      },
+      "replay_policy": "No business replay on 10002/HTTP/API/timeout/disconnect/cancellation. Existing token invalidation semantics preserved; outcome may be unknown."
+    },
+    {
+      "source_doc_id": "1389",
+      "source_url": "https://open.ys7.com/help/1389",
+      "source_content_sha256": "7d1f94890ea107d8fa50f3ab7b650c45be451272f180c3e52940435acc12d28e",
+      "candidate_id": "candidate:domestic:1389:d0",
+      "operation_id": "cn.cloud_capture.create_timing_task",
+      "runtime_name": "cloud_capture.create_timing_task",
+      "facade": "cloud_capture",
+      "module": "src/ezviz_unified/cloud_capture.py",
+      "classes": [
+        "CloudCapture",
+        "AsyncCloudCapture"
+      ],
+      "method_name": "create_timing_task",
+      "public_signatures": {
+        "CloudCapture": "def create_timing_task(device_serial: str, *, channel: int, rec_type: Literal[\"local\", \"cloud\", \"live\"], timing_points: Sequence[datetime], project_id: str | None = None, result_space_id: int | None = None, frame_model: Literal[0, 1, 2] | None = None, dev_proto: Literal[\"\", \"gb28181\"] | None = None, stream_type: Literal[\"1\", \"2\"] | None = None, validate_code: str | None = None) -> ApiResponse",
+        "AsyncCloudCapture": "async def create_timing_task(device_serial: str, *, channel: int, rec_type: Literal[\"local\", \"cloud\", \"live\"], timing_points: Sequence[datetime], project_id: str | None = None, result_space_id: int | None = None, frame_model: Literal[0, 1, 2] | None = None, dev_proto: Literal[\"\", \"gb28181\"] | None = None, stream_type: Literal[\"1\", \"2\"] | None = None, validate_code: str | None = None) -> ApiResponse"
+      },
+      "method": "POST",
+      "path": "/api/v3/open/cloud/video/frame/timing/start",
+      "token_location": "form",
+      "body_encoding": "form_urlencoded",
+      "response_policy": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "success_values": [
+          200
+        ]
+      },
+      "read_only": false,
+      "validation": [
+        "Mandatory device_serial nonblank UTF-8 str, unchanged; channel int not bool, no invented sign bound/default 1.",
+        "rec_type strict str local/cloud/live. Optional frame_model int not bool in 0/1/2; stream_type strict str 1/2. None omits server defaults.",
+        "project_id/result_space_id at least one non-None; both allowed and sent unchanged, retaining documented resultSpaceId priority. Do not drop/derive either selector.",
+        "validate_code None omitted, otherwise nonblank UTF-8 str; caller supplies encryption prerequisites, SDK performs no detection.",
+        "SDK choice: datetime, naive per Python utcoffset semantics and whole seconds; render yyyyMMddHHmmss with four-digit year; no timezone/current-clock inference.",
+        "timing_points non-string Sequence, snapshot to tuple before auth/await, nonempty, validate all datetimes, comma join; preserve ordering and duplicates; no invented count/window/gap bound.",
+        "project_id nonblank UTF-8 str only, no inherited 32/ASCII constraint; result_space_id int not bool only, zero/negative preserved without claiming server acceptance.",
+        "Accept explicit frame_model=2 per this endpoint formal table; document contrary 1388/5324 statements and require distinct live proof. No fallback to mode 0/1.",
+        "dev_proto explicit empty or gb28181; do not transplant jt808. Required channel has no SDK default despite wording “可填1”."
+      ],
+      "preserved_unknowns": [
+        "frameModel2 cross-page contradiction",
+        "projectId charset/length and resultSpaceId bounds unlisted",
+        "timing-point count/order/timezone/server limits",
+        "jt808 not documented on this endpoint",
+        "error layers"
+      ],
+      "permissions_and_resources": [
+        "Official cloud prerequisites include existing storage, cloud recording message push integration and recording in selected times; local requires existing SD recording.",
+        "Do not silently create storage/recordings/subscriptions; live task creation needs resource/mode/time/count/fees/recovery authorization."
+      ],
+      "region": "domestic",
+      "region_guard": "Inside diagnostic scope, before all parameter validation/auth/provider/factory; Operation.regions domestic only.",
+      "return_contract": "Return the exact ApiResponse; preserve data/raw/unknown fields and underlying exception identity; no DTO, conversion, polling, task handle or response field enforcement.",
+      "formal_parameter_tables": [
+        {
+          "table_number": 1,
+          "element_index": 16,
+          "heading": "开始视频抽帧接口——按时间点抽帧",
+          "rows": [
+            [
+              "参数位置",
+              "参数名",
+              "类型",
+              "描述",
+              "是否必选"
+            ],
+            [
+              "Body",
+              "accessToken",
+              "String",
+              "授权过程获取的accessToken",
+              "Y"
+            ],
+            [
+              "Body",
+              "projectId",
+              "String",
+              "项目ID，项目的唯一标识，需输入已创建的项目ID。projectId和resultSpaceId不能同时为空",
+              "N"
+            ],
+            [
+              "Body",
+              "deviceSerial",
+              "String",
+              "设备序列号",
+              "Y"
+            ],
+            [
+              "Body",
+              "resultSpaceId",
+              "Long",
+              "云抓拍业务空间id，由空间列表查询接口(https://open.ys7.com/help/5230)获取，projectId和resultSpaceId不能同时为空；如果resultSpaceId有效，则优先使用resultSpaceId保存到云抓拍存储空间",
+              "N"
+            ],
+            [
+              "Body",
+              "channelNo",
+              "Int",
+              "通道号，默认可填1",
+              "Y"
+            ],
+            [
+              "Body",
+              "validateCode",
+              "String",
+              "视频解密密钥，设备视频加密情况必需",
+              "N"
+            ],
+            [
+              "Body",
+              "recType",
+              "String",
+              "local-本地录像 cloud-云存储录像 live-实时",
+              "Y"
+            ],
+            [
+              "Body",
+              "devProto",
+              "String",
+              "设备协议，若为空，标识萤石协议；若为gb28181，标识国标设备；默认为空",
+              "N"
+            ],
+            [
+              "Body",
+              "frameModel",
+              "Int",
+              "抽帧模式，0：普通模式 1：错峰抽帧模式 2：抽I帧模式；不填默认:0",
+              "N"
+            ],
+            [
+              "Body",
+              "streamType",
+              "String",
+              "码流类型，实时抽帧可以选择，1：高清（主码流）2：标清（子码流）；非实时帧建议选择1：高清（主码流）；默认为1",
+              "N"
+            ],
+            [
+              "Body",
+              "timingPoints",
+              "String",
+              "抽帧时间点列表，格式: yyyyMMddHHmmss,yyyyMMddHHmmss，时间点以英文逗号分隔",
+              "Y"
+            ]
+          ]
+        }
+      ],
+      "source_anchors": {
+        "tables": [
+          {
+            "table": 1,
+            "element_index": 16
+          },
+          {
+            "table": 2,
+            "element_index": 100
+          },
+          {
+            "table": 3,
+            "element_index": 120
+          }
+        ],
+        "code_elements": [
+          9,
+          13,
+          92,
+          96
+        ]
+      },
+      "replay_policy": "No business replay on 10002/HTTP/API/timeout/disconnect/cancellation. Existing token invalidation semantics preserved; outcome may be unknown."
+    },
+    {
+      "source_doc_id": "1370",
+      "source_url": "https://open.ys7.com/help/1370",
+      "source_content_sha256": "a959d13932c20a7dc41b5f16b049031bf31283bf40427fd6f27df42b2c016dc4",
+      "candidate_id": "candidate:domestic:1370:d0",
+      "operation_id": "cn.cloud_capture.task",
+      "runtime_name": "cloud_capture.task",
+      "facade": "cloud_capture",
+      "module": "src/ezviz_unified/cloud_capture.py",
+      "classes": [
+        "CloudCapture",
+        "AsyncCloudCapture"
+      ],
+      "method_name": "task",
+      "public_signatures": {
+        "CloudCapture": "def task(task_id: str) -> ApiResponse",
+        "AsyncCloudCapture": "async def task(task_id: str) -> ApiResponse"
+      },
+      "method": "GET",
+      "path": "/api/v3/open/cloud/task/{taskId}",
+      "token_location": "query",
+      "body_encoding": "none",
+      "response_policy": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "success_values": [
+          200
+        ]
+      },
+      "read_only": true,
+      "validation": [
+        "task_id ASCII letters/digits/underscore 1..32 per formal table interpretation; ASCII is SDK choice. Do not tighten to exactly32 despite conflicting prose.",
+        "Use existing Operation path_params/render_path; token query; no body/content-type injection. Do not interpolate URL or reuse VOD task response semantics."
+      ],
+      "preserved_unknowns": [
+        "formal word1..32 vs prose32alphanumeric conflict",
+        "task response requiredness/time formats",
+        "fileNodeId absent from formal response",
+        "status0 vs3 and storage search do not prove media/hardware correctness"
+      ],
+      "permissions_and_resources": [
+        "Requires an existing authorized task ID; no new task creation for read acceptance without separate authorization."
+      ],
+      "region": "domestic",
+      "region_guard": "Inside diagnostic scope, before all parameter validation/auth/provider/factory; Operation.regions domestic only.",
+      "return_contract": "Return the exact ApiResponse; preserve data/raw/unknown fields and underlying exception identity; no DTO, conversion, polling, task handle or response field enforcement.",
+      "formal_parameter_tables": [
+        {
+          "table_number": 1,
+          "element_index": 10,
+          "heading": "2. 接口信息",
+          "rows": [
+            [
+              "项",
+              "值"
+            ],
+            [
+              "请求方法",
+              "GET"
+            ],
+            [
+              "请求路径",
+              "/api/v3/open/cloud/task/{taskId}"
+            ],
+            [
+              "内容类型",
+              "—"
+            ],
+            [
+              "鉴权方式",
+              "accessToken（Query）"
+            ],
+            [
+              "幂等性",
+              "是（只读）"
+            ],
+            [
+              "是否异步",
+              "否"
+            ]
+          ]
+        },
+        {
+          "table_number": 2,
+          "element_index": 37,
+          "heading": "3. 请求参数",
+          "rows": [
+            [
+              "参数位置",
+              "参数名",
+              "类型",
+              "必填",
+              "取值约束/枚举",
+              "说明"
+            ],
+            [
+              "path",
+              "taskId",
+              "String",
+              "Y",
+              "^\\w{1,32}$",
+              "任务 ID"
+            ],
+            [
+              "query",
+              "accessToken",
+              "String",
+              "Y",
+              "—",
+              "访问令牌"
+            ]
+          ]
+        }
+      ],
+      "source_anchors": {
+        "tables": [
+          {
+            "table": 1,
+            "element_index": 10
+          },
+          {
+            "table": 2,
+            "element_index": 37
+          },
+          {
+            "table": 3,
+            "element_index": 66
+          },
+          {
+            "table": 4,
+            "element_index": 153
+          }
+        ],
+        "code_elements": [
+          19,
+          23,
+          63,
+          150
+        ]
+      },
+      "replay_policy": "Existing at-most-one 10002 read recovery; no HTTP/network retries."
+    },
+    {
+      "source_doc_id": "983",
+      "source_url": "https://open.ys7.com/help/983",
+      "source_content_sha256": "90ef6dd9f76d5ad80f0a55e6b50a4113ac7b9010b7204c4ac949473352c802f3",
+      "candidate_id": "candidate:domestic:983:d0",
+      "operation_id": "cn.message_subscriptions.create_consumer",
+      "runtime_name": "message_subscriptions.create_consumer",
+      "facade": "message_subscriptions",
+      "module": "src/ezviz_unified/message_subscriptions.py",
+      "classes": [
+        "MessageSubscriptions",
+        "AsyncMessageSubscriptions"
+      ],
+      "method_name": "create_consumer",
+      "public_signatures": {
+        "MessageSubscriptions": "def create_consumer(group: Literal[\"group1\", \"group2\", \"group3\", \"group4\", \"group5\"]) -> ApiResponse",
+        "AsyncMessageSubscriptions": "async def create_consumer(group: Literal[\"group1\", \"group2\", \"group3\", \"group4\", \"group5\"]) -> ApiResponse"
+      },
+      "method": "POST",
+      "path": "/api/lapp/mq/v2/consumer/{consumerName}",
+      "token_location": "form",
+      "body_encoding": "form_urlencoded",
+      "response_policy": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "success_values": [
+          "200"
+        ]
+      },
+      "read_only": false,
+      "validation": [
+        "group strict str exact group1/group2/group3/group4/group5, required with no default; bind consumerName via existing path template.",
+        "Only token form plus explicit form Content-Type; return full ApiResponse, do not extract/store consumerId or create a managed consumer object."
+      ],
+      "preserved_unknowns": [
+        "consumer quota",
+        "creation uniqueness/idempotency and group ownership",
+        "tenant service availability",
+        "error-code table contains success only"
+      ],
+      "permissions_and_resources": [
+        "Legacy service: 982 says no future updates/maintenance, not proven shut down; new applications prefer official Webhook route.",
+        "Do not seize a production group. Need a dedicated authorized group/tenant/controlled event and creation/consumption scope."
+      ],
+      "region": "domestic",
+      "region_guard": "Inside diagnostic scope, before all parameter validation/auth/provider/factory; Operation.regions domestic only.",
+      "return_contract": "Return the exact ApiResponse; preserve data/raw/unknown fields and underlying exception identity; no DTO, conversion, polling, task handle or response field enforcement.",
+      "formal_parameter_tables": [
+        {
+          "table_number": 1,
+          "element_index": 14,
+          "heading": "创建消费者",
+          "rows": [
+            [
+              "参数位置",
+              "参数名",
+              "类型",
+              "描述",
+              "是否必选"
+            ],
+            [
+              "Header",
+              "Content-Type",
+              "String",
+              "application/x-www-form-urlencoded",
+              "Y"
+            ],
+            [
+              "Path",
+              "consumerName",
+              "String",
+              "租户组名，名称固定为group1至group5，传入其他参数报错",
+              "Y"
+            ],
+            [
+              "Body",
+              "accessToken",
+              "String",
+              "开放平台授权过程获取的访问令牌，获取方式参考接口 https://open.ys7.com/help/81",
+              "Y"
+            ]
+          ]
+        }
+      ],
+      "source_anchors": {
+        "tables": [
+          {
+            "table": 1,
+            "element_index": 14
+          },
+          {
+            "table": 2,
+            "element_index": 50
+          },
+          {
+            "table": 3,
+            "element_index": 74
+          }
+        ],
+        "code_elements": [
+          7,
+          11,
+          42,
+          46
+        ]
+      },
+      "replay_policy": "No business replay on 10002/HTTP/API/timeout/disconnect/cancellation. Existing token invalidation semantics preserved; outcome may be unknown."
+    },
+    {
+      "source_doc_id": "984",
+      "source_url": "https://open.ys7.com/help/984",
+      "source_content_sha256": "954ea4ec43816d45c8a619c004abb98b5f826a0df13e53461a024999a72df40d",
+      "candidate_id": "candidate:domestic:984:d0",
+      "operation_id": "cn.message_subscriptions.consume",
+      "runtime_name": "message_subscriptions.consume",
+      "facade": "message_subscriptions",
+      "module": "src/ezviz_unified/message_subscriptions.py",
+      "classes": [
+        "MessageSubscriptions",
+        "AsyncMessageSubscriptions"
+      ],
+      "method_name": "consume",
+      "public_signatures": {
+        "MessageSubscriptions": "def consume(consumer_id: str, *, offset: int | None = None) -> ApiResponse",
+        "AsyncMessageSubscriptions": "async def consume(consumer_id: str, *, offset: int | None = None) -> ApiResponse"
+      },
+      "method": "POST",
+      "path": "/api/lapp/mq/v2/consumer/messages",
+      "token_location": "form",
+      "body_encoding": "form_urlencoded",
+      "response_policy": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "success_values": [
+          "200"
+        ]
+      },
+      "read_only": false,
+      "validation": [
+        "consumer_id nonblank UTF-8 str, opaque with no invented length/regex, unchanged. Add consumerId to existing sensitive-key list.",
+        "offset None omitted; supplied value int not bool, zero/negative/large values passed unchanged without claiming server acceptance; never derive offset+1.",
+        "Read commits the previous batch. No peek/ack helper, implicit final read, automatic restart/retry, deduplication, buffer, checkpoint, timer or background consumer.",
+        "Caller owns consumer identity and same-owner serialized sequence; async methods await in caller task, no threads/tasks spawned.",
+        "After timeout/cancellation/disconnect, both commit and delivery may be unknown. Return original errors and do not recover via another consume."
+      ],
+      "preserved_unknowns": [
+        "offset default/direction/inclusive semantics and interaction with commit",
+        "standalone final-batch commit not documented",
+        "empty-first-read vs no messages",
+        "long-poll/timeout behavior and byte-limit meaning",
+        "response header.channelNo String table vs integer sample"
+      ],
+      "permissions_and_resources": [
+        "Single instance/single thread recommended; creation/subscription/commit same thread; one active subscriber per group and unknown group capacity.",
+        "Five-minute inactivity expiry; at-least-once delivery and independent group offsets; application handles duplicates.",
+        "Actual consume changes delivery/commit state and needs separate explicit bounded authorization, not inherited device-read authority."
+      ],
+      "region": "domestic",
+      "region_guard": "Inside diagnostic scope, before all parameter validation/auth/provider/factory; Operation.regions domestic only.",
+      "return_contract": "Return the exact ApiResponse; preserve data/raw/unknown fields and underlying exception identity; no DTO, conversion, polling, task handle or response field enforcement.",
+      "formal_parameter_tables": [
+        {
+          "table_number": 1,
+          "element_index": 14,
+          "heading": "消费者消费信息",
+          "rows": [
+            [
+              "参数位置",
+              "参数名",
+              "类型",
+              "描述",
+              "是否必选"
+            ],
+            [
+              "Header",
+              "Content-Type",
+              "String",
+              "application/x-www-form-urlencoded",
+              "Y"
+            ],
+            [
+              "Body",
+              "accessToken",
+              "String",
+              "开放平台授权过程获取的访问令牌，获取方式参考接口 https://open.ys7.com/help/81",
+              "Y"
+            ],
+            [
+              "Body",
+              "consumerId",
+              "String",
+              "消费者在组中唯一标识，5分钟内未使用将自动删除，断开和消息通道的链接。读-提交模式即读取一次消息自动提交上一次消息",
+              "Y"
+            ],
+            [
+              "Body",
+              "offset",
+              "Int",
+              "偏移量",
+              "N"
+            ]
+          ]
+        }
+      ],
+      "source_anchors": {
+        "tables": [
+          {
+            "table": 1,
+            "element_index": 14
+          },
+          {
+            "table": 2,
+            "element_index": 56
+          },
+          {
+            "table": 3,
+            "element_index": 100
+          }
+        ],
+        "code_elements": [
+          7,
+          11,
+          48,
+          52
+        ]
+      },
+      "replay_policy": "No business replay on 10002/HTTP/API/timeout/disconnect/cancellation. Existing token invalidation semantics preserved; outcome may be unknown."
+    },
+    {
+      "source_doc_id": "1356",
+      "source_url": "https://open.ys7.com/help/1356",
+      "source_content_sha256": "2bbb83f2d7bcada29e1770f2c6c145ca7a53557773a0102d5b9ef4f677ee0a9c",
+      "candidate_id": "candidate:domestic:1356:d0",
+      "operation_id": "cn.hubs.list_subdevices",
+      "runtime_name": "hubs.list_subdevices",
+      "facade": "hubs",
+      "module": "src/ezviz_unified/hubs.py",
+      "classes": [
+        "Hubs",
+        "AsyncHubs"
+      ],
+      "method_name": "list_subdevices",
+      "public_signatures": {
+        "Hubs": "def list_subdevices(hub_serial: str, *, version: str | None = None) -> ApiResponse",
+        "AsyncHubs": "async def list_subdevices(hub_serial: str, *, version: str | None = None) -> ApiResponse"
+      },
+      "method": "POST",
+      "path": "/api/lapp/hub/device/sub/list",
+      "token_location": "form",
+      "body_encoding": "form_urlencoded",
+      "response_policy": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "success_values": [
+          "200"
+        ]
+      },
+      "read_only": true,
+      "validation": [
+        "Mandatory serial nonblank UTF-8 str, unchanged; reject ASCII lowercase letters as source uppercase requirement, never silently uppercase/strip/concatenate or invent length/pattern bounds.",
+        "1356 sends parent hub_serial as deviceSerial;1357/1358 send child subdevice_serial as deviceSerial. Never infer parent/child identity or channel number.",
+        "Token and business values in flat form; common String200 code/msg/data policy. All are source-described queries; read_only=True is SDK classification from their query semantics.",
+        "version None omitted; any UTF-8 str including empty string allowed unchanged; no numeric/SemVer conversion or blank rejection. Source only says String/version, empty behavior is unknown."
+      ],
+      "preserved_unknowns": [
+        "applicable HUB/model and child device scope",
+        "response requiredness and null/type discrepancies",
+        "version meaning",
+        "HUB is distinct from A3 resource APIs"
+      ],
+      "permissions_and_resources": [
+        "Subaccount minimum Permission=Get, Resource=dev:序列号; this is not evidence the current account has permission.",
+        "Live needs existing authorized HUB and already-linked child, correct independent serials and representative model; no pairing/binding/deletion/control to fabricate prerequisites."
+      ],
+      "region": "domestic",
+      "region_guard": "Inside diagnostic scope, before all parameter validation/auth/provider/factory; Operation.regions domestic only.",
+      "return_contract": "Return the exact ApiResponse; preserve data/raw/unknown fields and underlying exception identity; no DTO, conversion, polling, task handle or response field enforcement.",
+      "formal_parameter_tables": [
+        {
+          "table_number": 1,
+          "element_index": 14,
+          "heading": "获取子设备列表",
+          "rows": [
+            [
+              "参数位置",
+              "参数名",
+              "类型",
+              "描述",
+              "是否必选"
+            ],
+            [
+              "Body",
+              "accessToken",
+              "String",
+              "授权过程获取的accessToken",
+              "Y"
+            ],
+            [
+              "Body",
+              "deviceSerial",
+              "String",
+              "HUB设备序列号，存在英文字母的设备序列号，字母需为大写",
+              "Y"
+            ],
+            [
+              "Body",
+              "version",
+              "String",
+              "版本号",
+              "N"
+            ]
+          ]
+        }
+      ],
+      "source_anchors": {
+        "tables": [
+          {
+            "table": 1,
+            "element_index": 14
+          },
+          {
+            "table": 2,
+            "element_index": 50
+          },
+          {
+            "table": 3,
+            "element_index": 106
+          }
+        ],
+        "code_elements": [
+          7,
+          11,
+          42,
+          46
+        ]
+      },
+      "replay_policy": "Existing at-most-one 10002 read recovery; no HTTP/network retries."
+    },
+    {
+      "source_doc_id": "1357",
+      "source_url": "https://open.ys7.com/help/1357",
+      "source_content_sha256": "393a5c27c3272ac0c5cc27ee56544a46cb892d24f36b5c0bcf9fafdc98b59861",
+      "candidate_id": "candidate:domestic:1357:d0",
+      "operation_id": "cn.hubs.subdevice_info",
+      "runtime_name": "hubs.subdevice_info",
+      "facade": "hubs",
+      "module": "src/ezviz_unified/hubs.py",
+      "classes": [
+        "Hubs",
+        "AsyncHubs"
+      ],
+      "method_name": "subdevice_info",
+      "public_signatures": {
+        "Hubs": "def subdevice_info(subdevice_serial: str) -> ApiResponse",
+        "AsyncHubs": "async def subdevice_info(subdevice_serial: str) -> ApiResponse"
+      },
+      "method": "POST",
+      "path": "/api/lapp/hub/device/sub/info",
+      "token_location": "form",
+      "body_encoding": "form_urlencoded",
+      "response_policy": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "success_values": [
+          "200"
+        ]
+      },
+      "read_only": true,
+      "validation": [
+        "Mandatory serial nonblank UTF-8 str, unchanged; reject ASCII lowercase letters as source uppercase requirement, never silently uppercase/strip/concatenate or invent length/pattern bounds.",
+        "1356 sends parent hub_serial as deviceSerial;1357/1358 send child subdevice_serial as deviceSerial. Never infer parent/child identity or channel number.",
+        "Token and business values in flat form; common String200 code/msg/data policy. All are source-described queries; read_only=True is SDK classification from their query semantics."
+      ],
+      "preserved_unknowns": [
+        "applicable HUB/model and child device scope",
+        "response requiredness and null/type discrepancies",
+        "declared business fields vs response envelope",
+        "HUB is distinct from A3 resource APIs"
+      ],
+      "permissions_and_resources": [
+        "Subaccount minimum Permission=Get, Resource=dev:序列号; this is not evidence the current account has permission.",
+        "Live needs existing authorized HUB and already-linked child, correct independent serials and representative model; no pairing/binding/deletion/control to fabricate prerequisites."
+      ],
+      "region": "domestic",
+      "region_guard": "Inside diagnostic scope, before all parameter validation/auth/provider/factory; Operation.regions domestic only.",
+      "return_contract": "Return the exact ApiResponse; preserve data/raw/unknown fields and underlying exception identity; no DTO, conversion, polling, task handle or response field enforcement.",
+      "formal_parameter_tables": [
+        {
+          "table_number": 1,
+          "element_index": 21,
+          "heading": "获取子设备信息",
+          "rows": [
+            [
+              "参数名",
+              "类型",
+              "描述",
+              "是否必选"
+            ],
+            [
+              "accessToken",
+              "String",
+              "授权过程获取的access_token",
+              "Y"
+            ],
+            [
+              "deviceSerial",
+              "String",
+              "HUB子设备序列号,存在英文字母的设备序列号，字母需为大写",
+              "Y"
+            ]
+          ]
+        }
+      ],
+      "source_anchors": {
+        "tables": [
+          {
+            "table": 1,
+            "element_index": 21
+          },
+          {
+            "table": 2,
+            "element_index": 49
+          },
+          {
+            "table": 3,
+            "element_index": 148
+          }
+        ],
+        "code_elements": [
+          9,
+          13,
+          18,
+          41,
+          45
+        ]
+      },
+      "replay_policy": "Existing at-most-one 10002 read recovery; no HTTP/network retries."
+    },
+    {
+      "source_doc_id": "1358",
+      "source_url": "https://open.ys7.com/help/1358",
+      "source_content_sha256": "8e502a1abaed24b78f6d26aa69313ad287021bff362cc7659f07dfe04ecf4b2f",
+      "candidate_id": "candidate:domestic:1358:d0",
+      "operation_id": "cn.hubs.channels",
+      "runtime_name": "hubs.channels",
+      "facade": "hubs",
+      "module": "src/ezviz_unified/hubs.py",
+      "classes": [
+        "Hubs",
+        "AsyncHubs"
+      ],
+      "method_name": "channels",
+      "public_signatures": {
+        "Hubs": "def channels(subdevice_serial: str) -> ApiResponse",
+        "AsyncHubs": "async def channels(subdevice_serial: str) -> ApiResponse"
+      },
+      "method": "POST",
+      "path": "/api/lapp/hub/device/camera/list",
+      "token_location": "form",
+      "body_encoding": "form_urlencoded",
+      "response_policy": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "success_values": [
+          "200"
+        ]
+      },
+      "read_only": true,
+      "validation": [
+        "Mandatory serial nonblank UTF-8 str, unchanged; reject ASCII lowercase letters as source uppercase requirement, never silently uppercase/strip/concatenate or invent length/pattern bounds.",
+        "1356 sends parent hub_serial as deviceSerial;1357/1358 send child subdevice_serial as deviceSerial. Never infer parent/child identity or channel number.",
+        "Token and business values in flat form; common String200 code/msg/data policy. All are source-described queries; read_only=True is SDK classification from their query semantics."
+      ],
+      "preserved_unknowns": [
+        "applicable HUB/model and child device scope",
+        "response requiredness and null/type discrepancies",
+        "declared business fields vs response envelope",
+        "HUB is distinct from A3 resource APIs"
+      ],
+      "permissions_and_resources": [
+        "Subaccount minimum Permission=Get, Resource=dev:序列号; this is not evidence the current account has permission.",
+        "Live needs existing authorized HUB and already-linked child, correct independent serials and representative model; no pairing/binding/deletion/control to fabricate prerequisites."
+      ],
+      "region": "domestic",
+      "region_guard": "Inside diagnostic scope, before all parameter validation/auth/provider/factory; Operation.regions domestic only.",
+      "return_contract": "Return the exact ApiResponse; preserve data/raw/unknown fields and underlying exception identity; no DTO, conversion, polling, task handle or response field enforcement.",
+      "formal_parameter_tables": [
+        {
+          "table_number": 1,
+          "element_index": 14,
+          "heading": "获取子设备通道信息",
+          "rows": [
+            [
+              "参数位置",
+              "参数名",
+              "类型",
+              "描述",
+              "是否必选"
+            ],
+            [
+              "Body",
+              "accessToken",
+              "String",
+              "授权过程获取的accessToken",
+              "Y"
+            ],
+            [
+              "Body",
+              "deviceSerial",
+              "String",
+              "子设备序列号，存在英文字母的设备序列号，字母需为大写",
+              "Y"
+            ]
+          ]
+        }
+      ],
+      "source_anchors": {
+        "tables": [
+          {
+            "table": 1,
+            "element_index": 14
+          },
+          {
+            "table": 2,
+            "element_index": 44
+          },
+          {
+            "table": 3,
+            "element_index": 92
+          }
+        ],
+        "code_elements": [
+          7,
+          11,
+          36,
+          40
+        ]
+      },
+      "replay_policy": "Existing at-most-one 10002 read recovery; no HTTP/network retries."
+    }
+  ],
+  "integrations": [
+    {
+      "cohort_id": "CLOUD-CAPTURE-001",
+      "capability_id": "integration:cloud_capture.explicit_workflow",
+      "facade": "cloud_capture",
+      "scenario": "查询已有任务并显式演示抽帧创建、任务观察与存储产物检索",
+      "example_file": "examples/cloud_capture.py",
+      "test_file": "tests/test_example_cloud_capture.py",
+      "source_doc_ids": [
+        "1388",
+        "1389",
+        "1370"
+      ],
+      "owner_queue": "batch_1_B",
+      "case_prefix": "ACC-CLOUD-CAPTURE-EXAMPLE",
+      "common_requirements": [
+        "Repository example only, not SDK runtime dependency. Import/help have zero env/config reads, network calls or tasks.",
+        "CLI has explicit sync/async mode, reuses examples._common.load_config only on execution. Credentials/IDs not CLI arguments or output; no .env auto-load, file logging or upload.",
+        "Success/failure output has fixed fields and enum values/counts only: never IDs, offsets, URLs, tokens, raw payloads, environment values, arbitrary error text/code/class names.",
+        "MockTransport tests must exercise real SDK auth/business transport path and precise request order/counts. CLI errors return nonzero; no exceptions swallowed to claim success.",
+        "LIVE remains separate pending resources/authorization; local synthetic HTTP is not platform/device success.",
+        "Invalid CLI argument/config errors must not echo arbitrary argv or environment values; use fixed failure categories and return nonzero, not raw argparse errors or exception text."
+      ],
+      "specific_requirements": [
+        "CLI queries exactly one explicitly supplied local-environment task ID (EZVIZ_CLOUD_TASK_ID) in chosen mode. No task creation by default.",
+        "Document sync/async explicit create_interval_task/create_timing_task -> task -> storage.search_files -> storage.download_urls calls, keeping sensitive values in local variables and invoking each step explicitly.",
+        "No automatic poll, create space/recording, download media or infer fileNodeId from task response. Guide tagId=taskId is distinct cross-source evidence.",
+        "Do not claim storage spaceIds+tagId is an AND filter: existing search selector priority applies. Explicitly show finite one-page query and require caller to inspect the returned file identities.",
+        "Offline example exercise verifies new task query plus existing storage search/download wire using synthetic identities; taskStatus0/3 semantics preserved, no playable-image conclusion."
+      ]
+    },
+    {
+      "cohort_id": "LEGACY-MESSAGE-001",
+      "capability_id": "integration:message_subscriptions.bounded_consumer",
+      "facade": "message_subscriptions",
+      "scenario": "显式创建消费者、有限批次消费并在处理完成后继续读取",
+      "example_file": "examples/message_subscriptions.py",
+      "test_file": "tests/test_example_message_subscriptions.py",
+      "source_doc_ids": [
+        "983",
+        "984"
+      ],
+      "owner_queue": "batch_1_A",
+      "case_prefix": "ACC-LEGACY-MESSAGE-EXAMPLE",
+      "common_requirements": [
+        "Repository example only, not SDK runtime dependency. Import/help have zero env/config reads, network calls or tasks.",
+        "CLI has explicit sync/async mode, reuses examples._common.load_config only on execution. Credentials/IDs not CLI arguments or output; no .env auto-load, file logging or upload.",
+        "Success/failure output has fixed fields and enum values/counts only: never IDs, offsets, URLs, tokens, raw payloads, environment values, arbitrary error text/code/class names.",
+        "MockTransport tests must exercise real SDK auth/business transport path and precise request order/counts. CLI errors return nonzero; no exceptions swallowed to claim success.",
+        "LIVE remains separate pending resources/authorization; local synthetic HTTP is not platform/device success.",
+        "Invalid CLI argument/config errors must not echo arbitrary argv or environment values; use fixed failure categories and return nonzero, not raw argparse errors or exception text."
+      ],
+      "specific_requirements": [
+        "Provide bounded sync and async programmatic run functions: caller supplies client, group, mandatory batch handler and max_batches int1..10 (example limit, not official API limit). Create one consumer, then at most max_batches explicit consume calls, offset omitted.",
+        "Validate create data.consumerId shape locally before consuming; preserve SDK result/raw, do not print identity. For each batch, finish/await handler before the next consume. Handler failure/cancellation stops immediately; finally/close never performs a commit read.",
+        "Do not supply a default count-only handler that silently acknowledges messages. CLI is an explicit --execute one-batch observation: create once/consume once, report counts and processing_performed=false/final_commit_confirmed=false; no second consume.",
+        "First empty batch is not no-message proof; final batch is not confirmed committed. No offset arithmetic or dedupe helper; body remains opaque and never logged.",
+        "Tests use real SDK MockTransport and a trace to prove create/read/handler/read ordering, handler exception and cancellation produce no extra business request, and no cleanup/network work happens on close/import."
+      ]
+    },
+    {
+      "cohort_id": "HUB-DISCOVERY-001",
+      "capability_id": "integration:hubs.explicit_discovery",
+      "facade": "hubs",
+      "scenario": "以明确父/子设备身份读取列表、详情和通道",
+      "example_file": "examples/hub_discovery.py",
+      "test_file": "tests/test_example_hub_discovery.py",
+      "source_doc_ids": [
+        "1356",
+        "1357",
+        "1358"
+      ],
+      "owner_queue": "batch_2_A",
+      "case_prefix": "ACC-HUB-DISCOVERY-EXAMPLE",
+      "common_requirements": [
+        "Repository example only, not SDK runtime dependency. Import/help have zero env/config reads, network calls or tasks.",
+        "CLI has explicit sync/async mode, reuses examples._common.load_config only on execution. Credentials/IDs not CLI arguments or output; no .env auto-load, file logging or upload.",
+        "Success/failure output has fixed fields and enum values/counts only: never IDs, offsets, URLs, tokens, raw payloads, environment values, arbitrary error text/code/class names.",
+        "MockTransport tests must exercise real SDK auth/business transport path and precise request order/counts. CLI errors return nonzero; no exceptions swallowed to claim success.",
+        "LIVE remains separate pending resources/authorization; local synthetic HTTP is not platform/device success.",
+        "Invalid CLI argument/config errors must not echo arbitrary argv or environment values; use fixed failure categories and return nonzero, not raw argparse errors or exception text."
+      ],
+      "specific_requirements": [
+        "CLI reads explicit EZVIZ_HUB_SERIAL and EZVIZ_SUBDEVICE_SERIAL from local environment, never guesses child ID from parent or selects first device.",
+        "Chosen sync/async mode calls list_subdevices(parent), subdevice_info(child), channels(child), at most3 logical calls, with no further pagination or control calls.",
+        "Return only finite counts/shape checks; do not infer hardware/model or permission coverage from success. A mismatched/empty result is recorded as a boundary, not repaired by binding devices.",
+        "Tests verify correct independent serials on wire, no silent uppercase, both modes and safe output/error handling."
+      ]
+    }
+  ],
+  "architecture_choice": {
+    "selected": "Three thin stateless domestic facades and explicit repository examples; no runtime dependency on LLM/harness/data.",
+    "alternatives_rejected": [
+      "Merge legacy consumer into webhook helpers: acknowledgement and lifecycle semantics differ.",
+      "Managed background task/consumer engine: introduces unknown replay/commit policy and implicit operations."
+    ],
+    "existing_reuse": [
+      "Client/AsyncClient",
+      "Operation/path templates",
+      "ApiResponse/ResponsePolicy",
+      "error classification/redaction",
+      "DiagnosticRecorder and _diagnostic_scope",
+      "storage_models._text/_integer/_sequence_items; existing UTF-8 validation helper",
+      "existing storage search/download APIs",
+      "examples._common.load_config"
+    ],
+    "official_component_boundary": "These are server APIs; no player/codec/RTC engine or App adapter is built. Existing official media components remain preferred for playback."
+  },
+  "shared_invariants": [
+    "No change to existing operation responses/exceptions/order/retries. New scopes wrap region and validation, including pre-auth errors.",
+    "No automatic collection/upload/file logs/global HTTPX modification/background SDK business requests. Diagnostic operation names extend exact allowlists only.",
+    "Reuse existing request redaction; add consumerId only. Reports omit raw messages/headers/body, values, IDs, offsets, URLs and exception details; unknown errors retain current generic classification.",
+    "None means omit all optional parameters; no server defaults injected, no implicit resource discovery or selection.",
+    "Known request values redacted without changing raw business-code classification, including short numeric-looking IDs; arbitrary unknown error text is not claimed universally scrubbed.",
+    "Source facts, local validation choices, cross-source evidence and LIVE results are separate. No new live call or side-effect authorization is granted."
+  ],
+  "source_review_corrections": [
+    "SP199 missed 1389 resultSpaceId row by filtering an entire row containing a documentation URL; E16 T1 contains an independent Body Long optional row. Withdraw the missing-field conclusion.",
+    "SP199 left1357 wire/envelope uncertain; E41 official HTTP sample establishes form and E45 response keys establish code/msg/data; preserve differences from E49 flattened business table.",
+    "SP211 source cards R excludes the header; SP212 cards each declare their own convention (messaging excludes header; capture includes it). Use element_index and field name as the stable locator rather than assuming one R convention.",
+    "1389 method/path declarations E9/E13 and Body accessToken table are direct endpoint facts, not inference from1388. Form encoding uses E92.",
+    "Whitelisted success scalar extraction confirms meta.code=int200 at1388 E169/1389 E96 and code=str200 at983 E46/984 E52/1357 E45; no raw sample values published.",
+    "983/984 E7 declare https://open.ys7.com; source projection omitted origin but source did not. Do not register host as missing.",
+    "Do not adopt candidate DTOs/taskId-only returns, header/channel coercion, implicit poll/backoff, SDK deduplication, strict start<end, timing-mode2 exclusion, mutual exclusion of both storage selectors, or channel default1.",
+    "1388 devProto empty is an allowed value, not a declared server default. 1389 channelNo wording可填1 does not remove requiredness."
+  ],
+  "source_inputs": {
+    "Capture": {
+      "candidate_sha256": "9d35d6cae1c693e069fd1fde9e8ac653f71316d5abd26e48dcdc9331feaa528d",
+      "input_sha256": "3e377d24516817321662f02ceaa210bb2d3b8e457daf283ca3357ae12ee66cd0",
+      "execution_sha256": "3e193a30b5e120e34020b5ff59eb316d688209c337d5e1ef6692b7fdbdcc25de"
+    },
+    "Messaging": {
+      "candidate_sha256": "856c84a17749b5149575910fd9da60cfd37a39d1b55e0e034a7396aefc88924f",
+      "input_sha256": "b37575413743cfa63931a65b144bc2f7468f4ce7713d3df120cb0e35226a5747",
+      "execution_sha256": "4cb7721452e1877753197f09ecb8b89bb5e758252b447b302c38aba8f5d7bf3c"
+    },
+    "Hubs": {
+      "candidate_sha256": "e451597e6c874c0609a811251e5f84b322654289daf261e7746978d2dac67c65",
+      "input_sha256": "849b20e3735abb867e1114a92442d79d7cabe905ca58f25c7d33c2ba8ab86943",
+      "execution_sha256": "b728840afa2b03bd71e8a6ed5f79413d35416f26904cd59e46b78b24e84c6395"
+    }
+  },
+  "architecture_reviews": {
+    "SP212-capture-architecture-review": "09b5c4f2693b411f7e2b6b205740d3ee56cb21907dc59644fa79a0cd0b4834d9",
+    "SP212-messaging-architecture-review": "7af47e8896e23fce7c087ab9da21d0cd557e4b8e0506cd86414c65200dbfb3a8",
+    "SP212-hubs-architecture-review": "4c5a26ce74c874cf159a53478a7b27cbbbd627305e9b68dbf85fa91ff729c6b3"
+  },
+  "validation_before_acceptance": [
+    "Exact sync/async wire and omission/validation boundaries",
+    "Diagnostic off/on result/exception identity/request order and counts",
+    "Auth invalidation/replay policy, timeout/HTTP/protocol/business errors, close/cancellation",
+    "Known secret sentinels absent from reports/logs and rejected inputs; no raw source fixtures",
+    "Contract registry/bindings/evals and diagnostic coverage updated with exact counts",
+    "Examples import/help/no-config behavior, CLI, real SDK MockTransport integration",
+    "Full offline regressions, mypy, Ruff, build/artifacts/Twine/clean wheel+sdist installation",
+    "Exact PR HEAD CI, merge and main CI, original user file preserved"
+  ],
+  "targets_not_current_facts": {
+    "registered_operations": 220,
+    "domestic_operations": 153,
+    "overseas_operations": 67,
+    "diagnostic_business_entries": 149,
+    "diagnostic_sync_async_bodies": 298,
+    "diagnostic_operation_names": 403
+  },
+  "live_and_release": "All new LIVE cases pending resource scope; writes/consumer creation/consumption require explicit concrete authorization. Existing domestic read-only authority persists but does not grant those effects. No release/PyPI success claimed.",
+  "phase_2_deferred": [
+    "app_adapter",
+    "selective_telemetry",
+    "independent_model_evaluation",
+    "controlled_rsi"
+  ],
+  "architecture_freeze_sha256": "2348541dec25665b51acf602516ac1ebe9ead79e85ef5b552606a7ed5cd4ffff"
+}

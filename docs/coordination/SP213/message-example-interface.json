@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "frozen_constraints_already_decided": [
+    "SP213 LEGACY-MESSAGE-001只准入仓库示例，不新增SDK API、运行时依赖或托管consumer对象。",
+    "调用方传client/group/mandatory handler/max_batches整数1..10；创建一次，然后最多max_batches次consume，offset省略。",
+    "每批handler完成/await完成后才下一读；错误/取消立即停止，无finally补读、自动ack/retry/recreate/offset算法。",
+    "CLI --execute仅create一次+consume一次观察；processing_performed=false、final_commit_confirmed=false；不得以默认count-only handler静默确认消息。",
+    "import/help不读取环境或配置、不创建client/task、不联网；仅执行路径使用examples._common.load_config。",
+    "当前LIVE仍未授权且required未完成，本接口建议不扩大授权。"
+  ],
+  "programmatic_interface": {
+    "module": "examples/message_subscriptions.py",
+    "group_type": "Literal['group1','group2','group3','group4','group5']",
+    "sync_signature": "def run_sync(client: Client, group: ConsumerGroup, *, handler: Callable[[ApiResponse], None], max_batches: int) -> MessageRunResult",
+    "async_signature": "async def run_async(client: AsyncClient, group: ConsumerGroup, *, handler: Callable[[ApiResponse], Awaitable[None]], max_batches: int) -> MessageRunResult",
+    "parameter_defaults": "group/handler/max_batches均无默认；不提供no-op handler，不把max_batches默认为多批。",
+    "result_type": {
+      "name": "MessageRunResult",
+      "location": "仅示例模块局部定义，不从ezviz_unified导出",
+      "shape": "frozen=True,slots=True的纯数据dataclass；无任何生命周期/请求方法",
+      "fields": [
+        {
+          "name": "consumer_id",
+          "type": "str",
+          "repr": false,
+          "meaning": "create返回且已本地校验的opaque ID，原值仅保留在内存供调用方显式续用；不自动保存或打印"
+        },
+        {
+          "name": "batches_received",
+          "type": "int",
+          "meaning": "本地成功收到并确认data为list的批次数"
+        },
+        {
+          "name": "handlers_completed",
+          "type": "int",
+          "meaning": "正常返回/await完成的handler次数，不等于持久业务成功或exactly-once"
+        },
+        {
+          "name": "messages_observed",
+          "type": "int",
+          "meaning": "这些批次的列表长度之和；不去重、不代表不同事件数"
+        },
+        {
+          "name": "final_commit_confirmed",
+          "type": "Literal[False]",
+          "meaning": "末批无已审独立提交操作，正常返回也始终False"
+        }
+      ],
+      "not_in_result": [
+        "原始batch/body/header/URL/offset",
+        "完整create响应",
+        "异常对象/文本",
+        "自动下一批/commit/close方法"
+      ],
+      "privacy_boundary": "repr隐藏consumer_id；这不是访问控制。应用显式读取字段仍能获得ID。示例不得asdict/vars/json-dump整个result；CLI只构造独立白名单摘要。"
+    },
+    "client_ownership": "两个run借用调用方client，不进入其context manager、不close/aclose它；方便调用方在同一owner中用返回ID显式继续。调用方最终负责close；CLI自己创建并拥有client，才使用with/async with关闭。",
+    "handler_contract": "handler收到consume返回的原始ApiResponse对象，保留data/raw与未知字段，不复制成DTO或强转channelNo/body。handler正常结束只表示回调完成，业务方负责可靠处理/持久受理。",
+    "flow": [
+      "在任何create之前校验max_batches为int非bool且1..10、handler callable；group仍按固定枚举验证，不能自动选组。",
+      "显式create_consumer一次；检查response.data为dict且consumerId为非空白UTF-8 str；只取该字段到局部变量，不改变SDK响应。",
+      "按明确批次数顺序consume(consumer_id)，不传offset；确认data是list以计算观察数，不改元素内容。",
+      "将同一个ApiResponse交handler；sync必须同步完成，async必须await其返回awaitable，然后才进行下一次consume。",
+      "正常结束返回MessageRunResult；无额外最终读取/提交、sleep、自动重建、线程/任务或checkpoint。"
+    ],
+    "callback_misuse": "可识别的async handler传给run_sync应在create前拒绝；普通callable运行后若返回awaitable，必须停止且不得继续consume，不能把未await的处理当完成。run_async允许普通callable返回awaitable，不强制inspect.iscoroutinefunction；返回非awaitable则失败并停止。不要用to_thread/asyncio.run/gather隐藏处理模型。",
+    "empty_batches": "仍作为一批交给mandatory handler；空批不说明无消息/功能不可用，不额外增加或重置调用预算。后续读取仅来自调用方已明确指定的max_batches和上批handler完成。"
+  },
+  "error_and_partial_state": {
+    "rule": "run_sync/run_async不把SDK/handler异常包装成success/failed返回对象；普通异常与CancelledError原样传播，保留身份；仅本地参数/形状错误使用固定无敏感值的异常信息。",
+    "partial_effects": [
+      "create报错/超时可能已经创建consumer；没有有效返回ID时不猜测身份。",
+      "消费/handler在第k批失败时，前面批次可能因后续consume被提交；当前读提交与投递状态可能未知。",
+      "handler完成次数只反映调用方回调完成，不证明服务端确认或业务持久化。"
+    ],
+    "deliberate_minimal_limit": "仅正常返回时保证MessageRunResult.consumer_id可用；异常/取消时不返回部分结果，也不保证调用方能获得本次新consumerId或完整部分计数。禁止把ID塞进异常文本、动态属性、全局/thread-local状态以暗自补偿。",
+    "caller_control_alternative": "若应用要求故障后始终持有consumerId并精确掌握每步部分状态，应由调用方直接组织既有create_consumer→局部保存ID→显式consume/handler流程；本示例不为此新增管理器、错误包装器或SDK接口。",
+    "cleanup": "run不自动关闭借用client，不做业务清理调用；CLI持有的client在with/async with中关闭HTTP资源，但关闭不等于云consumer删除或最后批提交。"
+  },
+  "cli_interface": {
+    "signature": "def main(argv: Sequence[str] | None = None) -> int",
+    "invocation": "python -m examples.message_subscriptions --mode {sync,async} --execute",
+    "mode_required": true,
+    "fixed_one_batch": true,
+    "no_cli_flags_for": [
+      "consumer_id",
+      "offset",
+      "max_batches",
+      "token",
+      "app_key",
+      "app_secret"
+    ],
+    "local_configuration": "执行确认后调用examples._common.load_config；group建议另取本地EZVIZ_MESSAGE_GROUP并严格验证，无默认值，不在argv或输出中携带资源身份。这里只定义键名，不读取真实环境。",
+    "separate_path": "CLI使用独立的私有观察路径，直接create一次、校验ID、consume一次；不通过run_sync/run_async传入no-op/count-only handler来冒充处理。",
+    "ownership": "CLI拥有Client/AsyncClient并显式with/async with；run_async本身不创建event loop，只有CLI最外层可asyncio.run。",
+    "summary_fields": {
+      "schema_version": 1,
+      "mode": "sync | async；参数无效时可省略",
+      "outcome": "observed | failed",
+      "stage": "arguments | configuration | create | consume | complete",
+      "error_family": "none | input | configuration | authentication | permission | api | protocol | transport | interrupted | unknown",
+      "batches_received": "本地已确认的非负计数；成功观察为1",
+      "messages_observed": "列表元素非负计数；未知/不可解析时省略，不猜值",
+      "processing_performed": false,
+      "final_commit_confirmed": false
+    },
+    "output_rules": "只构造上述白名单；失败不输出exception str/repr/class/code/http response body或原argv/env值。不得复用_common.print_failure的动态错误字段。失败前无有效计数就省略，不把未知服务端结果写成没有副作用。",
+    "exit_codes": {
+      "0": "正常完成一次观察，非整体验收成功",
+      "1": "请求/响应形状等执行失败",
+      "2": "参数/配置错误，未开始业务调用",
+      "130": "CLI中断边界；helpers仍原样传播取消/中断"
+    },
+    "side_effect_note": "--execute只是示例显式启动入口；本轮agent没有新live授权。create/consume虽用于观察也会改变服务端状态，不能称只读探测。"
+  },
+  "critical_tests": [
+    "真实Client/AsyncClient+MockTransport：create一次、N次consume均offset省略；trace严格create/read/handler/read，async handler被真正await。",
+    "max_batches的1/10边界及0/11/bool/非int、缺handler/noncallable在create前拒绝；不依赖真实环境或API。",
+    "返回ID精确等于合成create ID，可由调用方读取；repr/CLI/log无ID；helper不关闭借用client。",
+    "handler异常和真实async取消保留异常身份，后续无consume；sync返回awaitable和async返回非awaitable不产生下一读。",
+    "create响应缺/非法ID则零consume；consume data非list失败，空list仍按固定预算交handler；不强转或丢未知字段。",
+    "CLI两mode均只create+consume一次、无handler/no-op，processing_performed/final_commit_confirmed始终False；client最终关闭且无补读。",
+    "import/--help/no--execute零配置读取/零I/O；非法argv/env/SDK错误带合成sentinel时固定非零退出且输出无原值。",
+    "不把MockTransport、回调完成、CLI observed或ID返回当真实消息处理/最终提交/live资源权限的证据。"
+  ],
+  "admission_id": "SP257",
+  "parent_admission": "docs/coordination/SP213/admission.json",
+  "decision": "root_ratified_repository_example_interface_before_implementation",
+  "sdk_public_api_changed": false,
+  "live_authorization_added": false
+}

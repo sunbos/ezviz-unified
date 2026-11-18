@@ -42,7 +42,7 @@ text = recorder.to_json()      # 仅返回 str
 | `outcome` | `started` / `succeeded` / `failed` / `cancelled` / `interrupted` / `scheduled` |
 | `error_family` | `none` / `validation` / `authentication` / `permission` / `device` / `api` / `protocol` / `transport` / `application` / `unknown` / `interrupted` |
 | `reason` | `none` / `timeout` / `network` / `closed` / `other` |
-| `code_category` | `none` / `invalid_token` / `permission_denied` / `other`；仅把真正 `str`/`int` 的 10002→`invalid_token`、10031→`permission_denied` 映射入报告，其他业务码不输出 |
+| `code_category` | `none` / `invalid_token` / `permission_denied` / `other`；仅把真正 `str`/`int` 的 10002→`invalid_token`、10031→`permission_denied` 映射入报告，其他业务码不输出。该字段按脱敏后的公开异常 `code` 投影；当请求标识与字符串业务码碰撞、码被遮蔽为 `***` 时此字段为 `other`，而 `error_family` 仍为 `authentication`——`AuthenticationError.invalid_token` 按原始分类决定是否允许现有只读重放 |
 | `http_status_category` | `none` / `informational` / `success` / `redirect` / `client_error` / `server_error` / `other`；仅对真正 `int`（`bool` 除外）的 100–599 分桶，不输出原始数值 |
 | `attempt` | `0` / `1` / `2`；`0` 表示不适用。**它不是 HTTP 请求总数**，也不是耗时统计 |
 
@@ -61,7 +61,7 @@ text = recorder.to_json()      # 仅返回 str
 
 自动覆盖明细以冻结清单 `docs/diagnostics-v1-coverage.json` 为准：
 
-- 141 个公共业务入口的同步/异步方法体（共 282 处，含设备管理继承方法、云录制计划继承方法与 `ptz.cruise`）：kind=`call`，记 `started` 与终态；作用域在 docstring 之后、首条校验之前，不改签名、不重复包装继承方法。`components.call` 在 `operation_id` 查找前进入作用域，未知 operation 记 `other`。新增的 `settings.list_areas`（公开国家/地区目录，GET `/api/lapp/area/list`）与其余入口相同，地区校验失败在子 scope 之前发生。云录制 1.0 的 `cloud_recording_v1.unfreeze_file`/`file_info`/`download_urls` 与云点播 `vod.files`/`create_remux_task`/`task`/`tasks`/`recording_urls` 八个国内入口同等计入，facade scope 覆盖各自的校验、认证、传输与业务终态。
+- 149 个公共业务入口的同步/异步方法体（共 298 处，含设备管理继承方法、云录制计划继承方法与 `ptz.cruise`）：kind=`call`，记 `started` 与终态；作用域在 docstring 之后、首条校验之前，不改签名、不重复包装继承方法。`components.call` 在 `operation_id` 查找前进入作用域，未知 operation 记 `other`。新增的 `settings.list_areas`（公开国家/地区目录，GET `/api/lapp/area/list`）与其余入口相同，地区校验失败在子 scope 之前发生。云录制 1.0 的 `cloud_recording_v1.unfreeze_file`/`file_info`/`download_urls` 与云点播 `vod.files`/`create_remux_task`/`task`/`tasks`/`recording_urls` 八个国内入口同等计入，facade scope 覆盖各自的校验、认证、传输与业务终态。云抓图 `cloud_capture.create_interval_task`/`create_timing_task`/`task`、消息订阅 `message_subscriptions.create_consumer`/`consume` 与 HUB 子设备 `hubs.list_subdevices`/`subdevice_info`/`channels` 八个国内入口同样计入。
 - `Client.request`/`AsyncClient.request`：含关闭拒绝与 `_prepare`。
 - `authentication`：`get_token`、同步上下文对协程的拒绝、`await`、`validate_provider_token`；普通 provider 异常保留阶段信息。匿名路径（`anonymous=True`）不产生 authentication 事件。`authentication` 记 `succeeded` 可能命中既有 token 缓存，不代表本次发出过认证 HTTP 请求。
 - `transport_setup`：仅 transport factory/origin 校验与注入，不含任何真实请求。

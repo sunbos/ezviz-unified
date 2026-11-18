@@ -22,13 +22,27 @@
 - 四条 **OFFLINE** required case `recorded_evidence`+`passed`；四条 **LIVE** required 仍 `awaiting_*` 未执行。scenario case `ACC-CN-VOD-RESOURCE-DISCOVERY-001`（`2026-11-18-r12` 登记）自身 `result=pending_execution`——`pending_execution` 是 case `result` 枚举值。**`local_execution_state=passed` 与 `live_execution_state=not_executed_pending_current_ci_and_local_credentials` 是 cohort `CLOUD-FILE-001` 的字段，不是该 scenario case 的字段**，不要写成 scenario 的属性。
 - 全 scope `all_semantics_dispositioned`/`required_acceptance_complete`/`product_complete` 仍 `false`；上述 OFFLINE 通过不是全 cohort 通过或产品完成。
 
-## 2026-11-18 国内 VOD remux 与任务 API cohort 更新（scope `2026-11-18-r15`）
+## 2026-11-18 国内 VOD remux 与任务 API cohort 更新（scope `2026-11-18-r15`，历史离线验收快照）
 
 - 新增 cohort `VOD-REMUX-001`，`code_commit=fce298b34911eac89e6c5813b203c5b267e80095`，`offline_evidence_ref` `docs/validation/2026-11-18-vod-remux/checks.json`（`verified_code_commit` 是 OFFLINE case 字段，不是 cohort 字段）。本批为四个国内 VOD 入口：`cn.vod.create_remux_task`（`vod.create_remux_task`）、`cn.vod.task`（`vod.task`）、`cn.vod.tasks`（`vod.tasks`）、`cn.vod.recording_urls`（`vod.recording_urls`），对应 capability `candidate:domestic:3971/3972/4941/3973:d0`，准入记录 `docs/coordination/SP169/admission.json`。**不扩展**到其它待审候选。
 - 四条 **OFFLINE** required case `recorded_evidence`+`passed`（`ACC-CANDIDATE-CN-3971-D0-OFFLINE-001`/`ACC-CANDIDATE-CN-3972-D0-OFFLINE-001`/`ACC-CANDIDATE-CN-4941-D0-OFFLINE-001`/`ACC-CANDIDATE-CN-3973-D0-OFFLINE-001`）；对应四条 **LIVE** required 仍未执行/未授权或资源未齐——**本批未发真实云/设备请求**。
 - scope 当前为 `2026-11-18-r15-vod-remux-offline-acceptance`：358 capability 槽位、382 cases、212 registry（国内 145 / 海外 67）、107 条已登记 source issues；诊断 141 business / 282 sync+async bodies；source 身份集 4051 / observation 3019 不变。槽位/计数非官方 API 总数或覆盖率。
 - 国内只读资源发现窗口（SP166）实际**超时关闭**，无报告，`execution_outcome=not_verified`；实际 HTTP 请求数 `null`（不可声称 0 或账号无资源），不继承为 remux 实测。公开记录 [../validation/live/2026-11-18-vod-resource-discovery/attempt.json](../validation/live/2026-11-18-vod-resource-discovery/attempt.json)；凭据从未进入本任务。
 - 全 scope `all_semantics_dispositioned`/`required_acceptance_complete`/`product_complete` 仍 `false`；上述 OFFLINE 通过不等于 cohort 或产品完成。
+
+## 2026-11-18 捕获/消息/HUB 准入更新（scope `2026-11-18-r16`，历史 G1 准入快照）
+
+- 本段为 SP213 公开 admission 后的**历史准入快照**（已由下方 r17 离线验收段接续）；上一节 r15 是国内 VOD remux 的**历史离线验收快照**，其通过证据保留但不扩展到本批。
+- scope 推进至 `2026-11-18-r16-capture-messaging-hubs-admission`：**367 slots / 402 cases**；新增准入 **8 operations + 3 integrations**（983/984 复用原 ID）。上述 367/402 是**槽位/案例数**，不是官方 API 总量或覆盖率。
+- 准入时点 registry 为 212（国内 145 / 海外 67），诊断 141/282/387；目标 220（153/67）/149/298/403 当时是冻结预期。这些计数在 r17 已变化，见下段。
+- 新三 cohort 与全部 LIVE 均 `pending`/`awaiting_*`、未完成；G1 仅授权有界离线 SDK 与仓库示例实施，无真实云/设备调用、无发布结论。`product_complete`/`required_acceptance_complete`/`all_semantics_dispositioned` 仍 `false`。
+
+## 2026-11-19 捕获/消息/HUB 离线验收更新（scope `2026-11-19-r17`，当前段）
+
+- scope 推进至 `2026-11-19-r17-capture-messaging-hubs-offline-acceptance`，实现 commit `dd105464bb68de358b555d94aff81c9689bc83b7`；三 cohort（`CLOUD-CAPTURE-001`/`LEGACY-MESSAGE-001`/`HUB-DISCOVERY-001`）**11 条 required OFFLINE（8 SDK 操作 + 3 仓库示例）全部 `recorded_evidence`+`passed`**；对应 **11 条 required LIVE 全未执行**（`awaiting_*`/资源与授权未齐），本批未发真实云/设备/消息请求。正式证据 [../validation/2026-11-19-capture-messaging-hubs/checks.json](../validation/2026-11-19-capture-messaging-hubs/checks.json)。
+- registry 现为 **220**（国内 153 / 海外 67），诊断 149 entries / 298 bodies；本批新增 8 行 binding 均 `offline_status=passed`/`live_status=not_verified`。367 capability 槽位、402 cases、1792 传输检查计数仍为槽位/案例口径，不是官方 API 总数或覆盖率。
+- 本机观察（该 code commit 上）：全量 pytest **7220 + 35 subtests**、lint/format/mypy、wire 220 contracts/1792 executions、构建/Twine/干净 wheel+sdist 安装均过；sdist **4827 tests**。`0.1.0a1` 为开发构建、未上传 PyPI、非最终发行。
+- PR/main 状态以仓库按 commit `dd105464bb68de358b555d94aff81c9689bc83b7` 的真实记录为准，不预报 CI 已通过。`product_complete`/`required_acceptance_complete`/`all_semantics_dispositioned` 仍 `false`；上述 OFFLINE 通过不等于 cohort 或产品完成。后续国内 async 为复用既有 SDK 的只读验收，非新实现批。
 
 ## 阅读注意
 

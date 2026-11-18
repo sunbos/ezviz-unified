@@ -15101,6 +15101,881 @@
         "completed remux task as prerequisite not explicit; no taskId/fileNode binding",
         "business code vs HTTP status layer mapping undeclared"
       ]
+    },
+    {
+      "operation_id": "cn.cloud_capture.create_interval_task",
+      "region": "domestic",
+      "source_doc_id": "1388",
+      "source_url": "https://open.ys7.com/help/1388",
+      "source_content_sha256": "923e92ae169ea3d6aef3421bb9ab9b6b16684f5931077e58fbbf13d57da1d685",
+      "method": "POST",
+      "path": "/api/v3/open/cloud/video/frame/interval/start",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "T2(E40,'3. 请求参数')/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "T2(E40,'3. 请求参数')/R3"
+        },
+        {
+          "name": "channelNo",
+          "location": "body",
+          "type": "Int",
+          "required": true,
+          "evidence": "T2(E40,'3. 请求参数')/R4"
+        },
+        {
+          "name": "recType",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "T2(E40,'3. 请求参数')/R5"
+        },
+        {
+          "name": "startTime",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "T2(E40,'3. 请求参数')/R6"
+        },
+        {
+          "name": "endTime",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "T2(E40,'3. 请求参数')/R7"
+        },
+        {
+          "name": "frameInterval",
+          "location": "body",
+          "type": "Int",
+          "required": true,
+          "evidence": "T2(E40,'3. 请求参数')/R8"
+        },
+        {
+          "name": "projectId",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "T2(E40,'3. 请求参数')/R9"
+        },
+        {
+          "name": "resultSpaceId",
+          "location": "body",
+          "type": "Long",
+          "required": false,
+          "evidence": "T2(E40,'3. 请求参数')/R10"
+        },
+        {
+          "name": "frameModel",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "T2(E40,'3. 请求参数')/R11"
+        },
+        {
+          "name": "devProto",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "T2(E40,'3. 请求参数')/R12"
+        },
+        {
+          "name": "streamType",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "T2(E40,'3. 请求参数')/R13"
+        },
+        {
+          "name": "validateCode",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "T2(E40,'3. 请求参数')/R14"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "T3(E153,'5. 响应参数')/R2,R3;E169(json响应示例)"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "accessToken carried in the form body; Content-Type application/x-www-form-urlencoded",
+          "evidence": "T1(E12,'2. 接口信息')/R4,R5;E150(bash示例)header_names"
+        },
+        {
+          "fact": "projectId and resultSpaceId must not both be empty",
+          "evidence": "T2(E40,'3. 请求参数')/R9,R10;prose'8. 调用限制'"
+        },
+        {
+          "fact": "resultSpaceId cell states both '优先' and '与 projectId 二选一'; priority-vs-exclusive wording preserved unresolved",
+          "evidence": "T2(E40,'3. 请求参数')/R10"
+        },
+        {
+          "fact": "projectId formal constraint ^\\w{1,32}$",
+          "evidence": "T2(E40,'3. 请求参数')/R9"
+        },
+        {
+          "fact": "SDK choice: \\w interpreted as ASCII letters/digits/underscore; project_id enforced 1..32",
+          "evidence": "T2(E40,'3. 请求参数')/R9"
+        },
+        {
+          "fact": "resultSpaceId Long documented ≥1",
+          "evidence": "T2(E40,'3. 请求参数')/R10"
+        },
+        {
+          "fact": "channelNo required Int; no documented default or sign bound on this page",
+          "evidence": "T2(E40,'3. 请求参数')/R4"
+        },
+        {
+          "fact": "recType enum local/cloud/live",
+          "evidence": "T2(E40,'3. 请求参数')/R5"
+        },
+        {
+          "fact": "startTime/endTime declared format yyyyMMddHHmmss",
+          "evidence": "T2(E40,'3. 请求参数')/R6,R7"
+        },
+        {
+          "fact": "SDK choice: naive whole-second datetime rendered as four-digit-year 14-digit local clock; no timezone or current-clock inference",
+          "evidence": "T2(E40,'3. 请求参数')/R6,R7"
+        },
+        {
+          "fact": "SDK choice: rejects end_time earlier than start_time, permits equality transparently without claiming server acceptance; no 10s/48h bound documented on this page",
+          "evidence": "T2(E40,'3. 请求参数')/R6,R7"
+        },
+        {
+          "fact": "frameInterval Int ≥1; unit stated as 秒/倍数视模式 but mode-to-unit mapping undeclared",
+          "evidence": "T2(E40,'3. 请求参数')/R8"
+        },
+        {
+          "fact": "frameModel optional 0/1/2; documented default 0 when omitted; SDK omits when None",
+          "evidence": "T2(E40,'3. 请求参数')/R11"
+        },
+        {
+          "fact": "devProto documented values 空/gb28181/jt808; explicit empty is an allowed value, not an SDK default",
+          "evidence": "T2(E40,'3. 请求参数')/R12"
+        },
+        {
+          "fact": "streamType optional String 1/2; documented default 1; SDK strict str, None omits",
+          "evidence": "T2(E40,'3. 请求参数')/R13"
+        },
+        {
+          "fact": "validateCode optional video-decryption key; encryption prerequisites are caller responsibility, SDK performs no detection",
+          "evidence": "T2(E40,'3. 请求参数')/R14"
+        },
+        {
+          "fact": "official prerequisites: existing storage space and recording in the window; cloud mode requires cloud recording, local mode requires SD card recording, device online",
+          "evidence": "prose'1. 接口说明'前置条件;prose'8. 调用限制'"
+        },
+        {
+          "fact": "non-idempotent asynchronous task creation returning data.taskId; success only means task created",
+          "evidence": "T1(E12,'2. 接口信息')/R6,R7;T3(E153,'5. 响应参数')/R3"
+        },
+        {
+          "fact": "this page states the timing endpoint (1389) supports frameModel only 0/1 without 2-抽I帧",
+          "evidence": "prose'9. 相关接口';prose'10. 常见问题'"
+        }
+      ],
+      "uncertainties": [
+        "frameInterval mode-to-unit mapping",
+        "time timezone and maximum window",
+        "source says both two-choice and priority; both sent",
+        "fees/quotas/partial result lifecycle",
+        "error layers"
+      ]
+    },
+    {
+      "operation_id": "cn.cloud_capture.create_timing_task",
+      "region": "domestic",
+      "source_doc_id": "1389",
+      "source_url": "https://open.ys7.com/help/1389",
+      "source_content_sha256": "7d1f94890ea107d8fa50f3ab7b650c45be451272f180c3e52940435acc12d28e",
+      "method": "POST",
+      "path": "/api/v3/open/cloud/video/frame/timing/start",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R2"
+        },
+        {
+          "name": "projectId",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R3"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R4"
+        },
+        {
+          "name": "resultSpaceId",
+          "location": "body",
+          "type": "Long",
+          "required": false,
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R5"
+        },
+        {
+          "name": "channelNo",
+          "location": "body",
+          "type": "Int",
+          "required": true,
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R6"
+        },
+        {
+          "name": "validateCode",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R7"
+        },
+        {
+          "name": "recType",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R8"
+        },
+        {
+          "name": "devProto",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R9"
+        },
+        {
+          "name": "frameModel",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R10"
+        },
+        {
+          "name": "streamType",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R11"
+        },
+        {
+          "name": "timingPoints",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R12"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "T2(E100,'返回字段')/R2,R3;E96(json响应示例)"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "POST form-urlencoded request; accessToken located in Body",
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R2;E9;E13;E92(bash示例)"
+        },
+        {
+          "fact": "projectId and resultSpaceId must not both be empty; when resultSpaceId is valid it takes priority for saving",
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R3,R5"
+        },
+        {
+          "fact": "this page declares no projectId charset/length; SDK choice: nonblank UTF-8 str only, no transplanted 1388 ^\\w{1,32}$",
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R3"
+        },
+        {
+          "fact": "this page declares no resultSpaceId bound; SDK choice: int not bool only, zero/negative preserved transparently without claiming server acceptance",
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R5"
+        },
+        {
+          "fact": "channelNo required=Y despite description '默认可填1'; SDK choice: no default, channel stays a required explicit parameter",
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R6"
+        },
+        {
+          "fact": "recType enum local/cloud/live",
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R8"
+        },
+        {
+          "fact": "devProto documented on this endpoint as 空/gb28181 only (empty means 萤石协议, 默认为空); jt808 not documented here and not transplanted; explicit empty is an allowed value not an SDK default",
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R9"
+        },
+        {
+          "fact": "formal table lists frameModel 0/1/2 with default 0; conflicts with 1388 page FAQ and guide 5324 which limit this endpoint to 0/1 — both statements retained; SDK choice: accept explicit frame_model=2 per this table with no fallback, not claiming live support",
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R10;1388 prose'9. 相关接口'/'10. 常见问题';5324 prose'8. 注意事项与限制'"
+        },
+        {
+          "fact": "streamType optional String 1/2, documented default 1, non-live advised 1; SDK strict str, None omits",
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R11"
+        },
+        {
+          "fact": "timingPoints declared as yyyyMMddHHmmss list separated by English commas",
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R12"
+        },
+        {
+          "fact": "SDK choice: timing_points is a non-string Sequence of naive whole-second datetime, snapshotted to tuple before auth/await, nonempty, all validated, comma-joined preserving order and duplicates; no invented count/window/gap bound",
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R12"
+        },
+        {
+          "fact": "validateCode optional; required when device video is encrypted; caller supplies encryption prerequisites",
+          "evidence": "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R7"
+        },
+        {
+          "fact": "official prerequisites: cloud capture needs created storage space plus cloud-recording message push integration and recording in the window; local requires SD card with recording in range",
+          "evidence": "prose'云端抽帧要求';prose'本地抽帧要求'"
+        },
+        {
+          "fact": "Asynchronous task creation returning data.taskId; idempotency is not explicitly declared on this page. SDK read_only=false disables automatic business replay for this state-changing operation.",
+          "evidence": "1389 T2(E100)/R4 data.taskId;E96 response structure;5324 §8 asynchronous workflow;docs/coordination/SP213/admission.json#/operations/1/read_only and replay_policy"
+        }
+      ],
+      "uncertainties": [
+        "frameModel2 cross-page contradiction",
+        "projectId charset/length and resultSpaceId bounds unlisted",
+        "timing-point count/order/timezone/server limits",
+        "jt808 not documented on this endpoint",
+        "error layers"
+      ]
+    },
+    {
+      "operation_id": "cn.cloud_capture.task",
+      "region": "domestic",
+      "source_doc_id": "1370",
+      "source_url": "https://open.ys7.com/help/1370",
+      "source_content_sha256": "a959d13932c20a7dc41b5f16b049031bf31283bf40427fd6f27df42b2c016dc4",
+      "method": "GET",
+      "path": "/api/v3/open/cloud/task/{taskId}",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "taskId",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "evidence": "T2(E37,'3. 请求参数')/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "evidence": "T2(E37,'3. 请求参数')/R3;T1(E10,'2. 接口信息')/R5"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "T3(E66,'5. 响应参数')/R2;E150(json响应示例)"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "GET request with taskId as path parameter and accessToken in query; Content-Type listed as '—', no request body",
+          "evidence": "T1(E10,'2. 接口信息')/R2,R3,R4,R5;T2(E37,'3. 请求参数')/R2,R3"
+        },
+        {
+          "fact": "taskId formal constraint ^\\w{1,32}$",
+          "evidence": "T2(E37,'3. 请求参数')/R2"
+        },
+        {
+          "fact": "same page prose states 'taskId 格式：32 位字母数字'; conflict with formal \\w{1,32} retained",
+          "evidence": "prose'8. 调用限制'"
+        },
+        {
+          "fact": "SDK choice: \\w interpreted as ASCII letters/digits/underscore enforced 1..32; not tightened to exactly-32 alphanumeric",
+          "evidence": "T2(E37,'3. 请求参数')/R2"
+        },
+        {
+          "fact": "officially read-only and idempotent query of a single existing task",
+          "evidence": "T1(E10,'2. 接口信息')/R6;prose'1. 接口说明';prose'8. 调用限制'"
+        },
+        {
+          "fact": "taskStatus enumerates 0-已完成 through 7-未开始; FAQ states 0(正常完成产出文件) differs from 3(到结束时间系统终止)",
+          "evidence": "T3(E66)/R10 taskStatus;1370 FAQ status0 vs3"
+        },
+        {
+          "fact": "taskSubType distinguishes 10-间隔抽帧 vs 11-时间点抽帧",
+          "evidence": "T3(E66)/R9 taskSubType"
+        },
+        {
+          "fact": "no fileNodeId field exists in the formal response table",
+          "evidence": "T3(E66,'5. 响应参数')全行"
+        },
+        {
+          "fact": "SDK: taskId rendered via Operation path_params/render_path, token in query, no body or Content-Type injection; VOD task response semantics not reused",
+          "evidence": "T1(E10,'2. 接口信息')/R3;T2(E37,'3. 请求参数')/R2,R3"
+        },
+        {
+          "fact": "SDK choice: at-most-one 10002 token-refresh recovery for this read; no HTTP/network retries",
+          "evidence": "docs/coordination/SP213/admission.json#/operations/2/replay_policy;existing Client/AsyncClient confirmed-invalid-token recovery policy"
+        }
+      ],
+      "uncertainties": [
+        "formal word1..32 vs prose32alphanumeric conflict",
+        "task response requiredness/time formats",
+        "fileNodeId absent from formal response",
+        "status0 vs3 and storage search do not prove media/hardware correctness"
+      ]
+    },
+    {
+      "operation_id": "cn.message_subscriptions.create_consumer",
+      "region": "domestic",
+      "source_doc_id": "983",
+      "source_url": "https://open.ys7.com/help/983",
+      "method": "POST",
+      "path": "/api/lapp/mq/v2/consumer/{consumerName}",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/x-www-form-urlencoded",
+          "evidence": "T1/R2:Header Content-Type String application/x-www-form-urlencoded Y"
+        },
+        {
+          "name": "consumerName",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R3:Path consumerName String 租户组名，名称固定为group1至group5，传入其他参数报错 Y"
+        },
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "managed": true,
+          "evidence": "T1/R4:Body accessToken String 开放平台授权过程获取的访问令牌 Y"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "T3/R2:200 操作成功 请求成功;E46 code:string msg:string data.consumerId:string",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "constraints": [
+        {
+          "fact": "consumerName固定为group1至group5，传入其他参数报错",
+          "evidence": "T1/R3:名称固定为group1至group5，传入其他参数报错"
+        },
+        {
+          "fact": "每个租户对应一个消息Topic；建议单实例单线程消费；创建consumer、订阅及提交都必须在一个线程中",
+          "evidence": "prose:每个租户对应一个消息Topic…创建consumer、订阅及提交都必须在一个线程中"
+        },
+        {
+          "fact": "单个消费组consumer创建数量存在上限，达到上限后创建失败",
+          "evidence": "prose:单个消费组consumer创建数量存在上限，达到上限后consumer创建将失败"
+        },
+        {
+          "fact": "单个消费组目前只会存在一个consumer可以订阅到消息",
+          "evidence": "prose:单个消费组目前只会存在一个consumer可以订阅到消息"
+        },
+        {
+          "fact": "consumerId 5分钟内未使用将自动删除并断开与消息通道的链接",
+          "evidence": "T2/R5:data.consumerId 5分钟内未使用将自动删除，断开和消息通道的链接"
+        }
+      ],
+      "uncertainties": [
+        "consumer创建数量上限的具体数值未给出",
+        "重复创建同一group的唯一性/幂等语义及consumer归属规则未声明",
+        "返回码表仅含200，配额耗尽/非法group/鉴权等失败码未定义",
+        "该服务为不再更新维护的旧接口（982），实际可用性未证实"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/mq/v2/consumer/{consumerName}",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "90ef6dd9f76d5ad80f0a55e6b50a4113ac7b9010b7204c4ac949473352c802f3",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.message_subscriptions.consume",
+      "region": "domestic",
+      "source_doc_id": "984",
+      "source_url": "https://open.ys7.com/help/984",
+      "method": "POST",
+      "path": "/api/lapp/mq/v2/consumer/messages",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/x-www-form-urlencoded",
+          "evidence": "T1/R2:Header Content-Type String application/x-www-form-urlencoded Y"
+        },
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "managed": true,
+          "evidence": "T1/R3:Body accessToken String 开放平台授权过程获取的访问令牌 Y"
+        },
+        {
+          "name": "consumerId",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R4:Body consumerId String 消费者在组中唯一标识，5分钟内未使用将自动删除…读-提交模式即读取一次消息自动提交上一次消息 Y"
+        },
+        {
+          "name": "offset",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "default": null,
+          "evidence": "T1/R5:Body offset Int 偏移量 N"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "T3/R2:200 操作成功 请求成功;E52 data array items {offset:int,header:{channelNo:int,type:string,deviceId:string},body}",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "constraints": [
+        {
+          "fact": "读-提交模式：读取一次消息自动提交上一次消息",
+          "evidence": "T1/R4:读-提交模式即读取一次消息自动提交上一次消息"
+        },
+        {
+          "fact": "consumerId为组内唯一标识，5分钟未消费将被删除，需重新创建",
+          "evidence": "T1/R4+prose:5分钟内消费者没有消费消息，消费者将被删除"
+        },
+        {
+          "fact": "consumer第一次读取可能因建立连接耗时获取不到消息",
+          "evidence": "prose:consumer第一次读取消息时因建立连接耗时可能导致获取不到消息"
+        },
+        {
+          "fact": "一次请求返回的最大字节数默认为1Mbytes",
+          "evidence": "prose:一次请求返回的最大字节数默认为1Mbytes"
+        },
+        {
+          "fact": "提供group1~5五个分组，每组消息相同但不共享偏移",
+          "evidence": "prose FAQ2:每个组消息一样，不共享消息偏移"
+        },
+        {
+          "fact": "消息管道仅支持At Least Once，去重需业务方处理",
+          "evidence": "prose FAQ5:只支持At Least Once…去重操作需要业务方进行处理"
+        },
+        {
+          "fact": "建议消息消费单线程、消息处理多线程",
+          "evidence": "prose FAQ1:建议消息消费单线程、消息处理多线程"
+        },
+        {
+          "fact": "报警消息统一一种消息类型处理，不支持订阅单一报警类型",
+          "evidence": "prose FAQ4:不支持订阅某一种类型的报警消息"
+        },
+        {
+          "fact": "是否上报取决于设备上报开关与用户订阅",
+          "evidence": "prose FAQ3:上报取决于设备是否开启上报以及用户是否订阅"
+        }
+      ],
+      "uncertainties": [
+        "offset默认值、取值范围、方向及包含性未定义，与读-提交交互不明",
+        "是否存在独立的最后一批提交方式未记录",
+        "首次读取为空与确实无消息无法区分",
+        "长轮询/超时行为及1Mbytes上限的截断语义未声明",
+        "data.header.channelNo正式表为String而样例投影为integer，类型冲突",
+        "返回码表仅含200，consumer过期/非法offset等失败码未定义"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/mq/v2/consumer/messages",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "954ea4ec43816d45c8a619c004abb98b5f826a0df13e53461a024999a72df40d",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.hubs.list_subdevices",
+      "region": "domestic",
+      "source_doc_id": "1356",
+      "source_url": "https://open.ys7.com/help/1356",
+      "method": "POST",
+      "path": "/api/lapp/hub/device/sub/list",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/x-www-form-urlencoded",
+          "evidence": "E42"
+        },
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R2/E14"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R3/E14"
+        },
+        {
+          "name": "version",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "T1/R4/E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "T2/R2/E50;T3/R2/E106;E46",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "constraints": [
+        {
+          "fact": "deviceSerial是父HUB设备序列号，存在英文字母的序列号字母需为大写",
+          "evidence": "T1/R3/E14"
+        },
+        {
+          "fact": "version为可选String版本号，仅声明类型未声明语义",
+          "evidence": "T1/R4/E14"
+        },
+        {
+          "fact": "子账户token最小权限 Permission=Get Resource=dev:序列号",
+          "evidence": "prose:接口功能"
+        },
+        {
+          "fact": "data[]字段：deviceSerial/deviceName/type(1-探测器 2-开关)/deviceCoverUrl/deviceType/subDeviceStatusVos[channelNo,key,value]",
+          "evidence": "T2/E50"
+        }
+      ],
+      "uncertainties": [
+        "version语义、可取值及空字符串行为未声明",
+        "适用HUB型号与子设备范围未声明",
+        "返回字段必填性与null行为未声明",
+        "业务返回码与HTTP状态层映射未声明",
+        "与A3资源类API的关系未声明"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/hub/device/sub/list",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "2bbb83f2d7bcada29e1770f2c6c145ca7a53557773a0102d5b9ef4f677ee0a9c",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.hubs.subdevice_info",
+      "region": "domestic",
+      "source_doc_id": "1357",
+      "source_url": "https://open.ys7.com/help/1357",
+      "method": "POST",
+      "path": "/api/lapp/hub/device/sub/info",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/x-www-form-urlencoded",
+          "evidence": "E41"
+        },
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R2/E21;E41"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R3/E21;E41"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "T3/R2/E148;E45",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "constraints": [
+        {
+          "fact": "deviceSerial是HUB子设备序列号，存在英文字母的序列号字母需为大写",
+          "evidence": "T1/R3/E21"
+        },
+        {
+          "fact": "子账户token最小权限 Permission=Get Resource=dev:序列号",
+          "evidence": "prose:子账户token请求所需最小权限"
+        },
+        {
+          "fact": "detectorDefencePlanVo子字段enable(int 0-关闭 1-开启)/plan(String 布撤防计划)仅在散文表中声明",
+          "evidence": "prose:返回字段"
+        }
+      ],
+      "uncertainties": [
+        "正式字段表E49为平铺业务字段、未含code/msg/data信封，与E45样本结构存在差异",
+        "声明类型与样本null/string不符（devicePicPrefix声明Object样本为string、fullSerial声明int样本为null等）",
+        "字段必填性与null行为未声明",
+        "适用HUB型号与子设备范围未声明",
+        "业务返回码与HTTP状态层映射未声明"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/hub/device/sub/info",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "393a5c27c3272ac0c5cc27ee56544a46cb892d24f36b5c0bcf9fafdc98b59861",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.hubs.channels",
+      "region": "domestic",
+      "source_doc_id": "1358",
+      "source_url": "https://open.ys7.com/help/1358",
+      "method": "POST",
+      "path": "/api/lapp/hub/device/camera/list",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "constant": "application/x-www-form-urlencoded",
+          "evidence": "E36"
+        },
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R2/E14"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "T1/R3/E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "values": [
+          "200"
+        ],
+        "evidence": "T2/R2/E44;T3/R2/E92;E40",
+        "message_path": "msg",
+        "data_path": "data"
+      },
+      "constraints": [
+        {
+          "fact": "deviceSerial是子设备序列号，存在英文字母的序列号字母需为大写",
+          "evidence": "T1/R3/E14"
+        },
+        {
+          "fact": "子账户token最小权限 Permission=Get Resource=dev:序列号",
+          "evidence": "prose:接口功能"
+        },
+        {
+          "fact": "data[]字段：deviceSerial/channelNo/channelName/channelType/connectStatus/picPath/videoLevel",
+          "evidence": "T2/E44"
+        }
+      ],
+      "uncertainties": [
+        "声明Int的videoLevel等字段在样本中为null，字段必填性与null行为未声明",
+        "适用HUB型号与子设备范围未声明",
+        "业务返回码与HTTP状态层映射未声明",
+        "与A3资源类API的关系未声明"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/hub/device/camera/list",
+        "encoding": "application/x-www-form-urlencoded"
+      },
+      "source_content_sha256": "8e502a1abaed24b78f6d26aa69313ad287021bff362cc7659f07dfe04ecf4b2f",
+      "read_only": true
     }
   ],
   "reviews": [

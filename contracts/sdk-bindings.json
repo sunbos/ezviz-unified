@@ -2885,6 +2885,110 @@
       "public_entry": "vod.recording_urls",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_capture.create_interval_task",
+      "region": "domestic",
+      "source_doc_id": "1388",
+      "module": "src/ezviz_unified/cloud_capture.py",
+      "symbols": [
+        "CloudCapture.create_interval_task",
+        "AsyncCloudCapture.create_interval_task"
+      ],
+      "public_entry": "cloud_capture.create_interval_task",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_capture.create_timing_task",
+      "region": "domestic",
+      "source_doc_id": "1389",
+      "module": "src/ezviz_unified/cloud_capture.py",
+      "symbols": [
+        "CloudCapture.create_timing_task",
+        "AsyncCloudCapture.create_timing_task"
+      ],
+      "public_entry": "cloud_capture.create_timing_task",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_capture.task",
+      "region": "domestic",
+      "source_doc_id": "1370",
+      "module": "src/ezviz_unified/cloud_capture.py",
+      "symbols": [
+        "CloudCapture.task",
+        "AsyncCloudCapture.task"
+      ],
+      "public_entry": "cloud_capture.task",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.message_subscriptions.create_consumer",
+      "region": "domestic",
+      "source_doc_id": "983",
+      "module": "src/ezviz_unified/message_subscriptions.py",
+      "symbols": [
+        "MessageSubscriptions.create_consumer",
+        "AsyncMessageSubscriptions.create_consumer"
+      ],
+      "public_entry": "message_subscriptions.create_consumer",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.message_subscriptions.consume",
+      "region": "domestic",
+      "source_doc_id": "984",
+      "module": "src/ezviz_unified/message_subscriptions.py",
+      "symbols": [
+        "MessageSubscriptions.consume",
+        "AsyncMessageSubscriptions.consume"
+      ],
+      "public_entry": "message_subscriptions.consume",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.hubs.list_subdevices",
+      "region": "domestic",
+      "source_doc_id": "1356",
+      "module": "src/ezviz_unified/hubs.py",
+      "symbols": [
+        "Hubs.list_subdevices",
+        "AsyncHubs.list_subdevices"
+      ],
+      "public_entry": "hubs.list_subdevices",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.hubs.subdevice_info",
+      "region": "domestic",
+      "source_doc_id": "1357",
+      "module": "src/ezviz_unified/hubs.py",
+      "symbols": [
+        "Hubs.subdevice_info",
+        "AsyncHubs.subdevice_info"
+      ],
+      "public_entry": "hubs.subdevice_info",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.hubs.channels",
+      "region": "domestic",
+      "source_doc_id": "1358",
+      "module": "src/ezviz_unified/hubs.py",
+      "symbols": [
+        "Hubs.channels",
+        "AsyncHubs.channels"
+      ],
+      "public_entry": "hubs.channels",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

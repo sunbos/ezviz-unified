@@ -5127,6 +5127,249 @@
           "format": "MP4"
         }
       ]
+    },
+    {
+      "operation_id": "cn.cloud_capture.create_interval_task",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "channel": 1,
+        "rec_type": "cloud",
+        "start_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T03:04:05"
+        },
+        "end_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T04:04:05"
+        },
+        "frame_interval": 2,
+        "project_id": "PROJECT_A",
+        "result_space_id": 900001,
+        "frame_model": 1,
+        "dev_proto": "",
+        "stream_type": "2",
+        "validate_code": "SYNTHETIC_VALIDATE_CODE"
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": 1,
+        "recType": "cloud",
+        "startTime": "20260102030405",
+        "endTime": "20260102040405",
+        "frameInterval": 2,
+        "projectId": "PROJECT_A",
+        "resultSpaceId": 900001,
+        "frameModel": 1,
+        "devProto": "",
+        "streamType": "2",
+        "validateCode": "SYNTHETIC_VALIDATE_CODE"
+      },
+      "data": {
+        "taskId": "SYNTHETIC_TASK"
+      }
+    },
+    {
+      "operation_id": "cn.cloud_capture.create_timing_task",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "channel": 1,
+        "rec_type": "cloud",
+        "timing_points": [
+          {
+            "$type": "datetime",
+            "value": "2026-01-02T03:04:05"
+          },
+          {
+            "$type": "datetime",
+            "value": "2026-01-02T01:04:05"
+          },
+          {
+            "$type": "datetime",
+            "value": "2026-01-02T03:04:05"
+          }
+        ],
+        "project_id": "项目ID_云抓拍空间_αβγ_超长项目名称示例XYZ",
+        "result_space_id": 0,
+        "frame_model": 2,
+        "dev_proto": "",
+        "stream_type": "1",
+        "validate_code": "SYNTHETIC_VALIDATE_CODE"
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": 1,
+        "recType": "cloud",
+        "timingPoints": "20260102030405,20260102010405,20260102030405",
+        "projectId": "项目ID_云抓拍空间_αβγ_超长项目名称示例XYZ",
+        "resultSpaceId": 0,
+        "frameModel": 2,
+        "devProto": "",
+        "streamType": "1",
+        "validateCode": "SYNTHETIC_VALIDATE_CODE"
+      },
+      "data": {
+        "taskId": "SYNTHETIC_TASK"
+      }
+    },
+    {
+      "operation_id": "cn.cloud_capture.task",
+      "args": [
+        "SYNTHETIC_TASK"
+      ],
+      "kwargs": {},
+      "path_fields": {
+        "taskId": "SYNTHETIC_TASK"
+      },
+      "fields": {},
+      "data": {
+        "taskId": "SYNTHETIC_TASK",
+        "taskStatus": 42,
+        "extraField": "SYNTHETIC_EXTRA"
+      }
+    },
+    {
+      "operation_id": "cn.message_subscriptions.create_consumer",
+      "args": [
+        "group1"
+      ],
+      "kwargs": {},
+      "path_fields": {
+        "consumerName": "group1"
+      },
+      "fields": {},
+      "data": {
+        "consumerId": "SYNTHETIC_CONSUMER",
+        "extraField": "SYNTHETIC_EXTRA"
+      }
+    },
+    {
+      "operation_id": "cn.message_subscriptions.consume",
+      "args": [
+        "SYNTHETIC_CONSUMER"
+      ],
+      "kwargs": {
+        "offset": 0
+      },
+      "fields": {
+        "consumerId": "SYNTHETIC_CONSUMER",
+        "offset": 0
+      },
+      "data": [
+        {
+          "offset": 7,
+          "header": {
+            "type": "ys.alarm",
+            "deviceId": "EV1234567",
+            "channelNo": "1"
+          },
+          "body": {
+            "payload": "SYNTHETIC_PAYLOAD"
+          },
+          "extraField": "SYNTHETIC_EXTRA"
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.hubs.list_subdevices",
+      "args": [
+        "HUBSYNTH0001"
+      ],
+      "kwargs": {
+        "version": ""
+      },
+      "fields": {
+        "deviceSerial": "HUBSYNTH0001",
+        "version": ""
+      },
+      "data": [
+        {
+          "deviceSerial": "SUBSYNTH0001",
+          "deviceName": "synthetic-sub",
+          "type": 1,
+          "deviceCoverUrl": "https://synthetic.invalid/cover",
+          "deviceType": "synthetic-type",
+          "subDeviceStatusVos": [
+            {
+              "channelNo": 1,
+              "key": "syntheticKey",
+              "value": "syntheticValue"
+            }
+          ],
+          "undocumentedListField": "preserved"
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.hubs.subdevice_info",
+      "args": [
+        "SUBSYNTH0001"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "SUBSYNTH0001"
+      },
+      "data": {
+        "name": "synthetic-sub",
+        "deviceSerial": "SUBSYNTH0001",
+        "fullSerial": 123456789,
+        "deviceType": "synthetic-type",
+        "deviceCoverUrl": "https://synthetic.invalid/cover",
+        "devicePicPrefix": "https://synthetic.invalid/prefix",
+        "version": "1.0.0",
+        "supportExtShort": "synthetic",
+        "status": 1,
+        "userDeviceCreateTime": "2026-01-01 00:00:00",
+        "casIp": "10.0.0.1",
+        "casPort": 443,
+        "channelNumber": 1,
+        "forceUpgrade": false,
+        "category": "synthetic-cat",
+        "isRelated": 1,
+        "ezDeviceCapability": "{'sc':'1','v3':'1'}",
+        "customType": "synthetic",
+        "userId": "synthetic-user",
+        "offlineTime": "",
+        "isGroupDisable": 0,
+        "detectorDefencePlanVo": {
+          "enable": 0,
+          "plan": "synthetic-plan"
+        },
+        "undocumentedInfoField": "preserved"
+      }
+    },
+    {
+      "operation_id": "cn.hubs.channels",
+      "args": [
+        "SUBSYNTH0002"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "SUBSYNTH0002"
+      },
+      "data": [
+        {
+          "deviceSerial": "SUBSYNTH0002",
+          "channelNo": 1,
+          "channelName": "synthetic-ch1",
+          "channelType": "synthetic",
+          "connectStatus": "1",
+          "picPath": "https://synthetic.invalid/pic",
+          "videoLevel": 2,
+          "undocumentedChannelField": "preserved"
+        }
+      ]
     }
   ]
 }

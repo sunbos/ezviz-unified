@@ -30,6 +30,7 @@ from .alarms import Alarms, AsyncAlarms
 from .arming import Arming, AsyncArming
 from .auth import AsyncTokenManager, TokenManager
 from .auth_models import RegionConfig, Token
+from .cloud_capture import AsyncCloudCapture, CloudCapture
 from .cloud_recording import AsyncCloudRecording, CloudRecording
 from .cloud_recording_v1 import AsyncCloudRecordingV1, CloudRecordingV1
 from .cloud_storage import AsyncCloudStorage, CloudStorage
@@ -39,9 +40,11 @@ from .devices import AsyncDevices, Devices
 from .diagnostic_report import DiagnosticRecorder, _diagnostic_retry, _diagnostic_scope
 from .diagnostics import AsyncDiagnostics, Diagnostics
 from .errors import AuthenticationError, ProtocolError, TransportError
+from .hubs import AsyncHubs, Hubs
 from .illumination import AsyncIllumination, Illumination
 from .imaging import AsyncImaging, Imaging
 from .maintenance import AsyncMaintenance, Maintenance
+from .message_subscriptions import AsyncMessageSubscriptions, MessageSubscriptions
 from .models import ApiResponse
 from .operations import Operation
 from .otap import AsyncOtap, Otap
@@ -205,7 +208,14 @@ def _consume_task_error(task: asyncio.Future[None]) -> None:
 
 
 class Client:
-    """Blocking unified SDK client; safe to share across threads."""
+    """Blocking unified SDK client; safe to share across threads.
+
+    Transport-level thread safety does not lift per-consumer business
+    ordering or ownership constraints (e.g. ``message_subscriptions``):
+    the caller keeps sole responsibility for sequencing its own
+    side-effecting calls. The SDK adds no locks, background work or
+    consumer management for that.
+    """
 
     def __init__(
         self,
@@ -320,6 +330,9 @@ class Client:
         self.recordings = Recordings(self)
         self.ptz = Ptz(self)
         self.components = Components(self)
+        self.cloud_capture = CloudCapture(self)
+        self.message_subscriptions = MessageSubscriptions(self)
+        self.hubs = Hubs(self)
 
     @property
     def region(self) -> RegionConfig:
@@ -516,7 +529,14 @@ class Client:
 
 
 class AsyncClient:
-    """Async unified SDK client; requests share one event loop."""
+    """Async unified SDK client; requests share one event loop.
+
+    Transport-level concurrency safety does not lift per-consumer
+    business ordering or ownership constraints (e.g.
+    ``message_subscriptions``): the caller keeps sole responsibility for
+    sequencing its own side-effecting calls. The SDK adds no locks,
+    background work or consumer management for that.
+    """
 
     def __init__(
         self,
@@ -630,6 +650,9 @@ class AsyncClient:
         self.recordings = AsyncRecordings(self)
         self.ptz = AsyncPtz(self)
         self.components = AsyncComponents(self)
+        self.cloud_capture = AsyncCloudCapture(self)
+        self.message_subscriptions = AsyncMessageSubscriptions(self)
+        self.hubs = AsyncHubs(self)
 
     @property
     def region(self) -> RegionConfig:

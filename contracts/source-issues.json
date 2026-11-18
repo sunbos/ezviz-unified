@@ -1163,6 +1163,415 @@
         "e138",
         "e141"
       ]
+    },
+    {
+      "id": "cn.cloud_capture.frame_model_timing_conflict",
+      "region": "domestic",
+      "source_doc_id": "1389",
+      "source_url": "https://open.ys7.com/help/1389",
+      "source_content_sha256": "7d1f94890ea107d8fa50f3ab7b650c45be451272f180c3e52940435acc12d28e",
+      "description": "1389 正式参数表列出 frameModel 0/1/2（不填默认0），而 1388 页相关接口与常见问题以及指南 5324 均声明按时间点抽帧仅支持 0/1、抽I帧(2)仅 1388 支持；跨页正式表述冲突未消解。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "按本端点正式表接受显式 frame_model=2，不回退 0/1；仅离线透明传参，不代表 live 支持，需独立实测取证。",
+      "evidence": [
+        "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R10 frameModel",
+        "1388 prose'9. 相关接口'/'10. 常见问题'",
+        "5324 prose'3. 核心概念速览'/'8. 注意事项与限制'"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.taskid_format_conflict",
+      "region": "domestic",
+      "source_doc_id": "1370",
+      "source_url": "https://open.ys7.com/help/1370",
+      "source_content_sha256": "a959d13932c20a7dc41b5f16b049031bf31283bf40427fd6f27df42b2c016dc4",
+      "description": "正式表 taskId 约束 ^\\w{1,32}$，同页调用限制散文称 'taskId 格式：32 位字母数字'；长度与字符集两种表述不一致。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "按正式表 \\w{1,32} 校验（\\w 取 ASCII 属 SDK 选择），不收紧为精确 32 位字母数字；冲突保留待官方澄清。",
+      "evidence": [
+        "T2(E37,'3. 请求参数')/R2 taskId",
+        "prose'8. 调用限制'"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.frame_interval_unit",
+      "region": "domestic",
+      "source_doc_id": "1388",
+      "source_url": "https://open.ys7.com/help/1388",
+      "source_content_sha256": "923e92ae169ea3d6aef3421bb9ab9b6b16684f5931077e58fbbf13d57da1d685",
+      "description": "frameInterval 标注 '≥1（秒/倍数，视模式）'，但模式到单位的映射未在页内定义；5324 清单亦仅写 '秒或倍数'。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "int 非 bool 且 ≥1 原样透传，不做单位换算或模式推断。",
+      "evidence": [
+        "T2(E40,'3. 请求参数')/R8 frameInterval",
+        "5324 prose'7. 关键校验清单'"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.datetime_rendering_policy",
+      "region": "domestic",
+      "source_doc_id": "1388",
+      "source_url": "https://open.ys7.com/help/1388",
+      "source_content_sha256": "923e92ae169ea3d6aef3421bb9ab9b6b16684f5931077e58fbbf13d57da1d685",
+      "description": "源仅声明 yyyyMMddHHmmss 字符串格式，未规定时区、亚秒、逆序与等长区间处理；1389 timingPoints 使用同一格式。",
+      "status": "local_choice",
+      "sdk_handling": "SDK 选择：接受 naive datetime（按 Python utcoffset 语义）且整秒，渲染四位年 14 位本地时钟，不推断时区/当前时钟；1388 拒绝 end<start、等长透明放行但不声称服务器接受；1389 时间点逐个渲染后英文逗号拼接并保留顺序与重复。",
+      "evidence": [
+        "T2(E40,'3. 请求参数')/R6,R7 startTime/endTime",
+        "1389 T1(E16,'开始视频抽帧接口——按时间点抽帧')/R12 timingPoints"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.word_charset_ascii",
+      "region": "domestic",
+      "source_doc_id": "1388",
+      "source_url": "https://open.ys7.com/help/1388",
+      "source_content_sha256": "923e92ae169ea3d6aef3421bb9ab9b6b16684f5931077e58fbbf13d57da1d685",
+      "description": "正式表 \\w 记号未定义字符集口径（Unicode 或 ASCII），1388 projectId 与 1370 taskId 均使用该记号。",
+      "status": "local_choice",
+      "sdk_handling": "SDK 选择按 ASCII [A-Za-z0-9_] 解释 \\w；projectId 与 taskId 各限 1..32。",
+      "evidence": [
+        "T2(E40,'3. 请求参数')/R9 projectId",
+        "1370 T2(E37,'3. 请求参数')/R2 taskId"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.selector_priority_vs_exclusive",
+      "region": "domestic",
+      "source_doc_id": "1388",
+      "source_url": "https://open.ys7.com/help/1388",
+      "source_content_sha256": "923e92ae169ea3d6aef3421bb9ab9b6b16684f5931077e58fbbf13d57da1d685",
+      "description": "1388参数表resultSpaceId行并列“优先”和“二选一”，而调用限制明确projectId/resultSpaceId不可同时为空且resultSpaceId优先；互斥措辞与优先级表达存在歧义。1389明确有效resultSpaceId优先。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK至少要求一个非None，两者同时给出时均原样发送，保留已声明的resultSpaceId优先级；不自行判定有效性或选择目标。互斥措辞以及无效resultSpaceId时是否回退project等细节仍未核定。",
+      "evidence": [
+        "T2(E40,'3. 请求参数')/R9,R10 projectId/resultSpaceId",
+        "prose'8. 调用限制'",
+        "1389 T1(E16,'开始视频抽帧接口——按时间点抽帧')/R3,R5"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.channel_no_default_wording",
+      "region": "domestic",
+      "source_doc_id": "1389",
+      "source_url": "https://open.ys7.com/help/1389",
+      "source_content_sha256": "7d1f94890ea107d8fa50f3ab7b650c45be451272f180c3e52940435acc12d28e",
+      "description": "channelNo 标记必选=Y 但描述写 '默认可填1'，'默认'措辞与必填并列，是否服务端默认未澄清。",
+      "status": "local_choice",
+      "sdk_handling": "SDK 选择不设默认值，channel 为必填显式参数；'可填1' 仅作可取值说明，不当作默认。",
+      "evidence": [
+        "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R6 channelNo"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.devproto_endpoint_scope",
+      "region": "domestic",
+      "source_doc_id": "1389",
+      "source_url": "https://open.ys7.com/help/1389",
+      "source_content_sha256": "7d1f94890ea107d8fa50f3ab7b650c45be451272f180c3e52940435acc12d28e",
+      "description": "1388 devProto列空/gb28181/jt808，但未明确服务端默认；1389仅列空/gb28181并明确默认为空。两端均允许显式空值，SDK均在None时省略字段，不注入默认；jt808不得跨端点移植。",
+      "status": "local_choice",
+      "sdk_handling": "按端点各自正式表校验：1389 仅接受显式空串或 gb28181，不移植 jt808；None 省略字段，不发明空串默认。",
+      "evidence": [
+        "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R9 devProto",
+        "1388 T2(E40,'3. 请求参数')/R12 devProto"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.timing_points_limits_absent",
+      "region": "domestic",
+      "source_doc_id": "1389",
+      "source_url": "https://open.ys7.com/help/1389",
+      "source_content_sha256": "7d1f94890ea107d8fa50f3ab7b650c45be451272f180c3e52940435acc12d28e",
+      "description": "timingPoints 仅声明逗号分隔格式；时间点数量上限、时间窗、相邻间隔、时区及重复/乱序处理均未声明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "非空 Sequence[datetime] 快照后逐个校验渲染拼接；保留顺序与重复，不发明数量/窗口/间隔界限；服务器接受与否未知。",
+      "evidence": [
+        "T1(E16,'开始视频抽帧接口——按时间点抽帧')/R12 timingPoints"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.task_response_gaps",
+      "region": "domestic",
+      "source_doc_id": "1370",
+      "source_url": "https://open.ys7.com/help/1370",
+      "source_content_sha256": "a959d13932c20a7dc41b5f16b049031bf31283bf40427fd6f27df42b2c016dc4",
+      "description": "正式响应表无 fileNodeId（5324 流程需经 file/listById 以 tagId=taskId 另取）；响应字段必填性与时间字段格式未声明；taskStatus 0(已完成)与3(已结束)为不同状态（FAQ：0 正常完成产出文件，3 到点系统终止）。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "原样返回 ApiResponse，不做字段强制或 DTO 转换；不据 stopVideoFrame 等旧名误用；fileNodeId 需另行经文件搜索接口获得。",
+      "evidence": [
+        "1370 T3(E66)全行",
+        "1370 FAQ status0 vs3",
+        "5324 T1(E35)/R4-R5（步骤3查询及步骤4搜索）"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.storage_search_conjunction",
+      "region": "domestic",
+      "source_doc_id": "5324",
+      "source_url": "https://open.ys7.com/help/5324",
+      "source_content_sha256": "fd87ce7dae2528a5f27421913fbc341f6a627704020833f9047670934a01bd45",
+      "description": "指南步骤4以 spaceIds+tagId(=taskId) 搜索文件，但 tagId 与 spaceIds 的联合过滤语义（AND/组合）未在来源中证明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "复用既有storage.search_files，但本cohort不自动调用。既有5233优先级为fileNodeIds>tagId>spaceIds+时间，tagId与spaceIds组合是否AND未获证明；保留显式输入，不猜任务/空间/文件映射。",
+      "evidence": [
+        "5324 T1(E35)/R5（步骤4文件搜索）",
+        "5324 T3(E168)/R4（搜索不到抽帧图片）",
+        "contracts/reviewed-transport-contracts.json:cn.storage.search_files，source_doc_id=5233"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.interval_recording_prereqs",
+      "region": "domestic",
+      "source_doc_id": "1388",
+      "source_url": "https://open.ys7.com/help/1388",
+      "source_content_sha256": "923e92ae169ea3d6aef3421bb9ab9b6b16684f5931077e58fbbf13d57da1d685",
+      "description": "前置条件：云端抽帧需已建存储空间并开启云录制且时间段有录像；本地抽帧需设备有 SD 卡且有录像；设备需在线。",
+      "status": "documented_prerequisite",
+      "sdk_handling": "SDK不探测或创建存储/录像/订阅；调用方负责满足前置条件，SDK调用本身不证明条件已满足。服务端响应与另行有界live证据分别判断实际条件，未验证时保持unknown/not_verified。",
+      "evidence": [
+        "prose'1. 接口说明'前置条件",
+        "prose'8. 调用限制'"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.timing_recording_prereqs",
+      "region": "domestic",
+      "source_doc_id": "1389",
+      "source_url": "https://open.ys7.com/help/1389",
+      "source_content_sha256": "7d1f94890ea107d8fa50f3ab7b650c45be451272f180c3e52940435acc12d28e",
+      "description": "云端抽帧要求已建存储空间(help/1975 或 help/556)、接入云录制消息推送(help/1384)、开启云录制且指定时间区间云端有录像；本地要求 SD 卡且区间内有录像。",
+      "status": "documented_prerequisite",
+      "sdk_handling": "SDK 不做前置探测；消息推送接入属账号侧配置，不由本端点创建。",
+      "evidence": [
+        "prose'云端抽帧要求'",
+        "prose'本地抽帧要求'"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.enterprise_plan_scope",
+      "region": "domestic",
+      "source_doc_id": "5324",
+      "source_url": "https://open.ys7.com/help/5324",
+      "source_content_sha256": "fd87ce7dae2528a5f27421913fbc341f6a627704020833f9047670934a01bd45",
+      "description": "5324 前置清单含 '已获取 accessToken（企业版套餐用户）' 及云录制消息推送接入，属该指南工作流前提；未列为各端点通用账户限制。",
+      "status": "documented_prerequisite",
+      "sdk_handling": "不移植为端点级通用限制；仅登记为指南级前提。",
+      "evidence": [
+        "prose'2. 前置准备（checklist）'"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.window_limit_absent",
+      "region": "domestic",
+      "source_doc_id": "1388",
+      "source_url": "https://open.ys7.com/help/1388",
+      "source_content_sha256": "923e92ae169ea3d6aef3421bb9ab9b6b16684f5931077e58fbbf13d57da1d685",
+      "description": "startTime/endTime 未声明最大窗口、最小时长或时区；其他页面（如 VOD 10s-48h）的限制不适用于本页，不得移植。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "不施加窗口时长限制；仅保留 SDK 选择的逆序拒绝，等长放行。",
+      "evidence": [
+        "T2(E40,'3. 请求参数')/R6,R7 startTime/endTime"
+      ]
+    },
+    {
+      "id": "cn.cloud_capture.error_layer_mapping",
+      "region": "domestic",
+      "source_doc_id": "1388",
+      "source_url": "https://open.ys7.com/help/1388",
+      "source_content_sha256": "923e92ae169ea3d6aef3421bb9ab9b6b16684f5931077e58fbbf13d57da1d685",
+      "description": "三端点错误码表给出 400/403/404/500 等返回码，但业务码(meta.code)与 HTTP 状态层的映射关系未声明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "沿用既有HTTP状态、业务code及结构错误的分层解析与异常分类；整数meta.code=200是业务成功值，HTTP错误仍失败。非成功响应由既有transport/response抛出对应异常并保留异常语义，不原样返回错误payload，不猜来源未声明的HTTP与业务码映射。",
+      "evidence": [
+        "T4(E172,'7. 错误码')",
+        "1389 T3(E120,'返回码')",
+        "1370 T4(E153,'7. 错误码')"
+      ]
+    },
+    {
+      "id": "cn.message_subscriptions.create_consumer_semantics",
+      "region": "domestic",
+      "source_doc_id": "983",
+      "source_url": "https://open.ys7.com/help/983",
+      "source_content_sha256": "90ef6dd9f76d5ad80f0a55e6b50a4113ac7b9010b7204c4ac949473352c802f3",
+      "description": "Consumer creation semantics underdeclared: per-group consumer count limit exists but numeric quota unstated; uniqueness/idempotency on repeat creation and group ownership rules undeclared; only one consumer per group can subscribe; return-code table lists only 200 so quota/duplicate/invalid-group/auth failures have no documented codes; the legacy 982 service is unmaintained (doc982:e1) but not proven shut down.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "Strict Literal[group1..group5] validated then bound to path template {consumerName}; only token form field plus explicit form Content-Type; raw ApiResponse returned without extracting/storing consumerId or building a managed consumer object; read_only=false; no business replay on 10002/HTTP/timeout/cancellation",
+      "evidence": [
+        "e3",
+        "e7",
+        "e11",
+        "e14",
+        "e42",
+        "e46",
+        "e50",
+        "e74",
+        "doc982:e1"
+      ]
+    },
+    {
+      "id": "cn.message_subscriptions.consume_offset_commit_semantics",
+      "region": "domestic",
+      "source_doc_id": "984",
+      "source_url": "https://open.ys7.com/help/984",
+      "source_content_sha256": "954ea4ec43816d45c8a619c004abb98b5f826a0df13e53461a024999a72df40d",
+      "description": "Offset default/range/direction/inclusivity undeclared and its interaction with read-commit of the previous batch unknown; standalone final-batch commit undocumented; empty first read vs genuinely no messages ambiguous; long-poll/timeout behavior and the meaning of the default 1Mbyte cap undeclared; error-code table lists only 200 so expired-consumer/invalid-offset failures are undeclared.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "consumer_id opaque nonblank str; offset=None omitted from form, supplied non-bool int (incl. 0/negatives) passed verbatim without claiming acceptance and never derives offset+1; no peek/ack/commit helper, dedup, checkpoint, restart or background consumer; after timeout/cancellation commit and delivery both unknown, original errors surfaced; read_only=false with no business replay",
+      "evidence": [
+        "e7",
+        "e11",
+        "e14",
+        "e48",
+        "e52",
+        "e56",
+        "e100"
+      ]
+    },
+    {
+      "id": "cn.message_subscriptions.channel_no_type_conflict",
+      "region": "domestic",
+      "source_doc_id": "984",
+      "source_url": "https://open.ys7.com/help/984",
+      "source_content_sha256": "954ea4ec43816d45c8a619c004abb98b5f826a0df13e53461a024999a72df40d",
+      "description": "Formal response table declares data.header.channelNo as String while the JSON sample projects it as integer; the true wire type is unresolved.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "No type coercion, DTO or field enforcement; raw ApiResponse preserves whatever the server returns",
+      "evidence": [
+        "e52",
+        "e56"
+      ]
+    },
+    {
+      "id": "cn.message_subscriptions.create_consumer_prerequisite",
+      "region": "domestic",
+      "source_doc_id": "983",
+      "source_url": "https://open.ys7.com/help/983",
+      "source_content_sha256": "90ef6dd9f76d5ad80f0a55e6b50a4113ac7b9010b7204c4ac949473352c802f3",
+      "description": "Live creation consumes a shared limited group resource: only five fixed groups (group1-group5), a per-group consumer count limit of unstated size, and only one consumer per group able to subscribe to messages; the legacy 982 service is unmaintained (doc982:e1) and may be unavailable.",
+      "status": "documented_prerequisite",
+      "sdk_handling": "SDK acceptance/authorization choice: live verification requires a dedicated authorized tenant/group and must not seize production groups; the real group is a LIVE-only prerequisite, not an offline dependency; operation exposed as-is with no automatic creation in tests/acceptance without explicit bounded authorization; offline/live status remain not_verified",
+      "evidence": [
+        "e3",
+        "e14",
+        "e74",
+        "doc982:e1"
+      ]
+    },
+    {
+      "id": "cn.message_subscriptions.consume_prerequisite",
+      "region": "domestic",
+      "source_doc_id": "984",
+      "source_url": "https://open.ys7.com/help/984",
+      "source_content_sha256": "954ea4ec43816d45c8a619c004abb98b5f826a0df13e53461a024999a72df40d",
+      "description": "A real consume mutates delivery/commit state: each read auto-commits the previous batch, delivery is at-least-once so duplicates can occur, only one active subscriber per group can consume (doc983:e3), and an idle consumerId is deleted after 5 minutes (e3/e14).",
+      "status": "documented_prerequisite",
+      "sdk_handling": "SDK acceptance/authorization choice: live verification requires separate explicit bounded authorization with controlled events and cannot inherit device-read authority; the real group/events are LIVE-only prerequisites, not offline dependencies; caller owns consumer identity and same-owner serialized sequence; async methods await in caller task with no spawned threads; no recovery via extra consume after failure; offline/live status remain not_verified",
+      "evidence": [
+        "e3",
+        "e14",
+        "e56",
+        "e121",
+        "doc983:e3"
+      ]
+    },
+    {
+      "id": "cn.message_subscriptions.consumer_id_masking",
+      "region": "domestic",
+      "source_doc_id": "984",
+      "source_url": "https://open.ys7.com/help/984",
+      "source_content_sha256": "954ea4ec43816d45c8a619c004abb98b5f826a0df13e53461a024999a72df40d",
+      "description": "Source does not classify consumerId as a secret; treating it as sensitive for log masking is an SDK-side choice, not an official requirement.",
+      "status": "local_choice",
+      "sdk_handling": "consumerId added to existing sensitive-key list; still sent as required form body field and never persisted by the SDK",
+      "evidence": [
+        "e14"
+      ]
+    },
+    {
+      "id": "cn.hubs.version_value_semantics",
+      "region": "domestic",
+      "source_doc_id": "1356",
+      "source_url": "https://open.ys7.com/help/1356",
+      "source_content_sha256": "2bbb83f2d7bcada29e1770f2c6c145ca7a53557773a0102d5b9ef4f677ee0a9c",
+      "description": "version仅声明为可选String「版本号」，其语义、可取值集合与空字符串行为均未声明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "version非None时原样透传（含空字符串），None时省略；不做格式/范围校验",
+      "evidence": [
+        "e14"
+      ]
+    },
+    {
+      "id": "cn.hubs.subdevice_info_field_schema",
+      "region": "domestic",
+      "source_doc_id": "1357",
+      "source_url": "https://open.ys7.com/help/1357",
+      "source_content_sha256": "393a5c27c3272ac0c5cc27ee56544a46cb892d24f36b5c0bcf9fafdc98b59861",
+      "description": "正式字段表E49为平铺业务字段、未含code/msg/data信封，与E45样本的信封结构不一致；devicePicPrefix声明Object样本为string，fullSerial声明int样本为null，多个声明String/int字段样本为null；字段必填性未声明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "ApiResponse与data原样返回，不做DTO转换、字段存在性或类型强制；未知字段保留",
+      "evidence": [
+        "e49",
+        "e45",
+        "e148"
+      ]
+    },
+    {
+      "id": "cn.hubs.error_layering",
+      "region": "domestic",
+      "source_doc_id": "1356",
+      "source_url": "https://open.ys7.com/help/1356",
+      "source_content_sha256": "2bbb83f2d7bcada29e1770f2c6c145ca7a53557773a0102d5b9ef4f677ee0a9c",
+      "description": "返回码表（1356 E106，同构于1357 E148、1358 E92）声明业务码200/10001/10002/20018等，但业务码与HTTP状态层的映射未声明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "按样本应用code/msg/data判定；原样返回ApiResponse并保留底层异常身份；沿用既有至多一次10002读恢复，无HTTP/网络重试",
+      "evidence": [
+        "e106",
+        "e46"
+      ]
+    },
+    {
+      "id": "cn.hubs.model_child_scope",
+      "region": "domestic",
+      "source_doc_id": "1356",
+      "source_url": "https://open.ys7.com/help/1356",
+      "source_content_sha256": "2bbb83f2d7bcada29e1770f2c6c145ca7a53557773a0102d5b9ef4f677ee0a9c",
+      "description": "适用HUB型号与子设备范围未声明；type枚举仅列1-探测器/2-开关；同一范围缺口适用于1357/1358；与A3资源类API的关系未声明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK不做型号/范围门控；序列号仅按来源做非空与大写字母校验，不静默大小写转换/裁剪/拼接",
+      "evidence": [
+        "e14",
+        "e50"
+      ]
+    },
+    {
+      "id": "cn.hubs.linked_device_prerequisite",
+      "region": "domestic",
+      "source_doc_id": "1356",
+      "source_url": "https://open.ys7.com/help/1356",
+      "source_content_sha256": "2bbb83f2d7bcada29e1770f2c6c145ca7a53557773a0102d5b9ef4f677ee0a9c",
+      "description": "实机验证需要已授权的真实HUB及已关联子设备与各自独立正确的序列号（1356用父HUB序列号，1357/1358用子设备序列号）；子账户需Permission=Get、Resource=dev:序列号；范围内无配对/绑定接口可构造前置条件，同样适用于1357/1358。",
+      "status": "documented_prerequisite",
+      "sdk_handling": "不伪造前置资源；live_status保持not_verified直至具备真实资源",
+      "evidence": [
+        "e14",
+        "prose:Permission=Get,Resource=dev:序列号"
+      ]
+    },
+    {
+      "id": "cn.hubs.read_only_classification",
+      "region": "domestic",
+      "source_doc_id": "1356",
+      "source_url": "https://open.ys7.com/help/1356",
+      "source_content_sha256": "2bbb83f2d7bcada29e1770f2c6c145ca7a53557773a0102d5b9ef4f677ee0a9c",
+      "description": "来源描述三个接口均为查询，但未作正式幂等/无副作用声明；适用于1356/1357/1358。",
+      "status": "local_choice",
+      "sdk_handling": "read_only=True为SDK沿来源查询语义的分类，不冒充正式幂等声明；沿用既有至多一次10002读恢复",
+      "evidence": [
+        "e14",
+        "prose:查询指定HUB设备关联的子设备列表"
+      ]
     }
   ]
 }
