@@ -226,24 +226,25 @@
       ],
       "risk": "read_only",
       "preconditions": [
-        "authorized domestic developer credentials via the local loopback form",
-        "explicitly bounded CLI run (requests/operations frozen in advance)"
+        "用户在本地 TTY 确认六入口预算并隐藏输入获授权的国内凭据。",
+        "离线执行器、真实入口与路由/隐私边界通过独立验收。"
       ],
       "expected_evidence": {
-        "read": "example CLI module run completes within the frozen read-only scope and emits the documented single-JSON stdout contract",
+        "read": "六个原始模块入口逐项核对退出码、安全 JSON、独立预算和实际放行路由。空首页可只验证四个列表型模块。",
         "write": "none",
         "physical": "none"
       },
       "bounded": {
-        "max_requests": null,
-        "max_operations": null,
-        "freeze_required": true
+        "max_requests": 20,
+        "max_operations": 14,
+        "freeze_required": false
       },
       "authorization_status": "reuse_existing_scope",
       "recovery_plan": "n/a; read-only",
       "source_refs": [
         "docs/diagnostics.md",
-        "docs/plans/2026-11-15-quickstart-examples.md"
+        "docs/plans/2026-11-15-quickstart-examples.md",
+        "docs/coordination/domestic-cli-read/admission.json"
       ],
       "code_artifact_evidence_refs": [
         "examples/devices_sync.py",
@@ -252,11 +253,21 @@
         "examples/inspection_async.py",
         "examples/diagnostics_sync.py",
         "examples/diagnostics_async.py",
-        "docs/validation/live/2026-11-15-domestic-inspection/README.md"
+        "docs/validation/live/2026-11-15-domestic-inspection/README.md",
+        "tools/live/_cli_transport.py",
+        "tools/live/verify_example_clis.py",
+        "tests/test_live_example_clis.py",
+        "tests/test_live_example_cli_boundaries.py",
+        "docs/validation/2026-11-19-domestic-cli-read/offline.json"
       ],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "Example CLI modules were not exercised in the recorded live sessions; verifier results cannot be counted as CLI network acceptance. A frozen CLI scenario and bound is required."
+        "离线执行器与约定的输出、路由和隐私检查已通过。等待用户在本机选择本批范围后生成独立真实回执。"
+      ],
+      "scope_revision": "2026-11-19-r19-domestic-cli-read",
+      "freeze_state": "frozen_for_implementation",
+      "limitations": [
+        "先前设备检查的真实回执仅供参考。本案例需要受控执行六个原始 CLI 并分别验证结果。空首页最多提供四个列表型入口的真实证据。"
       ]
     },
     {
@@ -30420,7 +30431,7 @@
   ],
   "open_questions": [
     "Whether the current domestic device is still online and the device/account configuration has changed since 2026-11-16 is unconfirmed; prior evidence does not assert it.",
-    "Domestic async inspection is scoped to 7 HTTP calls and 6 business calls and has passed the verifier-only offline checks. A real run remains pending. The separate six-CLI live scenario still needs formal admission.",
+    "Domestic async inspection is scoped to 7 HTTP calls and 6 business calls and has passed the verifier-only offline checks. A real run remains pending. The separate six-CLI scenario has a frozen 20-request budget. Its live execution still requires a separate local selection and receipt.",
     "Overseas device read-only acceptance is awaiting_resource_confirmation with resource_state=user_confirmed_no_bound_device (user confirmed on 2026-11-17 the account currently has no bound device); the account cluster and device-visible permissions remain unconfirmed, and no device/account values are fabricated.",
     "Platform message push requires enabled service, reachable callback, independent secret, target type, and trigger authorization; resource_state=unknown_awaiting_configuration_check because the user stated on 2026-11-17 they do not know the platform message service or which callback entry is usable. Dedup/redelivery semantics must be defined before execution. Domestic header 't' timestamp unit is confirmed milliseconds (5130); the overseas 't' unit, freshness window, the 2s vs ~5s timeout conflict, and ciphertext wording remain unconfirmed. Configuration side effects (App reminder stop, ~2h delay, console test temporarily suspending the original callback) need explicit authorization beyond the prior read-only scope.",
     "Release version is undetermined. PyPI account/permissions and upload authorization are unconfirmed; no upload has been executed. The 2026-11-17 public-page 404 only reflects that-moment visibility and does not guarantee name availability. Account/Trusted Publisher may be prepared now (https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/) and the first authorized upload creates the project; the user is not required to provide a token now.",

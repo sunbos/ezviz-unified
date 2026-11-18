@@ -19,6 +19,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import os
 import secrets
 import sys
 from collections.abc import Callable, Mapping
@@ -63,6 +64,20 @@ _FIXED_FIELD_VALUES = {
 _MAX_HTTP_REQUESTS = 7
 _MAX_PER_ROUTE = 1
 _MAX_BODY_BYTES = 8192
+# The exact seven header names a real SDK/httpx request ever carries; any
+# other name — Cookie (even empty or duplicated), X-*, authorization —
+# is refused before the request can reach the delegate.
+_ALLOWED_HEADER_NAMES = frozenset(
+    {
+        "accept",
+        "accept-encoding",
+        "connection",
+        "content-length",
+        "content-type",
+        "host",
+        "user-agent",
+    }
+)
 _RECEIPT_SCOPE = "bounded_domestic_diagnostic_v1"
 _EXPECTED_REPORT_SCOPE = "local_sdk_diagnostics"
 _RESULT_FILENAME = "domestic-diagnostic.json"
@@ -126,7 +141,19 @@ class _RequestBudget:
         return True
 
 
+def _require_private_tls() -> None:
+    """Refuse to build a real transport while TLS key logging is on.
+
+    ``SSLKEYLOGFILE`` would let httpx's TLS stack dump session keys to a
+    file, quietly defeating the confidentiality the boundary assumes. The
+    fixed message never carries the variable's value or path.
+    """
+    if os.environ.get("SSLKEYLOGFILE"):
+        raise _BoundaryRejection("TLS key logging is enabled")
+
+
 def _new_delegate_transport() -> httpx.BaseTransport:
+    _require_private_tls()
     return httpx.HTTPTransport(retries=0, trust_env=False)
 
 
@@ -142,6 +169,22 @@ def _url_origin_ok(url: httpx.URL, *, root_only: bool) -> bool:
     ):
         return False
     return not root_only or url.path in ("", "/")
+
+
+def _headers_allowed(request: httpx.Request) -> bool:
+    """Whether every header name is one of the seven SDK-emitted names.
+
+    ``httpx.Headers`` already reports lower-case names; lower-casing again
+    keeps the check honest for any header container. Any extra name —
+    Cookie even with an empty or duplicated value, ``X-*``, authorization
+    — refuses the request before form parsing or budget spend; an
+    unreadable header container fails closed.
+    """
+    try:
+        names = request.headers.keys()
+    except Exception:
+        return False
+    return all(name.lower() in _ALLOWED_HEADER_NAMES for name in names)
 
 
 def _parsed_form_fields(request: httpx.Request) -> dict[str, list[str]] | None:
@@ -215,6 +258,9 @@ class _GuardedTransport(httpx.BaseTransport):
         return _fields_allowed(route, request, self._budget)
 
     def handle_request(self, request: httpx.Request) -> httpx.Response:
+        if not _headers_allowed(request):
+            self._budget.rejected += 1
+            raise _BoundaryRejection("request is outside the diagnostic acceptance boundary")
         route = (request.method, request.url.path)
         if (
             not _url_origin_ok(request.url, root_only=False)

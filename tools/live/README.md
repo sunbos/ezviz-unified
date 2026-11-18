@@ -47,3 +47,39 @@
 与同步版不同，本工具不提供serve/stdin模式，只支持`--prompt`交互：AppKey与AppSecret在用户自己的交互式TTY上分别以getpass隐藏输入（`GetPassWarning`视为错误），非TTY、回退可见输入、空值或缺值都在发起任何网络请求前直接中止；凭据不进入命令行、环境变量、文件、日志或模型对话。verify协程设90秒异步等待超时、单次HTTP 10秒；超时或取消仍走取消传播与实际`AsyncClient.aclose()`清理路径——90秒是网络等待上限，不是进程总时长的强制结束承诺。`--output`在网络开始之前以独占方式创建（mode 0600），只接受尚不存在的普通新文件（已存在或符号链接即拒绝）；verify一旦产出完整白名单回执——包括failed与not_verified——都照常写入并可安全保存，仅当回执未完整落盘（序列化拒绝、写/flush/close故障或运行中止）才清理半成品；清理前核对路径所指文件的设备号与 inode，仅在与本次创建的文件匹配时尝试移除；无法确认身份或文件权限预检失败时可能保留空文件。取消或失败的结果绝不允许报passed。输出报告只含白名单投影（outcome、http_requests≤7、logical_calls≤6、固定路由标签、diagnostics_intact、closed、boundary_rejected等），不含序列号、密钥、URL或异常原文；首页为空或首台设备缺序列号记not_verified，认证失效等场景不会触发第二次同路由请求（重试在delegate前拒绝并记为本次失败）。默认pytest不触发真实网络入口；`tests/test_live_diagnostics_async.py`用MockTransport覆盖六步异步调用、路由/预算/重复auth拒绝、取消传播与输出独占性。
 
 当前状态：有界runner已实现，同步+异步边界的定向离线测试全部通过（MockTransport，无真实网络；逐项证据见[离线验收记录](../../docs/validation/2026-11-19-domestic-async-read/offline.json)）；真实`ACC-CN-ASYNC-READONLY-001`仍`pending_execution`——7次HTTP/6次业务/首页单设备通道1沿用既有国内只读授权范围、无需再授权，但尚缺新鲜凭据与真实回执，拿到真实回执前不得报passed；不记录任何真实设备/账号标识。
+
+## 示例 CLI 的实机只读验证
+
+在仓库根目录运行以下命令。
+
+```bash
+.venv/bin/python -m tools.live.verify_example_clis --prompt
+```
+
+同步与异步国内诊断校验器及本六个示例 CLI 验收在 `SSLKEYLOGFILE` 为非空值时，会在创建真实 HTTP transport 之前直接拒绝——0 次请求且不生成密钥日志文件，调用方可在自己的终端执行 `unset SSLKEYLOGFILE` 后再运行。同一 HTTP 防护还会在后续请求发出前拦截服务器下发的 cookie，但这不承诺其他 SDK 客户端或命令具有相同的插桩边界。
+
+- `--prompt` 通过本机终端隐藏输入 AppKey 和 AppSecret。
+- 启动时 stderr 会打印范围提示，确认本次仅为只读巡检后再继续。
+- 工具依次执行六个现有示例的原始模块入口。每个入口各自创建客户端，只读国内普通设备。
+
+### 请求上界
+
+| 场景 | 实际执行的入口 | HTTP 请求上限 |
+| --- | --- | --- |
+| 首页首行有可用设备且各步成功 | 全部六个模块 | 最多 20 次 |
+| 首页为空 | 仅四个只调用列表的 CLI 运行，两个检查类入口跳过 | 最多 8 次 |
+| 独立异步校验器（为空时） | `verify_diagnostics_async` | 认证和列表都成功时 2 次 |
+
+### 输出与回执
+
+- 进程不会自动写任何文件；需要保留时，可将 stdout 重定向至本机私有的新文件。
+- 结果为按 profile 的类型化安全回执，不包含原始返回内容。每个模块对应一个 JSON 对象，含模块名及以下字段。
+  - `result`：`passed` / `failed` / `skipped_no_target` / `skipped_after_failure`
+  - `exit_code`
+  - `boundary_rejected`
+  - `http_requests`（实际请求数）
+- 任一已执行的模块失败，整体记为 `failed`，其余模块记为 `skipped_after_failure`。只有缺少目标且其余四项全部通过时，整体记为 `not_verified`。这两种整体结果均非零退出。
+
+### 证据状态
+
+当前尚无针对真实账号或设备的运行证据。本批范围与判据见[六个示例的验收约定](../../docs/coordination/domestic-cli-read/admission.json)。
