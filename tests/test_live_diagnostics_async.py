@@ -984,7 +984,7 @@ def _run_prompt(monkeypatch, argv, prompts=None, verify_result=None):
         def isatty(self):
             return True
 
-    class _TtyStdout(io.TextIOBase):
+    class _TtyStdout:
         """Forward writes to capsys's stdout while reporting a real TTY."""
 
         def __init__(self, wrapped):
@@ -1165,6 +1165,7 @@ def test_output_refuses_existing_file_before_networking(monkeypatch, tmp_path, c
 
 
 def test_output_refuses_symlink_and_default_run_writes_nothing(monkeypatch, tmp_path, capsys):
+    monkeypatch.chdir(tmp_path)
     target = tmp_path / "target.json"
     target.write_text("{}", encoding="utf-8")
     link = tmp_path / "link.json"
@@ -1188,7 +1189,7 @@ def test_output_refuses_symlink_and_default_run_writes_nothing(monkeypatch, tmp_
         verify_result=_passed_verify_result(outcome="failed"),
     )
     assert code == 1
-    assert [p.name for p in tmp_path.iterdir()] == ["target.json", "link.json"]
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["link.json", "target.json"]
 
 
 def test_output_writes_allowlisted_report_on_success(monkeypatch, tmp_path):
