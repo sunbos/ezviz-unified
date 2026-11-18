@@ -13629,109 +13629,123 @@
       "case_id": "ACC-CANDIDATE-CN-4751-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:4751:d0",
+      "case_origin": "stream_archive_frozen_before_implementation",
+      "capability_selector": "vod.stream_source_files",
       "capability_ids": [
         "candidate:domestic:4751:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.vod.stream_source_files"
+      ],
+      "scope_revision": "2026-11-19-r21-domestic-stream-archive",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "国内已授权流主账户，4751 明确不支持子账户。",
+      "device_requirements": "模拟流，不连接设备。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "离线合成流、时间与文件地址，仅 MockTransport。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求查询直播录制至云点播的录制源文件信息”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确 header/form、日期范围、meta/int 响应与 data.fileInfo 层级；同步/异步、错误、隐私及示例 CLI。",
+        "write": "无。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/77"
+        "docs/coordination/SP088/scenario-input.json#/entries/77",
+        "docs/coordination/domestic-stream-archive/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4751.source.json"
       ],
       "pending_questions": [
-        "录制源文件与云点播文件是同一对象还是源-产物关系？",
-        "查询前提是否为直播流已开启录制至云点播？"
+        "输入 streamId 仅声明字符串，响应说明 32 位与示例的 18 字符冲突，不设长度和字符集白名单。",
+        "节点可访问性与文件保留状态未经实测。",
+        "官方明确不支持子账户。截图可省日期，未声明禁止传入。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "等待实现与独立回执。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "WIRE": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "EXAMPLE-DOCS": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4757-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:4757:d0",
+      "case_origin": "stream_archive_frozen_before_implementation",
+      "capability_selector": "vod.stream_index_file",
       "capability_ids": [
         "candidate:domestic:4757:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.vod.stream_index_file"
+      ],
+      "scope_revision": "2026-11-19-r21-domestic-stream-archive",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "国内已授权流；4757 未声明子账户权限。",
+      "device_requirements": "模拟流，不连接设备。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "离线合成流、时间与文件地址，仅 MockTransport。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求获取直播流对应的云点播文件”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确 header/form、日期范围、meta/int 响应与 data.fileInfo 层级；同步/异步、错误、隐私及示例 CLI。",
+        "write": "无。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/78"
+        "docs/coordination/SP088/scenario-input.json#/entries/78",
+        "docs/coordination/domestic-stream-archive/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4757.source.json"
       ],
       "pending_questions": [
-        "获取的是文件元数据、下载地址还是播放地址？",
-        "与录制源文件查询在入参维度与用途上的分工如何？"
+        "输入 streamId 仅声明字符串，响应说明 32 位与示例的 18 字符冲突，不设长度和字符集白名单。",
+        "节点可访问性与文件保留状态未经实测。",
+        "子账户权限、URL 有效期与时区未声明。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "等待实现与独立回执。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "WIRE": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "EXAMPLE-DOCS": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-663-D0-OFFLINE-001",
@@ -30619,6 +30633,104 @@
       ],
       "limitations": [
         "离线通过或返回成功不能证明统计数据准确或设备功能。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4751-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "stream_archive_frozen_before_implementation",
+      "capability_selector": "vod.stream_source_files",
+      "capability_ids": [
+        "candidate:domestic:4751:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.stream_source_files"
+      ],
+      "scope_revision": "2026-11-19-r21-domestic-stream-archive",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内已授权流主账户，4751 明确不支持子账户。",
+      "device_requirements": "已有授权直播流和指定日期或时间区间的文件。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "取得该流及指定时间段的独立只读授权，固定每种模式的输入、次数及资源。4751 须分别覆盖录像与截图。不得为测试创建流、启动录制或付费。"
+      ],
+      "expected_evidence": {
+        "read": "不公开标识或 URL，仅逐模式核对原始方法返回的 data 对象和 fileInfo 层级；不下载或访问返回的媒体。",
+        "write": "无。",
+        "physical": "无。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读。遇到失败停止；不创建、恢复或删除存储文件。",
+      "source_refs": [
+        "docs/coordination/domestic-stream-archive/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4751.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "账号流量验收的三项授权不含直播流归档；待单独确认已存在的流、日期和范围。"
+      ],
+      "limitations": [
+        "离线合成结果或文件地址的返回均不证明媒体可达或可播放。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4757-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "stream_archive_frozen_before_implementation",
+      "capability_selector": "vod.stream_index_file",
+      "capability_ids": [
+        "candidate:domestic:4757:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.stream_index_file"
+      ],
+      "scope_revision": "2026-11-19-r21-domestic-stream-archive",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内已授权流；4757 未声明子账户权限。",
+      "device_requirements": "已有授权直播流和指定日期或时间区间的文件。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "取得该流及指定时间段的独立只读授权，固定每种模式的输入、次数及资源。4751 须分别覆盖录像与截图。不得为测试创建流、启动录制或付费。"
+      ],
+      "expected_evidence": {
+        "read": "不公开标识或 URL，仅逐模式核对原始方法返回的 data 对象和 fileInfo 层级；不下载或访问返回的媒体。",
+        "write": "无。",
+        "physical": "无。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读。遇到失败停止；不创建、恢复或删除存储文件。",
+      "source_refs": [
+        "docs/coordination/domestic-stream-archive/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4757.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "账号流量验收的三项授权不含直播流归档；待单独确认已存在的流、日期和范围。"
+      ],
+      "limitations": [
+        "离线合成结果或文件地址的返回均不证明媒体可达或可播放。"
       ]
     }
   ],
