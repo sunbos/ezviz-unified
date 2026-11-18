@@ -4990,6 +4990,143 @@
           "unknownField": "preserve"
         }
       ]
+    },
+    {
+      "operation_id": "cn.vod.create_remux_task",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "local_index": "1",
+        "bus_type": "7",
+        "start_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T03:04:05"
+        },
+        "end_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T04:04:05"
+        },
+        "space_id": 900001,
+        "result_space_id": 900002,
+        "validate_code": "SYNTHETIC_VALIDATE_CODE",
+        "acceleration": 0
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "localIndex": "1",
+        "busType": "7",
+        "startTime": "2026-01-02 03:04:05",
+        "endTime": "2026-01-02 04:04:05",
+        "spaceId": 900001,
+        "resultSpaceId": 900002,
+        "validateCode": "SYNTHETIC_VALIDATE_CODE",
+        "acceleration": 0
+      },
+      "data": {
+        "taskId": "SYNTHETIC_TASK"
+      }
+    },
+    {
+      "operation_id": "cn.vod.task",
+      "args": [
+        "SYNTHETIC_TASK"
+      ],
+      "kwargs": {},
+      "fields": {
+        "taskId": "SYNTHETIC_TASK"
+      },
+      "data": {
+        "taskId": "SYNTHETIC_TASK",
+        "taskType": 1,
+        "taskSubType": 80,
+        "taskStatus": 2,
+        "progressRate": 40
+      }
+    },
+    {
+      "operation_id": "cn.vod.tasks",
+      "args": [
+        8
+      ],
+      "kwargs": {
+        "page_start": 0,
+        "page_size": 2,
+        "start_time": "2026-01-02 03:04:05"
+      },
+      "fields": {
+        "taskType": 8,
+        "pageStart": 0,
+        "pageSize": 2,
+        "startTime": "2026-01-02 03:04:05"
+      },
+      "data": {
+        "result": [
+          {
+            "taskId": "SYNTHETIC_TASK",
+            "spaceId": "SYNTHETIC_SPACE",
+            "deviceSerial": "SYNTHETIC_DEVICE",
+            "channelNo": 1,
+            "taskType": 8,
+            "taskTypeDesc": "SYNTHETIC_DESC",
+            "taskStatus": 1,
+            "totalSize": 0,
+            "startTime": "2026-01-02 03:04:05",
+            "endTime": "2026-01-02 04:04:05",
+            "progressRate": 0,
+            "createTime": "2026-01-02 03:00:00"
+          }
+        ],
+        "pageStart": 0,
+        "pageSize": 2,
+        "total": 1
+      }
+    },
+    {
+      "operation_id": "cn.vod.recording_urls",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "local_index": "1",
+        "start_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T03:04:05"
+        },
+        "end_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T04:04:05"
+        },
+        "format": "MP4",
+        "expire_seconds": 1,
+        "space_id": 900001
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "localIndex": "1",
+        "startTime": "2026-01-02 03:04:05",
+        "endTime": "2026-01-02 04:04:05",
+        "format": "MP4",
+        "expireSeconds": 1,
+        "spaceId": 900001
+      },
+      "data": [
+        {
+          "startTime": "2026-01-02 03:04:05",
+          "stopTime": "2026-01-02 04:04:05",
+          "expireTime": "2026-01-02 04:04:06",
+          "hlsAddress": "https://media.example.invalid/vod/SYNTHETIC_SEGMENT.mp4",
+          "format": "MP4"
+        }
+      ]
     }
   ]
 }

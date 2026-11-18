@@ -2833,6 +2833,58 @@
       "public_entry": "vod.files",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.vod.create_remux_task",
+      "region": "domestic",
+      "source_doc_id": "3971",
+      "module": "src/ezviz_unified/vod.py",
+      "symbols": [
+        "Vod.create_remux_task",
+        "AsyncVod.create_remux_task"
+      ],
+      "public_entry": "vod.create_remux_task",
+      "offline_status": "not_verified",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.vod.task",
+      "region": "domestic",
+      "source_doc_id": "3972",
+      "module": "src/ezviz_unified/vod.py",
+      "symbols": [
+        "Vod.task",
+        "AsyncVod.task"
+      ],
+      "public_entry": "vod.task",
+      "offline_status": "not_verified",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.vod.tasks",
+      "region": "domestic",
+      "source_doc_id": "4941",
+      "module": "src/ezviz_unified/vod.py",
+      "symbols": [
+        "Vod.tasks",
+        "AsyncVod.tasks"
+      ],
+      "public_entry": "vod.tasks",
+      "offline_status": "not_verified",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.vod.recording_urls",
+      "region": "domestic",
+      "source_doc_id": "3973",
+      "module": "src/ezviz_unified/vod.py",
+      "symbols": [
+        "Vod.recording_urls",
+        "AsyncVod.recording_urls"
+      ],
+      "public_entry": "vod.recording_urls",
+      "offline_status": "not_verified",
+      "live_status": "not_verified"
     }
   ]
 }

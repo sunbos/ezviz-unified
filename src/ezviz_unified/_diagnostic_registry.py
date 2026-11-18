@@ -155,7 +155,11 @@ BUSINESS_ENTRYPOINTS: frozenset[str] = frozenset(
         "video.set_quality",
         "video.set_switch",
         "video.set_video_codec",
+        "vod.create_remux_task",
         "vod.files",
+        "vod.recording_urls",
+        "vod.task",
+        "vod.tasks",
     }
 )
 
@@ -349,7 +353,11 @@ OPERATIONS: frozenset[str] = frozenset(
         "cn.video.set_quality",
         "cn.video.set_switch",
         "cn.video.set_video_codec",
+        "cn.vod.create_remux_task",
         "cn.vod.files",
+        "cn.vod.recording_urls",
+        "cn.vod.task",
+        "cn.vod.tasks",
         "components.call",
         "components.chime_power.set",
         "components.face_voice_lock.get",
@@ -553,6 +561,10 @@ OPERATIONS: frozenset[str] = frozenset(
         "video.set_quality",
         "video.set_switch",
         "video.set_video_codec",
+        "vod.create_remux_task",
         "vod.files",
+        "vod.recording_urls",
+        "vod.task",
+        "vod.tasks",
     }
 )

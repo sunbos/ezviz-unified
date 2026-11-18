@@ -1,9 +1,17 @@
-"""Cloud VOD metadata queries for the EZVIZ client (sync and async).
+"""Cloud VOD metadata queries and remux/playback-address calls for the EZVIZ client.
 
-Documented for the domestic region only (docs 5342/4187). ``files`` performs
-one logical read-only query per call; under the existing invalid-token policy
-the ``GET`` may be replayed at most once. The SDK never auto-paginates,
-batches, polls, downloads media, or manages upstream resources. At least one selector is
+Documented for the domestic region only (docs 5342/4187/3971/3972/4941/3973).
+``files``, ``task`` and ``tasks`` are read-only queries; under the existing
+invalid-token policy their ``GET`` may be replayed at most once.
+``create_remux_task`` is declared non-idempotent task creation by its spec
+(doc 3971). ``recording_urls`` (doc 3973) is described as idempotent for the
+same parameters, but it is not documented as read-only or side-effect free;
+its ``Operation.read_only=False`` only disables automatic replay and does not
+claim the service declared it side-effect free. The SDK never
+auto-paginates, batches, polls, downloads media, resolves playback addresses
+into fetched content, or manages upstream resources.
+
+``files`` performs one logical read-only query per call. At least one selector is
 required by the service; every supplied selector is sent verbatim — the
 documented ``spaceId`` priority is resolved server-side, not by the SDK.
 
@@ -12,15 +20,26 @@ before authentication; order and duplicates are preserved and joined into the
 documented CSV wire form. Per-element commas are refused because this CSV has
 no escaping (SDK design choice). ``space_id`` must be an ``int`` and rejects
 ``bool``; no undeclared positive-only bound is invented. ``space_name`` must
-be a non-blank UTF-8-encodable string. All validation happens before any
-authentication or network access.
+be a non-blank UTF-8-encodable string.
+
+``device_serial`` and ``local_index`` are sent as HTTP headers under the
+documented ``deviceSerial``/``localIndex`` names. Header values must be
+non-blank ASCII strings, reject C0 control characters and DEL, and reject
+leading or trailing spaces while preserving interior spaces; ``local_index``
+has no default and is never coerced to an int. Time bounds are naive
+whole-second ``datetime`` values formatted ``yyyy-MM-dd HH:mm:ss`` with a
+four-digit year; no timezone is inferred or converted. ``tasks`` optional
+``start_time``/``end_time`` are opaque UTF-8 strings passed verbatim, not
+parsed as datetimes and not required as a pair. All validation happens before
+any authentication or network access.
 """
 
 from __future__ import annotations
 
 from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import TYPE_CHECKING
+from datetime import datetime, timedelta
+from typing import TYPE_CHECKING, Literal
 
 from .diagnostic_report import _diagnostic_scope
 from .models import ApiResponse, ResponsePolicy
@@ -48,6 +67,42 @@ _OP_FILES = Operation(
     read_only=True,
     policy=_POLICY_META,
 )
+_OP_CREATE_REMUX_TASK = Operation(
+    "vod.create_remux_task",
+    "POST",
+    "/api/service/open/vod/media/trans/code",
+    token_location="header",
+    regions=frozenset({_DOMESTIC}),
+    read_only=False,
+    policy=_POLICY_META,
+)
+_OP_TASK = Operation(
+    "vod.task",
+    "GET",
+    "/api/service/open/vod/task",
+    token_location="header",
+    regions=frozenset({_DOMESTIC}),
+    read_only=True,
+    policy=_POLICY_META,
+)
+_OP_TASKS = Operation(
+    "vod.tasks",
+    "GET",
+    "/api/service/open/vod/tasks",
+    token_location="header",
+    regions=frozenset({_DOMESTIC}),
+    read_only=True,
+    policy=_POLICY_META,
+)
+_OP_RECORDING_URLS = Operation(
+    "vod.recording_urls",
+    "POST",
+    "/api/service/open/vod/file/address/hls",
+    token_location="header",
+    regions=frozenset({_DOMESTIC}),
+    read_only=False,
+    policy=_POLICY_META,
+)
 
 
 @dataclass(frozen=True)
@@ -72,6 +127,175 @@ def _utf8(name: str, value: str) -> str:
     return value
 
 
+def _header(name: str, value: object) -> str:
+    """Validate an HTTP header value (root SDK safety choice).
+
+    The value must be a non-blank ASCII string with no C0 control characters
+    or DEL and no leading/trailing spaces; ordinary interior spaces are kept.
+    """
+    if not isinstance(value, str):
+        raise ValueError(f"{name} must be a string")
+    if not value.strip():
+        raise ValueError(f"{name} must be a non-blank string")
+    if not value.isascii():
+        raise ValueError(f"{name} must be ASCII for an HTTP header")
+    if any(ord(char) < 0x20 or ord(char) == 0x7F for char in value):
+        raise ValueError(f"{name} must not contain control characters")
+    if value != value.strip():
+        raise ValueError(f"{name} must not have leading or trailing spaces")
+    return value
+
+
+def _naive(name: str, value: object) -> datetime:
+    if not isinstance(value, datetime):
+        raise ValueError(f"{name} must be a datetime")
+    if value.tzinfo is not None and value.utcoffset() is not None:
+        raise ValueError(f"{name} must be a naive datetime")
+    if value.microsecond:
+        raise ValueError(f"{name} must not carry microseconds")
+    return value
+
+
+def _stamp(moment: datetime) -> str:
+    """Format as ``yyyy-MM-dd HH:mm:ss`` with a four-digit year."""
+    return (
+        f"{moment.year:04d}-{moment.month:02d}-{moment.day:02d} "
+        f"{moment.hour:02d}:{moment.minute:02d}:{moment.second:02d}"
+    )
+
+
+_REMUX_MIN_SPAN = timedelta(seconds=10)
+_REMUX_MAX_SPAN = timedelta(seconds=172800)
+_URLS_MAX_SPAN = timedelta(seconds=172800)
+_TASK_BUS_TYPES = ("1", "7", "71")
+_REMUX_FORMATS = ("HLS", "MP4")
+_URL_FORMATS = ("MP4", "HLS")
+_EXPIRE_MIN = 1
+_EXPIRE_MAX = 604800
+
+
+def _remux_request(
+    scope: str,
+    device_serial: str,
+    *,
+    local_index: str,
+    bus_type: str,
+    start_time: datetime,
+    end_time: datetime,
+    format: str | None,
+    space_id: int | None,
+    result_space_id: int | None,
+    validate_code: str | None,
+    acceleration: int | None,
+) -> _Request:
+    _require_domestic(scope, "create_remux_task")
+    headers = {
+        "deviceSerial": _header("device_serial", device_serial),
+        "localIndex": _header("local_index", local_index),
+    }
+    if not isinstance(bus_type, str) or bus_type not in _TASK_BUS_TYPES:
+        raise ValueError("bus_type must be one of: 1, 7, 71")
+    start = _naive("start_time", start_time)
+    end = _naive("end_time", end_time)
+    span = end - start
+    if not _REMUX_MIN_SPAN <= span <= _REMUX_MAX_SPAN:
+        raise ValueError("end_time - start_time must be within 10..172800 seconds")
+    if bus_type == "7" and space_id is None:
+        raise ValueError("space_id is required when bus_type is 7")
+    data: dict[str, str | int] = {
+        "busType": bus_type,
+        "startTime": _stamp(start),
+        "endTime": _stamp(end),
+    }
+    if format is not None:
+        if not isinstance(format, str) or format not in _REMUX_FORMATS:
+            raise ValueError("format must be HLS or MP4")
+        if bus_type == "71" and format == "HLS":
+            raise ValueError("format HLS is not allowed when bus_type is 71")
+        data["format"] = format
+    if space_id is not None:
+        data["spaceId"] = _integer("space_id", space_id)
+    if result_space_id is not None:
+        data["resultSpaceId"] = _integer("result_space_id", result_space_id)
+    if validate_code is not None:
+        data["validateCode"] = _utf8("validate_code", _text("validate_code", validate_code))
+    if acceleration is not None:
+        accel = _integer("acceleration", acceleration)
+        if accel not in (0, 1):
+            raise ValueError("acceleration must be 0 or 1")
+        data["acceleration"] = accel
+    return _Request(_OP_CREATE_REMUX_TASK, {}, data, headers)
+
+
+def _task_request(scope: str, task_id: str) -> _Request:
+    _require_domestic(scope, "task")
+    params: dict[str, str | int] = {"taskId": _utf8("task_id", _text("task_id", task_id))}
+    return _Request(_OP_TASK, params, None, {})
+
+
+def _tasks_request(
+    scope: str,
+    task_type: int,
+    *,
+    page_start: int | None,
+    page_size: int | None,
+    start_time: str | None,
+    end_time: str | None,
+) -> _Request:
+    _require_domestic(scope, "tasks")
+    kind = _integer("task_type", task_type)
+    if kind not in (7, 8):
+        raise ValueError("task_type must be 7 or 8")
+    params: dict[str, str | int] = {"taskType": kind}
+    if page_start is not None:
+        params["pageStart"] = _integer("page_start", page_start)
+    if page_size is not None:
+        params["pageSize"] = _integer("page_size", page_size)
+    if start_time is not None:
+        params["startTime"] = _utf8("start_time", _text("start_time", start_time))
+    if end_time is not None:
+        params["endTime"] = _utf8("end_time", _text("end_time", end_time))
+    return _Request(_OP_TASKS, params, None, {})
+
+
+def _recording_urls_request(
+    scope: str,
+    device_serial: str,
+    *,
+    local_index: str,
+    start_time: datetime,
+    end_time: datetime,
+    format: str,
+    expire_seconds: int | None,
+    space_id: int | None,
+) -> _Request:
+    _require_domestic(scope, "recording_urls")
+    headers = {
+        "deviceSerial": _header("device_serial", device_serial),
+        "localIndex": _header("local_index", local_index),
+    }
+    start = _naive("start_time", start_time)
+    end = _naive("end_time", end_time)
+    span = end - start
+    if span < timedelta(0) or span > _URLS_MAX_SPAN:
+        raise ValueError("end_time - start_time must be within 0..172800 seconds")
+    if not isinstance(format, str) or format not in _URL_FORMATS:
+        raise ValueError("format must be MP4 or HLS")
+    data: dict[str, str | int] = {
+        "startTime": _stamp(start),
+        "endTime": _stamp(end),
+        "format": format,
+    }
+    if expire_seconds is not None:
+        expire = _integer("expire_seconds", expire_seconds)
+        if not _EXPIRE_MIN <= expire <= _EXPIRE_MAX:
+            raise ValueError("expire_seconds must be within 1..604800")
+        data["expireSeconds"] = expire
+    if space_id is not None:
+        data["spaceId"] = _integer("space_id", space_id)
+    return _Request(_OP_RECORDING_URLS, {}, data, headers)
+
+
 def _files_request(
     scope: str,
     file_node_ids: Sequence[str] | None,
@@ -93,7 +317,7 @@ def _files_request(
 
 
 class Vod:
-    """Synchronous facade over the reviewed VOD file-metadata endpoint."""
+    """Synchronous facade over the reviewed VOD endpoints (metadata, remux, addresses)."""
 
     __slots__ = ("_client",)
 
@@ -122,9 +346,121 @@ class Vod:
                 headers=request.headers,
             )
 
+    def create_remux_task(
+        self,
+        device_serial: str,
+        *,
+        local_index: str,
+        bus_type: Literal["1", "7", "71"],
+        start_time: datetime,
+        end_time: datetime,
+        format: Literal["HLS", "MP4"] | None = None,
+        space_id: int | None = None,
+        result_space_id: int | None = None,
+        validate_code: str | None = None,
+        acceleration: Literal[0, 1] | None = None,
+    ) -> ApiResponse:
+        """Create an asynchronous cloud-recording remux/transcode task.
+
+        Non-idempotent: ``read_only=False`` only disables automatic replay.
+        Returns the raw ``ApiResponse``; it does not become a task handle.
+        """
+        with _diagnostic_scope(self._client, entrypoint="vod.create_remux_task", mode="sync"):
+            request = _remux_request(
+                self._client.region.scope,
+                device_serial,
+                local_index=local_index,
+                bus_type=bus_type,
+                start_time=start_time,
+                end_time=end_time,
+                format=format,
+                space_id=space_id,
+                result_space_id=result_space_id,
+                validate_code=validate_code,
+                acceleration=acceleration,
+            )
+            return self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+
+    def task(self, task_id: str) -> ApiResponse:
+        """Query one remux task by id (read-only)."""
+        with _diagnostic_scope(self._client, entrypoint="vod.task", mode="sync"):
+            request = _task_request(self._client.region.scope, task_id)
+            return self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+
+    def tasks(
+        self,
+        task_type: Literal[7, 8],
+        *,
+        page_start: int | None = None,
+        page_size: int | None = None,
+        start_time: str | None = None,
+        end_time: str | None = None,
+    ) -> ApiResponse:
+        """List remux tasks of one task type (read-only). Never auto-pages."""
+        with _diagnostic_scope(self._client, entrypoint="vod.tasks", mode="sync"):
+            request = _tasks_request(
+                self._client.region.scope,
+                task_type,
+                page_start=page_start,
+                page_size=page_size,
+                start_time=start_time,
+                end_time=end_time,
+            )
+            return self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+
+    def recording_urls(
+        self,
+        device_serial: str,
+        *,
+        local_index: str,
+        start_time: datetime,
+        end_time: datetime,
+        format: Literal["MP4", "HLS"],
+        expire_seconds: int | None = None,
+        space_id: int | None = None,
+    ) -> ApiResponse:
+        """Request playback addresses for a cloud-recording window.
+
+        ``read_only=False`` only disables automatic replay; it does not claim
+        the call is side-effect free. Returns the raw ``ApiResponse`` and never
+        downloads media.
+        """
+        with _diagnostic_scope(self._client, entrypoint="vod.recording_urls", mode="sync"):
+            request = _recording_urls_request(
+                self._client.region.scope,
+                device_serial,
+                local_index=local_index,
+                start_time=start_time,
+                end_time=end_time,
+                format=format,
+                expire_seconds=expire_seconds,
+                space_id=space_id,
+            )
+            return self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+
 
 class AsyncVod:
-    """Asynchronous facade over the reviewed VOD file-metadata endpoint."""
+    """Asynchronous facade over the reviewed VOD endpoints (metadata, remux, addresses)."""
 
     __slots__ = ("_client",)
 
@@ -145,6 +481,118 @@ class AsyncVod:
                 file_node_ids,
                 space_id=space_id,
                 space_name=space_name,
+            )
+            return await self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+
+    async def create_remux_task(
+        self,
+        device_serial: str,
+        *,
+        local_index: str,
+        bus_type: Literal["1", "7", "71"],
+        start_time: datetime,
+        end_time: datetime,
+        format: Literal["HLS", "MP4"] | None = None,
+        space_id: int | None = None,
+        result_space_id: int | None = None,
+        validate_code: str | None = None,
+        acceleration: Literal[0, 1] | None = None,
+    ) -> ApiResponse:
+        """Create an asynchronous cloud-recording remux/transcode task.
+
+        Non-idempotent: ``read_only=False`` only disables automatic replay.
+        Returns the raw ``ApiResponse``; it does not become a task handle.
+        """
+        with _diagnostic_scope(self._client, entrypoint="vod.create_remux_task", mode="async"):
+            request = _remux_request(
+                self._client.region.scope,
+                device_serial,
+                local_index=local_index,
+                bus_type=bus_type,
+                start_time=start_time,
+                end_time=end_time,
+                format=format,
+                space_id=space_id,
+                result_space_id=result_space_id,
+                validate_code=validate_code,
+                acceleration=acceleration,
+            )
+            return await self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+
+    async def task(self, task_id: str) -> ApiResponse:
+        """Query one remux task by id (read-only)."""
+        with _diagnostic_scope(self._client, entrypoint="vod.task", mode="async"):
+            request = _task_request(self._client.region.scope, task_id)
+            return await self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+
+    async def tasks(
+        self,
+        task_type: Literal[7, 8],
+        *,
+        page_start: int | None = None,
+        page_size: int | None = None,
+        start_time: str | None = None,
+        end_time: str | None = None,
+    ) -> ApiResponse:
+        """List remux tasks of one task type (read-only). Never auto-pages."""
+        with _diagnostic_scope(self._client, entrypoint="vod.tasks", mode="async"):
+            request = _tasks_request(
+                self._client.region.scope,
+                task_type,
+                page_start=page_start,
+                page_size=page_size,
+                start_time=start_time,
+                end_time=end_time,
+            )
+            return await self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+
+    async def recording_urls(
+        self,
+        device_serial: str,
+        *,
+        local_index: str,
+        start_time: datetime,
+        end_time: datetime,
+        format: Literal["MP4", "HLS"],
+        expire_seconds: int | None = None,
+        space_id: int | None = None,
+    ) -> ApiResponse:
+        """Request playback addresses for a cloud-recording window.
+
+        ``read_only=False`` only disables automatic replay; it does not claim
+        the call is side-effect free. Returns the raw ``ApiResponse`` and never
+        downloads media.
+        """
+        with _diagnostic_scope(self._client, entrypoint="vod.recording_urls", mode="async"):
+            request = _recording_urls_request(
+                self._client.region.scope,
+                device_serial,
+                local_index=local_index,
+                start_time=start_time,
+                end_time=end_time,
+                format=format,
+                expire_seconds=expire_seconds,
+                space_id=space_id,
             )
             return await self._client.request(
                 request.operation,

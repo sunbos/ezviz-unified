@@ -28,6 +28,8 @@ class _ResourceId(IntEnum):
         ("spaceId", _ResourceId.SPACE, ("444444",)),
         ("projectId", "PRIVATE_PROJECT", ("PRIVATE_PROJECT",)),
         ("fileId", "PRIVATE_FILE", ("PRIVATE_FILE",)),
+        ("taskId", "PRIVATE_TASK_0123456789abcdef", ("PRIVATE_TASK_0123456789abcdef",)),
+        ("resultSpaceId", 555555, ("555555",)),
     ],
 )
 def test_storage_identifiers_are_redacted_individually_without_changing_wire(

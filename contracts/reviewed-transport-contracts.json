@@ -14680,6 +14680,427 @@
         "fileSize/totalSize units unknown; fileType/fileChildType types unspecified; responsefieldrequiredness/URLexpiry/partialresults unknown.",
         "Error tables differ; no invented HTTP-vs-business mapping orselectorcomposition."
       ]
+    },
+    {
+      "operation_id": "cn.vod.create_remux_task",
+      "region": "domestic",
+      "source_doc_id": "3971",
+      "source_url": "https://open.ys7.com/help/3971",
+      "source_content_sha256": "4a292560130c343f7ca3f89a33da2c3cbf702dab9f60a97aa529d3bb5e609266",
+      "method": "POST",
+      "path": "/api/service/open/vod/media/trans/code",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "T2/R2/L32-37"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "T2/R3/L38-43"
+        },
+        {
+          "name": "localIndex",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "T2/R4/L44-49"
+        },
+        {
+          "name": "busType",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "T2/R5/L50-55"
+        },
+        {
+          "name": "startTime",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "T2/R6/L56-61"
+        },
+        {
+          "name": "endTime",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "T2/R7/L62-67"
+        },
+        {
+          "name": "format",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "T2/R8/L68-75"
+        },
+        {
+          "name": "spaceId",
+          "location": "body",
+          "type": "Long",
+          "required": false,
+          "evidence": "T2/R9/L76-81"
+        },
+        {
+          "name": "resultSpaceId",
+          "location": "body",
+          "type": "Long",
+          "required": false,
+          "evidence": "T2/R10/L82-87"
+        },
+        {
+          "name": "validateCode",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "T2/R11/L88-93"
+        },
+        {
+          "name": "acceleration",
+          "location": "body",
+          "type": "Integer",
+          "required": false,
+          "evidence": "T2/R12/L94-99"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "T3/E138/L105-114;E154"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "busType documented values limited to 1(event cloud)/7(cloud rec 2.0)/71(cloud rec HLS)",
+          "evidence": "T2/R5/L50-55"
+        },
+        {
+          "fact": "busType=7 conditionally requires spaceId although table required=false",
+          "evidence": "T2/R9/L76-81"
+        },
+        {
+          "fact": "busType=71 only allows MP4; explicit HLS not permitted",
+          "evidence": "T2/R8/L68-75;L132"
+        },
+        {
+          "fact": "endTime-startTime between 10s and 48h inclusive",
+          "evidence": "T2/R7/L62-67;L131"
+        },
+        {
+          "fact": "encrypted devices conditionally require validateCode",
+          "evidence": "T2/R11/L88-93"
+        },
+        {
+          "fact": "resultSpaceId omission uses default vodspace",
+          "evidence": "T2/R10/L82-87"
+        },
+        {
+          "fact": "acceleration documented values 0/1, server default 0",
+          "evidence": "T2/R12/L94-99"
+        },
+        {
+          "fact": "non-idempotent asynchronous task creation; success only means task created",
+          "evidence": "T1/E14/L21-24;E1/L2-9;T3/E138/L105-114;E154"
+        },
+        {
+          "fact": "requires enterprise user and existing cloud recording; managed/sub accounts unsupported",
+          "evidence": "E1/L2-9"
+        }
+      ],
+      "uncertainties": [
+        "time format timezone undeclared",
+        "spaceId/resultSpaceId mapping to unified or legacy space undeclared",
+        "busType 1/7 omitted-format server default undeclared",
+        "no request-visible encryption-state protocol for validateCode",
+        "business code vs HTTP status layer mapping undeclared",
+        "quota/fees/retention/idempotency-key semantics undeclared"
+      ]
+    },
+    {
+      "operation_id": "cn.vod.task",
+      "region": "domestic",
+      "source_doc_id": "3972",
+      "source_url": "https://open.ys7.com/help/3972",
+      "source_content_sha256": "4ca347aedda382ddfa5b055452763ca70c131c7a4d3e4714f10c81b9549073f8",
+      "method": "GET",
+      "path": "/api/service/open/vod/task",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "T2/R2/L19-23"
+        },
+        {
+          "name": "taskId",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "evidence": "T2/R3/L24-28"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "T3/E47/L32-50;E75"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "officially read-only query",
+          "evidence": "L60-61"
+        },
+        {
+          "fact": "response taskType=1 with taskSubType 80/81/82 uses a different encoding than paging taskType 7/8",
+          "evidence": "T3/R3-4/L39-44;L62;L68-69"
+        },
+        {
+          "fact": "meta.message may be absent per response structure",
+          "evidence": "E75"
+        }
+      ],
+      "uncertainties": [
+        "taskStatus values 0-7 meanings not defined on this page",
+        "progressRate unit/range undeclared, not proven 0-100 percent",
+        "no artifact node/URL/output-space field declared",
+        "business code vs HTTP status layer mapping undeclared"
+      ]
+    },
+    {
+      "operation_id": "cn.vod.tasks",
+      "region": "domestic",
+      "source_doc_id": "4941",
+      "source_url": "https://open.ys7.com/help/4941",
+      "source_content_sha256": "8b8725427c2b7b0756e07ddbbdf07d2ccb0f243966cc673e276675916b9842c3",
+      "method": "GET",
+      "path": "/api/service/open/vod/tasks",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "e37"
+        },
+        {
+          "name": "taskType",
+          "location": "query",
+          "type": "Int",
+          "required": true,
+          "evidence": "e37;e170"
+        },
+        {
+          "name": "pageStart",
+          "location": "query",
+          "type": "Int",
+          "required": false,
+          "evidence": "e37"
+        },
+        {
+          "name": "pageSize",
+          "location": "query",
+          "type": "Int",
+          "required": false,
+          "evidence": "e37"
+        },
+        {
+          "name": "startTime",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "evidence": "e37"
+        },
+        {
+          "name": "endTime",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "evidence": "e37"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "e101;e152"
+      },
+      "read_only": true,
+      "constraints": [
+        {
+          "fact": "officially read-only/idempotent, non-async",
+          "evidence": "e10"
+        },
+        {
+          "fact": "taskType limited to 7(video clip)/8(remux); cross-check 5336 e221",
+          "evidence": "e37;e170;e94-e95"
+        },
+        {
+          "fact": "server defaults pageStart=0/pageSize=10 when omitted",
+          "evidence": "e37"
+        },
+        {
+          "fact": "response data is Object with data.result[] plus pageStart/pageSize/total; not data[]/lastId/hasNext",
+          "evidence": "e101;e152"
+        },
+        {
+          "fact": "no taskId-to-fileNodeId/URL artifact fields declared",
+          "evidence": "e101;e152"
+        }
+      ],
+      "uncertainties": [
+        "time filter axis, format, timezone undeclared; single-side or paired usage undeclared",
+        "pageStart/pageSize bounds, ordering stability, total semantics undeclared",
+        "progressRate called percentage but enforced range undeclared",
+        "business code vs HTTP status layer mapping undeclared"
+      ]
+    },
+    {
+      "operation_id": "cn.vod.recording_urls",
+      "region": "domestic",
+      "source_doc_id": "3973",
+      "source_url": "https://open.ys7.com/help/3973",
+      "source_content_sha256": "45d8dd262d69fc1a0dc2d904cf1d4442824458f3959bc99562e85d787301610d",
+      "method": "POST",
+      "path": "/api/service/open/vod/file/address/hls",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "e39"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "e39"
+        },
+        {
+          "name": "localIndex",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "e39"
+        },
+        {
+          "name": "startTime",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "e39"
+        },
+        {
+          "name": "endTime",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "e39"
+        },
+        {
+          "name": "format",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "e39"
+        },
+        {
+          "name": "expireSeconds",
+          "location": "body",
+          "type": "Long",
+          "required": false,
+          "evidence": "e39"
+        },
+        {
+          "name": "spaceId",
+          "location": "body",
+          "type": "Long",
+          "required": false,
+          "evidence": "e39"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "e114;e138"
+      },
+      "read_only": false,
+      "constraints": [
+        {
+          "fact": "read_only=false is SDK replay-guard policy, NOT an official explicit write declaration; source does not explicitly state side-effect-free",
+          "evidence": "e1;e11"
+        },
+        {
+          "fact": "same parameters return same-segment address; idempotent, non-async per source",
+          "evidence": "e11"
+        },
+        {
+          "fact": "endTime-startTime must not exceed 48h; minimum interval undeclared",
+          "evidence": "e39"
+        },
+        {
+          "fact": "format required, values MP4/HLS",
+          "evidence": "e39"
+        },
+        {
+          "fact": "expireSeconds range 1..604800, server default 1800",
+          "evidence": "e39"
+        },
+        {
+          "fact": "spaceId omission uses default vod space",
+          "evidence": "e39"
+        },
+        {
+          "fact": "requires existing cloud recording for the period; managed/sub accounts unsupported; no enterprise-level requirement on this page",
+          "evidence": "e1;e160"
+        },
+        {
+          "fact": "response data is Array; field name stays hlsAddress even for MP4",
+          "evidence": "e114;e138"
+        }
+      ],
+      "uncertainties": [
+        "whether issuing an address creates server-side record or credential state undeclared",
+        "verbatim same-URL identity for identical params undeclared",
+        "expireTime format/timezone/unit undeclared",
+        "response field requiredness/nullability/ordering/segmentation undeclared",
+        "completed remux task as prerequisite not explicit; no taskId/fileNode binding",
+        "business code vs HTTP status layer mapping undeclared"
+      ]
     }
   ],
   "reviews": [

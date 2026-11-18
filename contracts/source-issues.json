@@ -1015,6 +1015,154 @@
       "status": "unresolved_source_semantics",
       "sdk_handling": "所有已给 selector 原样发送、优先级交服务端裁决；不虚构错误映射、单位、必填性或部分结果语义。",
       "evidence": []
+    },
+    {
+      "id": "cn.vod.remux_time_timezone",
+      "region": "domestic",
+      "source_doc_id": "3971",
+      "source_url": "https://open.ys7.com/help/3971",
+      "source_content_sha256": "4a292560130c343f7ca3f89a33da2c3cbf702dab9f60a97aa529d3bb5e609266",
+      "description": "startTime/endTime declared as yyyy-MM-dd HH:mm:ss with no timezone; SDK must not assume UTC/CST or auto-convert aware datetimes.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "serialize naive whole-second datetime as given; no timezone inference",
+      "evidence": [
+        "T2/R6/L56-61",
+        "T2/R7/L62-67"
+      ]
+    },
+    {
+      "id": "cn.vod.remux_space_identity",
+      "region": "domestic",
+      "source_doc_id": "3971",
+      "source_url": "https://open.ys7.com/help/3971",
+      "source_content_sha256": "4a292560130c343f7ca3f89a33da2c3cbf702dab9f60a97aa529d3bb5e609266",
+      "description": "spaceId vs resultSpaceId mapping to unified/legacy spaces, numeric ranges, and behavior when the default output space is unavailable are undeclared. resultSpaceId omission uses the default vodspace as explicitly documented. No taskId-to-fileNodeId/URL artifact mapping is declared.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "keep source/result spaces independent; never copy/fill/discover; no node or task artifact mapping",
+      "evidence": [
+        "3971 T2/R9/L76-81",
+        "3971 T2/R10/L82-87"
+      ]
+    },
+    {
+      "id": "cn.vod.remux_default_format",
+      "region": "domestic",
+      "source_doc_id": "3971",
+      "source_url": "https://open.ys7.com/help/3971",
+      "source_content_sha256": "4a292560130c343f7ca3f89a33da2c3cbf702dab9f60a97aa529d3bb5e609266",
+      "description": "Server default format when format omitted under busType 1/7 undeclared (71 omission resolved to MP4 only).",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "None omits the field; never inject MP4/HLS",
+      "evidence": [
+        "T2/R8/L68-75",
+        "L132",
+        "L143-144"
+      ]
+    },
+    {
+      "id": "cn.vod.remux_encrypted_condition",
+      "region": "domestic",
+      "source_doc_id": "3971",
+      "source_url": "https://open.ys7.com/help/3971",
+      "source_content_sha256": "4a292560130c343f7ca3f89a33da2c3cbf702dab9f60a97aa529d3bb5e609266",
+      "description": "validateCode required for encrypted devices but no request-visible protocol to determine encryption state.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "pass explicit caller value only; no probing, no unconditional enforcement",
+      "evidence": [
+        "T2/R11/L88-93"
+      ]
+    },
+    {
+      "id": "cn.vod.device_header_charset",
+      "region": "domestic",
+      "source_doc_id": "3971",
+      "source_url": "https://open.ys7.com/help/3971",
+      "source_content_sha256": "4a292560130c343f7ca3f89a33da2c3cbf702dab9f60a97aa529d3bb5e609266",
+      "description": "deviceSerial/localIndex declared only as String; charset, length, numeric range, default channel undeclared (same shape in 3973).",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK security choice: non-blank ASCII, reject control/DEL and edge whitespace, keep interior spaces, no numeric coercion",
+      "evidence": [
+        "T2/R3/L38-43",
+        "T2/R4/L44-49",
+        "3973:e39"
+      ]
+    },
+    {
+      "id": "cn.vod.task_status_semantics",
+      "region": "domestic",
+      "source_doc_id": "3972",
+      "source_url": "https://open.ys7.com/help/3972",
+      "source_content_sha256": "4ca347aedda382ddfa5b055452763ca70c131c7a4d3e4714f10c81b9549073f8",
+      "description": "taskStatus listed only as 0-7 range without value meanings on this page; progressRate unit/range undeclared; no artifact node/URL declared.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "return raw values; no is_done/ready derivation; do not copy labels from 4941 or cloud-recording 1.0",
+      "evidence": [
+        "T3/R5/L45-47",
+        "T3/R6/L48-50"
+      ]
+    },
+    {
+      "id": "cn.vod.task_encoding_difference",
+      "region": "domestic",
+      "source_doc_id": "3972",
+      "source_url": "https://open.ys7.com/help/3972",
+      "source_content_sha256": "4ca347aedda382ddfa5b055452763ca70c131c7a4d3e4714f10c81b9549073f8",
+      "description": "Two taskType encodings officially differ (detail 1+taskSubType 80/81/82 vs paging 7/8); no lossless normalization defined.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "no shared enum across endpoints; serialize and return each encoding as-is",
+      "evidence": [
+        "L60-62",
+        "L68-69",
+        "4941:e94-e95",
+        "5336:e221"
+      ]
+    },
+    {
+      "id": "cn.vod.tasks_time_filter",
+      "region": "domestic",
+      "source_doc_id": "4941",
+      "source_url": "https://open.ys7.com/help/4941",
+      "source_content_sha256": "8b8725427c2b7b0756e07ddbbdf07d2ccb0f243966cc673e276675916b9842c3",
+      "description": "startTime/endTime filter axis (task create vs recording time), format, timezone, pairing and span rules undeclared.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "raw non-blank UTF-8 strings, each independently omittable; no parsing, no span limits, no 48h/30d transplant",
+      "evidence": [
+        "e37",
+        "e170"
+      ]
+    },
+    {
+      "id": "cn.vod.tasks_pagination",
+      "region": "domestic",
+      "source_doc_id": "4941",
+      "source_url": "https://open.ys7.com/help/4941",
+      "source_content_sha256": "8b8725427c2b7b0756e07ddbbdf07d2ccb0f243966cc673e276675916b9842c3",
+      "description": "pageStart/pageSize numeric bounds, ordering stability and total semantics undeclared.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "int non-bool passthrough with None omission; no undocumented bounds; no auto-paging",
+      "evidence": [
+        "e37",
+        "e101",
+        "e152"
+      ]
+    },
+    {
+      "id": "cn.vod.recording_urls_semantics",
+      "region": "domestic",
+      "source_doc_id": "3973",
+      "source_url": "https://open.ys7.com/help/3973",
+      "source_content_sha256": "45d8dd262d69fc1a0dc2d904cf1d4442824458f3959bc99562e85d787301610d",
+      "description": "Read-only status not officially explicit; possible server-side record/credential issuance, verbatim URL stability, expireTime format/timezone, field requiredness and HTTP-vs-business error layer all undeclared.",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "read_only=false as root replay-guard design choice (no auto replay on 10002/errors/timeout); raw fields incl. hlsAddress/stopTime/expireTime preserved; no caching or probing of returned URLs",
+      "evidence": [
+        "e1",
+        "e11",
+        "e39",
+        "e114",
+        "e138",
+        "e141"
+      ]
     }
   ]
 }
