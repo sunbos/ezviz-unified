@@ -172,12 +172,12 @@
         "tools/live/verify_diagnostics.py",
         "tools/live/verify_diagnostics_async.py",
         "tests/test_live_diagnostics_async.py",
-        "tools/live/README.md"
+        "tools/live/README.md",
+        "docs/validation/2026-11-19-domestic-async-read/offline.json"
       ],
       "result": "pending_execution",
       "blockers": [
-        "异步验收执行器及其离线边界测试待验证。",
-        "尚无本次设备执行回执。当前进程无本地凭据。"
+        "本地异步执行器及相关边界测试已通过。真实联调仍需在用户本机隐藏输入凭据，并获得符合预算和固定六步判据的回执。"
       ],
       "capability_ids": [
         "contract:cn.token.get",
@@ -207,10 +207,10 @@
       ],
       "criterion_assessment": {
         "ASYNC-DESIGN": "met",
-        "ASYNC-GUARD-OFFLINE": "pending",
+        "ASYNC-GUARD-OFFLINE": "met",
         "ASYNC-LIVE": "pending",
         "ASYNC-DIAGNOSTIC": "pending",
-        "ASYNC-NEGATIVE-BOUNDARY": "pending",
+        "ASYNC-NEGATIVE-BOUNDARY": "met",
         "ASYNC-MATRIX-RECEIPT": "pending"
       }
     },
@@ -30420,7 +30420,7 @@
   ],
   "open_questions": [
     "Whether the current domestic device is still online and the device/account configuration has changed since 2026-11-16 is unconfirmed; prior evidence does not assert it.",
-    "Bounded async and CLI live scenarios (max requests/operations) are not yet designed; they must be frozen before execution.",
+    "Domestic async inspection is scoped to 7 HTTP calls and 6 business calls and has passed the verifier-only offline checks. A real run remains pending. The separate six-CLI live scenario still needs formal admission.",
     "Overseas device read-only acceptance is awaiting_resource_confirmation with resource_state=user_confirmed_no_bound_device (user confirmed on 2026-11-17 the account currently has no bound device); the account cluster and device-visible permissions remain unconfirmed, and no device/account values are fabricated.",
     "Platform message push requires enabled service, reachable callback, independent secret, target type, and trigger authorization; resource_state=unknown_awaiting_configuration_check because the user stated on 2026-11-17 they do not know the platform message service or which callback entry is usable. Dedup/redelivery semantics must be defined before execution. Domestic header 't' timestamp unit is confirmed milliseconds (5130); the overseas 't' unit, freshness window, the 2s vs ~5s timeout conflict, and ciphertext wording remain unconfirmed. Configuration side effects (App reminder stop, ~2h delay, console test temporarily suspending the original callback) need explicit authorization beyond the prior read-only scope.",
     "Release version is undetermined. PyPI account/permissions and upload authorization are unconfirmed; no upload has been executed. The 2026-11-17 public-page 404 only reflects that-moment visibility and does not guarantee name availability. Account/Trusted Publisher may be prepared now (https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/) and the first authorized upload creates the project; the user is not required to provide a token now.",

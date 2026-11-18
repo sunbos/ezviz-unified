@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "case_id": "ACC-CN-ASYNC-READONLY-001",
+  "scope": "offline_runner_validation_only",
+  "code_commit": "64c843a8c32605a0773498c217f42cb49908b2e4",
+  "source_test_sha256": {
+    "tests/test_live_diagnostics_async.py": "e3354550487acdf0af2974bca5ba1747ddaf83a28436625248366096e2ef4a1f",
+    "tools/live/verify_diagnostics.py": "61dcb57539a300a5748f347f82476edb76a3a4a9256128039311948b367e7b88",
+    "tools/live/verify_diagnostics_async.py": "961fb2e0f34c36fe85bb4f075fd71397283fc1817d6a754c2d1c0f2e6243dc0e"
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_live_diagnostics.py tests/test_live_diagnostics_async.py",
+      "local_receipt_sha256": "3ed785e65dc2dcbee39e0ac8b4c426fea13ef51df0d938c613c87ecaffccd3af",
+      "tool_error": false,
+      "summary": "170 passed in 1.04s"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "local_receipt_sha256": "ee8343d6cf9984fa4396a5fdfa07b6c70b8ec37ec2f5c1713f64bf82e865b4e0",
+      "tool_error": false,
+      "summary": "7309 passed, 35 subtests passed in 62.87s (0:01:02)"
+    },
+    {
+      "command": ".venv/bin/python -m ruff check --fix tools/live/verify_diagnostics_async.py",
+      "local_receipt_sha256": "c13ea53a3a045ef073026453aaacf29fdbaf8e230252356da5e17776e9831c95",
+      "tool_error": false,
+      "summary": "Found 1 error (1 fixed, 0 remaining)."
+    },
+    {
+      "command": ".venv/bin/python -m tools.live.verify_diagnostics_async --help",
+      "local_receipt_sha256": "cff0b64e9dbe90640d1e5cd3c5d5b6adc8167105d0f6e157490259f93422f705",
+      "tool_error": false,
+      "summary": "help exited normally with no SDK call"
+    }
+  ],
+  "live_executed": false,
+  "limits": "只证明模拟传输、请求上限、诊断投影与本地隐藏输入/输出保护；实际账号、设备和异步业务响应待联调。"
+}

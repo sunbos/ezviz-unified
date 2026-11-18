@@ -42,7 +42,7 @@
     "acceptance": {
       "path": "docs/validation/sdk-product-acceptance.json",
       "schema": 1,
-      "sha256": "4ef4fdfa6edbb7a1c7514a8973d4ff56de6583488db57815bfbb25e520d3a73e"
+      "sha256": "6f0c9cdad2de505568f42d36518f9ea2b3486c09e908a72c0027ea816df42f48"
     },
     "plan_scope_register": {
       "path": "docs/plans/2026-11-17-capability-scope-register.md",
@@ -130,6 +130,11 @@
       "path": "docs/coordination/domestic-async-read/admission.json",
       "schema": 1,
       "sha256": "101542c050c76f33a28836a589a6df916f0458d7503d9b77899243db8208989f"
+    },
+    "domestic_async_runner_offline": {
+      "path": "docs/validation/2026-11-19-domestic-async-read/offline.json",
+      "schema": 1,
+      "sha256": "8895b4cf432ab73e5625091b88c3ed5f4b79af154ca4d7cefab0643a06284456"
     }
   },
   "scope_state": {
