@@ -12907,19 +12907,28 @@
         "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
         "企业版 totalFlow 的实际取值未规定。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "等待实现与独立验收回执。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/traffic.py",
+        "tests/test_sdk_traffic.py",
+        "evals/contracts/cases.json",
+        "examples/traffic_usage.py",
+        "tests/test_example_traffic_usage.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "WIRE": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "DOCUMENTATION": "pending"
-      }
+        "WIRE": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "DOCUMENTATION": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "1b2a373159e4441dae74dd29eced5884613d200a",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-traffic/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1425-D0-OFFLINE-001",
@@ -12968,19 +12977,28 @@
         "平台时区、日期窗口与分页末页行为未实测。",
         "同页示例 startTime 晚于 endTime；表格未规定客户端应拒绝或交换。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "等待实现与独立验收回执。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/traffic.py",
+        "tests/test_sdk_traffic.py",
+        "evals/contracts/cases.json",
+        "examples/traffic_usage.py",
+        "tests/test_example_traffic_usage.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "WIRE": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "DOCUMENTATION": "pending"
-      }
+        "WIRE": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "DOCUMENTATION": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "1b2a373159e4441dae74dd29eced5884613d200a",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-traffic/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1426-D0-OFFLINE-001",
@@ -13028,19 +13046,28 @@
         "账户实际权限、平台无流量时的响应及型号或套餐差异尚未实测。",
         "平台时区、日期窗口与分页末页行为未实测。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "等待实现与独立验收回执。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/traffic.py",
+        "tests/test_sdk_traffic.py",
+        "evals/contracts/cases.json",
+        "examples/traffic_usage.py",
+        "tests/test_example_traffic_usage.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "WIRE": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "DOCUMENTATION": "pending"
-      }
+        "WIRE": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "DOCUMENTATION": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "1b2a373159e4441dae74dd29eced5884613d200a",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-traffic/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1427-D0-OFFLINE-001",
@@ -13089,19 +13116,28 @@
         "平台时区、日期窗口与分页末页行为未实测。",
         "同页示例 startTime 晚于 endTime；表格未规定客户端应拒绝或交换。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "等待实现与独立验收回执。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/traffic.py",
+        "tests/test_sdk_traffic.py",
+        "evals/contracts/cases.json",
+        "examples/traffic_usage.py",
+        "tests/test_example_traffic_usage.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "WIRE": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "DOCUMENTATION": "pending"
-      }
+        "WIRE": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "DOCUMENTATION": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "1b2a373159e4441dae74dd29eced5884613d200a",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-traffic/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1595-D0-OFFLINE-001",

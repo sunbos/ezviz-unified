@@ -3000,7 +3000,7 @@
         "AsyncTraffic.account_summary"
       ],
       "public_entry": "traffic.account_summary",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3013,7 +3013,7 @@
         "AsyncTraffic.account_details"
       ],
       "public_entry": "traffic.account_details",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3026,7 +3026,7 @@
         "AsyncTraffic.day_details"
       ],
       "public_entry": "traffic.day_details",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3039,7 +3039,7 @@
         "AsyncTraffic.device_details"
       ],
       "public_entry": "traffic.device_details",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
