@@ -613,18 +613,29 @@ def _report_allowed(result: object) -> bool:
     return True
 
 
-def _unlink_if_same(path: str, identity) -> None:
-    """Remove ``path`` only while it still names the inode we opened.
+def _unlink_if_same(path: str, owner: int) -> None:
+    """Remove ``path`` only while it still names the inode we hold open.
 
+    ``owner`` is the still-open descriptor ``_open_output_exclusive``
+    returned; ``fstat`` on it names our inode even after the path was
+    swapped, and keeping it open until this point means a freed inode
+    number can never be recycled onto a replacement we would then delete.
     ``lstat`` is used deliberately: if the path was replaced by a symlink
     to our inode (or to anything else) after we opened it, the link itself
-    is a different inode and is left untouched — never the target.
+    is a different inode and is left untouched — never the target. The
+    compare runs immediately before the unlink; it narrows but cannot
+    remove the check/unlink gap on POSIX.
     """
+    try:
+        held = os.fstat(owner)
+    except OSError:
+        # The owner is not verifiable: never touch the path.
+        return
     try:
         current = os.lstat(path)
     except OSError:
         return
-    if (current.st_dev, current.st_ino) == identity:
+    if (current.st_dev, current.st_ino) == (held.st_dev, held.st_ino):
         try:
             os.unlink(path)
         except OSError:
@@ -634,12 +645,12 @@ def _unlink_if_same(path: str, identity) -> None:
 def _open_output_exclusive(path: str):
     """Create ``path`` as a brand-new 0600 regular file; never overwrite.
 
-    Returns ``(file_object, (st_dev, st_ino))`` so the caller can later
-    unlink only the very inode it opened — never a path a user replaced.
-    A failed ``fstat`` leaves any unverifiable path in place rather than
-    risking removal of a swapped-in foreign file; once the inode identity
-    is confirmed, a later ``fdopen`` failure cleans up through
-    ``_unlink_if_same`` only.
+    Returns ``(write_stream, owner_fd)`` on two distinct live descriptors:
+    the stream owns ``fd`` (fdopen default ``closefd=True``), while
+    ``owner_fd`` is a separate ``os.dup`` of the verified descriptor that
+    pins our inode for ``_unlink_if_same`` even after the stream closes.
+    A failed ``fstat`` or rejected shape leaves the path in place rather
+    than risking removal of a swapped-in foreign file.
     """
     fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
     try:
@@ -651,13 +662,24 @@ def _open_output_exclusive(path: str):
     if not stat.S_ISREG(info.st_mode) or stat.S_IMODE(info.st_mode) != 0o600:
         os.close(fd)
         raise ValueError("output must be a new regular file")
-    identity = (info.st_dev, info.st_ino)
     try:
-        return os.fdopen(fd, "w", encoding="utf-8"), identity
+        owner = os.dup(fd)
     except BaseException:
+        _unlink_if_same(path, fd)
         os.close(fd)
-        _unlink_if_same(path, identity)
         raise
+    try:
+        stream = os.fdopen(fd, "w", encoding="utf-8")
+    except BaseException:
+        # The owner still pins our inode: compare-and-unlink while it is
+        # valid, then release both descriptors exactly once.
+        _unlink_if_same(path, owner)
+        try:
+            os.close(owner)
+        finally:
+            os.close(fd)
+        raise
+    return stream, owner
 
 
 def _read_credentials() -> dict[str, str]:
@@ -724,15 +746,16 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     stream = None
     written = False
-    output_identity = None
+    output_fd: int | None = None
     if args.output is not None:
         try:
-            stream, output_identity = _open_output_exclusive(args.output)
+            stream, output_fd = _open_output_exclusive(args.output)
         except BaseException:
             sys.stderr.write(_FATAL_MESSAGE)
             return 1
     config: dict[str, str] | None = None
     close_error = False
+    exit_code = 1
     try:
         config = _read_credentials()
         try:
@@ -761,7 +784,7 @@ def main(argv: list[str] | None = None) -> int:
             if close_error:
                 raise ValueError("verification stopped") from None
             written = True
-        return 0 if result["outcome"] == "passed" else 1
+        exit_code = 0 if result["outcome"] == "passed" else 1
     except (KeyboardInterrupt, SystemExit):
         raise
     except BaseException:
@@ -773,12 +796,29 @@ def main(argv: list[str] | None = None) -> int:
         if stream is not None:
             try:
                 stream.close()
-            except BaseException:
+            except Exception:
                 pass
-        if not written and args.output is not None and output_identity is not None:
-            # Only ever unlink the exact inode this run opened; a file the
-            # user put in its place afterwards is left untouched.
-            _unlink_if_same(args.output, output_identity)
+        if output_fd is not None:
+            # The distinct owner descriptor stayed open the whole run, so
+            # its inode was never freed for a swapped-in replacement to
+            # inherit — independent of when the stream closed its own fd.
+            # On an unfinished run, compare the live owner against the path
+            # right before unlinking — a file the user put in our place is
+            # left untouched — then release the owner exactly once.
+            try:
+                if not written and args.output is not None:
+                    _unlink_if_same(args.output, output_fd)
+            finally:
+                try:
+                    os.close(output_fd)
+                except OSError:
+                    # A failed owner release must not leave the run
+                    # reporting success; only an otherwise-clean run gets
+                    # the fixed error line, and the close is never retried.
+                    if exit_code == 0:
+                        sys.stderr.write(_FATAL_MESSAGE)
+                    exit_code = 1
+    return exit_code
 
 
 if __name__ == "__main__":

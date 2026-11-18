@@ -1,7 +1,9 @@
 import asyncio
+import errno
 import getpass
 import io
 import json
+import os
 import stat
 import sys
 import warnings
@@ -1554,3 +1556,84 @@ def test_output_file_replaced_before_write_failure_is_never_unlinked(monkeypatch
     assert "PRIVATE" not in out + err
     # The replacement file is not this run's artifact: it must survive.
     assert destination.read_text(encoding="utf-8") == "ORIGINAL"
+
+
+def test_output_owner_names_our_file_while_stream_is_closed(tmp_path):
+    """Closing the data stream leaves ``owner`` naming our inode."""
+    path = tmp_path / "report.json"
+    stream, owner = verify_diagnostics_async._open_output_exclusive(str(path))
+    try:
+        stream.close()
+        assert os.path.samestat(os.fstat(owner), os.stat(path))
+    finally:
+        os.close(owner)
+
+
+@pytest.mark.parametrize("valid", [True, False])
+def test_output_owner_fd_outlives_run_then_is_released(monkeypatch, tmp_path, valid):
+    """The owner fd outlives stream use and is closed exactly once at the end.
+
+    The wrapper records the descriptor but returns the real stream/owner
+    unchanged, so the tested lifetime is ``main``'s own guarantee: a valid
+    report exits 0 leaving the file, an invalid one exits 1 and unlinks
+    it — and in both cases the captured fd is dead (EBADF), never leaked.
+    """
+    destination = tmp_path / "report.json"
+    captured = []
+    real_open = verify_diagnostics_async._open_output_exclusive
+
+    def wrapped_open(path):
+        stream, owner = real_open(path)
+        captured.append(owner)
+        return stream, owner
+
+    monkeypatch.setattr(verify_diagnostics_async, "_open_output_exclusive", wrapped_open)
+    code, _entered, _calls = _run_prompt(
+        monkeypatch,
+        ["--prompt", "--output", str(destination)],
+        verify_result=_passed_verify_result() if valid else {},
+    )
+    assert code == (0 if valid else 1)
+    assert destination.exists() is valid
+    assert len(captured) == 1
+    with pytest.raises(OSError) as excinfo:
+        os.fstat(captured[0])
+    assert excinfo.value.errno == errno.EBADF
+
+
+def test_output_owner_fd_close_error_is_a_safe_failure(monkeypatch, tmp_path, capsys):
+    """An ``os.close`` fault on the owner fd is a safe failure, never a pass.
+
+    The ``_open_output_exclusive`` wrapper only records the owner descriptor;
+    the ``os.close`` wrapper really closes it and then raises ``OSError`` for
+    that single descriptor. A suppressed close error would let ``main``
+    return 0, so the regression asserts nonzero with a fixed, secret-free
+    stderr — no raw exception text ever reaches the user.
+    """
+    destination = tmp_path / "report.json"
+    captured = []
+    real_open = verify_diagnostics_async._open_output_exclusive
+
+    def wrapped_open(path):
+        stream, owner = real_open(path)
+        captured.append(owner)
+        return stream, owner
+
+    real_close = os.close
+
+    def wrapped_close(fd):
+        real_close(fd)
+        if captured and fd == captured[0]:
+            raise OSError("PRIVATE_CLOSE")
+
+    monkeypatch.setattr(verify_diagnostics_async, "_open_output_exclusive", wrapped_open)
+    monkeypatch.setattr(os, "close", wrapped_close)
+    code, _entered, _calls = _run_prompt(
+        monkeypatch,
+        ["--prompt", "--output", str(destination)],
+        verify_result=_passed_verify_result(),
+    )
+    assert code == 1
+    out, err = capsys.readouterr()
+    assert out == ""
+    assert err.strip() and "Traceback" not in err and "PRIVATE" not in err
