@@ -186,13 +186,16 @@ try {
   pwVersion = String(require('playwright-core/package.json').version || 'unknown');
 } catch (e) { /* surfaces as a startup failure in the receipt */ }
 
+// null below means "never measured": a failed run reports null for phases
+// that produced no observation rather than asserting an invented zero. The
+// net counters stay real numbers -- they are actual counts at any point.
 const receipt = {
   result: 'fail', stage: 'startup', browser: 'unknown', pw: pwVersion,
-  versionOk: false, versionReported: 'absent', bundleVerified: false,
-  video: { w: 0, h: 0 }, frames: { n: 0, mediaDeltaMs: 0 }, decoder: 'absent',
-  life: { constructed: 0, pause: 0, destroy: 0, detached: false, stopped: false, mediaStable: false },
-  pos: { manifest: 0, segments: 0, addressFetches: 0, playing: false },
-  neg: { failed: false, mediaBefore: 0, constructed: 0, addressFetches: 0, mediaDelta: 0, refetch: 0 },
+  versionOk: null, versionReported: 'absent', bundleVerified: null,
+  video: { w: null, h: null }, frames: { n: null, mediaDeltaMs: null }, decoder: 'absent',
+  life: { constructed: null, pause: null, destroy: null, detached: null, stopped: null, mediaStable: null },
+  pos: { manifest: null, segments: null, addressFetches: null, playing: null },
+  neg: { failed: null, mediaBefore: null, constructed: null, addressFetches: null, mediaDelta: null, refetch: null },
   net: { unexpected: 0, ws: 0, cspBlocked: 0 },
 };
 
@@ -328,6 +331,14 @@ const run = async () => {
     receipt.frames = { n: m.n | 0, mediaDeltaMs: Math.round(m.delta * 1000) };
   }
   if (!(m && m.n >= 2 && m.delta >= 0.15 && m.w === 320 && m.h === 180)) throw new Error('x');
+  // Presented frames (requestVideoFrameCallback) and the vendor's
+  // timeupdate-driven UI state advance on different cadences: wait for both
+  // real markers so ordering is not a race, then still require the actual
+  // values below.
+  await page.waitForSelector('#status[data-state="playing"]', { state: 'attached', timeout: 5000 });
+  await page.waitForFunction(
+    () => document.querySelector('#player')?.dataset.decoder === 'hard',
+    null, { timeout: 5000 });
   const dec = await page.evaluate(decoderOf).catch(() => '');
   receipt.decoder = dec === '' ? 'absent' : (dec === 'hard' ? 'hard' : 'other');
   receipt.pos.playing = (await page.evaluate(stateOf).catch(() => '')) === 'playing';
@@ -421,6 +432,14 @@ const run = async () => {
     receipt.net.unexpected = counts.unexpected;
     receipt.net.ws = counts.ws;
     receipt.net.cspBlocked = counts.cspBlocked;
+    // Count-backed fields whose measurement was never reached take the actual
+    // observed counters (a real zero is reported as zero); every other
+    // unmeasured field stays null. Success values are already assigned above
+    // and remain identical.
+    if (receipt.pos.manifest === null) receipt.pos.manifest = counts.manifest;
+    if (receipt.pos.segments === null) receipt.pos.segments = counts.segment;
+    if (receipt.pos.addressFetches === null) receipt.pos.addressFetches = counts.sdk;
+    if (receipt.neg.addressFetches === null) receipt.neg.addressFetches = counts.negSdk;
     if (receipt.net.unexpected !== 0 || receipt.net.ws !== 0 || receipt.net.cspBlocked !== 0) {
       receipt.result = 'fail';
       if (receipt.stage === 'done') receipt.stage = 'network';
