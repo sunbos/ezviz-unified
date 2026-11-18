@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "input_commit": "c8f6247b6268e47cab2d80d21a96b190d37d5595",
+  "operator_authorization": "用户已明确同意三项国内主账号流量查询，同步、异步各一次；暂不查设备。",
+  "live_executed": false,
+  "eligible_case_ids": [
+    "ACC-CANDIDATE-CN-1424-D0-LIVE-001",
+    "ACC-CANDIDATE-CN-1425-D0-LIVE-001",
+    "ACC-CANDIDATE-CN-1426-D0-LIVE-001"
+  ],
+  "command": "python -m tools.live.verify_traffic_usage --prompt",
+  "profiles": [
+    {
+      "operation": "traffic.account_summary",
+      "mode": "sync",
+      "data_type": "object",
+      "page_start": null,
+      "page_size": null
+    },
+    {
+      "operation": "traffic.account_summary",
+      "mode": "async",
+      "data_type": "object",
+      "page_start": null,
+      "page_size": null
+    },
+    {
+      "operation": "traffic.account_details",
+      "mode": "sync",
+      "data_type": "array",
+      "page_start": 0,
+      "page_size": 1
+    },
+    {
+      "operation": "traffic.account_details",
+      "mode": "async",
+      "data_type": "array",
+      "page_start": 0,
+      "page_size": 1
+    },
+    {
+      "operation": "traffic.day_details",
+      "mode": "sync",
+      "data_type": "array",
+      "page_start": 0,
+      "page_size": 1
+    },
+    {
+      "operation": "traffic.day_details",
+      "mode": "async",
+      "data_type": "array",
+      "page_start": 0,
+      "page_size": 1
+    }
+  ],
+  "max_http": 12,
+  "max_business": 6,
+  "wire": "每项均新建客户端，仅放行一次国内认证，随后放行本项唯一业务路径、POST 表单、合法原点及请求头。三个业务路径精确对应准入表。汇总仅 accessToken；两个明细仅 accessToken、pageStart=0、pageSize=1。禁止查询设备、发现、翻页、源切换、验证重试及额外 token 刷新。首个失败后停止，保留实际计数与未执行项。",
+  "privacy": "本机 TTY 双 getpass。凭据不由 argv、环境、模型或文件提供。复用现有验收传输的 TLS 日志拦截与请求头检查。回执只记录固定操作/模式、状态、实际放行的 HTTP 次数和 object/array 类型；不读取并输出金额、字节数、列表长度、通道内容、原始错误或标识。无自动日志或文件写入。",
+  "pass_criteria": "每项通过须原公共方法成功、返回约定的 data 类型、完成关闭、两条有序路由放行且无拒绝。每个真实 case 需该项两种模式均通过。平台服务或权限错误仅记 failed，不推断原因。",
+  "device_live": "1427 未获本批授权，不调用；真实 case 保持待资源/范围确认。"
+}
