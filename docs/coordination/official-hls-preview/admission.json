@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "case_id": "ACC-MEDIA-HLS-H264-LOCAL-001",
+  "parent_case": "ACC-MEDIA-OFFICIAL-INTEGRATION-001",
+  "baseline_commit": "f924d2e6aff54dcf53ef8af5c7403534ab3b8a74",
+  "scope_revision": "2026-11-19-r23-official-hls-preview",
+  "component": {
+    "package": "@ezuikit/player-hls",
+    "version": "2.0.0",
+    "sha256": "8f7de1d2c96d310025e4d72a1221176d2584f5c98b6fc858dfd9daccca5087c9",
+    "artifact_ref": "docs/capabilities/official-component-artifacts-2026-11-17.json",
+    "members": [
+      "package/dist/index.umd.js",
+      "package/dist/style/css.css",
+      "package/dist/decoder.worker.js",
+      "package/dist/decoder.wasm"
+    ]
+  },
+  "sdk": {
+    "public_entry": "Client.playback.create",
+    "operation_id": "cn.playback.create",
+    "region": "domestic",
+    "options": {
+      "channel": 1,
+      "protocol": 2,
+      "kind": 1
+    },
+    "url_path": "data.url",
+    "source": {
+      "source_id": "portal-2026-11-17:domestic:1414",
+      "content_sha256": "2bfe50f2aab9caded4b129a904011d1526b65791c15fca83c3a1605675d21df3"
+    },
+    "mock_http_limit": 2,
+    "real_platform_requests": 0
+  },
+  "interface": {
+    "example": "python -m examples.hls_preview --archive PATH [--port 0]",
+    "verification": "node tools/media/verify_hls.cjs --base http://127.0.0.1:PORT",
+    "page": "仅显式启动，绑定 127.0.0.1。只从校验通过的归档读取列出的文件，拒绝其他路径与 Host。用 ffmpeg 在临时目录生成固定 320×180 H.264 合成 HLS 片。无平台凭据、真实 URL 参数、实际设备或媒体。",
+    "issuance": "使用真实国内 Client 与 MockTransport，验证 token/get 与 /api/lapp/v2/live/address/get 的 form，返回受控的本机 /media/preview.m3u8。只把 URL 交给浏览器，关闭 SDK 客户端。无地址作废或额外签发。",
+    "browser": "点击播放，网页从同源 /preview.json 获得本机 URL，用 UMD HlsPlayer 构造真实实例。选择 hard、isEzviz:false、disableCollect:true、muted:true、volume:0，staticPath 指向自托管 vendor 目录。停止调用 pause() 与 destroy()。页面不打印 URL 或异常原文。",
+    "distribution": "源代码、文档、可选 Playwright 检查与本地运行说明在仓库中提供，官方资产、媒体、浏览器和 npm 工具不装入 SDK wheel/sdist。冻结归档身份与新执行证据分开保留。"
+  },
+  "criteria": [
+    "在独立 Chromium/Chrome 会话中实际播放自生成的 H.264 HLS；测量 HTMLVideoElement 正尺寸匹配 320×180，多个已呈现/解码的帧，媒体时间递增。记录实际浏览器与本地工具版本。",
+    "允许的页面资源均来自同一 127.0.0.1 原点；对页面 HTTP/WebSocket 外联进行拦截计数，任何外部尝试判失败。CSP 限制页面；不据此推断浏览器自身后台服务。",
+    "通过真实方法调用验证 pause/destroy，媒体元素释放，观察窗内媒体请求不再增加。失败用例提供缺失/无效地址，验证在创建实例或访问媒体之前安全结束，不自动重取地址。",
+    "本地硬解分支是组件对 MSE/video 的命名，不证明硬件加速。有限合成片成功不证明云直播时延、真实设备/媒体、H.265/WASM 或 RTC。"
+  ],
+  "still_required": [
+    "真实国内 HLS 预览另待明确设备、通道、签发、时长、媒体访问和可能影响的授权。",
+    "H.265、RTC、海外、原生客户端等须分别核定与验证。"
+  ]
+}

@@ -510,13 +510,20 @@
       "authorization_status": "n/a",
       "recovery_plan": "n/a",
       "source_refs": [
-        "docs/research/2026-11-15-official-ecosystem-reuse.md"
+        "docs/research/2026-11-15-official-ecosystem-reuse.md",
+        "docs/coordination/official-hls-preview/admission.json"
       ],
-      "code_artifact_evidence_refs": [],
+      "code_artifact_evidence_refs": [
+        "docs/coordination/official-hls-preview/admission.json"
+      ],
       "result": "awaiting_design",
       "blockers": [
-        "No integration plan yet; playback/codec/RTC engine remain official-component scope, not SDK rewrites. Token types must not be conflated."
-      ]
+        "国内 H.264 HLS 子场景已冻结；该父场景还包括未冻结的其他播放器、编解码与 RTC 集成。"
+      ],
+      "criterion_assessment": {
+        "HLS-PATH-DESIGN": "met",
+        "OTHER-COMPONENT-SCOPES": "pending"
+      }
     },
     {
       "case_id": "ACC-WRITE-OPERATIONS-001",
@@ -31144,6 +31151,112 @@
       "limitations": [
         "同目标读取 line 与 direction 对象，保留坐标原文，不因有返回就认定可安全回滚。",
         "适用的实际型号、账号权限与平台实际返回待独立核实。"
+      ]
+    },
+    {
+      "case_id": "ACC-MEDIA-HLS-H264-LOCAL-001",
+      "tier": "required",
+      "case_origin": "official_hls_frozen_before_execution",
+      "template_case_id": "ACC-MEDIA-OFFICIAL-INTEGRATION-001",
+      "capability_selector": "国内 HLS 预览通过官方 player-hls 2.0.0 的 本机真实浏览器集成",
+      "capability_ids": [
+        "integration:media.domestic_hls_preview"
+      ],
+      "operation_ids": [
+        "cn.playback.create"
+      ],
+      "scope_revision": "2026-11-19-r23-official-hls-preview",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "纯合成 SDK 传输，无凭据。",
+      "device_requirements": "本机 Chrome 与自生成 320×180 H.264 媒体。",
+      "surface": [
+        "sync",
+        "official_component",
+        "browser"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "docs/coordination/official-hls-preview/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "官方播放器实测帧数、媒体时间、尺寸和生命周期；只输出安全投影。",
+        "write": "无真实地址签发。",
+        "physical": "无设备效果判定。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false,
+        "bound_definition": "真实外部平台请求和操作；本机浏览器使用本地媒体。"
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "停止服务、销毁播放器并关闭临时浏览器。",
+      "source_refs": [
+        "docs/coordination/official-hls-preview/admission.json",
+        "docs/capabilities/official-component-artifacts-2026-11-17.json",
+        "docs/research/2026-11-15-official-ecosystem-reuse.md"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "pending_execution",
+      "blockers": [
+        "待实施与浏览器实测。"
+      ],
+      "limitations": [
+        "本案例不代替 H.265、RTC、海外或原生组件验收。"
+      ]
+    },
+    {
+      "case_id": "ACC-MEDIA-HLS-H264-PLATFORM-001",
+      "tier": "required",
+      "case_origin": "official_hls_frozen_before_execution",
+      "template_case_id": "ACC-MEDIA-OFFICIAL-INTEGRATION-001",
+      "capability_selector": "国内 HLS 预览通过官方 player-hls 2.0.0 的 单设备平台媒体验收",
+      "capability_ids": [
+        "integration:media.domestic_hls_preview"
+      ],
+      "operation_ids": [
+        "cn.playback.create"
+      ],
+      "scope_revision": "2026-11-19-r23-official-hls-preview",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "另行明确地址签发、授权设备和浏览器消费媒体的权限。",
+      "device_requirements": "已有授权且支持 HLS 的设备和通道。",
+      "surface": [
+        "sync",
+        "official_component",
+        "browser"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "docs/coordination/official-hls-preview/admission.json"
+      ],
+      "expected_evidence": {
+        "read": "官方播放器实测帧数、媒体时间、尺寸和生命周期；只输出安全投影。",
+        "write": "单独限定真实地址签发、有效期与处置方案，不自动重试或作废。",
+        "physical": "仅对已批准的视频来源和场景核对预览。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true,
+        "bound_definition": "真实外部平台请求和操作；本机浏览器使用本地媒体。"
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "签发前确定媒体权限、时长及终止方式；需要作废时另定范围。",
+      "source_refs": [
+        "docs/coordination/official-hls-preview/admission.json",
+        "docs/capabilities/official-component-artifacts-2026-11-17.json",
+        "docs/research/2026-11-15-official-ecosystem-reuse.md"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "现有授权仅涵盖三项账号流量查询，不包括地址签发和媒体访问。"
+      ],
+      "limitations": [
+        "本案例不代替 H.265、RTC、海外或原生组件验收。"
       ]
     }
   ],
