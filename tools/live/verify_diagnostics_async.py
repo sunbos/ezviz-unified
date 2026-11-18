@@ -45,7 +45,9 @@ from tools.live.verify_diagnostics import (
     _BoundaryRejection,
     _credentials,
     _fields_allowed,
+    _headers_allowed,
     _RequestBudget,
+    _require_private_tls,
     _url_origin_ok,
 )
 
@@ -105,6 +107,7 @@ _STEP_LABEL_LIST = tuple(label for _entrypoint, label in _STEP_LABELS)
 
 def _new_delegate_transport() -> httpx.AsyncBaseTransport:
     """Real one-shot async delegate; tests may monkeypatch this factory."""
+    _require_private_tls()
     return httpx.AsyncHTTPTransport(retries=0, trust_env=False)
 
 
@@ -125,6 +128,8 @@ def _request_shape_ok(request: httpx.Request) -> bool:
     streaming/chunked bodies are never consumed by this guard) all reject
     the request before it reaches the delegate.
     """
+    if not _headers_allowed(request):
+        return False
     if request.method != "POST":
         return False
     url = request.url

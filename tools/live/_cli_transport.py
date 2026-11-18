@@ -18,12 +18,19 @@ from tools.live.verify_diagnostics import (
     _BoundaryRejection,
     _fields_allowed,
     _RequestBudget,
+    _require_private_tls,
     _url_origin_ok,
+)
+from tools.live.verify_diagnostics import (
+    _new_delegate_transport as _sync_delegate,
 )
 from tools.live.verify_diagnostics_async import (
     _ROUTE_LABELS,
     _ROUTE_ORDER,
     _request_shape_ok,
+)
+from tools.live.verify_diagnostics_async import (
+    _new_delegate_transport as _async_delegate,
 )
 
 MODULES = (
@@ -38,14 +45,6 @@ _LIST = _ROUTE_ORDER[:2]
 _DEVICE = (_ROUTE_ORDER[0],) + _ROUTE_ORDER[2:]
 _PROFILE_ROUTES = {m: _DEVICE if ".inspection_" in m else _LIST for m in MODULES}
 _TIMEOUT = 10
-
-
-def _sync_delegate() -> httpx.BaseTransport:
-    return httpx.HTTPTransport(retries=0, trust_env=False)
-
-
-def _async_delegate() -> httpx.AsyncBaseTransport:
-    return httpx.AsyncHTTPTransport(retries=0, trust_env=False)
 
 
 class ProfileGuard:
@@ -118,10 +117,9 @@ class ProfileGuard:
             raise _BoundaryRejection("request budget exhausted")
         self.labels.append(_ROUTE_LABELS[route])
 
-    def _wrap(self, delegate: object = None) -> object:
-        if self._async:
-            return _AsyncGuardedTransport(self, delegate or _async_delegate())
-        return _SyncGuardedTransport(self, delegate or _sync_delegate())
+    def _wrap(self) -> httpx.BaseTransport | httpx.AsyncBaseTransport:
+        """Auth transport through the same guarded constructor path."""
+        return self._guarded()
 
     def _check_origin(self, origin: str) -> None:
         """transport_factory gate: only an allowlisted root origin may spawn a delegate."""
@@ -139,13 +137,30 @@ class ProfileGuard:
             self._rejected = True
             raise _BoundaryRejection("non-domestic transport origin")
 
+    def _guarded(self) -> httpx.BaseTransport | httpx.AsyncBaseTransport:
+        """The one delegate-construction path for auth and business transports.
+
+        A latched guard never delegates again; an armed ``SSLKEYLOGFILE``
+        latches the guard and refuses before any real transport is built.
+        """
+        if self._rejected:
+            raise _BoundaryRejection("guard latched rejected")
+        try:
+            _require_private_tls()
+        except _BoundaryRejection:
+            self._rejected = True
+            raise
+        if self._async:
+            return _AsyncGuardedTransport(self, _async_delegate())
+        return _SyncGuardedTransport(self, _sync_delegate())
+
     def _build_sync(self, origin: str) -> httpx.BaseTransport:
         self._check_origin(origin)
-        return _SyncGuardedTransport(self, _sync_delegate())
+        return self._guarded()
 
     def _build_async(self, origin: str) -> httpx.AsyncBaseTransport:
         self._check_origin(origin)
-        return _AsyncGuardedTransport(self, _async_delegate())
+        return self._guarded()
 
 
 class _SyncGuardedTransport(httpx.BaseTransport):
