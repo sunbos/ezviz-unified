@@ -20,6 +20,7 @@ _SENSITIVE_KEYS = (
     "secret",
     "password",
     "deviceSerial",
+    "detectorSerial",
     "verifyCode",
     "validateCode",
     "refresh_token",

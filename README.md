@@ -69,6 +69,26 @@ python -m examples.device_timezone --mode async
 {"region": "overseas", "mode": "async", "status": "ok", "time_zone_present": true}
 ```
 
+### 海外 A1 探测器清单
+
+同步调用 `client.detectors`，异步调用 `async_client.detectors` 并加 `await`。每个方法只发起一次逻辑查询。SDK 向令牌返回的 `areaDomain` 发送 POST 表单；`accessToken` 由客户端注入，`deviceSerial` 指定 A1 主机。[海外接口文档 481](https://open.ys7.com/help/en/481)
+
+| 方法 | 返回的清单 | 读取约定 |
+|---|---|---|
+| `list(a1_serial)` | 该 A1 已关联的探测器 | §1.1 的示意把业务码和数组放在 `result` 下。原示例不是合法 JSON；SDK 选择 `result.code` 和 `result.data`，真实网关布局待核。 |
+| `bindable_cameras(a1_serial)` | 可与该 A1 关联的摄像机 | §1.4 从根层 `data` 取数组。资料未说明是否排除已关联设备；`cameraName` 在字段表和示例中的类型不同，SDK 保留原值。 |
+| `linked_cameras(a1_serial, detector_serial)` | 指定探测器已关联的摄像机 | §1.5 额外发送 `detectorSerial`。根层 `data` 的字段表与示例分别使用 `deviceSerial` 和 `detectorSerial`，SDK 保留原键。 |
+
+成功码为字符串 `"200"`；结果从 `response.data` 读取。空数组是有效响应，额外字段和原始响应保留给应用。序列号大小写按调用方提供的值发送。可刷新的令牌遇到已识别布局中的失效码 `10002` 时，现有只读策略最多重试一次。SDK 不会按一项结果继续查询其他设备。最低账号角色、真实可见范围和设备关联情况仍待验收。[来源差异及验收条件](docs/coordination/overseas-a1-detector-queries/admission.json)
+
+在仓库根目录运行以下任一查询。配置 `EZVIZ_REGION=overseas`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET` 和 A1 主机的 `EZVIZ_DEVICE_SERIAL`；仅 `linked` 还需 `EZVIZ_DETECTOR_SERIAL`。需要指定认证入口时可设置 `EZVIZ_AUTH_BASE_URL`。示例仅输出查询名、条数和状态等固定字段。
+
+```bash
+python -m examples.a1_detectors --mode sync --query detectors
+python -m examples.a1_detectors --mode async --query bindable
+python -m examples.a1_detectors --mode sync --query linked
+```
+
 ### 海外设备告警音模式
 
 `client.settings.get_alarm_sound_mode(serial)` 和 `await async_client.settings.get_alarm_sound_mode(serial)` 读取设备上报的告警音配置。官方列明托管账号及子账号需要 `Get` 权限。SDK 先向配置的海外认证入口获取令牌，再向令牌返回的 `areaDomain` 发送 GET。令牌和设备序列号分别放在 `accessToken`、`deviceSerial` 请求头中，无需通道参数。[海外文档 3726](https://open.ys7.com/help/en/3726)

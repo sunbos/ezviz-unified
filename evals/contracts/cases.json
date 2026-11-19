@@ -6389,6 +6389,58 @@
         "alarmSoundMode": 1,
         "futureField": true
       }
+    },
+    {
+      "operation_id": "global.detectors.list",
+      "args": [
+        "SynTH-A1"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "SynTH-A1"
+      },
+      "data": [
+        {
+          "detectorSerial": "SyntheticSensor",
+          "future": true
+        }
+      ]
+    },
+    {
+      "operation_id": "global.detectors.bindable_cameras",
+      "args": [
+        "SynTH-A1"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "SynTH-A1"
+      },
+      "data": [
+        {
+          "cameraName": 17,
+          "channelNo": 1,
+          "extended": true
+        }
+      ]
+    },
+    {
+      "operation_id": "global.detectors.linked_cameras",
+      "args": [
+        "SynTH-A1",
+        "SynTH-Detector"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "SynTH-A1",
+        "detectorSerial": "SynTH-Detector"
+      },
+      "data": [
+        {
+          "detectorSerial": "SyntheticSensor",
+          "ipcSerial": "SyntheticCamera",
+          "future": true
+        }
+      ]
     }
   ]
 }
