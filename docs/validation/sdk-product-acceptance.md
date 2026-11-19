@@ -13,6 +13,12 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 国内账号流量的部分实测与海外设备时区
+
+国内三项账号流量查询按约定遇到首次失败就停止。账号汇总的同步、异步读取均返回对象。按日明细同步未通过，随后三个逻辑调用跳过。共放行 6 次 HTTP，设备查询为零。回执记录请求数、状态及类型，未保存响应内容或异常，无法据此确定失败原因。[国内真实回执](live/2026-11-19-domestic-account-traffic/receipt.json)
+
+海外设备时区查询 `devices.get_utc` 及其 CLI 已通过离线验收。用户确认控制台地区为新加坡，尚无绑定设备，因此未进行海外真机验收。[海外离线证据](2026-11-19-overseas-device-utc/offline.json)
+
 ## 海外 DDNS 三项只读查询
 
 2026-11-19，`ddns.get`、`ddns.list`、`ddns.share_list` 的同步及异步离线案例全部通过。测试覆盖认证返回的海外业务地址、表单、选择器优先规则、分页数据保真、错误脱敏及 CLI 输出。对应三项真实查询仍待海外账号授权，单条映射另需账号可见的目标。国内账号流量验收单独记录。[冻结范围](../coordination/overseas-ddns-read/admission.json) · [离线验收记录](2026-11-19-overseas-ddns/offline.json)
@@ -80,7 +86,7 @@ App adapter、选择性遥测、独立模型评测、受控 RSI 均为第二轮�
 
 ## 未决问题
 
-见 JSON `open_questions`：当前国内设备在线状态未确认；async bounded 场景已按 `2026-11-19-r18-domestic-async-read-design` 冻结（live 未执行）、六个 CLI 的 20 次 HTTP 上限已冻结，真实回执待执行；海外账号当前无绑定设备（`user_confirmed_no_bound_device`），集群与设备可见权限仍未核定；平台消息服务/可用回调入口未知（`unknown_awaiting_configuration_check`），去重与重复投递语义须先定义，国内 `t` 毫秒已确认、海外单位/时限冲突/密文措辞仍待核定，开通与测试的配置副作用须显式授权；版本与 PyPI 主体/账户/权限/上传授权未确认（未执行发布，2026-11-17 公开页 404 仅为当次可见性，可提前备账号/Trusted Publisher）；新业务域须先绑定具体验收行，通配行不替代逐项；公开区域目录 cohort（`candidate:overseas:469:1.12`）两条 case 已于 code58 通过（见上文），但该通过不扩展其边界：240 项非固定数量，`/api/lapp/area/list` 的 POST 形态/认证未核定保留为 source issue（SDK 仅选 GET），其他 origin/压缩路径/集群路由未实测，SP016 原始 HTTP 观察仅为协议证据。
+见 JSON `open_questions`：当前国内设备在线状态未确认；async bounded 场景已按 `2026-11-19-r18-domestic-async-read-design` 冻结（live 未执行）、六个 CLI 的 20 次 HTTP 上限已冻结，真实回执待执行；海外控制台地区已由用户确认为新加坡，账号当前无绑定设备（`user_confirmed_no_bound_device`），指定设备的可见权限及业务路由仍待实测；平台消息服务/可用回调入口未知（`unknown_awaiting_configuration_check`），去重与重复投递语义须先定义，国内 `t` 毫秒已确认、海外单位/时限冲突/密文措辞仍待核定，开通与测试的配置副作用须显式授权；版本与 PyPI 主体/账户/权限/上传授权未确认（未执行发布，2026-11-17 公开页 404 仅为当次可见性，可提前备账号/Trusted Publisher）；新业务域须先绑定具体验收行，通配行不替代逐项；公开区域目录 cohort（`candidate:overseas:469:1.12`）两条 case 已于 code58 通过（见上文），但该通过不扩展其边界：240 项非固定数量，`/api/lapp/area/list` 的 POST 形态/认证未核定保留为 source issue（SDK 仅选 GET），其他 origin/压缩路径/集群路由未实测，SP016 原始 HTTP 观察仅为协议证据。
 
 scope-register 历史快照 `2026-11-17-r2` 曾记 253 槽位/204 已登记 operation，`2026-11-18-r11-cloud-file-admission` 为本批 G1 记录（354 槽位/373 cases），`2026-11-18-r12-vod-resource-probe` 登记 probe scenario；历史 `2026-11-18-r13-cloud-file-offline-acceptance` 为 354 槽位/374 cases/208 operation；**历史离线验收快照 `2026-11-18-r15-vod-remux-offline-acceptance`**：358 capability 槽位（仍非官方 API 总数/覆盖率）、**382 cases**、212 已登记 registry operation（contracts/bindings/wire cases：国内 145、海外 67）、107 条已登记 source issues；诊断 141 business / 282 sync+async bodies；source 身份集 4051/observation 3019 不变。新增 scenario `ACC-CN-VOD-RESOURCE-DISCOVERY-001`（SP142，`docs/coordination/SP142/admission.json`）：`bounded_resource_probe_frozen_not_executed`、`authorized_readonly=true`、`live_ready=false`、`max_requests=7`/`max_operations=2`，父 required `ACC-CANDIDATE-CN-5342-D0-LIVE-001` 仍未完成——probe 只覆盖 sync `spaces`+`vod.files` 辅助资源发现，不替代 async 或 1.0 任何方法 live。G0 范围责任/优先级已批准（SP030），但这不是全来源语义完成；G1 已允许云四入口（SP122）与 VOD remux/任务四入口（SP169）；全 scope `all_semantics_dispositioned`/`required_acceptance_complete`/`product_complete` 仍为 `false`。5 条国内 `device_voice` 仅为 review 候选、无实现或 G1/live 授权；七个官方 npm 版本 archive 完整性与包身份已核定，但 11 repo 内容/34 binary/许可证兼容与集成验收仍未完成。
 

@@ -354,7 +354,7 @@
       "case_id": "ACC-OS-DEVICE-READONLY-001",
       "tier": "required",
       "capability_selector": "global.token.get; global.devices.list; global.devices.get; global.devices.channels; global.device.status; global.diagnostics.capabilities; global.diagnostics.version",
-      "region_cluster": "overseas: cluster to be confirmed per account",
+      "region_cluster": "overseas:Singapore (user-identified console region; live device route unverified)",
       "account_role_permissions": "developer appKey/appSecret; device-visible scope unknown",
       "device_requirements": "at least one ordinary device bound and visible to the authorized account; channel 1",
       "surface": [
@@ -30668,13 +30668,17 @@
         "docs/coordination/domestic-traffic/account-read.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "等待来自本次独立交互终端会话的受控真实回执。"
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "离线通过或返回成功不能证明统计数据准确或设备功能。"
-      ]
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "1b2a373159e4441dae74dd29eced5884613d200a",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-19-domestic-account-traffic/receipt.json"
+      ],
+      "execution_note": "两种模式各完成一次认证与限定账号查询，仅核对响应类型。"
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1425-D0-LIVE-001",
@@ -30718,13 +30722,19 @@
         "docs/coordination/domestic-traffic/account-read.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "blockers": [
-        "等待来自本次独立交互终端会话的受控真实回执。"
+        "未取得两种模式均通过的真实只读证据，未自动重试。"
       ],
       "limitations": [
         "离线通过或返回成功不能证明统计数据准确或设备功能。"
-      ]
+      ],
+      "execution_outcome": "not_verified",
+      "verified_code_commit": "1b2a373159e4441dae74dd29eced5884613d200a",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-19-domestic-account-traffic/receipt.json"
+      ],
+      "execution_note": "本次真实会话未完成两种模式的成功验收，具体原因不从白名单回执推断。"
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1426-D0-LIVE-001",
@@ -30774,6 +30784,10 @@
       ],
       "limitations": [
         "离线通过或返回成功不能证明统计数据准确或设备功能。"
+      ],
+      "execution_note": "前一项按日明细同步查询未通过，依首次失败停止的规则，本项两个模式均未执行。",
+      "prior_attempt_refs": [
+        "docs/validation/live/2026-11-19-domestic-account-traffic/receipt.json"
       ]
     },
     {
@@ -31487,7 +31501,7 @@
       ],
       "scope_revision": "2026-11-19-r25-overseas-ddns",
       "freeze_state": "awaiting_resource_scope_and_authorization",
-      "region_cluster": "overseas:cluster_not_frozen",
+      "region_cluster": "overseas:Singapore (user-identified console region; live device route unverified)",
       "account_role_permissions": "海外应用授权 token，业务使用认证返回的 areaDomain。",
       "device_requirements": "获准的已知设备序列号或 DDNS 域名。",
       "surface": [
@@ -31537,7 +31551,7 @@
       ],
       "scope_revision": "2026-11-19-r25-overseas-ddns",
       "freeze_state": "awaiting_resource_scope_and_authorization",
-      "region_cluster": "overseas:cluster_not_frozen",
+      "region_cluster": "overseas:Singapore (user-identified console region; live device route unverified)",
       "account_role_permissions": "海外应用授权 token，业务使用认证返回的 areaDomain。",
       "device_requirements": "获准海外账号；可验证空列表，验证非空记录另需相应设备或分享关系。",
       "surface": [
@@ -31587,7 +31601,7 @@
       ],
       "scope_revision": "2026-11-19-r25-overseas-ddns",
       "freeze_state": "awaiting_resource_scope_and_authorization",
-      "region_cluster": "overseas:cluster_not_frozen",
+      "region_cluster": "overseas:Singapore (user-identified console region; live device route unverified)",
       "account_role_permissions": "海外应用授权 token，业务使用认证返回的 areaDomain。",
       "device_requirements": "获准海外账号；可验证空列表，验证非空记录另需相应设备或分享关系。",
       "surface": [
@@ -31637,7 +31651,7 @@
       ],
       "scope_revision": "2026-11-19-r26-device-utc-info",
       "freeze_state": "awaiting_resource_scope_and_authorization",
-      "region_cluster": "overseas:cluster_not_frozen",
+      "region_cluster": "overseas:Singapore (user-identified console region; live device route unverified)",
       "account_role_permissions": "海外账号拥有对目标设备的读取权限。",
       "device_requirements": "已知且可见的海外设备。",
       "surface": [
@@ -31746,7 +31760,7 @@
   "open_questions": [
     "Whether the current domestic device is still online and the device/account configuration has changed since 2026-11-16 is unconfirmed; prior evidence does not assert it.",
     "Domestic async inspection is scoped to 7 HTTP calls and 6 business calls and has passed the verifier-only offline checks. A real run remains pending. The separate six-CLI scenario has a frozen 20-request budget. Its live execution still requires a separate local selection and receipt.",
-    "Overseas device read-only acceptance is awaiting_resource_confirmation with resource_state=user_confirmed_no_bound_device (user confirmed on 2026-11-17 the account currently has no bound device); the account cluster and device-visible permissions remain unconfirmed, and no device/account values are fabricated.",
+    "The user identified the overseas console as Singapore on 2026-11-19 and previously confirmed no bound device. Live device acceptance still needs a known visible target and scoped authorization; a console region alone does not verify SDK business routing or access to any target.",
     "Platform message push requires enabled service, reachable callback, independent secret, target type, and trigger authorization; resource_state=unknown_awaiting_configuration_check because the user stated on 2026-11-17 they do not know the platform message service or which callback entry is usable. Dedup/redelivery semantics must be defined before execution. Domestic header 't' timestamp unit is confirmed milliseconds (5130); the overseas 't' unit, freshness window, the 2s vs ~5s timeout conflict, and ciphertext wording remain unconfirmed. Configuration side effects (App reminder stop, ~2h delay, console test temporarily suspending the original callback) need explicit authorization beyond the prior read-only scope.",
     "Release version is undetermined. PyPI account/permissions and upload authorization are unconfirmed; no upload has been executed. The 2026-11-17 public-page 404 only reflects that-moment visibility and does not guarantee name availability. Account/Trusted Publisher may be prepared now (https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/) and the first authorized upload creates the project; the user is not required to provide a token now.",
     "New business domains must be bound to concrete acceptance rows and frozen before implementation claims; the per-new-domain wildcard row is a policy placeholder, not a substitute for per-item rows.",

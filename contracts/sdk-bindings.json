@@ -3001,7 +3001,8 @@
       ],
       "public_entry": "traffic.account_summary",
       "offline_status": "passed",
-      "live_status": "not_verified"
+      "live_status": "bounded_account_read_succeeded",
+      "live_evidence": "docs/validation/live/2026-11-19-domestic-account-traffic/receipt.json"
     },
     {
       "operation_id": "cn.traffic.account_details",
