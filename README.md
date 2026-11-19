@@ -227,6 +227,35 @@ direction = {"x1": "0.0", "y1": "0.0", "x2": "0.5", "y2": "0.0"}
 
 写接口已在 SDK 实现但不自动重放（含 `10002`、超时、`60022`），成功应答允许缺 `data`。恢复差异：`switch_status`（688）不接受 `channelNo`，而 `set_switch`（689）可带可选通道；`get_config`（693）返回同一目标（设备+通道）当前的 `line`/`direction`，写前可先读取旧几何作为恢复依据。设备须支持客流统计。子账户读取使用 `Get`、设置使用 `Config`。688/689 声明设备级 `dev` 资源，690–693 声明通道级 `Cam` 资源。当前验收为离线模拟。真实配置须另行指定设备、目标通道、写入范围和可核实的恢复方法。[客流开关设置](https://open.ys7.com/help/689) [客流配置读取](https://open.ys7.com/help/693)
 
+## 国内云直播流管理
+
+同步客户端通过 `client.live_streams` 调用，异步客户端通过 `await async_client.live_streams.…` 调用。访问令牌由 SDK 放入请求头。国内主机为 `open.ys7.com`；修改、删除、启停及推流记录四页只给出相对路径，主机依据同组绝对地址核定。完整签名、参数位置及来源差异见[接口清单](docs/coordination/domestic-live-streams/admission.json)。
+
+| 方法 | 请求和结果 | 来源与限制 |
+|---|---|---|
+| `create_device(device_serial, *, start_time, end_time, local_index=None)` | 序列号放在 header，POST 表单固定 `accessType=1`，返回 `data.streamId`。通道可省略，默认 1。 | 支持具有 Real 权限的应用、托管或子账号令牌。时间窗至多 7 天。[4060](https://open.ys7.com/help/4060) |
+| `create_rtmp(*, start_time, end_time, …)` | POST query 固定 `accessType=2`，返回字符串流 ID。是否录制、空间、分段时长、格式和延时均按显式参数发送。 | 列明具有 Real 权限的应用及托管令牌。正式表要求发送时间，但其说明只对设备接入生效，cURL 又省略 query。SDK 选正式字段位置。[4433](https://open.ys7.com/help/4433) |
+| `update_window(stream_id, *, start_time, end_time)` | PUT query 更新明确选定的流，仅要求平台确认回执。 | 参数表写 720 天上限，错误表写 7 天。SDK 校验格式和先后，具体上限由平台裁定。[4062](https://open.ys7.com/help/4062) |
+| `delete(stream_id)` | DELETE query 使用字符串 ID。 | 原 ID、已签发地址、归档及费用能否恢复，文档未说明。真实清理需指定可删除的流。[4063](https://open.ys7.com/help/4063) |
+| `set_status(stream_id, status)` | PUT query，整数 0 禁用、1 启用。 | 平台确认收到变更，实际媒体通断仍需独立验证。[4065](https://open.ys7.com/help/4065) |
+| `list(*, device_serial=None, stream_id=None, page_start=0, page_size=50, access_type=None, status=None)` | 单页列表，序列号筛选可省略，若提供则放入 header；其他字段为表单。结果数组在 `response.data`，分页在原始 `meta.moreInfo`。 | 声明为 GET，cURL 用 POST 表单；SDK 采用 POST。保留条目中的原始 ID 类型。[4066](https://open.ys7.com/help/4066) |
+| `records(stream_id, *, start_time, end_time, page_start=0, page_size=50)` | GET query 按整数流 ID 查询推流记录，结果在 `response.data["recordList"]`。 | 显式发送时间及分页。间隔不超过 30 天，是否在服务端最近 30 天内由平台裁定。记录可能含推流客户端信息。[4068](https://open.ys7.com/help/4068) |
+| `address(stream_id, protocol, *, address_type=1, …)` | POST 表单按整数 ID 签发地址，取 `response.data["address"]`。协议 1/2/3 对应 HLS/RTMP/FLV。默认类型 1 取播放地址，类型 2 取 RTMP 接入流的推流地址。 | 标题写 GET，正式方法和示例均为 POST。过期秒数适用于 RTMP **接入**流，最大 730 天。SDK 不连接或打开地址。[4064](https://open.ys7.com/help/4064) |
+
+RTMP 建流的 `enable_record` 取 0 或 1，`record_duration` 为 900 至 7,200 秒，`record_format` 取 1（MP4）或 2（M3U8），`delay_time` 为 15 至 21,600 秒。未提供的录制选项不进入请求。取地址时，`quality` 取 1（高清）或 2（流畅），`support_h265` 和 `mute` 取 0 或 1；官方资料说明这三项对 RTMP 直推流不生效。
+
+时间参数使用无时区、秒级精度的 `datetime`。SDK 保留创建返回的不透明字符串 ID。声明为整数的入口需要调用者明确提供相应整数 ID。成功码为整数 `meta.code=200`；SDK 校验业务数据的层级并保留扩展字段。列表与推流记录可在令牌过期时刷新并重试一次；创建、修改、启停、删除和签发地址均不自动重发。
+
+单页 CLI 使用本机的 `EZVIZ_REGION=domestic`、`EZVIZ_APP_KEY` 和 `EZVIZ_APP_SECRET`，只输出条数。离线示例使用固定 MockTransport，在同一个模拟流上依次执行创建、改时间、禁用及删除，后续三步都使用创建返回的 ID。
+
+```bash
+python -m examples.live_streams --mode sync
+python -m examples.live_streams --mode async
+python -m examples.live_stream_lifecycle
+```
+
+播放和推流地址都可能授予访问权限。取地址操作会在呈现的 SDK 消息、错误和该业务请求的标准 HTTPX 日志中遮盖 HTTP(S)、RTMP(S) 地址；应用仍可取得原始 `.data` 和 `.raw`。请仅记录业务结果或条数，避免输出原始数据、地址和推流记录中的客户端信息。
+
 ## 国内云直播归档查询
 
 `client.vod.stream_source_files(stream_id, *, file_type, query_date=None)`（异步版本为 `async_client` 同名方法）使用请求头 `accessToken` 鉴权。`stream_id` 为不透明标识；`file_type=1`（录像）必须提供规范日期 `YYYY-MM-DD`，`file_type=2`（截图）可省略。返回 `.data["fileInfo"]` 数组，创建和更新时间保留原始字符串。官方明确该接口不支持子账户。[源文件查询](https://open.ys7.com/help/4751)

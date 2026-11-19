@@ -6033,6 +6033,196 @@
         },
         "marker": true
       }
+    },
+    {
+      "operation_id": "cn.live_streams.create_device",
+      "args": [
+        "synthetic-Device"
+      ],
+      "kwargs": {
+        "start_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T01:02:03"
+        },
+        "end_time": {
+          "$type": "datetime",
+          "value": "2026-01-03T04:05:06"
+        },
+        "local_index": 3
+      },
+      "fields": {
+        "startTime": "2026-01-02 01:02:03",
+        "endTime": "2026-01-03 04:05:06",
+        "deviceSerial": "synthetic-Device",
+        "accessType": 1,
+        "localIndex": 3
+      },
+      "data": {
+        "streamId": "synthetic-stream",
+        "extra": true
+      }
+    },
+    {
+      "operation_id": "cn.live_streams.create_rtmp",
+      "args": [],
+      "kwargs": {
+        "start_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T01:02:03"
+        },
+        "end_time": {
+          "$type": "datetime",
+          "value": "2026-01-03T04:05:06"
+        },
+        "enable_record": 0,
+        "record_space_id": "synthetic-space",
+        "record_duration": 900,
+        "record_format": 1,
+        "delay_time": 15
+      },
+      "fields": {
+        "startTime": "2026-01-02 01:02:03",
+        "endTime": "2026-01-03 04:05:06",
+        "accessType": 2,
+        "enableRecord": 0,
+        "recordSpaceId": "synthetic-space",
+        "recordDuration": 900,
+        "recordFormat": 1,
+        "delayTime": 15
+      },
+      "data": {
+        "streamId": "synthetic-stream",
+        "extra": true
+      }
+    },
+    {
+      "operation_id": "cn.live_streams.update_window",
+      "args": [
+        "synthetic-stream"
+      ],
+      "kwargs": {
+        "start_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T01:02:03"
+        },
+        "end_time": {
+          "$type": "datetime",
+          "value": "2026-01-03T04:05:06"
+        }
+      },
+      "fields": {
+        "streamId": "synthetic-stream",
+        "startTime": "2026-01-02 01:02:03",
+        "endTime": "2026-01-03 04:05:06"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.live_streams.delete",
+      "args": [
+        "synthetic-stream"
+      ],
+      "kwargs": {},
+      "fields": {
+        "streamId": "synthetic-stream"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.live_streams.set_status",
+      "args": [
+        "synthetic-stream",
+        0
+      ],
+      "kwargs": {},
+      "fields": {
+        "streamId": "synthetic-stream",
+        "status": 0
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.live_streams.list",
+      "args": [],
+      "kwargs": {
+        "device_serial": "synthetic-Device",
+        "stream_id": "synthetic-stream",
+        "access_type": 1,
+        "status": 0
+      },
+      "fields": {
+        "deviceSerial": "synthetic-Device",
+        "streamId": "synthetic-stream",
+        "pageStart": 0,
+        "pageSize": 50,
+        "accessType": 1,
+        "status": 0
+      },
+      "data": [
+        {
+          "streamId": "synthetic-stream",
+          "extra": true
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.live_streams.records",
+      "args": [
+        43123
+      ],
+      "kwargs": {
+        "start_time": {
+          "$type": "datetime",
+          "value": "2026-01-02T01:02:03"
+        },
+        "end_time": {
+          "$type": "datetime",
+          "value": "2026-01-03T04:05:06"
+        }
+      },
+      "fields": {
+        "streamId": 43123,
+        "startTime": "2026-01-02 01:02:03",
+        "endTime": "2026-01-03 04:05:06",
+        "pageStart": 0,
+        "pageSize": 50
+      },
+      "data": {
+        "recordList": [
+          {
+            "client": "synthetic-client",
+            "extra": true
+          }
+        ],
+        "extra": true
+      }
+    },
+    {
+      "operation_id": "cn.live_streams.address",
+      "args": [
+        43123,
+        2
+      ],
+      "kwargs": {
+        "address_type": 2,
+        "quality": 1,
+        "support_h265": 0,
+        "mute": 0,
+        "expire_time": 600
+      },
+      "fields": {
+        "streamId": 43123,
+        "protocol": 2,
+        "type": 2,
+        "quality": 1,
+        "supportH265": 0,
+        "mute": 0,
+        "expireTime": 600
+      },
+      "data": {
+        "address": "rtmp://stream.invalid/demo/synthetic",
+        "extra": true
+      }
     }
   ]
 }

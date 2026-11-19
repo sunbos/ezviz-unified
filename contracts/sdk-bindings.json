@@ -3465,6 +3465,110 @@
       "public_entry": "devices.charging_status",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.live_streams.create_device",
+      "region": "domestic",
+      "source_doc_id": "4060",
+      "module": "src/ezviz_unified/live_streams.py",
+      "symbols": [
+        "LiveStreams.create_device",
+        "AsyncLiveStreams.create_device"
+      ],
+      "public_entry": "live_streams.create_device",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.live_streams.create_rtmp",
+      "region": "domestic",
+      "source_doc_id": "4433",
+      "module": "src/ezviz_unified/live_streams.py",
+      "symbols": [
+        "LiveStreams.create_rtmp",
+        "AsyncLiveStreams.create_rtmp"
+      ],
+      "public_entry": "live_streams.create_rtmp",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.live_streams.update_window",
+      "region": "domestic",
+      "source_doc_id": "4062",
+      "module": "src/ezviz_unified/live_streams.py",
+      "symbols": [
+        "LiveStreams.update_window",
+        "AsyncLiveStreams.update_window"
+      ],
+      "public_entry": "live_streams.update_window",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.live_streams.delete",
+      "region": "domestic",
+      "source_doc_id": "4063",
+      "module": "src/ezviz_unified/live_streams.py",
+      "symbols": [
+        "LiveStreams.delete",
+        "AsyncLiveStreams.delete"
+      ],
+      "public_entry": "live_streams.delete",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.live_streams.set_status",
+      "region": "domestic",
+      "source_doc_id": "4065",
+      "module": "src/ezviz_unified/live_streams.py",
+      "symbols": [
+        "LiveStreams.set_status",
+        "AsyncLiveStreams.set_status"
+      ],
+      "public_entry": "live_streams.set_status",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.live_streams.list",
+      "region": "domestic",
+      "source_doc_id": "4066",
+      "module": "src/ezviz_unified/live_streams.py",
+      "symbols": [
+        "LiveStreams.list",
+        "AsyncLiveStreams.list"
+      ],
+      "public_entry": "live_streams.list",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.live_streams.records",
+      "region": "domestic",
+      "source_doc_id": "4068",
+      "module": "src/ezviz_unified/live_streams.py",
+      "symbols": [
+        "LiveStreams.records",
+        "AsyncLiveStreams.records"
+      ],
+      "public_entry": "live_streams.records",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.live_streams.address",
+      "region": "domestic",
+      "source_doc_id": "4064",
+      "module": "src/ezviz_unified/live_streams.py",
+      "symbols": [
+        "LiveStreams.address",
+        "AsyncLiveStreams.address"
+      ],
+      "public_entry": "live_streams.address",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

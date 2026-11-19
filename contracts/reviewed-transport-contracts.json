@@ -18673,6 +18673,710 @@
       },
       "source_content_sha256": "b13e1645d21e12e2346ed9381ad53171b2787ab5a8dab7c359c9dee5e62f9d4a",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.live_streams.create_device",
+      "region": "domestic",
+      "source_doc_id": "4060",
+      "source_url": "https://open.ys7.com/help/4060",
+      "method": "POST",
+      "path": "/api/service/media/streammanage/stream",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "localIndex",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": 1,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "accessType",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": 1,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "startTime",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "endTime",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R7"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E65;E69;E102"
+      },
+      "constraints": [
+        {
+          "fact": "国内 Real 权限，应用/托管/子账号令牌。",
+          "evidence": "E11;E14;E61"
+        },
+        {
+          "fact": "Real 权限；列明应用、托管、子账号三类令牌。通道可省略（平台默认 1），SDK 提交 accessType=1。起止时间按秒，结束晚于开始、跨度至多 7 天；服务端裁定当前时间。",
+          "evidence": "E11;E14;E61;E65;E69;E102"
+        }
+      ],
+      "uncertainties": [
+        "Real 权限；列明应用、托管、子账号三类令牌。通道可省略（平台默认 1），SDK 提交 accessType=1。起止时间按秒，结束晚于开始、跨度至多 7 天；服务端裁定当前时间。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/media/streammanage/stream",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E11;E14;E61"
+      },
+      "source_content_sha256": "eda188bf9a8c416fe6d23a58d47f78e9a58b329f82a8b13041a007f2c160fcc7",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.live_streams.create_rtmp",
+      "region": "domestic",
+      "source_doc_id": "4433",
+      "source_url": "https://open.ys7.com/help/4433",
+      "method": "POST",
+      "path": "/api/service/media/streammanage/stream",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessType",
+          "location": "query",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "startTime",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "endTime",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "enableRecord",
+          "location": "query",
+          "type": "int",
+          "required": false,
+          "default": 0,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "recordSpaceId",
+          "location": "query",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R7"
+        },
+        {
+          "name": "recordDuration",
+          "location": "query",
+          "type": "int",
+          "required": false,
+          "default": 7200,
+          "evidence": "E14/R8"
+        },
+        {
+          "name": "recordFormat",
+          "location": "query",
+          "type": "int",
+          "required": false,
+          "default": 1,
+          "evidence": "E14/R9"
+        },
+        {
+          "name": "delayTime",
+          "location": "query",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R10"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E82;E86;E118"
+      },
+      "constraints": [
+        {
+          "fact": "国内 Real 权限，应用/托管令牌。",
+          "evidence": "E11;E14;E78"
+        },
+        {
+          "fact": "Real 权限；列明应用、托管令牌。按 E14 正式参数提交 accessType=2 及起止时间；E78 示例缺少全部 query。时间描述仅对设备接入生效，RTMP 场景只检查格式及先后，不套用设备 7 天上限。录制参数按显式输入提交。",
+          "evidence": "E11;E14;E78;E82;E86;E118"
+        }
+      ],
+      "uncertainties": [
+        "Real 权限；列明应用、托管令牌。按 E14 正式参数提交 accessType=2 及起止时间；E78 示例缺少全部 query。时间描述仅对设备接入生效，RTMP 场景只检查格式及先后，不套用设备 7 天上限。录制参数按显式输入提交。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/media/streammanage/stream",
+        "encoding": "none",
+        "evidence": "E11;E14;E78"
+      },
+      "source_content_sha256": "5af3b36c584bf97b471c3b6714bd3acd40e4b1fdbbabc9fc5cbbd0a050a4eca2",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.live_streams.update_window",
+      "region": "domestic",
+      "source_doc_id": "4062",
+      "source_url": "https://open.ys7.com/help/4062",
+      "method": "PUT",
+      "path": "/api/service/media/streammanage/stream",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E6/R2"
+        },
+        {
+          "name": "streamId",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R2"
+        },
+        {
+          "name": "startTime",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R3"
+        },
+        {
+          "name": "endTime",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R4"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E50;E53"
+      },
+      "constraints": [
+        {
+          "fact": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+          "evidence": "E3;E6;E22"
+        },
+        {
+          "fact": "E22 跨度上限 720 天，E53 写 7 天。SDK 检查格式及先后，保留上限争议，不依赖本机时钟或时区。",
+          "evidence": "E3;E6;E22;E50;E53"
+        }
+      ],
+      "uncertainties": [
+        "E22 跨度上限 720 天，E53 写 7 天。SDK 检查格式及先后，保留上限争议，不依赖本机时钟或时区。"
+      ],
+      "transport_evidence": {
+        "method": "PUT",
+        "path": "/api/service/media/streammanage/stream",
+        "encoding": "none",
+        "evidence": "E3;E6;E22; matched documented absolute stream-management origin"
+      },
+      "source_content_sha256": "b66deba827ceece8e0c5f1abbe224d01e0ca71b00f7cd290ae90ca42fd8adca7",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.live_streams.delete",
+      "region": "domestic",
+      "source_doc_id": "4063",
+      "source_url": "https://open.ys7.com/help/4063",
+      "method": "DELETE",
+      "path": "/api/service/media/streammanage/stream",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E6/R2"
+        },
+        {
+          "name": "streamId",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R2"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E38;E41"
+      },
+      "constraints": [
+        {
+          "fact": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+          "evidence": "E3;E6;E22"
+        },
+        {
+          "fact": "删除须使用明确的字符串流 ID。未说明幂等、原 ID 恢复、已签发地址或归档的后续状态。",
+          "evidence": "E3;E6;E22;E38;E41"
+        }
+      ],
+      "uncertainties": [
+        "删除须使用明确的字符串流 ID。未说明幂等、原 ID 恢复、已签发地址或归档的后续状态。"
+      ],
+      "transport_evidence": {
+        "method": "DELETE",
+        "path": "/api/service/media/streammanage/stream",
+        "encoding": "none",
+        "evidence": "E3;E6;E22; matched documented absolute stream-management origin"
+      },
+      "source_content_sha256": "255b6425d287be85b18437583923a7c546bfee57313e8df648dfa45fe13a0be6",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.live_streams.set_status",
+      "region": "domestic",
+      "source_doc_id": "4065",
+      "source_url": "https://open.ys7.com/help/4065",
+      "method": "PUT",
+      "path": "/api/service/media/streammanage/stream/status",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E6/R2"
+        },
+        {
+          "name": "streamId",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R2"
+        },
+        {
+          "name": "status",
+          "location": "query",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R3"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E44;E47"
+      },
+      "constraints": [
+        {
+          "fact": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+          "evidence": "E3;E6;E22"
+        },
+        {
+          "fact": "状态为整数 0（禁用）或 1（启用）；平台确认不证明媒体已通断。",
+          "evidence": "E3;E6;E22;E44;E47"
+        }
+      ],
+      "uncertainties": [
+        "状态为整数 0（禁用）或 1（启用）；平台确认不证明媒体已通断。"
+      ],
+      "transport_evidence": {
+        "method": "PUT",
+        "path": "/api/service/media/streammanage/stream/status",
+        "encoding": "none",
+        "evidence": "E3;E6;E22; matched documented absolute stream-management origin"
+      },
+      "source_content_sha256": "ae306bd22c95329b005f7509cb12d1c981dc4b038c627499d101fe44695ab9d1",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.live_streams.list",
+      "region": "domestic",
+      "source_doc_id": "4066",
+      "source_url": "https://open.ys7.com/help/4066",
+      "method": "POST",
+      "path": "/api/service/media/streammanage/stream/list",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "streamId",
+          "location": "body",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "pageStart",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": 0,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "pageSize",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": 50,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "accessType",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R7"
+        },
+        {
+          "name": "status",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R8"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E71;E75;E181"
+      },
+      "constraints": [
+        {
+          "fact": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+          "evidence": "E11;E14;E67"
+        },
+        {
+          "fact": "E0/E11 声明 GET，E14 指定 body，E67 cURL 用 POST 表单。SDK 选可重现的 POST 表单，未实测服务端是否同时支持 GET。禁止自动换方法。列表行的 streamId 类型在字段表和示例间不一致，保留原类型。",
+          "evidence": "E11;E14;E67;E71;E75;E181"
+        }
+      ],
+      "uncertainties": [
+        "E0/E11 声明 GET，E14 指定 body，E67 cURL 用 POST 表单。SDK 选可重现的 POST 表单，未实测服务端是否同时支持 GET。禁止自动换方法。列表行的 streamId 类型在字段表和示例间不一致，保留原类型。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/media/streammanage/stream/list",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E11;E14;E67"
+      },
+      "source_content_sha256": "a7ebf4776b5d49b4176c00fd07b150c129651abd4ecb66e4b16ca72e68d13d43",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.live_streams.records",
+      "region": "domestic",
+      "source_doc_id": "4068",
+      "source_url": "https://open.ys7.com/help/4068",
+      "method": "GET",
+      "path": "/api/service/media/streammanage/stream/record/list",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E6/R2"
+        },
+        {
+          "name": "streamId",
+          "location": "query",
+          "type": "long",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R2"
+        },
+        {
+          "name": "startTime",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R3"
+        },
+        {
+          "name": "endTime",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R4"
+        },
+        {
+          "name": "pageStart",
+          "location": "query",
+          "type": "int",
+          "required": true,
+          "default": 0,
+          "evidence": "E22/R5"
+        },
+        {
+          "name": "pageSize",
+          "location": "query",
+          "type": "int",
+          "required": true,
+          "default": 50,
+          "evidence": "E22/R6"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E62;E65"
+      },
+      "constraints": [
+        {
+          "fact": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+          "evidence": "E3;E6;E22"
+        },
+        {
+          "fact": "相对路径的国内 origin 从同一目录与前缀交叉确定。E22 将时间与分页写作必填同时描述默认值；SDK 显式发送全部字段。日期格式采用同域秒级时间格式，时区未说明；间隔不超过 30 天，是否处于服务当前最近 30 天由平台裁定。",
+          "evidence": "E3;E6;E22;E62;E65"
+        }
+      ],
+      "uncertainties": [
+        "相对路径的国内 origin 从同一目录与前缀交叉确定。E22 将时间与分页写作必填同时描述默认值；SDK 显式发送全部字段。日期格式采用同域秒级时间格式，时区未说明；间隔不超过 30 天，是否处于服务当前最近 30 天由平台裁定。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "/api/service/media/streammanage/stream/record/list",
+        "encoding": "none",
+        "evidence": "E3;E6;E22; matched documented absolute stream-management origin"
+      },
+      "source_content_sha256": "926c9480fef498aba7377cd88093d17239a8ee4242d8f53e227a4c692eac4554",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.live_streams.address",
+      "region": "domestic",
+      "source_doc_id": "4064",
+      "source_url": "https://open.ys7.com/help/4064",
+      "method": "POST",
+      "path": "/api/service/media/streammanage/stream/address",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "streamId",
+          "location": "body",
+          "type": "long",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "protocol",
+          "location": "body",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "quality",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": 1,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "supportH265",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": 0,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "mute",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": 0,
+          "evidence": "E14/R7"
+        },
+        {
+          "name": "type",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": 1,
+          "evidence": "E14/R8"
+        },
+        {
+          "name": "expireTime",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": 63072000,
+          "evidence": "E14/R9"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E77;E81;E114"
+      },
+      "constraints": [
+        {
+          "fact": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+          "evidence": "E11;E14;E73"
+        },
+        {
+          "fact": "E0 标题 GET，E11 和 E73 均为 POST 表单。签发地址的副作用及重签语义未知，两种地址均不自动重放或访问。type=2、expireTime 适用于 RTMP 接入流，不从播放协议推断接入方式。",
+          "evidence": "E11;E14;E73;E77;E81;E114"
+        }
+      ],
+      "uncertainties": [
+        "E0 标题 GET，E11 和 E73 均为 POST 表单。签发地址的副作用及重签语义未知，两种地址均不自动重放或访问。type=2、expireTime 适用于 RTMP 接入流，不从播放协议推断接入方式。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/media/streammanage/stream/address",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E11;E14;E73"
+      },
+      "source_content_sha256": "2ffd03e5225e647110b93dacdbfd05323b4ed2d9cd33c6edf9e384d3fa43dc13",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -18802,6 +19506,10 @@
     {
       "review": "docs/coordination/domestic-charging-status/admission.json",
       "note": "国内 1739 查询充电状态。675 提供独立的电量百分比字段。"
+    },
+    {
+      "review": "docs/coordination/domestic-live-streams/admission.json",
+      "note": "八个国内直播管理契约：按接入方式绑定创建，保留列表和地址接口的方法差异、相对目标来源、修改时间窗上限冲突及独立的真实验收边界。"
     }
   ]
 }

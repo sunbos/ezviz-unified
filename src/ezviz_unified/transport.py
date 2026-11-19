@@ -30,24 +30,108 @@ _REASON_MESSAGES = {
     "closed": "HTTP client is already closed",
 }
 
-_SDK_SECRETS: ContextVar[tuple[str, ...] | None] = ContextVar(
-    "ezviz_unified_sdk_secrets", default=None
+
+class _SdkRedactionContext:
+    """Mutable per-request redaction state shared through copied contexts.
+
+    ``invalidate`` expires the state in place so contexts copied into
+    application-owned tasks or callbacks stop masking once the owning
+    request ends, even after cancellation or transport close.
+
+    ``request_url`` holds the in-flight SDK ``httpx.Request.url`` captured
+    by this transport's instance-local request event hook; it is only bound
+    while media-URL masking applies and is released on ``invalidate``.
+    """
+
+    __slots__ = ("secrets", "mask_media_urls", "request_url", "active")
+
+    def __init__(self, secrets: tuple[str, ...], mask_media_urls: bool) -> None:
+        self.secrets = secrets
+        self.mask_media_urls = mask_media_urls
+        self.request_url: httpx.URL | None = None
+        self.active = True
+
+    def invalidate(self) -> None:
+        self.secrets = ()
+        self.request_url = None
+        self.active = False
+
+
+_SDK_REDACTION: ContextVar[_SdkRedactionContext | None] = ContextVar(
+    "ezviz_unified_sdk_redaction", default=None
 )
+
+# Private stream identifiers whose standard query encodings are only
+# collected for requests that explicitly opt in via redact_query_identifiers.
+_QUERY_IDENTIFIER_KEYS = frozenset({"streamid", "recordspaceid"})
 
 
 class _SdkRedactionFilter(logging.Filter):
     """Mask secrets of the active SDK request on httpx records only."""
 
+    # Supported HTTPX request INFO records carry structural metadata:
+    # record.args == (method, request.url object, http_version, status,
+    # reason_phrase). While media-URL masking is active only a record whose
+    # args[1] *is* (identity, never equality) the URL captured by this
+    # transport's request event hook belongs to the in-flight SDK request;
+    # independent HTTPX calls that inherited this context -- even to the
+    # same URL text -- keep their own log lines, while a child forwarding
+    # the original Request object stays masked. Records without that
+    # structural shape (custom messages, non-media SDK modes) keep the
+    # previous conservative whole-message masking.
+
     def filter(self, record: logging.LogRecord) -> bool:
-        secrets = _SDK_SECRETS.get()
-        if secrets is None:
+        redaction = _SDK_REDACTION.get()
+        if redaction is None or not redaction.active:
             return True
-        record.msg = redact(record.getMessage(), secrets)
+        args = record.args
+        if (
+            redaction.mask_media_urls
+            and isinstance(args, tuple)
+            and len(args) == 5
+            and isinstance(args[0], str)
+            and isinstance(args[1], httpx.URL)
+            and isinstance(args[2], str)
+            and isinstance(args[3], int)
+            and isinstance(args[4], str)
+            and args[1] is not redaction.request_url
+        ):
+            return True
+        record.msg = redact(
+            record.getMessage(),
+            redaction.secrets,
+            mask_media_urls=redaction.mask_media_urls,
+        )
         record.args = ()
         return True
 
 
 logging.getLogger("httpx").addFilter(_SdkRedactionFilter())
+
+
+def _capture_request_url(request: httpx.Request) -> None:
+    """Bind the in-flight SDK request's URL object for log scoping.
+
+    Instance-local ``request`` event hook on the SDK-owned client: it runs
+    before transport delegation and stores ``request.url`` on the active
+    redaction context so ``_SdkRedactionFilter`` can attribute HTTPX INFO
+    records by identity. The first bind wins for the context lifetime, so
+    unrelated requests sharing the context can never displace the SDK's
+    own URL and loosen its mask.
+    """
+    redaction = _SDK_REDACTION.get()
+    if (
+        redaction is not None
+        and redaction.active
+        and redaction.mask_media_urls
+        and redaction.request_url is None
+    ):
+        redaction.request_url = request.url
+
+
+async def _capture_request_url_async(request: httpx.Request) -> None:
+    """``AsyncClient`` variant with the required async hook signature."""
+    _capture_request_url(request)
 
 
 def _validate_base_url(base_url: str) -> str:
@@ -159,14 +243,23 @@ def _augment_query_secrets(
     policy: ResponsePolicy | None,
 ) -> tuple[str, ...]:
     """Augment base secrets with emitted-query encodings only when opted in."""
-    if params is None or policy is None or not policy.redact_message_urls:
+    if params is None or policy is None:
         return base
-    if not any(isinstance(key, str) and key.lower() == "accesstoken" for key in params):
+    mask_full_query = policy.redact_message_urls and any(
+        isinstance(key, str) and key.lower() == "accesstoken" for key in params
+    )
+    if not mask_full_query and not policy.redact_query_identifiers:
         return base
     collected = set(base)
-    collected.add(str(httpx.QueryParams(dict(params))))
+    if mask_full_query:
+        collected.add(str(httpx.QueryParams(dict(params))))
     for key, value in params.items():
-        if not isinstance(key, str) or key.lower() not in _SECRET_KEYS:
+        if not isinstance(key, str):
+            continue
+        lowered = key.lower()
+        already_covered = mask_full_query and lowered in _SECRET_KEYS
+        explicit_identifier = policy.redact_query_identifiers and lowered in _QUERY_IDENTIFIER_KEYS
+        if not already_covered and not explicit_identifier:
             continue
         items = value if isinstance(value, (list, tuple)) else (value,)
         for item in items:
@@ -221,6 +314,7 @@ class SyncTransport:
             transport=transport,
             trust_env=trust_env,
             follow_redirects=False,
+            event_hooks={"request": [_capture_request_url]},
         )
 
     @property
@@ -267,7 +361,9 @@ class SyncTransport:
             )
         all_secrets = _augment_query_secrets(base_secrets, params, policy)
         content, json_body, bound_headers = _split_body(json, headers)
-        marker = _SDK_SECRETS.set(all_secrets)
+        mask_media_urls = policy is not None and policy.redact_media_urls
+        context = _SdkRedactionContext(all_secrets, mask_media_urls)
+        marker = _SDK_REDACTION.set(context)
         response: httpx.Response | None = None
         failure: str | None = None
         try:
@@ -285,7 +381,8 @@ class SyncTransport:
         except httpx.HTTPError:
             failure = "network"
         finally:
-            _SDK_SECRETS.reset(marker)
+            context.invalidate()
+            _SDK_REDACTION.reset(marker)
         if failure is not None:
             raise TransportError(
                 _REASON_MESSAGES[failure],
@@ -320,6 +417,7 @@ class AsyncTransport:
             transport=transport,
             trust_env=trust_env,
             follow_redirects=False,
+            event_hooks={"request": [_capture_request_url_async]},
         )
 
     @property
@@ -366,7 +464,9 @@ class AsyncTransport:
             )
         all_secrets = _augment_query_secrets(base_secrets, params, policy)
         content, json_body, bound_headers = _split_body(json, headers)
-        marker = _SDK_SECRETS.set(all_secrets)
+        mask_media_urls = policy is not None and policy.redact_media_urls
+        context = _SdkRedactionContext(all_secrets, mask_media_urls)
+        marker = _SDK_REDACTION.set(context)
         response: httpx.Response | None = None
         failure: str | None = None
         try:
@@ -384,7 +484,8 @@ class AsyncTransport:
         except httpx.HTTPError:
             failure = "network"
         finally:
-            _SDK_SECRETS.reset(marker)
+            context.invalidate()
+            _SDK_REDACTION.reset(marker)
         if failure is not None:
             raise TransportError(
                 _REASON_MESSAGES[failure],
