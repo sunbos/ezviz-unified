@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 国内智能设备算法清单
+
+设备已加载模型和指定设备支持的算法分列为两个查询。同步、异步、CLI 与诊断案例已用模拟传输通过。GET 表单体的真实服务兼容性、账号可见范围及实际设备清单仍待授权后核验。[冻结依据](../coordination/domestic-device-algorithms/admission.json) · [离线验收](2026-11-19-domestic-device-algorithms/offline.json)
+
 ## 国内账号流量的部分实测与海外设备时区
 
 国内三项账号流量查询按约定遇到首次失败就停止。账号汇总的同步、异步读取均返回对象。按日明细同步未通过，随后三个逻辑调用跳过。共放行 6 次 HTTP，设备查询为零。回执记录请求数、状态及类型，未保存响应内容或异常，无法据此确定失败原因。[国内真实回执](live/2026-11-19-domestic-account-traffic/receipt.json)

@@ -17,6 +17,7 @@ from .components import AsyncComponents, ComponentInfo, Components
 from .cruise import AsyncCruise, Cruise, CruisePeriod
 from .ddns import AsyncDdns, Ddns
 from .delegation import AsyncDelegation, Delegation
+from .device_algorithms import AsyncDeviceAlgorithms, DeviceAlgorithms
 from .devices import AsyncDevices, Devices
 from .diagnostic_report import DiagnosticRecorder
 from .diagnostics import AsyncDiagnostics, Diagnostics
@@ -100,6 +101,7 @@ __all__ = [
     "AsyncCruise",
     "AsyncDdns",
     "AsyncDelegation",
+    "AsyncDeviceAlgorithms",
     "AsyncDevices",
     "AsyncDiagnostics",
     "AsyncHubs",
@@ -137,6 +139,7 @@ __all__ = [
     "DeviceError",
     "DeviceInspection",
     "DeviceSwitch",
+    "DeviceAlgorithms",
     "Devices",
     "DiagnosticRecorder",
     "Diagnostics",

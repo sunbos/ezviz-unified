@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "d0512e255715318a57102626288197e56b3dc9e4",
+  "scope_revision": "2026-11-19-r27-domestic-device-algorithms",
+  "operations": [
+    {
+      "operation_id": "cn.device_algorithms.list_devices",
+      "capability_id": "candidate:domestic:731:d0",
+      "name": "list_devices",
+      "entry": "device_algorithms.list_devices",
+      "doc_id": "731",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-731-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-731-D0-LIVE-001"
+      ],
+      "signatures": {
+        "DeviceAlgorithms": "def list_devices(self, *, device_serial: str | None = None, page_start: int | None = None, page_size: int | None = None) -> ApiResponse",
+        "AsyncDeviceAlgorithms": "async def list_devices(self, *, device_serial: str | None = None, page_start: int | None = None, page_size: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/731",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/731.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/731.structure.json",
+      "html_sha256": "d994adb4379b21f3b66e7e2ee577df210f9e3fe48dbc83564640c1d38a609ede",
+      "path": "/api/v3/intelligent/model/device",
+      "read_only": true,
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 55,
+        "example": 59,
+        "fields": 63,
+        "errors": 127
+      }
+    },
+    {
+      "operation_id": "cn.device_algorithms.list_supported",
+      "capability_id": "candidate:domestic:730:d0",
+      "name": "list_supported",
+      "entry": "device_algorithms.list_supported",
+      "doc_id": "730",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-730-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-730-D0-LIVE-001"
+      ],
+      "signatures": {
+        "DeviceAlgorithms": "def list_supported(self, device_serial: str) -> ApiResponse",
+        "AsyncDeviceAlgorithms": "async def list_supported(self, device_serial: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/730",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/730.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/730.structure.json",
+      "html_sha256": "865d22e5185a1eb2477d5ece3c684e26622b47a292f76fcbbd610ffc69b425d2",
+      "path": "/api/v3/intelligent/model/device/support",
+      "read_only": true,
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 43,
+        "example": 47,
+        "fields": 51,
+        "errors": 87
+      }
+    }
+  ],
+  "sdk_choices": [
+    "国内 GET。依参数位置 Body 与 curl -X GET --data-urlencode 的实际语义发送表单体，显式 Content-Type，accessToken 仅在 header。730 说明另称 params，731 样例违反互斥，均保留来源差异。已知代理/服务端可能对 GET body 处理不同；不自动改发 query、重复请求或切换方法。",
+    "731 按正式表拒绝 device_serial 与任一分页参数同时提供。三个参数都可省略；逐个省略传给服务端。page_start 非负，默认由服务端取 0；page_size 为 8..50，未说明默认大小。不自动分页或继续查询设备。",
+    "731 device_serial 是搜索关键字；730 device_serial 是指定设备。两者均为非空白 UTF-8 原文。无长度、大小写或字符集限制的官方依据，不改写输入。",
+    "顶层 meta.code 必须是整数 200，使用 meta.message；保留同层 data（对象数组）、meta.moreInfo 与未知字段。不解释 loadStatus 的枚举或算法可下发性。仅校验数组与行类型，允许字段缺省，不依据单行推断全部设备。",
+    "两种模式共享已有只读认证机制；海外地区或无效输入在认证前失败。两个方法独立，不做自动发现、下发、启停或任何推断。示例单次显式选择查询，仅报告状态、模式及查询种类。"
+  ],
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "live": "仅离线模拟；真实服务接受 GET 表单体、账号与设备权限仍待验收。"
+}

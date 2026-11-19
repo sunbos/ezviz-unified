@@ -1719,6 +1719,34 @@
         "E2420",
         "E2424"
       ]
+    },
+    {
+      "id": "cn.device_algorithms.list_devices.source_conflict",
+      "region": "domestic",
+      "source_doc_id": "731",
+      "source_url": "https://open.ys7.com/help/731",
+      "source_content_sha256": "d994adb4379b21f3b66e7e2ee577df210f9e3fe48dbc83564640c1d38a609ede",
+      "description": "731 正式表要求关键字和分页参数互斥，但 curl 示例同时提供了双方。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "依据正式表拒绝混用关键字与任一分页字段，保留省略参数；页大小未给默认值。",
+      "evidence": [
+        "E14",
+        "E55"
+      ]
+    },
+    {
+      "id": "cn.device_algorithms.list_supported.source_conflict",
+      "region": "domestic",
+      "source_doc_id": "730",
+      "source_url": "https://open.ys7.com/help/730",
+      "source_content_sha256": "865d22e5185a1eb2477d5ece3c684e26622b47a292f76fcbbd610ffc69b425d2",
+      "description": "730 序列号的位置表为 Body，但描述写 params；curl 为 GET 且使用 --data-urlencode，没有 -G。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "GET 使用表单体，token 只在请求头；不自动改用查询串或补发请求。",
+      "evidence": [
+        "E14",
+        "E43"
+      ]
     }
   ]
 }

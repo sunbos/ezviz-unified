@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "scope": "domestic_device_algorithm_queries_offline",
+  "code_commit": "fd37b5d9817746cc92f54d219fae9307ae4599e9",
+  "source_test_sha256": {
+    "src/ezviz_unified/device_algorithms.py": "74c22e5b9a7b85a400c9f4205942c80ed3b98bc03a5fd3f59892498e4b7f4a62",
+    "tests/test_sdk_device_algorithms.py": "7d90e3e68ca6c56601cc91218dda48a35a8f4738ceb9d2fb4932320fdb0382df",
+    "examples/device_algorithms.py": "7b41ccd81b81ed4e6eaed10f91ac056c516553adccbeba5a9e0e8fcf2231b0a7",
+    "tests/test_example_device_algorithms.py": "d51bde1497ff1e2bf07665711c7775b2bb00b766b553c8a7d688ef9669da4b52",
+    "README.md": "68df3185be6ec2297d9394c82e7f674f8a9c37e12a95c6a22ed4af9622894f25",
+    "src/ezviz_unified/client.py": "51ffd0479da40c2c3796328a6fdb06743780ecca1bce132505ebc0599ced2b87",
+    "src/ezviz_unified/__init__.py": "0acea8d2090d7dbbeaa36090b73301092540de854f9288c2c5f69702f1b818e1",
+    "src/ezviz_unified/_diagnostic_registry.py": "ec3b68c3f983ef52f102d62ea37ba9c6842d59c8f53f4cb79796912097081180",
+    "docs/diagnostics-v1-coverage.json": "f99bc65aacc587e4f75e53c37bd3750fa414b9660b67bbfc572ef7288ccf6bd1",
+    "docs/diagnostics.md": "352eb4fb4fa14e93e923fe11b2ef6c4889fbc4002d03556035da0106282caeab",
+    "tests/test_harness_diagnostic_coverage.py": "7677f058e0570e57b4766218fe0714beb8a0cd912c6f7a0d1266d2107273e4a2",
+    "docs/coordination/domestic-device-algorithms/admission.json": "7fb937c6362a2b7f6fb5741f08492f00fc823867bf98bac5131da73515917ead",
+    "contracts/reviewed-transport-contracts.json": "4bbcc74aa52296d76e05f39dc98b943fc53d1a544e9fd2658efd05c8d72c6670",
+    "contracts/source-issues.json": "08c7538d45b55e43911b63f8074f1821282c3af43ff76823c62ad8fc49c14485",
+    "evals/contracts/cases.json": "b1b835c0b783e4ab71cf0dfabac8ac0004c0cee067e01a23455716e0354626f0"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP380-SDK",
+        "input_commit": "c975670feab4de6b8a6854a1b296fb7d0ff4b8af",
+        "write_scope": [
+          "src/ezviz_unified/device_algorithms.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "c71a1c698e3b7b06d4385b92a16cbc8514c949d503d071a12b10f757e0620577"
+      },
+      {
+        "task": "SP380-WireTests",
+        "input_commit": "c975670feab4de6b8a6854a1b296fb7d0ff4b8af",
+        "write_scope": [
+          "tests/test_sdk_device_algorithms.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "911f52f0cb354194db8935652b00594677d3271262680a3ff62cc38dc8c6dabd"
+      },
+      {
+        "task": "SP380-CLI",
+        "input_commit": "c975670feab4de6b8a6854a1b296fb7d0ff4b8af",
+        "write_scope": [
+          "examples/device_algorithms.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "f29acc488ef6817855329d3707ff9db8591f7bbefca9a24817bed2f9506e5211"
+      },
+      {
+        "task": "SP381-CLITests",
+        "input_commit": "c975670feab4de6b8a6854a1b296fb7d0ff4b8af",
+        "write_scope": [
+          "tests/test_example_device_algorithms.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "ce0b817d893f24334c62e2d655b2b53ea82bb38275966d1db46fa9b8c8103a27"
+      },
+      {
+        "task": "SP381-SDKReview",
+        "input_commit": "c975670feab4de6b8a6854a1b296fb7d0ff4b8af",
+        "write_scope": [
+          "src/ezviz_unified/device_algorithms.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "c61fa93bd6b1b4af19ec40273f370d874132b8dde2b755229bb858ce1c65f7c2"
+      },
+      {
+        "task": "SP381-WireReview",
+        "input_commit": "c975670feab4de6b8a6854a1b296fb7d0ff4b8af",
+        "write_scope": [
+          "tests/test_sdk_device_algorithms.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "070d717d1301abef123c78c66af38abc4e1ec14785dd55256916289dfe55f8a2"
+      },
+      {
+        "task": "SP382-CLIReview",
+        "input_commit": "c975670feab4de6b8a6854a1b296fb7d0ff4b8af",
+        "write_scope": [
+          "tests/test_example_device_algorithms.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "4ab6cf113c007d5f9830ad8d1696e2372f4aba8c98185b122dfdb6349c46ba62"
+      },
+      {
+        "task": "SP381-Guide",
+        "input_commit": "c975670feab4de6b8a6854a1b296fb7d0ff4b8af",
+        "write_scope": [
+          "README.md"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "ad2e863fe5344b0b9c7e3b90b6335de917567380b153606f83c507bd64516fbd"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_device_algorithms.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "432 passed in 1.51s",
+      "local_receipt_sha256": "c8605c900292a835f8a9f49c6a24ba8b1220aa48d9eefd9af22811bffe149583",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_device_algorithms.py",
+      "summary": "20 passed in 0.33s",
+      "local_receipt_sha256": "b3ec5989b5b4d5a37fe89a4773da2fb35d4ca7a65b796277478d15dd8151c74c",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "8203 passed, 35 subtests passed in 57.71s",
+      "local_receipt_sha256": "239cd3fce69473c24dc96d83a05e4bb3b5d6d1e725811728158f368b6f6c7a35",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "238 registered contracts, 1936/1936 wire checks passed",
+      "local_receipt_sha256": "d492477ad64aba6271ade650c02ac81e5c08287c5bb09c21f529a8809fff2a0b",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 53 source files",
+      "local_receipt_sha256": "d0f98abfc7b26cbd05505fc9f40cc8e449daf6d4a9ae23844f24fed723ff93d2",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "238 registered contracts and bindings, 476 symbols inspected",
+      "local_receipt_sha256": "f99288a07fbd9efe91b4eb09d0971928f91a4558fdf6272547fc13bfb82a7a11",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/device_algorithms.py tests/test_sdk_device_algorithms.py examples/device_algorithms.py tests/test_example_device_algorithms.py src/ezviz_unified/client.py src/ezviz_unified/__init__.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "13028d25d159ab349984c542fb5f73b6fda8d67de458159e31f1bfac5fc6f3a2",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/device_algorithms.py tests/test_sdk_device_algorithms.py examples/device_algorithms.py tests/test_example_device_algorithms.py src/ezviz_unified/client.py src/ezviz_unified/__init__.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "8 files already formatted",
+      "local_receipt_sha256": "e54f8eaf9bbb3977091e8068297731b4df79e2729ae3f622ce58e64f46403f77",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "真实平台对 GET 表单请求体的处理未验收；未读取设备或算法、未下发或启停算法。合成成功数组不证明实际账号权限、设备范围或模型运行。"
+}
