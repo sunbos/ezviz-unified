@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "scope": "domestic_charging_status_offline",
+  "code_commit": "49cfb1612e8c6eabce21184b068a44bcdedf4b0d",
+  "source_test_sha256": {
+    "src/ezviz_unified/devices.py": "cfc1755f449f52e585a95d51ae79623ec64c0fa854866ba60daf819287a21376",
+    "tests/test_sdk_charging_status.py": "1e7a73a3f1aa02598996c402005841210706e8fdab0688c2960ff0a0e2378bbe",
+    "examples/charging_status.py": "abdcc42a44ca625dfa581039ebbead71bf9c5271daa1a993d1af9feca5cbb7d6",
+    "tests/test_example_charging_status.py": "2269ead74806d22df44ccb438881ddf377ecab4b800f1284db7898dc92a039f1",
+    "README.md": "412c13c7886ddb4888a93ff33ef462d62e90f746e55f330a66e404d081e20a81",
+    "src/ezviz_unified/_diagnostic_registry.py": "ee00e1e3abd6911b537b6c1f90cd9ab36a567ac8fb057d5187828e147020be05",
+    "docs/diagnostics-v1-coverage.json": "2979fb2bef7947a127fddafb95ba97ad1549f2982724f235360378744009fd36",
+    "docs/diagnostics.md": "7b8f1b8fc690bfb53e8c6edfb17467e9b1895bb1a72ca326ac4bca0051ed7e40",
+    "tests/test_harness_diagnostic_coverage.py": "c7bd13eb1a72833f6396251b878cb3a452d97168f852b800bd8452d7cbae4c8d",
+    "contracts/reviewed-transport-contracts.json": "6e35674b7467d9f136c2cfe92cc23a588f449fbb3eeba7f83feb5b9957ab55ef",
+    "docs/coordination/domestic-charging-status/admission.json": "9145d3ad9dc0c450abb8db11ddb41614540c0ecc59c60b235d6387c5541fb511",
+    "contracts/source-issues.json": "6355d153511bb63f073a196aad065e5f6b571b054c3dc41f472f0b4408e5da9e",
+    "evals/contracts/cases.json": "1781102b64d16dcab24ed922156bba89c7dfdd50a6bae39e546e5146eb3e2c07"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP433-Devices",
+        "input_commit": "e2248810b0511df3eb948ece37c4785b69afe88e",
+        "write_scope": [
+          "src/ezviz_unified/devices.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "a4a7edddc0f2a98d5429d170f52430c91f8ed4a64dd4f7a29411d0f040b04dde"
+      },
+      {
+        "task": "SP433-Tests",
+        "input_commit": "e2248810b0511df3eb948ece37c4785b69afe88e",
+        "write_scope": [
+          "tests/test_sdk_charging_status.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "2a675f3dc4641d75ecc64ae4959d4aff63cdceee527a0778eb90ee3e199dc42b"
+      },
+      {
+        "task": "SP433-CLI",
+        "input_commit": "e2248810b0511df3eb948ece37c4785b69afe88e",
+        "write_scope": [
+          "examples/charging_status.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "0b03e05bdc9adcc4a94eb35a9647842e7fe1bf62e811a930b5aa1e2ddccae4c6"
+      },
+      {
+        "task": "SP434-Guide",
+        "input_commit": "e2248810b0511df3eb948ece37c4785b69afe88e",
+        "write_scope": [
+          "README.md"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "b9ae487c691b676f102b05aba232f143f81a84296e1e2ec09de89cecf9ca4caf"
+      },
+      {
+        "task": "SP434-CLIReview",
+        "input_commit": "e2248810b0511df3eb948ece37c4785b69afe88e",
+        "write_scope": [
+          "examples/charging_status.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "4e164cf04f75c747d2617950b4aa7e8b8bbbba5a4889dc11e0b47564da0be03a"
+      },
+      {
+        "task": "SP434-DeviceHelp",
+        "input_commit": "e2248810b0511df3eb948ece37c4785b69afe88e",
+        "write_scope": [
+          "src/ezviz_unified/devices.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "0347229abdf026e7a174083bd156e8218a391b9f09dee3de74f6ad12508eec53"
+      },
+      {
+        "task": "SP435-TestsCorrect",
+        "input_commit": "e2248810b0511df3eb948ece37c4785b69afe88e",
+        "write_scope": [
+          "tests/test_sdk_charging_status.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "43181363e71c0e025ec0a441cba663b17370f727d1192f2c6c13ce1b8705962c"
+      },
+      {
+        "task": "SP435-CLIConformance",
+        "input_commit": "e2248810b0511df3eb948ece37c4785b69afe88e",
+        "write_scope": [
+          "tests/test_example_charging_status.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "3e70533a2d9c42f4eae22a53f28b06dfff8a5b87d2c7330a4c00df5cb710e1b5"
+      }
+    ],
+    "rejected_assignments": [
+      {
+        "task": "SP434-CLITests",
+        "input_commit": "e2248810b0511df3eb948ece37c4785b69afe88e",
+        "write_scope": [
+          "tests/test_example_charging_status.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "9236f4b59f3c5d9942ef453c12c75c95bb9b3820890e979c33562de3215b3cf0",
+        "local_receipt_sha256": "9d9e7913cceacf9c39d71901d07f2b0f86b5cd61028c5fcbe092c2031694e65c",
+        "result": "rejected",
+        "reason": "执行方曾尝试写入未授权的临时路径，工具已拒绝。目标文件的有效写入另经独立审查、限单文件修订和回归。",
+        "followup": "SP435-CLIConformance"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_charging_status.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "473 passed in 1.43s",
+      "local_receipt_sha256": "0d2810d2ca4808daed2afa4159352d9c04e863520199349ad09e1acca0537275",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_charging_status.py",
+      "summary": "77 passed in 0.46s",
+      "local_receipt_sha256": "8812c5135af449c07362e0abc8685b86fd701770b28d6c1485161772564c4fb1",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "9482 passed, 35 subtests passed in 60.03s (0:01:00)",
+      "local_receipt_sha256": "ee006a8c7b393f3024fdde2538e13d478d290a8a2866daff1f1661da7c517502",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "255 registered contracts, 2072/2072 wire checks passed",
+      "local_receipt_sha256": "22713c3dbcfb04903e503b0ccaed5ac04ccba3da5437348c36775e25113dea8e",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 57 source files",
+      "local_receipt_sha256": "41e55d91aa87c568edbc271590ea4e5646a055b71ec8af340b623512174edbeb",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "255 registered contracts and bindings, 510 symbols inspected",
+      "local_receipt_sha256": "d300a4f0c66c2cbeedfb47a077000c720d7243f0e834c14fe78f109d6d290218",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/devices.py tests/test_sdk_charging_status.py examples/charging_status.py tests/test_example_charging_status.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "4221e7e3488e3971d2ca1bb2818afe0a88f897e62fb49325c08353e9d51bee5b",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/devices.py tests/test_sdk_charging_status.py examples/charging_status.py tests/test_example_charging_status.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "6 files already formatted",
+      "local_receipt_sha256": "b45c2d3db11c48e1846b49fb1a5ce3d77521c2a0dac05c1a52a29eeb81bc2527",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "本次使用合成传输验证充电状态的读取。设备实际电流、采样时间、账户权限、型号兼容性与实时准确性未测。"
+}

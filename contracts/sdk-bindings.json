@@ -3463,7 +3463,7 @@
         "AsyncDevices.charging_status"
       ],
       "public_entry": "devices.charging_status",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

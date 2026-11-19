@@ -11871,19 +11871,29 @@
       "pending_questions": [
         "数据新鲜度与状态刷新间隔未说明；无电池也是官方返回值。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/devices.py",
+        "tests/test_sdk_charging_status.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "examples/charging_status.py",
+        "tests/test_example_charging_status.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "49cfb1612e8c6eabce21184b068a44bcdedf4b0d",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-charging-status/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1740-D0-OFFLINE-001",
