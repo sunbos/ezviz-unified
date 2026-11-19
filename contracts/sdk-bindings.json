@@ -3156,7 +3156,7 @@
         "AsyncDdns.get"
       ],
       "public_entry": "ddns.get",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3169,7 +3169,7 @@
         "AsyncDdns.list"
       ],
       "public_entry": "ddns.list",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3182,7 +3182,7 @@
         "AsyncDdns.share_list"
       ],
       "public_entry": "ddns.share_list",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

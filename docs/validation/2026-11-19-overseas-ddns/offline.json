@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP367-SDK",
+        "input_commit": "85a0b88ffea1c5583a8c22b47c8c08aeae8d1897",
+        "write_scope": [
+          "src/ezviz_unified/ddns.py"
+        ],
+        "shell_commands": [],
+        "criterion": "三项同步/异步只读入口、认证前校验与响应保真。",
+        "delivery": "native_write",
+        "private_dispatch_sha256": "ac4b70e8f991046edbf16db740c165259e1b0c73b2043731690065fb192f56a7"
+      },
+      {
+        "task": "SP367-Tests",
+        "input_commit": "85a0b88ffea1c5583a8c22b47c8c08aeae8d1897",
+        "write_scope": [
+          "tests/test_sdk_ddns.py"
+        ],
+        "shell_commands": [],
+        "criterion": "覆盖表单、地区、响应、隐私与失败场景。",
+        "delivery": "native_write_then_revised",
+        "private_dispatch_sha256": "0f28dfda793e59e39b7d5a30f0b8868110daee44e703cc4343b2e21ac7752e3f"
+      },
+      {
+        "task": "SP367-Example",
+        "input_commit": "85a0b88ffea1c5583a8c22b47c8c08aeae8d1897",
+        "write_scope": [
+          "examples/ddns.py"
+        ],
+        "shell_commands": [],
+        "criterion": "每次一个已选择查询，输出固定四字段。",
+        "delivery": "native_write",
+        "private_dispatch_sha256": "3652246d7ab6b970a1732006e85444cb3de8d79b9ae89ab2c52875bac2f01bff"
+      },
+      {
+        "task": "SP368-CLItests",
+        "input_commit": "85a0b88ffea1c5583a8c22b47c8c08aeae8d1897",
+        "write_scope": [
+          "tests/test_example_ddns.py"
+        ],
+        "shell_commands": [],
+        "criterion": "通过真实客户端加末端模拟传输验证两个模式和三个查询。",
+        "delivery": "native_write_then_revised",
+        "private_dispatch_sha256": "84d73269607a380a844811d4b0cd01f01430b9a93847b355748aa6cbefc69c7d"
+      },
+      {
+        "task": "SP368-GuideFix",
+        "input_commit": "85a0b88ffea1c5583a8c22b47c8c08aeae8d1897",
+        "write_scope": [
+          "README.md"
+        ],
+        "shell_commands": [],
+        "criterion": "对照真实源码入口核对命令、环境变量、分页及适用边界。",
+        "delivery": "reviewed_text_candidate",
+        "private_dispatch_sha256": "f35923e7947e410f788011e070f6bdd73f9c4b40af7944c39af7c5f8fca32fc5"
+      },
+      {
+        "task": "SP368-TestFix",
+        "input_commit": "85a0b88ffea1c5583a8c22b47c8c08aeae8d1897",
+        "write_scope": [
+          "tests/test_sdk_ddns.py"
+        ],
+        "shell_commands": [],
+        "criterion": "逐项严格断言错误类型、脱敏和已注册操作。原生写回要求先读文件，采用其候选源码并独立运行验证。",
+        "delivery": "reviewed_candidate",
+        "private_dispatch_sha256": "72631e1f628b4759f197f85c81fe8c11bc50f4fad3a7b7ec5d7883f4b8b3cbb7"
+      },
+      {
+        "task": "SP369-CLIrepair",
+        "input_commit": "85a0b88ffea1c5583a8c22b47c8c08aeae8d1897",
+        "write_scope": [
+          "tests/test_example_ddns.py"
+        ],
+        "shell_commands": [],
+        "criterion": "精确检查 CLI 输出、失败状态与请求次数。",
+        "delivery": "native_write",
+        "private_dispatch_sha256": "4c06d488b0de79714832814cd34d9d23a5f9ccd0ccce14cac2a79558caa748c2"
+      },
+      {
+        "task": "SP370-PageBoundary",
+        "input_commit": "85a0b88ffea1c5583a8c22b47c8c08aeae8d1897",
+        "write_scope": [
+          "tests/test_sdk_ddns.py"
+        ],
+        "shell_commands": [],
+        "criterion": "保留相同大整数样例，按解释器转换能力验证真实行为，同时检查不能转换时零请求。",
+        "delivery": "native_read_edit",
+        "private_dispatch_sha256": "dec7b95d371721b9cff1e873d7dcc94c382eaefd350c8b122f15031c560dccd8"
+      }
+    ]
+  },
+  "scope": "overseas_ddns_read_offline",
+  "code_commit": "401349975578e9b22cc12f93ec2e698827ac5b0b",
+  "source_test_sha256": {
+    "src/ezviz_unified/ddns.py": "11be295ece9bc50e34d96d13afe6fe23e2dac8557a6b1eab950fcffcc11c582a",
+    "src/ezviz_unified/errors.py": "feae66efe60b5fe737abb84352de2de9d6fc9cfdc38905275ef01b53da606151",
+    "src/ezviz_unified/client.py": "f3f2f2e110b4a44720971fcf7b67311e5934458185d52267e3b972fbd387088a",
+    "src/ezviz_unified/__init__.py": "3b1e7ab94a6cef46147b45f413ac9875c80aff512fdbcb33df71b1b2d3cf9526",
+    "src/ezviz_unified/_diagnostic_registry.py": "8d313813c10c69bbcd4a46b644a29e8515e6483f946fe5b97d2255e0c436061d",
+    "examples/ddns.py": "8ba80c109e81064ef6c00f30f2e8f9990a1e78a244bafeada27e4980f12e3172",
+    "tests/test_example_ddns.py": "1a97492bd17a12426f81b1dcc26aaa84da3d6b4c953c424909b4e557a916eb37",
+    "tests/test_sdk_ddns.py": "0f00c8ec279029d646252d78b32cfa5dc2124e11a40319da61cb93762c68888b",
+    "tests/test_harness_diagnostic_coverage.py": "6ec6f0de0e6ae2cc034cf7404744cc3a56e64bd475dbf9a6cf3e69969fd9727a",
+    "docs/coordination/overseas-ddns-read/admission.json": "955bf89caa7509c3398f45e86f25bacc3f593358707aacc74a255104482e5e67",
+    "README.md": "35cb34977bf79040405ab6ee65a8f6eb5237d4754714a277f1bab6fd850d0393",
+    "docs/diagnostics-v1-coverage.json": "7ef17671126d200cb670b01e45eb8e530bcfcf2af2edc8943ca19e3fb8c1ce6c",
+    "contracts/reviewed-transport-contracts.json": "5ec77ab8a138aec4be2a83ea71cc06815d6ad03c76826efbef3517af8a97c7e2",
+    "contracts/source-issues.json": "bd31cf81692a0a2e1da0f1710bcd3db24971a3f27b9dff4d7fbadddd3d9fe016",
+    "evals/contracts/cases.json": "ef930734bc7e974fc8e8c4e10b28148332a4ce8907a9c37b30a4e55dbdcf8384"
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_ddns.py tests/test_example_ddns.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "456 passed in 1.41s",
+      "local_receipt_sha256": "e28baeaee82289b2b022c09e8cfca0971f6a0d6f72a79c569f0c50fe0f57e61c",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "8021 passed, 35 subtests passed in 53.93s",
+      "local_receipt_sha256": "441df2dc603c689b8a25653211520b3a29f4282fb6b6e51f62ebb5ea9643d925",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "235 registered contracts, 1912/1912 wire checks passed",
+      "local_receipt_sha256": "1b3eecd48223bf3c063f8a76a7b3ca13a2a73387f76e198d7574dd6bdc319aa5",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 52 source files",
+      "local_receipt_sha256": "ca7a28ca54a8240d230c5353cc277b8905d0e8476aba2cc313ee15c8a122fbd5",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "235 registered contracts and bindings, 470 symbols inspected",
+      "local_receipt_sha256": "d71827eab82cddd93ee3fa43784d167506ae0c0c0efa1cb70a6e145c007db76f",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/ddns.py src/ezviz_unified/__init__.py src/ezviz_unified/client.py src/ezviz_unified/errors.py src/ezviz_unified/_diagnostic_registry.py examples/ddns.py tests/test_sdk_ddns.py tests/test_example_ddns.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "60bfd960fc8d74dc6706224cf7cf609060119b9c16f1bb19c21bb29bf6ee5eef",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/ddns.py src/ezviz_unified/__init__.py src/ezviz_unified/client.py src/ezviz_unified/errors.py src/ezviz_unified/_diagnostic_registry.py examples/ddns.py tests/test_sdk_ddns.py tests/test_example_ddns.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "9 files already formatted",
+      "local_receipt_sha256": "73b6b19c3d1937867adb4317cf9a5838a3abcf5cf54396f6c678032454bc17fe",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "仅合成认证和传输。三项真实海外 DDNS 查询尚未授权；未连接设备、解析映射地址、测试端口或读取真实设备映射。"
+}
