@@ -3476,7 +3476,7 @@
         "AsyncLiveStreams.create_device"
       ],
       "public_entry": "live_streams.create_device",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3489,7 +3489,7 @@
         "AsyncLiveStreams.create_rtmp"
       ],
       "public_entry": "live_streams.create_rtmp",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3502,7 +3502,7 @@
         "AsyncLiveStreams.update_window"
       ],
       "public_entry": "live_streams.update_window",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3515,7 +3515,7 @@
         "AsyncLiveStreams.delete"
       ],
       "public_entry": "live_streams.delete",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3528,7 +3528,7 @@
         "AsyncLiveStreams.set_status"
       ],
       "public_entry": "live_streams.set_status",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3541,7 +3541,7 @@
         "AsyncLiveStreams.list"
       ],
       "public_entry": "live_streams.list",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3554,7 +3554,7 @@
         "AsyncLiveStreams.records"
       ],
       "public_entry": "live_streams.records",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3567,7 +3567,7 @@
         "AsyncLiveStreams.address"
       ],
       "public_entry": "live_streams.address",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

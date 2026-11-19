@@ -13904,19 +13904,30 @@
       "pending_questions": [
         "Real 权限；列明应用、托管、子账号三类令牌。通道可省略（平台默认 1），SDK 提交 accessType=1。起止时间按秒，结束晚于开始、跨度至多 7 天；服务端裁定当前时间。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/live_streams.py",
+        "src/ezviz_unified/live_stream_models.py",
+        "tests/test_example_live_streams.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_live_stream_writes.py",
+        "examples/live_stream_lifecycle.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "72b5532b8d24fc4a754ba7f0e563e11493ce1935",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-live-streams/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4066-D0-OFFLINE-001",
@@ -13963,19 +13974,30 @@
       "pending_questions": [
         "E0/E11 声明 GET，E14 指定 body，E67 cURL 用 POST 表单。SDK 选可重现的 POST 表单，未实测服务端是否同时支持 GET。禁止自动换方法。列表行的 streamId 类型在字段表和示例间不一致，保留原类型。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/live_streams.py",
+        "src/ezviz_unified/live_stream_models.py",
+        "tests/test_example_live_streams.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_live_stream_queries.py",
+        "examples/live_streams.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "72b5532b8d24fc4a754ba7f0e563e11493ce1935",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-live-streams/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4433-D0-OFFLINE-001",
@@ -14022,19 +14044,30 @@
       "pending_questions": [
         "Real 权限；列明应用、托管令牌。按 E14 正式参数提交 accessType=2 及起止时间；E78 示例缺少全部 query。时间描述仅对设备接入生效，RTMP 场景只检查格式及先后，不套用设备 7 天上限。录制参数按显式输入提交。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/live_streams.py",
+        "src/ezviz_unified/live_stream_models.py",
+        "tests/test_example_live_streams.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_live_stream_writes.py",
+        "examples/live_stream_lifecycle.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "72b5532b8d24fc4a754ba7f0e563e11493ce1935",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-live-streams/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4751-D0-OFFLINE-001",
@@ -15085,19 +15118,30 @@
       "pending_questions": [
         "E22 跨度上限 720 天，E53 写 7 天。SDK 检查格式及先后，保留上限争议，不依赖本机时钟或时区。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/live_streams.py",
+        "src/ezviz_unified/live_stream_models.py",
+        "tests/test_example_live_streams.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_live_stream_writes.py",
+        "examples/live_stream_lifecycle.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "72b5532b8d24fc4a754ba7f0e563e11493ce1935",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-live-streams/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4063-D0-OFFLINE-001",
@@ -15144,19 +15188,30 @@
       "pending_questions": [
         "删除须使用明确的字符串流 ID。未说明幂等、原 ID 恢复、已签发地址或归档的后续状态。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/live_streams.py",
+        "src/ezviz_unified/live_stream_models.py",
+        "tests/test_example_live_streams.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_live_stream_writes.py",
+        "examples/live_stream_lifecycle.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "72b5532b8d24fc4a754ba7f0e563e11493ce1935",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-live-streams/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4064-D0-OFFLINE-001",
@@ -15203,19 +15258,32 @@
       "pending_questions": [
         "E0 标题 GET，E11 和 E73 均为 POST 表单。签发地址的副作用及重签语义未知，两种地址均不自动重放或访问。type=2、expireTime 适用于 RTMP 接入流，不从播放协议推断接入方式。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/live_streams.py",
+        "src/ezviz_unified/live_stream_models.py",
+        "tests/test_example_live_streams.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_live_stream_queries.py",
+        "examples/live_streams.py",
+        "tests/test_sdk_media_address_privacy.py",
+        "tests/test_sdk_media_log_ownership.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "72b5532b8d24fc4a754ba7f0e563e11493ce1935",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-live-streams/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4065-D0-OFFLINE-001",
@@ -15262,19 +15330,30 @@
       "pending_questions": [
         "状态为整数 0（禁用）或 1（启用）；平台确认不证明媒体已通断。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/live_streams.py",
+        "src/ezviz_unified/live_stream_models.py",
+        "tests/test_example_live_streams.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_live_stream_writes.py",
+        "examples/live_stream_lifecycle.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "72b5532b8d24fc4a754ba7f0e563e11493ce1935",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-live-streams/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4068-D0-OFFLINE-001",
@@ -15321,19 +15400,30 @@
       "pending_questions": [
         "相对路径的国内 origin 从同一目录与前缀交叉确定。E22 将时间与分页写作必填同时描述默认值；SDK 显式发送全部字段。日期格式采用同域秒级时间格式，时区未说明；间隔不超过 30 天，是否处于服务当前最近 30 天由平台裁定。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/live_streams.py",
+        "src/ezviz_unified/live_stream_models.py",
+        "tests/test_example_live_streams.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_live_stream_queries.py",
+        "examples/live_streams.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "72b5532b8d24fc4a754ba7f0e563e11493ce1935",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-live-streams/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-694-D0-OFFLINE-001",
