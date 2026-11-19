@@ -708,5 +708,23 @@
     "parameters": "创建时显式 accessType=1 或 2。分页默认参数实际送出，单页条数 1..100，页码非负。每个业务操作只采用冻结的一种传输方式。",
     "query_privacy": "带 streamId 或 recordSpaceId 的查询要求保留线路值，遮盖请求所带标识及其标准 URL 编码。该保护限于明确开启的策略；保留 data/raw。",
     "privacy_policy": "ResponsePolicy 末尾增加两个默认 False 的布尔选项，redact_media_urls 用于 4064 的四种媒体 scheme，redact_query_identifiers 用于声明 query 标识的直播管理入口。已有查询令牌行为和 HTTPX 全局配置保持原状。"
+  },
+  "usage_examples": {
+    "read_only_cli": {
+      "path": "examples/live_streams.py",
+      "modes": [
+        "sync",
+        "async"
+      ],
+      "request": "一页列表，page_size=1，仅输出条数。"
+    },
+    "offline_lifecycle": {
+      "path": "examples/live_stream_lifecycle.py",
+      "modes": [
+        "sync"
+      ],
+      "input": "固定合成数据和 MockTransport 的认证、业务传输。",
+      "acceptance": "一次模拟设备建流后按返回的原 ID 修改时间窗、设定状态、显式删除。只清理本次收到的 ID。建立失败或标识缺失时不继续。只打印固定结果，不提供切换真实接口的参数。不会播放或签发地址。"
+    }
   }
 }

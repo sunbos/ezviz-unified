@@ -324,7 +324,7 @@
     "live_streams_admission": {
       "path": "docs/coordination/domestic-live-streams/admission.json",
       "schema": 1,
-      "sha256": "30541eac2d072a567b8dd9a293ab26bc91b3dee9d325806e1fc119385e8c95a4"
+      "sha256": "46f14fa7ced977ef3479d289f96a1b38c20dcbb5364ab747cf853366aba45711"
     }
   },
   "scope_state": {
