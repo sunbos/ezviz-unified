@@ -10333,110 +10333,121 @@
       "case_id": "ACC-CANDIDATE-CN-730-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:730:d0",
+      "case_origin": "intelligent_device_algorithms_read",
+      "capability_selector": "device_algorithms.list_supported",
       "capability_ids": [
         "candidate:domestic:730:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.device_algorithms.list_supported"
+      ],
+      "scope_revision": "2026-11-19-r27-domestic-device-algorithms",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "国内用户访问令牌；正式表未明确最小子账号权限。",
+      "device_requirements": "模拟传输，无真实设备。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "合成认证与独立模拟传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询设备支持的智能算法列表”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "双模式精确 GET、header token、表单与地区、分页互斥、数组/错误及 CLI 和诊断隐私。",
+        "write": "无。",
+        "physical": "不推断算法执行能力。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/17"
+        "docs/coordination/SP088/scenario-input.json#/entries/17",
+        "docs/coordination/domestic-device-algorithms/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/730.source.json"
       ],
       "pending_questions": [
-        "返回算法列表的口径（设备已支持/平台可下发）待核。",
-        "与candidate:domestic:732:d0下发接口的算法标识对应关系待核。",
-        "设备适用范围与权限前提待核。"
+        "GET 表单体和权限/型号需由真实服务验证。",
+        "支持列表不证明算法已装载、可下发或可运行。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待实施及验证。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-731-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:731:d0",
+      "case_origin": "intelligent_device_algorithms_read",
+      "capability_selector": "device_algorithms.list_devices",
       "capability_ids": [
         "candidate:domestic:731:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.device_algorithms.list_devices"
+      ],
+      "scope_revision": "2026-11-19-r27-domestic-device-algorithms",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "国内用户访问令牌；正式表未明确最小子账号权限。",
+      "device_requirements": "模拟传输，无真实设备。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "合成认证与独立模拟传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询智能设备列表”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "双模式精确 GET、header token、表单与地区、分页互斥、数组/错误及 CLI 和诊断隐私。",
+        "write": "无。",
+        "physical": "不推断算法执行能力。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/18"
+        "docs/coordination/SP088/scenario-input.json#/entries/18",
+        "docs/coordination/domestic-device-algorithms/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/731.source.json"
       ],
       "pending_questions": [
-        "列表范围（账号下智能设备/支持算法设备）与筛选维度待核。",
-        "返回字段合同尚未提供，需原材料核定。"
+        "GET 表单体和权限/型号需由真实服务验证。",
+        "731 设备列表范围、loadStatus 枚举及默认 pageSize 未明确。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待实施及验证。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-732-D0-OFFLINE-001",
@@ -31686,6 +31697,106 @@
       "limitations": [
         "来源未注明 timeZone 使用 IANA 名称或固定偏移格式，也未承诺每个型号均返回非空字符串。",
         "海外账号当前无绑定设备，适用型号和最小子账户权限待确认。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-731-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "intelligent_device_algorithms_read",
+      "capability_selector": "device_algorithms.list_devices",
+      "capability_ids": [
+        "candidate:domestic:731:d0"
+      ],
+      "operation_ids": [
+        "cn.device_algorithms.list_devices"
+      ],
+      "scope_revision": "2026-11-19-r27-domestic-device-algorithms",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内用户访问令牌；正式表未明确最小子账号权限。",
+      "device_requirements": "获准的国内智能设备账号及预先指定的型号或设备。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "执行前明确账号、适用设备、平台接受的参数传递、操作和请求上限。"
+      ],
+      "expected_evidence": {
+        "read": "合规回执记录操作、次数、状态及响应类型。",
+        "write": "无。",
+        "physical": "不下发算法或测试物理行为。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "单次只读查询，无配置写入。",
+      "source_refs": [
+        "docs/coordination/domestic-device-algorithms/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/731.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "已有国内账号流量授权不包括设备算法清单。"
+      ],
+      "limitations": [
+        "GET 表单体和权限/型号需由真实服务验证。",
+        "731 设备列表范围、loadStatus 枚举及默认 pageSize 未明确。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-730-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "intelligent_device_algorithms_read",
+      "capability_selector": "device_algorithms.list_supported",
+      "capability_ids": [
+        "candidate:domestic:730:d0"
+      ],
+      "operation_ids": [
+        "cn.device_algorithms.list_supported"
+      ],
+      "scope_revision": "2026-11-19-r27-domestic-device-algorithms",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内用户访问令牌；正式表未明确最小子账号权限。",
+      "device_requirements": "获准的国内智能设备账号及预先指定的型号或设备。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "执行前明确账号、适用设备、平台接受的参数传递、操作和请求上限。"
+      ],
+      "expected_evidence": {
+        "read": "合规回执记录操作、次数、状态及响应类型。",
+        "write": "无。",
+        "physical": "不下发算法或测试物理行为。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "单次只读查询，无配置写入。",
+      "source_refs": [
+        "docs/coordination/domestic-device-algorithms/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/730.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "已有国内账号流量授权不包括设备算法清单。"
+      ],
+      "limitations": [
+        "GET 表单体和权限/型号需由真实服务验证。",
+        "支持列表不证明算法已装载、可下发或可运行。"
       ]
     }
   ],
