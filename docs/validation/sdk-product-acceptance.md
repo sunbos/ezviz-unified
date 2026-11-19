@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 国内账号取流并发限制
+
+已离线验证按取流类型查询、添加或更新以及删除配置的同步与异步入口。正式返回码表的整数 200 与文档样例中的 0 存在差异，真实服务行为仍待 E 套餐主账号验收。写请求未在真实账号执行。[冻结范围](../coordination/domestic-live-limits/admission.json) · [离线记录](2026-11-19-domestic-live-limits/offline.json)
+
 ## 国内设备 OSD 文字
 
 已离线验证设备名称读取、单行设置与多行配置的同步和异步请求，以及只读 CLI 的输出。两个写接口的认证位置与成功码类型不同，认证失效时均不重放。设备级名称读取不能核对任意通道或多行配置的原值，三个真实案例仍待独立授权与适用设备。[冻结范围](../coordination/domestic-osd/admission.json) · [离线记录](2026-11-19-domestic-osd/offline.json)

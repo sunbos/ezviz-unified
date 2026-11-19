@@ -1792,6 +1792,51 @@
         "E49",
         "E57"
       ]
+    },
+    {
+      "id": "cn.live_limits.get.example_conflict",
+      "region": "domestic",
+      "source_doc_id": "1816",
+      "source_url": "https://open.ys7.com/help/1816",
+      "source_content_sha256": "60520c5ce755b93048674fad74ca725e01d5f09ceca62bb04c52c165a554e87a",
+      "description": "成功码样例与正式返回码表冲突。查询示例与正式数组行定义也不一致，未配置的返回形态待核。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "采用状态表的整数 200，样例 0 保留为业务异常。数组内容保持原状。",
+      "evidence": [
+        "E44",
+        "E48",
+        "E84"
+      ]
+    },
+    {
+      "id": "cn.live_limits.set.example_conflict",
+      "region": "domestic",
+      "source_doc_id": "1817",
+      "source_url": "https://open.ys7.com/help/1817",
+      "source_content_sha256": "ba707f042a3e8862e8024d0850bc3382864ec259355c925fcba64bd2288f35a3",
+      "description": "成功码样例与正式返回码表冲突。限制数上下限、0 或负值的含义及账户生效情况待核。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "采用状态表的整数 200，样例 0 保留为业务异常。保留正式表的整数类型，不从缺省说明推断配置效果。",
+      "evidence": [
+        "E56",
+        "E60",
+        "E80"
+      ]
+    },
+    {
+      "id": "cn.live_limits.delete.example_conflict",
+      "region": "domestic",
+      "source_doc_id": "1818",
+      "source_url": "https://open.ys7.com/help/1818",
+      "source_content_sha256": "c2a91cf8d19d8ae45e6c5a0a83aa55135567901c4c2d0398fc306545b6e48b44",
+      "description": "成功码样例与正式返回码表冲突。仅按 liveType 删除，未指明会清除哪些规则或回退到什么值。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "采用状态表的整数 200，样例 0 保留为业务异常。保留 10005 为非成功结果，不自动查询或重发。",
+      "evidence": [
+        "E44",
+        "E48",
+        "E68"
+      ]
     }
   ]
 }

@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "scope": "domestic_live_concurrency_limits_offline",
+  "code_commit": "e5c671503bcf293d36ac47f584b7a80fac5b1dbc",
+  "source_test_sha256": {
+    "src/ezviz_unified/live_limits.py": "02e0117528e5a4ee64dd877ac83cab472cb78b8619f51f3baf00e23a1f71993e",
+    "tests/test_sdk_live_limits.py": "14d46fa81ef4623f3446f7c483eb78ba8008a291b2bfc640af096d937eb98fcf",
+    "examples/live_limits.py": "bd736c1afd859b85e6b5524f7343840c8e94887598f4680a697ff10d40b84833",
+    "tests/test_example_live_limits.py": "36c37f4b2e32fa4d6fccebe91383d62b963a3ed08c2a3cfd65a3d3fd989fc680",
+    "README.md": "476dca7ad9454b0d733f17c284a0c9e2cecb8c8e478f74755802c7fbb7a98f6c",
+    "src/ezviz_unified/client.py": "3a52c13db5289257634329155bcf8fddef2a04fe842baf428e310bfd5d033ecf",
+    "src/ezviz_unified/__init__.py": "3ab15b550d48e9384d0c9cf8800589e90e53a2f0ee6abbe417a74f4cbaf070cb",
+    "src/ezviz_unified/_diagnostic_registry.py": "813ac947320e59bd988ee91e23b943375a7111aaeb07aadee09661b8be48e1d1",
+    "docs/diagnostics-v1-coverage.json": "b7686b6a2fc3c2e0931fb8fa5b210ca2a4d6aab2ede6d033e9e196dda4a669fd",
+    "docs/diagnostics.md": "816116a77d0e6e4a6a6b02836b426e4672b9ad4319187ecd66a13f08b88b7ff0",
+    "tests/test_harness_diagnostic_coverage.py": "634f937e2e8bc57a9d8b052fbd7c6158c5ea8b5d8b7016b671a26c1bb55959c4",
+    "docs/coordination/domestic-live-limits/admission.json": "3e3cd4a7344e12fd886f1244147ce8ef2d3ec8f8552d44e9c5b7d43fd890a877",
+    "contracts/reviewed-transport-contracts.json": "6d873d6b76226a0d695914a12b37892c627a0ef788f927c6dd564eb1dbdd0b96",
+    "contracts/source-issues.json": "fc872230e17473f0a2ef6e246e0caf7f05b01d1f9fe48f08c98d63d202b0c979",
+    "evals/contracts/cases.json": "e1993d37f82ad45f58bc9eaf9c17d24952d713961b7cee8a5d466fa82120ab18"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP392-SDK",
+        "input_commit": "2ebbeed9ef0d9a320bf4c2067962be4c9cff5def",
+        "write_scope": [
+          "src/ezviz_unified/live_limits.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "3083717bd44800b48cf30ba3ea07c2ab8708294ed9489d4a1cd85f5b5a456b1b"
+      },
+      {
+        "task": "SP392-SDKTests",
+        "input_commit": "2ebbeed9ef0d9a320bf4c2067962be4c9cff5def",
+        "write_scope": [
+          "tests/test_sdk_live_limits.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "25507cfc6b3a6ba3deb93e7e761cc0ccf9a1c7095b3f8c6f6e7e8b4d169e3857"
+      },
+      {
+        "task": "SP392-CLI",
+        "input_commit": "2ebbeed9ef0d9a320bf4c2067962be4c9cff5def",
+        "write_scope": [
+          "examples/live_limits.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "2cf5e836c7bd1f1d874bca098079fce68a7ee11414f1d4f059c128eb60c35158"
+      },
+      {
+        "task": "SP393-CLITests",
+        "input_commit": "2ebbeed9ef0d9a320bf4c2067962be4c9cff5def",
+        "write_scope": [
+          "tests/test_example_live_limits.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "2263ccd80c8b9309fb5480bcc5cd513959c2e0a05de07f4ea68e9628f0e2d48e"
+      },
+      {
+        "task": "SP393-CLIReview",
+        "input_commit": "2ebbeed9ef0d9a320bf4c2067962be4c9cff5def",
+        "write_scope": [
+          "tests/test_example_live_limits.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "43f9f85ff7763b6860894b94da1d10b103cb37395aacc230ddff883912fc8753"
+      },
+      {
+        "task": "SP393-SDKReview",
+        "input_commit": "2ebbeed9ef0d9a320bf4c2067962be4c9cff5def",
+        "write_scope": [
+          "tests/test_sdk_live_limits.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "d5f832a5a64cec8710b277f2a6073b4ad3a7b2b6c3e49a6f7d6c9bed1713ea54"
+      },
+      {
+        "task": "SP395-IntegerBoundary",
+        "input_commit": "2ebbeed9ef0d9a320bf4c2067962be4c9cff5def",
+        "write_scope": [
+          "tests/test_sdk_live_limits.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "3398476e0d1ccddcf5b533f05e2dc7863c427b90dc8f528200dc3723469ae3a5"
+      },
+      {
+        "task": "SP393-Guide",
+        "input_commit": "2ebbeed9ef0d9a320bf4c2067962be4c9cff5def",
+        "write_scope": [
+          "README.md"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "49cb5be9e8c15fb31e8c4a9f87863ce2f13e0fe4f548209bc864a5c200c41f94"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_live_limits.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "498 passed in 1.47s",
+      "local_receipt_sha256": "1052cc8f0b6bad70c6ccfc588e2679d2bbe49ee723a90b54b2e711a26ca97fc5",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_live_limits.py",
+      "summary": "24 passed in 0.34s",
+      "local_receipt_sha256": "c6de89ec16cc220c950dcbdd010948269e9cfc97035d938532958dceb614a683",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "8554 passed, 35 subtests passed in 56.87s",
+      "local_receipt_sha256": "9a586c820a1c2939c7cac7df52f6eff9bfe365c8137d01337146cd3bed87a496",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "244 registered contracts, 1984/1984 wire checks passed",
+      "local_receipt_sha256": "da9274cf8c8933c00a40517b3e94c90703fe8987088830cf52d1c061d74dec4f",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 55 source files",
+      "local_receipt_sha256": "a61f210e734f26751667a6a29940aba6b0ec6f7991547f4648becbe68cb7cdff",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "244 registered contracts and bindings, 488 symbols inspected",
+      "local_receipt_sha256": "7a74b6973701475c1631fd30c5f39a6a0651605c4d29a759b0f7d8843775284d",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/live_limits.py tests/test_sdk_live_limits.py examples/live_limits.py tests/test_example_live_limits.py src/ezviz_unified/client.py src/ezviz_unified/__init__.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "39bf1f0bc0656579256bf5a7a6d1b4582d637d07b55173d4a7d22fe6065866bc",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/live_limits.py tests/test_sdk_live_limits.py examples/live_limits.py tests/test_example_live_limits.py src/ezviz_unified/client.py src/ezviz_unified/__init__.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "8 files already formatted",
+      "local_receipt_sha256": "080b6f9ab5399f5dc5c3052644285ea5a3bd5ff38a29cca2684d7b2dd2af5cd2",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "本批为合成认证与传输，未查询或变更真实账号配置。正式返回码与样例存在冲突，真实成功码、无规则时的查询响应及删除后的回退配置待验收。"
+}
