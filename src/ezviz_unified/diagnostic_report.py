@@ -48,6 +48,9 @@ from typing import Literal
 from ._diagnostic_registry import ENTRYPOINTS, OPERATIONS
 from .auth_models import RegionConfig
 from .errors import (
+    _DIAGNOSTIC_CODE_CATEGORIES as _CODE_CATEGORIES,
+)
+from .errors import (
     ApiError,
     AuthenticationError,
     DeviceError,
@@ -86,12 +89,7 @@ _ATTEMPT_VALUES = frozenset({0, 1, 2})
 # transport_setup (the Client factory/origin/injection stage) must not, and
 # a claim is honest only while no child scope was ever entered.
 _VALIDATION_KINDS = frozenset({"call", "inspection"})
-_CODE_CATEGORIES = {
-    10002: "invalid_token",
-    10031: "permission_denied",
-    "10002": "invalid_token",
-    "10031": "permission_denied",
-}
+
 
 _MISSING = object()
 
@@ -336,6 +334,10 @@ def _classify(
             if raw_code is _MISSING or raw_status is _MISSING:
                 fault = True
             code_category = _code_category(None if raw_code is _MISSING else raw_code)
+            if code_category == "other":
+                read_private = _read_field(exc, "_diagnostic_code_category")
+                if type(read_private) is str and read_private in _CODE_CATEGORIES.values():
+                    code_category = read_private
             http_status_category = _http_status_category(
                 None if raw_status is _MISSING else raw_status
             )

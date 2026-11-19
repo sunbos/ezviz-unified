@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import heapq
 import re
-from collections.abc import Iterable, Iterator
+from collections.abc import Iterable, Iterator, Mapping
+from urllib.parse import quote, quote_plus
 
 REDACTED = "***"
 
@@ -69,6 +70,11 @@ _SENSITIVE_KEYS = (
     "lastId",
     "lastSpaceId",
     "recordSpaceId",
+    "deviceLicense",
+    "deviceUserName",
+    "deviceCode",
+    "vehicleLicensePlate",
+    "productKey",
     "oneOffPlanId",
     "planId",
     "planName",
@@ -160,6 +166,71 @@ def redact(
     return "".join(parts)
 
 
+_REGISTRATION_SECRET_KEYS = frozenset(
+    {
+        "devicelicense",
+        "deviceusername",
+        "devicecode",
+        "vehiclelicenseplate",
+        "productkey",
+        "devicename",
+        "deviceserial",
+    }
+)
+_REGISTRATION_CSV_KEYS = frozenset({"devicecode", "vehiclelicenseplate"})
+
+
+def _registration_secrets(secrets: Iterable[str], *sources: object) -> tuple[str, ...]:
+    """Return ``secrets`` plus URL-encoded variants of registration fields.
+
+    Each positional source may be a mapping or a list/tuple of row
+    mappings. Only immediate key/value pairs are inspected against a
+    fixed allow-list of registration field names; arbitrary or nested
+    keys are never scanned.
+    """
+    collected = set(secrets)
+
+    def _add(raw: str) -> None:
+        if not raw:
+            return
+        collected.add(raw)
+        collected.add(quote(raw, safe="", errors="surrogatepass"))
+        collected.add(quote_plus(raw, safe="", errors="surrogatepass"))
+
+    def _scan(row: object) -> None:
+        if not isinstance(row, Mapping):
+            return
+        for key, value in row.items():
+            if not isinstance(key, str) or not isinstance(value, str):
+                continue
+            normalized = key.lower()
+            if normalized not in _REGISTRATION_SECRET_KEYS:
+                continue
+            if normalized in _REGISTRATION_CSV_KEYS:
+                _add(value)
+                for member in value.split(","):
+                    _add(member)
+            else:
+                _add(value)
+
+    for source in sources:
+        if isinstance(source, Mapping):
+            _scan(source)
+        elif isinstance(source, (list, tuple)):
+            for row in source:
+                _scan(row)
+
+    return tuple(sorted(collected))
+
+
+_DIAGNOSTIC_CODE_CATEGORIES = {
+    10002: "invalid_token",
+    10031: "permission_denied",
+    "10002": "invalid_token",
+    "10031": "permission_denied",
+}
+
+
 class EzvizError(Exception):
     """Base error carrying diagnostic context; never stores raw payloads."""
 
@@ -175,6 +246,11 @@ class EzvizError(Exception):
         secret_values = tuple(str(s) for s in secrets if s)
         self.message: str = redact(message, secret_values)
         self.code: str | int | None = redact(code, secret_values) if isinstance(code, str) else code
+        self._diagnostic_code_category: str | None = (
+            _DIAGNOSTIC_CODE_CATEGORIES.get(code)
+            if type(code) is str and self.code != code
+            else None
+        )
         self.http_status: int | None = http_status
         self.operation: str = redact(operation, secret_values)
         super().__init__(self.message)

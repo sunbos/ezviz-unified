@@ -19377,6 +19377,655 @@
       },
       "source_content_sha256": "2ffd03e5225e647110b93dacdbfd05323b4ed2d9cd33c6edf9e384d3fa43dc13",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.third_party_protocols.open_project",
+      "region": "domestic",
+      "source_doc_id": "5364",
+      "source_url": "https://open.ys7.com/help/5364",
+      "method": "POST",
+      "path": "/api/service/thirdproto/{protocolType}/project",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4",
+          "constant": "application/x-www-form-urlencoded"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E46;E50;E78"
+      },
+      "constraints": [
+        {
+          "fact": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+          "evidence": "5322 E57;E14"
+        },
+        {
+          "fact": "开通一个账号下的指定协议项目。明确要求 form Content-Type，示例没有业务正文。未说明重复开通、撤销或计费影响。",
+          "evidence": "E7;E11;E14;E42;E46;E50;E78"
+        }
+      ],
+      "uncertainties": [
+        "开通一个账号下的指定协议项目。明确要求 form Content-Type，示例没有业务正文。未说明重复开通、撤销或计费影响。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/thirdproto/{protocolType}/project",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E42"
+      },
+      "source_content_sha256": "618d770d29e5a37dd3f017dd64e945c2682154a56cf227efeca9c65548292246",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.third_party_protocols.get_project",
+      "region": "domestic",
+      "source_doc_id": "5365",
+      "source_url": "https://open.ys7.com/help/5365",
+      "method": "GET",
+      "path": "/api/service/thirdproto/{protocolType}/project",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E40;E44;E80"
+      },
+      "constraints": [
+        {
+          "fact": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+          "evidence": "5322 E57;E14"
+        },
+        {
+          "fact": "返回接入域/端口及项目标识。端口表为 String、示例为整数；保留原值，不主动连接。",
+          "evidence": "E7;E11;E14;E36;E40;E44;E80"
+        }
+      ],
+      "uncertainties": [
+        "返回接入域/端口及项目标识。端口表为 String、示例为整数；保留原值，不主动连接。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/service/thirdproto/{protocolType}/project",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E36"
+      },
+      "source_content_sha256": "7946dbb6aea587df8a8d4cb18ee9a514460be641517192d83e28941a0be0ef77",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.third_party_protocols.apply_device",
+      "region": "domestic",
+      "source_doc_id": "5366",
+      "source_url": "https://open.ys7.com/help/5366",
+      "method": "POST",
+      "path": "/api/service/thirdproto/{protocolType}/deviceLicense/apply",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "deviceName",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "deviceLicense",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "deviceUserName",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R7"
+        },
+        {
+          "name": "channelCount",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "default": 1,
+          "evidence": "E14/R8"
+        },
+        {
+          "name": "deviceCode",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R9"
+        },
+        {
+          "name": "vehicleLicensePlate",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R10"
+        },
+        {
+          "name": "vehicleLicenseColor",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R11"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E88;E92;E116"
+      },
+      "constraints": [
+        {
+          "fact": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+          "evidence": "5322 E57;E14"
+        },
+        {
+          "fact": "正式参数表为 form，E84 示例将若干字段放入 query。采用表单。E3 说非必填为保留字段，E14 又列协议条件与默认值。返回设备序列号并不证明设备已注册上线。",
+          "evidence": "E7;E11;E14;E84;E88;E92;E116"
+        }
+      ],
+      "uncertainties": [
+        "正式参数表为 form，E84 示例将若干字段放入 query。采用表单。E3 说非必填为保留字段，E14 又列协议条件与默认值。返回设备序列号并不证明设备已注册上线。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/thirdproto/{protocolType}/deviceLicense/apply",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E84"
+      },
+      "source_content_sha256": "24f763492f32f7d9e895af42b4d27a08033b27c07b9ec2725d40a6db76cc11c6",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.third_party_protocols.apply_batch",
+      "region": "domestic",
+      "source_doc_id": "5367",
+      "source_url": "https://open.ys7.com/help/5367",
+      "method": "POST",
+      "path": "/api/service/thirdproto/{protocolType}/licenses/apply",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "deviceCount",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "deviceUserName",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "deviceLicense",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R7"
+        },
+        {
+          "name": "channelCount",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "default": 1,
+          "evidence": "E14/R8"
+        },
+        {
+          "name": "deviceCode",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R9"
+        },
+        {
+          "name": "vehicleLicensePlate",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R10"
+        },
+        {
+          "name": "vehicleLicenseColor",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R11"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E88;E92;E116"
+      },
+      "constraints": [
+        {
+          "fact": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+          "evidence": "5322 E57;E14"
+        },
+        {
+          "fact": "表单与 E84 query 示例存在冲突。批申请只返回 taskId。可选凭据的空值与省略可能由平台生成；提供值可能用于整批。429 表示勿重复提交。",
+          "evidence": "E7;E11;E14;E84;E88;E92;E116"
+        }
+      ],
+      "uncertainties": [
+        "表单与 E84 query 示例存在冲突。批申请只返回 taskId。可选凭据的空值与省略可能由平台生成；提供值可能用于整批。429 表示勿重复提交。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/thirdproto/{protocolType}/licenses/apply",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E84"
+      },
+      "source_content_sha256": "cf56846d75c8e5afe19d7dd4a0d6cff725249f15312820b2e112019fba21c2cb",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.third_party_protocols.get_task",
+      "region": "domestic",
+      "source_doc_id": "5368",
+      "source_url": "https://open.ys7.com/help/5368",
+      "method": "GET",
+      "path": "/api/service/thirdproto/{protocolType}/licenses/task",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "taskId",
+          "location": "query",
+          "type": "Long",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E46;E50;E86"
+      },
+      "constraints": [
+        {
+          "fact": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+          "evidence": "5322 E57;E14"
+        },
+        {
+          "fact": "9 为成功；10 且成功数为 0 为全部失败，10 且成功数大于 0 为部分成功。其他状态保留；任务确认不证明设备在线。",
+          "evidence": "E7;E11;E14;E42;E46;E50;E86"
+        }
+      ],
+      "uncertainties": [
+        "9 为成功；10 且成功数为 0 为全部失败，10 且成功数大于 0 为部分成功。其他状态保留；任务确认不证明设备在线。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/service/thirdproto/{protocolType}/licenses/task",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E42"
+      },
+      "source_content_sha256": "4407dda2ffc0098a0ccf5308d83e5ff658b8976b69f308f5cff6131295fb6a10",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.third_party_protocols.list_devices",
+      "region": "domestic",
+      "source_doc_id": "5369",
+      "source_url": "https://open.ys7.com/help/5369",
+      "method": "GET",
+      "path": "/api/service/thirdproto/{protocolType}/devices/page",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "taskId",
+          "location": "query",
+          "type": "Long",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "startIndex",
+          "location": "query",
+          "type": "Int",
+          "required": false,
+          "default": 0,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "pageSize",
+          "location": "query",
+          "type": "Int",
+          "required": false,
+          "default": 10,
+          "evidence": "E14/R7"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E64;E68;E140"
+      },
+      "constraints": [
+        {
+          "fact": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+          "evidence": "5322 E57;E14"
+        },
+        {
+          "fact": "startIndex 排除该条记录，默认 0；pageSize 为 1–50。下页用原 nextIndex，null 表示结束，缺键未证明终止。颜色示例整数、表为 String。行中可能含私密设备注册信息。",
+          "evidence": "E7;E11;E14;E60;E64;E68;E140"
+        }
+      ],
+      "uncertainties": [
+        "startIndex 排除该条记录，默认 0；pageSize 为 1–50。下页用原 nextIndex，null 表示结束，缺键未证明终止。颜色示例整数、表为 String。行中可能含私密设备注册信息。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/service/thirdproto/{protocolType}/devices/page",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E60"
+      },
+      "source_content_sha256": "3025db851cf4fe3f8f4ee3242d31319aca03cb06c2a78a233d0f8bda864c809f",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.third_party_protocols.edit_device",
+      "region": "domestic",
+      "source_doc_id": "5370",
+      "source_url": "https://open.ys7.com/help/5370",
+      "method": "POST",
+      "path": "/api/service/thirdproto/{protocolType}/licenses/edit",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "deviceLicense",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "deviceUserName",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R7"
+        },
+        {
+          "name": "vehicleLicensePlate",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R8"
+        },
+        {
+          "name": "vehicleLicenseColor",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R9"
+        },
+        {
+          "name": "deviceName",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E3;E72 optional name appears outside formal field table; SDK chooses body"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E76;E80;E100"
+      },
+      "constraints": [
+        {
+          "fact": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+          "evidence": "5322 E57;E14"
+        },
+        {
+          "fact": "E3 与 E72 支持 deviceName，E14 正式表未列；SDK 仅在显式给定名称时随其他字段一并送表单。E72 将敏感字段放 query，SDK 不采用、不自动换传输方式。成功示例 data=null。",
+          "evidence": "E7;E11;E14;E72;E76;E80;E100"
+        }
+      ],
+      "uncertainties": [
+        "E3 与 E72 支持 deviceName，E14 正式表未列；SDK 仅在显式给定名称时随其他字段一并送表单。E72 将敏感字段放 query，SDK 不采用、不自动换传输方式。成功示例 data=null。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/thirdproto/{protocolType}/licenses/edit",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E72"
+      },
+      "source_content_sha256": "239222a5b6091e9e6d9a9e59edcca8929d7dae07a6bfaaf3abbb49f3421640be",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -19510,6 +20159,10 @@
     {
       "review": "docs/coordination/domestic-live-streams/admission.json",
       "note": "八个国内直播管理契约：按接入方式绑定创建，保留列表和地址接口的方法差异、相对目标来源、修改时间窗上限冲突及独立的真实验收边界。"
+    },
+    {
+      "review": "docs/coordination/domestic-third-party-protocols/admission.json",
+      "note": "七个国内企业第三方协议设备接入合同，区分项目、单申请、批任务受理与结果、设备分页及显式修改。以参数表的正文承载私密字段；保留资料冲突。"
     }
   ]
 }

@@ -13,6 +13,7 @@ from .errors import (
     DeviceError,
     PermissionDeniedError,
     ProtocolError,
+    _registration_secrets,
     redact,
 )
 from .models import ApiResponse, ResponsePolicy, ScalarCode
@@ -120,6 +121,11 @@ def decode_response(
 
     mask_urls = policy.redact_message_urls
     mask_media_urls = policy.redact_media_urls
+
+    if policy.redact_registration_fields and isinstance(payload, dict):
+        data = payload.get("data")
+        rows = data.get("data") if isinstance(data, dict) else None
+        secrets = _registration_secrets(secrets, data, rows)
 
     matches = _matching_envelopes(payload, policy)
 

@@ -3569,6 +3569,97 @@
       "public_entry": "live_streams.address",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.third_party_protocols.open_project",
+      "region": "domestic",
+      "source_doc_id": "5364",
+      "module": "src/ezviz_unified/third_party_protocols.py",
+      "symbols": [
+        "ThirdPartyProtocols.open_project",
+        "AsyncThirdPartyProtocols.open_project"
+      ],
+      "public_entry": "third_party_protocols.open_project",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.third_party_protocols.get_project",
+      "region": "domestic",
+      "source_doc_id": "5365",
+      "module": "src/ezviz_unified/third_party_protocols.py",
+      "symbols": [
+        "ThirdPartyProtocols.get_project",
+        "AsyncThirdPartyProtocols.get_project"
+      ],
+      "public_entry": "third_party_protocols.get_project",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.third_party_protocols.apply_device",
+      "region": "domestic",
+      "source_doc_id": "5366",
+      "module": "src/ezviz_unified/third_party_protocols.py",
+      "symbols": [
+        "ThirdPartyProtocols.apply_device",
+        "AsyncThirdPartyProtocols.apply_device"
+      ],
+      "public_entry": "third_party_protocols.apply_device",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.third_party_protocols.apply_batch",
+      "region": "domestic",
+      "source_doc_id": "5367",
+      "module": "src/ezviz_unified/third_party_protocols.py",
+      "symbols": [
+        "ThirdPartyProtocols.apply_batch",
+        "AsyncThirdPartyProtocols.apply_batch"
+      ],
+      "public_entry": "third_party_protocols.apply_batch",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.third_party_protocols.get_task",
+      "region": "domestic",
+      "source_doc_id": "5368",
+      "module": "src/ezviz_unified/third_party_protocols.py",
+      "symbols": [
+        "ThirdPartyProtocols.get_task",
+        "AsyncThirdPartyProtocols.get_task"
+      ],
+      "public_entry": "third_party_protocols.get_task",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.third_party_protocols.list_devices",
+      "region": "domestic",
+      "source_doc_id": "5369",
+      "module": "src/ezviz_unified/third_party_protocols.py",
+      "symbols": [
+        "ThirdPartyProtocols.list_devices",
+        "AsyncThirdPartyProtocols.list_devices"
+      ],
+      "public_entry": "third_party_protocols.list_devices",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.third_party_protocols.edit_device",
+      "region": "domestic",
+      "source_doc_id": "5370",
+      "module": "src/ezviz_unified/third_party_protocols.py",
+      "symbols": [
+        "ThirdPartyProtocols.edit_device",
+        "AsyncThirdPartyProtocols.edit_device"
+      ],
+      "public_entry": "third_party_protocols.edit_device",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }
