@@ -319,6 +319,19 @@ python -m examples.device_voice --mode sync
 
 示例只请求一次列表并报告是否有素材。实际设备的素材同步、改名及恢复效果仍待验收。
 
+新增与删除均支持同步和异步客户端。
+
+- `client.device_voice.create(device_serial, *, voice_name, voice_url)` 用 POST 提交名称和素材 URL。成功响应的顶层 `voiceInfo` 对象位于 `response.data`，其中的整数 `voiceId` 由平台分配。素材是否已同步可从列表的 `status` 字段另行确认。[新增素材（1263）](https://open.ys7.com/help/1263)
+- `client.device_voice.delete(device_serial, voice_id, *, voice_name, voice_url)` 用 DELETE 提交同一素材的 ID、名称和原 URL。成功示例仅含 `meta`，此时 `response.data` 为 `None`。真实删除需单独授权。即使用相同名称和 URL 重建，原 ID 及引用该 ID 的告警音配置也可能无法恢复。[删除素材（1281）](https://open.ys7.com/help/1281)
+
+这两个写入口都通过查询串提交全部参数，请求正文为空。SDK 只传递 URL，由调用者决定何时查询同步状态。写入失败后 SDK 不会自动重发。
+
+下列示例用合成数据和 `httpx.MockTransport` 模拟认证、新增，以及用新增返回的 ID 删除该素材。运行只需要本地 SDK，`--mode async` 可验证异步流程。
+
+```bash
+python -m examples.device_voice_lifecycle --mode sync
+```
+
 ## 国内对讲扬声器音量
 
 `client.settings.get_talk_speaker_volume(device_serial)` 读取设备**最近一次上报**的对讲下行扬声器音量，值位于 `response.data["talkSpeakerVolume"]`。平台返回缓存值，本次查询不实时采集设备音量。同步和异步客户端均支持这个入口。[读取接口（1719）](https://open.ys7.com/help/1719)

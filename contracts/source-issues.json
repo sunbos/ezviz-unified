@@ -1905,6 +1905,36 @@
         "E54",
         "E62"
       ]
+    },
+    {
+      "id": "cn.device_voice.create.idempotency_sync",
+      "region": "domestic",
+      "source_doc_id": "1263",
+      "source_url": "https://open.ys7.com/help/1263",
+      "source_content_sha256": "81d83aef9718c573cfd098584da81163cba8bc96e85a10aba7d4f167c6bd338c",
+      "description": "未说明幂等键、文件规格或设备同步时限。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "仅提交用户提供的素材 URL，并返回平台分配的 ID。",
+      "evidence": [
+        "E14",
+        "E48",
+        "E56"
+      ]
+    },
+    {
+      "id": "cn.device_voice.delete.identity_recovery",
+      "region": "domestic",
+      "source_doc_id": "1281",
+      "source_url": "https://open.ys7.com/help/1281",
+      "source_content_sha256": "3e981319d1ac2e60af5030e0f6041c9bafa1e04b74094e5bb3e3c72766288978",
+      "description": "未说明删除的并发保护、既有告警引用处理或恢复原 ID 的方法。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "显式提供素材的原名称、URL 和 ID；删除后重新创建，原 ID 及其引用的恢复无保证。",
+      "evidence": [
+        "E14",
+        "E54",
+        "E62"
+      ]
     }
   ]
 }

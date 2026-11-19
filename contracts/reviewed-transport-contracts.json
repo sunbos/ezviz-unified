@@ -18456,6 +18456,164 @@
       },
       "source_content_sha256": "57728e8a673496d5d81f8ab4031741550fd28d48bc6a2456394f923b07a61d9d",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.device_voice.create",
+      "region": "domestic",
+      "source_doc_id": "1263",
+      "source_url": "https://open.ys7.com/help/1263",
+      "method": "POST",
+      "path": "/api/route/voice/v3/devices/voices",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "voiceName",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "voiceUrl",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R5"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "voiceInfo",
+        "values": [
+          200
+        ],
+        "evidence": "E52;E56;E88"
+      },
+      "constraints": [
+        {
+          "fact": "国内应用访问令牌；未注明最低角色、型号、子账号或托管权限。",
+          "evidence": "E14"
+        },
+        {
+          "fact": "顶层 voiceInfo 返回整数 voiceId。",
+          "evidence": "E14;E48;E52;E56"
+        }
+      ],
+      "uncertainties": [
+        "未说明幂等键、文件规格或设备同步时限。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/route/voice/v3/devices/voices",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E48 (query parameters, no request body)"
+      },
+      "source_content_sha256": "81d83aef9718c573cfd098584da81163cba8bc96e85a10aba7d4f167c6bd338c",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.device_voice.delete",
+      "region": "domestic",
+      "source_doc_id": "1281",
+      "source_url": "https://open.ys7.com/help/1281",
+      "method": "DELETE",
+      "path": "/api/route/voice/v3/devices/voices",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "voiceId",
+          "location": "query",
+          "type": "Int",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "voiceName",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "voiceUrl",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R6"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E58;E62;E86"
+      },
+      "constraints": [
+        {
+          "fact": "国内应用访问令牌；未注明最低角色、型号、子账号或托管权限。",
+          "evidence": "E14"
+        },
+        {
+          "fact": "删除须提交设备序列号、voiceId、名称和 URL。成功示例仅有 meta。",
+          "evidence": "E14;E54;E58;E62"
+        }
+      ],
+      "uncertainties": [
+        "未说明删除的并发保护、既有告警引用处理或恢复原 ID 的方法。"
+      ],
+      "transport_evidence": {
+        "method": "DELETE",
+        "path": "https://open.ys7.com/api/route/voice/v3/devices/voices",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E54 (query parameters, no request body)"
+      },
+      "source_content_sha256": "3e981319d1ac2e60af5030e0f6041c9bafa1e04b74094e5bb3e3c72766288978",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -18577,6 +18735,10 @@
     {
       "review": "docs/coordination/domestic-device-voice-catalog/admission.json",
       "note": "国内 1259 素材列表和 1273 改名，均按正式 query 位置处理。两种响应的业务数据层级分别登记。"
+    },
+    {
+      "review": "docs/coordination/domestic-device-voice-provision/admission.json",
+      "note": "国内 1263、1281 语音素材新增与删除。两种响应按各自的官方示例核定。"
     }
   ]
 }
