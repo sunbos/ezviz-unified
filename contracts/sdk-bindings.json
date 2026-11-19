@@ -3452,6 +3452,19 @@
       "public_entry": "device_voice.delete",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.device.charging_status",
+      "region": "domestic",
+      "source_doc_id": "1739",
+      "module": "src/ezviz_unified/devices.py",
+      "symbols": [
+        "Devices.charging_status",
+        "AsyncDevices.charging_status"
+      ],
+      "public_entry": "devices.charging_status",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

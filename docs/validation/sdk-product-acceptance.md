@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 国内设备充电状态
+
+同步与异步入口已验证国内 GET 的请求头、字符串业务码、嵌套的充电状态，以及令牌刷新和重试边界。CLI 只回显文档枚举，未知字符串显示为 `null`。本批使用合成数据，实际设备、账号权限、状态新鲜度与物理充电行为仍待核实。[冻结范围](../coordination/domestic-charging-status/admission.json) · [离线记录](2026-11-20-domestic-charging-status/offline.json)
+
 ## 国内设备语音素材新增与删除
 
 已用模拟传输验证同步和异步新增、删除，以及示例按新增回执中的 ID 清理同一素材。新增自顶层 `voiceInfo` 读取 ID，删除按设备序列号、ID、名称和原 URL 选择素材。真实设备的下发、同步、删除和已有告警引用的恢复仍待验收。[冻结范围](../coordination/domestic-device-voice-provision/admission.json) · [离线记录](2026-11-20-domestic-device-voice-provision/offline.json)

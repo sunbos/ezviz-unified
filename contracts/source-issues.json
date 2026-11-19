@@ -1935,6 +1935,21 @@
         "E54",
         "E62"
       ]
+    },
+    {
+      "id": "cn.device.charging_status.freshness",
+      "region": "domestic",
+      "source_doc_id": "1739",
+      "source_url": "https://open.ys7.com/help/1739",
+      "source_content_sha256": "b13e1645d21e12e2346ed9381ad53171b2787ab5a8dab7c359c9dee5e62f9d4a",
+      "description": "数据新鲜度与状态刷新间隔未说明；无电池也是官方返回值。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "保留字符串原值和扩展字段。CLI 仅显示官方枚举。用户可单独使用 675 的 battryStatus 查询电量。",
+      "evidence": [
+        "E40",
+        "E44",
+        "675 E53/E57"
+      ]
     }
   ]
 }

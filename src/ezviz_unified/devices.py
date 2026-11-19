@@ -9,7 +9,8 @@ from .errors import ProtocolError
 from .management import AsyncDeviceManagement, DeviceManagement
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
-from .settings import _check_text, _require_overseas
+from .settings import _check_text, _require_domestic, _require_overseas
+from .vod import _header
 
 if TYPE_CHECKING:
     from .client import AsyncClient, Client
@@ -77,6 +78,15 @@ _OP_STATUS = Operation(
     read_only=True,
     policy=_POLICY,
 )
+_OP_CHARGING_STATUS = Operation(
+    "devices.charging_status",
+    "GET",
+    "/api/v3/device/power/status/get",
+    regions=frozenset({"domestic"}),
+    token_location="header",
+    read_only=True,
+    policy=ResponsePolicy(success_values=("200",), redact_message_urls=True),
+)
 
 
 def _check_int(name: str, value: object) -> int:
@@ -117,6 +127,28 @@ def _check_utc_response(response: ApiResponse) -> ApiResponse:
     if not isinstance(response.data, dict):
         raise ProtocolError(
             "unexpected devices.get_utc response shape",
+            http_status=response.http_status,
+            operation=response.operation,
+        )
+    return response
+
+
+def _charging_status_headers(scope: str, device_serial: object) -> dict[str, str]:
+    """Validate region and serial before authentication; the serial is sent
+    verbatim under ``deviceSerial`` (no case normalization)."""
+    _require_domestic(scope)
+    return {"deviceSerial": _header("device_serial", device_serial)}
+
+
+def _check_charging_status_response(response: ApiResponse) -> ApiResponse:
+    """Require ``data.valueInfo.powerStatus`` to be a string, passed through
+    verbatim; a wrong container level or non-string value is a protocol
+    violation reported without the raw payload."""
+    data = response.data
+    info = data.get("valueInfo") if isinstance(data, dict) else None
+    if not isinstance(info, dict) or not isinstance(info.get("powerStatus"), str):
+        raise ProtocolError(
+            "unexpected devices.charging_status response shape",
             http_status=response.http_status,
             operation=response.operation,
         )
@@ -171,6 +203,25 @@ class Devices(DeviceManagement):
             data = {"deviceSerial": serial, "channel": _check_int("channel", channel)}
             return self._client.request(_OP_STATUS, data=data)
 
+    def charging_status(self, device_serial: str) -> ApiResponse:
+        """Read the battery charging status (domestic region only).
+
+        Performs one logical read: a GET to
+        ``/api/v3/device/power/status/get`` with no query or body. The
+        caller-supplied serial travels in the ``deviceSerial`` header and
+        the SDK-managed ``accessToken`` header is added per attempt; as a
+        declared read-only operation it may be replayed once after the
+        existing single refresh when the platform reports code ``10002``.
+        On success ``data.valueInfo.powerStatus`` must be a string —
+        documented values are "0" (not charging), "1" (charging),
+        "2" (full), "3" (no battery) and "4" (battery faulty); any other
+        string is passed through verbatim.
+        """
+        with _diagnostic_scope(self._client, entrypoint="devices.charging_status", mode="sync"):
+            headers = _charging_status_headers(self._client.region.scope, device_serial)
+            response = self._client.request(_OP_CHARGING_STATUS, headers=headers)
+            return _check_charging_status_response(response)
+
 
 class AsyncDevices(AsyncDeviceManagement):
     """Asynchronous facade over the reviewed device query operations."""
@@ -219,3 +270,16 @@ class AsyncDevices(AsyncDeviceManagement):
             serial = _check_device_serial(device_serial, require_uppercase=self._domestic())
             data = {"deviceSerial": serial, "channel": _check_int("channel", channel)}
             return await self._client.request(_OP_STATUS, data=data)
+
+    async def charging_status(self, device_serial: str) -> ApiResponse:
+        """Read the battery charging status (domestic region only).
+
+        Async variant of :meth:`Devices.charging_status`: one logical GET
+        carrying the caller-supplied ``deviceSerial`` header plus the
+        SDK-managed ``accessToken`` header, replayed at most once after
+        the existing single refresh on platform code ``10002``.
+        """
+        with _diagnostic_scope(self._client, entrypoint="devices.charging_status", mode="async"):
+            headers = _charging_status_headers(self._client.region.scope, device_serial)
+            response = await self._client.request(_OP_CHARGING_STATUS, headers=headers)
+            return _check_charging_status_response(response)

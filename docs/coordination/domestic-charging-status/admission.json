@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "8f6c1953546896e6bba75022f5b6f8d38059c500",
+  "scope_revision": "2026-11-20-r37-domestic-charging-status",
+  "operations": [
+    {
+      "operation_id": "cn.device.charging_status",
+      "capability_id": "candidate:domestic:1739:d0",
+      "name": "charging_status",
+      "entry": "devices.charging_status",
+      "doc_id": "1739",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1739-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1739-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Devices": "def charging_status(self, device_serial: str) -> ApiResponse",
+        "AsyncDevices": "async def charging_status(self, device_serial: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/1739",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1739.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1739.structure.json",
+      "html_sha256": "b13e1645d21e12e2346ed9381ad53171b2787ab5a8dab7c359c9dee5e62f9d4a",
+      "method": "GET",
+      "path": "/api/v3/device/power/status/get",
+      "read_only": true,
+      "permission": "国内应用令牌。最低角色、套餐、可见设备的共享权限和适用型号未说明。",
+      "unknown": "数据新鲜度与状态刷新间隔未说明；无电池也是官方返回值。",
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 36,
+        "example": 40,
+        "fields": 44,
+        "errors": 72
+      }
+    }
+  ],
+  "sdk_choices": [
+    "GET 只用两个 header，不加 query、正文、通道或额外请求。保留设备序列号大小写；SDK 采用现有 HTTP header 字符校验，认证前拒绝空白、非 ASCII、首尾空格或控制字符。",
+    "成功码为顶层字符串 \"200\"。保留 data / raw 及未知字段。data.valueInfo.powerStatus 必须为字符串；允许未来字符串值，缺失或类型错误抛 ProtocolError。",
+    "官方状态字符串 0/1/2/3/4 分别表示未充电、正在充电、充满、无电池、电池坏。CLI 仅输出已知值或 null。接口没有电量百分比和采样时间。",
+    "使用已有只读令牌刷新机制；仅可刷新的 provider 在 10002 后最多重放一次。两种 SDK 模式共用脱敏与诊断白名单。",
+    "最小 CLI 每次只调用一次 charging_status，已有 devices.status() 可另取 data.battryStatus 的电量百分比。两个结果没有同次采样保证。"
+  ],
+  "related_existing": {
+    "contract": "cn.device.status",
+    "doc_id": "675",
+    "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/675.source.json",
+    "html_sha256": "ea009238b1eab936a99f45f1cafbc67b7f0a1495e2b073e55917070e8171d59c",
+    "elements": [
+      53,
+      57
+    ],
+    "field": "data.battryStatus",
+    "meaning": "整数 1–100 表示百分比，-1 表示未上报或不支持。"
+  },
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "live": "本批仅执行离线测试。"
+}
