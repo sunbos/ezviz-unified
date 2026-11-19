@@ -17651,6 +17651,211 @@
       },
       "source_content_sha256": "159c2ef647e6ddef9084e61074b2b9748e755d25ec3228c7a396abd78db6b2b1",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.live_limits.get",
+      "region": "domestic",
+      "source_doc_id": "1816",
+      "source_url": "https://open.ys7.com/help/1816",
+      "method": "GET",
+      "path": "/api/v3/mall/online/user/limit/live",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E18/R2"
+        },
+        {
+          "name": "liveType",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E18/R3"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "成功返回码表 E84；字段表 E48 的 code 为 Int；响应示例 E44 给出不同值 0。"
+      },
+      "constraints": [
+        {
+          "fact": "仅支持国内已开通 E 套餐且未欠费的主账号 token。",
+          "evidence": "E15"
+        },
+        {
+          "fact": "liveType 取 VTDU 或 RTMP；平台文档将 jsdecode/私有流归入 VTDU，将 HLS/RTMP/FLV 归入 RTMP。",
+          "evidence": "E18"
+        },
+        {
+          "fact": "查询已配置的并发限制，不查询当前使用量。",
+          "evidence": "E18;E48;E84"
+        }
+      ],
+      "uncertainties": [
+        "成功码样例与正式返回码表冲突。查询示例与正式数组行定义也不一致，未配置的返回形态待核。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/mall/online/user/limit/live",
+        "encoding": "none",
+        "evidence": "E7;E11;E18;E40;URL query"
+      },
+      "source_content_sha256": "60520c5ce755b93048674fad74ca725e01d5f09ceca62bb04c52c165a554e87a",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.live_limits.set",
+      "region": "domestic",
+      "source_doc_id": "1817",
+      "source_url": "https://open.ys7.com/help/1817",
+      "method": "POST",
+      "path": "/api/v3/mall/online/user/limit/live",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E18/R2"
+        },
+        {
+          "name": "liveType",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E18/R3"
+        },
+        {
+          "name": "limitType",
+          "location": "body",
+          "type": "Int",
+          "required": true,
+          "default": null,
+          "evidence": "E18/R4"
+        },
+        {
+          "name": "limitNumber",
+          "location": "body",
+          "type": "Int",
+          "required": true,
+          "default": null,
+          "evidence": "E18/R5"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "成功返回码表 E80；字段表 E60 的 code 为 Int；响应示例 E56 给出不同值 0。"
+      },
+      "constraints": [
+        {
+          "fact": "仅支持国内已开通 E 套餐且未欠费的主账号 token。",
+          "evidence": "E15"
+        },
+        {
+          "fact": "liveType 取 VTDU 或 RTMP；平台文档将 jsdecode/私有流归入 VTDU，将 HLS/RTMP/FLV 归入 RTMP。",
+          "evidence": "E18"
+        },
+        {
+          "fact": "按通道或用户限制，limitType 整数 0 或 1；limitNumber 为整型，未说明范围。",
+          "evidence": "E18;E60;E80"
+        }
+      ],
+      "uncertainties": [
+        "成功码样例与正式返回码表冲突。限制数上下限、0 或负值的含义及账户生效情况待核。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/v3/mall/online/user/limit/live",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E18;E52;--data-raw 名值对，表单编码为 SDK 选择"
+      },
+      "source_content_sha256": "ba707f042a3e8862e8024d0850bc3382864ec259355c925fcba64bd2288f35a3",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.live_limits.delete",
+      "region": "domestic",
+      "source_doc_id": "1818",
+      "source_url": "https://open.ys7.com/help/1818",
+      "method": "DELETE",
+      "path": "/api/v3/mall/online/user/limit/live",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E18/R2"
+        },
+        {
+          "name": "liveType",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E18/R3"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "成功返回码表 E68；字段表 E48 的 code 为 Int；响应示例 E44 给出不同值 0。"
+      },
+      "constraints": [
+        {
+          "fact": "仅支持国内已开通 E 套餐且未欠费的主账号 token。",
+          "evidence": "E15"
+        },
+        {
+          "fact": "liveType 取 VTDU 或 RTMP；平台文档将 jsdecode/私有流归入 VTDU，将 HLS/RTMP/FLV 归入 RTMP。",
+          "evidence": "E18"
+        },
+        {
+          "fact": "请求体只指定 liveType；10005 表示不存在取流限制。",
+          "evidence": "E18;E48;E68"
+        }
+      ],
+      "uncertainties": [
+        "成功码样例与正式返回码表冲突。仅按 liveType 删除，未指明会清除哪些规则或回退到什么值。"
+      ],
+      "transport_evidence": {
+        "method": "DELETE",
+        "path": "https://open.ys7.com/api/v3/mall/online/user/limit/live",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E18;E40;--data-raw 名值对，表单编码为 SDK 选择"
+      },
+      "source_content_sha256": "c2a91cf8d19d8ae45e6c5a0a83aa55135567901c4c2d0398fc306545b6e48b44",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -17756,6 +17961,10 @@
     {
       "review": "docs/coordination/domestic-osd/admission.json",
       "note": "国内 1721 设备级 OSD 读取、725 单行设置及 5201 多行配置按来源分别登记。"
+    },
+    {
+      "review": "docs/coordination/domestic-live-limits/admission.json",
+      "note": "国内主账号取流并发限制配置的三种方法。成功码采用 200，样例 0 冲突单列。"
     }
   ]
 }

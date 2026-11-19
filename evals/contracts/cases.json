@@ -5796,6 +5796,51 @@
         "osdNames": "first,second"
       },
       "data": null
+    },
+    {
+      "operation_id": "cn.live_limits.get",
+      "args": [
+        "VTDU"
+      ],
+      "kwargs": {},
+      "fields": {
+        "liveType": "VTDU"
+      },
+      "data": [
+        {
+          "liveType": "VTDU",
+          "limitType": 0,
+          "limitNumber": 8,
+          "extra": true
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.live_limits.set",
+      "args": [
+        "RTMP"
+      ],
+      "kwargs": {
+        "limit_type": 1,
+        "limit_number": 12
+      },
+      "fields": {
+        "liveType": "RTMP",
+        "limitType": "1",
+        "limitNumber": "12"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.live_limits.delete",
+      "args": [
+        "RTMP"
+      ],
+      "kwargs": {},
+      "fields": {
+        "liveType": "RTMP"
+      },
+      "data": null
     }
   ]
 }

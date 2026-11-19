@@ -3263,6 +3263,45 @@
       "public_entry": "osd.set_lines",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.live_limits.get",
+      "region": "domestic",
+      "source_doc_id": "1816",
+      "module": "src/ezviz_unified/live_limits.py",
+      "symbols": [
+        "LiveLimits.get",
+        "AsyncLiveLimits.get"
+      ],
+      "public_entry": "live_limits.get",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.live_limits.set",
+      "region": "domestic",
+      "source_doc_id": "1817",
+      "module": "src/ezviz_unified/live_limits.py",
+      "symbols": [
+        "LiveLimits.set",
+        "AsyncLiveLimits.set"
+      ],
+      "public_entry": "live_limits.set",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.live_limits.delete",
+      "region": "domestic",
+      "source_doc_id": "1818",
+      "module": "src/ezviz_unified/live_limits.py",
+      "symbols": [
+        "LiveLimits.delete",
+        "AsyncLiveLimits.delete"
+      ],
+      "public_entry": "live_limits.delete",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }

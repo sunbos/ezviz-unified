@@ -232,6 +232,29 @@ files = info.data["fileInfo"]
 
 存储对象过期或被删除后，即使已有节点 ID，也可能取不到文件。真实归档验收需另行确认可读的流和时间段。
 
+## 国内账号取流并发限制
+
+使用未欠费的 E 套餐主账号，可通过 `client.live_limits` 查询已配置的规则。同步和异步客户端均有 `get(live_type)`、`set(live_type, *, limit_type, limit_number)` 和 `delete(live_type)` 三个入口。查询结果只描述配置，实际并发用量需另行观测。
+
+- 三种操作共用 `/api/v3/mall/online/user/limit/live`，令牌放在请求头中。GET 通过查询串发送 `liveType`，POST 和 DELETE 使用表单请求体。
+- jsdecode 和私有流使用 `VTDU`，HLS、RTMP 和 FLV 使用 `RTMP`。参数区分大小写。
+- 更新规则时，`limit_type=0` 按通道限制，`limit_type=1` 按用户限制。`limit_number` 要求整数，官方未给上下限。两个整数参数均在认证前校验，均拒绝布尔值。
+- SDK 依据正式码表将整数 `meta.code=200` 判为成功。三个官方示例都写作 `0`，当前 SDK 遇到该值会抛出 `ApiError`。查询字段表列出规则对象数组，示例却给出 `[[]]`。SDK 原样返回数组，真实服务的响应形态待验证。
+- 删除请求只指定 `live_type`。平台返回 `10005` 表示没有可删的限制，SDK 会保留该业务错误。官方未说明删除后会回退到什么配置。两个写入口出错后均不会自动重发。
+
+```python
+response = await client.live_limits.get("VTDU")
+rules = response.data
+```
+
+在本机配置 `EZVIZ_REGION=domestic`、`EZVIZ_APP_KEY` 和 `EZVIZ_APP_SECRET` 后，可从仓库运行只读示例。
+
+```bash
+python -m examples.live_limits --mode async --live-type VTDU
+```
+
+示例输出仅含地区、模式、取流类型及状态。实际账号配置的更新或删除需要单独授权，并确认同一类型下受影响的范围、原值及恢复方法。[查询（1816）](https://open.ys7.com/help/1816) · [添加或更新（1817）](https://open.ys7.com/help/1817) · [删除（1818）](https://open.ys7.com/help/1818)
+
 ## 国内云直播流量查询
 
 面向已认证的国内开发者主账户：`Client`/`AsyncClient` 使用客户端的既有认证配置注入 accessToken，查询方法无需接收 token。来源注明子账户 token 无权，且四页均未给出子账户权限的专用错误码。当前验证覆盖模拟传输；账号权限和实际用量仍待真实查询。
