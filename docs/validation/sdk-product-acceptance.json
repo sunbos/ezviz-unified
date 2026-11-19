@@ -26540,13 +26540,15 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:3726:d0",
+      "capability_selector": "settings.get_alarm_sound_mode",
       "capability_ids": [
         "candidate:overseas:3726:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.settings.get_alarm_sound_mode"
+      ],
+      "scope_revision": "2026-11-20-r40-overseas-alarm-sound-mode",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
       "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
@@ -26556,36 +26558,51 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "固定海外资料和两个合成区域 origin，模拟认证、业务和诊断。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询告警音模式”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "同步/异步 header-only GET，按 token 的 areaDomain 路由；检查 body 布局、整数/枚举、原始响应、失败与重试次数、取消和示例白名单。",
+        "write": "没有写入或试音。",
+        "physical": "配置响应不能推出设备实际发声。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/42"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/42",
+        "docs/coordination/overseas-alarm-sound-mode/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3726.source.json"
       ],
       "pending_questions": [
-        "returns alarmSoundMode, not a pure bool — preserve the mode field verbatim"
+        "E31/E80 用 status/body 描述返回；未证实本接口真实线上响应一定含 body，也无根层成功证据。未限定具体型号、配置新鲜度或物理发声结果。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_sdk_alarm_sound_mode.py",
+        "examples/alarm_sound_mode.py",
+        "tests/test_example_alarm_sound_mode.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_alarm_sound_errors.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "f6548e367571e8ef322cd5a23660514afc2971dc",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-overseas-alarm-sound-mode/offline.json"
       ]
     },
     {
@@ -34038,6 +34055,55 @@
       ],
       "limitations": [
         "E3 与 E72 支持 deviceName，E14 正式表未列；SDK 仅在显式给定名称时随其他字段一并送表单。E72 将敏感字段放 query，SDK 不采用、不自动换传输方式。成功示例 data=null。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3726-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_alarm_sound_mode",
+      "capability_selector": "settings.get_alarm_sound_mode",
+      "capability_ids": [
+        "candidate:overseas:3726:d0"
+      ],
+      "operation_ids": [
+        "global.settings.get_alarm_sound_mode"
+      ],
+      "scope_revision": "2026-11-20-r40-overseas-alarm-sound-mode",
+      "freeze_state": "frozen_for_authorization",
+      "region_cluster": "overseas:Singapore",
+      "account_role_permissions": "海外应用令牌。文档明确支持托管及子账号并要求 Get 权限；具体资源归属和设备信令支持须核实。",
+      "device_requirements": "新加坡应用首页首台可读设备；无设备、平台拒绝或不支持即停止。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "明确本项授权。本机安全输入，首个失败停止。同步认证及首页一条列表、同步查询、异步认证、同设备异步查询；拒绝其他请求和重放。"
+      ],
+      "expected_evidence": {
+        "read": "仅保留次数、模式和结果类型。",
+        "write": "无配置、试音、媒体操作。",
+        "physical": "不记录、不推断实际发声。"
+      },
+      "bounded": {
+        "max_requests": 5,
+        "max_operations": 3,
+        "freeze_required": false
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，无设备配置变更。",
+      "source_refs": [
+        "docs/coordination/overseas-alarm-sound-mode/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3726.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "旧授权与历史回执限于型号、在线状态和通道；新查询的专门授权及有效本机输入待确认。"
+      ],
+      "limitations": [
+        "E31/E80 用 status/body 描述返回；未证实本接口真实线上响应一定含 body，也无根层成功证据。未限定具体型号、配置新鲜度或物理发声结果。"
       ]
     }
   ],

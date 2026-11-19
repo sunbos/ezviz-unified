@@ -6375,6 +6375,20 @@
         "deviceUserName": "TestUser2"
       },
       "data": null
+    },
+    {
+      "operation_id": "global.settings.get_alarm_sound_mode",
+      "args": [
+        "SynTH-Mode"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "SynTH-Mode"
+      },
+      "data": {
+        "alarmSoundMode": 1,
+        "futureField": true
+      }
     }
   ]
 }

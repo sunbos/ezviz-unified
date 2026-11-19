@@ -51,6 +51,7 @@ from .diagnostic_report import _diagnostic_scope
 from .errors import ProtocolError
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation, TokenLocation
+from .vod import _header
 
 if TYPE_CHECKING:
     from .client import AsyncClient, Client
@@ -60,6 +61,23 @@ _OVERSEAS = "overseas"
 _OVERSEAS_REGIONS = frozenset({_OVERSEAS})
 
 _POLICY = ResponsePolicy(success_values=("200",))
+
+_GET_ALARM_SOUND_MODE = Operation(
+    name="settings.get_alarm_sound_mode",
+    method="GET",
+    path="/api/v3/device/alarmSound/enabled/get",
+    regions=_OVERSEAS_REGIONS,
+    token_location="header",
+    read_only=True,
+    policy=ResponsePolicy(
+        code_path="meta.code",
+        message_path="meta.message",
+        data_path="data",
+        success_values=(200,),
+        envelope_paths=("body",),
+        redact_message_urls=True,
+    ),
+)
 
 _FORM_CONTENT_TYPE = "application/x-www-form-urlencoded"
 
@@ -348,6 +366,18 @@ def _pir_area_set_request(
     return _overseas_op("set_pir_area", "/api/lapp/device/pir/set", read_only=False), data
 
 
+def _alarm_sound_mode_response(response: ApiResponse) -> ApiResponse:
+    """Return the response when the alarm sound mode payload shape is valid."""
+    data = response.data
+    if not isinstance(data, dict) or type(data.get("alarmSoundMode")) is not int:
+        raise ProtocolError(
+            "unexpected settings.get_alarm_sound_mode response shape",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
+
+
 def _chime_get_request(
     serial: object, channel: int | None, scope: str
 ) -> tuple[Operation, dict[str, str | int]]:
@@ -560,6 +590,21 @@ class Settings:
                 device_serial, area, channel, self._client.region.scope
             )
             return self._client.request(op, data=data)
+
+    def get_alarm_sound_mode(self, device_serial: str) -> ApiResponse:
+        """Return the alarm sound mode for an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_alarm_sound_mode",
+            mode="sync",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            response = self._client.request(
+                _GET_ALARM_SOUND_MODE,
+                headers={"deviceSerial": serial},
+            )
+            return _alarm_sound_mode_response(response)
 
     def get_chime(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Read the doorbell chime configuration (overseas region only).
@@ -775,6 +820,21 @@ class AsyncSettings:
                 device_serial, area, channel, self._client.region.scope
             )
             return await self._client.request(op, data=data)
+
+    async def get_alarm_sound_mode(self, device_serial: str) -> ApiResponse:
+        """Return the alarm sound mode for an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_alarm_sound_mode",
+            mode="async",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            response = await self._client.request(
+                _GET_ALARM_SOUND_MODE,
+                headers={"deviceSerial": serial},
+            )
+            return _alarm_sound_mode_response(response)
 
     async def get_chime(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Read the doorbell chime configuration (overseas region only).

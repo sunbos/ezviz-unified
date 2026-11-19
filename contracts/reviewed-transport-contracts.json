@@ -20026,6 +20026,68 @@
       },
       "source_content_sha256": "239222a5b6091e9e6d9a9e59edcca8929d7dae07a6bfaaf3abbb49f3421640be",
       "read_only": false
+    },
+    {
+      "operation_id": "global.settings.get_alarm_sound_mode",
+      "region": "overseas",
+      "source_doc_id": "3726",
+      "source_url": "https://open.ys7.com/help/en/3726",
+      "method": "GET",
+      "path": "/api/v3/device/alarmSound/enabled/get",
+      "base_url": "{areaDomain}",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E8/R3"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "envelope_paths": [
+          "body"
+        ],
+        "values": [
+          200
+        ],
+        "evidence": "E31 and E80 show status/body and integer body.meta.code; E83 lists status and business errors."
+      },
+      "constraints": [
+        {
+          "fact": "海外应用令牌。文档明确支持托管及子账号并要求 Get 权限；具体资源归属和设备信令支持须核实。",
+          "evidence": "E2;E8"
+        },
+        {
+          "fact": "alarmSoundMode 为整数；0 短鸣、1 长鸣、2 静音。读取配置不触发试音。",
+          "evidence": "E31;E80"
+        }
+      ],
+      "uncertainties": [
+        "E31/E80 用 status/body 描述返回；未证实本接口真实线上响应一定含 body，也无根层成功证据。未限定具体型号、配置新鲜度或物理发声结果。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "{areaDomain}/api/v3/device/alarmSound/enabled/get",
+        "encoding": "none",
+        "evidence": "E0;E5;E7;E8"
+      },
+      "source_content_sha256": "f2ec2e45a80e4b4d3ad7eec1d323a4126901d02cb147bd87d2ff754810f371b5",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -20163,6 +20225,10 @@
     {
       "review": "docs/coordination/domestic-third-party-protocols/admission.json",
       "note": "七个国内企业第三方协议设备接入合同，区分项目、单申请、批任务受理与结果、设备分页及显式修改。以参数表的正文承载私密字段；保留资料冲突。"
+    },
+    {
+      "review": "docs/coordination/overseas-alarm-sound-mode/admission.json",
+      "note": "海外 3726 是单独的只读服务端操作，门铃响铃与试音使用其他契约。"
     }
   ]
 }
