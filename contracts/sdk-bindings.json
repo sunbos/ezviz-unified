@@ -3145,6 +3145,45 @@
       "public_entry": "passenger_flow.get_config",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "global.ddns.get",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "module": "src/ezviz_unified/ddns.py",
+      "symbols": [
+        "Ddns.get",
+        "AsyncDdns.get"
+      ],
+      "public_entry": "ddns.get",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "global.ddns.list",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "module": "src/ezviz_unified/ddns.py",
+      "symbols": [
+        "Ddns.list",
+        "AsyncDdns.list"
+      ],
+      "public_entry": "ddns.list",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "global.ddns.share_list",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "module": "src/ezviz_unified/ddns.py",
+      "symbols": [
+        "Ddns.share_list",
+        "AsyncDdns.share_list"
+      ],
+      "public_entry": "ddns.share_list",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }
