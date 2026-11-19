@@ -76,7 +76,7 @@ _SENSITIVE_KEYS = (
     "streamId",
 )
 _SENSITIVE_PARAM_RE = re.compile(
-    r"\b(" + "|".join(_SENSITIVE_KEYS) + r")\s*=\s*[^\s&\"']+",
+    r"\b(" + "|".join((*_SENSITIVE_KEYS, "wifiSsid", "timeZone")) + r")\s*=\s*[^\s&\"']+",
     re.IGNORECASE,
 )
 

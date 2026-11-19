@@ -1703,6 +1703,22 @@
         "E1323",
         "E1407"
       ]
+    },
+    {
+      "id": "global.devices.get_utc.response_fields",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "description": "timeZone 与 wifiSsid 在 UTC 变体列明。timeZone 字符串格式及逐型号必返规则未说明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "保留服务端字段原文与额外字段。只校验成功 data 是对象；缺少字段时不构造时区值。",
+      "evidence": [
+        "E2390",
+        "E2416",
+        "E2420",
+        "E2424"
+      ]
     }
   ]
 }

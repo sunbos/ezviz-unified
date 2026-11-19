@@ -5,9 +5,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from .diagnostic_report import _diagnostic_scope
+from .errors import ProtocolError
 from .management import AsyncDeviceManagement, DeviceManagement
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
+from .settings import _check_text, _require_overseas
 
 if TYPE_CHECKING:
     from .client import AsyncClient, Client
@@ -49,6 +51,15 @@ _OP_GET = Operation(
     "devices.get",
     "POST",
     "/api/lapp/device/info",
+    read_only=True,
+    policy=_POLICY,
+)
+_OP_GET_UTC = Operation(
+    "devices.get_utc",
+    "POST",
+    "/api/lapp/device/info",
+    regions=frozenset({"overseas"}),
+    token_location="form",
     read_only=True,
     policy=_POLICY,
 )
@@ -98,6 +109,20 @@ def _check_device_serial(value: object, *, require_uppercase: bool) -> str:
     return value
 
 
+def _utc_form(device_serial: object) -> dict[str, str]:
+    return {"deviceSerial": _check_text(device_serial, "device_serial"), "version": "utc"}
+
+
+def _check_utc_response(response: ApiResponse) -> ApiResponse:
+    if not isinstance(response.data, dict):
+        raise ProtocolError(
+            "unexpected devices.get_utc response shape",
+            http_status=response.http_status,
+            operation=response.operation,
+        )
+    return response
+
+
 class Devices(DeviceManagement):
     """Synchronous facade over the reviewed device query operations."""
 
@@ -128,6 +153,12 @@ class Devices(DeviceManagement):
         with _diagnostic_scope(self._client, entrypoint="devices.get", mode="sync"):
             serial = _check_device_serial(device_serial, require_uppercase=False)
             return self._client.request(_OP_GET, data={"deviceSerial": serial})
+
+    def get_utc(self, device_serial: str) -> ApiResponse:
+        with _diagnostic_scope(self._client, entrypoint="devices.get_utc", mode="sync"):
+            _require_overseas(self._client.region.scope)
+            response = self._client.request(_OP_GET_UTC, data=_utc_form(device_serial))
+            return _check_utc_response(response)
 
     def channels(self, device_serial: str) -> ApiResponse:
         with _diagnostic_scope(self._client, entrypoint="devices.channels", mode="sync"):
@@ -171,6 +202,12 @@ class AsyncDevices(AsyncDeviceManagement):
         with _diagnostic_scope(self._client, entrypoint="devices.get", mode="async"):
             serial = _check_device_serial(device_serial, require_uppercase=False)
             return await self._client.request(_OP_GET, data={"deviceSerial": serial})
+
+    async def get_utc(self, device_serial: str) -> ApiResponse:
+        with _diagnostic_scope(self._client, entrypoint="devices.get_utc", mode="async"):
+            _require_overseas(self._client.region.scope)
+            response = await self._client.request(_OP_GET_UTC, data=_utc_form(device_serial))
+            return _check_utc_response(response)
 
     async def channels(self, device_serial: str) -> ApiResponse:
         with _diagnostic_scope(self._client, entrypoint="devices.channels", mode="async"):

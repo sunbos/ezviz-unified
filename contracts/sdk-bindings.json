@@ -3184,6 +3184,19 @@
       "public_entry": "ddns.share_list",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "global.devices.get_utc",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "module": "src/ezviz_unified/devices.py",
+      "symbols": [
+        "Devices.get_utc",
+        "AsyncDevices.get_utc"
+      ],
+      "public_entry": "devices.get_utc",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }

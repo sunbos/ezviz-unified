@@ -5695,6 +5695,21 @@
       "kwargs": {},
       "fields": {},
       "data": []
+    },
+    {
+      "operation_id": "global.devices.get_utc",
+      "args": [
+        "SYNTH-utc"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "SYNTH-utc"
+      },
+      "data": {
+        "timeZone": "Synthetic/Zone",
+        "wifiSsid": "synthetic-network",
+        "unknown": 0
+      }
     }
   ]
 }
