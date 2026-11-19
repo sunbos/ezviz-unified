@@ -11597,108 +11597,119 @@
       "case_id": "ACC-CANDIDATE-CN-1735-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:1735:d0",
+      "case_origin": "domestic_image_configuration",
+      "capability_selector": "imaging.set_display_mode",
       "capability_ids": [
         "candidate:domestic:1735:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.imaging.display_mode.set"
+      ],
+      "scope_revision": "2026-11-19-r30-domestic-image-configuration",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "使用访问令牌，本页未声明最低子账号权限或特定能力位。",
+      "device_requirements": "合成设备与传输。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用合成数据和 MockTransport。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求设置设备图像风格模式”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "请求和认证位置、输入校验、原始响应、错误与诊断；只读示例独立执行。",
+        "write": "模拟传输验证条件字段、单一拼写及不重放。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/39"
+        "docs/coordination/SP088/scenario-input.json#/entries/39",
+        "docs/coordination/domestic-image-configuration/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1735.source.json"
       ],
       "pending_questions": [
-        "图像风格可选模式集合待核",
-        "与图像参数（candidate:domestic:3679:d0）、白平衡（candidate:domestic:3681:d0）的作用边界待核"
+        "未声明默认模式或最小子账号权限；不推断画面效果。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1736-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:1736:d0",
+      "case_origin": "domestic_image_configuration",
+      "capability_selector": "imaging.get_display_mode",
       "capability_ids": [
         "candidate:domestic:1736:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.imaging.display_mode.get"
+      ],
+      "scope_revision": "2026-11-19-r30-domestic-image-configuration",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "使用访问令牌，本页未声明最低子账号权限或特定能力位。",
+      "device_requirements": "合成设备与传输。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用合成数据和 MockTransport。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求查询设备当前图像风格”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "请求和认证位置、输入校验、原始响应、错误与诊断；只读示例独立执行。",
+        "write": "无。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/40"
+        "docs/coordination/SP088/scenario-input.json#/entries/40",
+        "docs/coordination/domestic-image-configuration/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1736.source.json"
       ],
       "pending_questions": [
-        "返回的风格模式枚举与candidate:domestic:1735:d0可设置集合是否一致待核"
+        "字段表声明 String，示例是整数。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1739-D0-OFFLINE-001",
@@ -11922,109 +11933,119 @@
       "case_id": "ACC-CANDIDATE-CN-3679-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:3679:d0",
+      "case_origin": "domestic_image_configuration",
+      "capability_selector": "imaging.set_image_params",
       "capability_ids": [
         "candidate:domestic:3679:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.imaging.image_params.set"
+      ],
+      "scope_revision": "2026-11-19-r30-domestic-image-configuration",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "设备级 Config，支持托管和子账号，设备须支持 support_image_param。",
+      "device_requirements": "合成设备与传输。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用合成数据和 MockTransport。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求设置设备图像参数”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "请求和认证位置、输入校验、原始响应、错误与诊断；只读示例独立执行。",
+        "write": "模拟传输验证条件字段、单一拼写及不重放。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/45"
+        "docs/coordination/SP088/scenario-input.json#/entries/45",
+        "docs/coordination/domestic-image-configuration/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/3679.source.json"
       ],
       "pending_questions": [
-        "可调图像参数项集合与取值结构待核",
-        "与图像风格（candidate:domestic:1735:d0）、白平衡（candidate:domestic:3681:d0）的参数边界待核"
+        "饱和度参数表与请求示例拼写冲突，实际平台接受形式未验收。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-3681-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:3681:d0",
+      "case_origin": "domestic_image_configuration",
+      "capability_selector": "imaging.set_white_balance",
       "capability_ids": [
         "candidate:domestic:3681:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.imaging.white_balance.set"
+      ],
+      "scope_revision": "2026-11-19-r30-domestic-image-configuration",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "设备级 Config，支持托管和子账号，设备须支持 support_image_param。",
+      "device_requirements": "合成设备与传输。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用合成数据和 MockTransport。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求设置设备白平衡参数”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "请求和认证位置、输入校验、原始响应、错误与诊断；只读示例独立执行。",
+        "write": "模拟传输验证条件字段、单一拼写及不重放。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/46"
+        "docs/coordination/SP088/scenario-input.json#/entries/46",
+        "docs/coordination/domestic-image-configuration/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/3681.source.json"
       ],
       "pending_questions": [
-        "白平衡模式或取值域待核",
-        "是否仅覆盖白平衡单项而非整体图像参数待核"
+        "手动枚举表与请求示例拼写冲突，实际平台接受形式未验收。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4478-D0-OFFLINE-001",
@@ -32201,6 +32222,206 @@
       ],
       "limitations": [
         "成功码样例与正式返回码表冲突。仅按 liveType 删除，未指明会清除哪些规则或回退到什么值。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1736-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_image_configuration",
+      "capability_selector": "imaging.get_display_mode",
+      "capability_ids": [
+        "candidate:domestic:1736:d0"
+      ],
+      "operation_ids": [
+        "cn.imaging.display_mode.get"
+      ],
+      "scope_revision": "2026-11-19-r30-domestic-image-configuration",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "使用访问令牌，本页未声明最低子账号权限或特定能力位。",
+      "device_requirements": "已确认型号与操作权限的国内设备。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "冻结账号、型号、目标、次数及适用权限。",
+        "只读，无配置变更。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录范围、次数、状态和结构。",
+        "write": "无。",
+        "physical": "设备配置与画面效果分别核实。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，无配置变更。",
+      "source_refs": [
+        "docs/coordination/domestic-image-configuration/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1736.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "已有国内账号流量授权不涵盖这些设备操作。"
+      ],
+      "limitations": [
+        "字段表声明 String，示例是整数。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1735-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_image_configuration",
+      "capability_selector": "imaging.set_display_mode",
+      "capability_ids": [
+        "candidate:domestic:1735:d0"
+      ],
+      "operation_ids": [
+        "cn.imaging.display_mode.set"
+      ],
+      "scope_revision": "2026-11-19-r30-domestic-image-configuration",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "使用访问令牌，本页未声明最低子账号权限或特定能力位。",
+      "device_requirements": "已确认型号与操作权限的国内设备。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "冻结账号、型号、目标、次数及适用权限。",
+        "须明确型号、目标、同项原配置、人工/获准恢复渠道及次数，写入结果不确定时不重复尝试。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录范围、次数、状态和结构。",
+        "write": "仅在专项授权及可恢复原值已明确后进行。",
+        "physical": "设备配置与画面效果分别核实。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "须明确型号、目标、同项原配置、人工/获准恢复渠道及次数，写入结果不确定时不重复尝试。",
+      "source_refs": [
+        "docs/coordination/domestic-image-configuration/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1735.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "已有国内账号流量授权不涵盖这些设备操作。"
+      ],
+      "limitations": [
+        "未声明默认模式或最小子账号权限；不推断画面效果。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-3679-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_image_configuration",
+      "capability_selector": "imaging.set_image_params",
+      "capability_ids": [
+        "candidate:domestic:3679:d0"
+      ],
+      "operation_ids": [
+        "cn.imaging.image_params.set"
+      ],
+      "scope_revision": "2026-11-19-r30-domestic-image-configuration",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "设备级 Config，支持托管和子账号，设备须支持 support_image_param。",
+      "device_requirements": "已确认型号与操作权限的国内设备。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "冻结账号、型号、目标、次数及适用权限。",
+        "须明确型号、目标、同项原配置、人工/获准恢复渠道及次数，写入结果不确定时不重复尝试。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录范围、次数、状态和结构。",
+        "write": "仅在专项授权及可恢复原值已明确后进行。",
+        "physical": "设备配置与画面效果分别核实。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "须明确型号、目标、同项原配置、人工/获准恢复渠道及次数，写入结果不确定时不重复尝试。",
+      "source_refs": [
+        "docs/coordination/domestic-image-configuration/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/3679.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "已有国内账号流量授权不涵盖这些设备操作。"
+      ],
+      "limitations": [
+        "饱和度参数表与请求示例拼写冲突，实际平台接受形式未验收。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-3681-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_image_configuration",
+      "capability_selector": "imaging.set_white_balance",
+      "capability_ids": [
+        "candidate:domestic:3681:d0"
+      ],
+      "operation_ids": [
+        "cn.imaging.white_balance.set"
+      ],
+      "scope_revision": "2026-11-19-r30-domestic-image-configuration",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "设备级 Config，支持托管和子账号，设备须支持 support_image_param。",
+      "device_requirements": "已确认型号与操作权限的国内设备。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "冻结账号、型号、目标、次数及适用权限。",
+        "须明确型号、目标、同项原配置、人工/获准恢复渠道及次数，写入结果不确定时不重复尝试。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录范围、次数、状态和结构。",
+        "write": "仅在专项授权及可恢复原值已明确后进行。",
+        "physical": "设备配置与画面效果分别核实。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "须明确型号、目标、同项原配置、人工/获准恢复渠道及次数，写入结果不确定时不重复尝试。",
+      "source_refs": [
+        "docs/coordination/domestic-image-configuration/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/3681.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "已有国内账号流量授权不涵盖这些设备操作。"
+      ],
+      "limitations": [
+        "手动枚举表与请求示例拼写冲突，实际平台接受形式未验收。"
       ]
     }
   ],
