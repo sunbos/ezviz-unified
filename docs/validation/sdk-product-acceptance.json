@@ -27541,19 +27541,30 @@
         "E94 示意把 data/code/msg 放在 result 内，但该文本不是合法 JSON。字段表只说明行结构；未有真实响应确认布局，根层成功/失败不能推定。",
         "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/detectors.py",
+        "tests/test_sdk_a1_detectors.py",
+        "examples/a1_detectors.py",
+        "tests/test_example_a1_detectors.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_a1_detector_errors.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "19b4c301145f50c24463510c343b63f71e079b59",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-overseas-a1-detector-queries/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-2-OFFLINE-001",
@@ -27709,19 +27720,30 @@
         "E505 的 cameraName 为字符串，E508 表声明为整数；保留原值。候选列表未说明是否排除已关联的 IPC。",
         "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/detectors.py",
+        "tests/test_sdk_a1_detectors.py",
+        "examples/a1_detectors.py",
+        "tests/test_example_a1_detectors.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_a1_detector_errors.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "19b4c301145f50c24463510c343b63f71e079b59",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-overseas-a1-detector-queries/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-5-OFFLINE-001",
@@ -27770,19 +27792,30 @@
         "E615 响应表列 deviceSerial、ipcSerial；E612 示例行列 detectorSerial、ipcSerial。保留原始键，不推断字段相等或含义互换。",
         "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/detectors.py",
+        "tests/test_sdk_a1_detectors.py",
+        "examples/a1_detectors.py",
+        "tests/test_example_a1_detectors.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_a1_detector_errors.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "19b4c301145f50c24463510c343b63f71e079b59",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-overseas-a1-detector-queries/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-6-OFFLINE-001",

@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 海外 A1 探测器清单
+
+同步、异步及单次查询示例已离线验收。481 §1.1 按示意的 result 布局取数组，§1.4 和 §1.5 按各自的根层布局处理。候选和已关联的 IPC 分开验证，行中存在矛盾的名称类型和标识键保留原值。海外 A1 主机、账号权限及实际可见关系仍需逐项真实验收；其余六节保持原状态。[范围与来源差异](../coordination/overseas-a1-detector-queries/admission.json) · [离线记录](2026-11-20-overseas-a1-detector-queries/offline.json)
+
 ## 海外设备上线事件
 
 已验证 1000007 教程中的上线通知经本机真实 HTTP 投递、签名校验、ACK 和应用取件的完整链路。四连接回归分别检查首次受理、原样重复、同 ID 不同字节和错误签名。平台消息服务开通、外部回调、真实设备触发和海外投递保留在 `ACC-WEBHOOK-PLATFORM-OS-001` 等平台案例中。[本地示例](../webhook-receiver.md#海外设备上线事件) · [离线记录](2026-11-20-overseas-device-online-event/offline.json)

@@ -3684,7 +3684,7 @@
         "AsyncDetectors.list"
       ],
       "public_entry": "detectors.list",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3697,7 +3697,7 @@
         "AsyncDetectors.bindable_cameras"
       ],
       "public_entry": "detectors.bindable_cameras",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3710,7 +3710,7 @@
         "AsyncDetectors.linked_cameras"
       ],
       "public_entry": "detectors.linked_cameras",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
