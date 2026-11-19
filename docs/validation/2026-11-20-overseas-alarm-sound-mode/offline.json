@@ -1,0 +1,221 @@
+{
+  "schema_version": 1,
+  "scope": "overseas_alarm_sound_mode_offline",
+  "code_commit": "f6548e367571e8ef322cd5a23660514afc2971dc",
+  "source_test_sha256": {
+    "src/ezviz_unified/settings.py": "6409c3f70a9748251ae54e3e96659643a8ede9f172f1250dfc400d9974f299ab",
+    "tests/test_sdk_alarm_sound_mode.py": "99d3445ea6b285eb7d08a5b8fbe980c3edcf3157adb2db08b26c2f2c7f8a614e",
+    "examples/alarm_sound_mode.py": "371d8c653e1aee893d434d23f3fb1cf669a0a42ecfbb3e211a430b0f6979a0f6",
+    "tests/test_example_alarm_sound_mode.py": "cb2200b5dcee69bcd253b66434373875da7939fd942dcae3c3acd7bddb7e3088",
+    "README.md": "c52067b334a7d27a28c7af2cca86d4046718c0670fdd6f952f7b852d82c55b83",
+    "src/ezviz_unified/_diagnostic_registry.py": "7ed7130819c52d5d75d62b6c6dd2e176822faf6c9248353a4fcdfc1f1dd038b3",
+    "docs/diagnostics-v1-coverage.json": "9ed63290cda74f9cabd16e273a5fd507ee20353588b84685a994b3a9509c8412",
+    "docs/diagnostics.md": "f158f33cc204fcade71af648fd665687d89e87e79515ec37e213489b3a305ab2",
+    "tests/test_harness_diagnostic_coverage.py": "860391137308323c37b3a1bababceba14d510d8846fb288845cff388580ed099",
+    "contracts/reviewed-transport-contracts.json": "b34f57f19e97971b42195180888c22889dada1b4fa759f67db5c185f2546239e",
+    "contracts/source-issues.json": "2709d50bfa96279b06a461f8fc2379e3498c3f160a9288916fd3ccebbda7e24b",
+    "evals/contracts/cases.json": "5aba2715a98c6d36db1a1f3cba61f6ee48f36a9512f929144400d2a94b69b6f6",
+    "tests/test_sdk_alarm_sound_errors.py": "a129c842cc2bcfd2725bb02bdadbf5e6998d1edc5ff983145919bdd9b5ffe953",
+    "docs/coordination/overseas-alarm-sound-mode/admission.json": "423c496dd1cdadd7eac37e320a1a4d066f31e93d109ffcb4fd4ec2339015fe17"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP459-SDK",
+        "input_commit": "ddb7709af6cf699dd9c4553626e567c9b80e9ae5",
+        "write_scope": [
+          "src/ezviz_unified/settings.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "ec56e01b6222e1c437224762c03060868a7630ac491c514e6e43d0700641ca14",
+        "local_receipt_sha256": "db6af6c3eaaff88dd188a56bc64dab9c6271f32299682889e37a7ca6224da6be",
+        "integrated_candidate_sha256": "6409c3f70a9748251ae54e3e96659643a8ede9f172f1250dfc400d9974f299ab"
+      },
+      {
+        "task": "SP459-CLI",
+        "input_commit": "ddb7709af6cf699dd9c4553626e567c9b80e9ae5",
+        "write_scope": [
+          "examples/alarm_sound_mode.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "a041bf5e229f9dcacea55b537f2841562f248ded840de41e1657f6ad0cc7d428",
+        "local_receipt_sha256": "3a5a4d0dc68ed1c0a6fa6938189a10da3d98e2369b1a60defcf8d2a06bf8d0e2",
+        "integrated_candidate_sha256": "925166d63738906e8b29fe5519bf468ae2db64f723d3c6df06d2b8d3e7dc1311"
+      },
+      {
+        "task": "SP460-CLIProof",
+        "input_commit": "ddb7709af6cf699dd9c4553626e567c9b80e9ae5",
+        "write_scope": [
+          "tests/test_example_alarm_sound_mode.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "2d907475015b79573e07136a39d9b0f07bf6ec5f3179a1b0e3f52ec4753601fb",
+        "local_receipt_sha256": "e52e82a83b42d4fcfb7624433cdec8c92a35d0275393664f9b9b2c9b9b6f997f",
+        "integrated_candidate_sha256": "a836ba9e371c400f93c48135f99da4f5889f9633880ec874d0b4f2ee0e174853"
+      },
+      {
+        "task": "SP460-Guide",
+        "input_commit": "ddb7709af6cf699dd9c4553626e567c9b80e9ae5",
+        "write_scope": [
+          "README.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "6864ebd570ce998a0780fbbe3bf99c116ea996719ad7c9e242f2bff8eb56e8eb",
+        "local_receipt_sha256": "2531422b79bdf04a2092c66e9ecba196eb8d03f27e9aa91a0cd89def588c02dc"
+      },
+      {
+        "task": "SP460-LocalError",
+        "input_commit": "ddb7709af6cf699dd9c4553626e567c9b80e9ae5",
+        "write_scope": [
+          "examples/alarm_sound_mode.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "9281e6f02bb7e0a6cf167f1eacdeee3fc3f157f5dbd6b349d53709b29c1a4143",
+        "local_receipt_sha256": "2b43fadfb268915204822ab474f7974961d1e3c0455738616dba55b8da15eb37",
+        "integrated_candidate_sha256": "371d8c653e1aee893d434d23f3fb1cf669a0a42ecfbb3e211a430b0f6979a0f6"
+      },
+      {
+        "task": "SP460-LocalErrorTest",
+        "input_commit": "ddb7709af6cf699dd9c4553626e567c9b80e9ae5",
+        "write_scope": [
+          "tests/test_example_alarm_sound_mode.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "e63eef1c7ab4dd6824f26ab17a7c9317f7b02f9f2dd7d2eef78e7af7742c9e6e",
+        "local_receipt_sha256": "cc68d236ed355281b00118eee9c19f4992cc67ecbf3ac52da615b5813fe36a8d",
+        "integrated_candidate_sha256": "0b2494352d088d37a5a15c9a6024881f36c2643296b5591d023b72a00f759fdb"
+      },
+      {
+        "task": "SP461-ModeShape",
+        "input_commit": "ddb7709af6cf699dd9c4553626e567c9b80e9ae5",
+        "write_scope": [
+          "tests/test_sdk_alarm_sound_mode.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "6490f3fefc57b39a3353fbf4b814012bdf8ead735830aca7516ac58736d31710",
+        "local_receipt_sha256": "4ce1503f34efd18fa330eb3c2f26ae79a2707937b3009a71585e4e5a92450ff7",
+        "integrated_candidate_sha256": "2e2be5c9f4539e8faafa987db5a9967bde5bd11314fa15f05f5bc734f7e012ea"
+      },
+      {
+        "task": "SP461-ModeErrors",
+        "input_commit": "ddb7709af6cf699dd9c4553626e567c9b80e9ae5",
+        "write_scope": [
+          "tests/test_sdk_alarm_sound_errors.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "7550d09691a858242c1f5e371a7ff9db1cc71b4532270fc59ddb48cee3f253a7",
+        "local_receipt_sha256": "79b62ccf5298a8f1b20d8023face26372b57e1f07940c4d2f7e24fadbf422905",
+        "integrated_candidate_sha256": "a5fb3bda1bdc63a8e6ee2dc793655d0833fff11549ee06fac669dea91ced9f2f"
+      },
+      {
+        "task": "SP461-ShapeContract",
+        "input_commit": "ddb7709af6cf699dd9c4553626e567c9b80e9ae5",
+        "write_scope": [
+          "tests/test_sdk_alarm_sound_mode.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "d15f6fc9aa056392d6c7cae12c972fbc31ee307929a3b0b601e77d6ee92e300e",
+        "local_receipt_sha256": "6618bf17d30c6f1ac252f9fe4cc0bdfb9b892f3709f264c280eb6642db89d73b",
+        "integrated_candidate_sha256": "21af0bfd362f868e4ce48e0fb3cb8d786cc45aa00031785ff71710509780c970"
+      },
+      {
+        "task": "SP462-ErrorEvents",
+        "input_commit": "ddb7709af6cf699dd9c4553626e567c9b80e9ae5",
+        "write_scope": [
+          "tests/test_sdk_alarm_sound_errors.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "9f5776d517269d162fe3a6db516ad480970a411f1b75a7e7343bda75d74acf7b",
+        "local_receipt_sha256": "edc44c246bd200ed02cf0843ebe95cc298b8d8e1f6ce6663bb079844979ba0eb",
+        "integrated_candidate_sha256": "e2ca603a89df8816c3b46785f737162c5781f39bb416f385fe7369c65a454c22"
+      },
+      {
+        "task": "SP462-ModeParam",
+        "input_commit": "ddb7709af6cf699dd9c4553626e567c9b80e9ae5",
+        "write_scope": [
+          "tests/test_sdk_alarm_sound_mode.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "ce0df68719b1afa50c6dcdf7371ad0d368ac222ac49bcf2c100746b54357cbdf",
+        "local_receipt_sha256": "2e58652cfbaedf787607f6be9484c09e7ddc9676f7d2d2480595717b11b89328",
+        "integrated_candidate_sha256": "d4c6afeb822f460dc1d6a5e09dbcc07333c9a968c13e242ef673ff065b512e9d"
+      }
+    ],
+    "rejected_assignments": [
+      {
+        "task": "SP459-SDKTests",
+        "result": "no_candidate",
+        "reason": "长测试派单没有返回代码，未进入工作树。改用两个独立小文件和已有海外测试构造器，再核验模型返回及实际 pytest 结果。",
+        "followups": [
+          "SP461-ModeShape",
+          "SP461-ModeErrors"
+        ]
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_alarm_sound_mode.py tests/test_sdk_device_utc.py tests/test_harness_diagnostic_coverage.py tests/test_sdk_alarm_sound_errors.py",
+      "summary": "505 passed in 1.58s",
+      "local_receipt_sha256": "00b06165cb09b16f38871b884fd3dc4dac94be1f18e5933974d163a7f626047e",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_alarm_sound_mode.py tests/test_example_device_timezone.py",
+      "summary": "54 passed in 0.46s",
+      "local_receipt_sha256": "f841ecd8b2d77aba2181726034ae705164149b71942c56fbf4c4c6a801325764",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "10115 passed, 35 subtests passed in 62.78s (0:01:02)",
+      "local_receipt_sha256": "a3d2dc22e4d6ff20f41935ff82473e46368cd2395c3cd60d3e157cbfbf20cf67",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "271 registered contracts, 2200/2200 wire checks passed",
+      "local_receipt_sha256": "1284b20e48dd4d7346ca6759fb9f45778a77d54e752666efafa6700b317be887",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "271 registered contracts and bindings, 542 symbols checked",
+      "local_receipt_sha256": "06d554364aa83aef4f9fe30b7894920154714fc123e600104535bb2aebfe0c1d",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 61 source files",
+      "local_receipt_sha256": "ad83dc0f95c9a25a9d13f75009effa8303c77c78ae98a8f5492c9d58991b9b03",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/settings.py tests/test_sdk_alarm_sound_mode.py examples/alarm_sound_mode.py tests/test_example_alarm_sound_mode.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py tests/test_sdk_alarm_sound_errors.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "bc04e55d00af253a537e3f7f087fccc4f0efd2f555b63fcc8da2b79295b28570",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/settings.py tests/test_sdk_alarm_sound_mode.py examples/alarm_sound_mode.py tests/test_example_alarm_sound_mode.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py tests/test_sdk_alarm_sound_errors.py",
+      "summary": "7 files already formatted",
+      "local_receipt_sha256": "af0c8106a8f995fab447d5d0e763630e8e2b5570ab95ba6d6a45d112fbc284a0",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "使用模拟传输。未查询真实设备，线上包络、适用型号、账号权限及实际发声未经本批离线验收证实。"
+}
