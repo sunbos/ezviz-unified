@@ -20282,6 +20282,224 @@
       },
       "source_content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.device_add_links.create",
+      "region": "domestic",
+      "source_doc_id": "2846",
+      "source_url": "https://open.ys7.com/help/2846",
+      "method": "POST",
+      "path": "/api/service/device/add/tokenUrl",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "json",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3",
+          "constant": "application/json"
+        },
+        {
+          "name": "expireTime",
+          "location": "body",
+          "type": "Integer",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "note",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R5"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E53;E57;E90"
+      },
+      "constraints": [
+        {
+          "fact": "国内开发者账号访问令牌；资料未确认个人余额、企业套餐、托管或子账号等同于开发者资格。",
+          "evidence": "E3;E14"
+        },
+        {
+          "fact": "成功只证明平台返回一个设备添加入口。未说明幂等、撤销、使用次数或客户后续绑定结果。",
+          "evidence": "E7;E11;E14;E49;E53;E57;E90"
+        }
+      ],
+      "uncertainties": [
+        "成功只证明平台返回一个设备添加入口。未说明幂等、撤销、使用次数或客户后续绑定结果。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/device/add/tokenUrl",
+        "encoding": "application/json",
+        "evidence": "E7;E11;E14;E49"
+      },
+      "source_content_sha256": "9c33942fc519a8aa68443d10b3828b01a5ac2967bf9538842e6db1a791cbd383",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.device_add_links.records",
+      "region": "domestic",
+      "source_doc_id": "2847",
+      "source_url": "https://open.ys7.com/help/2847",
+      "method": "GET",
+      "path": "/api/service/device/add/tokenNote",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "id",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "default": "0",
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "pageSize",
+          "location": "query",
+          "type": "Integer",
+          "required": false,
+          "default": 10,
+          "evidence": "E14/R5"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E53;E57;E106"
+      },
+      "constraints": [
+        {
+          "fact": "国内开发者账号访问令牌；资料未确认个人余额、企业套餐、托管或子账号等同于开发者资格。",
+          "evidence": "E3;E14"
+        },
+        {
+          "fact": "设备筛选和游标均为可选，未声明同时传入时的优先级或互斥。末行 id 为整数；下次请求 id 的声明类型为字符串。",
+          "evidence": "E7;E11;E14;E49;E53;E57;E106"
+        }
+      ],
+      "uncertainties": [
+        "设备筛选和游标均为可选，未声明同时传入时的优先级或互斥。末行 id 为整数；下次请求 id 的声明类型为字符串。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/service/device/add/tokenNote",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E49"
+      },
+      "source_content_sha256": "15250bf41c9ff176001562ed1389dd7ee616d25563e37eb1319fa78a165162d0",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.device_add_links.list",
+      "region": "domestic",
+      "source_doc_id": "2848",
+      "source_url": "https://open.ys7.com/help/2848",
+      "method": "GET",
+      "path": "/api/service/device/add/tokenUrls",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "id",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "default": "0",
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "pageSize",
+          "location": "query",
+          "type": "Integer",
+          "required": false,
+          "default": 10,
+          "evidence": "E14/R4"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E47;E51;E100"
+      },
+      "constraints": [
+        {
+          "fact": "国内开发者账号访问令牌；资料未确认个人余额、企业套餐、托管或子账号等同于开发者资格。",
+          "evidence": "E3;E14"
+        },
+        {
+          "fact": "返回的过期时间是毫秒时间戳。url 表列字符串但示例也含 null；不从 expired 推定 url 是否一定存在。未声明总量、排序稳定性或独立下一页游标。",
+          "evidence": "E7;E11;E14;E43;E47;E51;E100"
+        }
+      ],
+      "uncertainties": [
+        "返回的过期时间是毫秒时间戳。url 表列字符串但示例也含 null；不从 expired 推定 url 是否一定存在。未声明总量、排序稳定性或独立下一页游标。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/service/device/add/tokenUrls",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E43"
+      },
+      "source_content_sha256": "dde22f8f35c88b8cecd16ca33d08e392e357e2345f8caa37148164a17d563bd5",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -20427,6 +20645,10 @@
     {
       "review": "docs/coordination/overseas-a1-detector-queries/admission.json",
       "note": "海外 481 三条只读 A1 清单各自冻结，其他章节不在本次签收范围。"
+    },
+    {
+      "review": "docs/coordination/domestic-device-add-links/admission.json",
+      "note": "国内仅开发者账号的设备添加工具：区分签发和实际添加记录，期限单位、游标类型、过期地址为空各自登记。"
     }
   ]
 }

@@ -82,6 +82,10 @@ class ResponsePolicy:
     # Opt-in: also redact URL-encoded variants of private
     # deviceSerial/detectorSerial in form submissions.
     redact_form_serials: bool = False
+    # Suppresses nonempty upstream text/unknown string codes and the query/reason
+    # presentation in request-owned logs for device-add link operations;
+    # raw successful data is left untouched.
+    redact_device_add_details: bool = False
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "envelope_paths", _normalize_envelope_paths(self.envelope_paths))
@@ -117,6 +121,8 @@ class ResponsePolicy:
             raise ValueError("redact_registration_fields must be a bool")
         if not isinstance(self.redact_form_serials, bool):
             raise ValueError("redact_form_serials must be a bool")
+        if not isinstance(self.redact_device_add_details, bool):
+            raise ValueError("redact_device_add_details must be a bool")
         if self.require_device_code and not self.device_code_path:
             raise ValueError("require_device_code needs device_code_path to be set")
         if self.device_message_path and not self.device_code_path:

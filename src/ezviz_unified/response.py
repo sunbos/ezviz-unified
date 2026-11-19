@@ -8,6 +8,7 @@ from typing import Final, TypeGuard
 from .errors import (
     _HTTP_URL_RE,
     _MEDIA_URL_RE,
+    REDACTED,
     ApiError,
     AuthenticationError,
     DeviceError,
@@ -87,6 +88,22 @@ def _classify(http_status: int, code: ScalarCode | None) -> type[ApiError]:
     return ApiError
 
 
+def _present_message(
+    value: object,
+    policy: ResponsePolicy,
+    secrets: tuple[str, ...],
+) -> str:
+    text = _text(value)
+    if policy.redact_device_add_details:
+        return REDACTED if text else ""
+    return redact(
+        text,
+        secrets,
+        mask_urls=policy.redact_message_urls,
+        mask_media_urls=policy.redact_media_urls,
+    )
+
+
 def _resolve_code(
     code: ScalarCode | None, policy: ResponsePolicy, secrets: tuple[str, ...]
 ) -> ScalarCode | None:
@@ -94,6 +111,8 @@ def _resolve_code(
     always uses the original scalar, so int codes pass through unchanged."""
     if not isinstance(code, str):
         return code
+    if policy.redact_device_add_details:
+        return code if code in {"200", "400", "403", "404", "500", "10002", "10031"} else REDACTED
     matcher = _MEDIA_URL_RE if policy.redact_media_urls else _HTTP_URL_RE
     if (policy.redact_media_urls or policy.redact_message_urls) and matcher.search(code):
         return redact(
@@ -119,9 +138,6 @@ def decode_response(
     elif not isinstance(policy, ResponsePolicy):
         raise TypeError(f"policy must be a ResponsePolicy, got {type(policy).__name__}")
 
-    mask_urls = policy.redact_message_urls
-    mask_media_urls = policy.redact_media_urls
-
     if policy.redact_registration_fields and isinstance(payload, dict):
         data = payload.get("data")
         rows = data.get("data") if isinstance(data, dict) else None
@@ -142,11 +158,10 @@ def decode_response(
             error_code = _resolve(error_scope, policy.code_path)
             if _is_scalar_code(error_code):
                 business_code = error_code
-            message = redact(
-                _text(_resolve(error_scope, policy.message_path)),
+            message = _present_message(
+                _resolve(error_scope, policy.message_path),
+                policy,
                 secrets,
-                mask_urls=mask_urls,
-                mask_media_urls=mask_media_urls,
             )
         error_type = _classify(http_status, business_code)
         raise error_type(
@@ -182,11 +197,10 @@ def decode_response(
 
     scope = matches[0]
     raw_code = _resolve(scope, policy.code_path)
-    message = redact(
-        _text(_resolve(scope, policy.message_path)),
+    message = _present_message(
+        _resolve(scope, policy.message_path),
+        policy,
         secrets,
-        mask_urls=mask_urls,
-        mask_media_urls=mask_media_urls,
     )
 
     if raw_code is _MISSING:
@@ -235,11 +249,10 @@ def decode_response(
                 secrets=secrets,
             )
         elif device_code not in policy.device_success_values:
-            device_message = redact(
-                _text(_resolve(scope, policy.device_message_path)),
+            device_message = _present_message(
+                _resolve(scope, policy.device_message_path),
+                policy,
                 secrets,
-                mask_urls=mask_urls,
-                mask_media_urls=mask_media_urls,
             )
             rendered_device_code = _resolve_code(device_code, policy, secrets)
             raise DeviceError(
@@ -253,7 +266,9 @@ def decode_response(
     data = _resolve(scope, policy.data_path)
     return ApiResponse(
         http_status=http_status,
-        code=code,
+        code=rendered_code
+        if policy.redact_device_add_details and rendered_code is not None
+        else code,
         operation=operation,
         message=message,
         data=None if data is _MISSING else data,
