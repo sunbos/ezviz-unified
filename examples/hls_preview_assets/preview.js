@@ -33,8 +33,16 @@
     stopBtn.disabled = !busy;
   }
 
-  // 仅接受单一 {"url": "..."} 对象：同源、路径恰为 /media/preview.m3u8、
-  // 无用户名/口令/查询串/锚点。返回规范化后的绝对地址或 null。
+  // 两个固定同源清单各自的官方解码方式：/media/preview.m3u8 用 'hard'，
+  // /media/hevc.m3u8 用 'soft'；除此之外的路径一律拒绝。
+  var DECODER_BY_PATH = {
+    '/media/preview.m3u8': 'hard',
+    '/media/hevc.m3u8': 'soft'
+  };
+
+  // 仅接受单一 {"url": "..."} 对象：同源、路径恰为两个固定清单之一、
+  // 无用户名/口令/查询串/锚点。返回 {url, decoder} 或 null；decoder 仅由
+  // 已知的固定路径决定，不读取地址内容，也不向 DOM/控制台回显地址。
   function previewUrl(payload) {
     if (!payload || typeof payload !== 'object' || Array.isArray(payload)) return null;
     var keys = Object.keys(payload);
@@ -48,10 +56,11 @@
       return null;
     }
     if (u.origin !== window.location.origin) return null;
-    if (u.pathname !== '/media/preview.m3u8') return null;
+    var decoder = DECODER_BY_PATH[u.pathname];
+    if (decoder === undefined) return null;
     if (u.username !== '' || u.password !== '') return null;
     if (u.search !== '' || u.hash !== '') return null;
-    return u.href;
+    return { url: u.href, decoder: decoder };
   }
 
   // 先解除引用再 pause/destroy：destroy 期间重入的事件因 player!==p 被忽略，
@@ -94,7 +103,7 @@
     return video ? video.currentTime : NaN;
   }
 
-  function mount(gen, url) {
+  function mount(gen, url, decoder) {
     if (gen !== generation || player !== null) {
       refreshButtons();
       return;
@@ -112,7 +121,7 @@
         container: hostEl,
         url: url,
         staticPath: '/vendor/',
-        decoderType: 'hard',
+        decoderType: decoder, // 由固定清单路径唯一决定，不读取地址内容
         autoPlay: true,
         muted: true,
         volume: 0,
@@ -181,13 +190,13 @@
     }).then(function (payload) {
       if (gen !== generation) return; // 期间已被停止，丢弃不挂载
       pending = false;
-      var url = previewUrl(payload);
-      if (url === null) {
+      var checked = previewUrl(payload);
+      if (checked === null) {
         setStatus('failed'); // 非法输出：只置失败一次，不产生任何媒体请求
         refreshButtons();
         return;
       }
-      mount(gen, url);
+      mount(gen, checked.url, checked.decoder);
     }).catch(function () {
       if (gen !== generation) return;
       pending = false;

@@ -54,4 +54,4 @@
 
 ## 官方 HLS 播放器的本地验收
 
-2026-11-17 的归档清单记录了组件采集时的状态。随后在固定版本 `@ezuikit/player-hls@2.0.0` 上完成了本机 H.264 解码与播放器释放验证。SDK 地址签发使用模拟传输，真实平台验收另列。见[浏览器记录](../validation/2026-11-19-official-hls-preview/checks.json)。
+2026-11-17 的归档清单记录了组件采集时的状态。随后在固定版本 `@ezuikit/player-hls@2.0.0` 上完成了本机 H.264 解码，并另行验证了 HEVC 8-bit TS 软件解码、Canvas 画面及 worker 释放。SDK 地址签发使用模拟传输，真实平台验收另列。见 [H.264 记录](../validation/2026-11-19-official-hls-preview/checks.json)与 [HEVC 记录](../validation/2026-11-19-official-hevc-preview/checks.json)。

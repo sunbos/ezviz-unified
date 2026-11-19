@@ -2,7 +2,7 @@
 
 ## 前提
 
-- 本机已安装 [ffmpeg](https://ffmpeg.org) 且启用 `libx264`（可用 `ffmpeg -h encoder=libx264` 确认）。
+- 本机需安装 FFmpeg；默认 H.264 使用 `libx264`，H.265 使用 `libx265`。可用 `ffmpeg -hide_banner -encoders` 检查。[FFmpeg](https://ffmpeg.org)
 - 交互式演示不需要云端配置，也不需要 Node.js。
 - 准备下列版本的 npm 归档。示例启动时会核对 SHA-256，官方 JavaScript、WASM 和测试视频均不随 Python 包分发。
 
@@ -68,7 +68,17 @@ function stopPreview() {
 
 `isEzviz: false` 适用于此处的标准本地播放列表。对另行获准的真实萤石地址，应按该组件的地址类型和上游配置设置该选项。`hard` 指该组件的 hls.js/MSE/`<video>` 路径，具体硬件加速情况取决于浏览器和设备。
 
-软解、RTC、海外版均不在本指南范围内。
+## H.265 软件解码
+
+在仓库根目录选择 `h265` 启动同一个示例：
+
+```bash
+.venv/bin/python -m examples.hls_preview --archive /path/to/ezuikit-player-hls-2.0.0.tgz --codec h265
+```
+
+示例向真实 SDK 的模拟地址签发传输发送 `protocol=2`、`type=1`、`supportH265=1`、`containerFormat=0`。前两项选择 HLS 预览，后两项要求 H.265 和 TS 封装。播放列表指向本机生成的无音轨、8-bit YUV420P 合成视频。省略 `--codec` 时保留原有 H.264 行为。[国内地址签发协议](https://open.ys7.com/help/1414)
+
+页面为该清单选择官方 `decoderType: "soft"`，浏览器需支持 WebGL 和 Web Audio。`decoder.worker.js` 与 `decoder.wasm` 从同一 `staticPath` 加载。播放时保持页面可见，白色参考带旁的彩色区会按红、绿、蓝循环。点击停止后，软解 worker 的异步退出需要单独观察。
 
 ## 可选维护验证
 
@@ -76,10 +86,12 @@ function stopPreview() {
 cd tools/media
 npm ci --ignore-scripts
 node verify_hls.cjs --base http://127.0.0.1:PORT  # 将 PORT 换成服务打印的端口
+# 若服务以 --codec h265 启动，改用下面这一条
+node verify_hls.cjs --base http://127.0.0.1:PORT --codec h265
 ```
 
 维护检查另需 Node.js（18 或更高版本）和已安装的 Chrome；可用 `--chrome /path/to/chrome` 指定可执行文件。脚本确认画面帧确实前进、覆盖释放路径，并在不创建播放器的前提下检查无效 SDK 回复；不产生持久浏览器配置，回执仅保存版本、帧、请求计数与释放状态。详见 [`tools/media/verify_hls.cjs`](../tools/media/verify_hls.cjs)。
 
 ## 边界声明
 
-本指南未声称已在真实授权平台或设备上验证，不覆盖 H.265 与 RTC。本地浏览器验收的版本和结果见[本次回执](validation/2026-11-19-official-hls-preview/checks.json)。
+H.265 维护验证还需要 `ffprobe` 检查实际分片。回执分别记录解码资源、可见 Canvas 的颜色顺序与媒体时间，以及停止后 worker 的退出。本地结果只涵盖本指南的合成样本；真实设备、远端流、10-bit、fMP4、RTC 与跨浏览器兼容性仍待单独验证。见 [H.264 回执](validation/2026-11-19-official-hls-preview/checks.json) 和 [H.265 回执](validation/2026-11-19-official-hevc-preview/checks.json)。

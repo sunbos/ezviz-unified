@@ -1,12 +1,15 @@
 """Offline local preview of the pinned official @ezuikit/player-hls bundle.
 
 Serves a minimal page bound to 127.0.0.1 that plays a locally generated,
-finite H.264 320x180 HLS fixture via the real UMD ``window.HlsPlayer``.
+finite 320x180 HLS fixture via the real UMD ``window.HlsPlayer``. The
+default ``--codec h264`` keeps the H.264 clip on ``/media/preview.m3u8``;
+``--codec h265`` generates an HEVC clip served at ``/media/hevc.m3u8``,
+which the page always plays through the official soft-decoder path.
 The preview address is issued through the real domestic
 ``Client.playback.create`` path over a strict ``httpx.MockTransport`` --
 no credentials, devices, real media URLs, or network access are used.
 
-Usage: python -m examples.hls_preview --archive PATH [--port N]
+Usage: python -m examples.hls_preview --archive PATH [--codec h264|h265] [--port N]
 """
 
 from __future__ import annotations
@@ -38,6 +41,7 @@ VENDOR_FILES = {  # pinned regular archive member -> absolute HTTP path
 }
 DEVICE_SERIAL = "SYNTHSER01"
 FAILURE = "hls-preview: startup failed"
+CODECS = {"h264": "/media/preview.m3u8", "h265": "/media/hevc.m3u8"}
 
 _HEADERS = {
     "Cache-Control": "no-store",
@@ -61,14 +65,28 @@ _TYPES = {
     "/vendor/decoder.worker.js": "text/javascript; charset=utf-8",
     "/vendor/decoder.wasm": "application/wasm",
     "/media/preview.m3u8": "application/vnd.apple.mpegurl",
+    "/media/hevc.m3u8": "application/vnd.apple.mpegurl",
 }
 
 
-def preview_url(client: Client, device_serial: str, *, channel: int = 1) -> str:
+def preview_url(
+    client: Client, device_serial: str, *, channel: int = 1, codec: str = "h264"
+) -> str:
     """Issue a domestic HLS preview address; return its ``data.url`` string."""
-    response = client.playback.create(
-        device_serial, PlaybackOptions(channel=channel, protocol=2, kind=1)
-    )
+    if codec == "h264":
+        # Default wire form is unchanged: the optional fields stay omitted.
+        options = PlaybackOptions(channel=channel, protocol=2, kind=1)
+    elif codec == "h265":
+        options = PlaybackOptions(
+            channel=channel,
+            protocol=2,
+            kind=1,
+            support_h265=True,
+            container_format=0,
+        )
+    else:
+        raise ValueError("codec must be 'h264' or 'h265'")
+    response = client.playback.create(device_serial, options)
     data = response.data
     url = data.get("url") if isinstance(data, Mapping) else None
     if (
@@ -94,9 +112,9 @@ def preview_url(client: Client, device_serial: str, *, channel: int = 1) -> str:
     return url
 
 
-def demo_address(origin: str) -> str:
-    """Return origin + /media/preview.m3u8 as issued by the real SDK client."""
-    expected = origin + "/media/preview.m3u8"
+def demo_address(origin: str, *, codec: str = "h264") -> str:
+    """Return origin + the codec's media path as issued by the real SDK client."""
+    expected = origin + CODECS[codec]
     calls = {"auth": 0, "biz": 0}
 
     def checked_form(request: httpx.Request, path: str) -> dict[str, list[str]]:
@@ -142,13 +160,17 @@ def demo_address(origin: str) -> str:
     def biz(request: httpx.Request) -> httpx.Response:
         calls["biz"] += 1
         form = checked_form(request, "/api/lapp/v2/live/address/get")
-        if form != {
+        expected_form = {
             "accessToken": ["SYNTH_TOKEN"],
             "deviceSerial": [DEVICE_SERIAL],
             "channelNo": ["1"],
             "protocol": ["2"],
             "type": ["1"],
-        }:
+        }
+        if codec == "h265":
+            expected_form["supportH265"] = ["1"]
+            expected_form["containerFormat"] = ["0"]
+        if form != expected_form:
             raise RuntimeError("unexpected biz form fields")
         return httpx.Response(200, json={"code": "200", "data": {"ret": 200, "url": expected}})
 
@@ -160,7 +182,7 @@ def demo_address(origin: str) -> str:
         transport_factory=lambda origin: httpx.MockTransport(biz),
     )
     try:
-        url = preview_url(client, DEVICE_SERIAL)
+        url = preview_url(client, DEVICE_SERIAL, codec=codec)
     finally:
         client.close()
     if url != expected:
@@ -200,7 +222,50 @@ def load_vendor(archive: Path) -> dict[str, bytes]:
     return found
 
 
-def _generate_media(tmp: str) -> dict[str, bytes]:
+def _generate_media(tmp: str, *, codec: str = "h264") -> dict[str, bytes]:
+    """Generate the finite HLS fixture; return only the selected codec's routes."""
+    if codec == "h265":
+        # 12s loop: left quarter is a fixed white reference; the rest cycles
+        # red -> green -> blue every second so the verifier can match color
+        # and media time. FFmpeg takes the whole graph as one argument.
+        lavfi = (
+            "color=c=red:s=320x180:r=15,"
+            "drawbox=color=lime:t=fill:enable='between(mod(t,3),1,2)',"
+            "drawbox=color=blue:t=fill:enable='gte(mod(t,3),2)',"
+            "drawbox=x=0:y=0:w=iw/4:h=ih:color=white:t=fill"
+        )
+        extra = [
+            "-i",
+            lavfi,
+            "-t",
+            "12",
+            "-an",
+            "-c:v",
+            "libx265",
+            "-pix_fmt",
+            "yuv420p",
+            "-preset",
+            "ultrafast",
+            "-x265-params",
+            "pools=1:frame-threads=1:bframes=0:scenecut=0:keyint=15:"
+            "min-keyint=15:repeat-headers=1:log-level=error",
+        ]
+    else:
+        extra = [
+            "-i",
+            "testsrc2=size=320x180:rate=24",
+            "-t",
+            "11",
+            "-an",
+            "-c:v",
+            "libx264",
+            "-pix_fmt",
+            "yuv420p",
+            "-g",
+            "24",
+            "-sc_threshold",
+            "0",
+        ]
     cmd = [
         "ffmpeg",
         "-nostdin",
@@ -210,19 +275,7 @@ def _generate_media(tmp: str) -> dict[str, bytes]:
         "-y",
         "-f",
         "lavfi",
-        "-i",
-        "testsrc2=size=320x180:rate=24",
-        "-t",
-        "11",
-        "-an",
-        "-c:v",
-        "libx264",
-        "-pix_fmt",
-        "yuv420p",
-        "-g",
-        "24",
-        "-sc_threshold",
-        "0",
+        *extra,
         "-hls_time",
         "1",
         "-hls_list_size",
@@ -247,7 +300,11 @@ def _generate_media(tmp: str) -> dict[str, bytes]:
         line = line.strip()
         if line and not line.startswith("#") and "/media/" + line not in routes:
             raise RuntimeError("playlist references a segment that is not served")
-    routes["/media/preview.m3u8"] = playlist
+    # Serve the generated playlist only at the codec's fixed public path:
+    # /media/preview.m3u8 for h264, /media/hevc.m3u8 for h265.
+    if not playlist.startswith(b"#EXTM3U"):
+        raise RuntimeError("generated playlist is not usable")
+    routes[CODECS[codec]] = playlist
     return routes
 
 
@@ -293,6 +350,13 @@ def main(argv=None) -> int:
         "--archive", type=Path, required=True, help="pinned player-hls .tgz archive"
     )
     parser.add_argument(
+        "--codec",
+        choices=sorted(CODECS),
+        default="h264",
+        help="fixture codec: h264 serves /media/preview.m3u8 (default); "
+        "h265 serves /media/hevc.m3u8",
+    )
+    parser.add_argument(
         "--port", type=int, default=0, help="port to bind on 127.0.0.1 (0 = ephemeral)"
     )
     try:
@@ -318,11 +382,19 @@ def main(argv=None) -> int:
         script = or_die(lambda: (assets / "preview.js").read_bytes())
         vendor = load_vendor(args.archive)  # read pinned archive before invoking FFmpeg
         with tempfile.TemporaryDirectory(prefix="hls-preview-") as tmp:
-            media = _generate_media(tmp)
+            # The default h264 path keeps the original one-argument calls so
+            # injected test doubles that only accept (tmp)/(origin) still work.
+            if args.codec == "h264":
+                media = _generate_media(tmp)
+            else:
+                media = _generate_media(tmp, codec=args.codec)
             with ThreadingHTTPServer(("127.0.0.1", args.port), _Handler) as server:
                 port = server.server_address[1]
                 origin = f"http://127.0.0.1:{port}"
-                url = demo_address(origin)  # real SDK client over strict MockTransport
+                if args.codec == "h264":
+                    url = demo_address(origin)  # real SDK client over MockTransport
+                else:
+                    url = demo_address(origin, codec=args.codec)
                 server.host = f"127.0.0.1:{port}"
                 server.routes = {
                     "/": index,

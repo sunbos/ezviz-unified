@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "scope": "real_official_component_local_HEVC_TS_and_H264_regression",
+  "code_commit": "e8b2c7384043dbae3f26aa097b1d926a3e04dd8f",
+  "source_sha256": {
+    "src/ezviz_unified/playback.py": "9186a3d033816ca84e6b1123a14f5751bee87a2b76215be3a9f81bd5e36d33c8",
+    "examples/hls_preview.py": "6411d3151ebfd52820c1af20655200a1a129a4cbc3f147cca32e6b7eb8bc634a",
+    "examples/hls_preview_assets/index.html": "eb9e2980a39cefefbfb8c71ba384fb9c4d74f24063ea1e4f0c802e89b7f7871f",
+    "examples/hls_preview_assets/preview.js": "06215a0e4282695cd7fce05f86960cad8e150078d206ba00f36bf9949121d313",
+    "tools/media/verify_hls.cjs": "2fa6a3c7c08acddc257832f3f9f0e02678116c2c2aa3ea634f1a7b31405302dc",
+    "tools/media/hevc_probe.cjs": "e9ac7931dfb0108505114cb6eff61220a6f6a725febbc46bbbff3808e7ebc9c5",
+    "tools/media/package.json": "78e42a6a52d9d3e64354b57d51cfe722f7ba8dbe8aea9f403c11047ed4a67ce4",
+    "tools/media/package-lock.json": "90c0c7696cb8c5f316726d7b6390b5990733eb29ab655815a4d9b3572a919957",
+    "tests/test_example_hls_preview.py": "16d18ea9ec4904e8b8bee981e0b95932a50b2da4d21ee7d4493daf81bf8a6d38",
+    "docs/official-hls-preview.md": "0c5bc585d099d5642da42df8e58c3673239a36b66bd3328fc073bb84221d851c",
+    "docs/coordination/official-hevc-preview/admission.json": "49e84cc2372b3f1185cbf4d74a382dfb6bd5af07e7a7114597127cd7270a9c55"
+  },
+  "component": {
+    "package": "@ezuikit/player-hls",
+    "version": "2.0.0",
+    "archive_sha256": "8f7de1d2c96d310025e4d72a1221176d2584f5c98b6fc858dfd9daccca5087c9",
+    "member_sha256": {
+      "package/dist/index.umd.js": "afb2f9c1f3e32c865db90aa6ee6dbb7a1ef61a90cf4911c1787ac8732fa28e1c",
+      "package/dist/decoder.worker.js": "fd24bc9d975183ecaee66e0ad0db79a8c192cb8f2f34abd4c4aa82b7128fe709",
+      "package/dist/decoder.wasm": "acc7bc90ce79c2d1e28a82dc4785437f58dbd1628497145d7d38861bcc75d644"
+    }
+  },
+  "ffprobe_version": "8.1",
+  "sdk": {
+    "operation": "cn.playback.create",
+    "transport": "httpx.MockTransport",
+    "auth_per_local_server": 1,
+    "address_issuances_per_local_server": 1,
+    "real_platform_requests": 0,
+    "hevc_form_only": {
+      "supportH265": "1",
+      "containerFormat": "0"
+    },
+    "browser_input": "data.url"
+  },
+  "local_browser": {
+    "h265": {
+      "browser": "157.0.8103.79",
+      "playwright_version": "1.57.0",
+      "observed_utc": "2026-11-19T00:21:25+00:00",
+      "official_version": "2.0.0",
+      "umd_integrity_verified": true,
+      "decoder": "soft",
+      "positive": {
+        "playlist_requests": 1,
+        "segment_requests": 12,
+        "address_fetches": 1
+      },
+      "negative": {
+        "invalid_address_failed": true,
+        "player_constructions": 0,
+        "media_requests": 0,
+        "address_refetches": 0
+      },
+      "lifecycle": {
+        "constructed": 1,
+        "pause_calls": 1,
+        "destroy_calls": 1,
+        "renderer_detached": true,
+        "media_requests_stable_after_stop": true
+      },
+      "page_network": {
+        "unexpected": 0,
+        "ws": 0,
+        "cspBlocked": 0
+      },
+      "browser_run_record_sha256": "04cd07ade13f7ab39491307b2ab1b07395b0f48dba514c117c50b9f4afa0a115",
+      "video": {
+        "codec": "hevc",
+        "width": 320,
+        "height": 180
+      },
+      "ffprobe_first_served_segment": {
+        "streams": 1,
+        "codec": "hevc",
+        "codecType": "video",
+        "width": 320,
+        "height": 180,
+        "pixFmt": "yuv420p",
+        "audio": false
+      },
+      "canvas": {
+        "width": 320,
+        "height": 180,
+        "cssWidth": 800,
+        "cssHeight": 450
+      },
+      "white_reference_and_ordered_fields": [
+        "red",
+        "green",
+        "blue"
+      ],
+      "media_delta_ms": 2000,
+      "wasm_loaded": true,
+      "decoder_assets_integrity_verified": true,
+      "worker_requests": 1,
+      "wasm_requests": 1,
+      "worker_release": {
+        "workersStarted": 1,
+        "workersClosed": 1,
+        "canvasDetached": true,
+        "terminateBeforeStop": 0,
+        "terminateAfterStop": 1
+      },
+      "negative_decoder_loads": {
+        "workerRequests": 0,
+        "wasmRequests": 0,
+        "workersStarted": 0
+      },
+      "observed_worker_or_page_errors": 0,
+      "observed_soft_csp_violations": 0
+    },
+    "h264": {
+      "browser": "157.0.8103.79",
+      "playwright_version": "1.57.0",
+      "observed_utc": "2026-11-19T00:21:32+00:00",
+      "official_version": "2.0.0",
+      "umd_integrity_verified": true,
+      "decoder": "hard",
+      "positive": {
+        "playlist_requests": 1,
+        "segment_requests": 11,
+        "address_fetches": 1
+      },
+      "negative": {
+        "invalid_address_failed": true,
+        "player_constructions": 0,
+        "media_requests": 0,
+        "address_refetches": 0
+      },
+      "lifecycle": {
+        "constructed": 1,
+        "pause_calls": 1,
+        "destroy_calls": 1,
+        "renderer_detached": true,
+        "media_requests_stable_after_stop": true
+      },
+      "page_network": {
+        "unexpected": 0,
+        "ws": 0,
+        "cspBlocked": 0
+      },
+      "browser_run_record_sha256": "865f991ff164021c490d2054e727d5957bcf153cac5656096c004d6046d78ad4",
+      "video": {
+        "w": 320,
+        "h": 180
+      },
+      "frames": {
+        "n": 5,
+        "mediaDeltaMs": 167
+      }
+    }
+  },
+  "negative_control": {
+    "fixture": "仅在隔离的负例页面额外请求一次同源 WASM",
+    "expected_rejection": true,
+    "stage": "invalid-url",
+    "extra_wasm_requests": 1,
+    "extra_workers": 0,
+    "run_record_sha256": "84d87457fdc02dde5de6f0fec202b9b6e99a5d36bc9560b0efca9cdd40096b78"
+  },
+  "python_checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_hls_preview.py",
+      "summary": "32 passed in 0.74s",
+      "local_receipt_sha256": "cda2a77bd43dafa97e7fe3cba0989243919aed419fb491855834a1e68bf60861"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "7891 passed, 35 subtests passed in 54.73s",
+      "local_receipt_sha256": "c6f10371c0133275cf2b9879606fad4000231e01ef85b7ca75c64a14aef8c01a"
+    }
+  ],
+  "limits": [
+    "测试使用本地有限 HLS、无音轨的 8-bit YUV420P 合成样本，观察范围为受控浏览器页面、解码 worker 与限定时间窗。",
+    "真实平台和设备、fMP4、10-bit、RTC、海外与原生环境仍需各自证据。"
+  ]
+}
