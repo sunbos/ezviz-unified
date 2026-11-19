@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "d61e2835e869ec98de9397e220a2ffee42ee5739",
+  "scope_revision": "2026-11-19-r26-device-utc-info",
+  "operations": [
+    {
+      "operation_id": "global.devices.get_utc",
+      "capability_id": "candidate:overseas:477:1.20",
+      "entry": "devices.get_utc",
+      "name": "get_utc",
+      "doc_id": "477",
+      "section": "1.20",
+      "signatures": {
+        "Devices": "def get_utc(self, device_serial: str) -> ApiResponse",
+        "AsyncDevices": "async def get_utc(self, device_serial: str) -> ApiResponse"
+      },
+      "method": "POST",
+      "path": "/api/lapp/device/info",
+      "origin": "{areaDomain}",
+      "token_location": "form",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/en/477",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/477.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/477.structure.json",
+      "html_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "elements": {
+        "scope": 2374,
+        "address": 2383,
+        "method": 2387,
+        "parameters": 2390,
+        "request": 2416,
+        "example": 2420,
+        "fields": 2424,
+        "errors": 2483
+      },
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-477-1-20-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-477-1-20-LIVE-001"
+      ]
+    }
+  ],
+  "sdk_choices": [
+    "海外专用常量 version=utc，客户端不暴露 version 开关；devices.get 保持原签名、全地区和不发送 version 的行为。",
+    "使用认证 token 的 areaDomain，POST 表单仅含 accessToken、deviceSerial 与小写 version=utc；一次业务调用，无发现、时区设置或目录预检。仅沿用只读既有重试与地区限制。",
+    "设备序列号为非空白、可编码的 UTF-8 原文；保留大小写。在认证前拒绝无效输入和国内地区。",
+    "成功保留整个 ApiResponse；data 必须为对象，timeZone、wifiSsid 及额外字段原样可用。缺失时不补默认值、不解析偏移、不将时区解释为设备时钟正确。",
+    "CLI 仅接受已知海外设备和显式模式，成功仅输出 region、mode、status、time_zone_present（非空白字符串）；失败只输出固定状态。诊断报告不收集时区、SSID 或序列号，成功响应仍含业务数据。"
+  ],
+  "source_notes": [
+    "e2390 序列号类型列拼作 Strring，与 e2424 的 String 和 476 设备信息文档交叉核对后采用 Python str。",
+    "同路径是查询变体；账号时区目录、设备时区设置以及不含 version 的基础查询已分别登记。"
+  ],
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "live": "只读，真实海外访问需单独批准已知账号、集群、设备与次数；国内账号流量授权不适用。"
+}

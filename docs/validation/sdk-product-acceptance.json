@@ -354,7 +354,7 @@
       "case_id": "ACC-OS-DEVICE-READONLY-001",
       "tier": "required",
       "capability_selector": "global.token.get; global.devices.list; global.devices.get; global.devices.channels; global.device.status; global.diagnostics.capabilities; global.diagnostics.version",
-      "region_cluster": "overseas: cluster to be confirmed per account",
+      "region_cluster": "overseas:Singapore (user-identified console region; live device route unverified)",
       "account_role_permissions": "developer appKey/appSecret; device-visible scope unknown",
       "device_requirements": "at least one ordinary device bound and visible to the authorized account; channel 1",
       "surface": [
@@ -26860,53 +26860,70 @@
       "case_id": "ACC-CANDIDATE-OVERSEAS-477-1-20-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:477:1.20",
+      "case_origin": "overseas_utc_variant",
+      "capability_selector": "devices.get_utc",
       "capability_ids": [
         "candidate:overseas:477:1.20"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.devices.get_utc"
+      ],
+      "scope_revision": "2026-11-19-r26-device-utc-info",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
       "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
-      "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
+      "device_requirements": "仅合成设备及传输。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "合成认证/业务 MockTransport；默认断网。"
       ],
       "expected_evidence": {
-        "read": "围绕“读取UTC变体设备信息”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "验证独立入口、固定 version、基础查询回归、模拟地区路由、字段、错误、脱敏与 CLI。",
+        "write": "无。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/37"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/37",
+        "docs/coordination/overseas-device-utc/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/477.source.json"
       ],
       "pending_questions": [
-        "version=utc is a required discriminator for this variant; omitting it falls back to the non-UTC devices.get shape"
+        "来源未注明 timeZone 使用 IANA 名称或固定偏移格式，也未承诺每个型号均返回非空字符串。",
+        "海外账号当前无绑定设备，适用型号和最小子账户权限待确认。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/devices.py",
+        "tests/test_sdk_device_utc.py",
+        "examples/device_timezone.py",
+        "tests/test_example_device_timezone.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "0c2e20b8632181a620feab4a00d40e6f9a10849a",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-overseas-device-utc/offline.json"
       ]
     },
     {
@@ -30651,13 +30668,17 @@
         "docs/coordination/domestic-traffic/account-read.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "等待来自本次独立交互终端会话的受控真实回执。"
-      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "离线通过或返回成功不能证明统计数据准确或设备功能。"
-      ]
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "1b2a373159e4441dae74dd29eced5884613d200a",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-19-domestic-account-traffic/receipt.json"
+      ],
+      "execution_note": "两种模式各完成一次认证与限定账号查询，仅核对响应类型。"
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1425-D0-LIVE-001",
@@ -30701,13 +30722,19 @@
         "docs/coordination/domestic-traffic/account-read.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "blockers": [
-        "等待来自本次独立交互终端会话的受控真实回执。"
+        "未取得两种模式均通过的真实只读证据，未自动重试。"
       ],
       "limitations": [
         "离线通过或返回成功不能证明统计数据准确或设备功能。"
-      ]
+      ],
+      "execution_outcome": "not_verified",
+      "verified_code_commit": "1b2a373159e4441dae74dd29eced5884613d200a",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-19-domestic-account-traffic/receipt.json"
+      ],
+      "execution_note": "本次真实会话未完成两种模式的成功验收，具体原因不从白名单回执推断。"
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1426-D0-LIVE-001",
@@ -30757,6 +30784,10 @@
       ],
       "limitations": [
         "离线通过或返回成功不能证明统计数据准确或设备功能。"
+      ],
+      "execution_note": "前一项按日明细同步查询未通过，依首次失败停止的规则，本项两个模式均未执行。",
+      "prior_attempt_refs": [
+        "docs/validation/live/2026-11-19-domestic-account-traffic/receipt.json"
       ]
     },
     {
@@ -31470,7 +31501,7 @@
       ],
       "scope_revision": "2026-11-19-r25-overseas-ddns",
       "freeze_state": "awaiting_resource_scope_and_authorization",
-      "region_cluster": "overseas:cluster_not_frozen",
+      "region_cluster": "overseas:Singapore (user-identified console region; live device route unverified)",
       "account_role_permissions": "海外应用授权 token，业务使用认证返回的 areaDomain。",
       "device_requirements": "获准的已知设备序列号或 DDNS 域名。",
       "surface": [
@@ -31520,7 +31551,7 @@
       ],
       "scope_revision": "2026-11-19-r25-overseas-ddns",
       "freeze_state": "awaiting_resource_scope_and_authorization",
-      "region_cluster": "overseas:cluster_not_frozen",
+      "region_cluster": "overseas:Singapore (user-identified console region; live device route unverified)",
       "account_role_permissions": "海外应用授权 token，业务使用认证返回的 areaDomain。",
       "device_requirements": "获准海外账号；可验证空列表，验证非空记录另需相应设备或分享关系。",
       "surface": [
@@ -31570,7 +31601,7 @@
       ],
       "scope_revision": "2026-11-19-r25-overseas-ddns",
       "freeze_state": "awaiting_resource_scope_and_authorization",
-      "region_cluster": "overseas:cluster_not_frozen",
+      "region_cluster": "overseas:Singapore (user-identified console region; live device route unverified)",
       "account_role_permissions": "海外应用授权 token，业务使用认证返回的 areaDomain。",
       "device_requirements": "获准海外账号；可验证空列表，验证非空记录另需相应设备或分享关系。",
       "surface": [
@@ -31605,6 +31636,56 @@
       "limitations": [
         "子账户/托管账号所需最小权限未详述。",
         "列表允许为空；当前账号分享数据、集群与实际分页响应未验收。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-477-1-20-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_utc_variant",
+      "capability_selector": "devices.get_utc",
+      "capability_ids": [
+        "candidate:overseas:477:1.20"
+      ],
+      "operation_ids": [
+        "global.devices.get_utc"
+      ],
+      "scope_revision": "2026-11-19-r26-device-utc-info",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:Singapore (user-identified console region; live device route unverified)",
+      "account_role_permissions": "海外账号拥有对目标设备的读取权限。",
+      "device_requirements": "已知且可见的海外设备。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "冻结海外集群、代表型号、授权、次数及恢复责任；本项无配置写入。"
+      ],
+      "expected_evidence": {
+        "read": "成功状态、请求数及 timeZone 字段存在性和类型，缺字段按实记录。",
+        "write": "无。",
+        "physical": "不推断物理时钟、显示或 Wi-Fi 状态。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，无需恢复设备配置。",
+      "source_refs": [
+        "docs/coordination/overseas-device-utc/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/477.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "海外账号当前无绑定设备，尚未获得本操作的真实查询授权。"
+      ],
+      "limitations": [
+        "来源未注明 timeZone 使用 IANA 名称或固定偏移格式，也未承诺每个型号均返回非空字符串。",
+        "海外账号当前无绑定设备，适用型号和最小子账户权限待确认。"
       ]
     }
   ],
@@ -31679,7 +31760,7 @@
   "open_questions": [
     "Whether the current domestic device is still online and the device/account configuration has changed since 2026-11-16 is unconfirmed; prior evidence does not assert it.",
     "Domestic async inspection is scoped to 7 HTTP calls and 6 business calls and has passed the verifier-only offline checks. A real run remains pending. The separate six-CLI scenario has a frozen 20-request budget. Its live execution still requires a separate local selection and receipt.",
-    "Overseas device read-only acceptance is awaiting_resource_confirmation with resource_state=user_confirmed_no_bound_device (user confirmed on 2026-11-17 the account currently has no bound device); the account cluster and device-visible permissions remain unconfirmed, and no device/account values are fabricated.",
+    "The user identified the overseas console as Singapore on 2026-11-19 and previously confirmed no bound device. Live device acceptance still needs a known visible target and scoped authorization; a console region alone does not verify SDK business routing or access to any target.",
     "Platform message push requires enabled service, reachable callback, independent secret, target type, and trigger authorization; resource_state=unknown_awaiting_configuration_check because the user stated on 2026-11-17 they do not know the platform message service or which callback entry is usable. Dedup/redelivery semantics must be defined before execution. Domestic header 't' timestamp unit is confirmed milliseconds (5130); the overseas 't' unit, freshness window, the 2s vs ~5s timeout conflict, and ciphertext wording remain unconfirmed. Configuration side effects (App reminder stop, ~2h delay, console test temporarily suspending the original callback) need explicit authorization beyond the prior read-only scope.",
     "Release version is undetermined. PyPI account/permissions and upload authorization are unconfirmed; no upload has been executed. The 2026-11-17 public-page 404 only reflects that-moment visibility and does not guarantee name availability. Account/Trusted Publisher may be prepared now (https://docs.pypi.org/trusted-publishers/creating-a-project-through-oidc/) and the first authorized upload creates the project; the user is not required to provide a token now.",
     "New business domains must be bound to concrete acceptance rows and frozen before implementation claims; the per-new-domain wildcard row is a policy placeholder, not a substitute for per-item rows.",

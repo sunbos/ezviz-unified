@@ -32,7 +32,18 @@ DATA = {
         "areaDomain": "https://open.ys7.com",
     },
     PATH[OPS[0]]: {"totalFlow": 123456, "private": "PRIVATEROW"},
-    PATH[OPS[1]]: [{"deviceSerial": "PRIVATESERIAL"}],
+    PATH[OPS[1]]: [
+        {
+            "flowDate": 1111111111111,  # synthetic epoch milliseconds
+            "deviceCount": 0,
+            "channelCount": 0,
+            "hlsFlow": 1111111,
+            "appFlow": 2222222,
+            "rtmpFlow": 3333333,
+            "flowCount": 7777777,
+            "private": "PRIVATEROW",
+        }
+    ],
     PATH[OPS[2]]: [{"deviceSerial": "PRIVATESERIAL"}],
 }
 FORMS = {
@@ -212,6 +223,37 @@ def test_wrong_data_shape_marks_profile_failed(monkeypatch):
     assert row["data_type"] is None
     assert [r["status"] for r in receipt["profiles"][1:]] == ["skipped"] * 5
     assert "PRIVATEBAD" not in json.dumps(receipt)
+
+
+@pytest.mark.parametrize(
+    "fault",
+    [
+        {"code": "10001", "msg": "PRIVATEMSG", "data": None},
+        {"code": "200", "data": None},
+        "connect",
+    ],
+    ids=["code-10001", "null-data", "connect-error"],
+)
+def test_third_profile_failure_skips_the_rest(monkeypatch, fault):
+    """Sync account_details fails after both account_summary profiles pass."""
+
+    def handler(request):
+        if request.url.path == PATH[OPS[1]]:
+            if fault == "connect":
+                raise httpx.ConnectError("PRIVATE", request=request)
+            return httpx.Response(200, json=fault)
+        return _strict(request)
+
+    receipt, calls = _run(monkeypatch, handler)
+    assert set(receipt) == {"schema_version", "scope", "outcome", "http_requests", "profiles"}
+    assert len(calls) == receipt["http_requests"] == 6
+    assert [c.url.path for c in calls] == [TOKEN, PATH[OPS[0]]] * 2 + [TOKEN, PATH[OPS[1]]]
+    rows = _rows(receipt)
+    assert [(r["operation"], r["mode"]) for r in rows] == PROFILES
+    assert [r["status"] for r in rows] == ["passed", "passed", "failed"] + ["skipped"] * 3
+    assert [r["http_requests"] for r in rows] == [2, 2, 2, 0, 0, 0]
+    assert [r["data_type"] for r in rows] == ["object", "object", None, None, None, None]
+    assert all(m not in json.dumps(receipt) for m in ("PRIVATE", "10001"))
 
 
 def test_help_runs_preflight_without_credentials(capsys):

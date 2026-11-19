@@ -39,6 +39,22 @@ with Client(
 
 `inspect_device(client, device_serial, channel=1)` 与 `inspect_device_async` 按固定顺序组合设备信息、通道、状态、能力、版本五次只读调用，逐项返回 `InspectionResult`，并提供不含序列号、通道、载荷或异常原文的 `public_summary()`；认证级错误立即中断。示例 `examples.inspection_sync`/`inspection_async` 用 `EZVIZ_DEVICE_SERIAL` 与 `EZVIZ_CHANNEL` 显式指定一台已知设备，不枚举账号设备，退出码 0/2/1 分别对应全部成功、部分失败、配置或 SDK 级失败；用法与输出契约见[接入指南的单设备检查节](docs/getting-started.md#单设备检查)。
 
+### 海外设备时区查询
+
+`client.devices.get_utc(device_serial)` 与 `devices.get` 走同一路由，前者额外提交 `version=utc`。同步客户端和异步客户端均支持这项查询。响应的 `data` 对象可包含 `timeZone`、`wifiSsid` 以及其他设备信息，原始 `ApiResponse` 完整保留；字段缺失或未知时不补默认值、不解析偏移。SDK 保留序列号大小写。官方未指定时区字符串的格式。实际海外设备的返回情况待验收。[海外官方文档 §1.20](https://open.ys7.com/help/en/477)
+
+在本机配置 `EZVIZ_REGION=overseas`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET`、`EZVIZ_DEVICE_SERIAL`。
+
+```bash
+python -m examples.device_timezone --mode async
+```
+
+示例只报告 `timeZone` 是否为非空白字符串。合成输出示例如下。
+
+```json
+{"region": "overseas", "mode": "async", "status": "ok", "time_zone_present": true}
+```
+
 ## 海外 DDNS 只读查询
 
 三个查询均可通过 `Client.ddns` 和 `AsyncClient.ddns` 调用。海外业务请求发往认证返回的 `areaDomain`，使用表单中的 `accessToken`，沿用统一的错误分类与只读重试。

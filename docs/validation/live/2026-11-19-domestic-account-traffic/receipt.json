@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "scope": "domestic_account_traffic",
+  "outcome": "failed",
+  "http_requests": 6,
+  "profiles": [
+    {
+      "operation": "traffic.account_summary",
+      "mode": "sync",
+      "status": "passed",
+      "http_requests": 2,
+      "data_type": "object"
+    },
+    {
+      "operation": "traffic.account_summary",
+      "mode": "async",
+      "status": "passed",
+      "http_requests": 2,
+      "data_type": "object"
+    },
+    {
+      "operation": "traffic.account_details",
+      "mode": "sync",
+      "status": "failed",
+      "http_requests": 2,
+      "data_type": null
+    },
+    {
+      "operation": "traffic.account_details",
+      "mode": "async",
+      "status": "skipped",
+      "http_requests": 0,
+      "data_type": null
+    },
+    {
+      "operation": "traffic.day_details",
+      "mode": "sync",
+      "status": "skipped",
+      "http_requests": 0,
+      "data_type": null
+    },
+    {
+      "operation": "traffic.day_details",
+      "mode": "async",
+      "status": "skipped",
+      "http_requests": 0,
+      "data_type": null
+    }
+  ]
+}

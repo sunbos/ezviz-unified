@@ -17222,6 +17222,74 @@
       },
       "source_content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
       "read_only": true
+    },
+    {
+      "operation_id": "global.devices.get_utc",
+      "region": "overseas",
+      "source_doc_id": "477",
+      "source_url": "https://open.ys7.com/help/en/477",
+      "method": "POST",
+      "path": "/api/lapp/device/info",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E2390/R2",
+          "default": null
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E2390/R3",
+          "default": null
+        },
+        {
+          "name": "version",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E2390/R4",
+          "constant": "utc"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E2420;E2483"
+      },
+      "constraints": [
+        {
+          "fact": "此设备信息变体必须提交小写 version=utc；基础查询 global.devices.get 未声明该字段。",
+          "evidence": "477 E2390,E2416;476 E183,E203"
+        },
+        {
+          "fact": "成功示例的 data 是对象；此版本列有 timeZone 和 wifiSsid。账号归属不符列出 20018。",
+          "evidence": "E2420;E2424;E2483"
+        }
+      ],
+      "uncertainties": [
+        "设备序列号参数类型列拼为 Strring；按描述与普通查询、成功字段表采用字符串。",
+        "时区字符串的编码规范、各型号或账号权限对字段可用性的影响未注明。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/device/info",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E2383;E2387;E2416"
+      },
+      "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -17315,6 +17383,10 @@
     {
       "review": "docs/coordination/overseas-ddns-read/admission.json",
       "note": "海外 469 §1.4、1.8、1.11 三项 DDNS 查询；普通列表含分享记录。"
+    },
+    {
+      "review": "docs/coordination/overseas-device-utc/admission.json",
+      "note": "海外 477 §1.20 读取设备基本信息的 UTC 版本。与 476 §1.2 分别验证有无 version 的表单。"
     }
   ]
 }
