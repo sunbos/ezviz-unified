@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "394749975f6a2ee5a4bb18ad9bca7dabaaa20531",
+  "snapshot": "data/official-docs/2026-11-17-sdk-product-main",
+  "pages": {
+    "3682": {
+      "operation_id": "cn.imaging.backlight.get",
+      "case_id": "ACC-WIRE-CN-IMAGING-BACKLIGHT-GET-001",
+      "source_url": "https://open.ys7.com/help/3682"
+    },
+    "3683": {
+      "operation_id": "cn.imaging.backlight.set",
+      "case_id": "ACC-WIRE-CN-IMAGING-BACKLIGHT-SET-001",
+      "source_url": "https://open.ys7.com/help/3683"
+    },
+    "3684": {
+      "operation_id": "cn.imaging.denoising.get",
+      "case_id": "ACC-WIRE-CN-IMAGING-DENOISING-GET-001",
+      "source_url": "https://open.ys7.com/help/3684"
+    },
+    "3685": {
+      "operation_id": "cn.imaging.denoising.set",
+      "case_id": "ACC-WIRE-CN-IMAGING-DENOISING-SET-001",
+      "source_url": "https://open.ys7.com/help/3685"
+    },
+    "3686": {
+      "operation_id": "cn.imaging.exposure.get",
+      "case_id": "ACC-WIRE-CN-IMAGING-EXPOSURE-GET-001",
+      "source_url": "https://open.ys7.com/help/3686"
+    },
+    "3687": {
+      "operation_id": "cn.imaging.exposure.set",
+      "case_id": "ACC-WIRE-CN-IMAGING-EXPOSURE-SET-001",
+      "source_url": "https://open.ys7.com/help/3687"
+    },
+    "3688": {
+      "operation_id": "cn.imaging.anti_flicker.get",
+      "case_id": "ACC-WIRE-CN-IMAGING-ANTI_FLICKER-GET-001",
+      "source_url": "https://open.ys7.com/help/3688"
+    },
+    "3689": {
+      "operation_id": "cn.imaging.anti_flicker.set",
+      "case_id": "ACC-WIRE-CN-IMAGING-ANTI_FLICKER-SET-001",
+      "source_url": "https://open.ys7.com/help/3689"
+    }
+  },
+  "review_fields": [
+    "原始与派生文件、归档正文与历史来源指纹",
+    "完整单页边界、声明与示例元素、无其他资源",
+    "请求字段位置、必填和条件、角色及设备能力",
+    "示例占位和类型差异，响应层级与逐页错误码",
+    "现有同步/异步入口及设置选择器、契约与既有用例、离线与真实证据边界"
+  ],
+  "completion_criteria": [
+    "八页均有来源、绑定、样例、验收链条。每页仅在所有声明、示例及字段语义可解释后标记已审。",
+    "变更范围为八条来源、十六条观察、八条既有能力及其审查输入/摘要。既有验收案例、注册契约、SDK 与真实验收状态保持原有证据。",
+    "可从冻结快照重新验证记录。给定不匹配的来源哈希、绑定或观察，核验应失败。"
+  ],
+  "live_executed": false,
+  "review_file": "docs/validation/2026-11-19-imaging-source-review/review.json",
+  "verifier": "docs/coordination/imaging-source-reconciliation/verify.py"
+}
