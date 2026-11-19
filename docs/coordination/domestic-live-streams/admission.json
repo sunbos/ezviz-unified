@@ -1,0 +1,712 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "f913b11eed728dd2499c1e129a8ac216840e870f",
+  "scope_revision": "2026-11-20-r38-domestic-live-streams",
+  "operations": [
+    {
+      "operation_id": "cn.live_streams.create_device",
+      "capability_id": "candidate:domestic:4060:d0",
+      "name": "create_device",
+      "entry": "live_streams.create_device",
+      "doc_id": "4060",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-4060-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-4060-D0-LIVE-001"
+      ],
+      "signatures": {
+        "LiveStreams": "def create_device(self, device_serial: str, *, start_time: datetime, end_time: datetime, local_index: int | None = None) -> ApiResponse",
+        "AsyncLiveStreams": "async def create_device(self, device_serial: str, *, start_time: datetime, end_time: datetime, local_index: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/4060",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4060.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4060.structure.json",
+      "html_sha256": "eda188bf9a8c416fe6d23a58d47f78e9a58b329f82a8b13041a007f2c160fcc7",
+      "method": "POST",
+      "path": "/api/service/media/streammanage/stream",
+      "layout": "form",
+      "projection": "created",
+      "read_only": false,
+      "permission": "国内 Real 权限，应用/托管/子账号令牌。",
+      "unknown": "Real 权限；列明应用、托管、子账号三类令牌。通道可省略（平台默认 1），SDK 提交 accessType=1。起止时间按秒，结束晚于开始、跨度至多 7 天；服务端裁定当前时间。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "localIndex",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "accessType",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "startTime",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "endTime",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R7"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": [
+          14
+        ],
+        "request": 61,
+        "example": 65,
+        "fields": 69,
+        "errors": 102
+      }
+    },
+    {
+      "operation_id": "cn.live_streams.create_rtmp",
+      "capability_id": "candidate:domestic:4433:d0",
+      "name": "create_rtmp",
+      "entry": "live_streams.create_rtmp",
+      "doc_id": "4433",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-4433-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-4433-D0-LIVE-001"
+      ],
+      "signatures": {
+        "LiveStreams": "def create_rtmp(self, *, start_time: datetime, end_time: datetime, enable_record: int | None = None, record_space_id: str | None = None, record_duration: int | None = None, record_format: int | None = None, delay_time: int | None = None) -> ApiResponse",
+        "AsyncLiveStreams": "async def create_rtmp(self, *, start_time: datetime, end_time: datetime, enable_record: int | None = None, record_space_id: str | None = None, record_duration: int | None = None, record_format: int | None = None, delay_time: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/4433",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4433.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4433.structure.json",
+      "html_sha256": "5af3b36c584bf97b471c3b6714bd3acd40e4b1fdbbabc9fc5cbbd0a050a4eca2",
+      "method": "POST",
+      "path": "/api/service/media/streammanage/stream",
+      "layout": "query",
+      "projection": "created",
+      "read_only": false,
+      "permission": "国内 Real 权限，应用/托管令牌。",
+      "unknown": "Real 权限；列明应用、托管令牌。按 E14 正式参数提交 accessType=2 及起止时间；E78 示例缺少全部 query。时间描述仅对设备接入生效，RTMP 场景只检查格式及先后，不套用设备 7 天上限。录制参数按显式输入提交。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessType",
+          "location": "query",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "startTime",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "endTime",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "enableRecord",
+          "location": "query",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "recordSpaceId",
+          "location": "query",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R7"
+        },
+        {
+          "name": "recordDuration",
+          "location": "query",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R8"
+        },
+        {
+          "name": "recordFormat",
+          "location": "query",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R9"
+        },
+        {
+          "name": "delayTime",
+          "location": "query",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R10"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": [
+          14
+        ],
+        "request": 78,
+        "example": 82,
+        "fields": 86,
+        "errors": 118
+      }
+    },
+    {
+      "operation_id": "cn.live_streams.update_window",
+      "capability_id": "candidate:domestic:4062:d0",
+      "name": "update_window",
+      "entry": "live_streams.update_window",
+      "doc_id": "4062",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-4062-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-4062-D0-LIVE-001"
+      ],
+      "signatures": {
+        "LiveStreams": "def update_window(self, stream_id: str, *, start_time: datetime, end_time: datetime) -> ApiResponse",
+        "AsyncLiveStreams": "async def update_window(self, stream_id: str, *, start_time: datetime, end_time: datetime) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/4062",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4062.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4062.structure.json",
+      "html_sha256": "b66deba827ceece8e0c5f1abbe224d01e0ca71b00f7cd290ae90ca42fd8adca7",
+      "method": "PUT",
+      "path": "/api/service/media/streammanage/stream",
+      "layout": "query",
+      "projection": "ack",
+      "read_only": false,
+      "permission": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+      "unknown": "E22 跨度上限 720 天，E53 写 7 天。SDK 检查格式及先后，保留上限争议，不依赖本机时钟或时区。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E6/R2"
+        },
+        {
+          "name": "streamId",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R2"
+        },
+        {
+          "name": "startTime",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R3"
+        },
+        {
+          "name": "endTime",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R4"
+        }
+      ],
+      "elements": {
+        "address": 3,
+        "method": 3,
+        "parameters": [
+          6,
+          22
+        ],
+        "request": null,
+        "example": 50,
+        "fields": null,
+        "errors": 53
+      }
+    },
+    {
+      "operation_id": "cn.live_streams.delete",
+      "capability_id": "candidate:domestic:4063:d0",
+      "name": "delete",
+      "entry": "live_streams.delete",
+      "doc_id": "4063",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-4063-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-4063-D0-LIVE-001"
+      ],
+      "signatures": {
+        "LiveStreams": "def delete(self, stream_id: str) -> ApiResponse",
+        "AsyncLiveStreams": "async def delete(self, stream_id: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/4063",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4063.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4063.structure.json",
+      "html_sha256": "255b6425d287be85b18437583923a7c546bfee57313e8df648dfa45fe13a0be6",
+      "method": "DELETE",
+      "path": "/api/service/media/streammanage/stream",
+      "layout": "query",
+      "projection": "ack",
+      "read_only": false,
+      "permission": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+      "unknown": "删除须使用明确的字符串流 ID。未说明幂等、原 ID 恢复、已签发地址或归档的后续状态。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E6/R2"
+        },
+        {
+          "name": "streamId",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R2"
+        }
+      ],
+      "elements": {
+        "address": 3,
+        "method": 3,
+        "parameters": [
+          6,
+          22
+        ],
+        "request": null,
+        "example": 38,
+        "fields": null,
+        "errors": 41
+      }
+    },
+    {
+      "operation_id": "cn.live_streams.set_status",
+      "capability_id": "candidate:domestic:4065:d0",
+      "name": "set_status",
+      "entry": "live_streams.set_status",
+      "doc_id": "4065",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-4065-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-4065-D0-LIVE-001"
+      ],
+      "signatures": {
+        "LiveStreams": "def set_status(self, stream_id: str, status: int) -> ApiResponse",
+        "AsyncLiveStreams": "async def set_status(self, stream_id: str, status: int) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/4065",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4065.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4065.structure.json",
+      "html_sha256": "ae306bd22c95329b005f7509cb12d1c981dc4b038c627499d101fe44695ab9d1",
+      "method": "PUT",
+      "path": "/api/service/media/streammanage/stream/status",
+      "layout": "query",
+      "projection": "ack",
+      "read_only": false,
+      "permission": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+      "unknown": "状态为整数 0（禁用）或 1（启用）；平台确认不证明媒体已通断。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E6/R2"
+        },
+        {
+          "name": "streamId",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R2"
+        },
+        {
+          "name": "status",
+          "location": "query",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R3"
+        }
+      ],
+      "elements": {
+        "address": 3,
+        "method": 3,
+        "parameters": [
+          6,
+          22
+        ],
+        "request": null,
+        "example": 44,
+        "fields": null,
+        "errors": 47
+      }
+    },
+    {
+      "operation_id": "cn.live_streams.list",
+      "capability_id": "candidate:domestic:4066:d0",
+      "name": "list",
+      "entry": "live_streams.list",
+      "doc_id": "4066",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-4066-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-4066-D0-LIVE-001"
+      ],
+      "signatures": {
+        "LiveStreams": "def list(self, *, device_serial: str | None = None, stream_id: str | None = None, page_start: int = 0, page_size: int = 50, access_type: int | None = None, status: int | None = None) -> ApiResponse",
+        "AsyncLiveStreams": "async def list(self, *, device_serial: str | None = None, stream_id: str | None = None, page_start: int = 0, page_size: int = 50, access_type: int | None = None, status: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/4066",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4066.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4066.structure.json",
+      "html_sha256": "a7ebf4776b5d49b4176c00fd07b150c129651abd4ecb66e4b16ca72e68d13d43",
+      "method": "POST",
+      "path": "/api/service/media/streammanage/stream/list",
+      "layout": "form",
+      "projection": "list",
+      "read_only": true,
+      "permission": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+      "unknown": "E0/E11 声明 GET，E14 指定 body，E67 cURL 用 POST 表单。SDK 选可重现的 POST 表单，未实测服务端是否同时支持 GET。禁止自动换方法。列表行的 streamId 类型在字段表和示例间不一致，保留原类型。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "streamId",
+          "location": "body",
+          "type": "string",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "pageStart",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "pageSize",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "accessType",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R7"
+        },
+        {
+          "name": "status",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R8"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": [
+          14
+        ],
+        "request": 67,
+        "example": 71,
+        "fields": 75,
+        "errors": 181
+      }
+    },
+    {
+      "operation_id": "cn.live_streams.records",
+      "capability_id": "candidate:domestic:4068:d0",
+      "name": "records",
+      "entry": "live_streams.records",
+      "doc_id": "4068",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-4068-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-4068-D0-LIVE-001"
+      ],
+      "signatures": {
+        "LiveStreams": "def records(self, stream_id: int, *, start_time: datetime, end_time: datetime, page_start: int = 0, page_size: int = 50) -> ApiResponse",
+        "AsyncLiveStreams": "async def records(self, stream_id: int, *, start_time: datetime, end_time: datetime, page_start: int = 0, page_size: int = 50) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/4068",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4068.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4068.structure.json",
+      "html_sha256": "926c9480fef498aba7377cd88093d17239a8ee4242d8f53e227a4c692eac4554",
+      "method": "GET",
+      "path": "/api/service/media/streammanage/stream/record/list",
+      "layout": "query",
+      "projection": "records",
+      "read_only": true,
+      "permission": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+      "unknown": "相对路径的国内 origin 从同一目录与前缀交叉确定。E22 将时间与分页写作必填同时描述默认值；SDK 显式发送全部字段。日期格式采用同域秒级时间格式，时区未说明；间隔不超过 30 天，是否处于服务当前最近 30 天由平台裁定。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E6/R2"
+        },
+        {
+          "name": "streamId",
+          "location": "query",
+          "type": "long",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R2"
+        },
+        {
+          "name": "startTime",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R3"
+        },
+        {
+          "name": "endTime",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R4"
+        },
+        {
+          "name": "pageStart",
+          "location": "query",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R5"
+        },
+        {
+          "name": "pageSize",
+          "location": "query",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "evidence": "E22/R6"
+        }
+      ],
+      "elements": {
+        "address": 3,
+        "method": 3,
+        "parameters": [
+          6,
+          22
+        ],
+        "request": null,
+        "example": 62,
+        "fields": null,
+        "errors": 65
+      }
+    },
+    {
+      "operation_id": "cn.live_streams.address",
+      "capability_id": "candidate:domestic:4064:d0",
+      "name": "address",
+      "entry": "live_streams.address",
+      "doc_id": "4064",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-4064-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-4064-D0-LIVE-001"
+      ],
+      "signatures": {
+        "LiveStreams": "def address(self, stream_id: int, protocol: int, *, address_type: int = 1, quality: int | None = None, support_h265: int | None = None, mute: int | None = None, expire_time: int | None = None) -> ApiResponse",
+        "AsyncLiveStreams": "async def address(self, stream_id: int, protocol: int, *, address_type: int = 1, quality: int | None = None, support_h265: int | None = None, mute: int | None = None, expire_time: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/4064",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4064.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4064.structure.json",
+      "html_sha256": "2ffd03e5225e647110b93dacdbfd05323b4ed2d9cd33c6edf9e384d3fa43dc13",
+      "method": "POST",
+      "path": "/api/service/media/streammanage/stream/address",
+      "layout": "form",
+      "projection": "address",
+      "read_only": false,
+      "permission": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+      "unknown": "E0 标题 GET，E11 和 E73 均为 POST 表单。签发地址的副作用及重签语义未知，两种地址均不自动重放或访问。type=2、expireTime 适用于 RTMP 接入流，不从播放协议推断接入方式。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "streamId",
+          "location": "body",
+          "type": "long",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "protocol",
+          "location": "body",
+          "type": "int",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "quality",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "supportH265",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "mute",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R7"
+        },
+        {
+          "name": "type",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R8"
+        },
+        {
+          "name": "expireTime",
+          "location": "body",
+          "type": "int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R9"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": [
+          14
+        ],
+        "request": 73,
+        "example": 77,
+        "fields": 81,
+        "errors": 114
+      }
+    }
+  ],
+  "sdk_choices": [
+    "同域相对地址采用国内 origin，显式区分设备与 RTMP 创建的 header、表单或 query。列表使用官方示例 POST 表单，取地址使用正式方式与示例 POST。所有冲突保留来源。",
+    "采用严格整数 meta.code=200，meta.message，原样保留 data 和 raw。创建检查非空字符串 streamId；列表检查对象数组；推流记录检查 data.recordList 对象数组；地址检查非空字符串 data.address；写入可仅返回 meta。",
+    "ID 字符串按不透明 UTF-8 值传递。声明为 long 的 ID 接受整数且排除 bool，不把列表或创建 ID 隐式转为数字。所有日期采用无时区秒级 datetime；不使用本机时区替平台比较当前时刻。可选参数仅在明确提供时发送。",
+    "只允许 list/records 继承 SDK 的只读令牌刷新一次；所有创建、修改、启停、删除和地址签发均不自动重放。SDK 不自动建流、取地址、分页、轮询、抓取媒体或清理。",
+    "4064 的媒体地址需要请求级媒体 URL 脱敏，覆盖 HTTP(S)/RTMP(S) 的消息、错误码和 SDK 请求范围内 HTTPX 日志，包括 reason phrase。保留可用的 data/raw，不改变其他应用的日志或重试。",
+    "示例 CLI 仅查询一页列表，输出条数，不输出身份或地址；写操作提供使用签名及离线模拟，真实联调另行冻结授权。"
+  ],
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "live": "本批仅使用模拟传输。",
+  "wire_choices": {
+    "absolute_source_docs": [
+      "4060",
+      "4433",
+      "4066",
+      "4064"
+    ],
+    "relative_source_docs": [
+      "4062",
+      "4063",
+      "4065",
+      "4068"
+    ],
+    "regional_origin": "https://open.ys7.com",
+    "origin_basis": "4062/4063 的路径与绝对声明 4060/4433 共用同一目标；4065/4068 是同域前缀的子路径。相对来源只直接证明方法和路径。",
+    "parameters": "创建时显式 accessType=1 或 2。分页默认参数实际送出，单页条数 1..100，页码非负。每个业务操作只采用冻结的一种传输方式。",
+    "query_privacy": "带 streamId 或 recordSpaceId 的查询要求保留线路值，遮盖请求所带标识及其标准 URL 编码。该保护限于明确开启的策略；保留 data/raw。",
+    "privacy_policy": "ResponsePolicy 末尾增加两个默认 False 的布尔选项，redact_media_urls 用于 4064 的四种媒体 scheme，redact_query_identifiers 用于声明 query 标识的直播管理入口。已有查询令牌行为和 HTTPX 全局配置保持原状。"
+  }
+}

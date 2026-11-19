@@ -13864,13 +13864,15 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:4060:d0",
+      "capability_selector": "live_streams.create_device",
       "capability_ids": [
         "candidate:domestic:4060:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.live_streams.create_device"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -13880,51 +13882,56 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "固定的来源、合成凭据、模拟传输，以及本批的公共签名和协议决策。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求创建以设备接入方式的直播流”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确的地区、方法、字段位置、响应层级、权限错误、重放次数、诊断和安全输出。",
+        "write": "合成写操作和地址签发的失败不得自动重复。",
+        "physical": "离线不触达媒体、设备、账号或付费服务。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/74"
+        "docs/coordination/SP088/scenario-input.json#/entries/74",
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4060.source.json"
       ],
       "pending_questions": [
-        "与同路由的RTMP推流接入创建是否仅由接入类型参数区分（可能为同一路由的不同变体）？",
-        "创建返回的流标识与后续取流/管理操作的关联如何？"
+        "Real 权限；列明应用、托管、子账号三类令牌。通道可省略（平台默认 1），SDK 提交 accessType=1。起止时间按秒，结束晚于开始、跨度至多 7 天；服务端裁定当前时间。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4066-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:4066:d0",
+      "capability_selector": "live_streams.list",
       "capability_ids": [
         "candidate:domestic:4066:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.live_streams.list"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -13934,51 +13941,56 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "固定的来源、合成凭据、模拟传输，以及本批的公共签名和协议决策。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求查询直播流列表”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确的地区、方法、字段位置、响应层级、权限错误、重放次数、诊断和安全输出。",
+        "write": "合成写操作和地址签发的失败不得自动重复。",
+        "physical": "离线不触达媒体、设备、账号或付费服务。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/75"
+        "docs/coordination/SP088/scenario-input.json#/entries/75",
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4066.source.json"
       ],
       "pending_questions": [
-        "列表是否同时覆盖设备接入与RTMP推流两类流？",
-        "支持的过滤条件与分页方式如何？"
+        "E0/E11 声明 GET，E14 指定 body，E67 cURL 用 POST 表单。SDK 选可重现的 POST 表单，未实测服务端是否同时支持 GET。禁止自动换方法。列表行的 streamId 类型在字段表和示例间不一致，保留原类型。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4433-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:4433:d0",
+      "capability_selector": "live_streams.create_rtmp",
       "capability_ids": [
         "candidate:domestic:4433:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.live_streams.create_rtmp"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -13988,38 +14000,41 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "固定的来源、合成凭据、模拟传输，以及本批的公共签名和协议决策。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求创建以RTMP推流接入方式的直播流”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确的地区、方法、字段位置、响应层级、权限错误、重放次数、诊断和安全输出。",
+        "write": "合成写操作和地址签发的失败不得自动重复。",
+        "physical": "离线不触达媒体、设备、账号或付费服务。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/76"
+        "docs/coordination/SP088/scenario-input.json#/entries/76",
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4433.source.json"
       ],
       "pending_questions": [
-        "与同路由的设备接入创建是否仅由接入方式参数区分（可能为同一路由的不同变体）？",
-        "返回是否包含推流接入所需的地址类信息？"
+        "Real 权限；列明应用、托管令牌。按 E14 正式参数提交 accessType=2 及起止时间；E78 示例缺少全部 query。时间描述仅对设备接入生效，RTMP 场景只检查格式及先后，不套用设备 7 天上限。录制参数按显式输入提交。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4751-D0-OFFLINE-001",
@@ -15030,13 +15045,15 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:4062:d0",
+      "capability_selector": "live_streams.update_window",
       "capability_ids": [
         "candidate:domestic:4062:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.live_streams.update_window"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -15046,52 +15063,56 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "固定的来源、合成凭据、模拟传输，以及本批的公共签名和协议决策。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求修改云直播流配置”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确的地区、方法、字段位置、响应层级、权限错误、重放次数、诊断和安全输出。",
+        "write": "合成写操作和地址签发的失败不得自动重复。",
+        "physical": "离线不触达媒体、设备、账号或付费服务。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/95"
+        "docs/coordination/SP088/scenario-input.json#/entries/95",
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4062.source.json"
       ],
       "pending_questions": [
-        "该相对目标声明应绑定到哪个已批准来源域，或需何种设计核定？",
-        "修改请求如何指定目标流，可修改字段及未提供字段的处理语义是什么？",
-        "修改请求的授权范围、返回结果及失败后的恢复或重试边界如何约定？"
+        "E22 跨度上限 720 天，E53 写 7 天。SDK 检查格式及先后，保留上限争议，不依赖本机时钟或时区。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4063-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:4063:d0",
+      "capability_selector": "live_streams.delete",
       "capability_ids": [
         "candidate:domestic:4063:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.live_streams.delete"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -15101,52 +15122,56 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "固定的来源、合成凭据、模拟传输，以及本批的公共签名和协议决策。"
       ],
       "expected_evidence": {
-        "read": "围绕“删除指定的云直播流”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确的地区、方法、字段位置、响应层级、权限错误、重放次数、诊断和安全输出。",
+        "write": "合成写操作和地址签发的失败不得自动重复。",
+        "physical": "离线不触达媒体、设备、账号或付费服务。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/96"
+        "docs/coordination/SP088/scenario-input.json#/entries/96",
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4063.source.json"
       ],
       "pending_questions": [
-        "该相对目标声明应绑定到哪个已批准来源域，或需何种设计核定？",
-        "删除请求如何指定目标流，删除作用范围是否包含关联数据或资源？",
-        "删除请求的授权、结果确认和可恢复性如何界定？"
+        "删除须使用明确的字符串流 ID。未说明幂等、原 ID 恢复、已签发地址或归档的后续状态。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4064-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:4064:d0",
+      "capability_selector": "live_streams.address",
       "capability_ids": [
         "candidate:domestic:4064:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.live_streams.address"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -15156,51 +15181,56 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "固定的来源、合成凭据、模拟传输，以及本批的公共签名和协议决策。"
       ],
       "expected_evidence": {
-        "read": "围绕“获取云直播流的播放地址供客户端播放”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确的地区、方法、字段位置、响应层级、权限错误、重放次数、诊断和安全输出。",
+        "write": "合成写操作和地址签发的失败不得自动重复。",
+        "physical": "离线不触达媒体、设备、账号或付费服务。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/97"
+        "docs/coordination/SP088/scenario-input.json#/entries/97",
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4064.source.json"
       ],
       "pending_questions": [
-        "标题注解与请求方式字段两处显式方法冲突时，本操作应采用哪一种，或确认原文是否覆盖两个不同场景？",
-        "请求如何定位直播流，返回地址的类型、有效期及访问授权边界如何约定？"
+        "E0 标题 GET，E11 和 E73 均为 POST 表单。签发地址的副作用及重签语义未知，两种地址均不自动重放或访问。type=2、expireTime 适用于 RTMP 接入流，不从播放协议推断接入方式。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4065-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:4065:d0",
+      "capability_selector": "live_streams.set_status",
       "capability_ids": [
         "candidate:domestic:4065:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.live_streams.set_status"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -15210,52 +15240,56 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "固定的来源、合成凭据、模拟传输，以及本批的公共签名和协议决策。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求修改云直播流状态”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确的地区、方法、字段位置、响应层级、权限错误、重放次数、诊断和安全输出。",
+        "write": "合成写操作和地址签发的失败不得自动重复。",
+        "physical": "离线不触达媒体、设备、账号或付费服务。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/98"
+        "docs/coordination/SP088/scenario-input.json#/entries/98",
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4065.source.json"
       ],
       "pending_questions": [
-        "该相对目标声明应绑定到哪个已批准来源域，或需何种设计核定？",
-        "状态请求如何指定目标流，合法状态及转换各表示什么业务含义？",
-        "状态修改的授权范围、返回结果所确认的阶段及失败后的恢复边界如何约定？"
+        "状态为整数 0（禁用）或 1（启用）；平台确认不证明媒体已通断。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4068-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:4068:d0",
+      "capability_selector": "live_streams.records",
       "capability_ids": [
         "candidate:domestic:4068:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.live_streams.records"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -15265,39 +15299,41 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "固定的来源、合成凭据、模拟传输，以及本批的公共签名和协议决策。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询云直播流的推流记录列表”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确的地区、方法、字段位置、响应层级、权限错误、重放次数、诊断和安全输出。",
+        "write": "合成写操作和地址签发的失败不得自动重复。",
+        "physical": "离线不触达媒体、设备、账号或付费服务。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/99"
+        "docs/coordination/SP088/scenario-input.json#/entries/99",
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4068.source.json"
       ],
       "pending_questions": [
-        "该相对目标声明应绑定到哪个已批准来源域，或需何种设计核定？",
-        "记录查询的对象与筛选范围、是否分页如何定义？",
-        "响应中记录的业务含义、排序及授权可见范围如何约定？"
+        "相对路径的国内 origin 从同一目录与前缀交叉确定。E22 将时间与分页写作必填同时描述默认值；SDK 显式发送全部字段。日期格式采用同域秒级时间格式，时区未说明；间隔不超过 30 天，是否处于服务当前最近 30 天由平台裁定。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-694-D0-OFFLINE-001",
@@ -33056,6 +33092,398 @@
       ],
       "limitations": [
         "数据新鲜度与状态刷新间隔未说明；无电池也是官方返回值。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4060-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_live_streams",
+      "capability_selector": "live_streams.create_device",
+      "capability_ids": [
+        "candidate:domestic:4060:d0"
+      ],
+      "operation_ids": [
+        "cn.live_streams.create_device"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内 Real 权限，应用/托管/子账号令牌。",
+      "device_requirements": "需获准的应用、直播服务及本项对应资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "明确专用资源、调用次数、影响与恢复；按授权范围执行。"
+      ],
+      "expected_evidence": {
+        "read": "记录请求次数、状态和响应类型。",
+        "write": "仅在明确返回新流 ID 后按授权清理，超时不重建。",
+        "physical": "不推定媒体、观众、硬件或收费效果。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "仅在明确返回新流 ID 后按授权清理，超时不重建。",
+      "source_refs": [
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4060.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "本项未取得明确真实范围和授权。"
+      ],
+      "limitations": [
+        "Real 权限；列明应用、托管、子账号三类令牌。通道可省略（平台默认 1），SDK 提交 accessType=1。起止时间按秒，结束晚于开始、跨度至多 7 天；服务端裁定当前时间。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4433-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_live_streams",
+      "capability_selector": "live_streams.create_rtmp",
+      "capability_ids": [
+        "candidate:domestic:4433:d0"
+      ],
+      "operation_ids": [
+        "cn.live_streams.create_rtmp"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内 Real 权限，应用/托管令牌。",
+      "device_requirements": "需获准的应用、直播服务及本项对应资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "明确专用资源、调用次数、影响与恢复；按授权范围执行。"
+      ],
+      "expected_evidence": {
+        "read": "记录请求次数、状态和响应类型。",
+        "write": "仅新建专用测试流，另核准录制、费用和清理。",
+        "physical": "不推定媒体、观众、硬件或收费效果。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "仅新建专用测试流，另核准录制、费用和清理。",
+      "source_refs": [
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4433.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "本项未取得明确真实范围和授权。"
+      ],
+      "limitations": [
+        "Real 权限；列明应用、托管令牌。按 E14 正式参数提交 accessType=2 及起止时间；E78 示例缺少全部 query。时间描述仅对设备接入生效，RTMP 场景只检查格式及先后，不套用设备 7 天上限。录制参数按显式输入提交。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4062-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_live_streams",
+      "capability_selector": "live_streams.update_window",
+      "capability_ids": [
+        "candidate:domestic:4062:d0"
+      ],
+      "operation_ids": [
+        "cn.live_streams.update_window"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+      "device_requirements": "需获准的应用、直播服务及本项对应资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "明确专用资源、调用次数、影响与恢复；按授权范围执行。"
+      ],
+      "expected_evidence": {
+        "read": "记录请求次数、状态和响应类型。",
+        "write": "变更前确认原始时间及能否重新应用旧窗。",
+        "physical": "不推定媒体、观众、硬件或收费效果。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "变更前确认原始时间及能否重新应用旧窗。",
+      "source_refs": [
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4062.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "本项未取得明确真实范围和授权。"
+      ],
+      "limitations": [
+        "E22 跨度上限 720 天，E53 写 7 天。SDK 检查格式及先后，保留上限争议，不依赖本机时钟或时区。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4063-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_live_streams",
+      "capability_selector": "live_streams.delete",
+      "capability_ids": [
+        "candidate:domestic:4063:d0"
+      ],
+      "operation_ids": [
+        "cn.live_streams.delete"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+      "device_requirements": "需获准的应用、直播服务及本项对应资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "明确专用资源、调用次数、影响与恢复；按授权范围执行。"
+      ],
+      "expected_evidence": {
+        "read": "记录请求次数、状态和响应类型。",
+        "write": "仅限明确可销毁的目标，删除原流无法保证恢复。",
+        "physical": "不推定媒体、观众、硬件或收费效果。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "仅限明确可销毁的目标，删除原流无法保证恢复。",
+      "source_refs": [
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4063.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "本项未取得明确真实范围和授权。"
+      ],
+      "limitations": [
+        "删除须使用明确的字符串流 ID。未说明幂等、原 ID 恢复、已签发地址或归档的后续状态。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4065-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_live_streams",
+      "capability_selector": "live_streams.set_status",
+      "capability_ids": [
+        "candidate:domestic:4065:d0"
+      ],
+      "operation_ids": [
+        "cn.live_streams.set_status"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+      "device_requirements": "需获准的应用、直播服务及本项对应资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "明确专用资源、调用次数、影响与恢复；按授权范围执行。"
+      ],
+      "expected_evidence": {
+        "read": "记录请求次数、状态和响应类型。",
+        "write": "授权前记录原状态及允许恢复的窗口。",
+        "physical": "不推定媒体、观众、硬件或收费效果。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "授权前记录原状态及允许恢复的窗口。",
+      "source_refs": [
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4065.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "本项未取得明确真实范围和授权。"
+      ],
+      "limitations": [
+        "状态为整数 0（禁用）或 1（启用）；平台确认不证明媒体已通断。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4066-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_live_streams",
+      "capability_selector": "live_streams.list",
+      "capability_ids": [
+        "candidate:domestic:4066:d0"
+      ],
+      "operation_ids": [
+        "cn.live_streams.list"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+      "device_requirements": "需获准的应用、直播服务及本项对应资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "明确专用资源、调用次数、影响与恢复；按授权范围执行。"
+      ],
+      "expected_evidence": {
+        "read": "记录请求次数、状态和响应类型。",
+        "write": "只读，不更改设备或流。",
+        "physical": "不推定媒体、观众、硬件或收费效果。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，不更改设备或流。",
+      "source_refs": [
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4066.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "本项未取得明确真实范围和授权。"
+      ],
+      "limitations": [
+        "E0/E11 声明 GET，E14 指定 body，E67 cURL 用 POST 表单。SDK 选可重现的 POST 表单，未实测服务端是否同时支持 GET。禁止自动换方法。列表行的 streamId 类型在字段表和示例间不一致，保留原类型。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4068-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_live_streams",
+      "capability_selector": "live_streams.records",
+      "capability_ids": [
+        "candidate:domestic:4068:d0"
+      ],
+      "operation_ids": [
+        "cn.live_streams.records"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+      "device_requirements": "需获准的应用、直播服务及本项对应资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "明确专用资源、调用次数、影响与恢复；按授权范围执行。"
+      ],
+      "expected_evidence": {
+        "read": "记录请求次数、状态和响应类型。",
+        "write": "只读，不更改设备或流。",
+        "physical": "不推定媒体、观众、硬件或收费效果。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，不更改设备或流。",
+      "source_refs": [
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4068.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "本项未取得明确真实范围和授权。"
+      ],
+      "limitations": [
+        "相对路径的国内 origin 从同一目录与前缀交叉确定。E22 将时间与分页写作必填同时描述默认值；SDK 显式发送全部字段。日期格式采用同域秒级时间格式，时区未说明；间隔不超过 30 天，是否处于服务当前最近 30 天由平台裁定。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4064-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_live_streams",
+      "capability_selector": "live_streams.address",
+      "capability_ids": [
+        "candidate:domestic:4064:d0"
+      ],
+      "operation_ids": [
+        "cn.live_streams.address"
+      ],
+      "scope_revision": "2026-11-20-r38-domestic-live-streams",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内访问令牌；角色、套餐、跨账号及具体授权范围未完整说明。",
+      "device_requirements": "需获准的应用、直播服务及本项对应资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "明确专用资源、调用次数、影响与恢复；按授权范围执行。"
+      ],
+      "expected_evidence": {
+        "read": "记录请求次数、状态和响应类型。",
+        "write": "分别授权播放/推流地址签发，确认有效期，仅内存检查，不访问媒体，不记录地址。",
+        "physical": "不推定媒体、观众、硬件或收费效果。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "分别授权播放/推流地址签发，确认有效期，仅内存检查，不访问媒体，不记录地址。",
+      "source_refs": [
+        "docs/coordination/domestic-live-streams/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4064.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "本项未取得明确真实范围和授权。"
+      ],
+      "limitations": [
+        "E0 标题 GET，E11 和 E73 均为 POST 表单。签发地址的副作用及重签语义未知，两种地址均不自动重放或访问。type=2、expireTime 适用于 RTMP 接入流，不从播放协议推断接入方式。"
       ]
     }
   ],
