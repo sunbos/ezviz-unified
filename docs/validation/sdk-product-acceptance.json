@@ -10672,56 +10672,60 @@
       "case_id": "ACC-CANDIDATE-CN-1263-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:1263:d0",
+      "case_origin": "device_voice_provision",
+      "capability_selector": "device_voice.create",
       "capability_ids": [
         "candidate:domestic:1263:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.device_voice.create"
+      ],
+      "scope_revision": "2026-11-20-r36-domestic-device-voice-provision",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "国内应用访问令牌；未注明最低角色、型号、子账号或托管权限。",
+      "device_requirements": "合成账号和素材，模拟传输。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "仅用 MockTransport 与合成值。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求新增设备语音”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "原始回执保真及隐私。",
+        "write": "精确 query、无正文、两个模式均不重放；合成示例仅使用生成的模拟 ID。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/22"
+        "docs/coordination/SP088/scenario-input.json#/entries/22",
+        "docs/coordination/domestic-device-voice-provision/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1263.source.json"
       ],
       "pending_questions": [
-        "语音内容来源（文本合成/音频文件）与格式约束待核。",
-        "与既有device_voice槽位场景的等价关系待核。",
-        "设备前提与权限范围待核。"
+        "未说明幂等键、文件规格或设备同步时限。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1273-D0-OFFLINE-001",
@@ -10852,56 +10856,60 @@
       "case_id": "ACC-CANDIDATE-CN-1281-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:1281:d0",
+      "case_origin": "device_voice_provision",
+      "capability_selector": "device_voice.delete",
       "capability_ids": [
         "candidate:domestic:1281:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.device_voice.delete"
+      ],
+      "scope_revision": "2026-11-20-r36-domestic-device-voice-provision",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "国内应用访问令牌；未注明最低角色、型号、子账号或托管权限。",
+      "device_requirements": "合成账号和素材，模拟传输。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "仅用 MockTransport 与合成值。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求删除设备语音”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "原始回执保真及隐私。",
+        "write": "精确 query、无正文、两个模式均不重放；合成示例仅使用生成的模拟 ID。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/25"
+        "docs/coordination/SP088/scenario-input.json#/entries/25",
+        "docs/coordination/domestic-device-voice-provision/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1281.source.json"
       ],
       "pending_questions": [
-        "删除的作用对象与是否影响已下发到设备的语音待核。",
-        "删除是否可恢复的语义待核。",
-        "与既有device_voice槽位场景的等价关系待核。"
+        "未说明删除的并发保护、既有告警引用处理或恢复原 ID 的方法。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1532-D0-OFFLINE-001",
@@ -32864,6 +32872,106 @@
       ],
       "limitations": [
         "仅 CSEPMR511 明示适用。voiceUrl 必填，但平台是否重新取得文件、改名原子性、名称约束及恢复时限未说明。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1263-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "device_voice_provision",
+      "capability_selector": "device_voice.create",
+      "capability_ids": [
+        "candidate:domestic:1263:d0"
+      ],
+      "operation_ids": [
+        "cn.device_voice.create"
+      ],
+      "scope_revision": "2026-11-20-r36-domestic-device-voice-provision",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内应用访问令牌；未注明最低角色、型号、子账号或托管权限。",
+      "device_requirements": "已确认的国内目标设备，以及受控的合成测试素材。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "冻结账号、设备、调用次数、具体素材及潜在引用。",
+        "固定授权次数与素材，优先仅清理本次明确获得 ID 的测试项；结果不明先核实，不按名称猜测或重发。"
+      ],
+      "expected_evidence": {
+        "read": "只按获准范围确认状态、记录脱敏证据。",
+        "write": "核验本项操作及清理边界。",
+        "physical": "不把平台返回成功推断为素材可播放。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "固定授权次数与素材，优先仅清理本次明确获得 ID 的测试项；结果不明先核实，不按名称猜测或重发。",
+      "source_refs": [
+        "docs/coordination/domestic-device-voice-provision/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1263.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "尚未批准真实素材下发或删除。"
+      ],
+      "limitations": [
+        "未说明幂等键、文件规格或设备同步时限。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1281-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "device_voice_provision",
+      "capability_selector": "device_voice.delete",
+      "capability_ids": [
+        "candidate:domestic:1281:d0"
+      ],
+      "operation_ids": [
+        "cn.device_voice.delete"
+      ],
+      "scope_revision": "2026-11-20-r36-domestic-device-voice-provision",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内应用访问令牌；未注明最低角色、型号、子账号或托管权限。",
+      "device_requirements": "已确认的国内目标设备，以及受控的合成测试素材。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "冻结账号、设备、调用次数、具体素材及潜在引用。",
+        "优先作用于本次创建的可弃测试项。删除已有资源须另获具体授权，确认原 ID 与引用可能无法还原，不能把重新新增作为等价恢复。"
+      ],
+      "expected_evidence": {
+        "read": "只按获准范围确认状态、记录脱敏证据。",
+        "write": "核验本项操作及清理边界。",
+        "physical": "不把平台返回成功推断为素材可播放。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "优先作用于本次创建的可弃测试项。删除已有资源须另获具体授权，确认原 ID 与引用可能无法还原，不能把重新新增作为等价恢复。",
+      "source_refs": [
+        "docs/coordination/domestic-device-voice-provision/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1281.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "尚未批准真实素材下发或删除。"
+      ],
+      "limitations": [
+        "未说明删除的并发保护、既有告警引用处理或恢复原 ID 的方法。"
       ]
     }
   ],
