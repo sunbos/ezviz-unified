@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "ca1aa6b16cacc3ccd2a9fc360f495718acae6a72",
+  "scope_revision": "2026-11-20-r40-overseas-alarm-sound-mode",
+  "operations": [
+    {
+      "operation_id": "global.settings.get_alarm_sound_mode",
+      "capability_id": "candidate:overseas:3726:d0",
+      "name": "get_alarm_sound_mode",
+      "entry": "settings.get_alarm_sound_mode",
+      "doc_id": "3726",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-3726-D0-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-3726-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Settings": "def get_alarm_sound_mode(self, device_serial: str) -> ApiResponse",
+        "AsyncSettings": "async def get_alarm_sound_mode(self, device_serial: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/en/3726",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3726.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/3726.structure.json",
+      "html_sha256": "f2ec2e45a80e4b4d3ad7eec1d323a4126901d02cb147bd87d2ff754810f371b5",
+      "method": "GET",
+      "path": "/api/v3/device/alarmSound/enabled/get",
+      "read_only": true,
+      "permission": "海外应用令牌。文档明确支持托管及子账号并要求 Get 权限；具体资源归属和设备信令支持须核实。",
+      "unknown": "E31/E80 用 status/body 描述返回；未证实本接口真实线上响应一定含 body，也无根层成功证据。未限定具体型号、配置新鲜度或物理发声结果。",
+      "envelope_paths": [
+        "body"
+      ],
+      "elements": {
+        "declaration": 0,
+        "permission": 2,
+        "address": 5,
+        "parameters": 8,
+        "fields": 31,
+        "example": 80,
+        "errors": 83
+      }
+    }
+  ],
+  "sdk_choices": [
+    "海外认证后使用该令牌的 areaDomain。GET 只发送 accessToken 和 deviceSerial 两个业务 header；无需 query、正文、业务 Content-Type 或通道。国内区域、空白/非 ASCII/控制字符和首尾空格在认证前拒绝，保留合法混合大小写。",
+    "SDK 按 3726 字段表与示例仅选择 body.meta.code 的整数 200 和 body.meta.message，返回完整 body.data 与原始响应。有效 body 的外层元信息按原样保留；仅有根层 meta 的 2xx 不回退解码。",
+    "body.data.alarmSoundMode 必须为真正的整数。E80 注释给出 0 短鸣、1 长鸣、2 静音。SDK 保留未来整数、其他字段及 raw；CLI 仅回显这三个明确值，其余显示 null。读取配置不触发设备发声。",
+    "复用现有只读认证规则：只有可刷新的 provider 遇到 10002 最多重放一次。权限、设备不支持、超时或格式错误不会改用其他 cluster 或调用其他业务入口。3727 的配置变更、3730 的试音和 LAPP chime 都是独立操作。",
+    "最小 CLI 支持 sync/async，取本地海外区域配置和设备序列号；只读一次，不输出序列号、服务端文本或未知状态。诊断沿用既有白名单。"
+  ],
+  "ratification": "海外官方独立服务端 GET；在已实现接口和官方播放器等组件中均无同契约入口，纳入本轮产品必需能力。",
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "live": "本项真实读取需要独立授权。"
+}
