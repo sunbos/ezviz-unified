@@ -31,7 +31,7 @@ with Client(
 
 客户端按契约携带token，复用当前区域的连接。仅明确只读的操作遇到平台 `10002` 时刷新并重发一次；写操作、网络失败、一般HTTP401及设备层错误不自动重放。自定义接口可用 `Operation` 和 `client.request(...)`，其 `read_only` 默认False。禁止调用方覆盖受管token或Host。
 
-国内分页页码不超过400；海外文档未声明相同限制。每页1–50条。国内 `channels`/`status` 要求序列号英文字母大写。SDK不自动翻页，不自行解释有文档矛盾的海外状态字段。[国内单设备记录](docs/validation/live/2026-11-14-domestic-device/README.md)已验证基础信息、通道和状态查询；[新加坡记录](docs/validation/live/2026-11-14-overseas/README.md)仍仅证明对应账号认证和空列表成功。结果不推广到所有型号或其他海外集群。
+国内分页页码不超过400；海外文档未声明相同限制。每页1–50条。国内 `channels`/`status` 要求序列号英文字母大写。SDK不自动翻页，不自行解释有文档矛盾的海外状态字段。[国内单设备记录](docs/validation/live/2026-11-14-domestic-device/README.md)已验证基础信息、通道和状态查询；新加坡同步清单在 2026-11-14 返回空页，2026-11-19 对指定应用的最新首页查询已返回可见记录，设备详情与在线状态仍待验收。[历史空页](docs/validation/live/2026-11-14-overseas/README.md) · [最新可见性回执](docs/validation/live/2026-11-19-singapore-inventory/receipt.json)
 
 国内托管设备使用 `client.devices.list_managed(page_start=0, page_size=10)`；与普通列表分开，不套用400页上限。接入设备后的[范围复核](docs/validation/live/2026-11-14-domestic-device/README.md)中，普通列表首个分页返回一条，托管列表分页为空；这不代表全量设备计数，其他授权主体仍未验证。
 

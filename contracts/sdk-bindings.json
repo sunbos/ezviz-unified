@@ -111,10 +111,14 @@
         "AsyncDevices.list"
       ],
       "offline_status": "passed",
-      "live_status": "empty_list_succeeded_singapore",
+      "live_status": "nonempty_first_page_succeeded_singapore",
       "public_entry": "devices.list",
-      "live_evidence": "docs/validation/live/2026-11-14-overseas/overseas.json",
-      "live_notes": "Synchronous developer-token request, one page with page_size=1; no devices, no detail validation."
+      "live_evidence": "docs/validation/live/2026-11-19-singapore-inventory/receipt.json",
+      "live_notes": "Synchronous Singapore application check on 2026-11-19. One regional token request and one first-page listing succeeded; the page was nonempty. No details or other cluster verified. Previous empty inventory remains historical evidence.",
+      "live_evidence_history": [
+        "docs/validation/live/2026-11-14-overseas/overseas.json",
+        "docs/validation/live/2026-11-19-singapore-inventory/receipt.json"
+      ]
     },
     {
       "operation_id": "global.devices.get",
@@ -153,8 +157,12 @@
       ],
       "offline_status": "passed",
       "live_status": "authentication_succeeded_explicit_regional_origin",
-      "live_evidence": "docs/validation/live/2026-11-14-overseas/overseas.json",
-      "live_notes": "For this Singapore account the documented default returned 10017. Explicit auth_base_url https://isgpopen.ezvizlife.com succeeded; not a global-default success claim."
+      "live_evidence": "docs/validation/live/2026-11-19-singapore-inventory/receipt.json",
+      "live_notes": "Synchronous Singapore application check on 2026-11-19. One regional token request and one first-page listing succeeded; the page was nonempty. No details or other cluster verified. Previous empty inventory remains historical evidence.",
+      "live_evidence_history": [
+        "docs/validation/live/2026-11-14-overseas/overseas.json",
+        "docs/validation/live/2026-11-19-singapore-inventory/receipt.json"
+      ]
     },
     {
       "operation_id": "cn.local.recordings",

@@ -153,6 +153,7 @@ CLI示例（固定`open.ezvizlife.com`，无凭据、无env读取、无文件写
 - [官方生态复用调研](research/2026-11-15-official-ecosystem-reuse.md)
 - [国内实测：同步单设备](validation/live/2026-11-14-domestic-device/README.md)
 - [海外实测：新加坡同步](validation/live/2026-11-14-overseas/README.md)
+- [新加坡同步库存首页非空，未查询设备详情](validation/live/2026-11-19-singapore-inventory/README.md)
 - [tools/live 说明](../tools/live/README.md)
 
 ## 验证状态
