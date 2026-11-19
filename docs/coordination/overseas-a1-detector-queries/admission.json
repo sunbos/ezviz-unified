@@ -137,5 +137,16 @@
   ],
   "source_scope": "只核定 481 §1.1、§1.4、§1.5，其他六节不作完成判断。",
   "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
-  "live": "纯离线验收；新加坡历史回执不作为本项实测。"
+  "live": "纯离线验收；新加坡历史回执不作为本项实测。",
+  "privacy_decision": {
+    "flag": "ResponsePolicy.redact_form_serials",
+    "default": false,
+    "enabled_for": [
+      "global.detectors.list",
+      "global.detectors.bindable_cameras",
+      "global.detectors.linked_cameras"
+    ],
+    "scope": "只为启用的表单收集已提交 deviceSerial 和 detectorSerial 的原始与标准编码形式。无关业务沿用其既有策略。",
+    "boundary": "应用始终能取得已授权响应的原始行；相机名称或位置如由应用自行写入日志，SDK 无法代为遮盖。"
+  }
 }

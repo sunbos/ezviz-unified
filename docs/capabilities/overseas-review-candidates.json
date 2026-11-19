@@ -89,6 +89,20 @@
         "doc_id": "1000007",
         "content_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4"
       }
+    ],
+    "amendments": [
+      {
+        "scope_revision": "2026-11-20-r42-overseas-a1-detector-queries",
+        "effective_from_commit": "a337e24ccc35988e248323e17fb6c4c47565e493",
+        "supersedes_artifact_sha256": "503d39bf23c97cdf5e58fc3fa6e0df12f06b3d8ddd8bab84d6b645b23b72501d",
+        "sections": [
+          "481 §1.1",
+          "481 §1.4",
+          "481 §1.5"
+        ],
+        "review_ref": "docs/coordination/overseas-a1-detector-queries/admission.json",
+        "note": "只更正这三节的请求字段、响应事实及来源不确定项。历史登记中的支持状态与回执仍以当时提交为准，当前实现和验收见范围与验收矩阵。"
+      }
     ]
   },
   "capabilities": [

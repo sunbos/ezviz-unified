@@ -36,7 +36,7 @@
     },
     "overseas_review_candidates": {
       "path": "docs/capabilities/overseas-review-candidates.json",
-      "sha256": "6255e94196c3435a7a7cb15deb66b5687e07e12e5cc97a1a0da7a013f1b75cb6",
+      "sha256": "13bc183a4dd24c387639489dfe4b7750ed90c595ed173965b1cc937adcab2561",
       "schema": 1
     },
     "acceptance": {
@@ -364,7 +364,7 @@
     "overseas_a1_admission": {
       "path": "docs/coordination/overseas-a1-detector-queries/admission.json",
       "schema": 1,
-      "sha256": "b0e387c7133030ceda7ac8c451f95d70c0fa9db17b7a181e3105ebac20315c40"
+      "sha256": "2d1fcefaa43ef0eac283e6ebbba5e339a8ad807a075e2e32d713798e51b89ece"
     }
   },
   "scope_state": {
