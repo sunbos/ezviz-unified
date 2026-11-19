@@ -27499,54 +27499,61 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:481:1.1",
+      "capability_selector": "detectors.list",
       "capability_ids": [
         "candidate:overseas:481:1.1"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.detectors.list"
+      ],
+      "scope_revision": "2026-11-20-r42-overseas-a1-detector-queries",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
       "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "repository_cli"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "冻结的海外资料、模拟区域认证和有界合成传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“列出A1主机已关联探测器”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "精确表单位置、区域/输入、响应布局、空/非空列表与扩展字段、失败/刷新/诊断；CLI 限单次显式操作。",
+        "write": "无。",
+        "physical": "不证明真实探测器/IPC 关系、设备运行状态或当前权限。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/12"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/12",
+        "docs/coordination/overseas-a1-detector-queries/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/481.source.json"
       ],
       "pending_questions": [
-        "exact request parameter set must be re-read",
-        "minimum permission class not stated"
+        "E94 示意把 data/code/msg 放在 result 内，但该文本不是合法 JSON。字段表只说明行结构；未有真实响应确认布局，根层成功/失败不能推定。",
+        "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+        "待离线执行。"
       ],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-2-OFFLINE-001",
@@ -27660,108 +27667,122 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:481:1.4",
+      "capability_selector": "detectors.bindable_cameras",
       "capability_ids": [
         "candidate:overseas:481:1.4"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.detectors.bindable_cameras"
+      ],
+      "scope_revision": "2026-11-20-r42-overseas-a1-detector-queries",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
       "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "repository_cli"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "冻结的海外资料、模拟区域认证和有界合成传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“列出可关联探测器的IPC”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "精确表单位置、区域/输入、响应布局、空/非空列表与扩展字段、失败/刷新/诊断；CLI 限单次显式操作。",
+        "write": "无。",
+        "physical": "不证明真实探测器/IPC 关系、设备运行状态或当前权限。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/15"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/15",
+        "docs/coordination/overseas-a1-detector-queries/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/481.source.json"
       ],
       "pending_questions": [
-        "exact request parameter set must be re-read",
-        "e508 lists cameraName type as int while the example is string — preserve source, do not correct"
+        "E505 的 cameraName 为字符串，E508 表声明为整数；保留原值。候选列表未说明是否排除已关联的 IPC。",
+        "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+        "待离线执行。"
       ],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-5-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:481:1.5",
+      "capability_selector": "detectors.linked_cameras",
       "capability_ids": [
         "candidate:overseas:481:1.5"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.detectors.linked_cameras"
+      ],
+      "scope_revision": "2026-11-20-r42-overseas-a1-detector-queries",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
       "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "repository_cli"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "冻结的海外资料、模拟区域认证和有界合成传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“列出探测器已关联的IPC”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "精确表单位置、区域/输入、响应布局、空/非空列表与扩展字段、失败/刷新/诊断；CLI 限单次显式操作。",
+        "write": "无。",
+        "physical": "不证明真实探测器/IPC 关系、设备运行状态或当前权限。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/16"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/16",
+        "docs/coordination/overseas-a1-detector-queries/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/481.source.json"
       ],
       "pending_questions": [
-        "response table uses deviceSerial while the JSON example uses detectorSerial — naming discrepancy preserved",
-        "exact request parameter set must be re-read"
+        "E615 响应表列 deviceSerial、ipcSerial；E612 示例行列 detectorSerial、ipcSerial。保留原始键，不推断字段相等或含义互换。",
+        "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+        "待离线执行。"
       ],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-6-OFFLINE-001",
@@ -34127,6 +34148,153 @@
       ],
       "limitations": [
         "E31/E80 用 status/body 描述返回；未证实本接口真实线上响应一定含 body，也无根层成功证据。未限定具体型号、配置新鲜度或物理发声结果。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-1-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_a1_detector_queries",
+      "capability_selector": "detectors.list",
+      "capability_ids": [
+        "candidate:overseas:481:1.1"
+      ],
+      "operation_ids": [
+        "global.detectors.list"
+      ],
+      "scope_revision": "2026-11-20-r42-overseas-a1-detector-queries",
+      "freeze_state": "awaiting_authorized_resources",
+      "region_cluster": "overseas:account_cluster_not_confirmed",
+      "account_role_permissions": "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。",
+      "device_requirements": "明确归属该区域账号的 A1 主机；探测器已关联清单还需调用方明确提供一个探测器标识。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "确认指定区域/可访问的 A1 主机以及本项所需资源；独立授权。不得遍历或探测其他主机/探测器。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录模式、次数、状态和返回形态；非空关联须有相应受控资源，不能从空数组推定。",
+        "write": "无配置变更。",
+        "physical": "平台清单不证明硬件监测效果、记录或媒体可用性。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，不改变关联或配置。",
+      "source_refs": [
+        "docs/coordination/overseas-a1-detector-queries/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/481.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "尚未确认海外获准的 A1 资源及本项的真实读取范围。"
+      ],
+      "limitations": [
+        "E94 示意把 data/code/msg 放在 result 内，但该文本不是合法 JSON。字段表只说明行结构；未有真实响应确认布局，根层成功/失败不能推定。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-4-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_a1_detector_queries",
+      "capability_selector": "detectors.bindable_cameras",
+      "capability_ids": [
+        "candidate:overseas:481:1.4"
+      ],
+      "operation_ids": [
+        "global.detectors.bindable_cameras"
+      ],
+      "scope_revision": "2026-11-20-r42-overseas-a1-detector-queries",
+      "freeze_state": "awaiting_authorized_resources",
+      "region_cluster": "overseas:account_cluster_not_confirmed",
+      "account_role_permissions": "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。",
+      "device_requirements": "明确归属该区域账号的 A1 主机；探测器已关联清单还需调用方明确提供一个探测器标识。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "确认指定区域/可访问的 A1 主机以及本项所需资源；独立授权。不得遍历或探测其他主机/探测器。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录模式、次数、状态和返回形态；非空关联须有相应受控资源，不能从空数组推定。",
+        "write": "无配置变更。",
+        "physical": "平台清单不证明硬件监测效果、记录或媒体可用性。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，不改变关联或配置。",
+      "source_refs": [
+        "docs/coordination/overseas-a1-detector-queries/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/481.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "尚未确认海外获准的 A1 资源及本项的真实读取范围。"
+      ],
+      "limitations": [
+        "E505 的 cameraName 为字符串，E508 表声明为整数；保留原值。候选列表未说明是否排除已关联的 IPC。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-5-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_a1_detector_queries",
+      "capability_selector": "detectors.linked_cameras",
+      "capability_ids": [
+        "candidate:overseas:481:1.5"
+      ],
+      "operation_ids": [
+        "global.detectors.linked_cameras"
+      ],
+      "scope_revision": "2026-11-20-r42-overseas-a1-detector-queries",
+      "freeze_state": "awaiting_authorized_resources",
+      "region_cluster": "overseas:account_cluster_not_confirmed",
+      "account_role_permissions": "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。",
+      "device_requirements": "明确归属该区域账号的 A1 主机；探测器已关联清单还需调用方明确提供一个探测器标识。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "确认指定区域/可访问的 A1 主机以及本项所需资源；独立授权。不得遍历或探测其他主机/探测器。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录模式、次数、状态和返回形态；非空关联须有相应受控资源，不能从空数组推定。",
+        "write": "无配置变更。",
+        "physical": "平台清单不证明硬件监测效果、记录或媒体可用性。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，不改变关联或配置。",
+      "source_refs": [
+        "docs/coordination/overseas-a1-detector-queries/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/481.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "尚未确认海外获准的 A1 资源及本项的真实读取范围。"
+      ],
+      "limitations": [
+        "E615 响应表列 deviceSerial、ipcSerial；E612 示例行列 detectorSerial、ipcSerial。保留原始键，不推断字段相等或含义互换。"
       ]
     }
   ],

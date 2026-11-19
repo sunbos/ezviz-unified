@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "a337e24ccc35988e248323e17fb6c4c47565e493",
+  "scope_revision": "2026-11-20-r42-overseas-a1-detector-queries",
+  "operations": [
+    {
+      "operation_id": "global.detectors.list",
+      "capability_id": "candidate:overseas:481:1.1",
+      "name": "list",
+      "entry": "detectors.list",
+      "doc_id": "481",
+      "section": "1.1",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-481-1-1-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-481-1-1-LIVE-001"
+      ],
+      "signatures": {
+        "Detectors": "def list(self, a1_serial: str) -> ApiResponse",
+        "AsyncDetectors": "async def list(self, a1_serial: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/en/481",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/481.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/481.structure.json",
+      "html_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+      "method": "POST",
+      "path": "/api/lapp/detector/list",
+      "read_only": true,
+      "permission": "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。",
+      "unknown": "E94 示意把 data/code/msg 放在 result 内，但该文本不是合法 JSON。字段表只说明行结构；未有真实响应确认布局，根层成功/失败不能推定。",
+      "envelope_paths": [
+        "result"
+      ],
+      "parameters": [
+        "accessToken",
+        "deviceSerial"
+      ],
+      "elements": {
+        "address": 64,
+        "method": 68,
+        "parameters": 71,
+        "request": 91,
+        "example": 94,
+        "fields": 97,
+        "errors": 213
+      }
+    },
+    {
+      "operation_id": "global.detectors.bindable_cameras",
+      "capability_id": "candidate:overseas:481:1.4",
+      "name": "bindable_cameras",
+      "entry": "detectors.bindable_cameras",
+      "doc_id": "481",
+      "section": "1.4",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-481-1-4-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-481-1-4-LIVE-001"
+      ],
+      "signatures": {
+        "Detectors": "def bindable_cameras(self, a1_serial: str) -> ApiResponse",
+        "AsyncDetectors": "async def bindable_cameras(self, a1_serial: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/en/481",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/481.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/481.structure.json",
+      "html_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+      "method": "POST",
+      "path": "/api/lapp/detector/ipc/list/bindable",
+      "read_only": true,
+      "permission": "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。",
+      "unknown": "E505 的 cameraName 为字符串，E508 表声明为整数；保留原值。候选列表未说明是否排除已关联的 IPC。",
+      "envelope_paths": [
+        ""
+      ],
+      "parameters": [
+        "accessToken",
+        "deviceSerial"
+      ],
+      "elements": {
+        "address": 475,
+        "method": 479,
+        "parameters": 482,
+        "request": 502,
+        "example": 505,
+        "fields": 508,
+        "errors": 529
+      }
+    },
+    {
+      "operation_id": "global.detectors.linked_cameras",
+      "capability_id": "candidate:overseas:481:1.5",
+      "name": "linked_cameras",
+      "entry": "detectors.linked_cameras",
+      "doc_id": "481",
+      "section": "1.5",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-481-1-5-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-481-1-5-LIVE-001"
+      ],
+      "signatures": {
+        "Detectors": "def linked_cameras(self, a1_serial: str, detector_serial: str) -> ApiResponse",
+        "AsyncDetectors": "async def linked_cameras(self, a1_serial: str, detector_serial: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/en/481",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/481.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/481.structure.json",
+      "html_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+      "method": "POST",
+      "path": "/api/lapp/detector/ipc/list/bind",
+      "read_only": true,
+      "permission": "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。",
+      "unknown": "E615 响应表列 deviceSerial、ipcSerial；E612 示例行列 detectorSerial、ipcSerial。保留原始键，不推断字段相等或含义互换。",
+      "envelope_paths": [
+        ""
+      ],
+      "parameters": [
+        "accessToken",
+        "deviceSerial",
+        "detectorSerial"
+      ],
+      "elements": {
+        "address": 577,
+        "method": 581,
+        "parameters": 584,
+        "request": 609,
+        "example": 612,
+        "fields": 615,
+        "errors": 632
+      }
+    }
+  ],
+  "sdk_choices": [
+    "独立的 client.detectors 与 async_client.detectors。三个方法各发一个逻辑请求；不会隐式枚举、查询详情、分页、获取媒体或改变任何关联。列表返回原始行字段、原始类型和扩展字段。",
+    "三项均为海外区域 POST，令牌与全部选择器放在 form-urlencoded 正文。业务主机从该账号登录返回的 areaDomain 获得。a1_serial 对应 deviceSerial；仅 linked_cameras 另用 detectorSerial。不强制大写，不改写非空且可 UTF-8 编码的字符串。",
+    "§1.1 依据示意选取 result.code/msg/data；§1.4、§1.5 依据示例选根层。只接受字符串成功码 \"200\"。不猜测布局或根据另一个节的示例回退。合法空数组可返回，错误层级、非数组或非对象行产生固定 ProtocolError。",
+    "复用只读刷新、错误分类及诊断。只在声明包络内的失效码允许一次受控重放；不根据不匹配包络提取令牌错误。保护提交的主机/探测器标识及常见 URL 编码，保留应用显式访问 data/raw 的语义。",
+    "仓库 CLI 只执行一个显式选中的查询，输出地区、模式、查询名和条数；不会输出身份、清单内容或敏感位置。三项真实验收各自保留，历史新加坡首台设备回执不证明这里的资源与权限。"
+  ],
+  "source_scope": "只核定 481 §1.1、§1.4、§1.5，其他六节不作完成判断。",
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "live": "纯离线验收；新加坡历史回执不作为本项实测。"
+}

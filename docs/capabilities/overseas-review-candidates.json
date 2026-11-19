@@ -1061,15 +1061,15 @@
         "path": "/api/lapp/detector/list",
         "auth": "accessToken in form",
         "permissions": "unknown",
-        "request": "deviceSerial (A1 host) — exact required params must be re-read",
+        "request": "Form fields accessToken, deviceSerial. deviceSerial selects the A1 host.",
         "body_type": "application/x-www-form-urlencoded",
-        "response": "top-level string code '200'; data lists linked detectors",
+        "response": "E94 illustrates string success code inside result with data/msg. The snippet is not valid JSON; the authenticated response layout is unverified.",
         "effect": "read-only list of A1-series associated detectors",
         "hardware_constraints": "requires an A1 host device"
       },
       "source_uncertainties": [
-        "exact request parameter set must be re-read",
-        "minimum permission class not stated"
+        "E94 示意把 data/code/msg 放在 result 内，但该文本不是合法 JSON。字段表只说明行结构；未有真实响应确认布局，根层成功/失败不能推定。",
+        "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。"
       ],
       "existing_support": {
         "status": "no_binding",
@@ -1270,15 +1270,15 @@
         "path": "/api/lapp/detector/ipc/list/bindable",
         "auth": "accessToken in form",
         "permissions": "unknown",
-        "request": "accessToken + deviceSerial (e482); do not invent detectorSerial for this endpoint",
+        "request": "Form fields accessToken, deviceSerial. deviceSerial selects the A1 host.",
         "body_type": "application/x-www-form-urlencoded",
-        "response": "top-level string code '200'; data lists bindable IPCs",
+        "response": "E505 illustrates root string code with data array; cameraName is a string in E505 but int in E508.",
         "effect": "read-only list of IPCs eligible for detector association",
         "hardware_constraints": "requires an A1 host and candidate IPCs"
       },
       "source_uncertainties": [
-        "exact request parameter set must be re-read",
-        "e508 lists cameraName type as int while the example is string — preserve source, do not correct"
+        "E505 的 cameraName 为字符串，E508 表声明为整数；保留原值。候选列表未说明是否排除已关联的 IPC。",
+        "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。"
       ],
       "existing_support": {
         "status": "no_binding",
@@ -1340,15 +1340,15 @@
         "path": "/api/lapp/detector/ipc/list/bind",
         "auth": "accessToken in form",
         "permissions": "unknown",
-        "request": "detectorSerial — exact params must be re-read",
+        "request": "Form fields accessToken, deviceSerial, detectorSerial. deviceSerial selects the A1 host.",
         "body_type": "application/x-www-form-urlencoded",
-        "response": "top-level string code '200'; data lists already-bound IPCs",
+        "response": "E612 illustrates root string code and data rows with detectorSerial and ipcSerial; E615 instead lists deviceSerial and ipcSerial.",
         "effect": "read-only list of IPCs already associated to a detector",
         "hardware_constraints": "requires an associated detector"
       },
       "source_uncertainties": [
-        "response table uses deviceSerial while the JSON example uses detectorSerial — naming discrepancy preserved",
-        "exact request parameter set must be re-read"
+        "E615 响应表列 deviceSerial、ipcSerial；E612 示例行列 detectorSerial、ipcSerial。保留原始键，不推断字段相等或含义互换。",
+        "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。"
       ],
       "existing_support": {
         "status": "no_binding",
