@@ -3437,7 +3437,7 @@
         "AsyncDeviceVoice.create"
       ],
       "public_entry": "device_voice.create",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3450,7 +3450,7 @@
         "AsyncDeviceVoice.delete"
       ],
       "public_entry": "device_voice.delete",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

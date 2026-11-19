@@ -10713,19 +10713,29 @@
       "pending_questions": [
         "未说明幂等键、文件规格或设备同步时限。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/device_voice.py",
+        "tests/test_sdk_device_voice_provision.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "examples/device_voice_lifecycle.py",
+        "tests/test_example_device_voice_lifecycle.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "57fb7022362894272d769ef672ddd8add347f4a8",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-device-voice-provision/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1273-D0-OFFLINE-001",
@@ -10897,19 +10907,29 @@
       "pending_questions": [
         "未说明删除的并发保护、既有告警引用处理或恢复原 ID 的方法。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/device_voice.py",
+        "tests/test_sdk_device_voice_provision.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "examples/device_voice_lifecycle.py",
+        "tests/test_example_device_voice_lifecycle.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "57fb7022362894272d769ef672ddd8add347f4a8",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-device-voice-provision/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1532-D0-OFFLINE-001",
