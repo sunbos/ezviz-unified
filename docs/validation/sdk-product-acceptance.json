@@ -11831,13 +11831,15 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:1739:d0",
+      "capability_selector": "devices.charging_status",
       "capability_ids": [
         "candidate:domestic:1739:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.device.charging_status"
+      ],
+      "scope_revision": "2026-11-20-r37-domestic-charging-status",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -11847,38 +11849,41 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用合成认证、MockTransport 和已冻结的官方快照。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求查询设备电池充电状态”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "同步/异步：精确 header、空 query 和正文、字符串成功码、已知及未知状态、错误结构、诊断、刷新次数和示例安全输出。",
+        "write": "无。",
+        "physical": "本地不测实际充电或电量。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/41"
+        "docs/coordination/SP088/scenario-input.json#/entries/41",
+        "docs/coordination/domestic-charging-status/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1739.source.json"
       ],
       "pending_questions": [
-        "返回是否仅充电状态还是包含电量/供电方式信息待核",
-        "适用设备为电池机型的前提待核"
+        "数据新鲜度与状态刷新间隔未说明；无电池也是官方返回值。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1740-D0-OFFLINE-001",
@@ -32992,6 +32997,55 @@
       ],
       "limitations": [
         "未说明删除的并发保护、既有告警引用处理或恢复原 ID 的方法。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1739-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_charging_status",
+      "capability_selector": "devices.charging_status",
+      "capability_ids": [
+        "candidate:domestic:1739:d0"
+      ],
+      "operation_ids": [
+        "cn.device.charging_status"
+      ],
+      "scope_revision": "2026-11-20-r37-domestic-charging-status",
+      "freeze_state": "frozen_for_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内应用令牌。最低角色、套餐、可见设备的共享权限和适用型号未说明。",
+      "device_requirements": "一个明确获准的国内设备。单次结果仅表示该设备的响应。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "确认指定设备与本项只读范围。两种模式各一次，对外层执行器禁止刷新重放，首次失败停止。"
+      ],
+      "expected_evidence": {
+        "read": "两种模式核对响应类型与状态是否属于文档枚举；公开回执仅保留模式、请求预算实耗、分类和结果。",
+        "write": "无。",
+        "physical": "不能据当前响应推断物理充电行为或剩余电量。"
+      },
+      "bounded": {
+        "max_requests": 4,
+        "max_operations": 2,
+        "freeze_required": false
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，无设备状态变更。",
+      "source_refs": [
+        "docs/coordination/domestic-charging-status/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1739.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "此前国内账号级授权未覆盖本项设备查询。"
+      ],
+      "limitations": [
+        "数据新鲜度与状态刷新间隔未说明；无电池也是官方返回值。"
       ]
     }
   ],
