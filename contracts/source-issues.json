@@ -1747,6 +1747,51 @@
         "E14",
         "E43"
       ]
+    },
+    {
+      "id": "cn.osd.get_name.scope_boundary",
+      "region": "domestic",
+      "source_doc_id": "1721",
+      "source_url": "https://open.ys7.com/help/1721",
+      "source_content_sha256": "bd3b4407d97f3fa10e96c4048f54c69912cf9a96f73f18fe9dbeb5adc79ec930",
+      "description": "读取未指定通道，无法证明任意通道的旧值或多行内容；适用型号未验证。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "按设备读取名称；不接受虚构的通道参数。",
+      "evidence": [
+        "E14",
+        "E36",
+        "E44"
+      ]
+    },
+    {
+      "id": "cn.osd.set_name.scope_boundary",
+      "region": "domestic",
+      "source_doc_id": "725",
+      "source_url": "https://open.ys7.com/help/725",
+      "source_content_sha256": "576465aaa3bbc3221ea55084acc131ed2138202c7ac0eaf5ceec46194b2a463d",
+      "description": "原文未规定文本长度、字符列表或置空效果；真实写需确认指定通道原值和恢复方法。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "仅验证写请求和回执；拒绝空白必填名称属于 SDK 设计。真实写必须另行核定恢复路径。",
+      "evidence": [
+        "E14",
+        "E54",
+        "E62"
+      ]
+    },
+    {
+      "id": "cn.osd.set_lines.scope_boundary",
+      "region": "domestic",
+      "source_doc_id": "5201",
+      "source_url": "https://open.ys7.com/help/5201",
+      "source_content_sha256": "159c2ef647e6ddef9084e61074b2b9748e755d25ec3228c7a396abd78db6b2b1",
+      "description": "未规定行数、逗号转义、空串或省略的效果；无已验证配套 getter 或完整恢复方式。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "保留显式提供的原串；仅 None 省略。SDK 不推断清屏或任意通道的回读语义。",
+      "evidence": [
+        "E14",
+        "E49",
+        "E57"
+      ]
     }
   ]
 }

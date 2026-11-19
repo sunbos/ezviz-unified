@@ -111,6 +111,30 @@ python -m examples.ddns --mode sync --query get
 
 源码示例串联 `Client.playback.create` 和官方 `@ezuikit/player-hls@2.0.0`。默认使用 H.264，也可用 `--codec h265` 播放自行生成的 HEVC 测试片，验证官方 WASM 解码和 WebGL 画面。示例使用合成地址，真实设备预览另需授权。运行方式及可复现的浏览器验证见[HLS 预览指南](docs/official-hls-preview.md)。
 
+## 国内设备 OSD 文字
+
+同步和异步客户端均通过 `client.osd` 访问以下接口。
+
+| 方法 | 路径 | 只读 |
+| --- | --- | --- |
+| `get_name(device_serial)` | GET `/api/v3/device/osd` | 是 |
+| `set_name(device_serial, osd_name, *, channel_no=None)` | POST `/api/lapp/device/update/osd/name` | 否 |
+| `set_lines(device_serial, *, osd_names, channel_no=None)` | POST `/api/v3/device/osd/multi/set` | 否 |
+
+`get_name` 返回设备级名称，`response.data["osd"]` 可以是空字符串。它没有通道参数，无法确认任意通道的旧名称或多行配置。[读取名称（1721）](https://open.ys7.com/help/1721)
+
+`set_name` 要求设备支持 `support_osd=1`。设备序列号中的英文字母须大写；SDK 拒绝空白名称，保留有内容字符串的原始空格和 Unicode。子账号需要目标通道的 `Config` 权限。[设置名称（725）](https://open.ys7.com/help/725)
+
+`set_lines` 使用设备级 `Config` 权限，支持托管账号和子账号。请显式提供 `osd_names`。字符串原样发送，多项内容按官方约定用英文逗号分隔；`None` 省略该字段，`""` 发送空字段。官方未说明两者是否清屏。两种写入的 `channel_no` 均为可选字符串，省略时由平台取默认值 1。写入失败不会自动重发；真实修改前须能恢复所选通道的原始配置。[多行配置（5201）](https://open.ys7.com/help/5201)
+
+本机设置 `EZVIZ_REGION=domestic`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET` 和 `EZVIZ_DEVICE_SERIAL` 后，可从仓库运行只读示例：
+
+```bash
+python -m examples.osd_name --mode sync
+```
+
+示例只报告地区、模式、状态和名称是否非空。三项 SDK 行为均通过模拟传输验收，实际画面与配置恢复尚待真实设备验证。
+
 ## 国内智能设备的算法清单
 
 `DeviceAlgorithms` 与 `AsyncDeviceAlgorithms` 提供同名的两个独立只读查询；异步版本仅增加 `await`，两个查询不会互相触发。

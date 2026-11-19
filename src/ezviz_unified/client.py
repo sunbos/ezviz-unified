@@ -49,6 +49,7 @@ from .maintenance import AsyncMaintenance, Maintenance
 from .message_subscriptions import AsyncMessageSubscriptions, MessageSubscriptions
 from .models import ApiResponse
 from .operations import Operation
+from .osd import AsyncOsd, Osd
 from .otap import AsyncOtap, Otap
 from .ownership import AsyncOwnership, Ownership
 from .passenger_flow import AsyncPassengerFlow, PassengerFlow
@@ -339,6 +340,7 @@ class Client:
         self.cloud_capture = CloudCapture(self)
         self.message_subscriptions = MessageSubscriptions(self)
         self.hubs = Hubs(self)
+        self.osd = Osd(self)
         self.passenger_flow = PassengerFlow(self)
         self.traffic = Traffic(self)
 
@@ -663,6 +665,7 @@ class AsyncClient:
         self.cloud_capture = AsyncCloudCapture(self)
         self.message_subscriptions = AsyncMessageSubscriptions(self)
         self.hubs = AsyncHubs(self)
+        self.osd = AsyncOsd(self)
         self.passenger_flow = AsyncPassengerFlow(self)
         self.traffic = AsyncTraffic(self)
 
