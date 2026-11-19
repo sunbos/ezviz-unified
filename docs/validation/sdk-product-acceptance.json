@@ -13420,19 +13420,29 @@
       "pending_questions": [
         "成功码样例与正式返回码表冲突。查询示例与正式数组行定义也不一致，未配置的返回形态待核。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/live_limits.py",
+        "tests/test_sdk_live_limits.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "examples/live_limits.py",
+        "tests/test_example_live_limits.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "e5c671503bcf293d36ac47f584b7a80fac5b1dbc",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-live-limits/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1817-D0-OFFLINE-001",
@@ -13479,19 +13489,27 @@
       "pending_questions": [
         "成功码样例与正式返回码表冲突。限制数上下限、0 或负值的含义及账户生效情况待核。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/live_limits.py",
+        "tests/test_sdk_live_limits.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "e5c671503bcf293d36ac47f584b7a80fac5b1dbc",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-live-limits/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1818-D0-OFFLINE-001",
@@ -13538,19 +13556,27 @@
       "pending_questions": [
         "成功码样例与正式返回码表冲突。仅按 liveType 删除，未指明会清除哪些规则或回退到什么值。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/live_limits.py",
+        "tests/test_sdk_live_limits.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "e5c671503bcf293d36ac47f584b7a80fac5b1dbc",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-live-limits/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-3735-D0-OFFLINE-001",

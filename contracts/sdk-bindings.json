@@ -3274,7 +3274,7 @@
         "AsyncLiveLimits.get"
       ],
       "public_entry": "live_limits.get",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3287,7 +3287,7 @@
         "AsyncLiveLimits.set"
       ],
       "public_entry": "live_limits.set",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3300,7 +3300,7 @@
         "AsyncLiveLimits.delete"
       ],
       "public_entry": "live_limits.delete",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
