@@ -18188,6 +18188,132 @@
       },
       "source_content_sha256": "b30b0575ac508059aec9f19ac33c5333bff9e2b9e615526774a13ba4b93e1d19",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.settings.get_talk_speaker_volume",
+      "region": "domestic",
+      "source_doc_id": "1719",
+      "source_url": "https://open.ys7.com/help/1719",
+      "method": "GET",
+      "path": "/api/v3/device/talkSpeakerVolume",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E40;E44;E68"
+      },
+      "constraints": [
+        {
+          "fact": "国内应用访问令牌。HTTP 页未说明最低权限、套餐、子账号或分享支持。",
+          "evidence": "E14"
+        },
+        {
+          "fact": "平台返回设备最近一次上报的对讲下行扬声器音量。",
+          "evidence": "E14;1307018 E170,E175,E193,E538,E722;docs/coordination/domestic-talk-speaker/admission.json"
+        }
+      ],
+      "uncertainties": [
+        "读值为设备最近一次上报，未说明上报间隔或各型号支持。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/device/talkSpeakerVolume",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E36"
+      },
+      "source_content_sha256": "f80fbd07f98b6fbb80adcb37914c1c6e589e3097b70bf26488acd5898701cb4c",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.settings.set_talk_speaker_volume",
+      "region": "domestic",
+      "source_doc_id": "1718",
+      "source_url": "https://open.ys7.com/help/1718",
+      "method": "POST",
+      "path": "/api/v3/device/talkSpeakerVolume",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "volume",
+          "location": "body",
+          "type": "Int",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E46;E50;E66"
+      },
+      "constraints": [
+        {
+          "fact": "国内应用访问令牌。HTTP 页未说明最低权限、套餐、子账号或分享支持。",
+          "evidence": "E14"
+        },
+        {
+          "fact": "HTTP 表要求 volume 为 Int；设备端回调定义 speaker_volume 为 0 至 100 的百分比。SDK 据此检查写入值。",
+          "evidence": "E14;1307018 E170,E175,E193,E538,E722;docs/coordination/domestic-talk-speaker/admission.json"
+        }
+      ],
+      "uncertainties": [
+        "设备端调节回调可选，未确认真实型号支持及原音量的独立恢复条件。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/v3/device/talkSpeakerVolume",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E42"
+      },
+      "source_content_sha256": "1400e7a675e3a5cca34170d785954064fffcbfeca1175e46f30a82c7662430e5",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -18301,6 +18427,10 @@
     {
       "review": "docs/coordination/domestic-image-configuration/admission.json",
       "note": "国内图像预设读写，以及现有图像参数、白平衡查询对应的两个 PUT。手动字段与枚举冲突保留。"
+    },
+    {
+      "review": "docs/coordination/domestic-talk-speaker/admission.json",
+      "note": "国内 1718/1719 对讲扬声器设置与读取；设备端 1307018 仅用作属性、单位和上报语义的交叉依据。"
     }
   ]
 }

@@ -5,14 +5,22 @@ lens occlusion / video tampering, sound source localization, indicator
 light, all-day recording, and microphone) plus the overseas-only settings
 batch: PIR detection area, doorbell chime, infrared switch, device
 timezone, device language, the public timezone directory list, and the
-public country/region directory.
+public country/region directory. It also covers the domestic-only talk
+speaker volume pair (docs 1718 and 1719).
 
-All endpoints are POST with form-encoded bodies and a top-level
-code/msg/data envelope where the string "200" marks success — except the
-public area directory, which the SDK deliberately calls with GET because
-the source demonstrates a parameterless GET while the declared POST's
-shape is undocumented. Authenticated operations carry the access token in
-the form; ``list_timezones`` and ``list_areas`` are explicit public
+Most endpoints are POST with form-encoded bodies and a top-level
+code/msg/data envelope where the string "200" marks success. Two reviewed
+operations differ: the public area directory, which the SDK deliberately
+calls with GET because the source demonstrates a parameterless GET while
+the declared POST's shape is undocumented; and the domestic talk speaker
+volume pair, whose GET and POST share one path
+(``/api/v3/device/talkSpeakerVolume``) and carry the access token in a
+header rather than the form. The volume GET sends ``deviceSerial`` as a
+query parameter with no body; the volume POST sends ``deviceSerial`` and
+``volume`` as a URL-encoded form body under an explicit
+``Content-Type: application/x-www-form-urlencoded`` header. Authenticated
+operations carry the access token in the form (or, for the volume pair, in
+the header); ``list_timezones`` and ``list_areas`` are explicit public
 operations that carry no token at all.
 
 Overseas batch notes from the reviewed sources: the PIR ``area`` string is
@@ -27,6 +35,10 @@ accepts any non-blank UTF-8 string. The area directory returns the raw
 ``name`` (string), ``region`` (string) and ``telephoneCode`` (int) are not
 validated per element, extra fields and an empty array are preserved, and
 no cluster, ``apiDomain`` or ``authDomain`` is derived from it.
+
+Domestic talk speaker volume pair (docs 1718/1719): domestic-only GET and
+POST on one path, header token, strict int ``data.talkSpeakerVolume`` on
+read, and no ``data`` body required on write.
 """
 
 from __future__ import annotations
@@ -36,6 +48,7 @@ from enum import StrEnum
 from typing import TYPE_CHECKING
 
 from .diagnostic_report import _diagnostic_scope
+from .errors import ProtocolError
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation, TokenLocation
 
@@ -47,6 +60,32 @@ _OVERSEAS = "overseas"
 _OVERSEAS_REGIONS = frozenset({_OVERSEAS})
 
 _POLICY = ResponsePolicy(success_values=("200",))
+
+_FORM_CONTENT_TYPE = "application/x-www-form-urlencoded"
+
+# Domestic talk speaker volume pair (docs 1718/1719): GET reads the value
+# the device last reported, POST writes the speaker percentage. Both share
+# one path and carry the access token in a header, never the form. The GET
+# is read-only (eligible for the client's single token-refresh replay);
+# the POST is never replayed.
+_OP_GET_TALK_SPEAKER_VOLUME = Operation(
+    "settings.get_talk_speaker_volume",
+    "GET",
+    "/api/v3/device/talkSpeakerVolume",
+    token_location="header",
+    regions=frozenset({_DOMESTIC}),
+    read_only=True,
+    policy=_POLICY,
+)
+_OP_SET_TALK_SPEAKER_VOLUME = Operation(
+    "settings.set_talk_speaker_volume",
+    "POST",
+    "/api/v3/device/talkSpeakerVolume",
+    token_location="header",
+    regions=frozenset({_DOMESTIC}),
+    read_only=False,
+    policy=_POLICY,
+)
 
 
 class DeviceSwitch(StrEnum):
@@ -197,6 +236,11 @@ def _enable_value(enabled: bool, *, as_string: bool) -> str | int:
 def _require_overseas(scope: str) -> None:
     if scope != _OVERSEAS:
         raise ValueError("this operation is only supported in the overseas region")
+
+
+def _require_domestic(scope: str) -> None:
+    if scope != _DOMESTIC:
+        raise ValueError("this operation is only supported in the domestic region")
 
 
 def _check_text(value: object, field: str) -> str:
@@ -416,6 +460,57 @@ def _language_set_request(
     )
 
 
+def _check_volume(value: object) -> int:
+    """Return ``value`` as an integer speaker percentage in the range 0-100.
+
+    The HTTP doc marks ``volume`` only as Int; the 0-100 percentage range
+    is confirmed by the separate device SDK doc. ``volume=0`` is a valid
+    write.
+    """
+    volume = _check_int(value, "volume")
+    if not 0 <= volume <= 100:
+        raise ValueError("volume must be an integer between 0 and 100")
+    return volume
+
+
+def _talk_speaker_volume_get_params(serial: object, scope: str) -> dict[str, str]:
+    """Query for the domestic GET: reject non-domestic first, serial verbatim."""
+    _require_domestic(scope)
+    return {"deviceSerial": _check_text(serial, "deviceSerial")}
+
+
+def _talk_speaker_volume_set_request(
+    serial: object, volume: object, scope: str
+) -> tuple[dict[str, str | int], dict[str, str]]:
+    """Form body and Content-Type header for the domestic POST.
+
+    The access token is injected into the header by the client; only the
+    documented form fields and Content-Type travel here.
+    """
+    _require_domestic(scope)
+    data: dict[str, str | int] = {
+        "deviceSerial": _check_text(serial, "deviceSerial"),
+        "volume": _check_volume(volume),
+    }
+    return data, {"Content-Type": _FORM_CONTENT_TYPE}
+
+
+def _require_talk_speaker_volume(response: ApiResponse) -> ApiResponse:
+    """Return ``response`` when ``data.talkSpeakerVolume`` is a genuine int.
+
+    A missing/non-dict ``data``, an absent key, or any non-int (including
+    bool) is a protocol error; the int is preserved verbatim.
+    """
+    data = response.data
+    if not isinstance(data, dict) or type(data.get("talkSpeakerVolume")) is not int:
+        raise ProtocolError(
+            "talk speaker volume response has no integer data.talkSpeakerVolume",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
+
+
 class Settings:
     """Synchronous facade over device switch and overseas settings operations."""
 
@@ -592,6 +687,43 @@ class Settings:
         with _diagnostic_scope(self._client, entrypoint="settings.set_language", mode="sync"):
             op, data = _language_set_request(device_serial, language, self._client.region.scope)
             return self._client.request(op, data=data)
+
+    def get_talk_speaker_volume(self, device_serial: str) -> ApiResponse:
+        """Read the device-reported talk speaker volume (domestic only).
+
+        Sends one GET to ``/api/v3/device/talkSpeakerVolume`` with
+        ``deviceSerial`` as the only query parameter and no body; the
+        access token travels in the request header. On success
+        ``data.talkSpeakerVolume`` must be a genuine int and is returned
+        verbatim.
+        """
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_talk_speaker_volume", mode="sync"
+        ):
+            params = _talk_speaker_volume_get_params(device_serial, self._client.region.scope)
+            response = self._client.request(operation=_OP_GET_TALK_SPEAKER_VOLUME, params=params)
+            return _require_talk_speaker_volume(response)
+
+    def set_talk_speaker_volume(self, device_serial: str, volume: int) -> ApiResponse:
+        """Write the talk speaker volume percentage (domestic only).
+
+        POSTs ``/api/v3/device/talkSpeakerVolume`` with ``deviceSerial``
+        and ``volume`` as a URL-encoded form body under an explicit
+        ``Content-Type: application/x-www-form-urlencoded`` header; the
+        access token travels in the request header. ``volume`` must be an
+        int in the 0-100 percentage range (per the device SDK doc; the
+        HTTP doc says only Int). The acknowledgement is returned verbatim
+        and the write is never replayed.
+        """
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.set_talk_speaker_volume", mode="sync"
+        ):
+            data, headers = _talk_speaker_volume_set_request(
+                device_serial, volume, self._client.region.scope
+            )
+            return self._client.request(
+                operation=_OP_SET_TALK_SPEAKER_VOLUME, data=data, headers=headers
+            )
 
 
 class AsyncSettings:
@@ -770,3 +902,32 @@ class AsyncSettings:
         with _diagnostic_scope(self._client, entrypoint="settings.set_language", mode="async"):
             op, data = _language_set_request(device_serial, language, self._client.region.scope)
             return await self._client.request(op, data=data)
+
+    async def get_talk_speaker_volume(self, device_serial: str) -> ApiResponse:
+        """Read the device-reported talk speaker volume (domestic only).
+
+        Async variant of :meth:`Settings.get_talk_speaker_volume`.
+        """
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_talk_speaker_volume", mode="async"
+        ):
+            params = _talk_speaker_volume_get_params(device_serial, self._client.region.scope)
+            response = await self._client.request(
+                operation=_OP_GET_TALK_SPEAKER_VOLUME, params=params
+            )
+            return _require_talk_speaker_volume(response)
+
+    async def set_talk_speaker_volume(self, device_serial: str, volume: int) -> ApiResponse:
+        """Write the talk speaker volume percentage (domestic only).
+
+        Async variant of :meth:`Settings.set_talk_speaker_volume`.
+        """
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.set_talk_speaker_volume", mode="async"
+        ):
+            data, headers = _talk_speaker_volume_set_request(
+                device_serial, volume, self._client.region.scope
+            )
+            return await self._client.request(
+                operation=_OP_SET_TALK_SPEAKER_VOLUME, data=data, headers=headers
+            )

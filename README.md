@@ -303,6 +303,20 @@ rows = await async_client.traffic.day_details(page_size=1)
 
 国内 `client.ptz.cruise` 提供get_enabled、get_schedule、set_schedule。设置时间计划使用 `CruisePeriod("08:00", "12:00", (0, 1, 2, 3, 4))`，其中0为周一；enabled须为bool，periods为时间段序列。设置会覆盖旧计划，并不自动配置巡航点或开关。开关设置文档存在编码矛盾，暂未提供set_enabled；[差异说明](docs/research/2026-11-14-ptz-contracts.md)保留待核实项。
 
+## 国内对讲扬声器音量
+
+`client.settings.get_talk_speaker_volume(device_serial)` 读取设备**最近一次上报**的对讲下行扬声器音量，值位于 `response.data["talkSpeakerVolume"]`。平台返回缓存值，本次查询不实时采集设备音量。同步和异步客户端均支持这个入口。[读取接口（1719）](https://open.ys7.com/help/1719)
+
+`client.settings.set_talk_speaker_volume(device_serial, volume)` 显式设置同一属性。HTTP 参数表只要求整数，设备端回调将音量定义为 0–100 的百分比，因此 SDK 对写入值按此范围校验，允许 0，拒绝布尔值。设置不会建立对讲、发送音频、自动回读或重放。设备可以不实现调节回调。真实写入前须确认目标设备、原音量与恢复方法。[设置接口（1718）](https://open.ys7.com/help/1718) · [设备端对讲说明（1307018）](https://open.ys7.com/help/1307018)
+
+在仓库根目录运行只读示例前，在本机配置 `EZVIZ_REGION=domestic`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET` 和 `EZVIZ_DEVICE_SERIAL`。
+
+```bash
+python -m examples.talk_speaker_volume --mode sync
+```
+
+示例的 `reported_percent` 只输出 0–100 的整数，超出范围时为 `null`。SDK 保留服务器返回的原始整数和其他业务字段。本批采用模拟传输验收，实际设备上报时机与物理效果仍待验证。
+
 ## 设备开关
 
 `client.settings.get_switch(device_serial, DeviceSwitch.INDICATOR_LIGHT)`读取状态；`set_switch(device_serial, switch, enabled, channel=None)`设置状态。enabled必须为bool，写请求不重放。省略channel表示设备本身，麦克风不接受channel。六类开关、地区限制和原文差异见[开关说明](docs/research/2026-11-14-switch-settings.md)。SOUND_LOCALIZATION是声源定位，与TLS无关；所有真实设置效果仍未验证。

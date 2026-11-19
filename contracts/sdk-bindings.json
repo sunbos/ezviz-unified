@@ -3374,6 +3374,32 @@
       "public_entry": "imaging.set_white_balance",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.settings.get_talk_speaker_volume",
+      "region": "domestic",
+      "source_doc_id": "1719",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.get_talk_speaker_volume",
+        "AsyncSettings.get_talk_speaker_volume"
+      ],
+      "public_entry": "settings.get_talk_speaker_volume",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.settings.set_talk_speaker_volume",
+      "region": "domestic",
+      "source_doc_id": "1718",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.set_talk_speaker_volume",
+        "AsyncSettings.set_talk_speaker_volume"
+      ],
+      "public_entry": "settings.set_talk_speaker_volume",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }

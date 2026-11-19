@@ -1859,6 +1859,22 @@
         "E40",
         "E44"
       ]
+    },
+    {
+      "id": "cn.settings.talk_speaker_volume.platform_range",
+      "region": "domestic",
+      "source_doc_id": "1718",
+      "source_url": "https://open.ys7.com/help/1718",
+      "source_content_sha256": "1400e7a675e3a5cca34170d785954064fffcbfeca1175e46f30a82c7662430e5",
+      "description": "HTTP 写入参数只定义为 Int，独立设备端接口定义百分比 0–100。不同设备的回调实现与上报时机未经真实验收。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "写入按设备端百分比限制 0..100；查询保留平台原始整数。成功回执不证明设备已执行、可实时回读或实际发声。",
+      "evidence": [
+        "E14",
+        "E42",
+        "1307018 E170,E175,E193,E538,E722",
+        "docs/coordination/domestic-talk-speaker/admission.json"
+      ]
     }
   ]
 }
