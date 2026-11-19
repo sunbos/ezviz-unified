@@ -113,11 +113,12 @@
       "offline_status": "passed",
       "live_status": "nonempty_first_page_succeeded_singapore",
       "public_entry": "devices.list",
-      "live_evidence": "docs/validation/live/2026-11-19-singapore-inventory/receipt.json",
-      "live_notes": "Synchronous Singapore application check on 2026-11-19. One regional token request and one first-page listing succeeded; the page was nonempty. No details or other cluster verified. Previous empty inventory remains historical evidence.",
+      "live_evidence": "docs/validation/live/2026-11-19-singapore-first-device/receipt.json",
+      "live_notes": "One new first-page listing, pageStart=0/pageSize=1, supplied the target and its list-reported online status; no total-device count inferred.",
       "live_evidence_history": [
         "docs/validation/live/2026-11-14-overseas/overseas.json",
-        "docs/validation/live/2026-11-19-singapore-inventory/receipt.json"
+        "docs/validation/live/2026-11-19-singapore-inventory/receipt.json",
+        "docs/validation/live/2026-11-19-singapore-first-device/receipt.json"
       ]
     },
     {
@@ -130,8 +131,13 @@
         "AsyncDevices.get"
       ],
       "offline_status": "passed",
-      "live_status": "not_verified",
-      "public_entry": "devices.get"
+      "live_status": "single_device_readonly_response_checked",
+      "public_entry": "devices.get",
+      "live_evidence": "docs/validation/live/2026-11-19-singapore-first-device/receipt.json",
+      "live_evidence_history": [
+        "docs/validation/live/2026-11-19-singapore-first-device/receipt.json"
+      ],
+      "live_notes": "One authenticated Singapore synchronous lookup for the selected first device returned a model field; no UTC variant or hardware effect assessed."
     },
     {
       "operation_id": "global.devices.channels",
@@ -143,8 +149,13 @@
         "AsyncDevices.channels"
       ],
       "offline_status": "passed",
-      "live_status": "not_verified",
-      "public_entry": "devices.channels"
+      "live_status": "single_device_readonly_response_checked",
+      "public_entry": "devices.channels",
+      "live_evidence": "docs/validation/live/2026-11-19-singapore-first-device/receipt.json",
+      "live_evidence_history": [
+        "docs/validation/live/2026-11-19-singapore-first-device/receipt.json"
+      ],
+      "live_notes": "One authenticated Singapore synchronous channel-list lookup for the same selected device returned channel numbers and reported statuses. No media or per-channel status request."
     },
     {
       "operation_id": "global.token.get",
@@ -157,11 +168,12 @@
       ],
       "offline_status": "passed",
       "live_status": "authentication_succeeded_explicit_regional_origin",
-      "live_evidence": "docs/validation/live/2026-11-19-singapore-inventory/receipt.json",
-      "live_notes": "Synchronous Singapore application check on 2026-11-19. One regional token request and one first-page listing succeeded; the page was nonempty. No details or other cluster verified. Previous empty inventory remains historical evidence.",
+      "live_evidence": "docs/validation/live/2026-11-19-singapore-first-device/receipt.json",
+      "live_notes": "Synchronous authentication at the explicit Singapore regional origin succeeded as part of the bounded first-device read. Earlier inventory and empty-page evidence remain historical.",
       "live_evidence_history": [
         "docs/validation/live/2026-11-14-overseas/overseas.json",
-        "docs/validation/live/2026-11-19-singapore-inventory/receipt.json"
+        "docs/validation/live/2026-11-19-singapore-inventory/receipt.json",
+        "docs/validation/live/2026-11-19-singapore-first-device/receipt.json"
       ]
     },
     {
