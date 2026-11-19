@@ -14525,19 +14525,31 @@
       "pending_questions": [
         "成功只证明平台返回一个设备添加入口。未说明幂等、撤销、使用次数或客户后续绑定结果。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/device_add_links.py",
+        "tests/test_sdk_device_add_links.py",
+        "examples/device_add_links.py",
+        "tests/test_example_device_add_links.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_device_add_privacy.py",
+        "tests/test_sdk_device_add_failures.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "7a8430e3094c5d3d8836808c90f949ff571a3690",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-device-add-links/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-2847-D0-OFFLINE-001",
@@ -14585,19 +14597,31 @@
       "pending_questions": [
         "设备筛选和游标均为可选，未声明同时传入时的优先级或互斥。末行 id 为整数；下次请求 id 的声明类型为字符串。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/device_add_links.py",
+        "tests/test_sdk_device_add_links.py",
+        "examples/device_add_links.py",
+        "tests/test_example_device_add_links.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_device_add_privacy.py",
+        "tests/test_sdk_device_add_failures.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "7a8430e3094c5d3d8836808c90f949ff571a3690",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-device-add-links/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-2848-D0-OFFLINE-001",
@@ -14645,19 +14669,31 @@
       "pending_questions": [
         "返回的过期时间是毫秒时间戳。url 表列字符串但示例也含 null；不从 expired 推定 url 是否一定存在。未声明总量、排序稳定性或独立下一页游标。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/device_add_links.py",
+        "tests/test_sdk_device_add_links.py",
+        "examples/device_add_links.py",
+        "tests/test_example_device_add_links.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "tests/test_sdk_device_add_privacy.py",
+        "tests/test_sdk_device_add_failures.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "7a8430e3094c5d3d8836808c90f949ff571a3690",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-device-add-links/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-3947-D0-OFFLINE-001",

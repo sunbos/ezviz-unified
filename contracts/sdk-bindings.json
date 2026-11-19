@@ -3723,7 +3723,7 @@
         "AsyncDeviceAddLinks.create"
       ],
       "public_entry": "device_add_links.create",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3736,7 +3736,7 @@
         "AsyncDeviceAddLinks.records"
       ],
       "public_entry": "device_add_links.records",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3749,7 +3749,7 @@
         "AsyncDeviceAddLinks.list"
       ],
       "public_entry": "device_add_links.list",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
