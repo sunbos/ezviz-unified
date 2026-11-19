@@ -10641,19 +10641,32 @@
       "pending_questions": [
         "未声明时间单位、分页、排序和最大数量。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/device_voice.py",
+        "tests/test_sdk_device_voice.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "src/ezviz_unified/errors.py",
+        "src/ezviz_unified/transport.py",
+        "tests/test_sdk_voice_privacy.py",
+        "examples/device_voice.py",
+        "tests/test_example_device_voice.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "bb59dc870cd12e6d56504b4fa8494d2444c339f0",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-device-voice-catalog/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1263-D0-OFFLINE-001",
@@ -10755,19 +10768,30 @@
       "pending_questions": [
         "仅 CSEPMR511 明示适用。voiceUrl 必填，但平台是否重新取得文件、改名原子性、名称约束及恢复时限未说明。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/device_voice.py",
+        "tests/test_sdk_device_voice.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "src/ezviz_unified/errors.py",
+        "src/ezviz_unified/transport.py",
+        "tests/test_sdk_voice_privacy.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "bb59dc870cd12e6d56504b4fa8494d2444c339f0",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-device-voice-catalog/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1277-D0-OFFLINE-001",

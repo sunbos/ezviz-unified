@@ -3411,7 +3411,7 @@
         "AsyncDeviceVoice.list"
       ],
       "public_entry": "device_voice.list",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3424,7 +3424,7 @@
         "AsyncDeviceVoice.rename"
       ],
       "public_entry": "device_voice.rename",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
