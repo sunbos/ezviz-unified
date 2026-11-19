@@ -3235,7 +3235,7 @@
         "AsyncOsd.get_name"
       ],
       "public_entry": "osd.get_name",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3248,7 +3248,7 @@
         "AsyncOsd.set_name"
       ],
       "public_entry": "osd.set_name",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3261,7 +3261,7 @@
         "AsyncOsd.set_lines"
       ],
       "public_entry": "osd.set_lines",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

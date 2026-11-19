@@ -10102,19 +10102,28 @@
       "pending_questions": [
         "原文未规定文本长度、字符列表或置空效果；真实写需确认指定通道原值和恢复方法。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待实现和离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/osd.py",
+        "tests/test_sdk_osd.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "src/ezviz_unified/errors.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "c198b36ebd508d005e75c906efad43ad98fabf28",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-osd/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-726-D0-OFFLINE-001",
@@ -11067,19 +11076,30 @@
       "pending_questions": [
         "读取未指定通道，无法证明任意通道的旧值或多行内容；适用型号未验证。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待实现和离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/osd.py",
+        "tests/test_sdk_osd.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "src/ezviz_unified/errors.py",
+        "examples/osd_name.py",
+        "tests/test_example_osd_name.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "c198b36ebd508d005e75c906efad43ad98fabf28",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-osd/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1723-D0-OFFLINE-001",
@@ -12649,19 +12669,28 @@
       "pending_questions": [
         "未规定行数、逗号转义、空串或省略的效果；无已验证配套 getter 或完整恢复方式。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待实现和离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/osd.py",
+        "tests/test_sdk_osd.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "src/ezviz_unified/errors.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "c198b36ebd508d005e75c906efad43ad98fabf28",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-osd/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5202-D0-OFFLINE-001",
