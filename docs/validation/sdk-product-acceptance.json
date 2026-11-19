@@ -14740,19 +14740,30 @@
       "pending_questions": [
         "开通一个账号下的指定协议项目。明确要求 form Content-Type，示例没有业务正文。未说明重复开通、撤销或计费影响。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待执行离线验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_applications.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5365-D0-OFFLINE-001",
@@ -14799,19 +14810,32 @@
       "pending_questions": [
         "返回接入域/端口及项目标识。端口表为 String、示例为整数；保留原值，不主动连接。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待执行离线验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_protocols.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "examples/third_party_project.py",
+        "tests/test_example_third_party_project.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5366-D0-OFFLINE-001",
@@ -14858,19 +14882,30 @@
       "pending_questions": [
         "正式参数表为 form，E84 示例将若干字段放入 query。采用表单。E3 说非必填为保留字段，E14 又列协议条件与默认值。返回设备序列号并不证明设备已注册上线。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待执行离线验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_applications.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5367-D0-OFFLINE-001",
@@ -14917,19 +14952,30 @@
       "pending_questions": [
         "表单与 E84 query 示例存在冲突。批申请只返回 taskId。可选凭据的空值与省略可能由平台生成；提供值可能用于整批。429 表示勿重复提交。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待执行离线验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_applications.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5368-D0-OFFLINE-001",
@@ -14976,19 +15022,30 @@
       "pending_questions": [
         "9 为成功；10 且成功数为 0 为全部失败，10 且成功数大于 0 为部分成功。其他状态保留；任务确认不证明设备在线。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待执行离线验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_protocols.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5369-D0-OFFLINE-001",
@@ -15035,19 +15092,30 @@
       "pending_questions": [
         "startIndex 排除该条记录，默认 0；pageSize 为 1–50。下页用原 nextIndex，null 表示结束，缺键未证明终止。颜色示例整数、表为 String。行中可能含私密设备注册信息。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待执行离线验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_protocols.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5370-D0-OFFLINE-001",
@@ -15094,19 +15162,30 @@
       "pending_questions": [
         "E3 与 E72 支持 deviceName，E14 正式表未列；SDK 仅在显式给定名称时随其他字段一并送表单。E72 将敏感字段放 query，SDK 不采用、不自动换传输方式。成功示例 data=null。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待执行离线验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_applications.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4062-D0-OFFLINE-001",

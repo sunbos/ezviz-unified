@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 国内企业第三方协议接入
+
+同步和异步客户端已离线验证项目开通与查询、单设备和批量申请、任务结果、设备分页和注册信息修改。三项申请/修改接口按正式参数表发送表单；示例中的 query 差异保留在来源记录中。项目查询 CLI 只显示协议、模式和状态。未使用真实企业账号开通项目、申请许可证、读取注册凭据或改动设备。[冻结契约](../coordination/domestic-third-party-protocols/admission.json) · [离线记录](2026-11-20-domestic-third-party-protocols/offline.json)
+
 ## 国内云直播流管理
 
 同步和异步客户端已离线验证两种建流方式、时间窗修改、删除、启停、列表、推流记录和地址签发。列表采用官方 cURL 示例的 POST 表单；来源另有 GET 声明。取地址采用正式方法和示例的 POST 表单。CLI 展示一页列表的条数，离线生命周期示例按创建回执中的 ID 完成模拟修改与清理。真实账号权限、流的可用性、计费、录制和删除结果仍待逐项授权及验收。[冻结范围与来源差异](../coordination/domestic-live-streams/admission.json) · [离线记录](2026-11-20-domestic-live-streams/offline.json)
