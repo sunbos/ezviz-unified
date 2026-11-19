@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "reviewed_commit": "200d84b87ec68cebd5957b182d71a334df2e23ad",
+  "report_sha256": "380aaa7a4fa014e2eed379626135644f2df44c7a0a9005682863ddab2b3d075a",
+  "verifier_sha256": "e5b947bbb1a47be870ddcbe4c2d78b386baeb083a44cf8f534dc916f165eb185",
+  "normal_command": "python3 -O docs/coordination/imaging-source-reconciliation/verify.py --repo . --snapshot-dir data/official-docs/2026-11-17-sdk-product-main",
+  "checks": [
+    {
+      "kind": "Check",
+      "result": {
+        "reviewed_sources": 8,
+        "reviewed_observations": 16,
+        "reused_offline_cases": 8,
+        "live_checks": 0
+      },
+      "local_execution_receipt_sha256": "5a075309460b3b188fed1fde388de42d646f090adc36b112648d30ab03d1401f"
+    },
+    {
+      "kind": "Faults",
+      "result": {
+        "positive": 1,
+        "rejected": 13,
+        "negative_cases": [
+          "body SHA",
+          "wrong request element",
+          "conditional general level",
+          "exposure unit",
+          "wrong document error code",
+          "swapped wire reference",
+          "live status upgraded",
+          "foreign acceptance case",
+          "placeholder treated as value",
+          "GET selector changed",
+          "wrong response field type",
+          "incomplete source observations",
+          "missing acceptance result"
+        ],
+        "real_api_calls": 0
+      },
+      "local_execution_receipt_sha256": "cbaf0ea6f6ae54b4c661c7e27d560234663849cbbc04c77ba1c554cd79915bd2"
+    },
+    {
+      "kind": "Lint",
+      "result": "All checks passed!",
+      "local_execution_receipt_sha256": "577d3f200fbdbe0d4739da429defe8c47ad495a0df956bd235d1580fbf4dcc45"
+    }
+  ],
+  "scope": "来源复核与已登记证据的关联检查，没有新平台请求或新增业务验收。"
+}
