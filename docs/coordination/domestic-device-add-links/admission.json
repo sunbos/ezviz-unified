@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "de6ab780df66a86c4b7686bab42d00999dcbf4c3",
+  "scope_revision": "2026-11-20-r43-domestic-device-add-links",
+  "operations": [
+    {
+      "operation_id": "cn.device_add_links.create",
+      "capability_id": "candidate:domestic:2846:d0",
+      "name": "create",
+      "entry": "device_add_links.create",
+      "doc_id": "2846",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-2846-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-2846-D0-LIVE-001"
+      ],
+      "signatures": {
+        "DeviceAddLinks": "def create(self, expire_days: int, *, note: str | None = None) -> ApiResponse",
+        "AsyncDeviceAddLinks": "async def create(self, expire_days: int, *, note: str | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/2846",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/2846.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/2846.structure.json",
+      "html_sha256": "9c33942fc519a8aa68443d10b3828b01a5ac2967bf9538842e6db1a791cbd383",
+      "method": "POST",
+      "path": "/api/service/device/add/tokenUrl",
+      "read_only": false,
+      "permission": "国内开发者账号访问令牌；资料未确认个人余额、企业套餐、托管或子账号等同于开发者资格。",
+      "unknown": "成功只证明平台返回一个设备添加入口。未说明幂等、撤销、使用次数或客户后续绑定结果。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3",
+          "constant": "application/json"
+        },
+        {
+          "name": "expireTime",
+          "location": "body",
+          "type": "Integer",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "note",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R5"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 49,
+        "example": 53,
+        "fields": 57,
+        "errors": 90
+      }
+    },
+    {
+      "operation_id": "cn.device_add_links.records",
+      "capability_id": "candidate:domestic:2847:d0",
+      "name": "records",
+      "entry": "device_add_links.records",
+      "doc_id": "2847",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-2847-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-2847-D0-LIVE-001"
+      ],
+      "signatures": {
+        "DeviceAddLinks": "def records(self, *, device_serial: str | None = None, cursor: str | None = None, page_size: int = 10) -> ApiResponse",
+        "AsyncDeviceAddLinks": "async def records(self, *, device_serial: str | None = None, cursor: str | None = None, page_size: int = 10) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/2847",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/2847.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/2847.structure.json",
+      "html_sha256": "15250bf41c9ff176001562ed1389dd7ee616d25563e37eb1319fa78a165162d0",
+      "method": "GET",
+      "path": "/api/service/device/add/tokenNote",
+      "read_only": true,
+      "permission": "国内开发者账号访问令牌；资料未确认个人余额、企业套餐、托管或子账号等同于开发者资格。",
+      "unknown": "设备筛选和游标均为可选，未声明同时传入时的优先级或互斥。末行 id 为整数；下次请求 id 的声明类型为字符串。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "id",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "default": "0",
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "pageSize",
+          "location": "query",
+          "type": "Integer",
+          "required": false,
+          "default": 10,
+          "evidence": "E14/R5"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 49,
+        "example": 53,
+        "fields": 57,
+        "errors": 106
+      }
+    },
+    {
+      "operation_id": "cn.device_add_links.list",
+      "capability_id": "candidate:domestic:2848:d0",
+      "name": "list",
+      "entry": "device_add_links.list",
+      "doc_id": "2848",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-2848-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-2848-D0-LIVE-001"
+      ],
+      "signatures": {
+        "DeviceAddLinks": "def list(self, *, cursor: str | None = None, page_size: int = 10) -> ApiResponse",
+        "AsyncDeviceAddLinks": "async def list(self, *, cursor: str | None = None, page_size: int = 10) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/2848",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/2848.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/2848.structure.json",
+      "html_sha256": "dde22f8f35c88b8cecd16ca33d08e392e357e2345f8caa37148164a17d563bd5",
+      "method": "GET",
+      "path": "/api/service/device/add/tokenUrls",
+      "read_only": true,
+      "permission": "国内开发者账号访问令牌；资料未确认个人余额、企业套餐、托管或子账号等同于开发者资格。",
+      "unknown": "返回的过期时间是毫秒时间戳。url 表列字符串但示例也含 null；不从 expired 推定 url 是否一定存在。未声明总量、排序稳定性或独立下一页游标。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "id",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "default": "0",
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "pageSize",
+          "location": "query",
+          "type": "Integer",
+          "required": false,
+          "default": 10,
+          "evidence": "E14/R4"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 43,
+        "example": 47,
+        "fields": 51,
+        "errors": 100
+      }
+    }
+  ],
+  "sdk_choices": [
+    "三个入口仅支持国内。签发时以 expire_days 映射 JSON 整数 expireTime，1–7 天；note 省略或显式 UTF-8 字符串最多 256 个 Unicode 字符，允许空串，不规范化。签发写操作不重放、不查询、不打开或发送。",
+    "两种 GET 均单页。cursor=None 省略 id，采用平台默认起点；显式非空 UTF-8 字符串原样提交。pageSize 默认 10，允许 1..50，整数排除 bool。records 的 device_serial 只放 header，复用现有 ASCII header 校验，提供筛选和游标时都发送。list 无设备参数。两者继承受控只读刷新，绝不自动翻页。",
+    "成功码为根层 meta.code 的整数 200。创建返回 data 对象和非空字符串 url，其余两项返回对象数组（包括空页）；保留原始行和未知字段。若返回 id，records 要求整数、list 要求字符串；可选毫秒时间为整数，list 的 expired 若存在为布尔，url 若存在可为字符串或 null。SDK 不下载、打开或判断链接是否能完成绑定。",
+    "授权链接、备注和游标可能含私密信息。新增默认关闭的 ResponsePolicy.redact_device_add_details 仅由这三项启用。为避免回显平台生成的值，非空业务自由文本统一呈现 ***；保留原始成功 data/raw，整数码不变。字符串码只透出协议及公共分类的固定白名单（200、400、403、404、500、10002、10031），其余字符串码遮盖。分类仍用原始码，旧策略与诊断白名单不变。",
+    "归属于本业务请求的标准 HTTPX INFO 保留方法、无查询的路径和状态，遮盖服务端 reason phrase；不改其他 HTTPX 请求或应用主动记录 raw 的行为。CLI 只做一次显式 records 或 list 查询并输出行数；无签发、无自动遍历、无敏感值输出。"
+  ],
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "live": "本批只进行合成验证。开发者资格不能由余额推断；签发和实际查询需另行核准。"
+}
