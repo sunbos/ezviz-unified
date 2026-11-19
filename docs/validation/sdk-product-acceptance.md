@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 海外设备上线事件
+
+已验证 1000007 教程中的上线通知经本机真实 HTTP 投递、签名校验、ACK 和应用取件的完整链路。四连接回归分别检查首次受理、原样重复、同 ID 不同字节和错误签名。平台消息服务开通、外部回调、真实设备触发和海外投递保留在 `ACC-WEBHOOK-PLATFORM-OS-001` 等平台案例中。[本地示例](../webhook-receiver.md#海外设备上线事件) · [离线记录](2026-11-20-overseas-device-online-event/offline.json)
+
 ## 海外设备告警音模式
 
 已用模拟传输验证同步、异步查询和只读 CLI。SDK 使用海外令牌的区域业务地址，按 3726 展示的 body 包络读取整数模式。CLI 只回显文档明确说明的三个值。该离线记录不能证明真实设备当前配置、线上包络或实际发声。新加坡首台设备的既有回执覆盖型号、在线状态和通道，3726 查询单独登记。[冻结范围](../coordination/overseas-alarm-sound-mode/admission.json) · [离线记录](2026-11-20-overseas-alarm-sound-mode/offline.json)

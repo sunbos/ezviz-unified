@@ -26319,21 +26319,34 @@
       "pending_questions": [
         "is_device_online(message) 只对已投递的匹配事件作类型判断，不能证明消息已验签、设备仍在线或真实平台身份；其余消息由通用接收器正常处理。真实账号开通、配置、测试消息、真实设备上报和恢复继续由独立平台验收案例覆盖。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "等待本候选的专项本地验收。"
+      "code_artifact_evidence_refs": [
+        "examples/overseas_device_online.py",
+        "tests/test_example_overseas_device_online.py",
+        "docs/webhook-receiver.md",
+        "README.md",
+        "src/ezviz_unified/webhooks.py",
+        "examples/webhook_receiver.py",
+        "examples/_webhook_receiver.py",
+        "tests/test_webhook_receiver_http.py",
+        "tests/test_webhook_receiver_core.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
       ],
       "criterion_assessment": {
-        "SOURCE": "pending",
-        "SIGNED_HTTP": "pending",
-        "DELIVERY_AND_ACK": "pending",
-        "APPLICATION_USAGE": "pending",
-        "PRIVACY_AND_LIFECYCLE": "pending"
-      }
+        "SOURCE": "met",
+        "SIGNED_HTTP": "met",
+        "DELIVERY_AND_ACK": "met",
+        "APPLICATION_USAGE": "met",
+        "PRIVACY_AND_LIFECYCLE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "333a82a036ca71a17473ac10a4373067fb45d9c3",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-overseas-device-online-event/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-3722-D0-OFFLINE-001",
