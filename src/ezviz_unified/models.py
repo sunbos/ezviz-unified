@@ -61,6 +61,9 @@ class ResponsePolicy:
     redact_query_identifiers is an opt-in: collect the standard encodings of
     the private streamId/recordSpaceId values, only for explicitly opted-in
     requests.
+    When enabled, redact_registration_fields masks submitted and known
+    registration fields in rendered messages and standard SDK logs while
+    leaving data/raw intact.
     """
 
     code_path: str = "code"
@@ -75,6 +78,7 @@ class ResponsePolicy:
     redact_message_urls: bool = False
     redact_media_urls: bool = False
     redact_query_identifiers: bool = False
+    redact_registration_fields: bool = False
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "envelope_paths", _normalize_envelope_paths(self.envelope_paths))
@@ -106,6 +110,8 @@ class ResponsePolicy:
             raise ValueError("redact_media_urls must be a bool")
         if not isinstance(self.redact_query_identifiers, bool):
             raise ValueError("redact_query_identifiers must be a bool")
+        if not isinstance(self.redact_registration_fields, bool):
+            raise ValueError("redact_registration_fields must be a bool")
         if self.require_device_code and not self.device_code_path:
             raise ValueError("require_device_code needs device_code_path to be set")
         if self.device_message_path and not self.device_code_path:

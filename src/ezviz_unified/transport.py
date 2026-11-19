@@ -13,7 +13,7 @@ from urllib.parse import quote, quote_plus, urlsplit
 import httpx
 
 from ._request_values import _JsonNull
-from .errors import _SENSITIVE_KEYS, TransportError, redact
+from .errors import _SENSITIVE_KEYS, TransportError, _registration_secrets, redact
 from .models import ApiResponse, ResponsePolicy
 from .response import decode_response
 
@@ -43,11 +43,17 @@ class _SdkRedactionContext:
     while media-URL masking applies and is released on ``invalidate``.
     """
 
-    __slots__ = ("secrets", "mask_media_urls", "request_url", "active")
+    __slots__ = ("secrets", "mask_media_urls", "request_url", "active", "mask_registration_fields")
 
-    def __init__(self, secrets: tuple[str, ...], mask_media_urls: bool) -> None:
+    def __init__(
+        self,
+        secrets: tuple[str, ...],
+        mask_media_urls: bool,
+        mask_registration_fields: bool = False,
+    ) -> None:
         self.secrets = secrets
         self.mask_media_urls = mask_media_urls
+        self.mask_registration_fields = bool(mask_registration_fields)
         self.request_url: httpx.URL | None = None
         self.active = True
 
@@ -86,17 +92,24 @@ class _SdkRedactionFilter(logging.Filter):
             return True
         args = record.args
         if (
-            redaction.mask_media_urls
-            and isinstance(args, tuple)
+            isinstance(args, tuple)
             and len(args) == 5
             and isinstance(args[0], str)
             and isinstance(args[1], httpx.URL)
             and isinstance(args[2], str)
             and isinstance(args[3], int)
             and isinstance(args[4], str)
-            and args[1] is not redaction.request_url
         ):
-            return True
+            if (redaction.mask_media_urls or redaction.mask_registration_fields) and args[
+                1
+            ] is not redaction.request_url:
+                return True
+            if redaction.mask_registration_fields:
+                # Owned registration record: the server-controlled reason
+                # phrase is free text that may carry data outside the
+                # collected secrets, so it is blanked outright; method,
+                # URL, http_version and status continue into normal redact.
+                record.args = (*args[:4], "***")
         record.msg = redact(
             record.getMessage(),
             redaction.secrets,
@@ -123,7 +136,7 @@ def _capture_request_url(request: httpx.Request) -> None:
     if (
         redaction is not None
         and redaction.active
-        and redaction.mask_media_urls
+        and (redaction.mask_media_urls or redaction.mask_registration_fields)
         and redaction.request_url is None
     ):
         redaction.request_url = request.url
@@ -360,9 +373,16 @@ class SyncTransport:
                 secrets=base_secrets,
             )
         all_secrets = _augment_query_secrets(base_secrets, params, policy)
+        mask_registration_fields = policy is not None and policy.redact_registration_fields
+        if mask_registration_fields:
+            all_secrets = _registration_secrets(all_secrets, params, data)
         content, json_body, bound_headers = _split_body(json, headers)
         mask_media_urls = policy is not None and policy.redact_media_urls
-        context = _SdkRedactionContext(all_secrets, mask_media_urls)
+        context = _SdkRedactionContext(
+            all_secrets,
+            mask_media_urls,
+            mask_registration_fields=mask_registration_fields,
+        )
         marker = _SDK_REDACTION.set(context)
         response: httpx.Response | None = None
         failure: str | None = None
@@ -463,9 +483,16 @@ class AsyncTransport:
                 secrets=base_secrets,
             )
         all_secrets = _augment_query_secrets(base_secrets, params, policy)
+        mask_registration_fields = policy is not None and policy.redact_registration_fields
+        if mask_registration_fields:
+            all_secrets = _registration_secrets(all_secrets, params, data)
         content, json_body, bound_headers = _split_body(json, headers)
         mask_media_urls = policy is not None and policy.redact_media_urls
-        context = _SdkRedactionContext(all_secrets, mask_media_urls)
+        context = _SdkRedactionContext(
+            all_secrets,
+            mask_media_urls,
+            mask_registration_fields=mask_registration_fields,
+        )
         marker = _SDK_REDACTION.set(context)
         response: httpx.Response | None = None
         failure: str | None = None

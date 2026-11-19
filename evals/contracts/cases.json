@@ -6223,6 +6223,158 @@
         "address": "rtmp://stream.invalid/demo/synthetic",
         "extra": true
       }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.open_project",
+      "args": [
+        "tiandy"
+      ],
+      "kwargs": {},
+      "path_fields": {
+        "protocolType": "tiandy"
+      },
+      "fields": {},
+      "data": {
+        "productKey": "TEST-PRODUCT",
+        "createTime": 7,
+        "extra": true
+      }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.get_project",
+      "args": [
+        "tiandy"
+      ],
+      "kwargs": {},
+      "path_fields": {
+        "protocolType": "tiandy"
+      },
+      "fields": {},
+      "data": {
+        "productKey": "TEST-PRODUCT",
+        "createTime": 7,
+        "dasDomain": "example.invalid",
+        "dasPort": 8000,
+        "extra": true
+      }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.apply_device",
+      "args": [
+        "tiandy",
+        "Fixture name"
+      ],
+      "kwargs": {
+        "device_password": "TestOnly9",
+        "device_username": "TestUser9",
+        "device_code": "FIXCODE",
+        "channel_count": 0
+      },
+      "path_fields": {
+        "protocolType": "tiandy"
+      },
+      "fields": {
+        "deviceName": "Fixture name",
+        "deviceLicense": "TestOnly9",
+        "deviceUserName": "TestUser9",
+        "deviceCode": "FIXCODE",
+        "channelCount": 0
+      },
+      "data": {
+        "deviceSerial": "FixtureDevice"
+      }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.apply_batch",
+      "args": [
+        "tiandy"
+      ],
+      "kwargs": {
+        "device_codes": [
+          "F1",
+          "F2"
+        ],
+        "channel_count": 1
+      },
+      "path_fields": {
+        "protocolType": "tiandy"
+      },
+      "fields": {
+        "deviceCode": "F1,F2",
+        "channelCount": 1
+      },
+      "data": {
+        "taskId": 431
+      }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.get_task",
+      "args": [
+        "tiandy",
+        431
+      ],
+      "kwargs": {},
+      "path_fields": {
+        "protocolType": "tiandy"
+      },
+      "fields": {
+        "taskId": 431
+      },
+      "data": {
+        "taskId": 431,
+        "status": 10,
+        "deviceCount": 1,
+        "createTime": 7
+      }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.list_devices",
+      "args": [
+        "tiandy"
+      ],
+      "kwargs": {
+        "device_serial": "FixtureDevice",
+        "task_id": 431
+      },
+      "path_fields": {
+        "protocolType": "tiandy"
+      },
+      "fields": {
+        "deviceSerial": "FixtureDevice",
+        "taskId": 431,
+        "startIndex": 0,
+        "pageSize": 10
+      },
+      "data": {
+        "data": [
+          {
+            "deviceSerial": "FixtureDevice",
+            "extra": true
+          }
+        ],
+        "nextIndex": null,
+        "pageSize": 10
+      }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.edit_device",
+      "args": [
+        "tiandy",
+        "FixtureDevice"
+      ],
+      "kwargs": {
+        "device_name": "Fixture rename",
+        "device_username": "TestUser2"
+      },
+      "path_fields": {
+        "protocolType": "tiandy"
+      },
+      "fields": {
+        "deviceSerial": "FixtureDevice",
+        "deviceName": "Fixture rename",
+        "deviceUserName": "TestUser2"
+      },
+      "data": null
     }
   ]
 }

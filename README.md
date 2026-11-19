@@ -227,6 +227,29 @@ direction = {"x1": "0.0", "y1": "0.0", "x2": "0.5", "y2": "0.0"}
 
 写接口已在 SDK 实现但不自动重放（含 `10002`、超时、`60022`），成功应答允许缺 `data`。恢复差异：`switch_status`（688）不接受 `channelNo`，而 `set_switch`（689）可带可选通道；`get_config`（693）返回同一目标（设备+通道）当前的 `line`/`direction`，写前可先读取旧几何作为恢复依据。设备须支持客流统计。子账户读取使用 `Get`、设置使用 `Config`。688/689 声明设备级 `dev` 资源，690–693 声明通道级 `Cam` 资源。当前验收为离线模拟。真实配置须另行指定设备、目标通道、写入范围和可核实的恢复方法。[客流开关设置](https://open.ys7.com/help/689) [客流配置读取](https://open.ys7.com/help/693)
 
+## 国内企业第三方协议接入
+
+官方快速入门要求国内账号已购买企业版。每个账号按协议开通项目。同步客户端使用 `client.third_party_protocols`，异步客户端使用 `await async_client.third_party_protocols.…`。协议类型为 `dhreg`、`tiandy`、`huawei` 或 `jt808`。完整签名、参数和资料差异见[冻结契约](docs/coordination/domestic-third-party-protocols/admission.json)及[官方快速入门](https://open.ys7.com/help/5322)。
+
+| 方法 | 用户可获得的结果和边界 |
+|---|---|
+| [`open_project(protocol)`](https://open.ys7.com/help/5364) | 按协议开通项目，返回项目标识与创建时间。该 POST 要求表单类型请求头，业务正文为空。重复开通和撤销的效果未说明。 |
+| [`get_project(protocol)`](https://open.ys7.com/help/5365) | 查询项目及接入地址。端口在字段表为字符串、示例为整数；SDK 保留原值，不连接返回的地址。 |
+| [`apply_device(protocol, device_name, …)`](https://open.ys7.com/help/5366) | 单台申请成功后从 `response.data["deviceSerial"]` 取得序列号。设备仍需配置并完成注册，才能确认在线。 |
+| [`apply_batch(protocol, …)`](https://open.ys7.com/help/5367) | 按数量或设备编码序列申请，返回整数 `taskId`。批量上限 300；提供编码时按编码数量提交。只有平台接受申请才能获得任务 ID。 |
+| [`get_task(protocol, task_id)`](https://open.ys7.com/help/5368) | 查看申请结果。状态 9 表示成功；状态 10 时，成功数 `deviceCount` 等于 0 表示全部失败，大于 0 表示部分成功。其他状态原样保留。 |
+| [`list_devices(protocol, …)`](https://open.ys7.com/help/5369) | 查询一页注册设备。行数组位于 `response.data["data"]`。页大小 1–50，默认 10；如要继续，显式传入平台返回的 `nextIndex` 作为下一次 `start_index`。返回 `null` 表示末页。 |
+| [`edit_device(protocol, device_serial, …)`](https://open.ys7.com/help/5370) | 修改指定设备的注册信息。设备名称见于功能说明和示例，正式参数表未列；仅设置 `device_name` 时才发送该字段。更换凭据可能中断真实设备的接入。 |
+
+三项申请或修改接口的正式参数表使用表单正文，官方 cURL 示例却把部分字段放入 query。SDK 只按表单提交。访问令牌放入请求头。显式提供的 `device_password` 对应 `deviceLicense`，`device_username` 对应 `deviceUserName`。非 JT808 的单申请需要二者，JT808 单申请不填二者。批申请允许省略或传空，显式指定的凭据可能用于整批。JT808 的车牌和颜色必须成对提供，批量列表按调用方给定的顺序提交。能否指定设备编码取决于项目的协议能力。四项写操作不会自动重发；三项只读调用收到令牌过期码 `10002` 时，可刷新的令牌提供方最多刷新并重试一次。
+
+单页注册设备数据可能含设备密码和车辆信息。成功回执的 `.data` 和 `.raw` 供有权限的应用显式使用，请勿将它们整体写入日志。以下示例在本机配置 `EZVIZ_REGION=domestic`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET` 后只发起一次逻辑项目查询，终端仅显示地区、模式、协议和结果状态。
+
+```bash
+python -m examples.third_party_project --mode sync --protocol tiandy
+python -m examples.third_party_project --mode async --protocol tiandy
+```
+
 ## 国内云直播流管理
 
 同步客户端通过 `client.live_streams` 调用，异步客户端通过 `await async_client.live_streams.…` 调用。访问令牌由 SDK 放入请求头。国内主机为 `open.ys7.com`；修改、删除、启停及推流记录四页只给出相对路径，主机依据同组绝对地址核定。完整签名、参数位置及来源差异见[接口清单](docs/coordination/domestic-live-streams/admission.json)。

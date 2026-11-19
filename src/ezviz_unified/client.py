@@ -65,6 +65,7 @@ from .settings import AsyncSettings, Settings
 from .snapshots import AsyncSnapshots, Snapshots
 from .storage import AsyncStorage, Storage
 from .subaccounts import AsyncSubaccounts, Subaccounts
+from .third_party_protocols import AsyncThirdPartyProtocols, ThirdPartyProtocols
 from .traffic import AsyncTraffic, Traffic
 from .transport import AsyncTransport, ParamMapping, SyncTransport
 from .video import AsyncVideo, Video
@@ -346,6 +347,7 @@ class Client:
         self.hubs = Hubs(self)
         self.live_limits = LiveLimits(self)
         self.live_streams = LiveStreams(self)
+        self.third_party_protocols = ThirdPartyProtocols(self)
         self.osd = Osd(self)
         self.passenger_flow = PassengerFlow(self)
         self.traffic = Traffic(self)
@@ -674,6 +676,7 @@ class AsyncClient:
         self.hubs = AsyncHubs(self)
         self.live_limits = AsyncLiveLimits(self)
         self.live_streams = AsyncLiveStreams(self)
+        self.third_party_protocols = AsyncThirdPartyProtocols(self)
         self.osd = AsyncOsd(self)
         self.passenger_flow = AsyncPassengerFlow(self)
         self.traffic = AsyncTraffic(self)

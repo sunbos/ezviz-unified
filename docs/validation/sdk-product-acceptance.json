@@ -14700,13 +14700,15 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:5364:d0",
+      "capability_selector": "third_party_protocols.open_project",
       "capability_ids": [
         "candidate:domestic:5364:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.third_party_protocols.open_project"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -14716,37 +14718,51 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "已钉住的官方资料；合成数据与有界模拟传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求开通指定三方协议的设备接入服务”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "两个模式校验路径、字段位置/条件、响应层级、错误、重放边界、诊断和示例。",
+        "write": "只通过模拟传输检查写行为及隐私。",
+        "physical": "不访问网络、返回的服务器、车辆或设备。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/88"
+        "docs/coordination/SP088/scenario-input.json#/entries/88",
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5364.source.json"
       ],
       "pending_questions": [
-        "protocolType的取值集合与开通粒度（项目级/账号级）如何？",
-        "开通是即时生效还是异步申请-生效流程？"
+        "开通一个账号下的指定协议项目。明确要求 form Content-Type，示例没有业务正文。未说明重复开通、撤销或计费影响。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_applications.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
       ]
     },
     {
@@ -14754,13 +14770,15 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:5365:d0",
+      "capability_selector": "third_party_protocols.get_project",
       "capability_ids": [
         "candidate:domestic:5365:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.third_party_protocols.get_project"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -14770,37 +14788,53 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "已钉住的官方资料；合成数据与有界模拟传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求查询已开通的三方协议接入服务”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "两个模式校验路径、字段位置/条件、响应层级、错误、重放边界、诊断和示例。",
+        "write": "只通过模拟传输检查写行为及隐私。",
+        "physical": "不访问网络、返回的服务器、车辆或设备。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/89"
+        "docs/coordination/SP088/scenario-input.json#/entries/89",
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5365.source.json"
       ],
       "pending_questions": [
-        "返回是某protocolType下的服务状态还是全部已开通协议列表？",
-        "与服务开通操作是否构成同一资源的读写对？"
+        "返回接入域/端口及项目标识。端口表为 String、示例为整数；保留原值，不主动连接。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_protocols.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json",
+        "examples/third_party_project.py",
+        "tests/test_example_third_party_project.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
       ]
     },
     {
@@ -14808,13 +14842,15 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:5366:d0",
+      "capability_selector": "third_party_protocols.apply_device",
       "capability_ids": [
         "candidate:domestic:5366:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.third_party_protocols.apply_device"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -14824,37 +14860,51 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "已钉住的官方资料；合成数据与有界模拟传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求申请单个三方协议设备的接入License”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "两个模式校验路径、字段位置/条件、响应层级、错误、重放边界、诊断和示例。",
+        "write": "只通过模拟传输检查写行为及隐私。",
+        "physical": "不访问网络、返回的服务器、车辆或设备。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/90"
+        "docs/coordination/SP088/scenario-input.json#/entries/90",
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5366.source.json"
       ],
       "pending_questions": [
-        "申请入参标识与返回内容如何？",
-        "与批量申请是否共享同一License额度池？"
+        "正式参数表为 form，E84 示例将若干字段放入 query。采用表单。E3 说非必填为保留字段，E14 又列协议条件与默认值。返回设备序列号并不证明设备已注册上线。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_applications.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
       ]
     },
     {
@@ -14862,13 +14912,15 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:5367:d0",
+      "capability_selector": "third_party_protocols.apply_batch",
       "capability_ids": [
         "candidate:domestic:5367:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.third_party_protocols.apply_batch"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -14878,37 +14930,51 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "已钉住的官方资料；合成数据与有界模拟传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求批量申请三方协议设备接入License”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "两个模式校验路径、字段位置/条件、响应层级、错误、重放边界、诊断和示例。",
+        "write": "只通过模拟传输检查写行为及隐私。",
+        "physical": "不访问网络、返回的服务器、车辆或设备。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/91"
+        "docs/coordination/SP088/scenario-input.json#/entries/91",
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5367.source.json"
       ],
       "pending_questions": [
-        "批量申请是否为异步任务并经任务查询获取结果？",
-        "批量上限与部分失败语义如何？"
+        "表单与 E84 query 示例存在冲突。批申请只返回 taskId。可选凭据的空值与省略可能由平台生成；提供值可能用于整批。429 表示勿重复提交。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_applications.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
       ]
     },
     {
@@ -14916,13 +14982,15 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:5368:d0",
+      "capability_selector": "third_party_protocols.get_task",
       "capability_ids": [
         "candidate:domestic:5368:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.third_party_protocols.get_task"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -14932,37 +15000,51 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "已钉住的官方资料；合成数据与有界模拟传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求查询批量申请设备License的任务结果”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "两个模式校验路径、字段位置/条件、响应层级、错误、重放边界、诊断和示例。",
+        "write": "只通过模拟传输检查写行为及隐私。",
+        "physical": "不访问网络、返回的服务器、车辆或设备。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/92"
+        "docs/coordination/SP088/scenario-input.json#/entries/92",
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5368.source.json"
       ],
       "pending_questions": [
-        "任务标识是否来自批量申请响应？",
-        "结果明细粒度（成功/失败逐条）如何？"
+        "9 为成功；10 且成功数为 0 为全部失败，10 且成功数大于 0 为部分成功。其他状态保留；任务确认不证明设备在线。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_protocols.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
       ]
     },
     {
@@ -14970,13 +15052,15 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:5369:d0",
+      "capability_selector": "third_party_protocols.list_devices",
       "capability_ids": [
         "candidate:domestic:5369:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.third_party_protocols.list_devices"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -14986,37 +15070,51 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "已钉住的官方资料；合成数据与有界模拟传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求分页查询三方协议接入的设备信息”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "两个模式校验路径、字段位置/条件、响应层级、错误、重放边界、诊断和示例。",
+        "write": "只通过模拟传输检查写行为及隐私。",
+        "physical": "不访问网络、返回的服务器、车辆或设备。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/93"
+        "docs/coordination/SP088/scenario-input.json#/entries/93",
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5369.source.json"
       ],
       "pending_questions": [
-        "查询范围是否仅限该protocolType下已接入设备？",
-        "与通用设备列表查询在字段与口径上的差异如何？"
+        "startIndex 排除该条记录，默认 0；pageSize 为 1–50。下页用原 nextIndex，null 表示结束，缺键未证明终止。颜色示例整数、表为 String。行中可能含私密设备注册信息。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_protocols.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
       ]
     },
     {
@@ -15024,13 +15122,15 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:5370:d0",
+      "capability_selector": "third_party_protocols.edit_device",
       "capability_ids": [
         "candidate:domestic:5370:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.third_party_protocols.edit_device"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
       "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
@@ -15040,37 +15140,51 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "已钉住的官方资料；合成数据与有界模拟传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求修改三方协议设备的名称和密码”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "两个模式校验路径、字段位置/条件、响应层级、错误、重放边界、诊断和示例。",
+        "write": "只通过模拟传输检查写行为及隐私。",
+        "physical": "不访问网络、返回的服务器、车辆或设备。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/94"
+        "docs/coordination/SP088/scenario-input.json#/entries/94",
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5370.source.json"
       ],
       "pending_questions": [
-        "'密码'指设备接入凭证还是平台侧管理口令？",
-        "修改对象是License记录还是设备实体，是否影响已接入设备？"
+        "E3 与 E72 支持 deviceName，E14 正式表未列；SDK 仅在显式给定名称时随其他字段一并送表单。E72 将敏感字段放 query，SDK 不采用、不自动换传输方式。成功示例 data=null。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/third_party_protocols.py",
+        "src/ezviz_unified/third_party_models.py",
+        "tests/test_sdk_third_party_applications.py",
+        "tests/test_sdk_registration_privacy.py",
+        "tests/test_sdk_registration_boundaries.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "5509e43240ebf69bc06d58d498f43d68ca80c442",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-third-party-protocols/offline.json"
       ]
     },
     {
@@ -33574,6 +33688,356 @@
       ],
       "limitations": [
         "E0 标题 GET，E11 和 E73 均为 POST 表单。签发地址的副作用及重签语义未知，两种地址均不自动重放或访问。type=2、expireTime 适用于 RTMP 接入流，不从播放协议推断接入方式。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5364-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_third_party_protocols",
+      "capability_selector": "third_party_protocols.open_project",
+      "capability_ids": [
+        "candidate:domestic:5364:d0"
+      ],
+      "operation_ids": [
+        "cn.third_party_protocols.open_project"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "device_requirements": "需企业协议服务及对应的项目/测试任务或设备资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "确定企业服务、具体资源、次数与访问范围。",
+        "先确认开通及费用影响，尚无文档证明可撤销。"
+      ],
+      "expected_evidence": {
+        "read": "只保留次数、类型和状态，几项凭据与车辆信息不得进入回执。",
+        "write": "先确认开通及费用影响，尚无文档证明可撤销。",
+        "physical": "平台回执不等于设备成功注册、上线或已恢复。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "先确认开通及费用影响，尚无文档证明可撤销。",
+      "source_refs": [
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5364.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "企业订阅和项目尚未确认，真实范围未获批准。"
+      ],
+      "limitations": [
+        "开通一个账号下的指定协议项目。明确要求 form Content-Type，示例没有业务正文。未说明重复开通、撤销或计费影响。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5365-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_third_party_protocols",
+      "capability_selector": "third_party_protocols.get_project",
+      "capability_ids": [
+        "candidate:domestic:5365:d0"
+      ],
+      "operation_ids": [
+        "cn.third_party_protocols.get_project"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "device_requirements": "需企业协议服务及对应的项目/测试任务或设备资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "确定企业服务、具体资源、次数与访问范围。",
+        "只读，保持账号/设备配置不变。"
+      ],
+      "expected_evidence": {
+        "read": "只保留次数、类型和状态，几项凭据与车辆信息不得进入回执。",
+        "write": "只读，保持账号/设备配置不变。",
+        "physical": "平台回执不等于设备成功注册、上线或已恢复。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，保持账号/设备配置不变。",
+      "source_refs": [
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5365.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "企业订阅和项目尚未确认，真实范围未获批准。"
+      ],
+      "limitations": [
+        "返回接入域/端口及项目标识。端口表为 String、示例为整数；保留原值，不主动连接。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5366-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_third_party_protocols",
+      "capability_selector": "third_party_protocols.apply_device",
+      "capability_ids": [
+        "candidate:domestic:5366:d0"
+      ],
+      "operation_ids": [
+        "cn.third_party_protocols.apply_device"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "device_requirements": "需企业协议服务及对应的项目/测试任务或设备资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "确定企业服务、具体资源、次数与访问范围。",
+        "使用可弃的专用测试项，先确定额度与清理路径；超时不重复下单。"
+      ],
+      "expected_evidence": {
+        "read": "只保留次数、类型和状态，几项凭据与车辆信息不得进入回执。",
+        "write": "使用可弃的专用测试项，先确定额度与清理路径；超时不重复下单。",
+        "physical": "平台回执不等于设备成功注册、上线或已恢复。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "使用可弃的专用测试项，先确定额度与清理路径；超时不重复下单。",
+      "source_refs": [
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5366.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "企业订阅和项目尚未确认，真实范围未获批准。"
+      ],
+      "limitations": [
+        "正式参数表为 form，E84 示例将若干字段放入 query。采用表单。E3 说非必填为保留字段，E14 又列协议条件与默认值。返回设备序列号并不证明设备已注册上线。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5367-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_third_party_protocols",
+      "capability_selector": "third_party_protocols.apply_batch",
+      "capability_ids": [
+        "candidate:domestic:5367:d0"
+      ],
+      "operation_ids": [
+        "cn.third_party_protocols.apply_batch"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "device_requirements": "需企业协议服务及对应的项目/测试任务或设备资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "确定企业服务、具体资源、次数与访问范围。",
+        "明确批量、额度、可能部分成功及逐项清理，仅在授权测试资源上执行。"
+      ],
+      "expected_evidence": {
+        "read": "只保留次数、类型和状态，几项凭据与车辆信息不得进入回执。",
+        "write": "明确批量、额度、可能部分成功及逐项清理，仅在授权测试资源上执行。",
+        "physical": "平台回执不等于设备成功注册、上线或已恢复。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "明确批量、额度、可能部分成功及逐项清理，仅在授权测试资源上执行。",
+      "source_refs": [
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5367.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "企业订阅和项目尚未确认，真实范围未获批准。"
+      ],
+      "limitations": [
+        "表单与 E84 query 示例存在冲突。批申请只返回 taskId。可选凭据的空值与省略可能由平台生成；提供值可能用于整批。429 表示勿重复提交。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5368-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_third_party_protocols",
+      "capability_selector": "third_party_protocols.get_task",
+      "capability_ids": [
+        "candidate:domestic:5368:d0"
+      ],
+      "operation_ids": [
+        "cn.third_party_protocols.get_task"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "device_requirements": "需企业协议服务及对应的项目/测试任务或设备资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "确定企业服务、具体资源、次数与访问范围。",
+        "只读，保持账号/设备配置不变。"
+      ],
+      "expected_evidence": {
+        "read": "只保留次数、类型和状态，几项凭据与车辆信息不得进入回执。",
+        "write": "只读，保持账号/设备配置不变。",
+        "physical": "平台回执不等于设备成功注册、上线或已恢复。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，保持账号/设备配置不变。",
+      "source_refs": [
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5368.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "企业订阅和项目尚未确认，真实范围未获批准。"
+      ],
+      "limitations": [
+        "9 为成功；10 且成功数为 0 为全部失败，10 且成功数大于 0 为部分成功。其他状态保留；任务确认不证明设备在线。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5369-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_third_party_protocols",
+      "capability_selector": "third_party_protocols.list_devices",
+      "capability_ids": [
+        "candidate:domestic:5369:d0"
+      ],
+      "operation_ids": [
+        "cn.third_party_protocols.list_devices"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "device_requirements": "需企业协议服务及对应的项目/测试任务或设备资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "确定企业服务、具体资源、次数与访问范围。",
+        "只读，保持账号/设备配置不变。"
+      ],
+      "expected_evidence": {
+        "read": "只保留次数、类型和状态，几项凭据与车辆信息不得进入回执。",
+        "write": "只读，保持账号/设备配置不变。",
+        "physical": "平台回执不等于设备成功注册、上线或已恢复。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，保持账号/设备配置不变。",
+      "source_refs": [
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5369.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "企业订阅和项目尚未确认，真实范围未获批准。"
+      ],
+      "limitations": [
+        "startIndex 排除该条记录，默认 0；pageSize 为 1–50。下页用原 nextIndex，null 表示结束，缺键未证明终止。颜色示例整数、表为 String。行中可能含私密设备注册信息。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5370-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_third_party_protocols",
+      "capability_selector": "third_party_protocols.edit_device",
+      "capability_ids": [
+        "candidate:domestic:5370:d0"
+      ],
+      "operation_ids": [
+        "cn.third_party_protocols.edit_device"
+      ],
+      "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "device_requirements": "需企业协议服务及对应的项目/测试任务或设备资源。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "确定企业服务、具体资源、次数与访问范围。",
+        "明确单台专用设备、原配置与恢复授权；修改凭据可能中断注册。"
+      ],
+      "expected_evidence": {
+        "read": "只保留次数、类型和状态，几项凭据与车辆信息不得进入回执。",
+        "write": "明确单台专用设备、原配置与恢复授权；修改凭据可能中断注册。",
+        "physical": "平台回执不等于设备成功注册、上线或已恢复。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "明确单台专用设备、原配置与恢复授权；修改凭据可能中断注册。",
+      "source_refs": [
+        "docs/coordination/domestic-third-party-protocols/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5370.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "企业订阅和项目尚未确认，真实范围未获批准。"
+      ],
+      "limitations": [
+        "E3 与 E72 支持 deviceName，E14 正式表未列；SDK 仅在显式给定名称时随其他字段一并送表单。E72 将敏感字段放 query，SDK 不采用、不自动换传输方式。成功示例 data=null。"
       ]
     }
   ],

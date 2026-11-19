@@ -67,6 +67,7 @@ from .snapshots import AsyncSnapshots, Snapshots
 from .storage import AsyncStorage, Storage
 from .storage_models import StorageFileQuery
 from .subaccounts import AsyncSubaccounts, Subaccounts
+from .third_party_protocols import AsyncThirdPartyProtocols, ThirdPartyProtocols
 from .traffic import AsyncTraffic, Traffic
 from .transport import AsyncTransport, SyncTransport
 from .video import AsyncVideo, PreviewEncoding, Video, VideoSwitch
@@ -112,6 +113,7 @@ __all__ = [
     "AsyncHubs",
     "AsyncLiveLimits",
     "AsyncLiveStreams",
+    "AsyncThirdPartyProtocols",
     "AsyncOsd",
     "AsyncPassengerFlow",
     "AsyncTraffic",
@@ -158,6 +160,7 @@ __all__ = [
     "Hubs",
     "LiveLimits",
     "LiveStreams",
+    "ThirdPartyProtocols",
     "Osd",
     "PassengerFlow",
     "Traffic",

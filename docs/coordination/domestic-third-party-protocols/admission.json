@@ -1,0 +1,646 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "d79d0fb4fea13d538795da339e0d244ae14b27e2",
+  "scope_revision": "2026-11-20-r39-domestic-third-party-protocols",
+  "operations": [
+    {
+      "operation_id": "cn.third_party_protocols.open_project",
+      "capability_id": "candidate:domestic:5364:d0",
+      "name": "open_project",
+      "entry": "third_party_protocols.open_project",
+      "doc_id": "5364",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-5364-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-5364-D0-LIVE-001"
+      ],
+      "signatures": {
+        "ThirdPartyProtocols": "def open_project(self, protocol: str) -> ApiResponse",
+        "AsyncThirdPartyProtocols": "async def open_project(self, protocol: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/5364",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5364.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/5364.structure.json",
+      "html_sha256": "618d770d29e5a37dd3f017dd64e945c2682154a56cf227efeca9c65548292246",
+      "method": "POST",
+      "path": "/api/service/thirdproto/{protocolType}/project",
+      "read_only": false,
+      "projection": "project_created",
+      "permission": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "unknown": "开通一个账号下的指定协议项目。明确要求 form Content-Type，示例没有业务正文。未说明重复开通、撤销或计费影响。",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4",
+          "constant": "application/x-www-form-urlencoded"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 42,
+        "example": 46,
+        "fields": 50,
+        "errors": 78
+      }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.get_project",
+      "capability_id": "candidate:domestic:5365:d0",
+      "name": "get_project",
+      "entry": "third_party_protocols.get_project",
+      "doc_id": "5365",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-5365-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-5365-D0-LIVE-001"
+      ],
+      "signatures": {
+        "ThirdPartyProtocols": "def get_project(self, protocol: str) -> ApiResponse",
+        "AsyncThirdPartyProtocols": "async def get_project(self, protocol: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/5365",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5365.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/5365.structure.json",
+      "html_sha256": "7946dbb6aea587df8a8d4cb18ee9a514460be641517192d83e28941a0be0ef77",
+      "method": "GET",
+      "path": "/api/service/thirdproto/{protocolType}/project",
+      "read_only": true,
+      "projection": "project",
+      "permission": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "unknown": "返回接入域/端口及项目标识。端口表为 String、示例为整数；保留原值，不主动连接。",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 36,
+        "example": 40,
+        "fields": 44,
+        "errors": 80
+      }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.apply_device",
+      "capability_id": "candidate:domestic:5366:d0",
+      "name": "apply_device",
+      "entry": "third_party_protocols.apply_device",
+      "doc_id": "5366",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-5366-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-5366-D0-LIVE-001"
+      ],
+      "signatures": {
+        "ThirdPartyProtocols": "def apply_device(self, protocol: str, device_name: str, *, device_password: str | None = None, device_username: str | None = None, channel_count: int | None = None, device_code: str | None = None, vehicle_plate: str | None = None, vehicle_color: int | None = None) -> ApiResponse",
+        "AsyncThirdPartyProtocols": "async def apply_device(self, protocol: str, device_name: str, *, device_password: str | None = None, device_username: str | None = None, channel_count: int | None = None, device_code: str | None = None, vehicle_plate: str | None = None, vehicle_color: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/5366",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5366.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/5366.structure.json",
+      "html_sha256": "24f763492f32f7d9e895af42b4d27a08033b27c07b9ec2725d40a6db76cc11c6",
+      "method": "POST",
+      "path": "/api/service/thirdproto/{protocolType}/deviceLicense/apply",
+      "read_only": false,
+      "projection": "device",
+      "permission": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "unknown": "正式参数表为 form，E84 示例将若干字段放入 query。采用表单。E3 说非必填为保留字段，E14 又列协议条件与默认值。返回设备序列号并不证明设备已注册上线。",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "deviceName",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "deviceLicense",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "deviceUserName",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R7"
+        },
+        {
+          "name": "channelCount",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R8"
+        },
+        {
+          "name": "deviceCode",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R9"
+        },
+        {
+          "name": "vehicleLicensePlate",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R10"
+        },
+        {
+          "name": "vehicleLicenseColor",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R11"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 84,
+        "example": 88,
+        "fields": 92,
+        "errors": 116
+      }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.apply_batch",
+      "capability_id": "candidate:domestic:5367:d0",
+      "name": "apply_batch",
+      "entry": "third_party_protocols.apply_batch",
+      "doc_id": "5367",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-5367-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-5367-D0-LIVE-001"
+      ],
+      "signatures": {
+        "ThirdPartyProtocols": "def apply_batch(self, protocol: str, *, device_count: int | None = None, device_codes: Sequence[str] | None = None, device_password: str | None = None, device_username: str | None = None, channel_count: int | None = None, vehicle_plates: Sequence[str] | None = None, vehicle_colors: Sequence[int] | None = None) -> ApiResponse",
+        "AsyncThirdPartyProtocols": "async def apply_batch(self, protocol: str, *, device_count: int | None = None, device_codes: Sequence[str] | None = None, device_password: str | None = None, device_username: str | None = None, channel_count: int | None = None, vehicle_plates: Sequence[str] | None = None, vehicle_colors: Sequence[int] | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/5367",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5367.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/5367.structure.json",
+      "html_sha256": "cf56846d75c8e5afe19d7dd4a0d6cff725249f15312820b2e112019fba21c2cb",
+      "method": "POST",
+      "path": "/api/service/thirdproto/{protocolType}/licenses/apply",
+      "read_only": false,
+      "projection": "batch",
+      "permission": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "unknown": "表单与 E84 query 示例存在冲突。批申请只返回 taskId。可选凭据的空值与省略可能由平台生成；提供值可能用于整批。429 表示勿重复提交。",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "deviceCount",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "deviceUserName",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "deviceLicense",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R7"
+        },
+        {
+          "name": "channelCount",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R8"
+        },
+        {
+          "name": "deviceCode",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R9"
+        },
+        {
+          "name": "vehicleLicensePlate",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R10"
+        },
+        {
+          "name": "vehicleLicenseColor",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R11"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 84,
+        "example": 88,
+        "fields": 92,
+        "errors": 116
+      }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.get_task",
+      "capability_id": "candidate:domestic:5368:d0",
+      "name": "get_task",
+      "entry": "third_party_protocols.get_task",
+      "doc_id": "5368",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-5368-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-5368-D0-LIVE-001"
+      ],
+      "signatures": {
+        "ThirdPartyProtocols": "def get_task(self, protocol: str, task_id: int) -> ApiResponse",
+        "AsyncThirdPartyProtocols": "async def get_task(self, protocol: str, task_id: int) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/5368",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5368.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/5368.structure.json",
+      "html_sha256": "4407dda2ffc0098a0ccf5308d83e5ff658b8976b69f308f5cff6131295fb6a10",
+      "method": "GET",
+      "path": "/api/service/thirdproto/{protocolType}/licenses/task",
+      "read_only": true,
+      "projection": "task",
+      "permission": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "unknown": "9 为成功；10 且成功数为 0 为全部失败，10 且成功数大于 0 为部分成功。其他状态保留；任务确认不证明设备在线。",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "taskId",
+          "location": "query",
+          "type": "Long",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 42,
+        "example": 46,
+        "fields": 50,
+        "errors": 86
+      }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.list_devices",
+      "capability_id": "candidate:domestic:5369:d0",
+      "name": "list_devices",
+      "entry": "third_party_protocols.list_devices",
+      "doc_id": "5369",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-5369-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-5369-D0-LIVE-001"
+      ],
+      "signatures": {
+        "ThirdPartyProtocols": "def list_devices(self, protocol: str, *, device_serial: str | None = None, task_id: int | None = None, start_index: int = 0, page_size: int = 10) -> ApiResponse",
+        "AsyncThirdPartyProtocols": "async def list_devices(self, protocol: str, *, device_serial: str | None = None, task_id: int | None = None, start_index: int = 0, page_size: int = 10) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/5369",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5369.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/5369.structure.json",
+      "html_sha256": "3025db851cf4fe3f8f4ee3242d31319aca03cb06c2a78a233d0f8bda864c809f",
+      "method": "GET",
+      "path": "/api/service/thirdproto/{protocolType}/devices/page",
+      "read_only": true,
+      "projection": "page",
+      "permission": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "unknown": "startIndex 排除该条记录，默认 0；pageSize 为 1–50。下页用原 nextIndex，null 表示结束，缺键未证明终止。颜色示例整数、表为 String。行中可能含私密设备注册信息。",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "query",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "taskId",
+          "location": "query",
+          "type": "Long",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "startIndex",
+          "location": "query",
+          "type": "Int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "pageSize",
+          "location": "query",
+          "type": "Int",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R7"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 60,
+        "example": 64,
+        "fields": 68,
+        "errors": 140
+      }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.edit_device",
+      "capability_id": "candidate:domestic:5370:d0",
+      "name": "edit_device",
+      "entry": "third_party_protocols.edit_device",
+      "doc_id": "5370",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-5370-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-5370-D0-LIVE-001"
+      ],
+      "signatures": {
+        "ThirdPartyProtocols": "def edit_device(self, protocol: str, device_serial: str, *, device_name: str | None = None, device_password: str | None = None, device_username: str | None = None, vehicle_plate: str | None = None, vehicle_color: int | None = None) -> ApiResponse",
+        "AsyncThirdPartyProtocols": "async def edit_device(self, protocol: str, device_serial: str, *, device_name: str | None = None, device_password: str | None = None, device_username: str | None = None, vehicle_plate: str | None = None, vehicle_color: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/5370",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5370.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/5370.structure.json",
+      "html_sha256": "239222a5b6091e9e6d9a9e59edcca8929d7dae07a6bfaaf3abbb49f3421640be",
+      "method": "POST",
+      "path": "/api/service/thirdproto/{protocolType}/licenses/edit",
+      "read_only": false,
+      "projection": "ack",
+      "permission": "国内企业版开放平台账号，须有对应协议项目和所需访问权限。个人账号余额不证明企业版订阅。",
+      "unknown": "E3 与 E72 支持 deviceName，E14 正式表未列；SDK 仅在显式给定名称时随其他字段一并送表单。E72 将敏感字段放 query，SDK 不采用、不自动换传输方式。成功示例 data=null。",
+      "parameters": [
+        {
+          "name": "protocolType",
+          "location": "path",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "deviceLicense",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R6"
+        },
+        {
+          "name": "deviceUserName",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R7"
+        },
+        {
+          "name": "vehicleLicensePlate",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R8"
+        },
+        {
+          "name": "vehicleLicenseColor",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "default": null,
+          "evidence": "E14/R9"
+        }
+      ],
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 72,
+        "example": 76,
+        "fields": 80,
+        "errors": 100
+      }
+    }
+  ],
+  "sdk_choices": [
+    "协议路径仅允许 dhreg、tiandy、huawei、jt808，EHOME 未受支持。冻结路径保持 {protocolType} 原样，由 SDK path_params 在认证前绑定。",
+    "POST 均使用单个显式 form Content-Type 和 header accessToken。5364 无业务正文。5366/5367/5370 的正式 body 与示例 query 冲突，选择表单。禁止 query 回退或任何写入重放。三个 GET 复用有界的只读令牌刷新。",
+    "device_password 映射 deviceLicense，device_username 映射 deviceUserName。5366 非 JT808 要求两者，JT808 不填；5367 允许空或省略，5370 新凭据仅按显式非空值发送。提供值按 4–20 位 ASCII 字母数字校验。",
+    "设备名称在单申请中至多 50 个字符；5370 名称为 SDK 根据说明及示例的显式可选字段，使用非空 UTF-8 而不推定单申请长度限制。设备编码能力取决于配置，不隐式请求能力或给调用者生成编码。批量须有 device_count 或 device_codes；提供编码时由其数量决定，省略 deviceCount。每批 1–300 项，通道数 0–256。",
+    "批量列表接受显式 Python 序列，保留顺序并以英文逗号连接。JT808 的车牌与颜色一一对应；SDK 另校验数量与实际设备数相符。车牌只做长度 7/8 和第二位 ASCII 字母等结构检查，不制造省份/号牌字典。单项颜色整数 0–9，批量各颜色在 wire 中连接为字符串，5370 单颜色也按字符串发送。非 JT808 不接受专用车牌字段。",
+    "所有入口返回 ApiResponse，成功要求顶层 meta.code 为整数 200。项目响应检查 productKey/createTime；项目查询另查 dasDomain/dasPort 的类型；申请结果分别查字符串序列号和整数任务 ID；任务保留未知状态；分页检查 data.data 对象数组与可选游标。返回原始 data/raw 只供有权调用的应用，避免输出。",
+    "新增操作显式启用设备注册字段脱敏：请求的注册凭据、设备编码、车牌及已知字段的标准 URL 编码不得出现在 SDK 呈现错误或日志中。对已知响应位置（data 对象与 data.data 行）出现的这些私有值同样遮盖渲染消息/错误码，原始应用数据仍可访问。标准 SDK HTTPX INFO 不披露不受信的登记响应 reason phrase；应用自行输出 raw 或第三方代理日志不属于 SDK 报告。",
+    "项目查询 CLI 一次只查指定协议项目，只打印成功/模式/协议，绝不输出标识、端口、地址或设备凭据。批任务、翻页、设备注册、连接、修改和恢复均不会被隐式触发。"
+  ],
+  "related": [
+    {
+      "doc_id": "5322",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5322.source.json",
+      "source_url": "https://open.ys7.com/help/5322",
+      "content_sha256": "f2959839d6e45470c14ea71423757bcb8141ec053cd32f796ae71f3e14eac200",
+      "elements": [
+        57,
+        104,
+        105,
+        171
+      ]
+    },
+    {
+      "doc_id": "5362",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5362.source.json",
+      "source_url": "https://open.ys7.com/help/5362",
+      "content_sha256": "e37e284d3e8d500a84b9c76f35da8f37640d585bc091bba1c21253ca9719d45a",
+      "elements": [
+        57,
+        100,
+        164,
+        170
+      ]
+    },
+    {
+      "doc_id": "5371",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5371.source.json",
+      "source_url": "https://open.ys7.com/help/5371",
+      "content_sha256": "b6849fc523aa7568716e303c07df23b1c8619ac3a3f98101a8a3cb3da2cbc0b8",
+      "elements": [
+        20
+      ]
+    }
+  ],
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "live": "不执行真实企业项目开通、设备申请、列表或凭据修改。"
+}
