@@ -3195,7 +3195,7 @@
         "AsyncDevices.get_utc"
       ],
       "public_entry": "devices.get_utc",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
