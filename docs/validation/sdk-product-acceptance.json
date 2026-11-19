@@ -517,17 +517,18 @@
       "code_artifact_evidence_refs": [
         "docs/coordination/official-hls-preview/admission.json",
         "docs/official-hls-preview.md",
-        "docs/validation/2026-11-19-official-hls-preview/checks.json"
+        "docs/validation/2026-11-19-official-hls-preview/checks.json",
+        "docs/validation/2026-11-19-official-hevc-preview/checks.json"
       ],
       "result": "awaiting_design",
       "blockers": [
-        "国内 H.264 HLS 子场景已冻结；该父场景还包括未冻结的其他播放器、编解码与 RTC 集成。"
+        "H.264 与 HEVC 软件解码已分别取得本机证据。真实平台、RTC、海外与原生等范围仍需独立验收。"
       ],
       "criterion_assessment": {
         "HLS-PATH-DESIGN": "met",
         "OTHER-COMPONENT-SCOPES": "pending",
         "H264-LOCAL-BROWSER": "met",
-        "HEVC-SOFT-LOCAL": "pending"
+        "HEVC-SOFT-LOCAL": "met"
       }
     },
     {
@@ -31328,14 +31329,32 @@
         "docs/coordination/official-hls-preview/admission.json",
         "docs/capabilities/official-component-artifacts-2026-11-17.json"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "等待实际软件解码与画面验收。"
+      "code_artifact_evidence_refs": [
+        "examples/hls_preview.py",
+        "examples/hls_preview_assets/preview.js",
+        "tools/media/verify_hls.cjs",
+        "tools/media/hevc_probe.cjs",
+        "tests/test_example_hls_preview.py",
+        "docs/official-hls-preview.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "H.264、原生浏览器解码或取得 WASM 均不构成这项软解画面证据。"
-      ]
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "e8b2c7384043dbae3f26aa097b1d926a3e04dd8f",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-official-hevc-preview/checks.json"
+      ],
+      "criterion_assessment": {
+        "SDK-HEVC-TS": "met",
+        "PINNED-DECODER-ASSETS": "met",
+        "HEVC-SEGMENT": "met",
+        "VISIBLE-ORDERED-CANVAS": "met",
+        "WORKER-RELEASE": "met",
+        "FAILURE-AND-NETWORK-BOUNDARY": "met"
+      }
     },
     {
       "case_id": "ACC-MEDIA-HLS-HEVC-PLATFORM-001",
