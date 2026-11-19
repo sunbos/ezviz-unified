@@ -18,6 +18,7 @@ from .cruise import AsyncCruise, Cruise, CruisePeriod
 from .ddns import AsyncDdns, Ddns
 from .delegation import AsyncDelegation, Delegation
 from .device_algorithms import AsyncDeviceAlgorithms, DeviceAlgorithms
+from .device_voice import AsyncDeviceVoice, DeviceVoice
 from .devices import AsyncDevices, Devices
 from .diagnostic_report import DiagnosticRecorder
 from .diagnostics import AsyncDiagnostics, Diagnostics
@@ -104,6 +105,7 @@ __all__ = [
     "AsyncDdns",
     "AsyncDelegation",
     "AsyncDeviceAlgorithms",
+    "AsyncDeviceVoice",
     "AsyncDevices",
     "AsyncDiagnostics",
     "AsyncHubs",
@@ -144,6 +146,7 @@ __all__ = [
     "DeviceInspection",
     "DeviceSwitch",
     "DeviceAlgorithms",
+    "DeviceVoice",
     "Devices",
     "DiagnosticRecorder",
     "Diagnostics",

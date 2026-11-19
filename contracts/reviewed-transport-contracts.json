@@ -18314,6 +18314,148 @@
       },
       "source_content_sha256": "1400e7a675e3a5cca34170d785954064fffcbfeca1175e46f30a82c7662430e5",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.device_voice.list",
+      "region": "domestic",
+      "source_doc_id": "1259",
+      "source_url": "https://open.ys7.com/help/1259",
+      "method": "GET",
+      "path": "/api/route/voice/v3/devices/voices",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "voiceInfos",
+        "values": [
+          200
+        ],
+        "evidence": "E40;E44;E92"
+      },
+      "constraints": [
+        {
+          "fact": "国内用户访问令牌，未注明最低权限、托管/子账号适用性或套餐。",
+          "evidence": "E14"
+        },
+        {
+          "fact": "voiceInfos 在根层，status=0/1/2 表示已完成同步、正在同步、同步失败。",
+          "evidence": "E3;E14;E36;E44"
+        }
+      ],
+      "uncertainties": [
+        "未声明时间单位、分页、排序和最大数量。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/route/voice/v3/devices/voices",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E36 (parameters in URL, no request body)"
+      },
+      "source_content_sha256": "87a70cd31835dad67777e6d481f60bcfc1fd89ada7fd507ed1ec563440a0b741",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.device_voice.rename",
+      "region": "domestic",
+      "source_doc_id": "1273",
+      "source_url": "https://open.ys7.com/help/1273",
+      "method": "PUT",
+      "path": "/api/route/voice/v3/devices/voices",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "voiceId",
+          "location": "query",
+          "type": "Int",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R4"
+        },
+        {
+          "name": "voiceName",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R5"
+        },
+        {
+          "name": "voiceUrl",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E14/R6"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E58;E62;E86"
+      },
+      "constraints": [
+        {
+          "fact": "国内用户访问令牌，未注明最低权限、托管/子账号适用性或套餐。",
+          "evidence": "E14"
+        },
+        {
+          "fact": "改名仅明确支持 CSEPMR511。voiceId、voiceName、voiceUrl 三个查询字段均必须提交，成功示例仅有 meta。",
+          "evidence": "E3;E14;E54;E62"
+        }
+      ],
+      "uncertainties": [
+        "仅 CSEPMR511 明示适用。voiceUrl 必填，但平台是否重新取得文件、改名原子性、名称约束及恢复时限未说明。"
+      ],
+      "transport_evidence": {
+        "method": "PUT",
+        "path": "https://open.ys7.com/api/route/voice/v3/devices/voices",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E54 (parameters in URL, no request body)"
+      },
+      "source_content_sha256": "57728e8a673496d5d81f8ab4031741550fd28d48bc6a2456394f923b07a61d9d",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -18431,6 +18573,10 @@
     {
       "review": "docs/coordination/domestic-talk-speaker/admission.json",
       "note": "国内 1718/1719 对讲扬声器设置与读取；设备端 1307018 仅用作属性、单位和上报语义的交叉依据。"
+    },
+    {
+      "review": "docs/coordination/domestic-device-voice-catalog/admission.json",
+      "note": "国内 1259 素材列表和 1273 改名，均按正式 query 位置处理。两种响应的业务数据层级分别登记。"
     }
   ]
 }

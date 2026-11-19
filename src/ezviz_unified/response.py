@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-import re
 from collections.abc import Mapping
 from typing import Final, TypeGuard
 
 from .errors import (
-    REDACTED,
+    _HTTP_URL_RE,
     ApiError,
     AuthenticationError,
     DeviceError,
@@ -29,8 +28,6 @@ _MISSING: Final = _Missing()
 
 _AUTH_CODES: Final = frozenset({10002, "10002"})
 _PERMISSION_CODES: Final = frozenset({10031, "10031"})
-
-_URL_RE: Final = re.compile(r'https?://[^\s"<>]+', re.IGNORECASE)
 
 
 def _resolve(payload: object, path: str | None) -> object:
@@ -88,19 +85,13 @@ def _classify(http_status: int, code: ScalarCode | None) -> type[ApiError]:
     return ApiError
 
 
-def _mask_urls(text: object, enabled: bool) -> str:
-    """Mask full http(s) URLs when opted in, before existing redact()."""
-    rendered = _text(text)
-    if enabled:
-        rendered = _URL_RE.sub(REDACTED, rendered)
-    return rendered
-
-
-def _resolve_code(code: ScalarCode | None, enabled: bool) -> ScalarCode | None:
+def _resolve_code(
+    code: ScalarCode | None, enabled: bool, secrets: tuple[str, ...]
+) -> ScalarCode | None:
     """Sanitize a string code containing a URL when opted in; classification
     always uses the original scalar, so int codes pass through unchanged."""
-    if enabled and isinstance(code, str) and _URL_RE.search(code):
-        return _mask_urls(code, True)
+    if enabled and isinstance(code, str) and _HTTP_URL_RE.search(code):
+        return redact(code, secrets, mask_urls=True)
     return code
 
 
@@ -136,12 +127,14 @@ def decode_response(
             if _is_scalar_code(error_code):
                 business_code = error_code
             message = redact(
-                _mask_urls(_resolve(error_scope, policy.message_path), mask_urls), secrets
+                _text(_resolve(error_scope, policy.message_path)),
+                secrets,
+                mask_urls=mask_urls,
             )
         error_type = _classify(http_status, business_code)
         raise error_type(
             message or f"HTTP {http_status} error",
-            code=_resolve_code(business_code, mask_urls),
+            code=_resolve_code(business_code, mask_urls, secrets),
             http_status=http_status,
             operation=operation,
             secrets=secrets,
@@ -172,7 +165,7 @@ def decode_response(
 
     scope = matches[0]
     raw_code = _resolve(scope, policy.code_path)
-    message = redact(_mask_urls(_resolve(scope, policy.message_path), mask_urls), secrets)
+    message = redact(_text(_resolve(scope, policy.message_path)), secrets, mask_urls=mask_urls)
 
     if raw_code is _MISSING:
         raise ProtocolError(
@@ -189,7 +182,7 @@ def decode_response(
             secrets=secrets,
         )
     code: ScalarCode = raw_code
-    rendered_code = _resolve_code(code, mask_urls)
+    rendered_code = _resolve_code(code, mask_urls, secrets)
 
     if code not in policy.success_values:
         error_type = _classify(http_status, code)
@@ -220,8 +213,12 @@ def decode_response(
                 secrets=secrets,
             )
         elif device_code not in policy.device_success_values:
-            device_message = _mask_urls(_resolve(scope, policy.device_message_path), mask_urls)
-            rendered_device_code = _resolve_code(device_code, mask_urls)
+            device_message = redact(
+                _text(_resolve(scope, policy.device_message_path)),
+                secrets,
+                mask_urls=mask_urls,
+            )
+            rendered_device_code = _resolve_code(device_code, mask_urls, secrets)
             raise DeviceError(
                 device_message or message or f"device error code {rendered_device_code}",
                 code=rendered_device_code,

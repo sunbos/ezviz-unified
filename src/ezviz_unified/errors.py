@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+import heapq
 import re
-from collections.abc import Iterable
+from collections.abc import Iterable, Iterator
 
 REDACTED = "***"
 
@@ -34,6 +35,8 @@ _SENSITIVE_KEYS = (
     "authorization",
     "ipcSerial",
     "deviceName",
+    "voiceName",
+    "voiceUrl",
     "osdName",
     "osdNames",
     "domain",
@@ -78,17 +81,70 @@ _SENSITIVE_KEYS = (
     "streamId",
 )
 _SENSITIVE_PARAM_RE = re.compile(
-    r"\b(" + "|".join((*_SENSITIVE_KEYS, "wifiSsid", "timeZone", "osd")) + r")\s*=\s*[^\s&\"']+",
+    r"\b("
+    + "|".join((*_SENSITIVE_KEYS, "wifiSsid", "timeZone", "osd", "voiceId"))
+    + r")\s*=\s*([^\s&\"']+)",
     re.IGNORECASE,
 )
+_HTTP_URL_RE = re.compile(r'https?://[^\s"<>]+', re.IGNORECASE)
 
 
-def redact(text: object, secrets: Iterable[str] = ()) -> str:
-    """Exact-replace non-empty secrets, then mask common URL secret parameters."""
+def _secret_spans(rendered: str, secret: str) -> Iterator[tuple[int, int]]:
+    """Yield ``(start, end)`` for every literal ``secret`` occurrence, in order.
+
+    ``str.find`` is stepped one character past each hit so overlapping
+    occurrences are preserved.
+    """
+    start = rendered.find(secret)
+    end_offset = len(secret)
+    while start != -1:
+        yield start, start + end_offset
+        start = rendered.find(secret, start + 1)
+
+
+def _merged_spans(streams: Iterable[Iterator[tuple[int, int]]]) -> Iterator[tuple[int, int]]:
+    """Merge sorted span streams, coalescing overlapping or adjacent ranges."""
+    current: tuple[int, int] | None = None
+    for start, end in heapq.merge(*streams):
+        if current is not None and start <= current[1]:
+            if end > current[1]:
+                current = (current[0], end)
+        else:
+            if current is not None:
+                yield current
+            current = (start, end)
+    if current is not None:
+        yield current
+
+
+def redact(text: object, secrets: Iterable[str] = (), *, mask_urls: bool = False) -> str:
+    """Mask labelled sensitive values, exact secrets and optionally whole URLs.
+
+    All sensitive ranges are located on the original rendered text, merged and
+    masked in a single pass, so secrets cannot corrupt labelled-key matches or
+    leave unmasked tails of multiword values.
+    """
     rendered = str(text)
-    for secret in sorted({str(value) for value in secrets if value}, key=len, reverse=True):
-        rendered = rendered.replace(secret, REDACTED)
-    return _SENSITIVE_PARAM_RE.sub(lambda m: f"{m.group(1)}={REDACTED}", rendered)
+    streams: list[Iterator[tuple[int, int]]] = [
+        (match.span(2) for match in _SENSITIVE_PARAM_RE.finditer(rendered))
+    ]
+    if mask_urls:
+        streams.append(match.span() for match in _HTTP_URL_RE.finditer(rendered))
+    streams.extend(
+        _secret_spans(rendered, secret)
+        for secret in {str(value) for value in secrets if value}
+        if secret
+    )
+    parts: list[str] = []
+    cursor = 0
+    for start, end in _merged_spans(streams):
+        parts.append(rendered[cursor:start])
+        parts.append(REDACTED)
+        cursor = end
+    if not parts:
+        return rendered
+    parts.append(rendered[cursor:])
+    return "".join(parts)
 
 
 class EzvizError(Exception):

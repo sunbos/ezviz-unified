@@ -38,6 +38,7 @@ from .components import AsyncComponents, Components
 from .ddns import AsyncDdns, Ddns
 from .delegation import AsyncDelegation, Delegation
 from .device_algorithms import AsyncDeviceAlgorithms, DeviceAlgorithms
+from .device_voice import AsyncDeviceVoice, DeviceVoice
 from .devices import AsyncDevices, Devices
 from .diagnostic_report import DiagnosticRecorder, _diagnostic_retry, _diagnostic_scope
 from .diagnostics import AsyncDiagnostics, Diagnostics
@@ -314,6 +315,7 @@ class Client:
         self._diagnostic_recorder = diagnostic_recorder
         self.ddns = Ddns(self)
         self.device_algorithms = DeviceAlgorithms(self)
+        self.device_voice = DeviceVoice(self)
         self.devices = Devices(self)
         self.otap = Otap(self)
         self.delegation = Delegation(self)
@@ -640,6 +642,7 @@ class AsyncClient:
         self._diagnostic_recorder = diagnostic_recorder
         self.ddns = AsyncDdns(self)
         self.device_algorithms = AsyncDeviceAlgorithms(self)
+        self.device_voice = AsyncDeviceVoice(self)
         self.devices = AsyncDevices(self)
         self.otap = AsyncOtap(self)
         self.delegation = AsyncDelegation(self)

@@ -303,6 +303,22 @@ rows = await async_client.traffic.day_details(page_size=1)
 
 国内 `client.ptz.cruise` 提供get_enabled、get_schedule、set_schedule。设置时间计划使用 `CruisePeriod("08:00", "12:00", (0, 1, 2, 3, 4))`，其中0为周一；enabled须为bool，periods为时间段序列。设置会覆盖旧计划，并不自动配置巡航点或开关。开关设置文档存在编码矛盾，暂未提供set_enabled；[差异说明](docs/research/2026-11-14-ptz-contracts.md)保留待核实项。
 
+## 国内设备语音素材
+
+`client.device_voice.list(device_serial)` 返回这台设备的语音素材元数据。同步和异步客户端都支持这个入口。列表位于响应顶层的 `voiceInfos`，可通过 `response.data` 访问。每行的 `status` 值 0、1、2 分别表示同步完成、正在同步和同步失败。`time` 的单位未说明，SDK 保留原值及未知字段。[素材列表（1259）](https://open.ys7.com/help/1259)
+
+`client.device_voice.rename(device_serial, voice_id, *, voice_name, voice_url)` 更新已选素材的名称。请使用同一设备条目中的整数 ID 和原始 URL。官方示例把这两个字段、新名称、设备序列号和访问令牌都放入 PUT 查询串，且只对型号 `CSEPMR511` 明确适用。SDK 不解析或访问文件，也不为改名预读清单。平台收到请求后如何处理 URL，原文没有说明。真实改名需单独授权，并保留同一 ID 的旧名称和原 URL 以便恢复。[修改名称（1273）](https://open.ys7.com/help/1273)
+
+两个接口都按整数 `meta.code=200` 判定成功。改名回执可以没有 `data`，失败不会自动重发。SDK 会遮盖这两项请求在 HTTPX 请求日志中的查询串，并对异常中已知的私有字段及其常用 URL 编码形式做脱敏。应用仍能从成功响应中取得素材名称与地址，记录 `response.raw`、`response.data` 或完整请求 URL 会暴露相关内容。第三方代理和自定义日志由调用方管理。
+
+从仓库运行只读示例前，先在本机配置 `EZVIZ_REGION=domestic`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET` 和 `EZVIZ_DEVICE_SERIAL`。
+
+```bash
+python -m examples.device_voice --mode sync
+```
+
+示例只请求一次列表并报告是否有素材。实际设备的素材同步、改名及恢复效果仍待验收。
+
 ## 国内对讲扬声器音量
 
 `client.settings.get_talk_speaker_volume(device_serial)` 读取设备**最近一次上报**的对讲下行扬声器音量，值位于 `response.data["talkSpeakerVolume"]`。平台返回缓存值，本次查询不实时采集设备音量。同步和异步客户端均支持这个入口。[读取接口（1719）](https://open.ys7.com/help/1719)
