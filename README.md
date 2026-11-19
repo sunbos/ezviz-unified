@@ -69,6 +69,19 @@ python -m examples.device_timezone --mode async
 {"region": "overseas", "mode": "async", "status": "ok", "time_zone_present": true}
 ```
 
+### 海外设备告警音模式
+
+`client.settings.get_alarm_sound_mode(serial)` 和 `await async_client.settings.get_alarm_sound_mode(serial)` 读取设备上报的告警音配置。官方列明托管账号及子账号需要 `Get` 权限。SDK 先向配置的海外认证入口获取令牌，再向令牌返回的 `areaDomain` 发送 GET。令牌和设备序列号分别放在 `accessToken`、`deviceSerial` 请求头中，无需通道参数。[海外文档 3726](https://open.ys7.com/help/en/3726)
+
+SDK 按该页字段表和示例采用 `body.meta.code` 为整数 200 的响应结构。读取 `response.data["alarmSoundMode"]` 可取得原始整数。官方示例的注释将 0、1、2 分别定义为短鸣、长鸣和静音。SDK 保留其他整数和扩展字段。读取这个值不会触发试音，不能据此判断设备实际发声。支持的设备型号和真实网关返回的结构仍待验收。[来源及验收边界](docs/coordination/overseas-alarm-sound-mode/admission.json)
+
+本机配置 `EZVIZ_REGION=overseas`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET`、`EZVIZ_DEVICE_SERIAL` 后可运行以下示例。需要指定认证集群时可设置 `EZVIZ_AUTH_BASE_URL`。CLI 仅输出地区、模式、结果状态及文档定义的模式码，遇到未知整数时显示 `null`。
+
+```bash
+python -m examples.alarm_sound_mode --mode sync
+python -m examples.alarm_sound_mode --mode async
+```
+
 ## 海外 DDNS 只读查询
 
 三个查询均可通过 `Client.ddns` 和 `AsyncClient.ddns` 调用。海外业务请求发往认证返回的 `areaDomain`，使用表单中的 `accessToken`，沿用统一的错误分类与只读重试。

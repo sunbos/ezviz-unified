@@ -2175,6 +2175,22 @@
         "E76;E80;E100",
         "docs/coordination/domestic-third-party-protocols/admission.json"
       ]
+    },
+    {
+      "id": "global.settings.get_alarm_sound_mode.envelope_and_hardware",
+      "region": "overseas",
+      "source_doc_id": "3726",
+      "source_url": "https://open.ys7.com/help/en/3726",
+      "source_content_sha256": "f2ec2e45a80e4b4d3ad7eec1d323a4126901d02cb147bd87d2ff754810f371b5",
+      "description": "E31/E80 用 status/body 描述返回；未证实本接口真实线上响应一定含 body，也无根层成功证据。未限定具体型号、配置新鲜度或物理发声结果。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "仅选择本页展示的 body/meta。未知整数留在应用响应中，CLI 只展示明确的三个值。不会读写其他配置或发起试音。",
+      "evidence": [
+        "E31",
+        "E80",
+        "E83",
+        "docs/coordination/overseas-alarm-sound-mode/admission.json"
+      ]
     }
   ]
 }
