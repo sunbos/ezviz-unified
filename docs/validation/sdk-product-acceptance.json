@@ -10375,19 +10375,29 @@
         "GET 表单体和权限/型号需由真实服务验证。",
         "支持列表不证明算法已装载、可下发或可运行。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待实施及验证。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/device_algorithms.py",
+        "tests/test_sdk_device_algorithms.py",
+        "examples/device_algorithms.py",
+        "tests/test_example_device_algorithms.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "fd37b5d9817746cc92f54d219fae9307ae4599e9",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-device-algorithms/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-731-D0-OFFLINE-001",
@@ -10435,19 +10445,29 @@
         "GET 表单体和权限/型号需由真实服务验证。",
         "731 设备列表范围、loadStatus 枚举及默认 pageSize 未明确。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待实施及验证。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/device_algorithms.py",
+        "tests/test_sdk_device_algorithms.py",
+        "examples/device_algorithms.py",
+        "tests/test_example_device_algorithms.py",
+        "README.md",
+        "evals/contracts/cases.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "fd37b5d9817746cc92f54d219fae9307ae4599e9",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-device-algorithms/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-732-D0-OFFLINE-001",
