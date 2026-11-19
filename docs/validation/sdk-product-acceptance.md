@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 国内设备图像配置
+
+显示预设的读取与设置、详细图像参数和白平衡的 PUT 已完成同步与异步离线验收。3678、3680 已有读取契约及证据，本批核对并关联原有来源。四项真实操作尚未获授权，手动拼写、硬件效果与恢复能力均待验证。[来源及冻结范围](../coordination/domestic-image-configuration/admission.json) · [离线验收记录](2026-11-19-domestic-image-configuration/offline.json)
+
 ## 国内账号取流并发限制
 
 已离线验证按取流类型查询、添加或更新以及删除配置的同步与异步入口。正式返回码表的整数 200 与文档样例中的 0 存在差异，真实服务行为仍待 E 套餐主账号验收。写请求未在真实账号执行。[冻结范围](../coordination/domestic-live-limits/admission.json) · [离线记录](2026-11-19-domestic-live-limits/offline.json)

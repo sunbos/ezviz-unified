@@ -5841,6 +5841,79 @@
         "liveType": "RTMP"
       },
       "data": null
+    },
+    {
+      "operation_id": "cn.imaging.display_mode.get",
+      "args": [
+        "synthetic-test"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "synthetic-test"
+      },
+      "data": {
+        "valueInfo": {
+          "mode": 1,
+          "extra": true
+        }
+      }
+    },
+    {
+      "operation_id": "cn.imaging.display_mode.set",
+      "args": [
+        "synthetic-test",
+        "2"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "synthetic-test",
+        "mode": "2"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.imaging.image_params.set",
+      "args": [
+        "synthetic-test"
+      ],
+      "kwargs": {
+        "image_style": "manual",
+        "gamma_correction": 9,
+        "gain": 0,
+        "brightness": 0,
+        "contrast": 7,
+        "saturation": 100,
+        "sharpness": 1
+      },
+      "fields": {
+        "deviceSerial": "synthetic-test",
+        "imageStyle": "manual",
+        "gammaCorrection": "9",
+        "gain": "0",
+        "brightness": "0",
+        "contrast": "7",
+        "saturation": "100",
+        "sharpness": "1"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.imaging.white_balance.set",
+      "args": [
+        "synthetic-test",
+        "manual"
+      ],
+      "kwargs": {
+        "red": 0,
+        "blue": 255
+      },
+      "fields": {
+        "deviceSerial": "synthetic-test",
+        "mode": "manual",
+        "whiteBalanceRed": "0",
+        "whiteBalanceBlue": "255"
+      },
+      "data": null
     }
   ]
 }
