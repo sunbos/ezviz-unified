@@ -223,14 +223,6 @@ def _registration_secrets(secrets: Iterable[str], *sources: object) -> tuple[str
     return tuple(sorted(collected))
 
 
-_DIAGNOSTIC_CODE_CATEGORIES = {
-    10002: "invalid_token",
-    10031: "permission_denied",
-    "10002": "invalid_token",
-    "10031": "permission_denied",
-}
-
-
 class EzvizError(Exception):
     """Base error carrying diagnostic context; never stores raw payloads."""
 
@@ -246,11 +238,6 @@ class EzvizError(Exception):
         secret_values = tuple(str(s) for s in secrets if s)
         self.message: str = redact(message, secret_values)
         self.code: str | int | None = redact(code, secret_values) if isinstance(code, str) else code
-        self._diagnostic_code_category: str | None = (
-            _DIAGNOSTIC_CODE_CATEGORIES.get(code)
-            if type(code) is str and self.code != code
-            else None
-        )
         self.http_status: int | None = http_status
         self.operation: str = redact(operation, secret_values)
         super().__init__(self.message)
