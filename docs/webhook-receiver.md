@@ -20,6 +20,20 @@ python -m examples.webhook_receiver --profile domestic
 - 本 cohort 只接收显式配置签名 secret 的投递（signed-only 是本示例的接入策略，并非官方必选签名）。运行结束后打印固定字段的 JSON 计数摘要，不含报文、ID 或密钥。
 - 嵌入式调用：`ReceiverProcessor(config, webhook_secret=...)` → `BoundedWebhookReceiver(processor, port=...)` → 前台 `run()` 直到时限/连接上限/中断；之后仍可用 `processor.take_message()` 取出 inbox，`processor.close()` 后拒绝新受理并清空其内部引用。
 
+## 海外设备上线事件
+
+在仓库根目录运行下面的示例。程序生成临时签名密钥，在 `127.0.0.1` 的临时端口向现有接收器两次发送相同的合成上线通知。两个 HTTP 响应都应为 200，并包含相同的 `messageId`；应用从 inbox 中只取到一条消息。终端仅显示模拟标志、地区 profile 和计数。
+
+```bash
+python -m examples.overseas_device_online
+```
+
+教程用 `header.type="ys.onoffline"` 和 `body.msgType="ONLINE"` 表示上线。原文中 JSON 前的日志前缀不属于 HTTP 正文。应用应在接收器完成验签、受理后再判断这两个字段；该判断只说明收到一条上线通知，不能证明设备此刻仍在线。[海外消息推送教程 1000007](https://open.ys7.com/help/en/1000007)
+
+协议 2392 将 `ys.onoffline` 列为可推送类型。此示例选择已配置签名的海外 profile，以独立的 `webhook_secret` 为 HMAC-SHA1 密钥，将原始正文与 `t` 的 UTF-8 字节按顺序拼接后验签。海外 `t` 按不透明文本处理。平台将签名列为可选；本地示例只受理签名通过的消息。相同字节的重复通知在当前去重窗口内再次获得 ACK。教程及本地模拟均不能证明平台重投次数、加密行为或时间戳单位。[海外推送协议 2392](https://open.ys7.com/help/en/2392)
+
+嵌入应用时，在 `receiver.run()` 返回后、`processor.close()` 之前调用 `processor.take_message()`。关闭 receiver 释放监听连接；关闭 processor 后 inbox 和去重缓存均被清空。本页示例无需外部地址、平台账号或设备。真实平台投递另需开通服务、独立 secret、可达回调和明确的触发及恢复授权。 此教程场景的本机证据单列在[上线事件验收回执](validation/2026-11-20-overseas-device-online-event/offline.json)。
+
 ## 本地有界默认值
 
 以下均为本示例的本地设计取值（可用 CLI 旗标或 `ReceiverConfig` 字段程序化覆盖），不是平台官方限制：

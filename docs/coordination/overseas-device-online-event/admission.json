@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "f1e25a9632b931b9520990a8cd32ee080ec24497",
+  "scope_revision": "2026-11-20-r41-overseas-device-online-event",
+  "capability_id": "candidate:overseas:1000007:message-integration",
+  "case_id": "ACC-CANDIDATE-OVERSEAS-1000007-MESSAGE-INTEGRATION-OFFLINE-001",
+  "sources": [
+    {
+      "doc_id": "1000007",
+      "region": "overseas",
+      "source_url": "https://open.ys7.com/help/en/1000007",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/1000007.source.json",
+      "html_sha256": "4e59facd53b001678b094985b2cf81c377cdecf90de51cc97fa4a49e065ab3d4",
+      "elements": [
+        1905,
+        1907,
+        1908,
+        1918,
+        1920,
+        1925,
+        1926,
+        1927,
+        1928,
+        1929
+      ]
+    },
+    {
+      "doc_id": "2392",
+      "region": "overseas",
+      "source_url": "https://open.ys7.com/help/en/2392",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/2392.source.json",
+      "html_sha256": "c33f9288f1115f8f680860af435af543b2f59467206a47a1e335975f9fc52245",
+      "elements": [
+        13,
+        29,
+        66,
+        68,
+        72,
+        75,
+        79,
+        81,
+        92
+      ]
+    }
+  ],
+  "sources_scope": "仅审核教程中消息推送部分，不对 1000007 的其余章节作完成判断。",
+  "event_schema_keys": {
+    "header": [
+      "messageId",
+      "type",
+      "channelNo",
+      "deviceId",
+      "messageTime"
+    ],
+    "body": [
+      "devType",
+      "regTime",
+      "natIp",
+      "msgType",
+      "subSerial",
+      "occurTime",
+      "deviceName",
+      "dasId"
+    ]
+  },
+  "event_selector": {
+    "header.type": "ys.onoffline",
+    "body.msgType": "ONLINE"
+  },
+  "reused_capability": "integration:webhooks.bounded_receiver",
+  "reuse_evidence": "docs/validation/2026-11-18-webhook-receiver/checks.json",
+  "public_entry": "python -m examples.overseas_device_online",
+  "classification_entry": "examples.overseas_device_online.is_device_online",
+  "sdk_choices": [
+    "主教程 e1905–1929 说明消息推送的通用接收方式，只演示设备上线；e1929 为日志前缀加 JSON 对象。测试和示例另造合成字段值，拒绝将原始样例带入 fixture。header.type=ys.onoffline 与对象 body.msgType=ONLINE 共同识别上线事件。",
+    "海外 2392 e92 列出相同事件类型，e13–29、e79/81 提供 t 和签名规则，e72/75 定义成功回执。所选接收配置要求已签名的明文 UTF-8 JSON。签名基于原始正文和 t；海外 t 不加单位或时窗推断。",
+    "复用已有模块级验签/解析和 BoundedWebhookReceiver、ReceiverProcessor。新入口位于仓库示例；不新增 SDK 业务方法、全局 HTTPX 设置、远程接收服务或默认后台任务。",
+    "可运行示例仅在显式启动时使用随机端口的 127.0.0.1、临时随机独立签名 secret、合成设备上线字段、2 次有界 POST。两次均收到匹配 ID 的 HTTP 200 ACK；只在接收循环结束、关闭 processor 前消费一条合成消息。线程显式回收，连接及处理器始终关闭。默认输出只含 profile、simulation、accepted、duplicate、online_events。",
+    "另一独立 loopback 回归最多 4 个连接：原始 UTF-8 非规范化字节 200、相同字节再发 200、同 ID 不同字节但重新正确签名 409、错误签名 401。四种情形分开取证，验收精确 ACK、单次入队、原始字节和未知字段保真、拒绝路径没有泄漏到输出。去重/冲突状态是本地 SDK 示例选择，未推导平台重投保证。",
+    "is_device_online(message) 只对已投递的匹配事件作类型判断，不能证明消息已验签、设备仍在线或真实平台身份；其余消息由通用接收器正常处理。真实账号开通、配置、测试消息、真实设备上报和恢复继续由独立平台验收案例覆盖。"
+  ],
+  "network_budget": {
+    "external": 0,
+    "example_loopback_posts": 2,
+    "contract_loopback_posts": 4
+  },
+  "live_case_refs": [
+    "ACC-PLATFORM-MESSAGE-001",
+    "ACC-WEBHOOK-PLATFORM-OS-001"
+  ]
+}

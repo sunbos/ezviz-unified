@@ -26282,47 +26282,70 @@
         "candidate:overseas:1000007:message-integration"
       ],
       "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "scope_revision": "2026-11-20-r41-overseas-device-online-event",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
       "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
-      "surface": [],
+      "surface": [
+        "embedded_receiver",
+        "local_http",
+        "application_consumer",
+        "repository_cli"
+      ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。",
-        "本候选的调用或接收surface尚未冻结；当前空列表不代表该层不适用。"
+        "使用现有海外 signed-only profile、原始 UTF-8、独立合成 secret 和明确连接/时间/队列上限。"
       ],
       "expected_evidence": {
-        "read": "围绕“接收设备与平台事件的消息推送回调”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "实际 loopback HTTP 签名投递、精确 ACK 和一次消费；合成示例输出白名单摘要并退出。",
+        "write": "只写入已创建的内存 inbox；重复/冲突/错误签名不额外入队。",
+        "physical": "不表示真实平台送达、其他事件覆盖或设备当前在线。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false,
+        "bound_definition": "真实外部 HTTP 与设备业务请求均为零；本机 TCP 合成连接范围见准入文件。"
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/35"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/35",
+        "docs/coordination/overseas-device-online-event/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/1000007.source.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/2392.source.json"
       ],
       "pending_questions": [
-        "e1920 example service does not provide a full signature/ciphertext/redelivery contract — message ingestion is not complete just because helpers exist",
-        "configuration side effects (App reminder stop, ~2h delay, console test suspending the original callback) require explicit authorization",
-        "overseas 't' timestamp unit and freshness window are not confirmed in this source"
+        "is_device_online(message) 只对已投递的匹配事件作类型判断，不能证明消息已验签、设备仍在线或真实平台身份；其余消息由通用接收器正常处理。真实账号开通、配置、测试消息、真实设备上报和恢复继续由独立平台验收案例覆盖。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+      "code_artifact_evidence_refs": [
+        "examples/overseas_device_online.py",
+        "tests/test_example_overseas_device_online.py",
+        "docs/webhook-receiver.md",
+        "README.md",
+        "src/ezviz_unified/webhooks.py",
+        "examples/webhook_receiver.py",
+        "examples/_webhook_receiver.py",
+        "tests/test_webhook_receiver_http.py",
+        "tests/test_webhook_receiver_core.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
+      ],
+      "criterion_assessment": {
+        "SOURCE": "met",
+        "SIGNED_HTTP": "met",
+        "DELIVERY_AND_ACK": "met",
+        "APPLICATION_USAGE": "met",
+        "PRIVACY_AND_LIFECYCLE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "333a82a036ca71a17473ac10a4373067fb45d9c3",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-overseas-device-online-event/offline.json"
       ]
     },
     {

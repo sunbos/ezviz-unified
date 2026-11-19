@@ -120,6 +120,8 @@ python -m examples.ddns --mode sync --query get
 
 仓库内另附一个把这些纯助手接到本地有界HTTP链上的[独立接收示例](docs/webhook-receiver.md)：需在仓库checkout内显式启动，受理范围仅是配置签名secret的明文JSON投递（signed-only是本示例接入策略，非官方必选）。上述纯helpers本身的语义不变，也不能称它们已借此真实接入平台。平台消息/设备事件的国内与海外验收状态各自单列，见[验收登记](docs/validation/sdk-product-acceptance.json)中的webhook行；当前均未标完成。
 
+在仓库根目录运行 `python -m examples.overseas_device_online` 可用两次合成 HTTP 投递验证海外上线通知的签名、ACK 和应用取件。示例仅监听本机临时端口，打印计数后退出。[海外设备上线事件示例](docs/webhook-receiver.md#海外设备上线事件)
+
 ## 统一存储
 
 统一存储入口为`client.storage`，提供空间列表/创建/更新/删除、文件搜索/保留期修改及签名下载地址查询，目前仅国内。文件查询使用`StorageFileQuery`，保留官方选择器优先级；`None`不发送，更新不注入创建默认值。统一存储永久保留使用`-1`，与旧云录制空间的`0`不同。下载地址仅返回，不获取媒体；[完整规则与来源限制](docs/research/2026-11-14-unified-storage.md)列明单位、编码推导及权限，全部新能力仍为离线验证。
