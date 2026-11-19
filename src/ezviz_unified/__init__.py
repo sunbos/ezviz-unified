@@ -17,6 +17,7 @@ from .components import AsyncComponents, ComponentInfo, Components
 from .cruise import AsyncCruise, Cruise, CruisePeriod
 from .ddns import AsyncDdns, Ddns
 from .delegation import AsyncDelegation, Delegation
+from .detectors import AsyncDetectors, Detectors
 from .device_algorithms import AsyncDeviceAlgorithms, DeviceAlgorithms
 from .device_voice import AsyncDeviceVoice, DeviceVoice
 from .devices import AsyncDevices, Devices
@@ -110,6 +111,7 @@ __all__ = [
     "AsyncDeviceVoice",
     "AsyncDevices",
     "AsyncDiagnostics",
+    "AsyncDetectors",
     "AsyncHubs",
     "AsyncLiveLimits",
     "AsyncLiveStreams",
@@ -157,6 +159,7 @@ __all__ = [
     "EzvizError",
     "ImageSetting",
     "FillLightMode",
+    "Detectors",
     "Hubs",
     "LiveLimits",
     "LiveStreams",

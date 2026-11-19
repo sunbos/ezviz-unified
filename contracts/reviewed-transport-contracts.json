@@ -20088,6 +20088,200 @@
       },
       "source_content_sha256": "f2ec2e45a80e4b4d3ad7eec1d323a4126901d02cb147bd87d2ff754810f371b5",
       "read_only": true
+    },
+    {
+      "operation_id": "global.detectors.list",
+      "region": "overseas",
+      "source_doc_id": "481",
+      "source_url": "https://open.ys7.com/help/en/481",
+      "method": "POST",
+      "path": "/api/lapp/detector/list",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E71/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E71/R3"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "envelope_paths": [
+          "result"
+        ],
+        "evidence": "E94;E97;E213; E94 示意把 data/code/msg 放在 result 内，但该文本不是合法 JSON。字段表只说明行结构；未有真实响应确认布局，根层成功/失败不能推定。"
+      },
+      "constraints": [
+        {
+          "fact": "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。",
+          "evidence": "E64;E68;E71;E91"
+        },
+        {
+          "fact": "E94 示意把 data/code/msg 放在 result 内，但该文本不是合法 JSON。字段表只说明行结构；未有真实响应确认布局，根层成功/失败不能推定。",
+          "evidence": "E94;E97;E213"
+        }
+      ],
+      "uncertainties": [
+        "E94 示意把 data/code/msg 放在 result 内，但该文本不是合法 JSON。字段表只说明行结构；未有真实响应确认布局，根层成功/失败不能推定。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/detector/list",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E64;E68;E71;E91"
+      },
+      "source_content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+      "read_only": true
+    },
+    {
+      "operation_id": "global.detectors.bindable_cameras",
+      "region": "overseas",
+      "source_doc_id": "481",
+      "source_url": "https://open.ys7.com/help/en/481",
+      "method": "POST",
+      "path": "/api/lapp/detector/ipc/list/bindable",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E482/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E482/R3"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E505;E508;E529; E505 的 cameraName 为字符串，E508 表声明为整数；保留原值。候选列表未说明是否排除已关联的 IPC。"
+      },
+      "constraints": [
+        {
+          "fact": "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。",
+          "evidence": "E475;E479;E482;E502"
+        },
+        {
+          "fact": "E505 的 cameraName 为字符串，E508 表声明为整数；保留原值。候选列表未说明是否排除已关联的 IPC。",
+          "evidence": "E505;E508;E529"
+        }
+      ],
+      "uncertainties": [
+        "E505 的 cameraName 为字符串，E508 表声明为整数；保留原值。候选列表未说明是否排除已关联的 IPC。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/detector/ipc/list/bindable",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E475;E479;E482;E502"
+      },
+      "source_content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+      "read_only": true
+    },
+    {
+      "operation_id": "global.detectors.linked_cameras",
+      "region": "overseas",
+      "source_doc_id": "481",
+      "source_url": "https://open.ys7.com/help/en/481",
+      "method": "POST",
+      "path": "/api/lapp/detector/ipc/list/bind",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E584/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E584/R3"
+        },
+        {
+          "name": "detectorSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "default": null,
+          "evidence": "E584/R4"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E612;E615;E632; E615 响应表列 deviceSerial、ipcSerial；E612 示例行列 detectorSerial、ipcSerial。保留原始键，不推断字段相等或含义互换。"
+      },
+      "constraints": [
+        {
+          "fact": "海外应用令牌及该主机的访问权限；最低账户角色、套餐、共享权限未明示。",
+          "evidence": "E577;E581;E584;E609"
+        },
+        {
+          "fact": "E615 响应表列 deviceSerial、ipcSerial；E612 示例行列 detectorSerial、ipcSerial。保留原始键，不推断字段相等或含义互换。",
+          "evidence": "E612;E615;E632"
+        }
+      ],
+      "uncertainties": [
+        "E615 响应表列 deviceSerial、ipcSerial；E612 示例行列 detectorSerial、ipcSerial。保留原始键，不推断字段相等或含义互换。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/detector/ipc/list/bind",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E577;E581;E584;E609"
+      },
+      "source_content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -20229,6 +20423,10 @@
     {
       "review": "docs/coordination/overseas-alarm-sound-mode/admission.json",
       "note": "海外 3726 是单独的只读服务端操作，门铃响铃与试音使用其他契约。"
+    },
+    {
+      "review": "docs/coordination/overseas-a1-detector-queries/admission.json",
+      "note": "海外 481 三条只读 A1 清单各自冻结，其他章节不在本次签收范围。"
     }
   ]
 }

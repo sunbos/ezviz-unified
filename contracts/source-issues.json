@@ -2191,6 +2191,51 @@
         "E83",
         "docs/coordination/overseas-alarm-sound-mode/admission.json"
       ]
+    },
+    {
+      "id": "global.detectors.list.source_shape",
+      "region": "overseas",
+      "source_doc_id": "481",
+      "source_url": "https://open.ys7.com/help/en/481",
+      "source_content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+      "description": "E94 示意把 data/code/msg 放在 result 内，但该文本不是合法 JSON。字段表只说明行结构；未有真实响应确认布局，根层成功/失败不能推定。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "按本节选定的单一布局返回原始行。保留未知字段与类型；不自动遍历，也不对未知行补充标识。",
+      "evidence": [
+        "E64;E68;E71;E91",
+        "E94;E97;E213",
+        "docs/coordination/overseas-a1-detector-queries/admission.json"
+      ]
+    },
+    {
+      "id": "global.detectors.bindable_cameras.source_shape",
+      "region": "overseas",
+      "source_doc_id": "481",
+      "source_url": "https://open.ys7.com/help/en/481",
+      "source_content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+      "description": "E505 的 cameraName 为字符串，E508 表声明为整数；保留原值。候选列表未说明是否排除已关联的 IPC。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "按本节选定的单一布局返回原始行。保留未知字段与类型；不自动遍历，也不对未知行补充标识。",
+      "evidence": [
+        "E475;E479;E482;E502",
+        "E505;E508;E529",
+        "docs/coordination/overseas-a1-detector-queries/admission.json"
+      ]
+    },
+    {
+      "id": "global.detectors.linked_cameras.source_shape",
+      "region": "overseas",
+      "source_doc_id": "481",
+      "source_url": "https://open.ys7.com/help/en/481",
+      "source_content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+      "description": "E615 响应表列 deviceSerial、ipcSerial；E612 示例行列 detectorSerial、ipcSerial。保留原始键，不推断字段相等或含义互换。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "按本节选定的单一布局返回原始行。保留未知字段与类型；不自动遍历，也不对未知行补充标识。",
+      "evidence": [
+        "E577;E581;E584;E609",
+        "E612;E615;E632",
+        "docs/coordination/overseas-a1-detector-queries/admission.json"
+      ]
     }
   ]
 }

@@ -250,6 +250,22 @@ def _collect_secrets(explicit: Iterable[str], *sources: object) -> tuple[str, ..
     return tuple(sorted(collected))
 
 
+def _form_serial_secrets(
+    base: tuple[str, ...],
+    data: Mapping[str, object] | None,
+    policy: ResponsePolicy | None,
+) -> tuple[str, ...]:
+    if policy is None or not policy.redact_form_serials or data is None:
+        return base
+    secrets = set(base)
+    for key, value in data.items():
+        if isinstance(value, str) and value and key in ("deviceSerial", "detectorSerial"):
+            secrets.add(value)
+            secrets.add(quote(value, safe="", errors="surrogatepass"))
+            secrets.add(quote_plus(value, safe="", errors="surrogatepass"))
+    return tuple(sorted(secrets))
+
+
 def _augment_query_secrets(
     base: tuple[str, ...],
     params: ParamMapping | None,
@@ -373,6 +389,7 @@ class SyncTransport:
                 secrets=base_secrets,
             )
         all_secrets = _augment_query_secrets(base_secrets, params, policy)
+        all_secrets = _form_serial_secrets(all_secrets, data, policy)
         mask_registration_fields = policy is not None and policy.redact_registration_fields
         if mask_registration_fields:
             all_secrets = _registration_secrets(all_secrets, params, data)
@@ -483,6 +500,7 @@ class AsyncTransport:
                 secrets=base_secrets,
             )
         all_secrets = _augment_query_secrets(base_secrets, params, policy)
+        all_secrets = _form_serial_secrets(all_secrets, data, policy)
         mask_registration_fields = policy is not None and policy.redact_registration_fields
         if mask_registration_fields:
             all_secrets = _registration_secrets(all_secrets, params, data)
