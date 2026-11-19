@@ -3385,7 +3385,7 @@
         "AsyncSettings.get_talk_speaker_volume"
       ],
       "public_entry": "settings.get_talk_speaker_volume",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3398,7 +3398,7 @@
         "AsyncSettings.set_talk_speaker_volume"
       ],
       "public_entry": "settings.set_talk_speaker_volume",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
