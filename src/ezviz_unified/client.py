@@ -37,6 +37,7 @@ from .cloud_storage import AsyncCloudStorage, CloudStorage
 from .components import AsyncComponents, Components
 from .ddns import AsyncDdns, Ddns
 from .delegation import AsyncDelegation, Delegation
+from .device_algorithms import AsyncDeviceAlgorithms, DeviceAlgorithms
 from .devices import AsyncDevices, Devices
 from .diagnostic_report import DiagnosticRecorder, _diagnostic_retry, _diagnostic_scope
 from .diagnostics import AsyncDiagnostics, Diagnostics
@@ -310,6 +311,7 @@ class Client:
         self._closed = False
         self._diagnostic_recorder = diagnostic_recorder
         self.ddns = Ddns(self)
+        self.device_algorithms = DeviceAlgorithms(self)
         self.devices = Devices(self)
         self.otap = Otap(self)
         self.delegation = Delegation(self)
@@ -633,6 +635,7 @@ class AsyncClient:
         self._closed = False
         self._diagnostic_recorder = diagnostic_recorder
         self.ddns = AsyncDdns(self)
+        self.device_algorithms = AsyncDeviceAlgorithms(self)
         self.devices = AsyncDevices(self)
         self.otap = AsyncOtap(self)
         self.delegation = AsyncDelegation(self)

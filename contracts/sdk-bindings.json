@@ -3198,6 +3198,32 @@
       "public_entry": "devices.get_utc",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.device_algorithms.list_devices",
+      "region": "domestic",
+      "source_doc_id": "731",
+      "module": "src/ezviz_unified/device_algorithms.py",
+      "symbols": [
+        "DeviceAlgorithms.list_devices",
+        "AsyncDeviceAlgorithms.list_devices"
+      ],
+      "public_entry": "device_algorithms.list_devices",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.device_algorithms.list_supported",
+      "region": "domestic",
+      "source_doc_id": "730",
+      "module": "src/ezviz_unified/device_algorithms.py",
+      "symbols": [
+        "DeviceAlgorithms.list_supported",
+        "AsyncDeviceAlgorithms.list_supported"
+      ],
+      "public_entry": "device_algorithms.list_supported",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }

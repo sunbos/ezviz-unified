@@ -5710,6 +5710,48 @@
         "wifiSsid": "synthetic-network",
         "unknown": 0
       }
+    },
+    {
+      "operation_id": "cn.device_algorithms.list_devices",
+      "args": [],
+      "kwargs": {
+        "page_start": 0,
+        "page_size": 8
+      },
+      "fields": {
+        "pageStart": "0",
+        "pageSize": "8"
+      },
+      "data": [
+        {
+          "deviceSerial": "SYNTH-731",
+          "deviceType": "test",
+          "models": [
+            {
+              "appId": "synthetic-catalog-id",
+              "modelName": "fixture model",
+              "version": "fixture version",
+              "loadStatus": 42
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.device_algorithms.list_supported",
+      "args": [
+        "SYNTH-730"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "SYNTH-730"
+      },
+      "data": [
+        {
+          "appId": "synthetic-catalog-id",
+          "desc": "example description"
+        }
+      ]
     }
   ]
 }

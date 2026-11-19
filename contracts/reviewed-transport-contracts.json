@@ -17290,6 +17290,150 @@
       },
       "source_content_sha256": "bdb6887fb10eb0fd94e67629c1b0fd6c25f8fc40c2c62a52847323a6737bac62",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.device_algorithms.list_devices",
+      "region": "domestic",
+      "source_doc_id": "731",
+      "source_url": "https://open.ys7.com/help/731",
+      "method": "GET",
+      "path": "/api/v3/intelligent/model/device",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R2",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R3",
+          "default": null
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "E14/R4",
+          "default": null
+        },
+        {
+          "name": "pageStart",
+          "location": "body",
+          "type": "Integer",
+          "required": false,
+          "evidence": "E14/R5",
+          "default": 0
+        },
+        {
+          "name": "pageSize",
+          "location": "body",
+          "type": "Integer",
+          "required": false,
+          "evidence": "E14/R6",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E59;E63;E127"
+      },
+      "constraints": [
+        {
+          "fact": "返回智能设备及其已加载模型。关键字 deviceSerial 与分页互斥；pageStart 从 0 开始默认 0，pageSize 8 至 50。",
+          "evidence": "E14;E63"
+        }
+      ],
+      "uncertainties": [
+        "731 正式表要求关键字和分页参数互斥，但 curl 示例同时提供了双方。",
+        "未核实最低权限、适用设备及真实服务端 GET 表单体行为。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/intelligent/model/device",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E55"
+      },
+      "source_content_sha256": "d994adb4379b21f3b66e7e2ee577df210f9e3fe48dbc83564640c1d38a609ede",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.device_algorithms.list_supported",
+      "region": "domestic",
+      "source_doc_id": "730",
+      "source_url": "https://open.ys7.com/help/730",
+      "method": "GET",
+      "path": "/api/v3/intelligent/model/device/support",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R2",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R3",
+          "default": null
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R4",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E47;E51;E87"
+      },
+      "constraints": [
+        {
+          "fact": "该列表返回指定设备支持的算法 appId 和描述。",
+          "evidence": "E14;E51"
+        }
+      ],
+      "uncertainties": [
+        "730 序列号的位置表为 Body，但描述写 params；curl 为 GET 且使用 --data-urlencode，没有 -G。",
+        "未核实最低权限、适用设备及真实服务端 GET 表单体行为。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/intelligent/model/device/support",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E43"
+      },
+      "source_content_sha256": "865d22e5185a1eb2477d5ece3c684e26622b47a292f76fcbbd610ffc69b425d2",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -17387,6 +17531,10 @@
     {
       "review": "docs/coordination/overseas-device-utc/admission.json",
       "note": "海外 477 §1.20 读取设备基本信息的 UTC 版本。与 476 §1.2 分别验证有无 version 的表单。"
+    },
+    {
+      "review": "docs/coordination/domestic-device-algorithms/admission.json",
+      "note": "国内 730、731 各自的 GET 查询；表单与筛选条件矛盾已分别登记。"
     }
   ]
 }

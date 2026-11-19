@@ -111,6 +111,35 @@ python -m examples.ddns --mode sync --query get
 
 源码示例串联 `Client.playback.create` 和官方 `@ezuikit/player-hls@2.0.0`。默认使用 H.264，也可用 `--codec h265` 播放自行生成的 HEVC 测试片，验证官方 WASM 解码和 WebGL 画面。示例使用合成地址，真实设备预览另需授权。运行方式及可复现的浏览器验证见[HLS 预览指南](docs/official-hls-preview.md)。
 
+## 国内智能设备的算法清单
+
+`DeviceAlgorithms` 与 `AsyncDeviceAlgorithms` 提供同名的两个独立只读查询；异步版本仅增加 `await`，两个查询不会互相触发。
+
+```python
+# 列出一页智能设备及其已加载模型。
+devices = client.device_algorithms.list_devices(page_start=0, page_size=8)
+
+# 使用已明确选择的设备查询支持清单。异步客户端的同名方法使用 await。
+supported = client.device_algorithms.list_supported(device_serial)
+```
+
+- `list_devices` → `GET /api/v3/intelligent/model/device`（731）：`device_serial`、`page_start`、`page_size` 均可省略；`device_serial` 是搜索关键字，并按 731 正式参数表与任一分页参数互斥。`page_start` 非负，缺省时由服务端取 0；`page_size` 限 8–50，服务端默认大小未说明。客户端不自动分页。
+- `list_supported` → `GET /api/v3/intelligent/model/device/support`（730）：`device_serial` 指定设备，为非空白 UTF-8 原文；官方未说明长度、大小写或字符集限制，客户端不改写。“supported” 不表示算法已加载或正在运行。
+- 请求：实现按参数位置 `Body` 及官方 `curl -X GET --data-urlencode` 的实际语义发送 GET 表单体，并显式设置 `Content-Type`；`accessToken` 仅放在 header。730 另以 `params` 描述，731 示例又与其互斥规则冲突；本文保留这些来源差异。已知代理或服务端可能不同地处理 GET body，SDK 沿用只读认证重试策略，不因参数位置争议而补发第二种请求；真实环境测试仍待补充。
+- 响应：仅将顶层 `meta.code` 为整数 `200` 视为成功，并使用 `meta.message`；保留 `data`、`meta.moreInfo` 及未知字段。仅校验 `data` 为对象数组、允许字段缺失，不解释 `loadStatus`，也不依据单行推断全部设备。
+- 区域与校验：两种模式共享现有只读认证；海外区域或无效输入在认证前失败。方法不做自动发现、算法下发、启停或其他推断。
+
+CLI 使用本机的 `EZVIZ_REGION=domestic`、`EZVIZ_APP_KEY` 和 `EZVIZ_APP_SECRET`；`supported` 另需本地 `EZVIZ_DEVICE_SERIAL`：
+
+```bash
+python -m examples.device_algorithms --mode async --query devices
+python -m examples.device_algorithms --mode async --query supported
+```
+
+示例单次执行显式选择的查询，仅输出固定 JSON 状态（`region`、`status`、`mode`、`query`）。
+
+来源：[设备算法支持查询（730）](https://open.ys7.com/help/730)、[设备算法列表查询（731）](https://open.ys7.com/help/731)
+
 ## 国内设备客流统计
 
 客流统计走国内 LAPP 表单 POST，`accessToken` 放在请求体，成功以字符串 `code="200"` 判定，复用统一认证/响应策略。六个方法中 `switch_status`、`daily`、`hourly`、`get_config` 为只读，`set_switch`、`set_config` 会改变设备状态。[客流开关状态](https://open.ys7.com/help/688)
