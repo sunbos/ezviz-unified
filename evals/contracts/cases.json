@@ -5979,6 +5979,43 @@
         "voiceUrl": "https://media.invalid/catalog/synthetic"
       },
       "data": null
+    },
+    {
+      "operation_id": "cn.device_voice.create",
+      "args": [
+        "synthetic-Voice"
+      ],
+      "kwargs": {
+        "voice_name": "synthetic-name",
+        "voice_url": "https://media.invalid/example.wav"
+      },
+      "fields": {
+        "deviceSerial": "synthetic-Voice",
+        "voiceName": "synthetic-name",
+        "voiceUrl": "https://media.invalid/example.wav"
+      },
+      "data": {
+        "voiceId": 0,
+        "syntheticExtra": true
+      }
+    },
+    {
+      "operation_id": "cn.device_voice.delete",
+      "args": [
+        "synthetic-Voice",
+        0
+      ],
+      "kwargs": {
+        "voice_name": "synthetic-name",
+        "voice_url": "https://media.invalid/example.wav"
+      },
+      "fields": {
+        "deviceSerial": "synthetic-Voice",
+        "voiceName": "synthetic-name",
+        "voiceUrl": "https://media.invalid/example.wav",
+        "voiceId": "0"
+      },
+      "data": null
     }
   ]
 }
