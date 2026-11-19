@@ -5752,6 +5752,50 @@
           "desc": "example description"
         }
       ]
+    },
+    {
+      "operation_id": "cn.osd.get_name",
+      "args": [
+        "mixed-SYNTH"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "mixed-SYNTH"
+      },
+      "data": {
+        "osd": "synthetic display text",
+        "extra": true
+      }
+    },
+    {
+      "operation_id": "cn.osd.set_name",
+      "args": [
+        "SYNTH-725",
+        "synthetic display"
+      ],
+      "kwargs": {
+        "channel_no": "01"
+      },
+      "fields": {
+        "deviceSerial": "SYNTH-725",
+        "osdName": "synthetic display",
+        "channelNo": "01"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.osd.set_lines",
+      "args": [
+        "mixed-SYNTH"
+      ],
+      "kwargs": {
+        "osd_names": "first,second"
+      },
+      "fields": {
+        "deviceSerial": "mixed-SYNTH",
+        "osdNames": "first,second"
+      },
+      "data": null
     }
   ]
 }

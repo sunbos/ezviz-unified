@@ -3224,6 +3224,45 @@
       "public_entry": "device_algorithms.list_supported",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.osd.get_name",
+      "region": "domestic",
+      "source_doc_id": "1721",
+      "module": "src/ezviz_unified/osd.py",
+      "symbols": [
+        "Osd.get_name",
+        "AsyncOsd.get_name"
+      ],
+      "public_entry": "osd.get_name",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.osd.set_name",
+      "region": "domestic",
+      "source_doc_id": "725",
+      "module": "src/ezviz_unified/osd.py",
+      "symbols": [
+        "Osd.set_name",
+        "AsyncOsd.set_name"
+      ],
+      "public_entry": "osd.set_name",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.osd.set_lines",
+      "region": "domestic",
+      "source_doc_id": "5201",
+      "module": "src/ezviz_unified/osd.py",
+      "symbols": [
+        "Osd.set_lines",
+        "AsyncOsd.set_lines"
+      ],
+      "public_entry": "osd.set_lines",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

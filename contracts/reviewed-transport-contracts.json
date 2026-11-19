@@ -17434,6 +17434,223 @@
       },
       "source_content_sha256": "865d22e5185a1eb2477d5ece3c684e26622b47a292f76fcbbd610ffc69b425d2",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.osd.get_name",
+      "region": "domestic",
+      "source_doc_id": "1721",
+      "source_url": "https://open.ys7.com/help/1721",
+      "method": "GET",
+      "path": "/api/v3/device/osd",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R2",
+          "default": null
+        },
+        {
+          "name": "deviceSerial",
+          "location": "query",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R3",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E40;E68"
+      },
+      "constraints": [
+        {
+          "fact": "用户访问令牌，未注明最低子账号权限。",
+          "evidence": "接口功能;E14"
+        },
+        {
+          "fact": "按设备序列号查询，没有通道入参，成功 data.osd 为字符串。",
+          "evidence": "E14;E40;E44"
+        }
+      ],
+      "uncertainties": [
+        "读取未指定通道，无法证明任意通道的旧值或多行内容；适用型号未验证。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/device/osd",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E36"
+      },
+      "source_content_sha256": "bd3b4407d97f3fa10e96c4048f54c69912cf9a96f73f18fe9dbeb5adc79ec930",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.osd.set_name",
+      "region": "domestic",
+      "source_doc_id": "725",
+      "source_url": "https://open.ys7.com/help/725",
+      "method": "POST",
+      "path": "/api/lapp/device/update/osd/name",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R2",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R3",
+          "default": null
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R4",
+          "default": null
+        },
+        {
+          "name": "osdName",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R5",
+          "default": null
+        },
+        {
+          "name": "channelNo",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "E14/R6",
+          "default": "1"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E58;E78"
+      },
+      "constraints": [
+        {
+          "fact": "support_osd=1；子账号 Config，资源 Cam:设备序列号:通道号。",
+          "evidence": "接口功能;E14"
+        },
+        {
+          "fact": "英文字母须为大写，osdName 必填且通道可省。成功仅示范 code 与 msg。",
+          "evidence": "E14;E58;E62"
+        }
+      ],
+      "uncertainties": [
+        "原文未规定文本长度、字符列表或置空效果；真实写需确认指定通道原值和恢复方法。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/device/update/osd/name",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E54"
+      },
+      "source_content_sha256": "576465aaa3bbc3221ea55084acc131ed2138202c7ac0eaf5ceec46194b2a463d",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.osd.set_lines",
+      "region": "domestic",
+      "source_doc_id": "5201",
+      "source_url": "https://open.ys7.com/help/5201",
+      "method": "POST",
+      "path": "/api/v3/device/osd/multi/set",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R2",
+          "default": null
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R3",
+          "default": null
+        },
+        {
+          "name": "channelNo",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "E14/R4",
+          "default": "1"
+        },
+        {
+          "name": "osdNames",
+          "location": "body",
+          "type": "String",
+          "required": false,
+          "evidence": "E14/R5",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E53;E82"
+      },
+      "constraints": [
+        {
+          "fact": "支持托管和子账号，权限为设备级 Config。",
+          "evidence": "接口功能;E14"
+        },
+        {
+          "fact": "可选 osdNames 为字符串，多个内容以英文逗号分隔，未给转义规则。成功样例没有 data。",
+          "evidence": "E14;E53;E57"
+        }
+      ],
+      "uncertainties": [
+        "未规定行数、逗号转义、空串或省略的效果；无已验证配套 getter 或完整恢复方式。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/v3/device/osd/multi/set",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E49"
+      },
+      "source_content_sha256": "159c2ef647e6ddef9084e61074b2b9748e755d25ec3228c7a396abd78db6b2b1",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -17535,6 +17752,10 @@
     {
       "review": "docs/coordination/domestic-device-algorithms/admission.json",
       "note": "国内 730、731 各自的 GET 查询；表单与筛选条件矛盾已分别登记。"
+    },
+    {
+      "review": "docs/coordination/domestic-osd/admission.json",
+      "note": "国内 1721 设备级 OSD 读取、725 单行设置及 5201 多行配置按来源分别登记。"
     }
   ]
 }

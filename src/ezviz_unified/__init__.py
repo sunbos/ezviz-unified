@@ -43,6 +43,7 @@ from .maintenance import AsyncMaintenance, Maintenance
 from .message_subscriptions import AsyncMessageSubscriptions, MessageSubscriptions
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
+from .osd import AsyncOsd, Osd
 from .otap import AsyncOtap, Otap
 from .ownership import AsyncOwnership, Ownership
 from .passenger_flow import AsyncPassengerFlow, PassengerFlow
@@ -105,6 +106,7 @@ __all__ = [
     "AsyncDevices",
     "AsyncDiagnostics",
     "AsyncHubs",
+    "AsyncOsd",
     "AsyncPassengerFlow",
     "AsyncTraffic",
     "AsyncImaging",
@@ -147,6 +149,7 @@ __all__ = [
     "ImageSetting",
     "FillLightMode",
     "Hubs",
+    "Osd",
     "PassengerFlow",
     "Traffic",
     "Illumination",

@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "321731f029a6bfd4a47ae00ff53dc2d13a6b4d6c",
+  "scope_revision": "2026-11-19-r28-domestic-osd",
+  "operations": [
+    {
+      "operation_id": "cn.osd.get_name",
+      "capability_id": "candidate:domestic:1721:d0",
+      "name": "get_name",
+      "entry": "osd.get_name",
+      "doc_id": "1721",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1721-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1721-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Osd": "def get_name(self, device_serial: str) -> ApiResponse",
+        "AsyncOsd": "async def get_name(self, device_serial: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/1721",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1721.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1721.structure.json",
+      "html_sha256": "bd3b4407d97f3fa10e96c4048f54c69912cf9a96f73f18fe9dbeb5adc79ec930",
+      "method": "GET",
+      "path": "/api/v3/device/osd",
+      "token_location": "header",
+      "read_only": true,
+      "permission": "用户访问令牌，未注明最低子账号权限。",
+      "unknown": "读取未指定通道，无法证明任意通道的旧值或多行内容；适用型号未验证。",
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 36,
+        "example": 40,
+        "fields": 44,
+        "errors": 68
+      }
+    },
+    {
+      "operation_id": "cn.osd.set_name",
+      "capability_id": "candidate:domestic:725:d0",
+      "name": "set_name",
+      "entry": "osd.set_name",
+      "doc_id": "725",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-725-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-725-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Osd": "def set_name(self, device_serial: str, osd_name: str, *, channel_no: str | None = None) -> ApiResponse",
+        "AsyncOsd": "async def set_name(self, device_serial: str, osd_name: str, *, channel_no: str | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/725",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/725.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/725.structure.json",
+      "html_sha256": "576465aaa3bbc3221ea55084acc131ed2138202c7ac0eaf5ceec46194b2a463d",
+      "method": "POST",
+      "path": "/api/lapp/device/update/osd/name",
+      "token_location": "form",
+      "read_only": false,
+      "permission": "support_osd=1；子账号 Config，资源 Cam:设备序列号:通道号。",
+      "unknown": "原文未规定文本长度、字符列表或置空效果；真实写需确认指定通道原值和恢复方法。",
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 54,
+        "example": 58,
+        "fields": 62,
+        "errors": 78
+      }
+    },
+    {
+      "operation_id": "cn.osd.set_lines",
+      "capability_id": "candidate:domestic:5201:d0",
+      "name": "set_lines",
+      "entry": "osd.set_lines",
+      "doc_id": "5201",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-5201-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-5201-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Osd": "def set_lines(self, device_serial: str, *, osd_names: str | None, channel_no: str | None = None) -> ApiResponse",
+        "AsyncOsd": "async def set_lines(self, device_serial: str, *, osd_names: str | None, channel_no: str | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/5201",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5201.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/5201.structure.json",
+      "html_sha256": "159c2ef647e6ddef9084e61074b2b9748e755d25ec3228c7a396abd78db6b2b1",
+      "method": "POST",
+      "path": "/api/v3/device/osd/multi/set",
+      "token_location": "header",
+      "read_only": false,
+      "permission": "支持托管和子账号，权限为设备级 Config。",
+      "unknown": "未规定行数、逗号转义、空串或省略的效果；无已验证配套 getter 或完整恢复方式。",
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 49,
+        "example": 53,
+        "fields": 57,
+        "errors": 82
+      }
+    }
+  ],
+  "sdk_choices": [
+    "三个独立入口，无设备发现、能力预检、写后回读或自动恢复。SDK 的只读重试只适用于 get_name，写入失败后保持平台异常且不重放。",
+    "1721 的 deviceSerial 为保留原文的非空白 UTF-8 query，header token；不接收通道。成功 data.osd 须为字符串，返回原 ApiResponse；空字符串可读取，不推断画面效果。",
+    "725 的 deviceSerial 必须将英文字母大写；osdName 采用 SDK 非空白 UTF-8 字符串校验，保留原始前后空白、标点和 Unicode。不引用设备云端重命名的长度或字符限制。",
+    "5201 的序列号没有大写规定。osdNames 使用单一原始 UTF-8 字符串，应用显式提供 osd_names 关键字；传 None 对应省略，空字符串按显式空表单值发送，均不承诺清屏。保留逗号、空白及未知格式，不自行拆行、转义或猜最大行数。",
+    "两个写接口可省略 String channelNo，由服务器使用其默认值 1，显式通道字符串保留原文。725 字符串 code=200；5201 的 meta.code 是整数 200；均支持官方没有 data 的回执。",
+    "诊断与只读 CLI 只输出允许的状态，不输出设备或 OSD 文本。新增请求字段 osdName 和 osdNames 复用既有敏感值采集与脱敏；原始成功业务数据仅供主动访问。"
+  ],
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "live": "无真实请求；单行读取、单行修改、多行配置独立验收。"
+}

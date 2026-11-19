@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 国内设备 OSD 文字
+
+已离线验证设备名称读取、单行设置与多行配置的同步和异步请求，以及只读 CLI 的输出。两个写接口的认证位置与成功码类型不同，认证失效时均不重放。设备级名称读取不能核对任意通道或多行配置的原值，三个真实案例仍待独立授权与适用设备。[冻结范围](../coordination/domestic-osd/admission.json) · [离线记录](2026-11-19-domestic-osd/offline.json)
+
 ## 国内智能设备算法清单
 
 设备已加载模型和指定设备支持的算法分列为两个查询。同步、异步、CLI 与诊断案例已用模拟传输通过。GET 表单体的真实服务兼容性、账号可见范围及实际设备清单仍待授权后核验。[冻结依据](../coordination/domestic-device-algorithms/admission.json) · [离线验收](2026-11-19-domestic-device-algorithms/offline.json)

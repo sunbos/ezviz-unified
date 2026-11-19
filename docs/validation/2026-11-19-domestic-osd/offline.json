@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "scope": "domestic_osd_offline",
+  "code_commit": "c198b36ebd508d005e75c906efad43ad98fabf28",
+  "source_test_sha256": {
+    "src/ezviz_unified/osd.py": "55103be4d77c70173abdd86992dc47c8282204fb1d4b2ca858142eaaf5c796a4",
+    "tests/test_sdk_osd.py": "b251a7781c98f55b8b91aad4eeba44fed9b714a4e8d86dc9a10d1ed59e918db7",
+    "examples/osd_name.py": "a40e7b1dfef7980a5ca1f156ed23b4bcbb3c7cdcaa9187c556e23662cb2bcaf1",
+    "tests/test_example_osd_name.py": "26245f7985731408846dd19f5a945594f8479ecf07ce3503336648d4a6a4a2fe",
+    "README.md": "6e7612834d249bcfe70fec130cd4aff9f704ab5b37d3ae313726cccd7379b709",
+    "src/ezviz_unified/client.py": "66604cea2036f4c60a529a81e8f56a16ef6e8e3f5f723b0200c74ce93dc98ad0",
+    "src/ezviz_unified/__init__.py": "ff7655007df99565721c944ad1ff40d6da7b1d9425b505b6f4febd032d8c5635",
+    "src/ezviz_unified/_diagnostic_registry.py": "8da2a0830d61170bec4443743799634aef12445c3547bec234642bf3f3015211",
+    "docs/diagnostics-v1-coverage.json": "9c3c3d9bed297831918f865a0e2236e10e39a9fcb0bf734cfe261aa10c799c2b",
+    "docs/diagnostics.md": "1bcc4e77089d644da183db5e0b9c8a3718931655b3312b8ea0803a302928a7b6",
+    "tests/test_harness_diagnostic_coverage.py": "bcb316fa5179e484dfee7fdadf4ccdcce4a8e80a9fd9d0d472ad6a4516dcf9e8",
+    "docs/coordination/domestic-osd/admission.json": "8d23dc072d8327aed66740843b78652f6cf01c5be6aa596ac77d8785785f818e",
+    "contracts/reviewed-transport-contracts.json": "355932ce30f790b9036c954d4aa83f0af90472b4afc2fb9cccb229574d827dc6",
+    "contracts/source-issues.json": "5a8b51e20275e394de3c23c0c2a7c7092d714f0c09cc139f24258d7d10dd6652",
+    "evals/contracts/cases.json": "4f21f18a4b922e7c0317604f48c748bb296b84c06782ca3a232356db29d72b7f",
+    "src/ezviz_unified/errors.py": "476feda08293d0e16893346a05027c194091dcc9708f6b2673be4a995ec38106"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP387-SDKReview",
+        "input_commit": "9acc7c9fe3529899e4610ac35446dd703f862abc",
+        "write_scope": [
+          "src/ezviz_unified/osd.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "ce215a0b01c0813ca6b3976521f4cdf32ad6857fec7e5ad3b71f039e90fc537c"
+      },
+      {
+        "task": "SP388-SerialFix",
+        "input_commit": "9acc7c9fe3529899e4610ac35446dd703f862abc",
+        "write_scope": [
+          "src/ezviz_unified/osd.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "87a691db942f4f0f115351fe1fe3dc94bd37974595b4a4d8da9811b90751289b"
+      },
+      {
+        "task": "SP387-SDKTestsReview",
+        "input_commit": "9acc7c9fe3529899e4610ac35446dd703f862abc",
+        "write_scope": [
+          "tests/test_sdk_osd.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "428695f9a5f62f7bda3e1a58dd787cc242dab44d4cf8d189ae79430f834cec4b"
+      },
+      {
+        "task": "SP389-SDKCases",
+        "input_commit": "9acc7c9fe3529899e4610ac35446dd703f862abc",
+        "write_scope": [
+          "tests/test_sdk_osd.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "3b2878f0669b64d3a6f5748ae1daf220fe3588d8a0beb50a6060f6e83e57153f"
+      },
+      {
+        "task": "SP386-CLI",
+        "input_commit": "9acc7c9fe3529899e4610ac35446dd703f862abc",
+        "write_scope": [
+          "examples/osd_name.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "b25342c1ea5d1fc9c89d86836f6acd1c890cfe894192daf1129a81b8d92844b5"
+      },
+      {
+        "task": "SP387-CLITests",
+        "input_commit": "9acc7c9fe3529899e4610ac35446dd703f862abc",
+        "write_scope": [
+          "tests/test_example_osd_name.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "6ef1ca38d1e325d2d89368dac2f410098bc03cd3d0918311ccc86b8bde19667c"
+      },
+      {
+        "task": "SP387-CLIReview",
+        "input_commit": "9acc7c9fe3529899e4610ac35446dd703f862abc",
+        "write_scope": [
+          "tests/test_example_osd_name.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "a546f0cd6181b49df8bfe70ae617da369bdccfd2fb69c6b8cfa4c207d5f70088"
+      },
+      {
+        "task": "SP388-CLIDecode",
+        "input_commit": "9acc7c9fe3529899e4610ac35446dd703f862abc",
+        "write_scope": [
+          "tests/test_example_osd_name.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "e49615f9dcd8b8122db1798156bffeb8c740d1042f07ed197e0468c9dffa404a"
+      },
+      {
+        "task": "SP387-Guide",
+        "input_commit": "9acc7c9fe3529899e4610ac35446dd703f862abc",
+        "write_scope": [
+          "README.md"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "95bb428668162db213d1390a9add8b7abf8e48c36205747560c6c997e3289875"
+      }
+    ],
+    "rejected_candidates": [
+      "SP386-SDK",
+      "SP386-SDKTests"
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_osd.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "484 passed in 1.54s",
+      "local_receipt_sha256": "310c49aa55fd975bcbd9bfb27d142564a6a691156628a1ba350980cc1906d805",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_osd_name.py",
+      "summary": "27 passed in 0.30s",
+      "local_receipt_sha256": "98b7c83197407cb4f867666ebb5eeeb21c44c272b1d6dc5c9eee7d4be2b56db9",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "8376 passed, 35 subtests passed in 55.87s",
+      "local_receipt_sha256": "ee3174a2236e5c29ef515e35e773b3d20edd90edb2742a22fbc1f7ec0e45bf96",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "241 registered contracts, 1960/1960 wire checks passed",
+      "local_receipt_sha256": "687e18411bd08fc5e9e5ac2b6b568ae2aa3ffd6a356abc49f81ce2f118ef404a",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 54 source files",
+      "local_receipt_sha256": "7171f845ae87b6f64a2a8447c6be0d093602d3c58b02af775f4d0f6bda97341f",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "241 registered contracts and bindings, 482 symbols inspected",
+      "local_receipt_sha256": "49eb8abf1ac23f933577a0e3ad6cd2bc94f75d25d0953890e33d7b9a91134f36",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/osd.py tests/test_sdk_osd.py examples/osd_name.py tests/test_example_osd_name.py src/ezviz_unified/client.py src/ezviz_unified/__init__.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py src/ezviz_unified/errors.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "13987c7e24c56c988f55b7bd52e86e3bbc1a223e4d431d79a30b0a23617baf76",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/osd.py tests/test_sdk_osd.py examples/osd_name.py tests/test_example_osd_name.py src/ezviz_unified/client.py src/ezviz_unified/__init__.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py src/ezviz_unified/errors.py",
+      "summary": "9 files already formatted",
+      "local_receipt_sha256": "7b3f3dc94e1a91e3e453c995609d5fbc5aea9f14c0d326f5e4c91a613b026ab9",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "本批使用模拟传输完成一次设备读取和两种不同的配置写入路径验证。未访问真实设备，接口回执不证明通道文字已显示，也未验证设备原值、回读或恢复。"
+}
