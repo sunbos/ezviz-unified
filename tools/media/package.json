@@ -7,7 +7,7 @@
     "playwright-core": "1.57.0"
   },
   "scripts": {
-    "check": "node --check verify_hls.cjs && node --check ../../examples/hls_preview_assets/preview.js",
+    "check": "node --check verify_hls.cjs && node --check ../../examples/hls_preview_assets/preview.js && node --check hevc_probe.cjs",
     "verify": "node verify_hls.cjs"
   }
 }

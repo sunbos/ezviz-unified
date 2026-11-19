@@ -65,7 +65,7 @@ with Client(
 
 ## 官方 HLS 播放器接入
 
-源码示例串联 `Client.playback.create` 和官方 `@ezuikit/player-hls@2.0.0`。可在本机浏览器播放自行生成的 H.264 测试片，体验从取得地址到释放播放器的完整流程。示例使用合成地址，真实设备预览另需授权。运行方式及可复现的浏览器验证见[HLS 预览指南](docs/official-hls-preview.md)。
+源码示例串联 `Client.playback.create` 和官方 `@ezuikit/player-hls@2.0.0`。默认使用 H.264，也可用 `--codec h265` 播放自行生成的 HEVC 测试片，验证官方 WASM 解码和 WebGL 画面。示例使用合成地址，真实设备预览另需授权。运行方式及可复现的浏览器验证见[HLS 预览指南](docs/official-hls-preview.md)。
 
 ## 国内设备客流统计
 

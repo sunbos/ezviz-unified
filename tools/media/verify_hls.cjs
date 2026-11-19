@@ -2,7 +2,8 @@
 /*
  * verify_hls.cjs - opt-in Playwright verifier for the official HLS preview page.
  *
- *   node tools/media/verify_hls.cjs --base http://127.0.0.1:PORT [--chrome /path]
+ *   node tools/media/verify_hls.cjs --base http://127.0.0.1:PORT
+ *     [--codec h264|h265] [--chrome /path]
  *
  * Prints exactly one compact JSON receipt on stdout. Exit code is nonzero on
  * any unmet condition; `stage` names the failing phase so repairs stay
@@ -18,15 +19,24 @@ const argv = process.argv.slice(2);
 let baseArg;
 let chromeArg;
 let chromeSet = false;
+let codecArg;
+let codecSet = false;
 for (let i = 0; i < argv.length; i += 1) {
   if (argv[i] === '--base' && baseArg === undefined) baseArg = argv[i += 1];
   else if (argv[i] === '--chrome' && !chromeSet) {
     chromeSet = true;
     chromeArg = argv[i += 1];
+  } else if (argv[i] === '--codec' && !codecSet) {
+    codecSet = true;
+    codecArg = argv[i += 1];
   } else die('error: invalid arguments');
 }
 const bad = (s) => typeof s !== 'string' || s === '' || s[0] === '-';
-if (bad(baseArg) || (chromeSet && bad(chromeArg))) die('error: invalid arguments');
+if (bad(baseArg) || (chromeSet && bad(chromeArg)) || (codecSet && bad(codecArg))) {
+  die('error: invalid arguments');
+}
+const codec = codecSet ? codecArg : 'h264';
+if (codec !== 'h264' && codec !== 'h265') die('error: invalid arguments');
 let base = null;
 try { base = new URL(baseArg); } catch (e) { die('error: invalid base url'); }
 // Exact base only: http://127.0.0.1 with an explicit port -- no https, no
@@ -36,11 +46,19 @@ const baseOk = base.protocol === 'http:' && base.hostname === '127.0.0.1'
   && base.pathname === '/' && base.search === '' && base.hash === '';
 if (!baseOk) die('error: invalid base url');
 
+// Exactly one active playlist per codec profile: h264 keeps /media/preview.m3u8
+// and 'hard' decoding; h265 admits only /media/hevc.m3u8 and expects the
+// official 'soft' path (decoder.worker.js + decoder.wasm).
+const MANIFEST = codec === 'h265' ? '/media/hevc.m3u8' : '/media/preview.m3u8';
+const EXPECTED_DECODER = codec === 'h265' ? 'soft' : 'hard';
 const ALLOWED = new Set(['/', '/preview.js', '/preview.json',
   '/vendor/index.umd.js', '/vendor/style/css.css', '/vendor/decoder.worker.js',
-  '/vendor/decoder.wasm', '/media/preview.m3u8']);
+  '/vendor/decoder.wasm', MANIFEST]);
 const SEGMENT = /^\/media\/segment-\d{3}\.ts$/;
 const BUNDLE_SHA256 = 'afb2f9c1f3e32c865db90aa6ee6dbb7a1ef61a90cf4911c1787ac8732fa28e1c';
+// h265 only: decoder-asset digests/MIME/worker-CSP plus an ffprobe of the
+// first real TS segment are verified by hevc_probe.cjs against the actual
+// response bytes; this file keeps no duplicate pins or fallback checks.
 const { createHash } = require('crypto');
 
 // ---- page-side probes (serialized into the browser by page.evaluate) --------
@@ -49,8 +67,18 @@ const { createHash } = require('crypto');
 // (returns untouched, constructor untouched). If the UMD defines the methods
 // per-instance instead of on the prototype, a transparent Proxy construct/apply
 // trap still returns the real instance, now with wrapped original methods.
-const installSpy = () => {
+// With hevc=true the genuine constructed instance additionally wires the real
+// source events: 'timeupdate' (only a numeric finite seconds payload is kept
+// -- nothing is coerced), 'videoInfo' (keep only a normalized codec plus
+// integer geometry -- never the raw info entity), and 'wasm_loaded'. The
+// official initSuccess decoder evidence lands on #player.dataset.decoder via
+// the page's own listener and is mirrored (never the reverse) into the clock.
+// All measurements land in window.__hevcClock; nothing else is exposed.
+const installSpy = (hevc) => {
   const L = (window.__life = { constructed: 0, pause: 0, destroy: 0 });
+  if (hevc === true) {
+    window.__hevcClock = { time: null, video: null, wasmLoaded: false, decoder: null };
+  }
   const mark = (o, k) => {
     const f0 = o[k];
     if (typeof f0 !== 'function' || f0.__spied) return;
@@ -64,6 +92,47 @@ const installSpy = () => {
   const wrap = (inst) => {
     if (inst && typeof inst === 'object') {
       L.constructed += 1; mark(inst, 'pause'); mark(inst, 'destroy');
+      if (hevc === true && window.__hevcClock && typeof inst.on === 'function') {
+        const clock = window.__hevcClock;
+        const on = (ev, fn) => {
+          try { inst.on(ev, fn); } catch (e) { /* keep original */ }
+        };
+        on('timeupdate', (t) => {
+          // A real seconds number, or the vendor object only when its
+          // currentTime is a real seconds number -- missing/null is never
+          // coerced to zero.
+          if (typeof t === 'number' && Number.isFinite(t)) {
+            clock.time = t;
+          } else if (t && typeof t === 'object'
+            && typeof t.currentTime === 'number' && Number.isFinite(t.currentTime)) {
+            clock.time = t.currentTime;
+          }
+        });
+        on('videoInfo', (i) => {
+          if (!i || typeof i !== 'object') return;
+          const raw = i.codec === undefined || i.codec === null
+            ? i.videoCodec : i.codec;
+          const s = String(raw === undefined ? '' : raw).toLowerCase();
+          const c = s === 'hevc' || s === 'h265' || s.indexOf('hvc1') !== -1
+            || s.indexOf('hev1') !== -1 ? 'hevc' : '';
+          const w = Math.round(Number(i.width));
+          const h = Math.round(Number(i.height));
+          if (c !== '' && Number.isInteger(w) && Number.isInteger(h)
+            && w > 0 && h > 0) {
+            clock.video = { codec: c, width: w, height: h };
+          }
+        });
+        on('wasm_loaded', () => { clock.wasmLoaded = true; });
+        const host = document.getElementById('player');
+        if (host && typeof MutationObserver === 'function') {
+          const sync = () => {
+            if (host.dataset && host.dataset.decoder === 'soft') clock.decoder = 'soft';
+          };
+          new MutationObserver(sync)
+            .observe(host, { attributes: true, attributeFilter: ['data-decoder'] });
+          sync();
+        }
+      }
     }
     return inst;
   };
@@ -170,12 +239,60 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // ---- shared state -----------------------------------------------------------
 const counts = {
   manifest: 0, segment: 0, sdk: 0, negSdk: 0, unexpected: 0, ws: 0,
-  wsClosed: 0, cspBlocked: 0,
+  wsClosed: 0, cspBlocked: 0, workerAttempt: 0, wasmAttempt: 0,
 };
 const negPages = new Set();
 let bundleSha = ''; // empty only when the UMD was fetched without a body
 let docCspOk = false; // true only when the real document CSP was checked
 let stage = 'startup';
+// h265 only: the real decoder probe (lazy require keeps the h264 path and the
+// module graph unchanged). It owns every soft fact: attach/resource/measure/
+// released/snapshot are called directly with no fallback substitutes.
+let soft = null;
+const softPaths = new Set(codec === 'h265'
+  ? ['/vendor/decoder.worker.js', '/vendor/decoder.wasm']
+  : []);
+const SOFT_VIDEO = { codec: 'hevc', width: 320, height: 180 };
+const SOFT_SEGMENT = {
+  streams: 1, codec: 'hevc', codecType: 'video', width: 320, height: 180,
+  pixFmt: 'yuv420p', audio: false,
+};
+// True only when o carries exactly the whitelisted primitive fields of shape
+// and every value strictly equals the expected one.
+const shapeIs = (o, shape) => {
+  if (!o || typeof o !== 'object' || Array.isArray(o)) return false;
+  const ks = Object.keys(o);
+  const es = Object.keys(shape);
+  if (ks.length !== es.length) return false;
+  return es.every((k) => o[k] === shape[k]);
+};
+// Exact copy of the probe's measure() return bounded to whitelisted fields;
+// nested objects are re-built literal by literal so nothing else can leak.
+const softMeasureCopy = (d) => ({
+  decoder: d.decoder,
+  wasmLoaded: d.wasmLoaded,
+  video: { codec: d.video.codec, width: d.video.width, height: d.video.height },
+  canvas: {
+    width: d.canvas.width, height: d.canvas.height,
+    cssWidth: d.canvas.cssWidth, cssHeight: d.canvas.cssHeight,
+  },
+  phases: d.phases,
+  sequence: d.sequence.slice(),
+  mediaDeltaMs: d.mediaDeltaMs,
+  firstMediaTime: d.firstMediaTime,
+  lastMediaTime: d.lastMediaTime,
+  segment: {
+    streams: d.segment.streams, codec: d.segment.codec,
+    codecType: d.segment.codecType, width: d.segment.width,
+    height: d.segment.height, pixFmt: d.segment.pixFmt, audio: d.segment.audio,
+  },
+  workerVerified: d.workerVerified,
+  wasmVerified: d.wasmVerified,
+  workersStarted: d.workersStarted,
+  cspBlocked: d.cspBlocked,
+  unexpectedWorkers: d.unexpectedWorkers,
+  errors: d.errors,
+});
 let cleanupError = false; // any failed/late cleanup step marks the run failed
 let browser = null;
 let context = null;
@@ -198,6 +315,15 @@ const receipt = {
   neg: { failed: null, mediaBefore: null, constructed: null, addressFetches: null, mediaDelta: null, refetch: null },
   net: { unexpected: 0, ws: 0, cspBlocked: 0 },
 };
+if (codec === 'h265') {
+  // h265 only: the previous H264 receipt carried no top-level codec/mode, so
+  // they are added strictly on this branch, never on the H264 key set.
+  receipt.codec = 'h265';
+  receipt.mode = 'soft';
+  // Measured soft-decoder facts only: null until the real probe returns them.
+  receipt.soft = null;
+  receipt.stats = null; // last real probe snapshot (filled in finally too)
+}
 
 // Hard bound via Promise.race in the runner below: on timeout the receipt is
 // emitted once, after real cleanup in the shared finally block.
@@ -214,6 +340,11 @@ const onRoute = async (route) => {
   let u = null;
   try { u = new URL(req.url()); } catch (e) { u = null; }
   const p = u ? u.pathname : '';
+  // Count EVERY real attempted allowlisted decoder fetch before any
+  // response/negative branching: a verified-response count alone can miss an
+  // attempt that was later refused, and the negative page must never fire one.
+  if (p === '/vendor/decoder.worker.js') counts.workerAttempt += 1;
+  else if (p === '/vendor/decoder.wasm') counts.wasmAttempt += 1;
   const ok = !!u && u.origin === base.origin && u.search === '' && u.hash === ''
     && (req.method() === 'GET' || req.method() === 'HEAD')
     && (ALLOWED.has(p) || SEGMENT.test(p));
@@ -229,7 +360,7 @@ const onRoute = async (route) => {
       return;
     }
   }
-  if (p === '/media/preview.m3u8') counts.manifest += 1;
+  if (p === MANIFEST) counts.manifest += 1;
   else if (SEGMENT.test(p)) counts.segment += 1;
   let resp;
   try {
@@ -253,6 +384,13 @@ const onRoute = async (route) => {
     if (p === '/vendor/index.umd.js' && !negReq) {
       // Digest of the actual official UMD bytes as served to the page.
       bundleSha = createHash('sha256').update(await resp.body()).digest('hex');
+    }
+    if (soft && !negReq && (softPaths.has(p) || SEGMENT.test(p))) {
+      // h265: the probe validates the real decoder-asset bytes (status, MIME,
+      // digest, worker CSP) and ffprobes the first TS segment BEFORE the page
+      // receives them. Direct call only -- no substitute verification.
+      if (st !== 200) throw new Error('x');
+      await soft.resource(p, resp);
     }
     // Pass the real response through untouched: same bytes, same headers.
     // The original document's CSP is validated in-page via cspProbe -- the
@@ -301,7 +439,16 @@ const run = async () => {
   await context.addInitScript(cspListener, base.origin);
 
   // ---- positive case ----
+  if (codec === 'h265') {
+    // Lazy so the h264 module graph stays byte-identical.
+    const mod = require('./hevc_probe.cjs');
+    if (!mod || typeof mod.createHevcProbe !== 'function') throw new Error('x');
+    soft = mod.createHevcProbe(base.origin);
+    if (!soft || typeof soft !== 'object') throw new Error('x');
+  }
   const page = await context.newPage();
+  // attach BEFORE navigation so worker/wasm/CSP probes see the whole session.
+  if (soft) await soft.attach(page);
   const nav = await page.goto(base.href, { waitUntil: 'load', timeout: 15000 });
   if (!nav) throw new Error('x');
   await page.waitForFunction(() => Boolean(window.HlsPlayer), null, { timeout: 10000 });
@@ -316,43 +463,115 @@ const run = async () => {
   receipt.versionReported = ver === '2.0.0' ? 'exact' : (ver === '' ? 'unreported' : 'mismatch');
   receipt.versionOk = ver === '2.0.0'; // the official bundle reports exactly 2.0.0
   if (!receipt.versionOk) throw new Error('x');
-  const proxied = await page.evaluate(installSpy).catch(() => false) === true;
+  const proxied = await page.evaluate(installSpy, codec === 'h265')
+    .catch(() => false) === true;
   if (!proxied) throw new Error('x'); // spy is required in both cases
 
-  stage = 'positive-frames';
+  stage = codec === 'h265' ? 'soft-pixels' : 'positive-frames';
   await page.click('#play-preview', { timeout: 5000 });
-  await page.waitForSelector('#player video', { state: 'attached', timeout: 15000 });
-  const m = await Promise.race([
-    page.evaluate(framesProbe).catch(() => null),
-    sleep(12000).then(() => null),
-  ]);
-  if (m) {
-    receipt.video = { w: m.w | 0, h: m.h | 0 };
-    receipt.frames = { n: m.n | 0, mediaDeltaMs: Math.round(m.delta * 1000) };
+  if (!soft) {
+    await page.waitForSelector('#player video', { state: 'attached', timeout: 15000 });
+    const m = await Promise.race([
+      page.evaluate(framesProbe).catch(() => null),
+      sleep(12000).then(() => null),
+    ]);
+    if (m) {
+      receipt.video = { w: m.w | 0, h: m.h | 0 };
+      receipt.frames = { n: m.n | 0, mediaDeltaMs: Math.round(m.delta * 1000) };
+    }
+    if (!(m && m.n >= 2 && m.delta >= 0.15 && m.w === 320 && m.h === 180)) {
+      throw new Error('x');
+    }
+  } else {
+    // h265 soft path: the real player renders to a WebGL canvas -- no <video>
+    // probe and no invented counters. Every measured fact below comes from the
+    // probe's observation of the genuine instance events, real canvas pixels,
+    // and the actual response bytes it already verified (direct call only).
+    await page.waitForSelector('#player canvas', { state: 'attached', timeout: 15000 });
+    const data = await Promise.race([soft.measure(page), sleep(45000).then(() => null)]);
+    if (data === null) throw new Error('x'); // bounded; probe errors are not swallowed
+    const seq = Array.isArray(data.sequence) ? data.sequence : [];
+    const cyc = { red: 'green', green: 'blue', blue: 'red' };
+    const cyclic = seq.length >= 3 && seq.every((c) => c === 'red' || c === 'green' || c === 'blue')
+      && seq.slice(1).every((c, i) => c === cyc[seq[i]]); // any rotation allowed
+    if (!(data.decoder === 'soft' && data.wasmLoaded === true
+      && shapeIs(data.video, SOFT_VIDEO)
+      && data.canvas && typeof data.canvas === 'object'
+      && Number.isInteger(data.canvas.width) && data.canvas.width > 0
+      && Number.isInteger(data.canvas.height) && data.canvas.height > 0
+      && Number.isInteger(data.canvas.cssWidth) && data.canvas.cssWidth > 0
+      && Number.isInteger(data.canvas.cssHeight) && data.canvas.cssHeight > 0
+      && data.phases === seq.length && cyclic
+      && typeof data.mediaDeltaMs === 'number' && data.mediaDeltaMs > 500
+      && typeof data.firstMediaTime === 'number' && Number.isFinite(data.firstMediaTime)
+      && data.firstMediaTime >= 0
+      && typeof data.lastMediaTime === 'number' && Number.isFinite(data.lastMediaTime)
+      && data.lastMediaTime > data.firstMediaTime
+      && shapeIs(data.segment, SOFT_SEGMENT)
+      && data.workerVerified === true && data.wasmVerified === true
+      && Number.isInteger(data.workersStarted) && data.workersStarted >= 1
+      && data.cspBlocked === 0 && data.unexpectedWorkers === 0 && data.errors === 0)) {
+      throw new Error('x'); // a measured soft fact is absent, false, or wrong
+    }
+    receipt.soft = softMeasureCopy(data); // real fields only, safe primitives
+    receipt.stats = soft.snapshot(); // counters at measure time
   }
-  if (!(m && m.n >= 2 && m.delta >= 0.15 && m.w === 320 && m.h === 180)) throw new Error('x');
-  // Presented frames (requestVideoFrameCallback) and the vendor's
-  // timeupdate-driven UI state advance on different cadences: wait for both
-  // real markers so ordering is not a race, then still require the actual
-  // values below.
+  // Presented frames (or the soft decoder) and the vendor's timeupdate-driven
+  // UI state advance on different cadences: wait for both real markers so
+  // ordering is not a race, then still require the actual values below.
   await page.waitForSelector('#status[data-state="playing"]', { state: 'attached', timeout: 5000 });
   await page.waitForFunction(
-    () => document.querySelector('#player')?.dataset.decoder === 'hard',
-    null, { timeout: 5000 });
+    (want) => document.querySelector('#player')?.dataset.decoder === want,
+    EXPECTED_DECODER, { timeout: 5000 });
   const dec = await page.evaluate(decoderOf).catch(() => '');
-  receipt.decoder = dec === '' ? 'absent' : (dec === 'hard' ? 'hard' : 'other');
+  receipt.decoder = dec === '' ? 'absent' : (dec === EXPECTED_DECODER ? EXPECTED_DECODER : 'other');
   receipt.pos.playing = (await page.evaluate(stateOf).catch(() => '')) === 'playing';
-  if (receipt.decoder !== 'hard' || !receipt.pos.playing) throw new Error('x');
+  if (receipt.decoder !== EXPECTED_DECODER || !receipt.pos.playing) throw new Error('x');
 
-  stage = 'lifecycle';
+  stage = codec === 'h265' ? 'soft-release' : 'lifecycle';
   await page.click('#stop-preview', { timeout: 5000 });
   await page.waitForFunction(
     () => window.__life && window.__life.pause >= 1 && window.__life.destroy >= 1,
     null, { timeout: 10000 });
-  await page.waitForSelector('#player video', { state: 'detached', timeout: 10000 });
+  await page.waitForSelector('#player video', { state: 'detached', timeout: 10000 })
+    .catch(() => { if (!soft) throw new Error('x'); }); // soft path: no <video>
+  if (soft) {
+    await page.waitForSelector('#player canvas', { state: 'detached', timeout: 10000 });
+  }
   await page.waitForSelector('#status[data-state="stopped"]', { state: 'attached', timeout: 10000 });
   const med0 = counts.manifest + counts.segment;
   await sleep(650);
+  if (soft) {
+    // Real release proof while the positive page is still open: the probe
+    // throws unless every decoder worker actually exited and the canvas is
+    // detached; nothing is simulated by closing the context.
+    const rel = await Promise.race([soft.released(page), sleep(20000).then(() => null)]);
+    // Strict actual values only: the real stop click must have terminated the
+    // decoder workers exactly after stop (never before), with the canvas
+    // detached and both termination counters present as finite numbers.
+    if (!(rel && typeof rel === 'object'
+      && rel.workersStarted === 1 && rel.workersClosed === 1
+      && rel.canvasDetached === true
+      && rel.terminateBeforeStop === 0 && rel.terminateAfterStop === 1)) {
+      throw new Error('x');
+    }
+    receipt.soft.release = {
+      workersStarted: rel.workersStarted,
+      workersClosed: rel.workersClosed,
+      canvasDetached: rel.canvasDetached,
+      terminateBeforeStop: rel.terminateBeforeStop,
+      terminateAfterStop: rel.terminateAfterStop,
+    };
+    receipt.stats = soft.snapshot();
+    // After release (positive still open, before the negative page and final
+    // pass) the probe's own live counters must still read zero errors and zero
+    // CSP violations -- an absolute requirement, not a zero difference.
+    const post = receipt.stats;
+    if (!(post && typeof post === 'object'
+      && post.errors === 0 && post.cspBlocked === 0)) {
+      throw new Error('x');
+    }
+  }
   const lf = await page.evaluate(lifeOf);
   receipt.life = {
     constructed: lf.constructed | 0, pause: lf.pause | 0, destroy: lf.destroy | 0,
@@ -374,19 +593,49 @@ const run = async () => {
   stage = 'invalid-url';
   const negMediaBase = counts.manifest + counts.segment; // BEFORE nav/click
   const negSdkBase = counts.sdk;
+  // Actual attempted decoder fetches so far (positive fully stopped): the
+  // negative deltas below come from these real counters, not from the probe's
+  // verified-response counts.
+  const negAtt0 = { worker: counts.workerAttempt, wasm: counts.wasmAttempt };
+  const negSnap0 = soft ? soft.snapshot() : null; // real counters before nav
   const np = await context.newPage();
   negPages.add(np);
+  if (soft) await soft.attach(np);
   const navNeg = await np.goto(base.href, { waitUntil: 'load', timeout: 15000 });
   if (!navNeg) throw new Error('x');
   const cspHeaderNeg = await navNeg.headerValue('content-security-policy').catch(() => null);
   if (!cspPolicyOk(cspHeaderNeg)) throw new Error('x'); // same real policy on every document
   await np.waitForFunction(() => Boolean(window.HlsPlayer), null, { timeout: 10000 });
-  const proxiedNeg = await np.evaluate(installSpy).catch(() => false) === true;
+  const proxiedNeg = await np.evaluate(installSpy, codec === 'h265')
+    .catch(() => false) === true;
   if (!proxiedNeg) throw new Error('x'); // spy required here too
   await np.click('#play-preview', { timeout: 5000 });
   await np.waitForSelector('#status[data-state="failed"]', { state: 'attached', timeout: 10000 });
   await sleep(600);
   const nl = await np.evaluate(lifeOf);
+  if (soft) {
+    // Real attempted-fetch deltas for the decoder paths plus the actual
+    // worker-instance delta from the probe snapshot: nothing may have been
+    // requested or started for the invalid address. Any nonzero fails.
+    const s1 = soft.snapshot();
+    const diff = {
+      workerRequests: counts.workerAttempt - negAtt0.worker,
+      wasmRequests: counts.wasmAttempt - negAtt0.wasm,
+      workersStarted: s1.workersStarted - negSnap0.workersStarted,
+    };
+    receipt.soft.negative = diff;
+    if (!(diff.workerRequests === 0 && diff.wasmRequests === 0
+      && diff.workersStarted === 0)) {
+      throw new Error('x');
+    }
+    if (s1.errors !== negSnap0.errors || s1.cspBlocked !== negSnap0.cspBlocked) {
+      throw new Error('x'); // still zero errors/violations at last observation
+    }
+    if ((await np.locator('#player canvas').count()) !== 0
+      || (await np.locator('#player video').count()) !== 0) {
+      throw new Error('x'); // nothing may be rendered for the invalid address
+    }
+  }
   // The negative page's fetches of the address endpoint: exactly one
   // (satisfied locally with {url:null}) and zero additional refetches.
   const negDelta = counts.sdk - negSdkBase;
@@ -399,6 +648,7 @@ const run = async () => {
     refetch: negDelta - 1,
   };
   const quiet = (await np.locator('#player video').count()) === 0
+    && (!soft || (await np.locator('#player canvas').count()) === 0)
     && negDelta === 1 && counts.negSdk === 1
     && receipt.neg.mediaDelta === 0 && receipt.neg.refetch === 0
     && receipt.neg.constructed === 0;
@@ -428,6 +678,15 @@ const run = async () => {
     // One receipt, written only after cleanup is attempted. The receipt
     // always reflects the actual measured counters -- late forbidden requests
     // are still caught here, and any cleanup failure downgrades the result.
+    if (soft && receipt.stats === null) {
+      // A stats snapshot that is still unavailable at cleanup is itself a
+      // failure -- never a pass on a guessed or suppressed value.
+      try { receipt.stats = soft.snapshot(); } catch (e) { receipt.stats = null; }
+      if (receipt.stats === null) {
+        receipt.result = 'fail';
+        if (receipt.stage === 'done') receipt.stage = 'cleanup';
+      }
+    }
     await collectCsp();
     receipt.net.unexpected = counts.unexpected;
     receipt.net.ws = counts.ws;
