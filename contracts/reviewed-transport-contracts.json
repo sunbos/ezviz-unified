@@ -17016,6 +17016,212 @@
       },
       "source_content_sha256": "819923a8720fd7bd9d6561588871afde9e1900cc7ca29fe6e9fbbe4f6475117d",
       "read_only": true
+    },
+    {
+      "operation_id": "global.ddns.get",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "source_url": "https://open.ys7.com/help/en/469",
+      "method": "POST",
+      "path": "/api/lapp/ddns/get",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "default": null,
+          "evidence": "E447/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "string",
+          "location": "body",
+          "required": false,
+          "default": null,
+          "evidence": "E447/R3"
+        },
+        {
+          "name": "domain",
+          "type": "string",
+          "location": "body",
+          "required": false,
+          "default": null,
+          "evidence": "E447/R4"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E476;E557"
+      },
+      "constraints": [
+        {
+          "fact": "可查询授权范围内的设备，含分享设备。两个选择器至少一个；同时提供时服务端优先按序列号查询。",
+          "evidence": "E436;E447"
+        },
+        {
+          "fact": "success data 为映射对象。",
+          "evidence": "E476;E480;E500"
+        }
+      ],
+      "uncertainties": [
+        "子账户与托管账号具体权限及各型号返回字段未实测。",
+        "样例 Host 不能设为全部海外集群的固定地址。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/ddns/get",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E472"
+      },
+      "source_content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+      "read_only": true
+    },
+    {
+      "operation_id": "global.ddns.list",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "source_url": "https://open.ys7.com/help/en/469",
+      "method": "POST",
+      "path": "/api/lapp/ddns/list",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "default": null,
+          "evidence": "E891/R2"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "body",
+          "required": false,
+          "default": 10,
+          "evidence": "E891/R3"
+        },
+        {
+          "name": "pageStart",
+          "type": "int",
+          "location": "body",
+          "required": false,
+          "default": 0,
+          "evidence": "E891/R4"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E920;E1025"
+      },
+      "constraints": [
+        {
+          "fact": "账号列表含分享设备。",
+          "evidence": "E880;E891"
+        },
+        {
+          "fact": "data 为映射对象数组，page 与 data 同层。pageSize 默认 10、上限 50，pageStart 默认 0。",
+          "evidence": "E920;E924;E948"
+        }
+      ],
+      "uncertainties": [
+        "子账户与托管账号具体权限及各型号返回字段未实测。",
+        "样例 Host 不能设为全部海外集群的固定地址。",
+        "字段表未注明 page 或内部字段必填；SDK 原样保留服务端分页值。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/ddns/list",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E916"
+      },
+      "source_content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+      "read_only": true
+    },
+    {
+      "operation_id": "global.ddns.share_list",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "source_url": "https://open.ys7.com/help/en/469",
+      "method": "POST",
+      "path": "/api/lapp/ddns/share/list",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "default": null,
+          "evidence": "E1294/R2"
+        },
+        {
+          "name": "pageSize",
+          "type": "int",
+          "location": "body",
+          "required": false,
+          "default": 10,
+          "evidence": "E1294/R3"
+        },
+        {
+          "name": "pageStart",
+          "type": "int",
+          "location": "body",
+          "required": false,
+          "default": 0,
+          "evidence": "E1294/R4"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E1323;E1428"
+      },
+      "constraints": [
+        {
+          "fact": "仅列出分享设备，与普通列表可重叠。",
+          "evidence": "E1283;E1294"
+        },
+        {
+          "fact": "data 为映射对象数组，page 与 data 同层。pageSize 默认 10、上限 50，pageStart 默认 0。",
+          "evidence": "E1323;E1327;E1351"
+        }
+      ],
+      "uncertainties": [
+        "子账户与托管账号具体权限及各型号返回字段未实测。",
+        "样例 Host 不能设为全部海外集群的固定地址。",
+        "字段表未注明 page 或内部字段必填；SDK 原样保留服务端分页值。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/ddns/share/list",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E1319"
+      },
+      "source_content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -17105,6 +17311,10 @@
     {
       "review": "docs/coordination/domestic-passenger-flow/admission.json",
       "note": "国内 688–693 客流统计，四个读取和两个配置写入分别登记，692 方向/编码冲突保留。"
+    },
+    {
+      "review": "docs/coordination/overseas-ddns-read/admission.json",
+      "note": "海外 469 §1.4、1.8、1.11 三项 DDNS 查询；普通列表含分享记录。"
     }
   ]
 }

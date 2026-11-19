@@ -15,6 +15,7 @@ from .cloud_recording_v1 import AsyncCloudRecordingV1, CloudRecordingV1
 from .cloud_storage import AsyncCloudStorage, CloudStorage, StorageOrderOptions
 from .components import AsyncComponents, ComponentInfo, Components
 from .cruise import AsyncCruise, Cruise, CruisePeriod
+from .ddns import AsyncDdns, Ddns
 from .delegation import AsyncDelegation, Delegation
 from .devices import AsyncDevices, Devices
 from .diagnostic_report import DiagnosticRecorder
@@ -97,6 +98,7 @@ __all__ = [
     "ApiResponse",
     "AsyncClient",
     "AsyncCruise",
+    "AsyncDdns",
     "AsyncDelegation",
     "AsyncDevices",
     "AsyncDiagnostics",
@@ -130,6 +132,7 @@ __all__ = [
     "CloudRecordingV1",
     "Cruise",
     "CruisePeriod",
+    "Ddns",
     "Delegation",
     "DeviceError",
     "DeviceInspection",

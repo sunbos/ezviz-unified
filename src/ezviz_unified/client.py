@@ -35,6 +35,7 @@ from .cloud_recording import AsyncCloudRecording, CloudRecording
 from .cloud_recording_v1 import AsyncCloudRecordingV1, CloudRecordingV1
 from .cloud_storage import AsyncCloudStorage, CloudStorage
 from .components import AsyncComponents, Components
+from .ddns import AsyncDdns, Ddns
 from .delegation import AsyncDelegation, Delegation
 from .devices import AsyncDevices, Devices
 from .diagnostic_report import DiagnosticRecorder, _diagnostic_retry, _diagnostic_scope
@@ -308,6 +309,7 @@ class Client:
         self._active = 0
         self._closed = False
         self._diagnostic_recorder = diagnostic_recorder
+        self.ddns = Ddns(self)
         self.devices = Devices(self)
         self.otap = Otap(self)
         self.delegation = Delegation(self)
@@ -630,6 +632,7 @@ class AsyncClient:
         self._closing: asyncio.Task[None] | None = None
         self._closed = False
         self._diagnostic_recorder = diagnostic_recorder
+        self.ddns = AsyncDdns(self)
         self.devices = AsyncDevices(self)
         self.otap = AsyncOtap(self)
         self.delegation = AsyncDelegation(self)

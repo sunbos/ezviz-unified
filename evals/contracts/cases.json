@@ -5654,6 +5654,47 @@
         },
         "extra": null
       }
+    },
+    {
+      "operation_id": "global.ddns.get",
+      "args": [],
+      "kwargs": {
+        "device_serial": "SyntheticDDNS",
+        "domain": "fixture.invalid"
+      },
+      "fields": {
+        "deviceSerial": "SyntheticDDNS",
+        "domain": "fixture.invalid"
+      },
+      "data": {
+        "upnpMappingMode": 0,
+        "extra": true
+      }
+    },
+    {
+      "operation_id": "global.ddns.list",
+      "args": [],
+      "kwargs": {
+        "page_start": 401,
+        "page_size": 50
+      },
+      "fields": {
+        "pageStart": "401",
+        "pageSize": "50"
+      },
+      "data": [
+        {
+          "upnpMappingMode": 1,
+          "extra": true
+        }
+      ]
+    },
+    {
+      "operation_id": "global.ddns.share_list",
+      "args": [],
+      "kwargs": {},
+      "fields": {},
+      "data": []
     }
   ]
 }

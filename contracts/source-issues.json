@@ -1685,6 +1685,24 @@
         "T1/E14",
         "E60"
       ]
+    },
+    {
+      "id": "global.ddns.list.pagination_metadata",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "source_url": "https://open.ys7.com/help/en/469",
+      "source_content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+      "description": "两个列表的请求样例 pageSize=10，响应却为 page.size=1。字段表没有标记响应字段必填性。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "保留响应同层分页原值。由调用方显式请求下一页；不根据 size 自动翻页。",
+      "evidence": [
+        "E916",
+        "E920",
+        "E1004",
+        "E1319",
+        "E1323",
+        "E1407"
+      ]
     }
   ]
 }

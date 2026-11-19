@@ -39,6 +39,34 @@ with Client(
 
 `inspect_device(client, device_serial, channel=1)` 与 `inspect_device_async` 按固定顺序组合设备信息、通道、状态、能力、版本五次只读调用，逐项返回 `InspectionResult`，并提供不含序列号、通道、载荷或异常原文的 `public_summary()`；认证级错误立即中断。示例 `examples.inspection_sync`/`inspection_async` 用 `EZVIZ_DEVICE_SERIAL` 与 `EZVIZ_CHANNEL` 显式指定一台已知设备，不枚举账号设备，退出码 0/2/1 分别对应全部成功、部分失败、配置或 SDK 级失败；用法与输出契约见[接入指南的单设备检查节](docs/getting-started.md#单设备检查)。
 
+## 海外 DDNS 只读查询
+
+三个查询均可通过 `Client.ddns` 和 `AsyncClient.ddns` 调用。海外业务请求发往认证返回的 `areaDomain`，使用表单中的 `accessToken`，沿用统一的错误分类与只读重试。
+
+```python
+response = await client.ddns.list(page_start=0, page_size=1)
+rows = response.data
+page = response.raw.get("page")
+```
+
+- **选择器**：`device_serial` 与 `domain` 至少提供一个；同时给出时两者都发送，由服务端按序列号优先查询。
+- **范围**：`list` 为账号 DDNS 列表（含分享设备）；`share_list` 仅含分享设备，与 `list` 可重叠。
+- **本地校验**：选择器须为非空白 UTF-8 字符串，保留大小写与原文，不解析域名、不探测映射端口；`page_start` 非负、`page_size` 限 1..50，拒绝 bool；校验与编码在认证前完成，一次只取一页。
+- **分页与响应**：省略分页参数时服务端默认 0/10。`get` 的 `data` 为对象，`list`/`share_list` 的 `data` 为对象数组（可为空）；`ApiResponse` 保留 `data` 与 `raw`，同层 `page` 对象经 `response.raw.get("page")` 原样透传，未知字段保留、缺省不补造；`page.size` 不作为翻页依据。
+
+CLI（源码内模块 `examples.ddns`，无独立命令）：
+
+```bash
+# 在本机配置 EZVIZ_REGION=overseas、EZVIZ_APP_KEY 和 EZVIZ_APP_SECRET
+python -m examples.ddns --mode async --query list   # 固定 page_start=0,page_size=1
+# 单条查询还需要 EZVIZ_DEVICE_SERIAL 或 EZVIZ_DDNS_DOMAIN
+python -m examples.ddns --mode sync --query get
+```
+
+仅输出 `region`/`mode`/`query`/`status` 四个键，不显示返回的网络/设备描述符与凭据。海外域未经授权与实连验证，以上为离线范围说明。
+
+[海外官方文档 §1.4、§1.8、§1.11](https://open.ys7.com/help/en/469)
+
 ## 告警与云存储
 
 `client.alarms.list(AlarmQuery(status=2))`查询全部状态告警，`for_device(serial, query)`按设备查询；不自动翻页、标记已读或下载图片。省略status时由平台默认查询未读。`client.cloud_storage.info`默认国内v2、海外v1，另有套餐类型、开通状态查询及显式开通/兑换/暂停/试用/转移方法。服务变更不自动重放，也不自动轮询或更换付款方式。版本、时间、权限和原文缺项见[告警与云存储说明](docs/research/2026-11-14-alarms-cloud-storage.md)，未产生实际订单或服务变更。

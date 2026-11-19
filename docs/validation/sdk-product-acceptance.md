@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 海外 DDNS 三项只读查询
+
+2026-11-19，`ddns.get`、`ddns.list`、`ddns.share_list` 的同步及异步离线案例全部通过。测试覆盖认证返回的海外业务地址、表单、选择器优先规则、分页数据保真、错误脱敏及 CLI 输出。对应三项真实查询仍待海外账号授权，单条映射另需账号可见的目标。国内账号流量验收单独记录。[冻结范围](../coordination/overseas-ddns-read/admission.json) · [离线验收记录](2026-11-19-overseas-ddns/offline.json)
+
 ## 已记录证据（含历史复用行与 SP036 新通过行，均不超出各自边界）
 
 | case_id | 结论边界 |

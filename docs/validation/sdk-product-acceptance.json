@@ -26327,54 +26327,70 @@
       "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-11-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:469:1.11",
+      "case_origin": "ddns_frozen_before_implementation",
+      "capability_selector": "ddns.share_list",
       "capability_ids": [
         "candidate:overseas:469:1.11"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.ddns.share_list"
+      ],
+      "scope_revision": "2026-11-19-r25-overseas-ddns",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
-      "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
+      "account_role_permissions": "海外应用授权 token，业务使用认证返回的 areaDomain。",
+      "device_requirements": "离线使用合成映射与账号。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "同步/异步使用合成数据与独立认证和业务 MockTransport。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询DDNS分享列表”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "仅列出分享设备，与普通列表可重叠。 核验独立来源、表单、地区、响应层级、错误及隐私。",
+        "write": "无。",
+        "physical": "不连接响应中的地址。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/10"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/10",
+        "docs/coordination/overseas-ddns-read/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/469.source.json"
       ],
       "pending_questions": [
-        "exact request parameters (pagination fields) must be re-read",
-        "minimum permission class not stated"
+        "子账户/托管账号所需最小权限未详述。",
+        "列表允许为空；当前账号分享数据、集群与实际分页响应未验收。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/ddns.py",
+        "tests/test_sdk_ddns.py",
+        "examples/ddns.py",
+        "tests/test_example_ddns.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "401349975578e9b22cc12f93ec2e698827ac5b0b",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-overseas-ddns/offline.json"
       ]
     },
     {
@@ -26436,54 +26452,70 @@
       "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-4-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:469:1.4",
+      "case_origin": "ddns_frozen_before_implementation",
+      "capability_selector": "ddns.get",
       "capability_ids": [
         "candidate:overseas:469:1.4"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.ddns.get"
+      ],
+      "scope_revision": "2026-11-19-r25-overseas-ddns",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
-      "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
+      "account_role_permissions": "海外应用授权 token，业务使用认证返回的 areaDomain。",
+      "device_requirements": "离线使用合成映射与账号。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "同步/异步使用合成数据与独立认证和业务 MockTransport。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询设备DDNS映射信息”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "可查询授权范围内的设备，含分享设备。两个选择器至少一个；同时提供时服务端优先按序列号查询。 核验独立来源、表单、地区、响应层级、错误及隐私。",
+        "write": "无。",
+        "physical": "不连接响应中的地址。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/3"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/3",
+        "docs/coordination/overseas-ddns-read/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/469.source.json"
       ],
       "pending_questions": [
-        "minimum permission class for sub-account/hosted calls is not stated",
-        "exact response field names/types must be re-read at contract time"
+        "子账户/托管账号所需最小权限未详述。",
+        "设备映射字段与外网实际可达情况未经真实验收。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/ddns.py",
+        "tests/test_sdk_ddns.py",
+        "examples/ddns.py",
+        "tests/test_example_ddns.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "401349975578e9b22cc12f93ec2e698827ac5b0b",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-overseas-ddns/offline.json"
       ]
     },
     {
@@ -26651,54 +26683,70 @@
       "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-8-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:469:1.8",
+      "case_origin": "ddns_frozen_before_implementation",
+      "capability_selector": "ddns.list",
       "capability_ids": [
         "candidate:overseas:469:1.8"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.ddns.list"
+      ],
+      "scope_revision": "2026-11-19-r25-overseas-ddns",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
-      "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
+      "account_role_permissions": "海外应用授权 token，业务使用认证返回的 areaDomain。",
+      "device_requirements": "离线使用合成映射与账号。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "同步/异步使用合成数据与独立认证和业务 MockTransport。"
       ],
       "expected_evidence": {
-        "read": "围绕“列出账户DDNS映射”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "账号列表含分享设备。 核验独立来源、表单、地区、响应层级、错误及隐私。",
+        "write": "无。",
+        "physical": "不连接响应中的地址。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/7"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/7",
+        "docs/coordination/overseas-ddns-read/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/469.source.json"
       ],
       "pending_questions": [
-        "exact response field names/types must be re-read",
-        "minimum permission class not stated"
+        "子账户/托管账号所需最小权限未详述。",
+        "列表允许为空；当前账号分享数据、集群与实际分页响应未验收。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/ddns.py",
+        "tests/test_sdk_ddns.py",
+        "examples/ddns.py",
+        "tests/test_example_ddns.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "401349975578e9b22cc12f93ec2e698827ac5b0b",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-overseas-ddns/offline.json"
       ]
     },
     {
@@ -31407,6 +31455,156 @@
       ],
       "limitations": [
         "H.264、原生浏览器解码或取得 WASM 均不构成这项软解画面证据。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-4-LIVE-001",
+      "tier": "required",
+      "case_origin": "ddns_frozen_before_implementation",
+      "capability_selector": "ddns.get",
+      "capability_ids": [
+        "candidate:overseas:469:1.4"
+      ],
+      "operation_ids": [
+        "global.ddns.get"
+      ],
+      "scope_revision": "2026-11-19-r25-overseas-ddns",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:cluster_not_frozen",
+      "account_role_permissions": "海外应用授权 token，业务使用认证返回的 areaDomain。",
+      "device_requirements": "获准的已知设备序列号或 DDNS 域名。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "冻结海外集群、账号、数据场景、操作数及 HTTP 上限，获取独立授权。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录次数、状态、返回类型；空列表与含记录路径分别陈述。",
+        "write": "无。",
+        "physical": "不验证端口连通性。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，无状态需要恢复。",
+      "source_refs": [
+        "docs/coordination/overseas-ddns-read/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/469.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "当前真实授权仅限国内账号流量；海外 DDNS 尚未授权。"
+      ],
+      "limitations": [
+        "子账户/托管账号所需最小权限未详述。",
+        "设备映射字段与外网实际可达情况未经真实验收。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-8-LIVE-001",
+      "tier": "required",
+      "case_origin": "ddns_frozen_before_implementation",
+      "capability_selector": "ddns.list",
+      "capability_ids": [
+        "candidate:overseas:469:1.8"
+      ],
+      "operation_ids": [
+        "global.ddns.list"
+      ],
+      "scope_revision": "2026-11-19-r25-overseas-ddns",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:cluster_not_frozen",
+      "account_role_permissions": "海外应用授权 token，业务使用认证返回的 areaDomain。",
+      "device_requirements": "获准海外账号；可验证空列表，验证非空记录另需相应设备或分享关系。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "冻结海外集群、账号、数据场景、操作数及 HTTP 上限，获取独立授权。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录次数、状态、返回类型；空列表与含记录路径分别陈述。",
+        "write": "无。",
+        "physical": "不验证端口连通性。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，无状态需要恢复。",
+      "source_refs": [
+        "docs/coordination/overseas-ddns-read/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/469.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "当前真实授权仅限国内账号流量；海外 DDNS 尚未授权。"
+      ],
+      "limitations": [
+        "子账户/托管账号所需最小权限未详述。",
+        "列表允许为空；当前账号分享数据、集群与实际分页响应未验收。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-11-LIVE-001",
+      "tier": "required",
+      "case_origin": "ddns_frozen_before_implementation",
+      "capability_selector": "ddns.share_list",
+      "capability_ids": [
+        "candidate:overseas:469:1.11"
+      ],
+      "operation_ids": [
+        "global.ddns.share_list"
+      ],
+      "scope_revision": "2026-11-19-r25-overseas-ddns",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:cluster_not_frozen",
+      "account_role_permissions": "海外应用授权 token，业务使用认证返回的 areaDomain。",
+      "device_requirements": "获准海外账号；可验证空列表，验证非空记录另需相应设备或分享关系。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "冻结海外集群、账号、数据场景、操作数及 HTTP 上限，获取独立授权。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录次数、状态、返回类型；空列表与含记录路径分别陈述。",
+        "write": "无。",
+        "physical": "不验证端口连通性。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，无状态需要恢复。",
+      "source_refs": [
+        "docs/coordination/overseas-ddns-read/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/469.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "当前真实授权仅限国内账号流量；海外 DDNS 尚未授权。"
+      ],
+      "limitations": [
+        "子账户/托管账号所需最小权限未详述。",
+        "列表允许为空；当前账号分享数据、集群与实际分页响应未验收。"
       ]
     }
   ],
