@@ -6016,6 +6016,23 @@
         "voiceId": "0"
       },
       "data": null
+    },
+    {
+      "operation_id": "cn.device.charging_status",
+      "args": [
+        "synthetic-Device"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "synthetic-Device"
+      },
+      "data": {
+        "valueInfo": {
+          "powerStatus": "1",
+          "extra": true
+        },
+        "marker": true
+      }
     }
   ]
 }

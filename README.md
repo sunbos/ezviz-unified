@@ -39,6 +39,20 @@ with Client(
 
 `inspect_device(client, device_serial, channel=1)` 与 `inspect_device_async` 按固定顺序组合设备信息、通道、状态、能力、版本五次只读调用，逐项返回 `InspectionResult`，并提供不含序列号、通道、载荷或异常原文的 `public_summary()`；认证级错误立即中断。示例 `examples.inspection_sync`/`inspection_async` 用 `EZVIZ_DEVICE_SERIAL` 与 `EZVIZ_CHANNEL` 显式指定一台已知设备，不枚举账号设备，退出码 0/2/1 分别对应全部成功、部分失败、配置或 SDK 级失败；用法与输出契约见[接入指南的单设备检查节](docs/getting-started.md#单设备检查)。
 
+### 国内设备充电状态
+
+`client.devices.charging_status(serial)` 和 `await async_client.devices.charging_status(serial)` 查询设备上报的充电状态。SDK 将原样保留大小写的设备序列号和访问令牌放进 GET 请求头。只读请求收到令牌过期码 `10002` 时，可刷新的令牌提供方最多刷新并重试一次。[充电状态（1739）](https://open.ys7.com/help/1739)
+
+成功回执的顶层 `code` 为字符串 `"200"`。从 `response.data["valueInfo"]["powerStatus"]` 读取状态。官方定义的字符串 `"0"` 至 `"4"` 依次表示未充电、正在充电、充满、无电池和电池故障。SDK 保留未来新增的字符串值和扩展字段。状态缺失或类型错误会抛出 `ProtocolError`。
+
+在本机配置 `EZVIZ_REGION=domestic`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET` 和 `EZVIZ_DEVICE_SERIAL` 后，可以运行下面的单次查询。异步示例使用 `--mode async`。输出只显示官方状态值，遇到未知值时显示 `null`。
+
+```bash
+python -m examples.charging_status --mode sync
+```
+
+如需剩余电量，另行调用已有的 `devices.status(serial, channel=1)`。其官方字段拼写为 `data.battryStatus`，整数 1 至 100 表示百分比，`-1` 表示未上报或不支持。该国内入口要求序列号字母大写。两个接口分别返回平台状态，文档未给出二者的采样时间或刷新间隔。[设备状态（675）](https://open.ys7.com/help/675)
+
 ### 海外设备时区查询
 
 `client.devices.get_utc(device_serial)` 与 `devices.get` 走同一路由，前者额外提交 `version=utc`。同步客户端和异步客户端均支持这项查询。响应的 `data` 对象可包含 `timeZone`、`wifiSsid` 以及其他设备信息，原始 `ApiResponse` 完整保留；字段缺失或未知时不补默认值、不解析偏移。SDK 保留序列号大小写。官方未指定时区字符串的格式。实际海外设备的返回情况待验收。[海外官方文档 §1.20](https://open.ys7.com/help/en/477)
