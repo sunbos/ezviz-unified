@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "e4fcf3d8eb166806405732bb606e26a679576d44",
+  "scope_revision": "2026-11-19-r29-domestic-live-limits",
+  "operations": [
+    {
+      "operation_id": "cn.live_limits.get",
+      "capability_id": "candidate:domestic:1816:d0",
+      "name": "get",
+      "entry": "live_limits.get",
+      "doc_id": "1816",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1816-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1816-D0-LIVE-001"
+      ],
+      "signatures": {
+        "LiveLimits": "def get(self, live_type: str) -> ApiResponse",
+        "AsyncLiveLimits": "async def get(self, live_type: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/1816",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1816.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1816.structure.json",
+      "html_sha256": "60520c5ce755b93048674fad74ca725e01d5f09ceca62bb04c52c165a554e87a",
+      "method": "GET",
+      "path": "/api/v3/mall/online/user/limit/live",
+      "token_location": "header",
+      "read_only": true,
+      "permission": "仅支持国内已开通 E 套餐且未欠费的主账号 token。",
+      "unknown": "成功码样例与正式返回码表冲突。查询示例与正式数组行定义也不一致，未配置的返回形态待核。",
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "permission": 15,
+        "parameters": 18,
+        "request": 40,
+        "example": 44,
+        "fields": 48,
+        "errors": 84
+      }
+    },
+    {
+      "operation_id": "cn.live_limits.set",
+      "capability_id": "candidate:domestic:1817:d0",
+      "name": "set",
+      "entry": "live_limits.set",
+      "doc_id": "1817",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1817-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1817-D0-LIVE-001"
+      ],
+      "signatures": {
+        "LiveLimits": "def set(self, live_type: str, *, limit_type: int, limit_number: int) -> ApiResponse",
+        "AsyncLiveLimits": "async def set(self, live_type: str, *, limit_type: int, limit_number: int) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/1817",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1817.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1817.structure.json",
+      "html_sha256": "ba707f042a3e8862e8024d0850bc3382864ec259355c925fcba64bd2288f35a3",
+      "method": "POST",
+      "path": "/api/v3/mall/online/user/limit/live",
+      "token_location": "header",
+      "read_only": false,
+      "permission": "仅支持国内已开通 E 套餐且未欠费的主账号 token。",
+      "unknown": "成功码样例与正式返回码表冲突。限制数上下限、0 或负值的含义及账户生效情况待核。",
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "permission": 15,
+        "parameters": 18,
+        "request": 52,
+        "example": 56,
+        "fields": 60,
+        "errors": 80
+      }
+    },
+    {
+      "operation_id": "cn.live_limits.delete",
+      "capability_id": "candidate:domestic:1818:d0",
+      "name": "delete",
+      "entry": "live_limits.delete",
+      "doc_id": "1818",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1818-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1818-D0-LIVE-001"
+      ],
+      "signatures": {
+        "LiveLimits": "def delete(self, live_type: str) -> ApiResponse",
+        "AsyncLiveLimits": "async def delete(self, live_type: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/1818",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1818.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1818.structure.json",
+      "html_sha256": "c2a91cf8d19d8ae45e6c5a0a83aa55135567901c4c2d0398fc306545b6e48b44",
+      "method": "DELETE",
+      "path": "/api/v3/mall/online/user/limit/live",
+      "token_location": "header",
+      "read_only": false,
+      "permission": "仅支持国内已开通 E 套餐且未欠费的主账号 token。",
+      "unknown": "成功码样例与正式返回码表冲突。仅按 liveType 删除，未指明会清除哪些规则或回退到什么值。",
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "permission": 15,
+        "parameters": 18,
+        "request": 40,
+        "example": 44,
+        "fields": 48,
+        "errors": 68
+      }
+    }
+  ],
+  "sdk_choices": [
+    "三个独立入口按 HTTP 方法区分。token 均置于 header。GET 仅 query liveType，POST 和 DELETE 均使用表单请求体；不得替换 DELETE 为 query 或 POST。",
+    "liveType 仅 VTDU 或 RTMP，原样且大小写敏感，不从播放协议推断。表述对应选择为 jsdecode/私有流用 VTDU，HLS/RTMP/FLV 用 RTMP。",
+    "POST limitType 只接受整数 0（按通道）或 1（按用户），limitNumber 接受可编码的整数，不接受 bool。原文没有上下限；不解释 0 或负数的业务意义，也不本地编造边界。校验在认证之前。",
+    "返回码表均列 200，样例均为 0。SDK 选正式返回码表的整数 200，保留 0 为 ApiError，不进行第二次试发或把两种码都标作成功。真实服务尚未核实。",
+    "GET 正式表为 Array<Object>，示例却是嵌套空数组。SDK 要求成功 data 为数组，保留原始元素和未知字段，不扁平化、不补默认限制。读出的是已设置规则，不代表实时用量。",
+    "POST/DELETE 成功不要求 data，保留原 ApiResponse。DELETE 10005 留作真实 ApiError，不合成为成功。两个写入口不预读、不重放、不自动恢复；恢复时须有被授权的同类型完整前值和请求边界。"
+  ],
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "live": "三项真实验收均未执行，未购买套餐或修改配置。"
+}
