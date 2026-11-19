@@ -41,6 +41,7 @@ from .inspection import (
     inspect_device_async,
 )
 from .live_limits import AsyncLiveLimits, LiveLimits
+from .live_streams import AsyncLiveStreams, LiveStreams
 from .maintenance import AsyncMaintenance, Maintenance
 from .message_subscriptions import AsyncMessageSubscriptions, MessageSubscriptions
 from .models import ApiResponse, ResponsePolicy
@@ -110,6 +111,7 @@ __all__ = [
     "AsyncDiagnostics",
     "AsyncHubs",
     "AsyncLiveLimits",
+    "AsyncLiveStreams",
     "AsyncOsd",
     "AsyncPassengerFlow",
     "AsyncTraffic",
@@ -155,6 +157,7 @@ __all__ = [
     "FillLightMode",
     "Hubs",
     "LiveLimits",
+    "LiveStreams",
     "Osd",
     "PassengerFlow",
     "Traffic",

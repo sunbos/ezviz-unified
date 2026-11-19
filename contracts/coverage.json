@@ -2,13 +2,13 @@
   "schema_version": 1,
   "evidence": "registry_structure_only",
   "summary": {
-    "contracts": 255,
-    "bindings": 255,
-    "source_documents": 201,
-    "source_issues": 160
+    "contracts": 263,
+    "bindings": 263,
+    "source_documents": 209,
+    "source_issues": 168
   },
   "regions": {
-    "domestic": 184,
+    "domestic": 192,
     "overseas": 71
   },
   "live_status_counts": {
@@ -17,7 +17,7 @@
     "bounded_account_read_succeeded": 1,
     "empty_list_succeeded_application_token": 1,
     "nonempty_first_page_succeeded_singapore": 1,
-    "not_verified": 239,
+    "not_verified": 247,
     "public_area_catalog_succeeded_documented_origin": 1,
     "public_timezone_catalog_succeeded_singapore": 1,
     "request_failed_http_500": 1,

@@ -68,6 +68,7 @@ _SENSITIVE_KEYS = (
     "tagId",
     "lastId",
     "lastSpaceId",
+    "recordSpaceId",
     "oneOffPlanId",
     "planId",
     "planName",
@@ -87,6 +88,7 @@ _SENSITIVE_PARAM_RE = re.compile(
     re.IGNORECASE,
 )
 _HTTP_URL_RE = re.compile(r'https?://[^\s"<>]+', re.IGNORECASE)
+_MEDIA_URL_RE = re.compile(r'(?:https?|rtmps?)://[^\s"<>]+', re.IGNORECASE)
 
 
 def _secret_spans(rendered: str, secret: str) -> Iterator[tuple[int, int]]:
@@ -117,18 +119,29 @@ def _merged_spans(streams: Iterable[Iterator[tuple[int, int]]]) -> Iterator[tupl
         yield current
 
 
-def redact(text: object, secrets: Iterable[str] = (), *, mask_urls: bool = False) -> str:
+def redact(
+    text: object,
+    secrets: Iterable[str] = (),
+    *,
+    mask_urls: bool = False,
+    mask_media_urls: bool = False,
+) -> str:
     """Mask labelled sensitive values, exact secrets and optionally whole URLs.
 
     All sensitive ranges are located on the original rendered text, merged and
     masked in a single pass, so secrets cannot corrupt labelled-key matches or
     leave unmasked tails of multiword values.
+
+    ``mask_media_urls`` masks HTTP(S) and RTMP(S) media URLs; when set it takes
+    priority over ``mask_urls``, which masks HTTP(S) URLs only.
     """
     rendered = str(text)
     streams: list[Iterator[tuple[int, int]]] = [
         (match.span(2) for match in _SENSITIVE_PARAM_RE.finditer(rendered))
     ]
-    if mask_urls:
+    if mask_media_urls:
+        streams.append(match.span() for match in _MEDIA_URL_RE.finditer(rendered))
+    elif mask_urls:
         streams.append(match.span() for match in _HTTP_URL_RE.finditer(rendered))
     streams.extend(
         _secret_spans(rendered, secret)

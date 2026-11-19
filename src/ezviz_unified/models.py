@@ -53,6 +53,14 @@ class ResponsePolicy:
 
     redact_message_urls is an opt-in: mask HTTP(S) URLs from message/error
     rendering; ``data`` and ``raw`` remain intact.
+
+    redact_media_urls is an opt-in: redact HTTP(S) and RTMP(S) media URLs from
+    presented messages/error codes and HTTPX logs during this business
+    request; the original response ``data``/``raw`` remain intact.
+
+    redact_query_identifiers is an opt-in: collect the standard encodings of
+    the private streamId/recordSpaceId values, only for explicitly opted-in
+    requests.
     """
 
     code_path: str = "code"
@@ -65,6 +73,8 @@ class ResponsePolicy:
     require_device_code: bool = False
     envelope_paths: tuple[str, ...] = ("",)
     redact_message_urls: bool = False
+    redact_media_urls: bool = False
+    redact_query_identifiers: bool = False
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "envelope_paths", _normalize_envelope_paths(self.envelope_paths))
@@ -92,6 +102,10 @@ class ResponsePolicy:
             raise ValueError("require_device_code must be a bool")
         if not isinstance(self.redact_message_urls, bool):
             raise ValueError("redact_message_urls must be a bool")
+        if not isinstance(self.redact_media_urls, bool):
+            raise ValueError("redact_media_urls must be a bool")
+        if not isinstance(self.redact_query_identifiers, bool):
+            raise ValueError("redact_query_identifiers must be a bool")
         if self.require_device_code and not self.device_code_path:
             raise ValueError("require_device_code needs device_code_path to be set")
         if self.device_message_path and not self.device_code_path:

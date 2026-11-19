@@ -7,6 +7,7 @@ from typing import Final, TypeGuard
 
 from .errors import (
     _HTTP_URL_RE,
+    _MEDIA_URL_RE,
     ApiError,
     AuthenticationError,
     DeviceError,
@@ -86,12 +87,20 @@ def _classify(http_status: int, code: ScalarCode | None) -> type[ApiError]:
 
 
 def _resolve_code(
-    code: ScalarCode | None, enabled: bool, secrets: tuple[str, ...]
+    code: ScalarCode | None, policy: ResponsePolicy, secrets: tuple[str, ...]
 ) -> ScalarCode | None:
     """Sanitize a string code containing a URL when opted in; classification
     always uses the original scalar, so int codes pass through unchanged."""
-    if enabled and isinstance(code, str) and _HTTP_URL_RE.search(code):
-        return redact(code, secrets, mask_urls=True)
+    if not isinstance(code, str):
+        return code
+    matcher = _MEDIA_URL_RE if policy.redact_media_urls else _HTTP_URL_RE
+    if (policy.redact_media_urls or policy.redact_message_urls) and matcher.search(code):
+        return redact(
+            code,
+            secrets,
+            mask_urls=policy.redact_message_urls,
+            mask_media_urls=policy.redact_media_urls,
+        )
     return code
 
 
@@ -110,6 +119,7 @@ def decode_response(
         raise TypeError(f"policy must be a ResponsePolicy, got {type(policy).__name__}")
 
     mask_urls = policy.redact_message_urls
+    mask_media_urls = policy.redact_media_urls
 
     matches = _matching_envelopes(payload, policy)
 
@@ -130,11 +140,12 @@ def decode_response(
                 _text(_resolve(error_scope, policy.message_path)),
                 secrets,
                 mask_urls=mask_urls,
+                mask_media_urls=mask_media_urls,
             )
         error_type = _classify(http_status, business_code)
         raise error_type(
             message or f"HTTP {http_status} error",
-            code=_resolve_code(business_code, mask_urls, secrets),
+            code=_resolve_code(business_code, policy, secrets),
             http_status=http_status,
             operation=operation,
             secrets=secrets,
@@ -165,7 +176,12 @@ def decode_response(
 
     scope = matches[0]
     raw_code = _resolve(scope, policy.code_path)
-    message = redact(_text(_resolve(scope, policy.message_path)), secrets, mask_urls=mask_urls)
+    message = redact(
+        _text(_resolve(scope, policy.message_path)),
+        secrets,
+        mask_urls=mask_urls,
+        mask_media_urls=mask_media_urls,
+    )
 
     if raw_code is _MISSING:
         raise ProtocolError(
@@ -182,7 +198,7 @@ def decode_response(
             secrets=secrets,
         )
     code: ScalarCode = raw_code
-    rendered_code = _resolve_code(code, mask_urls, secrets)
+    rendered_code = _resolve_code(code, policy, secrets)
 
     if code not in policy.success_values:
         error_type = _classify(http_status, code)
@@ -217,8 +233,9 @@ def decode_response(
                 _text(_resolve(scope, policy.device_message_path)),
                 secrets,
                 mask_urls=mask_urls,
+                mask_media_urls=mask_media_urls,
             )
-            rendered_device_code = _resolve_code(device_code, mask_urls, secrets)
+            rendered_device_code = _resolve_code(device_code, policy, secrets)
             raise DeviceError(
                 device_message or message or f"device error code {rendered_device_code}",
                 code=rendered_device_code,

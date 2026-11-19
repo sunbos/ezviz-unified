@@ -47,6 +47,7 @@ from .hubs import AsyncHubs, Hubs
 from .illumination import AsyncIllumination, Illumination
 from .imaging import AsyncImaging, Imaging
 from .live_limits import AsyncLiveLimits, LiveLimits
+from .live_streams import AsyncLiveStreams, LiveStreams
 from .maintenance import AsyncMaintenance, Maintenance
 from .message_subscriptions import AsyncMessageSubscriptions, MessageSubscriptions
 from .models import ApiResponse
@@ -344,6 +345,7 @@ class Client:
         self.message_subscriptions = MessageSubscriptions(self)
         self.hubs = Hubs(self)
         self.live_limits = LiveLimits(self)
+        self.live_streams = LiveStreams(self)
         self.osd = Osd(self)
         self.passenger_flow = PassengerFlow(self)
         self.traffic = Traffic(self)
@@ -671,6 +673,7 @@ class AsyncClient:
         self.message_subscriptions = AsyncMessageSubscriptions(self)
         self.hubs = AsyncHubs(self)
         self.live_limits = AsyncLiveLimits(self)
+        self.live_streams = AsyncLiveStreams(self)
         self.osd = AsyncOsd(self)
         self.passenger_flow = AsyncPassengerFlow(self)
         self.traffic = AsyncTraffic(self)
