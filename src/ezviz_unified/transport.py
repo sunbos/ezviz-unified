@@ -8,7 +8,7 @@ import math
 from collections.abc import Iterable, Mapping
 from contextvars import ContextVar
 from types import TracebackType
-from urllib.parse import urlsplit
+from urllib.parse import quote, quote_plus, urlsplit
 
 import httpx
 
@@ -153,6 +153,30 @@ def _collect_secrets(explicit: Iterable[str], *sources: object) -> tuple[str, ..
     return tuple(sorted(collected))
 
 
+def _augment_query_secrets(
+    base: tuple[str, ...],
+    params: ParamMapping | None,
+    policy: ResponsePolicy | None,
+) -> tuple[str, ...]:
+    """Augment base secrets with emitted-query encodings only when opted in."""
+    if params is None or policy is None or not policy.redact_message_urls:
+        return base
+    if not any(isinstance(key, str) and key.lower() == "accesstoken" for key in params):
+        return base
+    collected = set(base)
+    collected.add(str(httpx.QueryParams(dict(params))))
+    for key, value in params.items():
+        if not isinstance(key, str) or key.lower() not in _SECRET_KEYS:
+            continue
+        items = value if isinstance(value, (list, tuple)) else (value,)
+        for item in items:
+            if isinstance(item, str) and item:
+                collected.add(quote(item, safe=""))
+                collected.add(quote_plus(item, safe=""))
+    collected.discard("")
+    return tuple(sorted(collected))
+
+
 def _read_payload(response: httpx.Response) -> object:
     try:
         return response.json()
@@ -233,14 +257,15 @@ class SyncTransport:
         _validate_path(path)
         if data is not None and json is not None:
             raise ValueError("data and json are mutually exclusive")
-        all_secrets = _collect_secrets(secrets, params, data, json, headers)
+        base_secrets = _collect_secrets(secrets, params, data, json, headers)
         if self._client.is_closed:
             raise TransportError(
                 _REASON_MESSAGES["closed"],
                 reason="closed",
                 operation=operation,
-                secrets=all_secrets,
+                secrets=base_secrets,
             )
+        all_secrets = _augment_query_secrets(base_secrets, params, policy)
         content, json_body, bound_headers = _split_body(json, headers)
         marker = _SDK_SECRETS.set(all_secrets)
         response: httpx.Response | None = None
@@ -331,14 +356,15 @@ class AsyncTransport:
         _validate_path(path)
         if data is not None and json is not None:
             raise ValueError("data and json are mutually exclusive")
-        all_secrets = _collect_secrets(secrets, params, data, json, headers)
+        base_secrets = _collect_secrets(secrets, params, data, json, headers)
         if self._client.is_closed:
             raise TransportError(
                 _REASON_MESSAGES["closed"],
                 reason="closed",
                 operation=operation,
-                secrets=all_secrets,
+                secrets=base_secrets,
             )
+        all_secrets = _augment_query_secrets(base_secrets, params, policy)
         content, json_body, bound_headers = _split_body(json, headers)
         marker = _SDK_SECRETS.set(all_secrets)
         response: httpx.Response | None = None

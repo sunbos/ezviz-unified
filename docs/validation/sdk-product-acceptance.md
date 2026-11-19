@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 国内设备语音素材列表与改名
+
+已离线验证列表的顶层 `voiceInfos` 数组、改名所需的五个查询字段、两种模式的认证重试边界，以及请求日志、异常、诊断和只读示例的脱敏。未访问真实音频文件，未下发、播放或改动设备素材。设备同步、1273 指定型号上的改名与恢复仍待独立授权。[冻结范围](../coordination/domestic-device-voice-catalog/admission.json) · [离线记录](2026-11-20-domestic-device-voice-catalog/offline.json)
+
 ## 国内对讲下行扬声器音量
 
 同步和异步的音量读取、设置以及只读 CLI 已通过模拟传输验收。设备端资料明确平台返回最近一次上报值，部分设备可能没有实现音量调节回调。真实设备的读写、恢复与声学效果仍待对应授权及独立核实。[冻结范围](../coordination/domestic-talk-speaker/admission.json) · [离线记录](2026-11-20-domestic-talk-speaker/offline.json)

@@ -5941,6 +5941,44 @@
         "volume": "0"
       },
       "data": null
+    },
+    {
+      "operation_id": "cn.device_voice.list",
+      "args": [
+        "synthetic-Voice"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "synthetic-Voice"
+      },
+      "data": [
+        {
+          "voiceId": 7,
+          "voiceName": "synthetic-name",
+          "voiceUrl": "https://media.invalid/catalog/synthetic",
+          "status": 1,
+          "time": 42,
+          "extra": true
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.device_voice.rename",
+      "args": [
+        "synthetic-Voice",
+        7
+      ],
+      "kwargs": {
+        "voice_name": "synthetic-name",
+        "voice_url": "https://media.invalid/catalog/synthetic"
+      },
+      "fields": {
+        "deviceSerial": "synthetic-Voice",
+        "voiceId": "7",
+        "voiceName": "synthetic-name",
+        "voiceUrl": "https://media.invalid/catalog/synthetic"
+      },
+      "data": null
     }
   ]
 }

@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "scope": "domestic_device_voice_catalog_offline",
+  "code_commit": "bb59dc870cd12e6d56504b4fa8494d2444c339f0",
+  "source_test_sha256": {
+    "src/ezviz_unified/device_voice.py": "2cd74261363045da8aea4958208f6b2126a51d62a0359b31444b346fc8ecdc29",
+    "tests/test_sdk_device_voice.py": "03f3a3f4b1e2e9ddc5a69c779aba3d52e922853b2c858a915adc2f81b6e919ad",
+    "examples/device_voice.py": "26fe775a6feb2ad2426f11864d1945db4e8e760748820d641b0bb8f9b76356c1",
+    "tests/test_example_device_voice.py": "2a57c709ee12b41dc0104eaf259d35c1f098a41aafc5bafe54bc5cfa9e7d123d",
+    "README.md": "ac1f829740f512e17a20890b0e548736b31507e2601eb7006a795a54fd0edb5d",
+    "src/ezviz_unified/client.py": "9b576b0929b9e88b029c72f440b09046a93a26a34c46ad8c006701417951b1c6",
+    "src/ezviz_unified/__init__.py": "e58c8fe329295513e25199c6b2b8b990dea3cdc0eecb3f673a62d89518077a8a",
+    "src/ezviz_unified/_diagnostic_registry.py": "ac743dd47138031bd76e42edeb735a7a724fb22a79a604c3a2f9632b8818de46",
+    "docs/diagnostics-v1-coverage.json": "3ea4d00337db21f5f6adb758a88fd8f627d04e112880e266bfad0223a059259c",
+    "docs/diagnostics.md": "cee1d644a34fac43a2a5eb03f0bdcb5ae8844acfb3586becff6ef5d932fd2e31",
+    "tests/test_harness_diagnostic_coverage.py": "2fab150aea63eb82800d98958d2f4df65cb3d28318014d1630bd2f4e3445db5e",
+    "docs/coordination/domestic-device-voice-catalog/admission.json": "6b2962198e3eea94fdfbddac3b54aaa200cb64357b012183ebe4f207e4f6cea5",
+    "contracts/reviewed-transport-contracts.json": "b6901ea97c248fbb4a48c0db1f3541f6b9b0ef6332898492747a07a2f550d431",
+    "contracts/source-issues.json": "f35c1d185f7faebe8dbe53610784ee7c46cfcaf115a593d084f29367ca53de52",
+    "evals/contracts/cases.json": "fd02528489212ebb7c71388d18f107bda2236aae9640a28c3ecfbb7c78d30d28",
+    "src/ezviz_unified/errors.py": "63ce7a5eccf6d385c913069960c12a4f49e4d66a6e4bcbd378c41a8ee11604e1",
+    "src/ezviz_unified/transport.py": "5877d2f9c6f2488a8b87280311f5f4a6816542b8109b2cc4353981e796771907",
+    "tests/test_sdk_voice_privacy.py": "dfd0729c4d6f2b0a24d7370b8701eff42428f902c48babe66389f94124bccdb9",
+    "src/ezviz_unified/response.py": "a8deb105cc00e6ec534f34db119b1eb65220746f2500807e4a270793b0d0ecdd"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP421-SDK",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "src/ezviz_unified/device_voice.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "049cec5231788765e5d429a06d0f860aa4e16bbd35a6b33772f1cd22a2251147"
+      },
+      {
+        "task": "SP421-Transport",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "src/ezviz_unified/transport.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "03c32338529eb4533f21814ee84b752fac867ee3de048786c01dc69cb092d2f8"
+      },
+      {
+        "task": "SP421-SDKTests",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "tests/test_sdk_device_voice.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "3299e5a3e0bb5a99f0a46e63b5b367336c7e40be83190e3b8a300fc103d6e11d"
+      },
+      {
+        "task": "SP422-Privacy",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "tests/test_sdk_voice_privacy.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "51345598f37f5259b1d9e3649ff04b61c30a52c612f7ac35eff72e3be051c4e4"
+      },
+      {
+        "task": "SP422-CLI",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "examples/device_voice.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "7141900734821276cd44f4d25fb289236e04aca34667300d975b091e48977050"
+      },
+      {
+        "task": "SP422-CLITests",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "tests/test_example_device_voice.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "7bb081244bc54cf2d7608ddf4011fae0a73182c7c017c791ff0cdc375a44c91d"
+      },
+      {
+        "task": "SP422-SDKFix",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "src/ezviz_unified/device_voice.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "a107e3570aabc64df71895abcc6387e0716f683280d8f9e7150b80071900c595"
+      },
+      {
+        "task": "SP422-ClosedOrder",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "src/ezviz_unified/transport.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "fb694e04f77fb8ef64a491667dabc6b17b55869b7bc6ee56b27c614dee03c630"
+      },
+      {
+        "task": "SP422-SpanMask",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "src/ezviz_unified/errors.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "d78d8e2ba0d3ae724f36a518eb8d98e5621bd4f6e2b98b8b2a8edd1c195eff47"
+      },
+      {
+        "task": "SP422-ResponseMask",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "src/ezviz_unified/response.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "9687573ce10b428cc074249c822f36d39878c925c16348f3804748f5d91b46c5"
+      },
+      {
+        "task": "SP423-PrivacyTests",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "tests/test_sdk_voice_privacy.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "929a3d388aee99d4f222f3d8ae132169fcc7d66d46003733b5d8fd280874061c"
+      },
+      {
+        "task": "SP423-SDKCases",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "tests/test_sdk_device_voice.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "23cf373942b6ebea2b965feed09d1dd70ab52244dee87b1361d062afab33f868"
+      },
+      {
+        "task": "SP423-PrivacyCases",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "tests/test_sdk_voice_privacy.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "e80f53c9e62365219a9f46400ef00ea78c2038be136fcb49ac62192ded3e6e20"
+      },
+      {
+        "task": "SP423-CLIReview",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "tests/test_example_device_voice.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "12d92bdff877c5186329bca223b1c2beb308a35652e7c7bd2ba9da17a9b17175"
+      },
+      {
+        "task": "SP423-EfficientMask",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "src/ezviz_unified/errors.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "2263fd141ca499884f851e37160e52fc6376ac0b7d9c7a19fa36bede49c9f3ab"
+      },
+      {
+        "task": "SP424-EmptySecrets",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "src/ezviz_unified/errors.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "005b4bca50fa6d0beb70c47d519b0d4d5ad59c234aa6fcc0aa35d62acd43c097"
+      },
+      {
+        "task": "SP422-Guide",
+        "input_commit": "5ea96d882e537a0c7a05a5fb68c31dfb4d97597b",
+        "write_scope": [
+          "README.md"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "a5d36e48b9d51146c8501b04acf6d6dce053af0a6e7ab542df82ba562adb8e5e"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_device_voice.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "469 passed in 1.78s",
+      "local_receipt_sha256": "e8ed8cce924458235028cd619adb86c4d68cbcf87f52314be1eaf3d7ab2dfb4b",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_device_voice.py",
+      "summary": "34 passed in 0.34s",
+      "local_receipt_sha256": "5056261b3a2460a9bac536f42daf5fbe34858e95d7fa1e01489a3c0881dc5022",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_voice_privacy.py tests/test_sdk_transport.py tests/test_sdk_response.py",
+      "summary": "108 passed in 0.79s",
+      "local_receipt_sha256": "d1736cbfa9926590425d7fe2a5b455621fe0be94b15fa822bc029c53296a613b",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "9182 passed, 35 subtests passed in 59.11s",
+      "local_receipt_sha256": "a5ea0b07ce99194e75e985ff1b529f6a64bc2b06f499637a6a85d83d256b990f",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "252 registered contracts, 2048/2048 wire checks passed",
+      "local_receipt_sha256": "ed9896178393316bf7616758d839ec6bc4c170102baa19adea13be6cc97c5cbc",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 57 source files",
+      "local_receipt_sha256": "8fe451d0b573ae443d0418395f527a4488dd270c60d16a9cfb978841d0cbc034",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "252 registered contracts and bindings, 504 symbols inspected",
+      "local_receipt_sha256": "181fdfa75775aad89e83cc0cda24662e2d730d49d8207f6a2b4e796b74e6489e",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/device_voice.py tests/test_sdk_device_voice.py examples/device_voice.py tests/test_example_device_voice.py src/ezviz_unified/client.py src/ezviz_unified/__init__.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py src/ezviz_unified/errors.py src/ezviz_unified/transport.py tests/test_sdk_voice_privacy.py src/ezviz_unified/response.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "3dcfe23e8e8c4f33cd150a046916fda4b94ac13e746b52294f5ca237e9a7f61d",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/device_voice.py tests/test_sdk_device_voice.py examples/device_voice.py tests/test_example_device_voice.py src/ezviz_unified/client.py src/ezviz_unified/__init__.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py src/ezviz_unified/errors.py src/ezviz_unified/transport.py tests/test_sdk_voice_privacy.py src/ezviz_unified/response.py",
+      "summary": "12 files already formatted",
+      "local_receipt_sha256": "631e56aa01527fb2f5f332d55ab5b2bc30bef6b64ef8ad5a4650518654d234ac",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "仅合成认证及模拟传输，未访问设备或素材地址。1273 的适用型号、平台对原 URL 的使用、设备同步、写入和恢复均未实测。"
+}

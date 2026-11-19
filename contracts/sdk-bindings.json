@@ -3400,6 +3400,32 @@
       "public_entry": "settings.set_talk_speaker_volume",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.device_voice.list",
+      "region": "domestic",
+      "source_doc_id": "1259",
+      "module": "src/ezviz_unified/device_voice.py",
+      "symbols": [
+        "DeviceVoice.list",
+        "AsyncDeviceVoice.list"
+      ],
+      "public_entry": "device_voice.list",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.device_voice.rename",
+      "region": "domestic",
+      "source_doc_id": "1273",
+      "module": "src/ezviz_unified/device_voice.py",
+      "symbols": [
+        "DeviceVoice.rename",
+        "AsyncDeviceVoice.rename"
+      ],
+      "public_entry": "device_voice.rename",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

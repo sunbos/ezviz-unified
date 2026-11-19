@@ -1875,6 +1875,36 @@
         "1307018 E170,E175,E193,E538,E722",
         "docs/coordination/domestic-talk-speaker/admission.json"
       ]
+    },
+    {
+      "id": "cn.device_voice.list.resource_semantics",
+      "region": "domestic",
+      "source_doc_id": "1259",
+      "source_url": "https://open.ys7.com/help/1259",
+      "source_content_sha256": "87a70cd31835dad67777e6d481f60bcfc1fd89ada7fd507ed1ec563440a0b741",
+      "description": "未声明时间单位、分页、排序和最大数量。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "保留结果数组、时间原文及未知字段，不自动翻页或读取媒体。",
+      "evidence": [
+        "E14",
+        "E36",
+        "E44"
+      ]
+    },
+    {
+      "id": "cn.device_voice.rename.resource_semantics",
+      "region": "domestic",
+      "source_doc_id": "1273",
+      "source_url": "https://open.ys7.com/help/1273",
+      "source_content_sha256": "57728e8a673496d5d81f8ab4031741550fd28d48bc6a2456394f923b07a61d9d",
+      "description": "仅 CSEPMR511 明示适用。voiceUrl 必填，但平台是否重新取得文件、改名原子性、名称约束及恢复时限未说明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "由调用者提供选定项的原 URL，单次 PUT，不暗中查询、探测文件、改名后读回或自动重试。",
+      "evidence": [
+        "E14",
+        "E54",
+        "E62"
+      ]
     }
   ]
 }
