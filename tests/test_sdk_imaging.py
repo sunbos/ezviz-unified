@@ -163,7 +163,7 @@ def test_invalid_image_settings_never_reach_transport(kind, name, args, kwargs):
 
 
 @pytest.mark.parametrize("kind", ["sync", "async"])
-def test_enum_invalid_serial_and_no_ambiguous_setters(kind):
+def test_enum_invalid_serial_and_explicit_params_and_white_balance_setters(kind):
     imaging, client = make(kind)
     call(kind, imaging, "get", module().ImageSetting.IMAGE_PARAMS)
     for serial in [None, "", "   ", 1]:
@@ -179,7 +179,49 @@ def test_enum_invalid_serial_and_no_ambiguous_setters(kind):
             assert "PRIVATE_INPUT" not in str(exc)
             exc = exc.__context__
     assert len(client.calls) == 1
-    assert not hasattr(imaging, "set_white_balance") and not hasattr(imaging, "set_image_params")
+
+    call(
+        kind,
+        imaging,
+        "set_image_params",
+        image_style="manual",
+        gamma_correction=5,
+        gain=10,
+        brightness=20,
+        contrast=30,
+        saturation=0,
+        sharpness=40,
+    )
+    assert len(client.calls) == 2
+    op, kwargs = client.calls[-1]
+    assert op.name == "imaging.image_params.set"
+    assert op.method == "PUT" and not op.read_only and op.token_location == "header"
+    data = kwargs["data"]
+    assert "saturation" in data and "saturatio" not in data
+    assert data == {
+        "deviceSerial": "mixedCase",
+        "imageStyle": "manual",
+        "gammaCorrection": 5,
+        "gain": 10,
+        "brightness": 20,
+        "contrast": 30,
+        "saturation": 0,
+        "sharpness": 40,
+    }
+
+    call(kind, imaging, "set_white_balance", "manual", red=0, blue=255)
+    assert len(client.calls) == 3
+    op, kwargs = client.calls[-1]
+    assert op.name == "imaging.white_balance.set"
+    assert op.method == "PUT" and not op.read_only and op.token_location == "header"
+    data = kwargs["data"]
+    assert "manual" == data["mode"] and "manul" not in data.values()
+    assert data == {
+        "deviceSerial": "mixedCase",
+        "mode": "manual",
+        "whiteBalanceRed": 0,
+        "whiteBalanceBlue": 255,
+    }
 
 
 @pytest.mark.parametrize("kind", ["sync", "async"])

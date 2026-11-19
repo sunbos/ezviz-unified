@@ -3302,6 +3302,58 @@
       "public_entry": "live_limits.delete",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.imaging.display_mode.get",
+      "region": "domestic",
+      "source_doc_id": "1736",
+      "module": "src/ezviz_unified/imaging.py",
+      "symbols": [
+        "Imaging.get_display_mode",
+        "AsyncImaging.get_display_mode"
+      ],
+      "public_entry": "imaging.get_display_mode",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.imaging.display_mode.set",
+      "region": "domestic",
+      "source_doc_id": "1735",
+      "module": "src/ezviz_unified/imaging.py",
+      "symbols": [
+        "Imaging.set_display_mode",
+        "AsyncImaging.set_display_mode"
+      ],
+      "public_entry": "imaging.set_display_mode",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.imaging.image_params.set",
+      "region": "domestic",
+      "source_doc_id": "3679",
+      "module": "src/ezviz_unified/imaging.py",
+      "symbols": [
+        "Imaging.set_image_params",
+        "AsyncImaging.set_image_params"
+      ],
+      "public_entry": "imaging.set_image_params",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.imaging.white_balance.set",
+      "region": "domestic",
+      "source_doc_id": "3681",
+      "module": "src/ezviz_unified/imaging.py",
+      "symbols": [
+        "Imaging.set_white_balance",
+        "AsyncImaging.set_white_balance"
+      ],
+      "public_entry": "imaging.set_white_balance",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }

@@ -195,7 +195,11 @@
       "source_content_sha256": "815cb87573c600954ead7affc764ec2e0f2d9eca49e454ea2943ee1842be1745",
       "description": "Parameter table uses saturatio; request example uses saturation.",
       "status": "unresolved_source_semantics",
-      "sdk_handling": "Defer the setter; retain GET response fields exactly. Do not infer a correction or send device writes to choose a spelling."
+      "sdk_handling": "保留 GET 的 saturatio。PUT 的 SDK 选择为写请求示例的 saturation，不双发、不失败后换键重试，真实设备接受情况待核。",
+      "evidence": [
+        "E14;E79",
+        "docs/coordination/domestic-image-configuration/admission.json"
+      ]
     },
     {
       "id": "cn.imaging.white_balance_manual_spelling",
@@ -205,7 +209,11 @@
       "source_content_sha256": "b30b0575ac508059aec9f19ac33c5333bff9e2b9e615526774a13ba4b93e1d19",
       "description": "Parameter table uses manul for manual mode; request example uses manual.",
       "status": "unresolved_source_semantics",
-      "sdk_handling": "Defer the setter; retain GET response fields exactly. Do not infer a correction or send device writes to choose a spelling."
+      "sdk_handling": "GET 的模式原样保留。PUT 手动模式选择写示例的 manual，不双发或自动改用 manul，真实设备接受情况待核。",
+      "evidence": [
+        "E14;E55",
+        "docs/coordination/domestic-image-configuration/admission.json"
+      ]
     },
     {
       "id": "cn.video.custom_bitrate_value",
@@ -1836,6 +1844,20 @@
         "E44",
         "E48",
         "E68"
+      ]
+    },
+    {
+      "id": "cn.imaging.display_mode.response_type",
+      "region": "domestic",
+      "source_doc_id": "1736",
+      "source_url": "https://open.ys7.com/help/1736",
+      "source_content_sha256": "cc9220a75adc8687b6eb0357357cb556f257c2049a1dbda92d61176a74fc72bd",
+      "description": "正式字段表称 data.valueInfo.mode 为 String，成功示例为整数。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "读取时保留字符串或整数的原始值；设置操作仅发送其正式定义的字符串。",
+      "evidence": [
+        "E40",
+        "E44"
       ]
     }
   ]

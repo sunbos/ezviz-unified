@@ -317,7 +317,9 @@ rows = await async_client.traffic.day_details(page_size=1)
 
 ## 图像参数
 
-`client.imaging.get(device_serial, ImageSetting.EXPOSURE)`等入口查询六类图像参数；`set_backlight`、`set_denoising`、`set_exposure`、`set_anti_flicker`提供四类明确设置，仅国内。曝光参数单位为微秒；降噪等级为1–100且按模式检查必填字段。白平衡和图像风格setter因源拼写冲突暂缓；[完整约束](docs/research/2026-11-14-imaging.md)列明范围、权限和未验证项。本批没有改变真实设备。
+国内同步与异步客户端均支持设备图像配置。`client.imaging.get_display_mode(serial)` 读取显示预设，`set_display_mode(serial, mode)` 设置标准、写实或艳丽。`imaging.get(serial, ImageSetting.IMAGE_PARAMS)` 等六项原有查询继续使用各自契约。
+
+`set_image_params` 和 `set_white_balance` 支持手动参数，和背光、降噪、曝光、防闪烁设置均为显式写入。饱和度与手动白平衡的写请求各采用官方 PUT 示例的一种拼写。可用 `python -m examples.image_configuration --mode async --setting display` 运行只读示例。硬件效果和实际写入恢复仍待验收。[参数范围、权限与来源差异](docs/research/2026-11-14-imaging.md)
 
 ## 设备诊断
 

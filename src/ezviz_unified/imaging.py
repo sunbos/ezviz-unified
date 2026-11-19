@@ -1,10 +1,15 @@
 """Device image parameter facade for the unified EZVIZ client (sync and async).
 
-Covers the reviewed domestic v3 image operations: image params, white
-balance, backlight compensation (BLC), denoising, exposure time, and
-anti-flicker. All endpoints carry the accessToken in the header, take
+Domestic-only. The generic ``get``/``set_*`` group covers the reviewed v3
+per-device settings — image params, white balance, backlight, denoising,
+exposure and anti-flicker — which carry the accessToken in the header,
 deviceSerial in the query for GET and the form for PUT, and answer with a
 meta.code/meta.message/data envelope where only integer 200 marks success.
+``set_image_params`` and ``set_white_balance`` are the documented PUT
+writers for those two settings; explicit display-preset reads/writes use
+the separate display mode endpoints, which carry deviceSerial as an HTTP
+header and answer with a root code/msg envelope where only string "200"
+marks success.
 """
 
 from __future__ import annotations
@@ -12,9 +17,12 @@ from __future__ import annotations
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
+from ._imaging_forms import image_params_form, white_balance_form
 from .diagnostic_report import _diagnostic_scope
+from .errors import ProtocolError
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
+from .vod import _header
 
 if TYPE_CHECKING:
     from .client import AsyncClient, Client
@@ -28,6 +36,7 @@ _POLICY = ResponsePolicy(
     data_path="data",
     success_values=(200,),
 )
+_POLICY_DISPLAY = ResponsePolicy(success_values=("200",))
 
 
 class ImageSetting(StrEnum):
@@ -181,6 +190,60 @@ def _anti_flicker_data(
     return op, data
 
 
+_OP_DISPLAY_GET = Operation(
+    "imaging.display_mode.get",
+    "GET",
+    "/api/v3/device/display/mode/get",
+    token_location="header",
+    regions=_REGIONS,
+    read_only=True,
+    policy=_POLICY_DISPLAY,
+)
+_OP_DISPLAY_SET = Operation(
+    "imaging.display_mode.set",
+    "POST",
+    "/api/v3/device/display/mode/set",
+    token_location="header",
+    regions=_REGIONS,
+    read_only=False,
+    policy=_POLICY_DISPLAY,
+)
+_FORM_HEADERS = {"Content-Type": "application/x-www-form-urlencoded"}
+_DISPLAY_MODES = frozenset({"1", "2", "3"})
+_PROTOCOL_MESSAGE = "unexpected display mode response shape"
+
+
+def _require_domestic(scope: str) -> None:
+    if scope != _DOMESTIC:
+        raise ValueError("imaging operations are only supported in the domestic region")
+
+
+def _display_headers(serial: object) -> dict[str, str]:
+    """``deviceSerial`` travels as an HTTP header on the display endpoints."""
+    return {"deviceSerial": _header("deviceSerial", serial)}
+
+
+def _check_display_payload(response: ApiResponse) -> ApiResponse:
+    """Require ``data.valueInfo.mode`` to be a raw ``str`` or ``int``.
+
+    ``bool`` is rejected, an empty or unknown value is preserved, and a
+    read value is never interpreted as a value safe to write back.
+    """
+    data = response.data
+    mode: object = None
+    if isinstance(data, dict):
+        value_info = data.get("valueInfo")
+        if isinstance(value_info, dict):
+            mode = value_info.get("mode")
+    if isinstance(mode, bool) or not isinstance(mode, (str, int)):
+        raise ProtocolError(
+            _PROTOCOL_MESSAGE,
+            http_status=response.http_status,
+            operation=response.operation,
+        )
+    return response
+
+
 class Imaging:
     """Synchronous facade over the reviewed device image operations."""
 
@@ -228,6 +291,79 @@ class Imaging:
         with _diagnostic_scope(self._client, entrypoint="imaging.set_anti_flicker", mode="sync"):
             op, data = _anti_flicker_data(device_serial, mode, self._client.region.scope)
             return self._client.request(op, data=data)
+
+    def get_display_mode(self, device_serial: str) -> ApiResponse:
+        """Read the display preset (1=standard, 2=realistic, 3=gorgeous).
+
+        The raw ``data.valueInfo.mode`` string or integer is returned
+        untouched; it is not interpreted as a safe write-back value.
+        """
+        with _diagnostic_scope(self._client, entrypoint="imaging.get_display_mode", mode="sync"):
+            _require_domestic(self._client.region.scope)
+            response = self._client.request(
+                _OP_DISPLAY_GET, headers=_display_headers(device_serial)
+            )
+            return _check_display_payload(response)
+
+    def set_display_mode(self, device_serial: str, mode: str) -> ApiResponse:
+        """Write the display preset; only the exact strings '1'/'2'/'3' pass."""
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_display_mode", mode="sync"):
+            _require_domestic(self._client.region.scope)
+            headers = _display_headers(device_serial)
+            headers.update(_FORM_HEADERS)
+            data = {"mode": _check_mode(mode, _DISPLAY_MODES, "mode")}
+            return self._client.request(_OP_DISPLAY_SET, data=data, headers=headers)
+
+    def set_image_params(
+        self,
+        device_serial: str,
+        *,
+        image_style: str,
+        gamma_correction: int,
+        gain: int,
+        brightness: int | None = None,
+        contrast: int | None = None,
+        saturation: int | None = None,
+        sharpness: int | None = None,
+    ) -> ApiResponse:
+        """PUT the detailed image parameters; manual style needs all four
+        detail fields. The wire key is always ``saturation``."""
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_image_params", mode="sync"):
+            _require_domestic(self._client.region.scope)
+            form = image_params_form(
+                device_serial,
+                image_style=image_style,
+                gamma_correction=gamma_correction,
+                gain=gain,
+                brightness=brightness,
+                contrast=contrast,
+                saturation=saturation,
+                sharpness=sharpness,
+            )
+            return self._client.request(
+                _operation(ImageSetting.IMAGE_PARAMS, read_only=False),
+                data=form,
+                headers=dict(_FORM_HEADERS),
+            )
+
+    def set_white_balance(
+        self,
+        device_serial: str,
+        mode: str,
+        *,
+        red: int | None = None,
+        blue: int | None = None,
+    ) -> ApiResponse:
+        """PUT the white balance mode (auto/lock/manual); manual needs both
+        red and blue gains in 0..255."""
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_white_balance", mode="sync"):
+            _require_domestic(self._client.region.scope)
+            form = white_balance_form(device_serial, mode, red=red, blue=blue)
+            return self._client.request(
+                _operation(ImageSetting.WHITE_BALANCE, read_only=False),
+                data=form,
+                headers=dict(_FORM_HEADERS),
+            )
 
 
 class AsyncImaging:
@@ -277,3 +413,76 @@ class AsyncImaging:
         with _diagnostic_scope(self._client, entrypoint="imaging.set_anti_flicker", mode="async"):
             op, data = _anti_flicker_data(device_serial, mode, self._client.region.scope)
             return await self._client.request(op, data=data)
+
+    async def get_display_mode(self, device_serial: str) -> ApiResponse:
+        """Read the display preset (1=standard, 2=realistic, 3=gorgeous).
+
+        The raw ``data.valueInfo.mode`` string or integer is returned
+        untouched; it is not interpreted as a safe write-back value.
+        """
+        with _diagnostic_scope(self._client, entrypoint="imaging.get_display_mode", mode="async"):
+            _require_domestic(self._client.region.scope)
+            response = await self._client.request(
+                _OP_DISPLAY_GET, headers=_display_headers(device_serial)
+            )
+            return _check_display_payload(response)
+
+    async def set_display_mode(self, device_serial: str, mode: str) -> ApiResponse:
+        """Write the display preset; only the exact strings '1'/'2'/'3' pass."""
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_display_mode", mode="async"):
+            _require_domestic(self._client.region.scope)
+            headers = _display_headers(device_serial)
+            headers.update(_FORM_HEADERS)
+            data = {"mode": _check_mode(mode, _DISPLAY_MODES, "mode")}
+            return await self._client.request(_OP_DISPLAY_SET, data=data, headers=headers)
+
+    async def set_image_params(
+        self,
+        device_serial: str,
+        *,
+        image_style: str,
+        gamma_correction: int,
+        gain: int,
+        brightness: int | None = None,
+        contrast: int | None = None,
+        saturation: int | None = None,
+        sharpness: int | None = None,
+    ) -> ApiResponse:
+        """PUT the detailed image parameters; manual style needs all four
+        detail fields. The wire key is always ``saturation``."""
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_image_params", mode="async"):
+            _require_domestic(self._client.region.scope)
+            form = image_params_form(
+                device_serial,
+                image_style=image_style,
+                gamma_correction=gamma_correction,
+                gain=gain,
+                brightness=brightness,
+                contrast=contrast,
+                saturation=saturation,
+                sharpness=sharpness,
+            )
+            return await self._client.request(
+                _operation(ImageSetting.IMAGE_PARAMS, read_only=False),
+                data=form,
+                headers=dict(_FORM_HEADERS),
+            )
+
+    async def set_white_balance(
+        self,
+        device_serial: str,
+        mode: str,
+        *,
+        red: int | None = None,
+        blue: int | None = None,
+    ) -> ApiResponse:
+        """PUT the white balance mode (auto/lock/manual); manual needs both
+        red and blue gains in 0..255."""
+        with _diagnostic_scope(self._client, entrypoint="imaging.set_white_balance", mode="async"):
+            _require_domestic(self._client.region.scope)
+            form = white_balance_form(device_serial, mode, red=red, blue=blue)
+            return await self._client.request(
+                _operation(ImageSetting.WHITE_BALANCE, read_only=False),
+                data=form,
+                headers=dict(_FORM_HEADERS),
+            )

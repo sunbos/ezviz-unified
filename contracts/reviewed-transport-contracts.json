@@ -17856,6 +17856,338 @@
       },
       "source_content_sha256": "c2a91cf8d19d8ae45e6c5a0a83aa55135567901c4c2d0398fc306545b6e48b44",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.imaging.display_mode.get",
+      "region": "domestic",
+      "source_doc_id": "1736",
+      "source_url": "https://open.ys7.com/help/1736",
+      "method": "GET",
+      "path": "/api/v3/device/display/mode/get",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R2",
+          "default": null
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R3",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E40;E44;E72"
+      },
+      "constraints": [
+        {
+          "fact": "使用访问令牌，本页未声明最低子账号权限或特定能力位。",
+          "evidence": "接口功能;E14"
+        },
+        {
+          "fact": "设备信息位于请求头，响应为 data.valueInfo.mode；保留原始类型。",
+          "evidence": "E14;E36;E44"
+        }
+      ],
+      "uncertainties": [
+        "字段表声明 String，示例是整数。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/device/display/mode/get",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E36"
+      },
+      "source_content_sha256": "cc9220a75adc8687b6eb0357357cb556f257c2049a1dbda92d61176a74fc72bd",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.imaging.display_mode.set",
+      "region": "domestic",
+      "source_doc_id": "1735",
+      "source_url": "https://open.ys7.com/help/1735",
+      "method": "POST",
+      "path": "/api/v3/device/display/mode/set",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R2",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R3",
+          "default": null
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R4",
+          "default": null
+        },
+        {
+          "name": "mode",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R5",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E52;E56;E72"
+      },
+      "constraints": [
+        {
+          "fact": "使用访问令牌，本页未声明最低子账号权限或特定能力位。",
+          "evidence": "接口功能;E14"
+        },
+        {
+          "fact": "mode 是字符串 1、2 或 3，语义依次为标准、写实、艳丽。",
+          "evidence": "E14;E48;E56"
+        }
+      ],
+      "uncertainties": [
+        "未声明默认模式或最小子账号权限；不推断画面效果。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/v3/device/display/mode/set",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E48"
+      },
+      "source_content_sha256": "bf0c95df6ec198286d3e88a8ed7c590b4f088be1443ff3115b7d0e73a99f7b68",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.imaging.image_params.set",
+      "region": "domestic",
+      "source_doc_id": "3679",
+      "source_url": "https://open.ys7.com/help/3679",
+      "method": "PUT",
+      "path": "/api/v3/device/video/image/params",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R2",
+          "default": null
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R3",
+          "default": null
+        },
+        {
+          "name": "brightness",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "E14/R4",
+          "default": null
+        },
+        {
+          "name": "contrast",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "E14/R5",
+          "default": null
+        },
+        {
+          "name": "saturation",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "E14/R6 (表名 saturatio); E79 (写请求选择 saturation)",
+          "default": null
+        },
+        {
+          "name": "sharpness",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "E14/R7",
+          "default": null
+        },
+        {
+          "name": "gammaCorrection",
+          "location": "body",
+          "type": "Int",
+          "required": true,
+          "evidence": "E14/R8",
+          "default": null
+        },
+        {
+          "name": "gain",
+          "location": "body",
+          "type": "Int",
+          "required": true,
+          "evidence": "E14/R9",
+          "default": null
+        },
+        {
+          "name": "imageStyle",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R10",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E83;E87;E112"
+      },
+      "constraints": [
+        {
+          "fact": "设备级 Config，支持托管和子账号，设备须支持 support_image_param。",
+          "evidence": "接口功能;E14"
+        },
+        {
+          "fact": "gammaCorrection 0–9、gain 0–100 与 imageStyle 必填。manual 下四项 0–100 调节值均须提供。",
+          "evidence": "E14;E79;E87"
+        }
+      ],
+      "uncertainties": [
+        "饱和度参数表与请求示例拼写冲突，实际平台接受形式未验收。"
+      ],
+      "transport_evidence": {
+        "method": "PUT",
+        "path": "https://open.ys7.com/api/v3/device/video/image/params",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E79"
+      },
+      "source_content_sha256": "815cb87573c600954ead7affc764ec2e0f2d9eca49e454ea2943ee1842be1745",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.imaging.white_balance.set",
+      "region": "domestic",
+      "source_doc_id": "3681",
+      "source_url": "https://open.ys7.com/help/3681",
+      "method": "PUT",
+      "path": "/api/v3/device/video/white/balance",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R2",
+          "default": null
+        },
+        {
+          "name": "deviceSerial",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R3",
+          "default": null
+        },
+        {
+          "name": "mode",
+          "location": "body",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R4",
+          "default": null
+        },
+        {
+          "name": "whiteBalanceRed",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "E14/R5",
+          "default": null
+        },
+        {
+          "name": "whiteBalanceBlue",
+          "location": "body",
+          "type": "Int",
+          "required": false,
+          "evidence": "E14/R6",
+          "default": null
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E59;E63;E88"
+      },
+      "constraints": [
+        {
+          "fact": "设备级 Config，支持托管和子账号，设备须支持 support_image_param。",
+          "evidence": "接口功能;E14"
+        },
+        {
+          "fact": "mode 必填，手动红/蓝增益均为 0–255。写示例为 manual，字段表为 manul。",
+          "evidence": "E14;E55;E63"
+        }
+      ],
+      "uncertainties": [
+        "手动枚举表与请求示例拼写冲突，实际平台接受形式未验收。"
+      ],
+      "transport_evidence": {
+        "method": "PUT",
+        "path": "https://open.ys7.com/api/v3/device/video/white/balance",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E55"
+      },
+      "source_content_sha256": "b30b0575ac508059aec9f19ac33c5333bff9e2b9e615526774a13ba4b93e1d19",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -17965,6 +18297,10 @@
     {
       "review": "docs/coordination/domestic-live-limits/admission.json",
       "note": "国内主账号取流并发限制配置的三种方法。成功码采用 200，样例 0 冲突单列。"
+    },
+    {
+      "review": "docs/coordination/domestic-image-configuration/admission.json",
+      "note": "国内图像预设读写，以及现有图像参数、白平衡查询对应的两个 PUT。手动字段与枚举冲突保留。"
     }
   ]
 }
