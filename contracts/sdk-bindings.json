@@ -3313,7 +3313,7 @@
         "AsyncImaging.get_display_mode"
       ],
       "public_entry": "imaging.get_display_mode",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3326,7 +3326,7 @@
         "AsyncImaging.set_display_mode"
       ],
       "public_entry": "imaging.set_display_mode",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3339,7 +3339,7 @@
         "AsyncImaging.set_image_params"
       ],
       "public_entry": "imaging.set_image_params",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3352,7 +3352,7 @@
         "AsyncImaging.set_white_balance"
       ],
       "public_entry": "imaging.set_white_balance",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

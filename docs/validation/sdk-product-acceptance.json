@@ -11638,19 +11638,29 @@
       "pending_questions": [
         "未声明默认模式或最小子账号权限；不推断画面效果。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/imaging.py",
+        "tests/test_sdk_image_configuration.py",
+        "README.md",
+        "tests/test_sdk_imaging.py",
+        "evals/contracts/cases.json",
+        "docs/research/2026-11-14-imaging.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "05aacd53da3a9823a384a55af0b936277be0c70d",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-image-configuration/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1736-D0-OFFLINE-001",
@@ -11697,19 +11707,31 @@
       "pending_questions": [
         "字段表声明 String，示例是整数。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/imaging.py",
+        "tests/test_sdk_image_configuration.py",
+        "README.md",
+        "tests/test_sdk_imaging.py",
+        "evals/contracts/cases.json",
+        "docs/research/2026-11-14-imaging.md",
+        "examples/image_configuration.py",
+        "tests/test_example_image_configuration.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "05aacd53da3a9823a384a55af0b936277be0c70d",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-image-configuration/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1739-D0-OFFLINE-001",
@@ -11974,19 +11996,30 @@
       "pending_questions": [
         "饱和度参数表与请求示例拼写冲突，实际平台接受形式未验收。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/imaging.py",
+        "tests/test_sdk_image_configuration.py",
+        "README.md",
+        "tests/test_sdk_imaging.py",
+        "evals/contracts/cases.json",
+        "docs/research/2026-11-14-imaging.md",
+        "src/ezviz_unified/_imaging_forms.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "05aacd53da3a9823a384a55af0b936277be0c70d",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-image-configuration/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-3681-D0-OFFLINE-001",
@@ -12033,19 +12066,30 @@
       "pending_questions": [
         "手动枚举表与请求示例拼写冲突，实际平台接受形式未验收。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/imaging.py",
+        "tests/test_sdk_image_configuration.py",
+        "README.md",
+        "tests/test_sdk_imaging.py",
+        "evals/contracts/cases.json",
+        "docs/research/2026-11-14-imaging.md",
+        "src/ezviz_unified/_imaging_forms.py"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "05aacd53da3a9823a384a55af0b936277be0c70d",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-19-domestic-image-configuration/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-4478-D0-OFFLINE-001",
