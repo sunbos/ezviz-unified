@@ -73,6 +73,13 @@ _REFRESH_SKEW = 0.0
 _AUTH_EXPIRE_MS = 2000123
 _TOKEN_EXPIRES_AT = 2000.123
 _MESSAGE_OK = "contract-eval-ok"
+_REDACTED_MESSAGE_OPERATION_IDS = frozenset(
+    {
+        "cn.device_add_links.create",
+        "cn.device_add_links.records",
+        "cn.device_add_links.list",
+    }
+)
 _MESSAGE_FAULT = "contract-eval-fault"
 _EVAL_MARKER = "_eval_marker"
 _EVAL_MARKER_VALUE = "contract-eval"
@@ -1140,6 +1147,7 @@ def _check_response(
     success_payload: dict,
     success_code: object,
     data: object,
+    expected_message: str,
 ) -> str | None:
     api_response = _operation_outcome(package)["api_response"]
     if api_response is not None and not isinstance(outcome, api_response):
@@ -1148,7 +1156,7 @@ def _check_response(
         return "response_mismatch"
     if not _strict_equal(getattr(outcome, "code", None), success_code):
         return "response_mismatch"
-    if not _strict_equal(getattr(outcome, "message", None), _MESSAGE_OK):
+    if not _strict_equal(getattr(outcome, "message", None), expected_message):
         return "response_mismatch"
     if not _strict_equal(getattr(outcome, "data", None), data):
         return "response_mismatch"
@@ -1438,7 +1446,17 @@ def _verify_operation_run(
     if expected_kind == "response":
         if outcome_kind != "response":
             return "unexpected_exception"
-        problem = _check_response(outcome, package, success_payload, success_code, case["data"])
+        expected_message = (
+            "***" if contract["operation_id"] in _REDACTED_MESSAGE_OPERATION_IDS else _MESSAGE_OK
+        )
+        problem = _check_response(
+            outcome,
+            package,
+            success_payload,
+            success_code,
+            case["data"],
+            expected_message,
+        )
         if problem is not None:
             return problem
     else:

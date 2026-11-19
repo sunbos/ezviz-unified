@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 国内开发者设备添加链接
+
+已用合成请求验证同步和异步签发、读取添加记录、查询已签发链接，以及仅显示条数的只读示例。签发按天提交有效期，列表返回毫秒时间戳。测试分别覆盖签发失败后不重放、只读令牌刷新、手动翻页以及错误与 HTTPX 日志脱敏。真实签发仍需指定开发者账号、授权与处置方案，两项读取仍待确认开发者资格和可用资源。客户经链接添加设备的结果未经实测。[冻结范围](../coordination/domestic-device-add-links/admission.json) · [离线回执](2026-11-20-domestic-device-add-links/offline.json)
+
 ## 海外 A1 探测器清单
 
 同步、异步及单次查询示例已离线验收。481 §1.1 按示意的 result 布局取数组，§1.4 和 §1.5 按各自的根层布局处理。候选和已关联的 IPC 分开验证，行中存在矛盾的名称类型和标识键保留原值。海外 A1 主机、账号权限及实际可见关系仍需逐项真实验收；其余六节保持原状态。[范围与来源差异](../coordination/overseas-a1-detector-queries/admission.json) · [离线记录](2026-11-20-overseas-a1-detector-queries/offline.json)

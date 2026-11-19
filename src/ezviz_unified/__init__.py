@@ -18,6 +18,7 @@ from .cruise import AsyncCruise, Cruise, CruisePeriod
 from .ddns import AsyncDdns, Ddns
 from .delegation import AsyncDelegation, Delegation
 from .detectors import AsyncDetectors, Detectors
+from .device_add_links import AsyncDeviceAddLinks, DeviceAddLinks
 from .device_algorithms import AsyncDeviceAlgorithms, DeviceAlgorithms
 from .device_voice import AsyncDeviceVoice, DeviceVoice
 from .devices import AsyncDevices, Devices
@@ -112,6 +113,7 @@ __all__ = [
     "AsyncDevices",
     "AsyncDiagnostics",
     "AsyncDetectors",
+    "AsyncDeviceAddLinks",
     "AsyncHubs",
     "AsyncLiveLimits",
     "AsyncLiveStreams",
@@ -160,6 +162,7 @@ __all__ = [
     "ImageSetting",
     "FillLightMode",
     "Detectors",
+    "DeviceAddLinks",
     "Hubs",
     "LiveLimits",
     "LiveStreams",

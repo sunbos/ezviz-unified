@@ -6441,6 +6441,66 @@
           "future": true
         }
       ]
+    },
+    {
+      "operation_id": "cn.device_add_links.create",
+      "args": [
+        3
+      ],
+      "kwargs": {
+        "note": "fixture note"
+      },
+      "fields": {
+        "expireTime": 3,
+        "note": "fixture note"
+      },
+      "data": {
+        "url": "https://fixture.invalid/synthetic-device-add",
+        "extra": true
+      }
+    },
+    {
+      "operation_id": "cn.device_add_links.records",
+      "args": [],
+      "kwargs": {
+        "device_serial": "SynTH-Header",
+        "cursor": "41",
+        "page_size": 2
+      },
+      "fields": {
+        "deviceSerial": "SynTH-Header",
+        "id": "41",
+        "pageSize": 2
+      },
+      "data": [
+        {
+          "id": 43,
+          "bindTime": 42,
+          "deviceSerial": "SynTH-Header",
+          "extra": true
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.device_add_links.list",
+      "args": [],
+      "kwargs": {
+        "cursor": "A/2",
+        "page_size": 2
+      },
+      "fields": {
+        "id": "A/2",
+        "pageSize": 2
+      },
+      "data": [
+        {
+          "id": "A/4",
+          "expireTime": 7,
+          "url": null,
+          "expired": true,
+          "extra": true
+        }
+      ]
     }
   ]
 }

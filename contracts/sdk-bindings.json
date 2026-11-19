@@ -3712,6 +3712,45 @@
       "public_entry": "detectors.linked_cameras",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.device_add_links.create",
+      "region": "domestic",
+      "source_doc_id": "2846",
+      "module": "src/ezviz_unified/device_add_links.py",
+      "symbols": [
+        "DeviceAddLinks.create",
+        "AsyncDeviceAddLinks.create"
+      ],
+      "public_entry": "device_add_links.create",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.device_add_links.records",
+      "region": "domestic",
+      "source_doc_id": "2847",
+      "module": "src/ezviz_unified/device_add_links.py",
+      "symbols": [
+        "DeviceAddLinks.records",
+        "AsyncDeviceAddLinks.records"
+      ],
+      "public_entry": "device_add_links.records",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.device_add_links.list",
+      "region": "domestic",
+      "source_doc_id": "2848",
+      "module": "src/ezviz_unified/device_add_links.py",
+      "symbols": [
+        "DeviceAddLinks.list",
+        "AsyncDeviceAddLinks.list"
+      ],
+      "public_entry": "device_add_links.list",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

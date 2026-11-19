@@ -38,6 +38,7 @@ from .components import AsyncComponents, Components
 from .ddns import AsyncDdns, Ddns
 from .delegation import AsyncDelegation, Delegation
 from .detectors import AsyncDetectors, Detectors
+from .device_add_links import AsyncDeviceAddLinks, DeviceAddLinks
 from .device_algorithms import AsyncDeviceAlgorithms, DeviceAlgorithms
 from .device_voice import AsyncDeviceVoice, DeviceVoice
 from .devices import AsyncDevices, Devices
@@ -346,6 +347,7 @@ class Client:
         self.cloud_capture = CloudCapture(self)
         self.message_subscriptions = MessageSubscriptions(self)
         self.detectors = Detectors(self)
+        self.device_add_links = DeviceAddLinks(self)
         self.hubs = Hubs(self)
         self.live_limits = LiveLimits(self)
         self.live_streams = LiveStreams(self)
@@ -676,6 +678,7 @@ class AsyncClient:
         self.cloud_capture = AsyncCloudCapture(self)
         self.message_subscriptions = AsyncMessageSubscriptions(self)
         self.detectors = AsyncDetectors(self)
+        self.device_add_links = AsyncDeviceAddLinks(self)
         self.hubs = AsyncHubs(self)
         self.live_limits = AsyncLiveLimits(self)
         self.live_streams = AsyncLiveStreams(self)

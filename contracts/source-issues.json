@@ -2236,6 +2236,51 @@
         "E612;E615;E632",
         "docs/coordination/overseas-a1-detector-queries/admission.json"
       ]
+    },
+    {
+      "id": "cn.device_add_links.create.scope_and_lifecycle",
+      "region": "domestic",
+      "source_doc_id": "2846",
+      "source_url": "https://open.ys7.com/help/2846",
+      "source_content_sha256": "9c33942fc519a8aa68443d10b3828b01a5ac2967bf9538842e6db1a791cbd383",
+      "description": "成功只证明平台返回一个设备添加入口。未说明幂等、撤销、使用次数或客户后续绑定结果。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "分别保留签发、记录和链接列表；分页显式，返回原类型和扩展字段。",
+      "evidence": [
+        "E7;E11;E14;E49",
+        "E53;E57;E90",
+        "docs/coordination/domestic-device-add-links/admission.json"
+      ]
+    },
+    {
+      "id": "cn.device_add_links.records.scope_and_lifecycle",
+      "region": "domestic",
+      "source_doc_id": "2847",
+      "source_url": "https://open.ys7.com/help/2847",
+      "source_content_sha256": "15250bf41c9ff176001562ed1389dd7ee616d25563e37eb1319fa78a165162d0",
+      "description": "设备筛选和游标均为可选，未声明同时传入时的优先级或互斥。末行 id 为整数；下次请求 id 的声明类型为字符串。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "分别保留签发、记录和链接列表；分页显式，返回原类型和扩展字段。",
+      "evidence": [
+        "E7;E11;E14;E49",
+        "E53;E57;E106",
+        "docs/coordination/domestic-device-add-links/admission.json"
+      ]
+    },
+    {
+      "id": "cn.device_add_links.list.scope_and_lifecycle",
+      "region": "domestic",
+      "source_doc_id": "2848",
+      "source_url": "https://open.ys7.com/help/2848",
+      "source_content_sha256": "dde22f8f35c88b8cecd16ca33d08e392e357e2345f8caa37148164a17d563bd5",
+      "description": "返回的过期时间是毫秒时间戳。url 表列字符串但示例也含 null；不从 expired 推定 url 是否一定存在。未声明总量、排序稳定性或独立下一页游标。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "分别保留签发、记录和链接列表；分页显式，返回原类型和扩展字段。",
+      "evidence": [
+        "E7;E11;E14;E43",
+        "E47;E51;E100",
+        "docs/coordination/domestic-device-add-links/admission.json"
+      ]
     }
   ]
 }

@@ -262,6 +262,37 @@ direction = {"x1": "0.0", "y1": "0.0", "x2": "0.5", "y2": "0.0"}
 
 写接口已在 SDK 实现但不自动重放（含 `10002`、超时、`60022`），成功应答允许缺 `data`。恢复差异：`switch_status`（688）不接受 `channelNo`，而 `set_switch`（689）可带可选通道；`get_config`（693）返回同一目标（设备+通道）当前的 `line`/`direction`，写前可先读取旧几何作为恢复依据。设备须支持客流统计。子账户读取使用 `Get`、设置使用 `Config`。688/689 声明设备级 `dev` 资源，690–693 声明通道级 `Cam` 资源。当前验收为离线模拟。真实配置须另行指定设备、目标通道、写入范围和可核实的恢复方法。[客流开关设置](https://open.ys7.com/help/689) [客流配置读取](https://open.ys7.com/help/693)
 
+## 国内开发者设备添加链接
+
+通过国内 `Client` 或 `AsyncClient` 的 `client.device_add_links` 可调用 `create`、`records`、`list` 三个方法，仅面向国内区域。请求头 `accessToken` 必须来自国内开发者账号，账户有余额并不能证明已经开通开发者权限。
+
+### 签发
+
+`create(expire_days, *, note=None)` 将整数 `expire_days`（取值 1–7）映射为 JSON 整数 `expireTime`。`note` 可省略或为最多 256 个 Unicode 字符的字符串，允许空串，原样提交不做规范化。每次调用只执行一次 POST，不自动重试。成功要求根层 `meta.code` 为整数 200，且 `data.url` 为非空字符串。SDK 不打开、不发送也不校验链接能否完成绑定，平台未确认吊销能力。
+
+### 单页查询
+
+`records(*, device_serial=None, cursor=None, page_size=10)` 查询添加记录，`list(*, cursor=None, page_size=10)` 查询链接列表。两者都是单次 GET 单页请求，`cursor` 为排他字符串 id，为 `None` 时省略并由平台决定起点，显式字符串原样提交。`pageSize` 为整数 1–50，默认 10，不接受 bool。仅 `records` 支持 `device_serial`，经 `deviceSerial` 请求头发送并复用既有 ASCII 校验，筛选与游标同时存在时两者都发送，优先级未定义。满足条件的 10002 只读失败最多重试一次，绝不自动翻页。
+
+`records` 行 id 为整数，取下一页需显式传入 `str(last_id)`，而 `list` 行 id 为字符串，均不保证稳定排序。`list` 行内 `expireTime` 为毫秒时间戳整数，`expired` 若存在为布尔，`url` 若存在可为字符串或 `null`。官方资料没有规定它与 `expired` 的对应关系。两者返回 `response.data` 列表并保留未知行字段。`raw` 与 `data` 属调用方持有的敏感数据。
+
+### 脱敏与日志
+
+这三个入口显式启用默认关闭的 `ResponsePolicy.redact_device_add_details`。SDK 显示的非空业务消息和异常中的上游自由文本统一替换为 `***`，整数码保持原值，字符串码仅透出白名单 200、400、403、404、500、10002、10031，其余遮盖，分类仍按原始码进行。这三个 SDK 请求的标准 HTTPX INFO 日志保留方法、去查询串的路径与状态码，并遮盖 reason phrase，不影响其他 HTTPX 请求或应用自行记录 `raw`。
+
+### CLI 示例
+
+设置 `EZVIZ_REGION=domestic`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET` 后运行
+
+```bash
+python -m examples.device_add_links --mode sync --query records
+python -m examples.device_add_links --mode async --query links
+```
+
+CLI 查询一页（`pageSize=1`），输出的 JSON 仅含区域、模式、查询类型、状态和返回条数。该示例只读。
+
+本批离线验收使用合成响应，真实开发者权限、签发及记录可见性仍待核验。[签发接口](https://open.ys7.com/help/2846) · [添加记录](https://open.ys7.com/help/2847) · [已签发链接](https://open.ys7.com/help/2848)
+
 ## 国内企业第三方协议接入
 
 官方快速入门要求国内账号已购买企业版。每个账号按协议开通项目。同步客户端使用 `client.third_party_protocols`，异步客户端使用 `await async_client.third_party_protocols.…`。协议类型为 `dhreg`、`tiandy`、`huawei` 或 `jt808`。完整签名、参数和资料差异见[冻结契约](docs/coordination/domestic-third-party-protocols/admission.json)及[官方快速入门](https://open.ys7.com/help/5322)。

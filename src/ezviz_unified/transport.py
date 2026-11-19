@@ -43,17 +43,26 @@ class _SdkRedactionContext:
     while media-URL masking applies and is released on ``invalidate``.
     """
 
-    __slots__ = ("secrets", "mask_media_urls", "request_url", "active", "mask_registration_fields")
+    __slots__ = (
+        "secrets",
+        "mask_media_urls",
+        "request_url",
+        "active",
+        "mask_registration_fields",
+        "mask_device_add_details",
+    )
 
     def __init__(
         self,
         secrets: tuple[str, ...],
         mask_media_urls: bool,
         mask_registration_fields: bool = False,
+        mask_device_add_details: bool | None = False,
     ) -> None:
         self.secrets = secrets
         self.mask_media_urls = mask_media_urls
         self.mask_registration_fields = bool(mask_registration_fields)
+        self.mask_device_add_details = bool(mask_device_add_details)
         self.request_url: httpx.URL | None = None
         self.active = True
 
@@ -95,16 +104,32 @@ class _SdkRedactionFilter(logging.Filter):
             isinstance(args, tuple)
             and len(args) == 5
             and isinstance(args[0], str)
-            and isinstance(args[1], httpx.URL)
+            and isinstance(url := args[1], httpx.URL)
             and isinstance(args[2], str)
             and isinstance(args[3], int)
             and isinstance(args[4], str)
         ):
-            if (redaction.mask_media_urls or redaction.mask_registration_fields) and args[
-                1
-            ] is not redaction.request_url:
+            if (
+                redaction.mask_media_urls
+                or redaction.mask_registration_fields
+                or redaction.mask_device_add_details
+            ) and url is not redaction.request_url:
                 return True
-            if redaction.mask_registration_fields:
+            if redaction.mask_device_add_details:
+                # Owned device-add record: the bound request URL may carry
+                # the caller-supplied cursor and other detail parameters in
+                # its query, which sit outside the collected secrets, so the
+                # query is stripped while method, origin, path, http_version
+                # and status are preserved; the server-controlled reason
+                # phrase is free text and is blanked outright.
+                record.args = (
+                    args[0],
+                    url.copy_with(query=None),
+                    args[2],
+                    args[3],
+                    "***",
+                )
+            elif redaction.mask_registration_fields:
                 # Owned registration record: the server-controlled reason
                 # phrase is free text that may carry data outside the
                 # collected secrets, so it is blanked outright; method,
@@ -136,7 +161,11 @@ def _capture_request_url(request: httpx.Request) -> None:
     if (
         redaction is not None
         and redaction.active
-        and (redaction.mask_media_urls or redaction.mask_registration_fields)
+        and (
+            redaction.mask_media_urls
+            or redaction.mask_registration_fields
+            or redaction.mask_device_add_details
+        )
         and redaction.request_url is None
     ):
         redaction.request_url = request.url
@@ -399,6 +428,7 @@ class SyncTransport:
             all_secrets,
             mask_media_urls,
             mask_registration_fields=mask_registration_fields,
+            mask_device_add_details=(policy is not None and policy.redact_device_add_details),
         )
         marker = _SDK_REDACTION.set(context)
         response: httpx.Response | None = None
@@ -510,6 +540,7 @@ class AsyncTransport:
             all_secrets,
             mask_media_urls,
             mask_registration_fields=mask_registration_fields,
+            mask_device_add_details=(policy is not None and policy.redact_device_add_details),
         )
         marker = _SDK_REDACTION.set(context)
         response: httpx.Response | None = None
