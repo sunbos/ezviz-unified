@@ -17,10 +17,10 @@
     "bounded_account_read_succeeded": 1,
     "empty_list_succeeded_application_token": 1,
     "nonempty_first_page_succeeded_singapore": 1,
-    "not_verified": 234,
+    "not_verified": 232,
     "public_area_catalog_succeeded_documented_origin": 1,
     "public_timezone_catalog_succeeded_singapore": 1,
     "request_failed_http_500": 1,
-    "single_device_readonly_response_checked": 6
+    "single_device_readonly_response_checked": 8
   }
 }

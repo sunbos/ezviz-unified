@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "http_requests": 4,
+  "steps": {
+    "inventory": "passed",
+    "model": "passed",
+    "channels": "passed"
+  },
+  "online_status_recognized": true
+}
