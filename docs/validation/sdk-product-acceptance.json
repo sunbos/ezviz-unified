@@ -26860,54 +26860,61 @@
       "case_id": "ACC-CANDIDATE-OVERSEAS-477-1-20-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
-      "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:477:1.20",
+      "case_origin": "overseas_utc_variant",
+      "capability_selector": "devices.get_utc",
       "capability_ids": [
         "candidate:overseas:477:1.20"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.devices.get_utc"
+      ],
+      "scope_revision": "2026-11-19-r26-device-utc-info",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
       "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
-      "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
+      "device_requirements": "仅合成设备及传输。",
       "surface": [
         "sync",
         "async"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "合成认证/业务 MockTransport；默认断网。"
       ],
       "expected_evidence": {
-        "read": "围绕“读取UTC变体设备信息”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "验证独立入口、固定 version、基础查询回归、模拟地区路由、字段、错误、脱敏与 CLI。",
+        "write": "无。",
+        "physical": "无。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/37"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/37",
+        "docs/coordination/overseas-device-utc/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/477.source.json"
       ],
       "pending_questions": [
-        "version=utc is a required discriminator for this variant; omitting it falls back to the non-UTC devices.get shape"
+        "来源未注明 timeZone 使用 IANA 名称或固定偏移格式，也未承诺每个型号均返回非空字符串。",
+        "海外账号当前无绑定设备，适用型号和最小子账户权限待确认。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+        "待实现和离线执行。"
       ],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-1-OFFLINE-001",
@@ -31605,6 +31612,56 @@
       "limitations": [
         "子账户/托管账号所需最小权限未详述。",
         "列表允许为空；当前账号分享数据、集群与实际分页响应未验收。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-477-1-20-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_utc_variant",
+      "capability_selector": "devices.get_utc",
+      "capability_ids": [
+        "candidate:overseas:477:1.20"
+      ],
+      "operation_ids": [
+        "global.devices.get_utc"
+      ],
+      "scope_revision": "2026-11-19-r26-device-utc-info",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:cluster_not_frozen",
+      "account_role_permissions": "海外账号拥有对目标设备的读取权限。",
+      "device_requirements": "已知且可见的海外设备。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "冻结海外集群、代表型号、授权、次数及恢复责任；本项无配置写入。"
+      ],
+      "expected_evidence": {
+        "read": "成功状态、请求数及 timeZone 字段存在性和类型，缺字段按实记录。",
+        "write": "无。",
+        "physical": "不推断物理时钟、显示或 Wi-Fi 状态。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读，无需恢复设备配置。",
+      "source_refs": [
+        "docs/coordination/overseas-device-utc/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/477.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "海外账号当前无绑定设备，尚未获得本操作的真实查询授权。"
+      ],
+      "limitations": [
+        "来源未注明 timeZone 使用 IANA 名称或固定偏移格式，也未承诺每个型号均返回非空字符串。",
+        "海外账号当前无绑定设备，适用型号和最小子账户权限待确认。"
       ]
     }
   ],
