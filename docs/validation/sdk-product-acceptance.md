@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 国内对讲下行扬声器音量
+
+同步和异步的音量读取、设置以及只读 CLI 已通过模拟传输验收。设备端资料明确平台返回最近一次上报值，部分设备可能没有实现音量调节回调。真实设备的读写、恢复与声学效果仍待对应授权及独立核实。[冻结范围](../coordination/domestic-talk-speaker/admission.json) · [离线记录](2026-11-20-domestic-talk-speaker/offline.json)
+
 ## 国内设备图像配置
 
 显示预设的读取与设置、详细图像参数和白平衡的 PUT 已完成同步与异步离线验收。3678、3680 已有读取契约及证据，本批核对并关联原有来源。四项真实操作尚未获授权，手动拼写、硬件效果与恢复能力均待验证。[来源及冻结范围](../coordination/domestic-image-configuration/admission.json) · [离线验收记录](2026-11-19-domestic-image-configuration/offline.json)

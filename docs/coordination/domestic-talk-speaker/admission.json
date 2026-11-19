@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "d41d870854b56ff57f4f2706f6dfe34699f78e37",
+  "scope_revision": "2026-11-20-r34-domestic-talk-speaker",
+  "operations": [
+    {
+      "operation_id": "cn.settings.get_talk_speaker_volume",
+      "capability_id": "candidate:domestic:1719:d0",
+      "name": "get_talk_speaker_volume",
+      "entry": "settings.get_talk_speaker_volume",
+      "doc_id": "1719",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1719-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1719-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Settings": "def get_talk_speaker_volume(self, device_serial: str) -> ApiResponse",
+        "AsyncSettings": "async def get_talk_speaker_volume(self, device_serial: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/1719",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1719.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1719.structure.json",
+      "html_sha256": "f80fbd07f98b6fbb80adcb37914c1c6e589e3097b70bf26488acd5898701cb4c",
+      "method": "GET",
+      "path": "/api/v3/device/talkSpeakerVolume",
+      "read_only": true,
+      "permission": "国内应用访问令牌。HTTP 页未说明最低权限、套餐、子账号或分享支持。",
+      "unknown": "读值为设备最近一次上报，未说明上报间隔或各型号支持。",
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 36,
+        "example": 40,
+        "fields": 44,
+        "errors": 68
+      }
+    },
+    {
+      "operation_id": "cn.settings.set_talk_speaker_volume",
+      "capability_id": "candidate:domestic:1718:d0",
+      "name": "set_talk_speaker_volume",
+      "entry": "settings.set_talk_speaker_volume",
+      "doc_id": "1718",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1718-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1718-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Settings": "def set_talk_speaker_volume(self, device_serial: str, volume: int) -> ApiResponse",
+        "AsyncSettings": "async def set_talk_speaker_volume(self, device_serial: str, volume: int) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/1718",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1718.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1718.structure.json",
+      "html_sha256": "1400e7a675e3a5cca34170d785954064fffcbfeca1175e46f30a82c7662430e5",
+      "method": "POST",
+      "path": "/api/v3/device/talkSpeakerVolume",
+      "read_only": false,
+      "permission": "国内应用访问令牌。HTTP 页未说明最低权限、套餐、子账号或分享支持。",
+      "unknown": "设备端调节回调可选，未确认真实型号支持及原音量的独立恢复条件。",
+      "elements": {
+        "address": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 42,
+        "example": 46,
+        "fields": 50,
+        "errors": 66
+      }
+    }
+  ],
+  "cross_check": {
+    "doc_id": "1307018",
+    "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1307018.source.json",
+    "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1307018.structure.json",
+    "html_sha256": "e958919501d7505802540cefb3829bbd5274dd4645e75b04f3c72c0269fe39d6",
+    "elements": [
+      151,
+      157,
+      193,
+      196,
+      201,
+      538,
+      722
+    ],
+    "scope": "复核对讲下行设备扬声器、云端最近上报值、可选回调与百分比范围，仅引用相关部分。"
+  },
+  "sdk_choices": [
+    "国内 GET 与 POST 同一路径，访问令牌只在请求头。GET 把 deviceSerial 放在 query，无正文。POST 以 URL 编码表单发送 deviceSerial 和 volume，volume=0 必须发送。不增加通道参数。",
+    "两者复用 code/msg/data，只有字符串 200 是成功。GET 成功要求 data.talkSpeakerVolume 为整数（拒绝 bool），保留返回对象、原始整数与未知字段，不夹取或猜测百分比。POST 官方回执无 data，返回原 ApiResponse。",
+    "设备端文档给出 0–100 百分比，HTTP 参数表仅声明 Int。SDK 依据两份资料交叉核验对写入值要求 0..100 的整数，拒绝布尔、浮点和文本，不取整或夹取。保留非空白 UTF-8 序列号原文。",
+    "查询使用 SDK 既有只读重试，写入不自动重放。不预读、不轮询、不隐式恢复；不建立对讲、不发音频。缓存值不能单独证明硬件响度、写后即时生效或可恢复原配置。",
+    "显式只读示例不打印序列号、令牌、错误正文或原始数据。reported_percent 仅为 0..100 的整数，平台返回其他整数时投影为 null 而 SDK 保留原始值。"
+  ],
+  "reuse": "docs/research/2026-11-15-official-ecosystem-reuse.md",
+  "live": "本批仅离线；真实读取、写入和物理验证均未执行。"
+}

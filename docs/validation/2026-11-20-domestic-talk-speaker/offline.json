@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "scope": "domestic_talk_speaker_offline",
+  "code_commit": "974eb69b5efdd6b138a09eec4991097fad2e4f93",
+  "source_test_sha256": {
+    "src/ezviz_unified/settings.py": "b7cc9bcc40993714cffec41795b85ac9e0899a999e928dbb80ef7b5e311a49dc",
+    "tests/test_sdk_talk_speaker.py": "207bfa1585a7b7a7f8236406dfb0d8a6471aaedbd942805eec47e3a5adba7edf",
+    "examples/talk_speaker_volume.py": "c019994e463a35b44ebc3127292ec634a91e618e2114b171abc388da88d7c60e",
+    "tests/test_example_talk_speaker_volume.py": "43109c612917b3136cac719e167c9fafb0e3b1c66bde2944d2b79492eca1bbe1",
+    "README.md": "83a757c34b609e177300800d9a28ae6075f463c95fea7e1d7af2cd530a82fec0",
+    "src/ezviz_unified/_diagnostic_registry.py": "e7e8bb548a445df48209fb8b26300e11d350e6728846d010e710d3da31806a86",
+    "docs/diagnostics-v1-coverage.json": "89e7721fefdd738745929f9b8a2b0852ffff09022155c72bf3e01db1988cb9c8",
+    "docs/diagnostics.md": "12dc4baa88e2675c660130867268cbb621dfa78a293f3f3d448c6689f4d6dc13",
+    "tests/test_harness_diagnostic_coverage.py": "d0a917614bb63d5ada82a2ed60b71847ed9eabe9350b737b02b0ad3e9ac04fab",
+    "contracts/reviewed-transport-contracts.json": "da6e786eb2492c810126c04823601f776868626e5235bfab807f55f633a9b7de",
+    "docs/coordination/domestic-talk-speaker/admission.json": "ec4ebc912c1daf9b536d4fc0e2b6718afdca1d24d7c602523df2e9d2d1e19e58",
+    "contracts/source-issues.json": "1bca19f2c7930989716bca56059a2509ee458a164164af7cc20b5138fefe7272",
+    "evals/contracts/cases.json": "7fe81a4bbf01a9cd2bda1e07ae98dc77ca598fec6ff058bf3023fc3d2cd72561"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP415-Facade",
+        "input_commit": "ef4ec571785764766de38a9ab5e38777c5cad315",
+        "write_scope": [
+          "src/ezviz_unified/settings.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "41dd0cb32827b11c95b1b4cb9408fbf426f193f2ddc3b8d819f9f27511e9055e"
+      },
+      {
+        "task": "SP415-SDKTests",
+        "input_commit": "ef4ec571785764766de38a9ab5e38777c5cad315",
+        "write_scope": [
+          "tests/test_sdk_talk_speaker.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "702d13ca5cb8029e137c0c25c52cec3d98ac12eff10f567030a755d99a66173a"
+      },
+      {
+        "task": "SP415-CLI",
+        "input_commit": "ef4ec571785764766de38a9ab5e38777c5cad315",
+        "write_scope": [
+          "examples/talk_speaker_volume.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "5a5694c52771d615c6622a87caabf3fc16f2fedb6eab2c8be312a80a251bb109"
+      },
+      {
+        "task": "SP416-CLITests",
+        "input_commit": "ef4ec571785764766de38a9ab5e38777c5cad315",
+        "write_scope": [
+          "tests/test_example_talk_speaker_volume.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "dcb47d2dd15271d331e54a2c43b594339ff70655f72133d80dafcf9b2d5f59ce"
+      },
+      {
+        "task": "SP416-FacadeReview",
+        "input_commit": "ef4ec571785764766de38a9ab5e38777c5cad315",
+        "write_scope": [
+          "src/ezviz_unified/settings.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "c0fd63b298ecebe607f851e5028c2609e2ca5265396f88853c467069cb65147c"
+      },
+      {
+        "task": "SP416-CLIReview",
+        "input_commit": "ef4ec571785764766de38a9ab5e38777c5cad315",
+        "write_scope": [
+          "tests/test_example_talk_speaker_volume.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "060e33397c4694cc0c9e686b60e3d11bb3af06b6369380e94c25a25fc881991c"
+      },
+      {
+        "task": "SP417-SDKCaseReview",
+        "input_commit": "ef4ec571785764766de38a9ab5e38777c5cad315",
+        "write_scope": [
+          "tests/test_sdk_talk_speaker.py"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "1f897c68327b0f9ad5895161dbcdbe8009a0fed82bfd2f8bbaf4c09f1215ddc1"
+      },
+      {
+        "task": "SP416-Guide",
+        "input_commit": "ef4ec571785764766de38a9ab5e38777c5cad315",
+        "write_scope": [
+          "README.md"
+        ],
+        "shell_commands": [],
+        "dispatch_sha256": "91aea52abd8f29ba90ec7d0b4434ee577ddf037423398f7512de81fdd6affa08"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_talk_speaker.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "420 passed in 1.04s",
+      "local_receipt_sha256": "54bcfc1748d37d5465a85c5ac0233b77c87cb87d25eefb5c74dd84c68451ee5c",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_talk_speaker_volume.py",
+      "summary": "31 passed in 0.28s",
+      "local_receipt_sha256": "e3218e4fe9b04f1aef4c602ee0f2984acee38dd964a57d3e1ce77fddce8958b1",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "9026 passed, 35 subtests passed in 51.56s",
+      "local_receipt_sha256": "31db59841c14e2eae06b03f36641c7616b2c382b4b4c72b2f67aa7ba482cb099",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "250 registered contracts, 2032/2032 wire checks passed",
+      "local_receipt_sha256": "7e5fd96f935260165320a50477cbc2228f2fa56bfcaedcb1be6b83a97e25ab7e",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 56 source files",
+      "local_receipt_sha256": "a3122c4afb75fa312850c9403578cdd586df0808efdf3c778e854b1fd54dce48",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "250 registered contracts and bindings, 500 symbols inspected",
+      "local_receipt_sha256": "cdc0ae4349dc79ea336830d23aaf8b0cfc00b2adebc4f93f24d5e940576a2ab3",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/settings.py tests/test_sdk_talk_speaker.py examples/talk_speaker_volume.py tests/test_example_talk_speaker_volume.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "7ae138e9eebb6e72da501ec566079793db3b4d2a83926f52f8766b108476901d",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/settings.py tests/test_sdk_talk_speaker.py examples/talk_speaker_volume.py tests/test_example_talk_speaker_volume.py src/ezviz_unified/_diagnostic_registry.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "6 files already formatted",
+      "local_receipt_sha256": "880547a808d97acb7e4db6eb91426419dc8e4df33438489235c8a4f8d59bf069",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "合成传输证明接口行为。未向真实设备查询或写入音量，未产生对讲音频。HTTP 成功和最近上报值不能证明当前硬件响度或恢复效果。"
+}

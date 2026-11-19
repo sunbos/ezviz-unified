@@ -5914,6 +5914,33 @@
         "whiteBalanceBlue": "255"
       },
       "data": null
+    },
+    {
+      "operation_id": "cn.settings.get_talk_speaker_volume",
+      "args": [
+        "synthetic-Speaker"
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "synthetic-Speaker"
+      },
+      "data": {
+        "talkSpeakerVolume": 42,
+        "extra": true
+      }
+    },
+    {
+      "operation_id": "cn.settings.set_talk_speaker_volume",
+      "args": [
+        "synthetic-Speaker",
+        0
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": "synthetic-Speaker",
+        "volume": "0"
+      },
+      "data": null
     }
   ]
 }
