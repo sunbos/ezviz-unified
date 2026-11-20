@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "scope_ref": "docs/coordination/mobile-sdk-shared-references/scope.json",
+  "guide_ref": "docs/official-mobile-sdk.md",
+  "sources": {
+    "5240": {
+      "source_ref": "portal-2026-11-17:domestic:5240",
+      "kind": "document_redirect",
+      "menu_path": [
+        "SDK及示例",
+        "iOS SDK",
+        "Demo使用指南"
+      ],
+      "html_sha256": "c8efe8da04ece816efb035832ba9b0432ae3964aac21ccc29bcccbf56a20aba8",
+      "review_state": "reviewed",
+      "assessment": "该文档是「SDK及示例 > iOS SDK > Demo使用指南」菜单下的文档导航条目，正文仅包含一个指向目标 4148 的锚点链接。其菜单身份与跳转目标已确认，目标页面的 Demo 指南内容由 4148 独立评估。",
+      "remaining": [],
+      "elements": [
+        1
+      ],
+      "catalog_ref": "portal-2026-11-17/catalog.json#record/2071",
+      "target": "4148",
+      "link_element": 1
+    },
+    "5241": {
+      "source_ref": "portal-2026-11-17:domestic:5241",
+      "kind": "document_redirect",
+      "menu_path": [
+        "SDK及示例",
+        "Harmony SDK",
+        "Demo使用指南"
+      ],
+      "html_sha256": "c8efe8da04ece816efb035832ba9b0432ae3964aac21ccc29bcccbf56a20aba8",
+      "review_state": "reviewed",
+      "assessment": "该文档是「SDK及示例 > Harmony SDK > Demo使用指南」菜单下的文档导航条目，正文仅包含一个指向目标 4148 的锚点链接。其菜单身份与跳转目标已确认，目标页面的 Demo 指南内容由 4148 独立评估。",
+      "remaining": [],
+      "elements": [
+        1
+      ],
+      "catalog_ref": "portal-2026-11-17/catalog.json#record/2072",
+      "target": "4148",
+      "link_element": 1
+    },
+    "5242": {
+      "source_ref": "portal-2026-11-17:domestic:5242",
+      "kind": "document_redirect",
+      "menu_path": [
+        "SDK及示例",
+        "iOS SDK",
+        "错误码"
+      ],
+      "html_sha256": "c70499b44a94a2deab908d21c376a69227b920174803c79ded87ccbfb7ff93c1",
+      "review_state": "reviewed",
+      "assessment": "该文档是「SDK及示例 > iOS SDK > 错误码」菜单下的文档导航条目，正文仅包含一个指向目标 37 的锚点链接。其菜单身份与跳转目标已确认，错误码内容在 37 中独立评估。",
+      "remaining": [],
+      "elements": [
+        1
+      ],
+      "catalog_ref": "portal-2026-11-17/catalog.json#record/2073",
+      "target": "37",
+      "link_element": 1
+    },
+    "5243": {
+      "source_ref": "portal-2026-11-17:domestic:5243",
+      "kind": "document_redirect",
+      "menu_path": [
+        "SDK及示例",
+        "Harmony SDK",
+        "错误码"
+      ],
+      "html_sha256": "c70499b44a94a2deab908d21c376a69227b920174803c79ded87ccbfb7ff93c1",
+      "review_state": "reviewed",
+      "assessment": "该文档是「SDK及示例 > Harmony SDK > 错误码」菜单下的文档导航条目，正文仅包含一个指向目标 37 的锚点链接。其菜单身份与跳转目标已确认，错误码内容在 37 中独立评估。",
+      "remaining": [],
+      "elements": [
+        1
+      ],
+      "catalog_ref": "portal-2026-11-17/catalog.json#record/2074",
+      "target": "37",
+      "link_element": 1
+    },
+    "5244": {
+      "source_ref": "portal-2026-11-17:domestic:5244",
+      "kind": "document_redirect",
+      "menu_path": [
+        "SDK及示例",
+        "iOS SDK",
+        "SDK常见问题&问题反馈须知"
+      ],
+      "html_sha256": "a51887b219530e0732e1810cd7d601815a97e12d6f000b7b30d2e85ce395c8fa",
+      "review_state": "reviewed",
+      "assessment": "该文档是「SDK及示例 > iOS SDK > SDK常见问题&问题反馈须知」菜单下的文档导航条目，正文仅包含一个指向目标 4146 的锚点链接。其菜单身份与跳转目标已确认，FAQ 内容由 4146 独立评估。",
+      "remaining": [],
+      "elements": [
+        1
+      ],
+      "catalog_ref": "portal-2026-11-17/catalog.json#record/2075",
+      "target": "4146",
+      "link_element": 1
+    },
+    "5245": {
+      "source_ref": "portal-2026-11-17:domestic:5245",
+      "kind": "document_redirect",
+      "menu_path": [
+        "SDK及示例",
+        "Harmony SDK",
+        "SDK常见问题&问题反馈须知"
+      ],
+      "html_sha256": "a51887b219530e0732e1810cd7d601815a97e12d6f000b7b30d2e85ce395c8fa",
+      "review_state": "reviewed",
+      "assessment": "该文档是「SDK及示例 > Harmony SDK > SDK常见问题&问题反馈须知」菜单下的文档导航条目，正文仅包含一个指向目标 4146 的锚点链接。其菜单身份与跳转目标已确认，FAQ 内容由 4146 独立评估。",
+      "remaining": [],
+      "elements": [
+        1
+      ],
+      "catalog_ref": "portal-2026-11-17/catalog.json#record/2076",
+      "target": "4146",
+      "link_element": 1
+    },
+    "37": {
+      "source_ref": "portal-2026-11-17:domestic:37",
+      "kind": "native_error_reference",
+      "menu_path": [
+        "SDK及示例",
+        "Android SDK",
+        "错误码"
+      ],
+      "html_sha256": "896eb5a9fa395aa8c9a356c68dd23ec43480a4b1f14e1eab1a1b121ed7a8aa6d",
+      "review_state": "reviewed",
+      "assessment": "该文档是面向 Android、iOS、Harmony 与 Mac 的原生 EZOpenSDK 错误码参考页。E2 至 E4 引入跨平台原生错误码与 iOS 负值网络错误，E5 表头下列出 819 行互不相同的正数错误码数据行，E205 与 E1080 分别给出 110013 权限类错误和 340402 录像未找到等示例。本次审查完成原生错误码资料的归类，未建立 Python HTTP 异常映射或宿主运行证据。",
+      "remaining": [],
+      "elements": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        205,
+        1080
+      ],
+      "catalog_ref": "portal-2026-11-17/catalog.json#record/7"
+    },
+    "4146": {
+      "source_ref": "portal-2026-11-17:domestic:4146",
+      "kind": "native_troubleshooting_reference",
+      "menu_path": [
+        "SDK及示例",
+        "Android SDK",
+        "SDK常见问题&问题反馈须知"
+      ],
+      "html_sha256": "b36b84a08ea2665cb0b183c3f6074bca58429692c723c28fff50c92449cd9ab2",
+      "review_state": "in_review",
+      "assessment": "该文档是 Android SDK 菜单下的常见问题与反馈须知 FAQ，讨论预览相关的原生 setPlayVerifyCode 验证码、回放速度 setPlaybackRate、对讲、网络配网以及限定功能与通道的 tkToken，并给出官方工单反馈与私有诊断信息的途径。本页提供原生 SDK 的排障和反馈指引。",
+      "remaining": [
+        "需按版本与平台确认预览验证码与回放速率相关原生 API 的契约，并在相应授权主机上取得行为证据。",
+        "需查明 tkToken 在各平台与版本下的权威绑定关系与作用域，并说明在授权主机内的核验方式，核验过程不得输出任何凭据或个人数据。"
+      ],
+      "elements": [
+        0,
+        1,
+        7,
+        15,
+        17,
+        23,
+        32,
+        37,
+        40,
+        42,
+        45,
+        49,
+        53,
+        62,
+        68,
+        69,
+        73
+      ],
+      "catalog_ref": "portal-2026-11-17/catalog.json#record/1695"
+    },
+    "4148": {
+      "source_ref": "portal-2026-11-17:domestic:4148",
+      "kind": "official_demo_guide",
+      "menu_path": [
+        "SDK及示例",
+        "Android SDK",
+        "Demo使用指南"
+      ],
+      "html_sha256": "1bdb78bd81285dcb3407773429588dd81766fd6adb6c62b10445658c893a802c",
+      "review_state": "in_review",
+      "assessment": "该文档是 Android SDK 菜单下的官方 Demo 使用指南。文中表格明确区分 Android、iOS、Harmony 的 SDK 分发与 Demo 打包，Android Demo 由用户在登录时选择区域。iOS 的国内与海外 Demo 分开，Harmony Demo 仅提供国内版。iOS 的 IPA 和 Harmony 的 HAP 均需开发者使用公司证书打包。文中将原生 EZOpenSDK.getDeviceList 作为凭据与设备列表的检查手段，该调用未实际执行，设备列表与 E90 区域端点说明及日志采集步骤均为指导性内容。",
+      "remaining": [
+        "需固定 iOS 与 Harmony 侧 SDK 与 Demo 的精确版本号、安装包或来源摘要，以及签名与系统兼容性等前置条件。",
+        "需核对带版本的原生 SDK getDeviceList 文档与实际授权主机上的真实行为是否一致。"
+      ],
+      "elements": [
+        0,
+        4,
+        5,
+        6,
+        8,
+        21,
+        23,
+        29,
+        36,
+        42,
+        47,
+        70,
+        75,
+        82,
+        84,
+        89,
+        90,
+        125,
+        126,
+        134,
+        142,
+        150,
+        151,
+        160
+      ],
+      "catalog_ref": "portal-2026-11-17/catalog.json#record/1697"
+    }
+  },
+  "facts": {
+    "demo": {
+      "sdk_region_version": "shared_domestic_overseas",
+      "android_demo_distribution": {
+        "region": "login_selects_region",
+        "package": "apk",
+        "signing": "official_apk_available"
+      },
+      "ios_demo_distribution": {
+        "region": "separate_domestic_overseas",
+        "package": "ipa",
+        "signing": "developer_company_certificate"
+      },
+      "harmony_demo_distribution": {
+        "region": "domestic_only",
+        "package": "hap",
+        "signing": "developer_company_certificate"
+      },
+      "login_fields": [
+        "服务器区域",
+        "AppKey",
+        "AccessToken"
+      ],
+      "device_list_check": "EZOpenSDK.getDeviceList",
+      "regional_origin_boundary": "native_demo_configuration",
+      "platform_log_instructions": {
+        "Android": "collection_steps",
+        "iOS": "collection_steps",
+        "Harmony": "file_locations_only"
+      },
+      "unresolved_native_artifacts": true
+    },
+    "errors": {
+      "platforms": [
+        "Android",
+        "iOS",
+        "Harmony",
+        "Mac"
+      ],
+      "native_error_namespace": "EZOpenSDK",
+      "ios_negative_network_errors": true,
+      "numeric_lookup_examples": {
+        "110013": "应用没有权限调用此接口",
+        "340402": "回放找不到录像文件"
+      },
+      "unknown_code": "consult_versioned_native_reference",
+      "no_python_error_mapping": true
+    },
+    "faq": {
+      "areas": [
+        "预览",
+        "回放",
+        "对讲",
+        "配网",
+        "小权限tkToken",
+        "反馈"
+      ],
+      "native_methods": [
+        "setPlayVerifyCode",
+        "setPlaybackRate"
+      ],
+      "token_scope": "function_and_channel_limited",
+      "feedback_channels": "official_support_ticket",
+      "privacy": "sanitized_summary_before_private_diagnostics",
+      "limits": "no_cross_platform_execution_proof"
+    }
+  },
+  "runtime_evidence": {
+    "native_builds": 0,
+    "native_runs": 0,
+    "device_requests": 0,
+    "logs_collected": 0,
+    "uploads": 0,
+    "python_operations_added": 0
+  },
+  "evidence": {
+    "batch": "data/official-docs/2026-11-17-sdk-product-main",
+    "public_document_check": {
+      "checked_at_utc": "2026-11-20T21:24:56.241348+00:00",
+      "documents_matching_archived_html": 9,
+      "http_status": 200
+    },
+    "navigation_edges": "document-reference-edges.json",
+    "reference_37": {
+      "table_element": 5,
+      "header_rows": 1,
+      "data_rows": 819,
+      "distinct_numeric_codes": 819
+    },
+    "demo_images": {
+      "elements": [
+        41,
+        44,
+        86,
+        155,
+        164
+      ],
+      "meaning": "资料中的五张图片只佐证指南所示界面和操作。"
+    },
+    "component_acceptance": {
+      "case_id": "ACC-MEDIA-OFFICIAL-INTEGRATION-001",
+      "result": "awaiting_design",
+      "OTHER-COMPONENT-SCOPES": "pending"
+    }
+  }
+}

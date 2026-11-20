@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "input_commit": "dc09630562a00ccd4ab3df8ab2f1a24ac1ac2414",
+  "scope_ref": "docs/coordination/mobile-sdk-shared-references/scope.json",
+  "observations": {
+    "manual:domestic:37:e2899": {
+      "source_ref": "portal-2026-11-17:domestic:37",
+      "html_sha256": "896eb5a9fa395aa8c9a356c68dd23ec43480a4b1f14e1eab1a1b121ed7a8aa6d",
+      "element_index": 2899,
+      "symbol": "setAccessToken",
+      "candidate_id": "candidate:domestic:native-ref:setAccessToken",
+      "role": "错误码表中的排错提示"
+    },
+    "manual:domestic:37:e1067": {
+      "source_ref": "portal-2026-11-17:domestic:37",
+      "html_sha256": "896eb5a9fa395aa8c9a356c68dd23ec43480a4b1f14e1eab1a1b121ed7a8aa6d",
+      "element_index": 1067,
+      "symbol": "setPlayVerifyCode",
+      "candidate_id": "candidate:domestic:native-ref:setPlayVerifyCode",
+      "role": "错误码表中的排错提示"
+    },
+    "manual:domestic:37:e929": {
+      "source_ref": "portal-2026-11-17:domestic:37",
+      "html_sha256": "896eb5a9fa395aa8c9a356c68dd23ec43480a4b1f14e1eab1a1b121ed7a8aa6d",
+      "element_index": 929,
+      "symbol": "setServerUrl",
+      "candidate_id": "candidate:domestic:native-ref:setServerUrl",
+      "role": "错误码表中的排错提示"
+    },
+    "manual:domestic:37:e1071": {
+      "source_ref": "portal-2026-11-17:domestic:37",
+      "html_sha256": "896eb5a9fa395aa8c9a356c68dd23ec43480a4b1f14e1eab1a1b121ed7a8aa6d",
+      "element_index": 1071,
+      "symbol": "setSurfaceHold",
+      "candidate_id": "candidate:domestic:native-ref:setSurfaceHold",
+      "role": "错误码表中的排错提示"
+    },
+    "manual:domestic:4146:e17": {
+      "source_ref": "portal-2026-11-17:domestic:4146",
+      "html_sha256": "b36b84a08ea2665cb0b183c3f6074bca58429692c723c28fff50c92449cd9ab2",
+      "element_index": 17,
+      "symbol": "setPlaybackRate",
+      "candidate_id": "candidate:domestic:native-ref:setPlaybackRate",
+      "role": "常见问题中的原生调用排查"
+    },
+    "manual:domestic:4146:e19": {
+      "source_ref": "portal-2026-11-17:domestic:4146",
+      "html_sha256": "b36b84a08ea2665cb0b183c3f6074bca58429692c723c28fff50c92449cd9ab2",
+      "element_index": 19,
+      "symbol": "seekPlayback",
+      "candidate_id": "candidate:domestic:native-ref:seekPlayback",
+      "role": "常见问题中的原生调用排查"
+    },
+    "manual:domestic:4146:e7": {
+      "source_ref": "portal-2026-11-17:domestic:4146",
+      "html_sha256": "b36b84a08ea2665cb0b183c3f6074bca58429692c723c28fff50c92449cd9ab2",
+      "element_index": 7,
+      "symbol": "setPlayVerifyCode",
+      "candidate_id": "candidate:domestic:native-ref:setPlayVerifyCode",
+      "role": "常见问题中的原生调用排查"
+    },
+    "manual:domestic:4148:e82": {
+      "source_ref": "portal-2026-11-17:domestic:4148",
+      "html_sha256": "1bdb78bd81285dcb3407773429588dd81766fd6adb6c62b10445658c893a802c",
+      "element_index": 82,
+      "symbol": "getDeviceList",
+      "candidate_id": "candidate:domestic:native-ref:getDeviceList",
+      "role": "Demo 设备列表验证说明"
+    }
+  },
+  "candidates": {
+    "candidate:domestic:native-ref:getDeviceList": {
+      "symbol": "getDeviceList",
+      "scenario": "\"开始体验\"环节调用 EZOpenSDK.getDeviceList 以在当刻校验区域与凭据状态的取设备列表调用",
+      "observation_refs": [
+        "manual:domestic:4148:e82"
+      ],
+      "unknowns": [
+        "具体平台绑定是否已确认",
+        "分页方式与版本差异是否已核实"
+      ]
+    },
+    "candidate:domestic:native-ref:seekPlayback": {
+      "symbol": "seekPlayback",
+      "scenario": "回放定位失败排查中涉及的进度定位调用，需核对对应原生错误与诊断信息",
+      "observation_refs": [
+        "manual:domestic:4146:e19"
+      ],
+      "unknowns": [
+        "具体平台绑定是否已确认",
+        "不同版本的方法签名是否一致"
+      ]
+    },
+    "candidate:domestic:native-ref:setAccessToken": {
+      "symbol": "setAccessToken",
+      "scenario": "排查令牌权限或码流访问问题时被提及的访问令牌设置调用",
+      "observation_refs": [
+        "manual:domestic:37:e2899"
+      ],
+      "unknowns": [
+        "实际使用的是哪种令牌类型",
+        "该调用在 SDK 中的作用范围是否已确认"
+      ]
+    },
+    "candidate:domestic:native-ref:setPlayVerifyCode": {
+      "symbol": "setPlayVerifyCode",
+      "scenario": "预览/回放验证码输入类问题排查中出现的校验码设置调用",
+      "observation_refs": [
+        "manual:domestic:37:e1067",
+        "manual:domestic:4146:e7"
+      ],
+      "unknowns": [
+        "所属类与平台是否确认",
+        "不同版本的方法签名是否一致"
+      ]
+    },
+    "candidate:domestic:native-ref:setPlaybackRate": {
+      "symbol": "setPlaybackRate",
+      "scenario": "回放倍速设置失败排查中涉及的倍速设置调用，需核对对应原生错误与诊断信息",
+      "observation_refs": [
+        "manual:domestic:4146:e17"
+      ],
+      "unknowns": [
+        "具体平台绑定是否已确认",
+        "不同版本的方法签名是否一致"
+      ]
+    },
+    "candidate:domestic:native-ref:setServerUrl": {
+      "symbol": "setServerUrl",
+      "scenario": "Android 端问题排查中指向所配置服务地址格式的服务地址设置调用",
+      "observation_refs": [
+        "manual:domestic:37:e929"
+      ],
+      "unknowns": [
+        "该结论是否同样适用于 iOS 等其他平台"
+      ]
+    },
+    "candidate:domestic:native-ref:setSurfaceHold": {
+      "symbol": "setSurfaceHold",
+      "scenario": "Android 端渲染画面绑定/解绑问题排查中涉及的渲染承载设置调用",
+      "observation_refs": [
+        "manual:domestic:37:e1071"
+      ],
+      "unknowns": [
+        "不同版本下的生命周期约定是否已核实"
+      ]
+    }
+  },
+  "limits": [
+    "条目记录官方资料中实际出现的原生方法名，均为待范围审核的候选。",
+    "同一拼写可合并来源指针；所属平台、发行版本、类、完整签名、权限和行为须按正式原生参考及相应验收独立核定。",
+    "本批仅审核归档资料，不新增 Python 绑定、原生实现或验收通过记录。"
+  ]
+}
