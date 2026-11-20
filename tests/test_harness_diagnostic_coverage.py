@@ -1,6 +1,6 @@
 """A04 proof: every frozen business entrypoint is really entered.
 
-All 216 public paths run through their real method bodies (sync and async)
+All 218 public paths run through their real method bodies (sync and async)
 with decoded synthetic wire-case arguments while ``client.request`` is
 replaced by a no-network stub returning ``ApiResponse``. Assertions use
 recorded diagnostic events only - never source inspection.
@@ -78,7 +78,8 @@ def _decode(contract, case):
     kwargs = wire_eval._decode_value(case.get("kwargs", {}), context, registry)
     if not isinstance(args, list) or not isinstance(kwargs, dict):
         pytest.fail("wire case must decode to positional args and kwargs")
-    return context, args, kwargs
+    response_data = wire_eval._decode_value(case["data"], context, registry)
+    return context, args, kwargs, response_data
 
 
 def _field(event, name, default="none"):
@@ -86,8 +87,8 @@ def _field(event, name, default="none"):
 
 
 def test_registry_covers_frozen_lists():
-    assert len(ENTRIES) == 216
-    assert len(set(ENTRIES)) == 216
+    assert len(ENTRIES) == 218
+    assert len(set(ENTRIES)) == 218
     assert frozenset(ENTRIES) | frozenset(ADDITIONAL) == ENTRYPOINTS
     assert frozenset(COVERAGE["operation_names"]) == OPERATIONS
 
@@ -102,13 +103,13 @@ def test_every_entrypoint_has_a_wire_case():
 def test_business_entry_records_call_scope(entry, mode):
     contract = CONTRACTS[ENTRY_OPERATION[entry]]
     case = CASES[ENTRY_OPERATION[entry]]
-    context, args, kwargs = _decode(contract, case)
+    context, args, kwargs, response_data = _decode(contract, case)
     region = wire_eval._region_for(ezviz_unified, contract)
     recorder = DiagnosticRecorder()
     produced = []
 
     def _record(operation):
-        response = ApiResponse(200, "200", operation=operation.name, data=case["data"])
+        response = ApiResponse(200, "200", operation=operation.name, data=response_data)
         produced.append(response)
         return response
 
