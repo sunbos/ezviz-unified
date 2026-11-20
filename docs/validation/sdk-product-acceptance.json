@@ -11251,55 +11251,60 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:1723:d0",
+      "capability_selector": "settings.get_working_mode_plans",
       "capability_ids": [
         "candidate:domestic:1723:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.settings.get_working_mode_plans"
+      ],
+      "scope_revision": "2026-11-21-r57-domestic-working-mode-plans",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
+      "account_role_permissions": "国内应用凭据。错误表 10031 记录子账号或开发者权限不足，未明确最低授权或托管支持。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "合成认证及业务传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询设备工作模式计划”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "国内 query 与根层计划数组；海外已有签名及响应约定保留。",
+        "write": "仅合成单次提交及根层业务回执，失败不重放。",
+        "physical": "不验证计划实际执行。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/30"
+        "docs/coordination/SP088/scenario-input.json#/entries/30",
+        "docs/coordination/domestic-working-mode-plans/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1723.source.json"
       ],
       "pending_questions": [
-        "工作模式计划的构成（时段划分、模式类型）待核。",
-        "是否存在对应设置接口及读写属性对关系待核。",
-        "设备适用范围与权限前提待核。"
+        "1723 E56 标注 Object，但字段路径与 E52 示例表示 data、weekPlans、timePlan 为对象数组。时区、类型17/19业务含义、支持机型未确定。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1724-D0-OFFLINE-001",
@@ -36312,6 +36317,164 @@
       ],
       "limitations": [
         "目录归于智能电梯网络摄像机，正文提到安全帽相机。表与 curl 均使用字符串 startTime/stopTime，机型适用范围、时区和实际账户权限待核。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1723-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_working_mode_plans",
+      "capability_selector": "settings.get_working_mode_plans",
+      "capability_ids": [
+        "candidate:domestic:1723:d0"
+      ],
+      "operation_ids": [
+        "cn.settings.get_working_mode_plans"
+      ],
+      "scope_revision": "2026-11-21-r57-domestic-working-mode-plans",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内应用凭据。错误表 10031 记录子账号或开发者权限不足，未明确最低授权或托管支持。",
+      "device_requirements": "可查询国内工作模式计划的已授权设备。",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "冻结实际账户、设备、通道、操作与请求上限。"
+      ],
+      "expected_evidence": {
+        "read": "仅保留状态、次数与计划条目数。",
+        "write": "无写入。",
+        "physical": "平台成功响应不能证明计划按时生效。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读。",
+      "source_refs": [
+        "docs/coordination/domestic-working-mode-plans/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1723.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待确认具体资源与操作权限。"
+      ],
+      "limitations": [
+        "1723 E56 标注 Object，但字段路径与 E52 示例表示 data、weekPlans、timePlan 为对象数组。时区、类型17/19业务含义、支持机型未确定。"
+      ]
+    },
+    {
+      "case_id": "ACC-CN-1720-HUASHU-4G-WORKING-PLAN-OFFLINE-001",
+      "tier": "required",
+      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
+      "case_origin": "reviewed_specialized_device_scenario",
+      "capability_selector": "settings.set_huashu_4g_working_mode_plan",
+      "capability_ids": [
+        "candidate:domestic:1720:reviewed"
+      ],
+      "operation_ids": [
+        "cn.settings.set_huashu_4g_working_mode_plan"
+      ],
+      "scope_revision": "2026-11-21-r57-domestic-working-mode-plans",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内应用凭据。1720 标题指向华数 4G 摄像头专用功能；来源未明确主/子账号、托管权限或适用固件。",
+      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "合成认证及业务传输。"
+      ],
+      "expected_evidence": {
+        "read": "国内 query 与根层计划数组；海外已有签名及响应约定保留。",
+        "write": "仅合成单次提交及根层业务回执，失败不重放。",
+        "physical": "不验证计划实际执行。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
+      "source_refs": [
+        "docs/coordination/domestic-working-mode-plans/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1720.source.json"
+      ],
+      "pending_questions": [
+        "原文未说明合并/替换规则、时区、回读/恢复方法及其他机型支持；E72 的令牌头行语法不完整，采用 E12。eventArg 只描述执行后停用标志。"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "pending_execution",
+      "blockers": [
+        "待离线执行。"
+      ],
+      "limitations": [
+        "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
+    },
+    {
+      "case_id": "ACC-CN-1720-HUASHU-4G-WORKING-PLAN-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_working_mode_plans",
+      "capability_selector": "settings.set_huashu_4g_working_mode_plan",
+      "capability_ids": [
+        "candidate:domestic:1720:reviewed"
+      ],
+      "operation_ids": [
+        "cn.settings.set_huashu_4g_working_mode_plan"
+      ],
+      "scope_revision": "2026-11-21-r57-domestic-working-mode-plans",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内应用凭据。1720 标题指向华数 4G 摄像头专用功能；来源未明确主/子账号、托管权限或适用固件。",
+      "device_requirements": "已确认支持 1720 的华数 4G 测试摄像头及可恢复的受控计划。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "冻结实际账户、设备、通道、操作与请求上限。核实准确型号、既有计划、修改值、安全时段、回读及恢复方法，取得具体授权。"
+      ],
+      "expected_evidence": {
+        "read": "仅保留状态、次数与计划条目数。",
+        "write": "单独记录设置、可观察的效果及还原。",
+        "physical": "平台成功响应不能证明计划按时生效。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "事先确认旧值能按同一契约无损复原并在批准时段核验。未经确认不执行写入。",
+      "source_refs": [
+        "docs/coordination/domestic-working-mode-plans/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1720.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "待确认具体资源与操作权限。"
+      ],
+      "limitations": [
+        "原文未说明合并/替换规则、时区、回读/恢复方法及其他机型支持；E72 的令牌头行语法不完整，采用 E12。eventArg 只描述执行后停用标志。"
       ]
     }
   ],

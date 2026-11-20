@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "a9ed8a6bad6a9cea78d01cd1c7274ddd39a93524",
+  "scope_revision": "2026-11-21-r57-domestic-working-mode-plans",
+  "cohort_id": "DOMESTIC-WORKING-MODE-PLANS-001",
+  "operations": [
+    {
+      "doc_id": "1723",
+      "region": "domestic",
+      "title": "查询设备工作模式计划",
+      "source_url": "https://open.ys7.com/help/1723",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1723.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1723.structure.json",
+      "html_sha256": "690bfdab9dccd05dea8733c58a1d2c5b6bf42a393378f80cf211e4a9c07083a9",
+      "operation_id": "cn.settings.get_working_mode_plans",
+      "capability_id": "candidate:domestic:1723:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1723-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1723-D0-LIVE-001"
+      ],
+      "entry": "settings.get_working_mode_plans",
+      "name": "get_working_mode_plans",
+      "method": "GET",
+      "path": "/api/v3/device/timing/plan/get",
+      "read_only": true,
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "timingPlanType",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 48,
+        "example": 52,
+        "fields": 56,
+        "errors": 112
+      },
+      "signatures": {
+        "Settings": "def get_working_mode_plans(self, device_serial: str, *, channel: int | None = None, timing_plan_type: int | None = None) -> ApiResponse",
+        "AsyncSettings": "async def get_working_mode_plans(self, device_serial: str, *, channel: int | None = None, timing_plan_type: int | None = None) -> ApiResponse"
+      },
+      "permission": "国内应用凭据。错误表 10031 记录子账号或开发者权限不足，未明确最低授权或托管支持。",
+      "unknown": "1723 E56 标注 Object，但字段路径与 E52 示例表示 data、weekPlans、timePlan 为对象数组。时区、类型17/19业务含义、支持机型未确定。"
+    },
+    {
+      "doc_id": "1720",
+      "region": "domestic",
+      "title": "API-云接入-设备运维-设备配置-华数4G摄像头功能接口-工作模式计划设置",
+      "source_url": "https://open.ys7.com/help/1720",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1720.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1720.structure.json",
+      "html_sha256": "c4e8c721f23192284bc1f3d28a4364254f94a796889a1d2c6b66eaef383b9379",
+      "operation_id": "cn.settings.set_huashu_4g_working_mode_plan",
+      "capability_id": "candidate:domestic:1720:reviewed",
+      "case_ids": [
+        "ACC-CN-1720-HUASHU-4G-WORKING-PLAN-OFFLINE-001",
+        "ACC-CN-1720-HUASHU-4G-WORKING-PLAN-LIVE-001"
+      ],
+      "entry": "settings.set_huashu_4g_working_mode_plan",
+      "name": "set_huashu_4g_working_mode_plan",
+      "method": "POST",
+      "path": "/api/v3/device/timing/plan/set",
+      "read_only": false,
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E12",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E12"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E12"
+        },
+        {
+          "name": "enable",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E37;E72"
+        },
+        {
+          "name": "startTime",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E37;E72"
+        },
+        {
+          "name": "endTime",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E37;E72"
+        },
+        {
+          "name": "week",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E37;E72"
+        },
+        {
+          "name": "eventArg",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E37;E72"
+        }
+      ],
+      "elements": {
+        "route": 6,
+        "method": 9,
+        "headers": 12,
+        "parameters": 37,
+        "request": 72,
+        "example": 76,
+        "fields": 80
+      },
+      "signatures": {
+        "Settings": "def set_huashu_4g_working_mode_plan(self, device_serial: str, *, enabled: bool, start_time: str, end_time: str, week: str, stop_after_execution: bool | None = None) -> ApiResponse",
+        "AsyncSettings": "async def set_huashu_4g_working_mode_plan(self, device_serial: str, *, enabled: bool, start_time: str, end_time: str, week: str, stop_after_execution: bool | None = None) -> ApiResponse"
+      },
+      "permission": "国内应用凭据。1720 标题指向华数 4G 摄像头专用功能；来源未明确主/子账号、托管权限或适用固件。",
+      "unknown": "原文未说明合并/替换规则、时区、回读/恢复方法及其他机型支持；E72 的令牌头行语法不完整，采用 E12。eventArg 只描述执行后停用标志。"
+    }
+  ],
+  "regional_crosscheck": [
+    {
+      "doc_id": "3724",
+      "region": "overseas",
+      "title": "Query the device working mode plan",
+      "source_url": "https://open.ys7.com/help/en/3724",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3724.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/3724.structure.json",
+      "html_sha256": "7ef3e49f33cf52a11879c12db273522c3e8c8b527163739828c6582ff033f010",
+      "decision": "沿用已登记的海外契约。托管与子账户授权及 body.meta 回包仅据对应区域文档。"
+    },
+    {
+      "doc_id": "3725",
+      "region": "overseas",
+      "title": "Set the device working mode plan",
+      "source_url": "https://open.ys7.com/help/en/3725",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3725.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/3725.structure.json",
+      "html_sha256": "aa017fdeb22f9fde09b6c814b28d3f7ec2cb8a25e9a500c29666635b570a01f2",
+      "decision": "沿用已登记的海外契约。托管与子账户授权及 body.meta 回包仅据对应区域文档。"
+    }
+  ],
+  "sdk_choices": [
+    "新增两个国内专用方法。保留已有海外 get_timing_plan 和 set_timing_plan 的签名、地区拒绝、区域路由、响应层级及 mode 0–3 语义。国内入口先进入诊断作用域、再检查国内地区，然后校验参数；固定 header 使用可打印 ASCII、无首尾空格的 deviceSerial 与 SDK 认证令牌。复用现有国内设备配置严格消息/HTTPX展示策略。",
+    "1723 仅发送可选 query channelNo 和 timingPlanType，前者真整数、无文档上下界，后者仅真整数17/19。None 均不发，平台文档默认类型17；不解释19的功能，不添加请求正文或 Content-Type。读取允许现有 10002 单次刷新。",
+    "1723 使用根层字符串 code=200/msg 与 data 对象数组（允许空数组）。逐行复用 _timing_plan_data_valid 而不改海外验证：每行必须有 weekPlans 对象数组；可选 subSerial、weekDay、beginTime/endTime/eventArg 为字符串，可选 subType、enable 为非 bool 整数；可选 timePlan 若出现必须为对象数组。保留行/字段/顺序、未知扩展；读侧 eventArg 为不透明字符串，不解析内部文本，不把读取结果作为写入表单。",
+    "1720 仅对文档所指华数 4G 摄像头提供设置。表单 enable: 1/0、startTime、endTime、week 必传。start_time/end_time 采用已有 ASCII HH:MM 校验；week 采用 0..6 逗号字符串这一 SDK 校验选择（国内示例展示逗号数字，完整解释参考既有周计划接口），保留顺序与重复。不做跨日/同日推理，即使关闭仍提交所需的四个字段。可选 stop_after_execution 为严格 bool；None 不发、True 发 eventArg=1、False 发 0，平台默认0。只发单次 POST，不提前查询、不重放、不回读，不从 3725 的工作模式推导。成功接受根 code 字符串 200/msg 的无 data 回执或扩展字段，原始 ApiResponse 保留。",
+    "独立 CLI python -m examples.domestic_working_mode_plans --mode sync|async --action read|write-demo；两个选项顺序均可且各仅一次，帮助/无效参数不读配置。read 使用 examples._common.load_config、EZVIZ_REGION=domestic、EZVIZ_DEVICE_SERIAL，可选 EZVIZ_CHANNEL_NO（ASCII 十进制整数可带负号）与 EZVIZ_TIMING_PLAN_TYPE（17/19），一次调用 1723，只输出 plan_count 整数。write-demo 总是在独立 MockTransport 上使用合成凭据和合成计划，即使环境已配置也不读取环境，不访问实际账户，仅输出 simulated:true 与 acknowledged:true。固定 usage: python -m examples.domestic_working_mode_plans --mode sync|async --action read|write-demo；error: domestic working mode plan example failed；退出 0/1/130，非预期异常传播。SDK/CLI/日志/诊断展示中不泄露计划、时间、原始消息、序列或凭据，raw/data 仅供调用方显式访问。"
+  ],
+  "scope_note": "同路径不同业务需独立登记。导航页中同时出现查询、设置不证明支持机型一致，也不授予任何写权限。",
+  "reuse": [
+    "src/ezviz_unified/settings.py",
+    "examples/working_mode_plans.py",
+    "examples/_common.py",
+    "docs/coordination/overseas-working-mode-plans/admission.json",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批只在合成传输中验证；无任何真实计划查询或设置。海外既有回执不是本批实测。"
+}
