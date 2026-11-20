@@ -178,8 +178,8 @@
     "full_cases_sha256": "94a2678f66986c4bd8bc8b88373dd74fb6cab475bd757c99cf44fdb0bf5d0383"
   },
   "scope": "domestic_working_mode_plans_offline",
-  "code_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee",
-  "bindings_sha256_at_code_commit": "c91113f7eeaf30bee1093375c3337b9252329aff4cf521c9dcb00836e7c8b14c",
+  "code_commit": "2fdd604f1946961c8cf19396ce03ae3ed8c7fb9f",
+  "bindings_sha256_at_code_commit": "5f0f9c25369287462d44965c39c98de04a33fc1b2b4865a34f5597bdedf1af89",
   "source_test_sha256": {
     "src/ezviz_unified/settings.py": "8fcbe86915cd166dd8cec25c065d472499e0d25f3d7cd5d60d19547be2f8323c",
     "src/ezviz_unified/_diagnostic_registry.py": "799f2ad128d9546a3cb52bf0d21335ae4cfd1f1b12c493323a5b8b935ee36b81",
@@ -187,7 +187,7 @@
     "docs/diagnostics.md": "13e9717a25f585db19640a15f4e41cd0b446243f5d88ec10d23d37ba6968a9b9",
     "tests/test_harness_diagnostic_coverage.py": "dcb5e11a5cf1729bdfac500122feae8482a538d48754c3ce7928401f0da9c77d",
     "tests/test_sdk_domestic_working_mode_plans.py": "46064b39809b4c25cef4474b33e81ada3b9c4ab65c1e1a18123eef51ebc72d50",
-    "tests/test_example_domestic_working_mode_plans.py": "0cf279acef8282a882c6ffeea073e126a86c123e99a721ff6631ee62876ff734",
+    "tests/test_example_domestic_working_mode_plans.py": "cb433483b86c11273413ccbe41d477f90b5b32c389c57ab36fbbb10a08743da2",
     "examples/domestic_working_mode_plans.py": "a66568a5dde55482f1bf25e18302c7328a82cbb26e07f1a3f5ded391aabb8789",
     "README.md": "15e44265b2f261547c2e805eb319c752a57412e0181c56420cfbc64ed840c408",
     "contracts/reviewed-transport-contracts.json": "50cb5aaa6dde63e937a753ca4228c1ae23f4b0371c7784044187c27847ba2a4e",
@@ -476,51 +476,94 @@
       "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_domestic_working_mode_plans.py tests/test_example_domestic_working_mode_plans.py",
       "summary": "300 passed in 1.22s",
       "local_receipt_sha256": "b177b21a630cadc788409336b3acf9608dbfb672179d853d1d6c69a6b4597638",
-      "tool_error": false
+      "tool_error": false,
+      "verified_source_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee"
     },
     {
       "command": ".venv/bin/python -m pytest -q --tb=short",
       "summary": "13798 passed, 35 subtests passed in 80.83s (0:01:20)",
       "local_receipt_sha256": "86f1d44248a62ec7f00a4e70a76567908bc981bfd8a47bb10049b8f6c877b6ad",
-      "tool_error": false
+      "tool_error": false,
+      "verified_source_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee"
     },
     {
       "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
       "summary": "301 registered contracts, 2440/2440 offline wire checks passed",
       "local_receipt_sha256": "024a64c0cf240e9f5dc2cee9afb4648ad1dc2c6e3ed0f6b1ee7cb112ad380bcb",
-      "tool_error": false
+      "tool_error": false,
+      "verified_source_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee"
     },
     {
       "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
       "summary": "301 registered bindings, 602 sync/async symbols checked",
       "local_receipt_sha256": "5c1720866fe0a80c62b168a84a02af3abe12501f32fb645838a8f9cf1a342853",
-      "tool_error": false
+      "tool_error": false,
+      "verified_source_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee"
     },
     {
       "command": ".venv/bin/python -m mypy src/ezviz_unified",
       "summary": "Success: no issues found in 65 source files",
       "local_receipt_sha256": "f2a8c7622e0af9cddc1f8bddeda360cb6b21e87daee09587a53306c84737cd07",
-      "tool_error": false
+      "tool_error": false,
+      "verified_source_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee"
     },
     {
       "command": ".venv/bin/python -m ruff check src/ezviz_unified/_diagnostic_registry.py harness/wire_eval.py tests/test_harness_motion_area_expectations.py tests/test_harness_diagnostic_coverage.py",
       "summary": "All checks passed!",
       "local_receipt_sha256": "66cc3290442c7befade7e5356d423d197d5501e1837b687b75f5484cbf9e2e70",
-      "tool_error": false
+      "tool_error": false,
+      "verified_source_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee"
     },
     {
       "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/_diagnostic_registry.py harness/wire_eval.py tests/test_harness_motion_area_expectations.py tests/test_harness_diagnostic_coverage.py",
       "summary": "4 files already formatted",
       "local_receipt_sha256": "a318be0622e4cb139dd455970a260e5393cbcb8aad6206c840bf83814833bb65",
-      "tool_error": false
+      "tool_error": false,
+      "verified_source_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee"
     },
     {
       "command": ".venv/bin/python -m pytest -q --tb=short tests/test_harness_diagnostic_coverage.py",
       "summary": "460 passed in 1.18s",
       "local_receipt_sha256": "32ff3494ebc8059280a95d89ee579ef392b70b93ad8ea1c7fef8ae9748f52ab0",
-      "tool_error": false
+      "tool_error": false,
+      "verified_source_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee"
+    },
+    {
+      "command": "/tmp/sp534-testimport/ci-tool/bin/python -m ruff check --no-cache src/ezviz_unified harness examples tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_examples*.py tests/test_example_*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py tools/documents/http_candidates.py tools/documents/endpoint_inventory.py tests/test_document_http_candidates*.py tests/test_document_endpoint_inventory*.py tests/test_live_diagnostics.py tools/live/verify_diagnostics.py tools/live/verify_diagnostics_async.py tests/test_live_diagnostics_async.py tools/live/_cli_transport.py tools/live/verify_example_clis.py tests/test_live_example_cli*.py tools/live/verify_traffic_usage.py tests/test_live_traffic_usage.py tools/documents/normalize_sdk_reference.py tests/test_document_sdk_reference.py tests/test_document_inventory_output.py tools/live/verify_cloud_files.py tests/test_live_cloud_files*.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "aaf1306cab8a2e35e09752ca56e524043859aa106c833765481d1f756df73d6a",
+      "tool_error": false,
+      "verified_source_commit": "2fdd604f1946961c8cf19396ce03ae3ed8c7fb9f"
+    },
+    {
+      "command": "/tmp/sp534-testimport/ci-tool/bin/python -m ruff format --no-cache --check src/ezviz_unified harness examples tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_examples*.py tests/test_example_*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py tools/documents/http_candidates.py tools/documents/endpoint_inventory.py tests/test_document_http_candidates*.py tests/test_document_endpoint_inventory*.py tests/test_live_diagnostics.py tools/live/verify_diagnostics.py tools/live/verify_diagnostics_async.py tests/test_live_diagnostics_async.py tools/live/_cli_transport.py tools/live/verify_example_clis.py tests/test_live_example_cli*.py tools/live/verify_traffic_usage.py tests/test_live_traffic_usage.py tools/documents/normalize_sdk_reference.py tests/test_document_sdk_reference.py tests/test_document_inventory_output.py tools/live/verify_cloud_files.py tests/test_live_cloud_files*.py",
+      "summary": "349 files already formatted",
+      "local_receipt_sha256": "62502507f4d5329bc6d762a85c3b3bac1b8f0917cb09085160f8bcbeaf373b7b",
+      "tool_error": false,
+      "verified_source_commit": "2fdd604f1946961c8cf19396ce03ae3ed8c7fb9f"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_domestic_working_mode_plans.py",
+      "summary": "52 passed in 0.46s",
+      "local_receipt_sha256": "a05c2d733779f19239cc3ab1b80a9f18cdb7b1c213d495f348d884f273dcad00",
+      "tool_error": false,
+      "verified_source_commit": "2fdd604f1946961c8cf19396ce03ae3ed8c7fb9f"
     }
   ],
   "live_executed": false,
-  "limits": "本批国内查询与华数 4G 专用设置均使用合成传输。未读取或修改真实计划；实际支持机型、时区、计划执行和原值恢复仍待独立验证。"
+  "limits": "本批国内查询与华数 4G 专用设置均使用合成传输。未读取或修改真实计划；实际支持机型、时区、计划执行和原值恢复仍待独立验证。",
+  "ci_import_order_correction": {
+    "original_code_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee",
+    "failed_pr_commit": "450c1d3320790c86366ff3c9c8ad6248bfe9e9bc",
+    "failed_run": "https://github.com/sunbos/ezviz-unified/actions/runs/44817859869",
+    "failed_check": "Lint SDK and SDK tests",
+    "rule": "I001",
+    "failure_cause": "The previous local Ruff cache was populated before the new example module existed. A cold check classified examples as first-party and flagged the import. Reproduced with Ruff 0.17.5 and CI Ruff 0.17.6.",
+    "file": "tests/test_example_domestic_working_mode_plans.py",
+    "previous_test_sha256": "0cf279acef8282a882c6ffeea073e126a86c123e99a721ff6631ee62876ff734",
+    "corrected_test_sha256": "cb433483b86c11273413ccbe41d477f90b5b32c389c57ab36fbbb10a08743da2",
+    "original_bindings_sha256": "c91113f7eeaf30bee1093375c3337b9252329aff4cf521c9dcb00836e7c8b14c",
+    "source_scope": "Only the test import block changed. Both domestic SDK operations, the CLI and the previous scenarios are unchanged.",
+    "candidate_receipt_sha256": "9fb03dc7a56d8e19b4ce1e7d7bbf476e59f8b46b7ab9514dfc8c52a24ff3c5a1"
+  }
 }

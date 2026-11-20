@@ -11312,7 +11312,7 @@
         "USAGE": "met"
       },
       "execution_outcome": "passed",
-      "verified_code_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee",
+      "verified_code_commit": "2fdd604f1946961c8cf19396ce03ae3ed8c7fb9f",
       "execution_evidence_refs": [
         "docs/validation/2026-11-21-domestic-working-mode-plans/offline.json"
       ]
@@ -36445,7 +36445,7 @@
         "USAGE": "met"
       },
       "execution_outcome": "passed",
-      "verified_code_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee",
+      "verified_code_commit": "2fdd604f1946961c8cf19396ce03ae3ed8c7fb9f",
       "execution_evidence_refs": [
         "docs/validation/2026-11-21-domestic-working-mode-plans/offline.json"
       ]
