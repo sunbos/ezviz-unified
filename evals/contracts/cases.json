@@ -7126,6 +7126,76 @@
           }
         }
       ]
+    },
+    {
+      "operation_id": "cn.settings.get_working_mode_plans",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "channel": 0,
+        "timing_plan_type": 19
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": 0,
+        "timingPlanType": 19
+      },
+      "data": [
+        {
+          "enable": 1,
+          "subType": 2,
+          "weekPlans": [
+            {
+              "weekDay": "2",
+              "timePlan": [
+                {
+                  "beginTime": "07:12",
+                  "endTime": "08:34",
+                  "eventArg": "sample-not-json"
+                }
+              ]
+            }
+          ],
+          "extra": {
+            "synthetic": true
+          }
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.settings.set_huashu_4g_working_mode_plan",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "enabled": false,
+        "start_time": "23:12",
+        "end_time": "01:34",
+        "week": "4,2,4",
+        "stop_after_execution": true
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "enable": "0",
+        "startTime": "23:12",
+        "endTime": "01:34",
+        "week": "4,2,4",
+        "eventArg": "1"
+      },
+      "data": {
+        "extra": {
+          "synthetic": true
+        }
+      }
     }
   ]
 }

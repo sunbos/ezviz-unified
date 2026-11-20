@@ -115,6 +115,17 @@ python -m examples.light_linkage --mode sync
 python -m examples.light_linkage --mode async
 ```
 
+### 国内设备工作模式计划
+
+读取设备工作模式计划可调用 `client.settings.get_working_mode_plans(device_serial, channel=1, timing_plan_type=17)`，AsyncClient 中以 `await` 前缀调用同名方法。channel 为可选 int，timing_plan_type 可选 17 或 19，省略时由服务端默认取 17。响应里 response.data 是数组，每行包含 `weekPlans` 数组，数组中某个分组可再含 `timePlan` 数组，尽管字段表标注为 Object，eventArg 则作为不透明字符串透传。CLI 读取命令复用本地国内配置并显式要求 EZVIZ_DEVICE_SERIAL，可选 EZVIZ_CHANNEL_NO 与 EZVIZ_TIMING_PLAN_TYPE，只打印 plan_count 便于核对，相关证据仅来自离线记录。接口细节见 [国内文档 1723](https://open.ys7.com/help/1723)
+
+写入仅覆盖华数 4G 工作模式计划，调用 `client.settings.set_huashu_4g_working_mode_plan(device_serial, enabled=True, start_time=start, end_time=end, week=week, stop_after_execution=True)`，AsyncClient 同样以 `await` 调用。enabled、start_time、end_time 与 week 即使在停用计划时也必须提供，`stop_after_execution` 为可选布尔：`True` 发送 `eventArg=1`（执行后停用），`False` 发送 `eventArg=0`（执行后不停用），省略则不传 `eventArg`，平台默认 `0`。该参数独立于海外工作模式 `0–3`，也不重新解释读侧不透明字符串。每次写入都对应一次显式调用，真实的计划下发与恢复需要另行授权。write-demo 完全在内存中以 mock 鉴权与业务响应运行，不触碰真实凭据或设备，只输出 simulated 与 acknowledged 状态。接口约束见 [国内文档 1720](https://open.ys7.com/help/1720)
+
+```sh
+python -m examples.domestic_working_mode_plans --mode sync --action read
+python -m examples.domestic_working_mode_plans --action write-demo --mode async
+```
+
 ### 海外设备工作模式计划
 
 `client.settings.get_timing_plan(serial)` 查询设备工作模式计划，`client.settings.set_timing_plan(serial, enabled=True, start_time="08:00", end_time="18:00", week="0,2", mode=1)` 提交一次写入，异步版本中两者均通过 `await` 调用。两个接口均支持托管和子账号，读取要求 `Get` 权限、写入要求 `Config` 权限。SDK 向令牌指定并经地区校验的业务域 `areaDomain` 发送请求，`accessToken` 与 `deviceSerial` 放入请求头。[海外文档 3724](https://open.ys7.com/help/en/3724) [海外文档 3725](https://open.ys7.com/help/en/3725)

@@ -2668,6 +2668,40 @@
         "E64;E68;E108",
         "docs/coordination/domestic-stored-recordings/admission.json"
       ]
+    },
+    {
+      "id": "cn.settings.get_working_mode_plans.nested_plan_rows_and_type_scope",
+      "region": "domestic",
+      "source_doc_id": "1723",
+      "source_url": "https://open.ys7.com/help/1723",
+      "source_content_sha256": "690bfdab9dccd05dea8733c58a1d2c5b6bf42a393378f80cf211e4a9c07083a9",
+      "description": "接口文档将 data、weekPlans、timePlan 标注为 Object，但字段路径中的 [] 与示例报文均给出数组结构。channelNo 为可选整数，timingPlanType 仅允许 17 或 19，缺省按 17 处理，文档未说明 19 的语义。错误码 10031 表示权限不足，但未给出所需最低权限、适用机型范围与时区信息。海外对应接口 3724 的 body.meta 结构与此不同。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 按数组原样透传嵌套结构与扩展字段，eventArg 保持不透明字符串。未传的 channelNo 和 timingPlanType 均省略，文档给出的默认类型为 17。",
+      "evidence": [
+        "E14;E48",
+        "E52;E56",
+        "E112",
+        "海外 3724 E2;E31;E110",
+        "docs/coordination/domestic-working-mode-plans/admission.json"
+      ]
+    },
+    {
+      "id": "cn.settings.set_huashu_4g_working_mode_plan.device_scope_and_stop_flag",
+      "region": "domestic",
+      "source_doc_id": "1720",
+      "source_url": "https://open.ys7.com/help/1720",
+      "source_content_sha256": "c4e8c721f23192284bc1f3d28a4364254f94a796889a1d2c6b66eaef383b9379",
+      "description": "该接口面向华数 4G 摄像机，E12 将 accessToken 和 deviceSerial 列为必填请求头，Content-Type 为表单编码。E72 的令牌请求头语法不完整，五个业务字段通过表单提交。国内可选 eventArg 为“1”时计划执行后停止，为“0”时保持生效，缺省“0”，海外 3725 的 eventArg 则表示 0–3 的工作模式，含义不同。响应中根级字符串 code 仅作应答确认，文档未说明读取回查、合并或覆盖语义、时区与最低固件版本。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 将执行后停用标志作为可选参数，未传时省略 eventArg。每次调用只发一次写入请求，不预读、重放或回查。",
+      "evidence": [
+        "文档标题;E12",
+        "E37;E72",
+        "E76;E80",
+        "海外 3725 E2;E30",
+        "docs/coordination/domestic-working-mode-plans/admission.json"
+      ]
     }
   ]
 }
