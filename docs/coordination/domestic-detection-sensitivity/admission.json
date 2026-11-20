@@ -1,0 +1,299 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "0efa9f6074cee03e977b7b36a1419074397607d4",
+  "scope_revision": "2026-11-21-r53-domestic-detection-sensitivity",
+  "cohort_id": "DOMESTIC-DETECTION-SENSITIVITY-001",
+  "operations": [
+    {
+      "operation_id": "cn.settings.get_motion_sensitivity",
+      "capability_id": "candidate:domestic:714:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-714-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-714-D0-LIVE-001"
+      ],
+      "entry": "settings.get_motion_sensitivity",
+      "name": "get_motion_sensitivity",
+      "doc_id": "714",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/lapp/device/algorithm/config/get",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/714",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/714.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/714.structure.json",
+      "html_sha256": "0a98082e50a7a0afbab84265613ce3679a7978b924ac4ff1de85a68a81f57fe5",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 42,
+        "example": 46,
+        "fields": 50,
+        "errors": 82
+      },
+      "signatures": {
+        "Settings": "def get_motion_sensitivity(self, device_serial: str) -> ApiResponse",
+        "AsyncSettings": "async def get_motion_sensitivity(self, device_serial: str) -> ApiResponse"
+      },
+      "permission": "子账户最小 Get，Cam 资源限定到设备和通道。",
+      "prerequisites": "设备需支持本接口。",
+      "unknown": "714 E50 将 channel 列为 String、value 列为 Int，E46 样例的 channel 为整数、value 为字符串；保留两种表示。"
+    },
+    {
+      "operation_id": "cn.settings.set_motion_sensitivity",
+      "capability_id": "candidate:domestic:715:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-715-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-715-D0-LIVE-001"
+      ],
+      "entry": "settings.set_motion_sensitivity",
+      "name": "set_motion_sensitivity",
+      "doc_id": "715",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/lapp/device/algorithm/config/set",
+      "read_only": false,
+      "source_url": "https://open.ys7.com/help/715",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/715.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/715.structure.json",
+      "html_sha256": "1470ed136a4e915f74e8ed22340dd7822eb7b775776ef749673c6f596d93b1ab",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "Int",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "type",
+          "type": "Int",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "value",
+          "type": "Int",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 60,
+        "example": 64,
+        "fields": 68,
+        "errors": 84
+      },
+      "signatures": {
+        "Settings": "def set_motion_sensitivity(self, device_serial: str, *, value: int, channel_no: int | None = None) -> ApiResponse",
+        "AsyncSettings": "async def set_motion_sensitivity(self, device_serial: str, *, value: int, channel_no: int | None = None) -> ApiResponse"
+      },
+      "permission": "子账户最小 Config，Cam 资源限定到设备和通道。",
+      "prerequisites": "设备需支持本接口。",
+      "unknown": "channelNo 未传表示设备本身；只给出 type 0。SDK 固定显式传 0，其他模式和生效情况待核。"
+    },
+    {
+      "operation_id": "cn.settings.get_detection_sensitivity",
+      "capability_id": "candidate:domestic:1733:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1733-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1733-D0-LIVE-001"
+      ],
+      "entry": "settings.get_detection_sensitivity",
+      "name": "get_detection_sensitivity",
+      "doc_id": "1733",
+      "region": "domestic",
+      "method": "GET",
+      "path": "/api/v3/device/detect/config/get",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/1733",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1733.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1733.structure.json",
+      "html_sha256": "a26c0d4c8816d5a023aa7699a6458b43b6d73ba9039035088373efa2e78f0596",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 42,
+        "example": 46,
+        "fields": 50,
+        "errors": 82
+      },
+      "signatures": {
+        "Settings": "def get_detection_sensitivity(self, device_serial: str, *, channel_no: str) -> ApiResponse",
+        "AsyncSettings": "async def get_detection_sensitivity(self, device_serial: str, *, channel_no: str) -> ApiResponse"
+      },
+      "permission": "国内应用凭据；本页未给出子账户权限。",
+      "prerequisites": "设备需支持本接口。",
+      "unknown": "本页查询结构明确，未列明子账户权限或完整支持机型。"
+    },
+    {
+      "operation_id": "cn.settings.set_detection_sensitivity",
+      "capability_id": "candidate:domestic:1734:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1734-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1734-D0-LIVE-001"
+      ],
+      "entry": "settings.set_detection_sensitivity",
+      "name": "set_detection_sensitivity",
+      "doc_id": "1734",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/v3/device/detect/config/set",
+      "read_only": false,
+      "source_url": "https://open.ys7.com/help/1734",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1734.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1734.structure.json",
+      "html_sha256": "4175c99bd93cd696e3f0a3cc0804d93fd10ad40ddb3162c3edf4bec929dd8d52",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "type",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "value",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 60,
+        "example": 64,
+        "fields": 68,
+        "errors": 84
+      },
+      "signatures": {
+        "Settings": "def set_detection_sensitivity(self, device_serial: str, *, channel_no: str, detection_type: str, value: str) -> ApiResponse",
+        "AsyncSettings": "async def set_detection_sensitivity(self, device_serial: str, *, channel_no: str, detection_type: str, value: str) -> ApiResponse"
+      },
+      "permission": "国内应用凭据；本页未给出子账户权限。",
+      "prerequisites": "设备需支持本接口。原文明确要求 support_sensibility_adjust=1。",
+      "unknown": "前提 support_sensibility_adjust=1，仅限该页。成功回执不能说明实际感应效果或可恢复性。"
+    }
+  ],
+  "sdk_choices": [
+    "SDK 提供两对国内方法。714 和 715 是设备移动侦测档位，1733 和 1734 按通道读取或设置 PIR 与人形检测灵敏度。无通用量表、转换或跨家族回退。直接复用现有设备配置 facade、鉴权、诊断和响应策略。",
+    "四个入口在诊断作用域内先调用 _require_domestic，海外在参数处理和认证前抛出既有固定 ValueError。714/715 表单序列号复用 _check_text 与 _check_serial 的国内大写规则，不改大小写。1733/1734 复用可打印 ASCII 请求头校验，保留通道字符串及前导零。",
+    "715 由 SDK 固定发送整数语义的 type=0；value 为 0–6 真正整数；channel_no 可选真整数，无文档下限，省略不发且指设备本身。1734 detection_type 必须是字符串 3 或 4；value 使用 1–100 的 ASCII 十进制数字字符串，保留前导零，不接受符号、空白、bool、数值或 Unicode 数字符。比较范围不依赖对超长输入做 int 转换。",
+    "读取只验证根 data 是对象数组，各行有 channel、type、value。714 的 channel 和 value 均接受真正整数或字符串，type 为字符串；1733 的 channel 为真正整数，type/value 为字符串。拒绝 bool 等错误类型，保留未知字段、顺序、空数组和成功原值，写入范围不用于丢弃查询结果。两项写入接受无 data 的根层成功及扩展 data。四项均用根 code 字符串 200 和 msg。",
+    "两项读取沿用单次 10002 刷新。设置只发一次业务请求，失败不重放。1734 的能力集是使用前提；SDK 不隐式查能力、读取设置或恢复数值。复用相同严格展示策略屏蔽上游自由文本及请求资料，保留业务异常类别、诊断和调用方显式访问的 data/raw。",
+    "仓库示例 python -m examples.detection_sensitivity --mode sync|async。合成认证及业务传输按 714、715、1733、1734 逐项调用。输出只含 mode、motion_read、motion_write、detection_read、detection_write 的布尔成功（mode 为模式字符串）；失败固定文本 error: detection sensitivity example failed，取消退出 130。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/settings.py",
+    "src/ezviz_unified/vod.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批仅合成传输。此前设备检查授权未包括灵敏度读取或设置。"
+}
