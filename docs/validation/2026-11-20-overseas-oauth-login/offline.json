@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "scope": "overseas_user_oauth_login_handoff_local",
+  "code_commit": "11a03c8056a7e003f5ec0cc28b4e9ba4e6556cd2",
+  "source_test_sha256": {
+    "src/ezviz_unified/oauth.py": "17d2fdf9d7cd0cf7b68b922d1c6ce5276df773647eab396888fe2333c985f22b",
+    "src/ezviz_unified/__init__.py": "6b1c3ecf2326196a86db821bfee6650088ab0cc3116c3327ca33e35f09621803",
+    "src/ezviz_unified/_diagnostic_registry.py": "4b92a4577747a888617d0ab131207e7e78761ec0efc78bfc4b6f769e889d46f1",
+    "tests/test_sdk_oauth_login.py": "dc65081b4ee3235239037ca1539eff51c2e3dd81f484d432e7afa36d5c123f20",
+    "tests/test_example_oauth_login.py": "9cf4f356d865ea178b85202854c564d9c7446fac9c962ab57c0ac654dd79d1d6",
+    "docs/diagnostics-v1-coverage.json": "9dc2ff6ae85239af190ebd6d11379658c6946d59721917506d6152801386bc2d",
+    "docs/diagnostics.md": "a0e79e41287891add761db33e28de690e7385197bb7ac16426217aa2ee525a72",
+    "examples/oauth_login.py": "831ad95098e14aeff0db4e9fbd96ac0a119f1639f5ba88caed4ad435e59481ec",
+    "README.md": "37cd69efc91049114a259371579fb21044ba11442f931e96aaa3e53d4b147ae2",
+    "docs/coordination/overseas-oauth-login/admission.json": "797e59a228c3990baf980e3e872ffd96d21756ff44e60a59cd4d90c0b62845c6"
+  },
+  "local_observations": {
+    "surfaces": {
+      "sync": {
+        "case_passed": true,
+        "events_verified": true,
+        "call_events": 6
+      },
+      "async": {
+        "case_passed": true,
+        "events_verified": true,
+        "call_events": 6
+      }
+    },
+    "network_attempts": 0,
+    "sdk_sha256": "17d2fdf9d7cd0cf7b68b922d1c6ce5276df773647eab396888fe2333c985f22b",
+    "evidence": "Independent synthetic process check with outbound socket, listener, browser and subprocess audit hooks. No proof of interactive consent."
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP497-CoreProtocol",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "src/ezviz_unified/oauth.py"
+        ],
+        "disposition": "source_candidate_reviewed_before_final_integration",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "deeb24e590fb610098338a440bf4257fef9032cfa3112c2ee8b84eceaff1f2f5",
+        "local_receipt_sha256": "878b2622f20b6723487516e6bb19aaa67aa7ec42f244b9377c7f2c5d39227c25",
+        "candidate_sha256": "ee64a373dcb9e985369eb0ba73ed8322d003ffac2c2b72e2f2007d77d91018b3"
+      },
+      {
+        "task": "SP497-CoreSlots",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "src/ezviz_unified/oauth.py"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "7ce3aec17b7acb409b5dd508c5c3eb1545f702c2ca92b1a825ff9db703e72fe0",
+        "local_receipt_sha256": "1a572ef411050e91dfc7485a4a3b1da283a21ec52fc48fac8528f0df1ced61c6",
+        "candidate_sha256": "ccadd39ecebac7e39d58f23153562dce855e4bce750e6393cae24c2bf5f4269d"
+      },
+      {
+        "task": "SP497-DocsCli",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "examples/oauth_login.py"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "425177dbc0386c1779d2781968a4df8859ef48919a12d38261d5833199bbbe57",
+        "local_receipt_sha256": "0ec49ecb47234c93abd2e3f2ca44aadc9fa34ba3b75ee018b45d7ef7a7600f5e",
+        "candidate_sha256": "40682b532ff22d141c50a079834598d57a6177d631b14f6e854cd902e3ef708e"
+      },
+      {
+        "task": "SP497-DocsCliR1",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "examples/oauth_login.py"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "3fdcf943f1f4cdd0c18f3afebdac3386eeae47e72ef526f7a92cad7cc26e6199",
+        "local_receipt_sha256": "a9afe0d2a28dba897ca1d8d67087a9d9bdad9aca4dacbe45c28f626dd0478231",
+        "candidate_sha256": "554986ed55318d74c55d10dcd5ffc8cb9f8fe98a8992ee4a399aa10467ebab05"
+      },
+      {
+        "task": "SP497-DocsDiagnostics",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "disposition": "source_candidate_reviewed_before_final_integration",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "bc3cf19d477022a328cb4c40c82b7203584858b8489ec3c205eb9ca5067f780f",
+        "local_receipt_sha256": "7dc11c44c5489b4d16853a81bc86d8cabeac4e97febd95246ef8f4df47be1be5",
+        "candidate_sha256": "15a41a20516eabaed6ddd47e3c9a840b208eb36a63a68377de3996271360ae07"
+      },
+      {
+        "task": "SP497-DocsDiagnosticsR1",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "disposition": "source_candidate_reviewed_before_final_integration",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "bed20eef772f9c5602b1d03a6e529fac10eabe6be3e4ae40e0d05d5b1b88ce3a",
+        "local_receipt_sha256": "bdd2a10e932e7091fefc3c38b10f0bd3483891c334ac97cd39324df931789c18",
+        "candidate_sha256": "0d68ab45da0a1e35bd2d827b638201ddf0b893a3486a4b3b274675296fbc7dbd"
+      },
+      {
+        "task": "SP497-DocsDiagnosticsR2",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "b55f13a561095ec072905ab63d210eec6d71938d4613af37972eed189e1975fd",
+        "local_receipt_sha256": "b8081799ec5345f55fb68c4785ae14bc2b9b28b20b5eb8779750de72571bcec1",
+        "candidate_sha256": "2ca45c4dbea41812477be7463f6fd932a397d894ce460e313ba6b11c8bf746e0"
+      },
+      {
+        "task": "SP497-DocsReadme",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "README.md"
+        ],
+        "disposition": "source_candidate_reviewed_before_final_integration",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "ce1772b942e8427743d5a87af239c8c7908088fbac6c094ddc927c0c7293e3a7",
+        "local_receipt_sha256": "417ee6d652d1c5ed8dc05c1229faa4f0410c02c63376fa468801515935705282",
+        "candidate_sha256": "29594b912f88e39f92f9c590829b3eaf44ccf45c8a624f03bc09f540faf17fdc"
+      },
+      {
+        "task": "SP497-DocsReadmeR1",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "README.md"
+        ],
+        "disposition": "source_candidate_reviewed_before_final_integration",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "46d7471142e2a5aba65703ab9c7a0656de6e8a2626eed5b6b562b9188e1b2d54",
+        "local_receipt_sha256": "bb4befb3c204f76d74b985e0addc534c6a3a225df7b0742fdd862866579bec0f",
+        "candidate_sha256": "8e99e965241935a4015705191699daaf403ec05f7349895e751c00c01a8d2122"
+      },
+      {
+        "task": "SP497-DocsReadmeR3",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "README.md"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "966beba6eebf380e64ab8a75f45319e73020fbb590a545b2b038fd219adbb3b7",
+        "local_receipt_sha256": "c73c0e0058b32bb60ed5af6a1b82e891d1065ea25071407ad7ed96f961ad005d",
+        "candidate_sha256": "aeac88af6f295f193e421591d0312bd863b72d282c84ea70a5b32772aa594bba"
+      },
+      {
+        "task": "SP497-DocsReadmeR5",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "README.md"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "accd8bd4719bfb0bac87a9df211a0449e6de31a674fe81a0f65200b8a4cd3b34",
+        "local_receipt_sha256": "78cc769f8774db01f4e747509d3031208055d2f713870b784e0589fccf2b5507",
+        "candidate_sha256": "133d2f16676ff5d0565198a1d53544d0d617d45e58537b07092f4dd78d68101b"
+      },
+      {
+        "task": "SP497-TestCLIBase",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "tests/test_example_oauth_login.py"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "136126017734fc05f3eb335ba0f87bef496a1082dfe3c8e2afa4ed47f48df40c",
+        "local_receipt_sha256": "99e5b9c78f82c6eba67f03a0e5dcfe14930aef55499b46d987eebc29091214d1",
+        "candidate_sha256": "d7bf0c79376f8febf1a9999d825a917666394faed9700487a3723f1d609088da"
+      },
+      {
+        "task": "SP497-TestCLIIntegration",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "tests/test_example_oauth_login.py"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "bb51c352fc1dbf28142419a04223bd861980b13a5d418c740e808854111cc018",
+        "local_receipt_sha256": "8ad74e389f678e631a269fc1589f2dc11773c8381634bac268badee7f007f28b",
+        "candidate_sha256": "3a7d4fe89681c1525d512f0e065e10d78d9f9a8acb5269c0cae5c4d1c62a7cfd"
+      },
+      {
+        "task": "SP497-TestCLIMethodFix",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "tests/test_example_oauth_login.py"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "e725b0bd695b2c8303d869d2c4940cebde17aab5e9dba16dcf725698cd17a1e9",
+        "local_receipt_sha256": "9a3515b43e2f5a5959683371dcfbaed0d7a2ffa44be1c1a5e9a7afff18cc3ab3",
+        "candidate_sha256": "b04c2f404a9772c07023b152f49bf7a01d7a994738c36d5b9f74f832894487d3"
+      },
+      {
+        "task": "SP497-TestSDKBase",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "tests/test_sdk_oauth_login.py"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "869bdd08103a1f8e870df952661737ba0c64e0ba406ce229b10ce9ac3a0286e2",
+        "local_receipt_sha256": "6693cc07478eba1c05b44345e08efd95cdccc29e2d743813dba61c7323374502",
+        "candidate_sha256": "1fe1e95cecc1733966fb51aa5fa789d884721bb6de2c872bf47d22c111b133d8"
+      },
+      {
+        "task": "SP497-TestSDKBoundaries",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "tests/test_sdk_oauth_login.py"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "ca27a7e4a6fcad116518dd33c9d5028ea08797a15dc83f954cdeb5758b9c8463",
+        "local_receipt_sha256": "cd222bf1e25338568d7e510d96d66cccaa14a3ad4509e24fbb85301c65f53842",
+        "candidate_sha256": "9f8bd80828341df3a8c95d1ec640cf311ffd650e0ef8bb8a9a4516e48d94ed5f"
+      },
+      {
+        "task": "SP497-TestSDKRefinement",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "tests/test_sdk_oauth_login.py"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "1d83909f3615c4437d7f914decfa6c93b9c183c59d64ecf3ded10ee4495c1b82",
+        "local_receipt_sha256": "146fce75b5510f471b99ab2e787ae127831f5402e3f1c384eea723a68e657dce",
+        "candidate_sha256": "eeca906fb0712dad98eb1c3cff73ec28e933a28dadd6087a4b1f397f956effab"
+      },
+      {
+        "task": "SP497-TestSDKSelection",
+        "input_commit": "51ea7a62c2dfba9a3c907ee8c7db49a81531f99a",
+        "write_scope": [
+          "tests/test_sdk_oauth_login.py"
+        ],
+        "disposition": "integrated_or_subsequently_revised",
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "f7fb904a93d0224cb26e326f60b68e5ec318e112508c511332572c7af2514932",
+        "local_receipt_sha256": "6b954c60cf185b2485ff2ad61bbc638dada77184e712067373112cf9687004b0",
+        "candidate_sha256": "29fafaf40a5a0887aeb5f098afe7d8ab1f5b769d5ccbe948e6aee6bffa80a372"
+      }
+    ],
+    "integration": {
+      "core_source_sha256": "17d2fdf9d7cd0cf7b68b922d1c6ce5276df773647eab396888fe2333c985f22b",
+      "reviewed_assembly_sha256": "877152b066b78c48d4289f12a6ad6d0d0e892beedcd0bb69834d5b65bfdcf9a3",
+      "core_assembly_receipt_sha256": "293b3e06f3d2c899c0cd1930a4b1c8fc074138d38618d1609ea685ca48cb3611",
+      "export_receipt_sha256": "167d04b364886387f9df6b0c7e306b098fc415ac04d480f553b13d966f35296a",
+      "notes": "协议 DTO 与窄修订来自经复核的 Claude 候选。公共签名与地址构造的参考文本另行复核并装配；未成功的工具调用不作为实现或验证凭据。"
+    },
+    "restricted_single_file_writes": [],
+    "rejected": {
+      "SP497-Core": "原任务未按约定成功，其文本仅可作为后续独立复核的输入，不作完成证明。",
+      "SP497-CoreFacade": "原任务未按约定成功，其文本仅可作为后续独立复核的输入，不作完成证明。",
+      "SP497-CoreWrite": "单文件 Write 有错误回执，未写入候选文件。",
+      "SP497-DocsReadmeR2": "原任务未按约定成功，其文本仅可作为后续独立复核的输入，不作完成证明。",
+      "SP497-DocsReadmeR4": "原任务未按约定成功，其文本仅可作为后续独立复核的输入，不作完成证明。"
+    }
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_oauth_login.py tests/test_example_oauth_login.py",
+      "summary": "222 passed in 0.72s",
+      "tool_error": false,
+      "local_receipt_sha256": "66d05e5143c5f6e9a6ad3ddeff43db3c98cf23e9ab04de7595c0dcb75619630f"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_harness_diagnostic_coverage.py",
+      "summary": "424 passed in 1.11s",
+      "tool_error": false,
+      "local_receipt_sha256": "2d8dc4d90079f4aea8ced956ed592c91b264b606ca0b364482d13b8f4e3761e2"
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 64 source files",
+      "tool_error": false,
+      "local_receipt_sha256": "43d871e024b4e0d93d442231f93c1da52c4fa285f095f684b80790beb469fd01"
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/oauth.py src/ezviz_unified/__init__.py src/ezviz_unified/_diagnostic_registry.py examples/oauth_login.py tests/test_sdk_oauth_login.py tests/test_example_oauth_login.py",
+      "summary": "All checks passed!",
+      "tool_error": false,
+      "local_receipt_sha256": "53d152e8c88f318c7adb84d119cf5e032fdec03601f3925a2468f92aac1d1337"
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/oauth.py src/ezviz_unified/__init__.py src/ezviz_unified/_diagnostic_registry.py examples/oauth_login.py tests/test_sdk_oauth_login.py tests/test_example_oauth_login.py",
+      "summary": "6 files already formatted",
+      "tool_error": false,
+      "local_receipt_sha256": "445064b22748c6c64d9b7202597b11d2d4009825746ed07e819815d4944fc3ab"
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "11063 passed, 35 subtests passed in 66.82s (0:01:06)",
+      "tool_error": false,
+      "local_receipt_sha256": "1ca8bd7ae88d0571045978eae2a64c3218286913a1980a7f482c91dc62ca0254"
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "281 existing transport bindings and 562 transport symbols verified",
+      "tool_error": false,
+      "local_receipt_sha256": "ed33366f328fad777a781dfa9cc04cb57cead71d2baa721f7dd8ffec05e7e6af"
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "2280/2280 previously registered HTTP wire cases passed (local OAuth is evaluated separately)",
+      "tool_error": false,
+      "local_receipt_sha256": "2892ec94bdda1b081b87dfb76ebc1ad490bb220bc8d17c862e71f8ea57fa6838"
+    }
+  ],
+  "live_executed": false,
+  "limits": "仅验证导航构造、区域 HTTPS 回跳解析及本地诊断。未获得用户同意、签发或验证真实令牌、刷新凭据、提取设备信息或打开媒体。应用需要从可信配置核实两个 origin。"
+}

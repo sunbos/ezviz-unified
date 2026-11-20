@@ -26969,7 +26969,7 @@
       "surface": [
         "sync",
         "async",
-        "repository_example"
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
@@ -26995,19 +26995,33 @@
       "pending_questions": [
         "真实授权、地区与回跳交付机制。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/oauth.py",
+        "src/ezviz_unified/__init__.py",
+        "src/ezviz_unified/_diagnostic_registry.py",
+        "tests/test_sdk_oauth_login.py",
+        "tests/test_example_oauth_login.py",
+        "docs/diagnostics-v1-coverage.json",
+        "docs/diagnostics.md",
+        "examples/oauth_login.py",
+        "README.md",
+        "docs/coordination/overseas-oauth-login/admission.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
       ],
       "criterion_assessment": {
-        "LOCAL-PROTOCOL": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "LOCAL-PROTOCOL": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "11a03c8056a7e003f5ec0cc28b4e9ba4e6556cd2",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-overseas-oauth-login/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-11-OFFLINE-001",
@@ -34802,14 +34816,14 @@
       "operation_ids": [],
       "scope_revision": "2026-11-20-r46-overseas-oauth-login",
       "freeze_state": "awaiting_resource_scope_and_authorization",
-      "region_cluster": "overseas_confirmed_oauth_cluster",
+      "region_cluster": "overseas:account_cluster_not_confirmed",
       "account_role_permissions": "具资格的终端用户，知情同意登录及签发令牌。",
       "device_requirements": "无需绑定设备。需要已经核实的地区、应用登记及受控回跳交付。",
       "surface": [
-        "application_navigation",
-        "local_redirect_parser"
+        "sync",
+        "async"
       ],
-      "risk": "authorization_state_change",
+      "risk": "write_bounded",
       "preconditions": [
         "确认地区/应用、用户同意、回跳交付和凭据处置。"
       ],
@@ -34833,7 +34847,8 @@
       "result": "awaiting_authorization",
       "blockers": [
         "真实终端用户同意和受控回跳环境尚未确认。"
-      ]
+      ],
+      "execution_note": "由终端用户在经核准的应用中进行一次受控交互，两个本地 SDK 入口可使用同一授权结果。"
     }
   ],
   "release_gates": [

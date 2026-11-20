@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 海外用户 OAuth 登录与回跳
+
+469 §1.1 的同步与异步入口均通过本地验收。SDK 构造全球登录地址，只解析与预置授权源匹配的区域 HTTPS 回跳，诊断仅记录本地调用。示例使用合成数据。真实用户授权、浏览器交互与令牌签发仍待验收。§1.3 用户令牌刷新继续单独登记。[接口及来源差异](../coordination/overseas-oauth-login/admission.json) · [离线回执](2026-11-20-overseas-oauth-login/offline.json)
+
 ## 国内 RTMP 云端音频转 AAC
 
 已在模拟传输中验收同步和异步的能力查询、云端转码开关及只读示例。查询返回布尔支持值。设置接受平台仅含 meta 的成功回执，一次业务调用只发送一次设置请求。当前开关值、真实账户权限、费率、RTMP 音频格式和恢复效果仍待核验。归档中 HLS 暂不支持这项服务。[接口与证据边界](../coordination/domestic-rtmp-aac/admission.json) · [离线回执](2026-11-20-domestic-rtmp-aac/offline.json)
