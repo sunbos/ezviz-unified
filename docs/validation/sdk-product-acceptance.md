@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 海外设备工作模式计划
+
+同步和异步的查询、设置及单设备只读示例均通过模拟传输验收。读取保留周计划和各时段的原始层级。设置提交一组平铺的表单字段，编码选择参考国内同路径文档。时区、整表替换或合并规则和真实设备生效情况仍待核实。读取结果不能直接充当恢复表单。[冻结的区域差异](../coordination/overseas-working-mode-plans/admission.json) · [离线回执](2026-11-20-overseas-working-mode-plans/offline.json)
+
 ## 海外用户 OAuth 令牌刷新
 
 §1.3 的同步、异步入口和合成示例均通过离线验收。传输评测单独核对向授权 origin 发送的一次表单请求，以及刷新材料失效、绑定不匹配和 HTTP 故障。请求选择示例的 `open_id` 和表格要求的 `bundleId`。服务端实际接受的组合、有效期单位与旧凭据是否失效尚未实测。真实刷新需要已有合法用户刷新材料和具体授权。[冻结的请求格式](../coordination/overseas-oauth-refresh/admission.json) · [离线回执](2026-11-20-overseas-oauth-refresh/offline.json)

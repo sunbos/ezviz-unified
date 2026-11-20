@@ -2382,6 +2382,42 @@
         "E355",
         "docs/coordination/overseas-oauth-refresh/admission.json"
       ]
+    },
+    {
+      "id": "global.settings.get_timing_plan.plan_representation_and_restore",
+      "region": "overseas",
+      "source_doc_id": "3724",
+      "source_url": "https://open.ys7.com/help/en/3724",
+      "source_content_sha256": "7ef3e49f33cf52a11879c12db273522c3e8c8b527163739828c6582ff033f010",
+      "description": "海外 3724 支持托管和子账号，查询需要 Get 权限，按 E31/E110 返回以星期分组的 weekPlans/timePlan 嵌套结构，E110 示例仅在单个时段上将 eventArg 标为字符串 mode:1，不能据此认定所有读数均取该值。文档未给出到扁平 set 的逆向映射，无法证明可精确还原，时区、重叠处理与各机型支持范围均未确认。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 原样保留返回的嵌套字段，不做扁平化或推断式还原。仅在提供方支持刷新且令牌失效时，按既有受控读取流程至多执行一次令牌刷新。",
+      "evidence": [
+        "E2;E3",
+        "E31",
+        "E110",
+        "E113",
+        "docs/coordination/overseas-working-mode-plans/admission.json"
+      ]
+    },
+    {
+      "id": "global.settings.set_timing_plan.encoding_week_and_model_scope",
+      "region": "overseas",
+      "source_doc_id": "3725",
+      "source_url": "https://open.ys7.com/help/en/3725",
+      "source_content_sha256": "aa017fdeb22f9fde09b6c814b28d3f7ec2cb8a25e9a500c29666635b570a01f2",
+      "description": "海外 3725 支持托管和子账号，设置需要 Config 权限；E30 以字符串列出请求体字段但未指明编码，week 文本格式混杂，E71/E105 仅展示 body.meta。E30 仅说明 enable 字段在 CS-CB3-R100-2D2WFL 上不生效，其他机型是否同样受影响未知，合并或覆盖语义与时区行为亦未确认。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 以同路径国内 1720 E12/E72 为佐证选用 form 编码。eventArg 在国内取 0/1 表示执行后是否停用，海外则取 0–3 表示工作模式，SDK 保留海外取值，不采纳国内 E37 的停用语义。Sunday=0 取自海外 3724 E110，保留 week CSV 的顺序与重复项，不做本地回滚、合并推断、重放或写入重试。",
+      "evidence": [
+        "E2;E3",
+        "E30",
+        "E71;E105",
+        "E108",
+        "海外 3724 E110",
+        "国内 1720 E12;E37;E72",
+        "docs/coordination/overseas-working-mode-plans/admission.json"
+      ]
     }
   ]
 }

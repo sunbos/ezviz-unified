@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "eb93a415a9d301d4eb2a0b66045e2b132da1b8aa",
+  "scope_revision": "2026-11-20-r48-overseas-working-mode-plans",
+  "cohort_id": "OVERSEAS-WORKING-MODE-PLANS-001",
+  "operations": [
+    {
+      "operation_id": "global.settings.get_timing_plan",
+      "capability_id": "candidate:overseas:3724:d0",
+      "name": "get_timing_plan",
+      "entry": "settings.get_timing_plan",
+      "doc_id": "3724",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-3724-D0-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-3724-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Settings": "def get_timing_plan(self, device_serial: str) -> ApiResponse",
+        "AsyncSettings": "async def get_timing_plan(self, device_serial: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/en/3724",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3724.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/3724.structure.json",
+      "html_sha256": "7ef3e49f33cf52a11879c12db273522c3e8c8b527163739828c6582ff033f010",
+      "method": "GET",
+      "path": "/api/v3/device/timing/plan/get",
+      "read_only": true,
+      "permission": "支持托管和子账号，要求 Get 权限。",
+      "unknown": "字段表和非严格示例给出周计划与时段嵌套；支持型号与时区、段数和可恢复性未确认。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R3"
+        }
+      ],
+      "elements": {
+        "permissions": [
+          2,
+          3
+        ],
+        "route": 5,
+        "headers": 8,
+        "body": null,
+        "fields": 31,
+        "example": 110,
+        "errors": 113
+      }
+    },
+    {
+      "operation_id": "global.settings.set_timing_plan",
+      "capability_id": "candidate:overseas:3725:d0",
+      "name": "set_timing_plan",
+      "entry": "settings.set_timing_plan",
+      "doc_id": "3725",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-3725-D0-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-3725-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Settings": "def set_timing_plan(self, device_serial: str, *, enabled: bool, start_time: str, end_time: str, week: str, mode: int | None = None) -> ApiResponse",
+        "AsyncSettings": "async def set_timing_plan(self, device_serial: str, *, enabled: bool, start_time: str, end_time: str, week: str, mode: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/en/3725",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3725.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/3725.structure.json",
+      "html_sha256": "aa017fdeb22f9fde09b6c814b28d3f7ec2cb8a25e9a500c29666635b570a01f2",
+      "method": "POST",
+      "path": "/api/v3/device/timing/plan/set",
+      "read_only": false,
+      "permission": "支持托管和子账号，要求 Config 权限。",
+      "unknown": "海外编码及合并/覆盖未明确，enable 的型号限制不外推至整项操作，时区及跨日语义未知。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R3"
+        },
+        {
+          "name": "enable",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "evidence": "E30/R2"
+        },
+        {
+          "name": "startTime",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "evidence": "E30/R3"
+        },
+        {
+          "name": "endTime",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "evidence": "E30/R4"
+        },
+        {
+          "name": "week",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "evidence": "E30/R5"
+        },
+        {
+          "name": "eventArg",
+          "location": "body",
+          "type": "string",
+          "required": false,
+          "evidence": "E30/R6"
+        }
+      ],
+      "elements": {
+        "permissions": [
+          2,
+          3
+        ],
+        "route": 5,
+        "headers": 8,
+        "body": 30,
+        "fields": 71,
+        "example": 105,
+        "errors": 108
+      }
+    }
+  ],
+  "regional_cross_checks": [
+    {
+      "doc_id": "1720",
+      "region": "domestic",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1720.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1720.structure.json",
+      "html_sha256": "c4e8c721f23192284bc1f3d28a4364254f94a796889a1d2c6b66eaef383b9379",
+      "element_pointers": [
+        "E12",
+        "E37",
+        "E72"
+      ],
+      "role": "同路径 E12/E72 为表单编码提供独立佐证。E37 的 eventArg 语义不能移植至海外。"
+    },
+    {
+      "doc_id": "1723",
+      "region": "domestic",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1723.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1723.structure.json",
+      "html_sha256": "690bfdab9dccd05dea8733c58a1d2c5b6bf42a393378f80cf211e4a9c07083a9",
+      "element_pointers": [
+        "E14"
+      ],
+      "role": "国内请求的可选 channelNo、timingPlanType 未在海外 E8 出现，不加入海外查询。"
+    }
+  ],
+  "sdk_choices": [
+    "新增海外 settings.get_timing_plan 与 settings.set_timing_plan，同步、异步签名对应。二者均通过地区令牌选取已验证业务 origin，只把 accessToken 与显式 deviceSerial 放入 header。沿用既有设备头校验和诊断作用域，国内配置在认证前报错。",
+    "GET 没有请求体或查询参数。响应选择有字段表和例示依据的单一 body 封装，成功码为 body.meta.code 的整数 200。返回原 ApiResponse 和其 data；data 必须是对象，weekPlans 必须是对象列表，可为空。subSerial 和 subType 若存在，分别要求字符串和真正整数。每个周计划对象的 weekDay 若有须为字符串，timePlan 若有须为对象列表；各时段的 beginTime、endTime、eventArg 若出现须为字符串。保留字段原样、未知字段、原始顺序和 mode:1 等源格式，不根据读取结果推断写入参数。",
+    "POST 选择 application/x-www-form-urlencoded。这是 SDK 根据国内同路径 1720 E12/E72 选择的编码，海外 3725 本身没有请求示例或 Content-Type。四个必填字段 enable、startTime、endTime、week 全部发送字符串。enabled 必须为 bool，映射 1/0；start_time、end_time 采用 00:00 至 23:59 的 ASCII HH:mm。week 接受一个或多个 ASCII 0–6 以逗号连接，顺序和重复项原样传递。0=周日、6=周六来自海外读取例示，设置页的星期说明错位。mode 可省，提供时仅接受非布尔整数 0–3，转为 eventArg 字符串。省略时不在本地补默认值。即使停用也不省略四个必填项。",
+    "未声明时区、跨日行为、重叠和多段支持上限，不添加时间先后比较或时区换算。写入只执行一次，不预读、重发或读回；接受 body.meta 成功且 data 缺失，也保留服务器附加 data。GET 仅在既有只读策略确认令牌失效时允许一次刷新。使用既有异常与本地诊断，不将原始计划、设备序列号或令牌写入诊断报告。",
+    "CLI python -m examples.working_mode_plans --mode sync 或 --mode async，通过显式海外设置与设备序列号仅查询一次，成功输出 region、mode、status 与 week_plan_count。真实读取须确认 Get 资源与授权，设置须有 Config、型号适用性、精确时段与恢复方式。读取结果本身不能证明可按原样恢复。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/settings.py",
+    "src/ezviz_unified/cruise.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批仅验证合成传输，不访问真实设备或读取/更改实际工作模式计划。"
+}
