@@ -1,0 +1,508 @@
+{
+  "schema_version": 1,
+  "focused_wire": {
+    "cells": [
+      {
+        "operation_id": "cn.video.get_rtmp_aac_support",
+        "mode": "sync",
+        "scenario": "success",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.get_rtmp_aac_support",
+        "mode": "sync",
+        "scenario": "auth_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.get_rtmp_aac_support",
+        "mode": "sync",
+        "scenario": "permission_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.get_rtmp_aac_support",
+        "mode": "sync",
+        "scenario": "http_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.get_rtmp_aac_support",
+        "mode": "async",
+        "scenario": "success",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.get_rtmp_aac_support",
+        "mode": "async",
+        "scenario": "auth_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.get_rtmp_aac_support",
+        "mode": "async",
+        "scenario": "permission_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.get_rtmp_aac_support",
+        "mode": "async",
+        "scenario": "http_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.set_rtmp_aac_enabled",
+        "mode": "sync",
+        "scenario": "success",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.set_rtmp_aac_enabled",
+        "mode": "sync",
+        "scenario": "auth_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.set_rtmp_aac_enabled",
+        "mode": "sync",
+        "scenario": "permission_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.set_rtmp_aac_enabled",
+        "mode": "sync",
+        "scenario": "http_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.set_rtmp_aac_enabled",
+        "mode": "async",
+        "scenario": "success",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.set_rtmp_aac_enabled",
+        "mode": "async",
+        "scenario": "auth_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.set_rtmp_aac_enabled",
+        "mode": "async",
+        "scenario": "permission_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.video.set_rtmp_aac_enabled",
+        "mode": "async",
+        "scenario": "http_fault",
+        "passed": true
+      }
+    ],
+    "case_sha256": "0b8982f29cca37be511fac4d765c14f98b470885affb230e3fca29a9e46a6a63",
+    "sdk_sha256": "d6384517ff74ad701e58607da269797c9af568f3039204fe29a5bb1bb17dfec5",
+    "live_requests": 0,
+    "notes": "POST success in the generic wire evaluator carries synthetic extension data; the SDK regression verifies the distinct response containing meta alone."
+  },
+  "scope": "domestic_rtmp_aac_cloud_conversion_offline",
+  "code_commit": "7756429935b6d484f560b420bc65223c8bcb9bc0",
+  "bindings_sha256_at_code_commit": "6b75f104d7f20a20f122e4a4f31cb51c8432598fbb23fd1c8f2f4e1803660f58",
+  "source_test_sha256": {
+    "src/ezviz_unified/video.py": "d6384517ff74ad701e58607da269797c9af568f3039204fe29a5bb1bb17dfec5",
+    "src/ezviz_unified/_diagnostic_registry.py": "4657a03de3cc596874fbc32bc6c2b2739e373a564c2bb6104ad0766be4dd8832",
+    "docs/diagnostics-v1-coverage.json": "b4ed677fc12d977c775b4ff7a581bae6023ca8e821c720c86ebf07c2de959d13",
+    "docs/diagnostics.md": "f14702cbe783dad91d45a53073e4b53133f59a110a3d360cd0aafea5f02d2b72",
+    "tests/test_harness_diagnostic_coverage.py": "cf91203325cbd4beeb213343e639abbf00958cb68805a90277aeaa8b7a7db7ff",
+    "tests/test_sdk_rtmp_aac.py": "543db56909cedb2cebab023e6751b5f12b0f13990588c0536440fde60be661c5",
+    "tests/test_example_rtmp_aac.py": "689df3792847ae4a361d73c268369af54bbe856496b9b5657a2cf8f07e3c6272",
+    "examples/rtmp_aac.py": "81b1bd7bd27ea113a2035ebbd172ab602e4025f87700037cae5f256076c54296",
+    "README.md": "23f4af06584e05f53c7e36448636b9ffde6fe8d356f1bc34652227707ad72dfd",
+    "contracts/reviewed-transport-contracts.json": "f21df5d663d402318f493e3c8d3a83a8512baf397f03248db43a5096b3d9cbd8",
+    "contracts/source-issues.json": "bccc4422ab7db59cc5184586d96b4f32173474cd9216135778c04ef133eda788",
+    "evals/contracts/cases.json": "4d8f70327494e10a00d4860ee3cb0cdc36ec8533c7b167c0ad6d4717c3562726",
+    "docs/coordination/domestic-rtmp-aac/admission.json": "9c93dd1c6a63c4e1a9107a8d460b1d381adce0d0546ca06d120b0cf4f775f4d7",
+    "contracts/coverage.json": "e968465d63d0057e4e628a8d4a2e54156ae0a60148862e080e0aa2f7b5b83fc5"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP494-RegCases",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "evals/contracts/cases.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "0084434402807582aa6497c6e17df84fbda7531298afd7a3a203d3c8a8ca9a6a",
+        "local_receipt_sha256": "a95640c09fa6adba9e39af8cf1830799d29bee7f460ff4be4b8255b214db379a",
+        "candidate_sha256": "6f8aef95a99ef077dbcd5bf937906c4f1610668b60cdcc595c66dbe1069b6ef5",
+        "disposition": "superseded_by_SP494-RegCasesRefine"
+      },
+      {
+        "task": "SP494-RegCasesRefine",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "evals/contracts/cases.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "8685e30c92f6660ea793b014767d5c99c2ebbbe0d1f9cf34c119ada41648f0f5",
+        "local_receipt_sha256": "d37fe4398f990559b54f05f1e4c9d8b11f0bced079c0bab3760ccb6d740feb85",
+        "candidate_sha256": "bc6519fb7a0e2c1fda79141c4b08ff2a638bc4a406d6e416bf38414d34d508f6",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "ff46078107cf9a16774f3b7c7a6e5674dcf72632fe99e4586d7b772ab70f563f"
+      },
+      {
+        "task": "SP494-RegDoc",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "25a102b842064ad76c9168706e79430b491293b23a6811a715407dc7b4a5a777",
+        "local_receipt_sha256": "25ebd02393da1231b4a738772776ae5b3738f0b097fcb418f6aab6e42461d6d6",
+        "candidate_sha256": "f00419f5791871125cdf713e14b01645b999dd504eb59ffe4c145f3970f59e67",
+        "disposition": "revised_before_acceptance",
+        "followup": "SP494-RegDocRefine"
+      },
+      {
+        "task": "SP494-RegDocFinalProse",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "612feecc6abac88cd05b0246a95992e1c11ced2c422dcfe2ec0f2ac07d53ca6a",
+        "local_receipt_sha256": "2b86eb7dc6f797763e69c094935fc96bcd72632be29aee31b8e6b22b72853755",
+        "candidate_sha256": "bf6d49968aaadaedb702773a9064200ee5c3354cf3765770742c4d11a785b22c",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "7fcb00b7fec8e9ceea8a3de1f89b95064b2991ae930bbdd538419724e92c70a3"
+      },
+      {
+        "task": "SP494-RegDocRefine",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "1b7055434a01b0b122d4992d1cf271f172ab98bf9c53e6c336dbffe1fd702a1d",
+        "local_receipt_sha256": "2669750c2a435a7de909806809dcabed7d66ba51efbc6584d959cfcd40f05aa5",
+        "candidate_sha256": "a6863fb7e7a52e49924b55c1fda96cbbb7479ec571cc3ffd9e54f81f60fdcae7",
+        "disposition": "superseded_by_SP494-RegDocFinalProse"
+      },
+      {
+        "task": "SP494-RegIssues",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "contracts/source-issues.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "4750e2651575754f652dca147f0d6d03e1f348665d941eb3c3fa7323759522bd",
+        "local_receipt_sha256": "912727025d53f7e91f4344351cef4c46b27bedda35ab39a3accee585fd29245c",
+        "candidate_sha256": "5d6d28a359c114fd527befc1739766b315caf905b71b9ebe3dda408bd323eff5",
+        "disposition": "revised_before_acceptance",
+        "followup": "SP494-RegIssuesRefine"
+      },
+      {
+        "task": "SP494-RegIssuesFinalProse",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "contracts/source-issues.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "8be7ad3d8182f401c7a8b2c5aa914a46c640c1b560f32fce3ddd8f3f03ca8886",
+        "local_receipt_sha256": "c3725e135499a2d4f9f026ad88b9de92426a136cd8b3b90c9d9d6293686701a7",
+        "candidate_sha256": "8804735c1ef5a8caa59f8398856b67f629db4fa4944913f83e7c553c1ffc4f61",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "542921ec9b50c3fb3d404a6a2ea6a897f4106d30ac6f1c848cc945c8f54154e6"
+      },
+      {
+        "task": "SP494-RegIssuesRefine",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "contracts/source-issues.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "ec2872a5944a892d05fa01600e9b5468614fe63d026edcf071efafafb6eecd48",
+        "local_receipt_sha256": "d868d2e6acde079ff866055d9ae2afdec2713262cadbcfd3ac75393d07e33f5e",
+        "candidate_sha256": "345a1ac3e6fd87c889ba36207b7b3e9786c1b83f9d3169109ae3c7980dfc53a0",
+        "disposition": "superseded_by_SP494-RegIssuesFinalProse"
+      },
+      {
+        "task": "SP494-SdkCli",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "examples/rtmp_aac.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "06905275a79a73d1cd5f4f28f1ebbc2f363852ee2b2d3832896363a63fb11adb",
+        "local_receipt_sha256": "2eb4029a7b34ed78838ae9ad56b6eb659c54fbf9cb9205c0391545b7ad5993d9",
+        "candidate_sha256": "d6214c0c4ece0edf8ec7746f6d6dc8b6afda7b00b3111ed8ef7ae08a0910db8a",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "c04d7d2c025f71e3f48f94c1e3714fe9725b12ee65388634ca0250bb89da7a55"
+      },
+      {
+        "task": "SP494-SdkCore",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "src/ezviz_unified/video.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "0c4baf6d9dbe3dec64f56eb168a2315c96360065b7291dd1c0944dbe16568a04",
+        "local_receipt_sha256": "b18a0d52d99dcdc4ede6c793343a76a62ed0b2f4b5957c40535abe87430be1fc",
+        "candidate_sha256": "a09a20bcedf22e0dcc88aa0d8a33df0e2ec76043ae6821f74cb153afe75441c3",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "5dc1dd78086da6c32736383fd7170f344124239744e41339a3bb040beb51e667"
+      },
+      {
+        "task": "SP494-SdkReadme",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "README.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "6823e33bd25a3f2b6a94e78fcf8a1b460bbfd04d323ba47f614e1743b20ae6dd",
+        "local_receipt_sha256": "a2c258257e8b5a37fb8b9f803c08bed5f75555df2dbb4f1c4b687b9fd20e4e33",
+        "candidate_sha256": "9ec1430641ba80fb1ac9631692c09423dacc36649b49626612eeeb457780fbaa",
+        "disposition": "revised_before_acceptance",
+        "followup": "SP494-SdkReadmeR1"
+      },
+      {
+        "task": "SP494-SdkReadmeR1",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "README.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "aa94651b14b0d600d248abee08687d5994ce62e677407caa83818f379b987eb3",
+        "local_receipt_sha256": "ed362c00406bf4645f52b8d17ab4886c6ad448520eb17fc70318e8cb954d1a79",
+        "candidate_sha256": "7432c2d01e6a18c57213d86287210368caa3f91ce9c3e015230ab2459bbc9289",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "0833483fe6aa3225cf0e9ba4c55748217fda85cdab54a4c0a6e60d61a8775cbf"
+      },
+      {
+        "task": "SP494-TestCLI",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "tests/test_example_rtmp_aac.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "ab57c40e03ca1101d6cf629e0a4bf2ce93faf81b8d8b6133c552c329050223e5",
+        "local_receipt_sha256": "9ae776b52f17a64e2a217411a406519cae96fa28d902e0135e4957e5c2df5f68",
+        "candidate_sha256": "5bc3432d21579d7a6ebbff236fa271237b1a673c4f6fbf55776c59fb05b66128",
+        "disposition": "revised_before_integration"
+      },
+      {
+        "task": "SP494-TestCLIFix",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "tests/test_example_rtmp_aac.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "1be1fb82140d133c5a8dd944089bdad02542d42ae944f2d9b9a1576ed37ee71d",
+        "local_receipt_sha256": "8258a4b2bce6e5a319c5bdc44393f8bd82af5ddbf593b85982bd97e1097b0e51",
+        "candidate_sha256": "f32f526beb49903d1e5267c720c0c2fe5e055b49dad46b663215099e006822db",
+        "disposition": "revised_before_integration"
+      },
+      {
+        "task": "SP494-TestCLIRegion",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "tests/test_example_rtmp_aac.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "f789756d1f8c62ac033050bb0967129fd7f740758f999c64f2bf9397cff59cd4",
+        "local_receipt_sha256": "870d2a2303185a2af9e1b8e8995afc7d6c88bf42742f8d6d6bdc282b04d68e5e",
+        "candidate_sha256": "ca4d98848b65fa172dca5ddee33046990e61a26c20c5084514e1cbc4ee051afa",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "3950e8baad7cddc2fc364793ed7a678813d810848335f771a9a7434c580e1920"
+      },
+      {
+        "task": "SP494-TestSDKEventsR2",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "tests/test_sdk_rtmp_aac.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "be386f2fb1502453e36a8a960f1ec8d0a06a90ff7f7b54cde32356aca5015a73",
+        "local_receipt_sha256": "3b27be31885b0978d99d59eab020683e39f44683d97b3fe8150b7d74b9eb1856",
+        "candidate_sha256": "5a50ab945f9e257a8097b1b60cac913caf9ecc0a6a07a96e9724a075a6d87309",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "152c25c98d89c2529bc2ad5098d7229b452ef7a7b6b7db2d88cdb320c110ea9f"
+      },
+      {
+        "task": "SP494-TestSDKFailures",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "tests/test_sdk_rtmp_aac.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "d294919d1fcc51d06869795b1198d20c7d93fdf34a80f7e803c92723a6328a90",
+        "local_receipt_sha256": "c6fb29c45d94ce3a7d0b36f703922340b16c189ce19e747396561c4d9be17115",
+        "candidate_sha256": "549b76ff28af14b5b33e2a7170789faa746b522c0c85b7619cb7645cfc5cf328",
+        "disposition": "revised_before_integration"
+      },
+      {
+        "task": "SP494-TestSDKWire",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "tests/test_sdk_rtmp_aac.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "e2d8e81d2e12998ba651eac26885494c9e186922a2608a7e5699de0c30358ca0",
+        "local_receipt_sha256": "a95ae292b23c982c0be3505c0b6ed9fa3d763006d4cd581928fb2175669b430e",
+        "candidate_sha256": "b54bafa178c837291346436b34afb29f4d41dd6ed708c1a6fe4c128a6a67a770",
+        "disposition": "revised_before_integration"
+      },
+      {
+        "task": "SP494-TestSDKWireFix",
+        "input_commit": "df24ea61bb2c6f2841d2544548d72a6c8b25c1d5",
+        "write_scope": [
+          "tests/test_sdk_rtmp_aac.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "d208bd828507936f4864e9002e2e6f74a84489d316880be10664f735aa613d97",
+        "local_receipt_sha256": "7cd2edb43d5c5ec6954b67268076b8242d1142c69c9c2db36bbacc008f4bcd81",
+        "candidate_sha256": "17b5890809edbb0fd9350dc9af2971e660f19b0bc3544796ef079393fd7d6065",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "154eeb8e44b19e84239ff83d5ef617c95764a0865129097cb932ac47ab2ced3d"
+      }
+    ],
+    "deterministic_integration": [
+      {
+        "task": "SP494-RegContracts",
+        "write_scope": [
+          "contracts/reviewed-transport-contracts.json"
+        ],
+        "integration_receipt_sha256": "91a4fd94ea3e8a00b4b8ab82305796eb4d1e20d679c51c50381d05aeded94d27"
+      },
+      {
+        "task": "SP494-RegBindings",
+        "write_scope": [
+          "contracts/sdk-bindings.json"
+        ],
+        "integration_receipt_sha256": "6a18a3318ca632cd3b85c52c7dae700a0e2c4eab97a0e660c2ff4d0ae97b1e67"
+      },
+      {
+        "task": "SP494-RegPrivate",
+        "write_scope": [
+          "src/ezviz_unified/_diagnostic_registry.py"
+        ],
+        "integration_receipt_sha256": "7a3cef6b96039acb65f169a4c109ceb97ca43d47942eec01d01ecb97eb618b2a"
+      },
+      {
+        "task": "SP494-RegPublic",
+        "write_scope": [
+          "docs/diagnostics-v1-coverage.json"
+        ],
+        "integration_receipt_sha256": "4a6d69d355832e954c129bc4585d1110f99da4e8ffad854306ebbb1ec5564828"
+      },
+      {
+        "task": "SP494-RegSummary",
+        "write_scope": [
+          "contracts/coverage.json"
+        ],
+        "integration_receipt_sha256": "7dfe6f765ab3529a40cfb6a3c24d86966c57b4cf5d505f02f4423bd942c7539a"
+      },
+      {
+        "task": "SP494-RegTestCount",
+        "write_scope": [
+          "tests/test_harness_diagnostic_coverage.py"
+        ],
+        "integration_receipt_sha256": "177ac4231121ae3cdfecc772784ad6c6be4ab568539a941f9cee885401f62b60"
+      },
+      {
+        "task": "README editorial integration",
+        "write_scope": [
+          "README.md"
+        ],
+        "integration_receipt_sha256": "39e95bc920ac938159652dff6a6cd002c853827fa71f25f10a4c851b210e8baf"
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "task": "SP494-TestSDKEvents",
+        "disposition": "not_integrated",
+        "reason": "执行形态或候选输出不符合单文件约定，未应用。",
+        "local_receipt_sha256": "8428ffa53fa01d2e5d976bc4627aebb053aca3e1238efe245fd75de5964f013c"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_rtmp_aac.py",
+      "summary": "168 passed in 0.75s",
+      "local_receipt_sha256": "d38c1701df192ffa233e080af0a84206862cd9c92233d8e1271d4017869e09a9",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_rtmp_aac.py",
+      "summary": "39 passed in 0.38s",
+      "local_receipt_sha256": "b38b4f64dd63dcc8e0f741b1641552febd0b4001e8106073689f1bb1a12f3081",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_harness_diagnostic_coverage.py",
+      "summary": "424 passed in 1.16s",
+      "local_receipt_sha256": "24590b9d6305a88b1941c342b508bd2eed3508f9acb59f297dcdf45815201148",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "10841 passed, 35 subtests passed in 66.86s (0:01:06)",
+      "local_receipt_sha256": "0b9643b675269a40468c468f1ce8bbe1843ed1dc0d4279b95519c6f391d40b1b",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "281 registered contracts, 2280/2280 offline wire checks passed",
+      "local_receipt_sha256": "2510a6b15f81feb07b0bf951afd7dadde634ac62a70ab6822db86d028c7a6fa5",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "281 registered bindings, 562 sync/async symbols checked",
+      "local_receipt_sha256": "1182a08872259fd4d912e93a99596e333bd80a806f459a15c5988f79e9fca322",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 63 source files",
+      "local_receipt_sha256": "540c275c510071ff6862f6d8519b188feab587a87abca2d8ecc40201b107682b",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/video.py src/ezviz_unified/_diagnostic_registry.py examples/rtmp_aac.py tests/test_sdk_rtmp_aac.py tests/test_example_rtmp_aac.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "436319680081ae17c291b2628c49b806353a2bd7a3338148839b10b4b1222785",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/video.py src/ezviz_unified/_diagnostic_registry.py examples/rtmp_aac.py tests/test_sdk_rtmp_aac.py tests/test_example_rtmp_aac.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "6 files already formatted",
+      "local_receipt_sha256": "ae37c09d09ec9bd72dbdc6fe8b2d0b95fb4f2954980c1fd39cd39634f398555c",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "本批仅用合成传输。真实设备和通道权限、当前计费、原开关值与恢复及实际 RTMP 音频格式均待分别核验。"
+}

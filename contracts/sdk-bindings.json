@@ -3788,7 +3788,7 @@
         "AsyncVideo.get_rtmp_aac_support"
       ],
       "public_entry": "video.get_rtmp_aac_support",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3801,7 +3801,7 @@
         "AsyncVideo.set_rtmp_aac_enabled"
       ],
       "public_entry": "video.set_rtmp_aac_enabled",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
