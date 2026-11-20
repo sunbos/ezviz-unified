@@ -1,0 +1,132 @@
+import groovy.json.JsonOutput
+import java.security.MessageDigest
+import org.gradle.api.artifacts.component.ModuleComponentIdentifier
+
+plugins {
+    id 'com.android.application' version '8.9.2'
+}
+
+android {
+    namespace 'org.example.ezvizprobe'
+    compileSdk 35
+    buildToolsVersion '35.0.0'
+    defaultConfig {
+        applicationId 'org.example.ezvizprobe'
+        minSdk 21
+        targetSdk 35
+        versionCode 1
+        versionName '1'
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+    packaging {
+        jniLibs {
+            keepDebugSymbols += ['**/*.so']
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+configurations {
+    sdkPom {
+        canBeConsumed = false
+        canBeResolved = true
+        transitive = false
+    }
+}
+
+dependencies {
+    implementation 'io.github.ezviz-open:ezviz-sdk:5.34'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    sdkPom 'io.github.ezviz-open:ezviz-sdk:5.34@pom'
+}
+
+def expectedInputs = [
+    'io.github.ezviz-open:ezviz-sdk:5.34': [type: 'aar', bytes: 50305579L, sha256: 'd93f556aa26eee51049efbdaa6a85fc2116220a6500153810062954966a9a571'],
+    'com.squareup.okhttp3:okhttp:3.12.1': [type: 'jar', bytes: 422787L, sha256: '07c3d82ca7eaf4722f00b2da807dc7860f6169ae60cfedcf5d40218f90880a46'],
+    'com.squareup.okio:okio:1.15.0': [type: 'jar', bytes: 88732L, sha256: '693fa319a7e8843300602b204023b7674f106ebcb577f2dd5807212b66118bd2'],
+    'com.google.code.gson:gson:2.8.5': [type: 'jar', bytes: 241622L, sha256: '233a0149fc365c9f6edbd683cfe266b19bdc773be98eabdaf6b3c924b48e7d81'],
+]
+def expectedPomSha = 'd9ef6ec7f97ccf83fb3a0fdb572dfd6cea28ad541342f7bbf3774b819b310155'
+def expectedPomBytes = 1246L
+
+def verifySdkInputs = tasks.register('verifySdkInputs') {
+    def reportProvider = layout.buildDirectory.file('reports/ezviz-inputs.json')
+    outputs.file(reportProvider)
+    outputs.upToDateWhen { false }
+    doLast {
+        File reportFile = reportProvider.get().asFile
+        reportFile.delete()
+        def sha256 = { File f ->
+            def md = MessageDigest.getInstance('SHA-256')
+            f.withInputStream { ins ->
+                byte[] buf = new byte[8192]
+                int n
+                while ((n = ins.read(buf)) != -1) {
+                    md.update(buf, 0, n)
+                }
+            }
+            md.digest().encodeHex().toString()
+        }
+        def runtime = configurations.getByName('releaseRuntimeClasspath')
+        Set expectedGavs = expectedInputs.keySet()
+        Set actualGavs = runtime.incoming.resolutionResult.allComponents.findResults { comp ->
+            def cid = comp.id
+            (cid instanceof ModuleComponentIdentifier) ? "${cid.group}:${cid.module}:${cid.version}".toString() : null
+        }.toSet()
+        def missing = expectedGavs - actualGavs
+        def unexpected = actualGavs - expectedGavs
+        if (!missing.isEmpty() || !unexpected.isEmpty()) {
+            throw new GradleException("module set mismatch missing=${missing.sort()} unexpected=${unexpected.sort()}")
+        }
+        Map artifacts = [:]
+        Set seen = [] as Set
+        runtime.resolvedConfiguration.resolvedArtifacts.each { ra ->
+            def mvid = ra.moduleVersion.id
+            String gav = "${mvid.group}:${mvid.name}:${mvid.version}".toString()
+            if (!seen.add(gav)) {
+                throw new GradleException("duplicate artifact ${gav}")
+            }
+            def exp = expectedInputs[gav]
+            if (exp == null) {
+                throw new GradleException("unexpected artifact ${gav}")
+            }
+            File f = ra.file
+            if (ra.type != exp.type || !f.name.endsWith('.' + exp.type)) {
+                throw new GradleException("artifact type mismatch for ${gav}")
+            }
+            if (f.length() != exp.bytes) {
+                throw new GradleException("size mismatch for ${gav}")
+            }
+            String sha = sha256(f)
+            if (sha != exp.sha256) {
+                throw new GradleException("sha256 mismatch for ${gav}")
+            }
+            artifacts[gav] = [filename: f.name, type: exp.type, bytes: f.length(), sha256: sha, file: f.absolutePath]
+        }
+        if (seen != expectedGavs) {
+            throw new GradleException("missing artifacts ${(expectedGavs - seen).sort()}")
+        }
+        File pomFile = configurations.sdkPom.singleFile
+        long pomBytes = pomFile.length()
+        String pomSha = sha256(pomFile)
+        if (pomBytes != expectedPomBytes || pomSha != expectedPomSha) {
+            throw new GradleException('sdkPom verification failed')
+        }
+        def sorted = expectedGavs.sort().collectEntries { gav -> [(gav): artifacts[gav]] }
+        reportFile.parentFile.mkdirs()
+        reportFile.text = JsonOutput.toJson([schema_version: 1, configuration: 'releaseRuntimeClasspath', artifacts: sorted, pom: [filename: pomFile.name, bytes: pomBytes, sha256: pomSha, file: pomFile.absolutePath]])
+    }
+}
+tasks.matching { it.name == 'preBuild' }.configureEach { dependsOn(verifySdkInputs) }
