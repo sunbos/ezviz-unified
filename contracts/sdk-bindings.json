@@ -4010,6 +4010,32 @@
       "public_entry": "devices.list_by_id",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.recordings.by_time",
+      "region": "domestic",
+      "source_doc_id": "1422",
+      "module": "src/ezviz_unified/recordings.py",
+      "symbols": [
+        "Recordings.by_time",
+        "AsyncRecordings.by_time"
+      ],
+      "public_entry": "recordings.by_time",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.recordings.by_text_time",
+      "region": "domestic",
+      "source_doc_id": "1600",
+      "module": "src/ezviz_unified/recordings.py",
+      "symbols": [
+        "Recordings.by_text_time",
+        "AsyncRecordings.by_text_time"
+      ],
+      "public_entry": "recordings.by_text_time",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }

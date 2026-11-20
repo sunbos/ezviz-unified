@@ -2635,6 +2635,39 @@
         "国内 673 E14;E48;E52;E56",
         "docs/coordination/domestic-device-cursor/admission.json"
       ]
+    },
+    {
+      "id": "cn.recordings.by_time.row_shapes_and_metadata_only",
+      "region": "domestic",
+      "source_doc_id": "1422",
+      "source_url": "https://open.ys7.com/help/1422",
+      "source_content_sha256": "ca091619e6519e71927789be8ea9bf1aad71dfda98d8ab702cd1c49de16e2c95",
+      "description": "E82 的 data 是录像文件列表。E86 的 data 是包含 files、isAll、nextFileTime 的分页对象。createTime 在 E82 中为文本，在 E86 中为整数，E90 表格标注为 Long。本地录像的云端字段可能为 null 或为零。E90 的 downloadPath 不能用于下载。1491 是不分页的请求子集，没有独立的响应示例。1766 的 E224 是示例。5371 的 E196/E197 是索引。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 保留原始行和分页数据。SDK 不请求返回的媒体 URL。",
+      "evidence": [
+        "E3;E14;E78",
+        "E82;E86;E90;E206",
+        "国内 1491 E14;E61",
+        "国内 1766 E224",
+        "国内 5371 E196;E197",
+        "docs/coordination/domestic-stored-recordings/admission.json"
+      ]
+    },
+    {
+      "id": "cn.recordings.by_text_time.component_scope_and_text_time",
+      "region": "domestic",
+      "source_doc_id": "1600",
+      "source_url": "https://open.ys7.com/help/1600",
+      "source_content_sha256": "9f60bdb23e399dbea9225255ae00945103033d90c849c57216cfb6633bad11e2",
+      "description": "该接口使用字符串类型的 channelNo，可选。startTime 与 stopTime 是日历格式的字符串。deviceSerial 可选。返回值为数组。菜单指向智能电梯摄像机，正文却提到安全帽摄像机，实际适用范围、权限与时区不明确。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 不做纪元时间转换。SDK 不假设硬件支持情况。",
+      "evidence": [
+        "E3;E7;E11;E14;E60",
+        "E64;E68;E108",
+        "docs/coordination/domestic-stored-recordings/admission.json"
+      ]
     }
   ]
 }

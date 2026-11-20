@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from ezviz_unified.devices import Devices
+from ezviz_unified.recordings import Recordings
 from ezviz_unified.settings import Settings
 from ezviz_unified.video import Video
 from harness.wire_eval import evaluate
@@ -25,6 +26,8 @@ REDACTED_OPERATION_IDS = (
     "cn.settings.set_detection_sensitivity",
     "cn.video.get_video_codec",
     "cn.devices.list_by_id",
+    "cn.recordings.by_time",
+    "cn.recordings.by_text_time",
 )
 
 FACADES = {
@@ -38,6 +41,8 @@ FACADES = {
     "cn.devices.get": (Devices, "get"),
     "cn.video.get_video_codec": (Video, "get_video_codec"),
     "cn.devices.list_by_id": (Devices, "list_by_id"),
+    "cn.recordings.by_time": (Recordings, "by_time"),
+    "cn.recordings.by_text_time": (Recordings, "by_text_time"),
 }
 
 READ_ONLY_OPERATION_IDS = {
@@ -47,6 +52,8 @@ READ_ONLY_OPERATION_IDS = {
     "cn.video.get_video_codec",
     "cn.devices.get",
     "cn.devices.list_by_id",
+    "cn.recordings.by_time",
+    "cn.recordings.by_text_time",
 }
 
 MUTATIONS = {
