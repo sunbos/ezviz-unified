@@ -50,6 +50,7 @@ class _SdkRedactionContext:
         "active",
         "mask_registration_fields",
         "mask_device_add_details",
+        "mask_oauth_details",
     )
 
     def __init__(
@@ -58,11 +59,13 @@ class _SdkRedactionContext:
         mask_media_urls: bool,
         mask_registration_fields: bool = False,
         mask_device_add_details: bool | None = False,
+        mask_oauth_details: bool | None = False,
     ) -> None:
         self.secrets = secrets
         self.mask_media_urls = mask_media_urls
         self.mask_registration_fields = bool(mask_registration_fields)
         self.mask_device_add_details = bool(mask_device_add_details)
+        self.mask_oauth_details = bool(mask_oauth_details)
         self.request_url: httpx.URL | None = None
         self.active = True
 
@@ -113,19 +116,30 @@ class _SdkRedactionFilter(logging.Filter):
                 redaction.mask_media_urls
                 or redaction.mask_registration_fields
                 or redaction.mask_device_add_details
+                or redaction.mask_oauth_details
             ) and url is not redaction.request_url:
                 return True
-            if redaction.mask_device_add_details:
-                # Owned device-add record: the bound request URL may carry
-                # the caller-supplied cursor and other detail parameters in
-                # its query, which sit outside the collected secrets, so the
-                # query is stripped while method, origin, path, http_version
-                # and status are preserved; the server-controlled reason
-                # phrase is free text and is blanked outright.
+            if redaction.mask_device_add_details or redaction.mask_oauth_details:
+                # Owned device-add/OAuth record: the bound request URL may
+                # carry the caller-supplied cursor and other detail parameters
+                # in its query, which sit outside the collected secrets, so the
+                # query is stripped while method, origin, path and status are
+                # preserved; the server-controlled reason phrase is free text
+                # and is blanked outright.
+                http_version = args[2]
+                if redaction.mask_oauth_details and http_version not in (
+                    "HTTP/1.0",
+                    "HTTP/1.1",
+                    "HTTP/2",
+                    "HTTP/3",
+                ):
+                    # OAuth only: an unrecognised server-reported HTTP version
+                    # is normalised to a fixed token rather than logged raw.
+                    http_version = "HTTP"
                 record.args = (
                     args[0],
                     url.copy_with(query=None),
-                    args[2],
+                    http_version,
                     args[3],
                     "***",
                 )
@@ -165,6 +179,7 @@ def _capture_request_url(request: httpx.Request) -> None:
             redaction.mask_media_urls
             or redaction.mask_registration_fields
             or redaction.mask_device_add_details
+            or redaction.mask_oauth_details
         )
         and redaction.request_url is None
     ):
@@ -328,11 +343,15 @@ def _augment_query_secrets(
     return tuple(sorted(collected))
 
 
-def _read_payload(response: httpx.Response) -> object:
+def _read_payload(response: httpx.Response, *, redact_oauth_details: bool = False) -> object:
     try:
         return response.json()
     except ValueError:
         return None
+    except RecursionError:
+        if redact_oauth_details:
+            return None
+        raise
 
 
 def _split_body(
@@ -429,6 +448,7 @@ class SyncTransport:
             mask_media_urls,
             mask_registration_fields=mask_registration_fields,
             mask_device_add_details=(policy is not None and policy.redact_device_add_details),
+            mask_oauth_details=(policy is not None and policy.redact_oauth_details),
         )
         marker = _SDK_REDACTION.set(context)
         response: httpx.Response | None = None
@@ -459,7 +479,10 @@ class SyncTransport:
             )
         assert response is not None
         return decode_response(
-            _read_payload(response),
+            _read_payload(
+                response,
+                redact_oauth_details=policy is not None and policy.redact_oauth_details,
+            ),
             policy=policy,
             http_status=response.status_code,
             operation=operation,
@@ -541,6 +564,7 @@ class AsyncTransport:
             mask_media_urls,
             mask_registration_fields=mask_registration_fields,
             mask_device_add_details=(policy is not None and policy.redact_device_add_details),
+            mask_oauth_details=(policy is not None and policy.redact_oauth_details),
         )
         marker = _SDK_REDACTION.set(context)
         response: httpx.Response | None = None
@@ -571,7 +595,10 @@ class AsyncTransport:
             )
         assert response is not None
         return decode_response(
-            _read_payload(response),
+            _read_payload(
+                response,
+                redact_oauth_details=policy is not None and policy.redact_oauth_details,
+            ),
             policy=policy,
             http_status=response.status_code,
             operation=operation,

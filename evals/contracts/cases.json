@@ -6590,6 +6590,36 @@
           "sample": 7
         }
       }
+    },
+    {
+      "operation_id": "global.oauth.refresh_token",
+      "args": [
+        "SYNTHETIC-OLD-REFRESH+%&"
+      ],
+      "kwargs": {
+        "open_id": "SYNTHETIC-OPEN-INPUT",
+        "bundle_id": "fixture.refresh.app",
+        "scope": "fixture input scope",
+        "state": "SYNTHETIC+STATE/值"
+      },
+      "fields": {
+        "refresh_token": "SYNTHETIC-OLD-REFRESH+%&",
+        "client_id": {
+          "$ref": "app_key"
+        },
+        "open_id": "SYNTHETIC-OPEN-INPUT",
+        "bundleId": "fixture.refresh.app",
+        "scope": "fixture input scope",
+        "state": "SYNTHETIC+STATE/值"
+      },
+      "data": {
+        "access_token": "SYNTHETIC-NEW-ACCESS",
+        "refresh_token": "SYNTHETIC-NEW-REFRESH",
+        "openId": "SYNTHETIC-OPEN-RETURNED",
+        "expires_in": 1513864879148,
+        "scope": "fixture returned scope",
+        "state": "SYNTHETIC+STATE/值"
+      }
     }
   ]
 }

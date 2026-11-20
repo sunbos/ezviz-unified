@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 海外用户 OAuth 令牌刷新
+
+§1.3 的同步、异步入口和合成示例均通过离线验收。传输评测单独核对向授权 origin 发送的一次表单请求，以及刷新材料失效、绑定不匹配和 HTTP 故障。请求选择示例的 `open_id` 和表格要求的 `bundleId`。服务端实际接受的组合、有效期单位与旧凭据是否失效尚未实测。真实刷新需要已有合法用户刷新材料和具体授权。[冻结的请求格式](../coordination/overseas-oauth-refresh/admission.json) · [离线回执](2026-11-20-overseas-oauth-refresh/offline.json)
+
 ## 海外用户 OAuth 登录与回跳
 
 469 §1.1 的同步与异步入口均通过本地验收。SDK 构造全球登录地址，只解析与预置授权源匹配的区域 HTTPS 回跳，诊断仅记录本地调用。示例使用合成数据。真实用户授权、浏览器交互与令牌签发仍待验收。§1.3 用户令牌刷新继续单独登记。[接口及来源差异](../coordination/overseas-oauth-login/admission.json) · [离线回执](2026-11-20-overseas-oauth-login/offline.json)

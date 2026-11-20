@@ -242,6 +242,7 @@ ADDITIONAL_ENTRYPOINTS: frozenset[str] = frozenset(
         "inspect_device_async",
         "oauth.build_login_url",
         "oauth.parse_redirect",
+        "oauth.refresh_token",
         "application",
     }
 )
@@ -578,6 +579,7 @@ OPERATIONS: frozenset[str] = frozenset(
         "global.maintenance.format_disk",
         "global.maintenance.upgrade_firmware",
         "global.maintenance.upgrade_status",
+        "global.oauth.refresh_token",
         "global.playback.create",
         "global.playback.invalidate",
         "global.ptz.add_preset",

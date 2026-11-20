@@ -2351,6 +2351,37 @@
         "E79;E83;E108",
         "docs/coordination/domestic-rtmp-aac/admission.json"
       ]
+    },
+    {
+      "id": "global.oauth.refresh_token.request_fields",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "source_url": "https://open.ys7.com/help/en/469",
+      "source_content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+      "description": "E269 将 openId 和 bundleId 列为必填，E319 表单使用 open_id 并省略 bundleId。来源未确认哪些组合在服务端可用。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 使用 open_id 并要求 bundleId。一次刷新只发送这一种表单。",
+      "evidence": [
+        "E269/R5;E269/R6",
+        "E319",
+        "docs/coordination/overseas-oauth-refresh/admission.json"
+      ]
+    },
+    {
+      "id": "global.oauth.refresh_token.grant_types_and_expiry",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "source_url": "https://open.ys7.com/help/en/469",
+      "source_content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+      "description": "E323 以字符串表示两个令牌，E355 字段表将其标为 int；expires_in 被描述为时间戳，时间单位未明确。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 要求字符串令牌，返回非负整数 expires_in 的原值。响应 openId、scope 与 state 按冻结的字段规则处理。",
+      "evidence": [
+        "E323",
+        "E327",
+        "E355",
+        "docs/coordination/overseas-oauth-refresh/admission.json"
+      ]
     }
   ]
 }
