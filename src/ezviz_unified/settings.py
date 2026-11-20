@@ -43,7 +43,7 @@ read, and no ``data`` body required on write.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
@@ -70,6 +70,49 @@ _BODY_META_POLICY = ResponsePolicy(
     success_values=(200,),
     envelope_paths=("body",),
     redact_message_urls=True,
+)
+
+# Motion area coordinates reveal which zones a device watches, so both
+# regional policies opt into the device-add redaction switch for this
+# sensitive data.
+_MOTION_AREA_DOMESTIC_POLICY = replace(
+    _POLICY,
+    redact_device_add_details=True,
+)
+
+_MOTION_AREA_OVERSEAS_POLICY = replace(
+    _BODY_META_POLICY,
+    redact_device_add_details=True,
+)
+
+_GET_MOTION_AREA = Operation(
+    name="settings.get_motion_area",
+    method="GET",
+    path="/api/v3/device/motion/detect/get",
+    regions=frozenset({_DOMESTIC}),
+    token_location="header",
+    read_only=True,
+    policy=_MOTION_AREA_DOMESTIC_POLICY,
+)
+
+_SET_MOTION_AREA = Operation(
+    name="settings.set_motion_area",
+    method="POST",
+    path="/api/v3/device/motion/detect/set",
+    regions=frozenset({_DOMESTIC}),
+    token_location="header",
+    read_only=False,
+    policy=_MOTION_AREA_DOMESTIC_POLICY,
+)
+
+_SET_MOTION_AREA_OVERSEAS = Operation(
+    name="settings.set_motion_area",
+    method="POST",
+    path="/api/v3/device/motion/detect/set",
+    regions=_OVERSEAS_REGIONS,
+    token_location="header",
+    read_only=False,
+    policy=_MOTION_AREA_OVERSEAS_POLICY,
 )
 
 _GET_ALARM_SOUND_MODE = Operation(
@@ -408,6 +451,51 @@ def _overseas_get_op(name: str, path: str, *, read_only: bool) -> Operation:
     )
 
 
+def _check_motion_area_read_scope(scope: object) -> None:
+    """Reject the unresolved overseas read before parameters or requests."""
+    if scope == _OVERSEAS:
+        raise ValueError("overseas motion area read origin is unresolved")
+
+
+def _motion_area_headers(device_serial: str, channel_no: str) -> dict[str, str]:
+    """Return the device and channel headers shared by motion area calls."""
+    return {
+        "deviceSerial": _header("device_serial", device_serial),
+        "channelNo": _header("channel_no", channel_no),
+    }
+
+
+def _motion_area_value(area: str) -> str:
+    """Return the opaque area string after rejecting control characters."""
+    text = _check_text(area, "area")
+    for char in text:
+        code = ord(char)
+        if code < 0x20 or 0x7F <= code <= 0x9F:
+            raise ValueError("area must not contain control characters")
+    return text
+
+
+def _motion_area_response(response: ApiResponse) -> ApiResponse:
+    """Return the response when the motion area payload shape is valid."""
+    data = response.data
+    area = data.get("area") if isinstance(data, dict) else None
+    if (
+        not isinstance(data, dict)
+        or not isinstance(area, list)
+        or any(type(item) is not int for item in area)
+        or ("deviceSerial" in data and not isinstance(data["deviceSerial"], str))
+        or any(
+            key in data and type(data[key]) is not int for key in ("channelNo", "rows", "columns")
+        )
+    ):
+        raise ProtocolError(
+            "unexpected settings.get_motion_area response shape",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
+
+
 def _pir_area_get_request(
     serial: object, channel: int | None, scope: str
 ) -> tuple[Operation, dict[str, str | int]]:
@@ -730,6 +818,54 @@ class Settings:
         with _diagnostic_scope(self._client, entrypoint="settings.set_switch", mode="sync"):
             op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
             return self._client.request(op, data=data)
+
+    def get_motion_area(self, device_serial: str, *, channel_no: str) -> ApiResponse:
+        """Return the motion detection area of a domestic device.
+
+        Overseas reads have no confirmed origin and fail before any request.
+        """
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_motion_area",
+            mode="sync",
+        ):
+            _check_motion_area_read_scope(self._client.region.scope)
+            response = self._client.request(
+                _GET_MOTION_AREA,
+                headers=_motion_area_headers(device_serial, channel_no),
+            )
+            return _motion_area_response(response)
+
+    def set_motion_area(
+        self,
+        device_serial: str,
+        *,
+        channel_no: str,
+        area: str,
+    ) -> ApiResponse:
+        """Set the motion detection area for a domestic or overseas device.
+
+        Domestic devices receive the area in a form body while overseas
+        devices receive it in the query string.
+        """
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_motion_area",
+            mode="sync",
+        ):
+            headers = _motion_area_headers(device_serial, channel_no)
+            value = _motion_area_value(area)
+            if self._client.region.scope == _OVERSEAS:
+                return self._client.request(
+                    _SET_MOTION_AREA_OVERSEAS,
+                    headers=headers,
+                    params={"area": value},
+                )
+            return self._client.request(
+                _SET_MOTION_AREA,
+                headers={**headers, "Content-Type": _FORM_CONTENT_TYPE},
+                data={"area": value},
+            )
 
     def get_pir_area(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Read the PIR detection area configuration (overseas region only).
@@ -1069,6 +1205,54 @@ class AsyncSettings:
         with _diagnostic_scope(self._client, entrypoint="settings.set_switch", mode="async"):
             op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
             return await self._client.request(op, data=data)
+
+    async def get_motion_area(self, device_serial: str, *, channel_no: str) -> ApiResponse:
+        """Return the motion detection area of a domestic device.
+
+        Overseas reads have no confirmed origin and fail before any request.
+        """
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_motion_area",
+            mode="async",
+        ):
+            _check_motion_area_read_scope(self._client.region.scope)
+            response = await self._client.request(
+                _GET_MOTION_AREA,
+                headers=_motion_area_headers(device_serial, channel_no),
+            )
+            return _motion_area_response(response)
+
+    async def set_motion_area(
+        self,
+        device_serial: str,
+        *,
+        channel_no: str,
+        area: str,
+    ) -> ApiResponse:
+        """Set the motion detection area for a domestic or overseas device.
+
+        Domestic devices receive the area in a form body while overseas
+        devices receive it in the query string.
+        """
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_motion_area",
+            mode="async",
+        ):
+            headers = _motion_area_headers(device_serial, channel_no)
+            value = _motion_area_value(area)
+            if self._client.region.scope == _OVERSEAS:
+                return await self._client.request(
+                    _SET_MOTION_AREA_OVERSEAS,
+                    headers=headers,
+                    params={"area": value},
+                )
+            return await self._client.request(
+                _SET_MOTION_AREA,
+                headers={**headers, "Content-Type": _FORM_CONTENT_TYPE},
+                data={"area": value},
+            )
 
     async def get_pir_area(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Read the PIR detection area configuration (overseas region only).

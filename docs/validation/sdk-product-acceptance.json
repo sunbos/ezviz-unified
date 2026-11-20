@@ -11549,53 +11549,70 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:1731:d0",
+      "capability_selector": "settings.get_motion_area",
       "capability_ids": [
         "candidate:domestic:1731:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.settings.get_motion_area"
+      ],
+      "scope_revision": "2026-11-21-r52-regional-motion-area",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
+      "account_role_permissions": "国内开发者应用令牌；资料未独立列明托管/子账号和具体权限。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "认证与业务均由合成传输提供。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求查询设备人形检测区域配置”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确地区、请求头、响应层级和原始字段。",
+        "write": "只用模拟请求验证表单与 query 差异，写入不重放。",
+        "physical": "不验证侦测范围或硬件状态。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/36"
+        "docs/coordination/SP088/scenario-input.json#/entries/36",
+        "docs/coordination/regional-motion-area/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1731.source.json"
       ],
       "pending_questions": [
-        "返回区域结构与candidate:domestic:1730:d0的PIR区域是否为同一格式待核",
-        "是否仅覆盖人形检测而非全部侦测类型待核"
+        "整数数组及 rows/columns 不构成通用网格编码或写入原值；不承诺形状乘积、位宽、方向。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_motion_area.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_motion_area.py",
+        "examples/motion_area.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "71e3582064f87e8bb49e297770a985b5436dea0c",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-regional-motion-area/offline.json"
       ]
     },
     {
@@ -26941,7 +26958,10 @@
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/44"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/44",
+        "docs/coordination/regional-motion-area/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3728.source.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/473.source.json"
       ],
       "pending_questions": [
         "declared origin is open.ys7.com per e5 for an overseas document — keep the anomaly; do not silently rewrite to {areaDomain} and do not treat the domestic host as an official fact for routing"
@@ -26949,7 +26969,7 @@
       "code_artifact_evidence_refs": [],
       "result": "awaiting_design",
       "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+        "3728 E5 指定国内主机，但 473 E57/R4 要求海外凭据只用于所属区域。未找到该 GET 在海外业务 origin 部署的独立证据。不得向国内发送海外令牌或自动试探多个 origin。"
       ],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
@@ -26960,52 +26980,70 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:3729:d0",
+      "capability_selector": "settings.set_motion_area",
       "capability_ids": [
         "candidate:overseas:3729:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.settings.set_motion_area"
+      ],
+      "scope_revision": "2026-11-21-r52-regional-motion-area",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
+      "account_role_permissions": "托管和子账号支持，要求 Config 权限。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "认证与业务均由合成传输提供。"
       ],
       "expected_evidence": {
-        "read": "围绕“设置设备移动侦测区域”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "精确地区、请求头、响应层级和原始字段。",
+        "write": "只用模拟请求验证表单与 query 差异，写入不重放。",
+        "physical": "不验证侦测范围或硬件状态。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/45"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/45",
+        "docs/coordination/regional-motion-area/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3729.source.json"
       ],
       "pending_questions": [
-        "complete grid/bitmap encoding for the area string is not defined — do not merge with PIR-area format"
+        "海外用 query 传 area；区域部署、端侧解释和恢复效果待核。不可使用国内表单或把国内位图示意泛化。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_motion_area.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_motion_area.py",
+        "examples/motion_area.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "71e3582064f87e8bb49e297770a985b5436dea0c",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-regional-motion-area/offline.json"
       ]
     },
     {
@@ -35475,6 +35513,223 @@
       },
       "blockers": [
         "真实签发、观看和设备资源未专项授权。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1731-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "regional_motion_area",
+      "capability_selector": "settings.get_motion_area",
+      "capability_ids": [
+        "candidate:domestic:1731:d0"
+      ],
+      "operation_ids": [
+        "cn.settings.get_motion_area"
+      ],
+      "scope_revision": "2026-11-21-r52-regional-motion-area",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内开发者应用令牌；资料未独立列明托管/子账号和具体权限。",
+      "device_requirements": "确认账号、目标设备和准确通道。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "冻结真实目标与调用上限。"
+      ],
+      "expected_evidence": {
+        "read": "仅保存授权范围内的状态和形态。",
+        "write": "只读。",
+        "physical": "不从成功回执推导实际检测生效。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读指定通道。",
+      "source_refs": [
+        "docs/coordination/regional-motion-area/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1731.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待确认此场景的资源和权限。"
+      ],
+      "limitations": [
+        "整数数组及 rows/columns 不构成通用网格编码或写入原值；不承诺形状乘积、位宽、方向。"
+      ]
+    },
+    {
+      "case_id": "ACC-CN-1732-MOTION-AREA-SET-OFFLINE-001",
+      "tier": "required",
+      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
+      "case_origin": "reviewed_unregistered_official_operation",
+      "capability_selector": "settings.set_motion_area",
+      "capability_ids": [
+        "candidate:domestic:1732:reviewed"
+      ],
+      "operation_ids": [
+        "cn.settings.set_motion_area"
+      ],
+      "scope_revision": "2026-11-21-r52-regional-motion-area",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内开发者应用令牌；资料未独立列明托管/子账号和具体权限。",
+      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "认证与业务均由合成传输提供。"
+      ],
+      "expected_evidence": {
+        "read": "精确地区、请求头、响应层级和原始字段。",
+        "write": "只用模拟请求验证表单与 query 差异，写入不重放。",
+        "physical": "不验证侦测范围或硬件状态。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
+      "source_refs": [
+        "docs/coordination/regional-motion-area/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1732.source.json"
+      ],
+      "pending_questions": [
+        "此条曾只有未解析的 curl 观察。原文路由/方法/表格与表单样例证实为国内设置。curl 令牌行格式不完整，响应示意含尾逗号。输入字符串不从数组推导。"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_motion_area.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_motion_area.py",
+        "examples/motion_area.py",
+        "README.md"
+      ],
+      "result": "recorded_evidence",
+      "blockers": [],
+      "limitations": [
+        "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "71e3582064f87e8bb49e297770a985b5436dea0c",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-regional-motion-area/offline.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CN-1732-MOTION-AREA-SET-LIVE-001",
+      "tier": "required",
+      "case_origin": "regional_motion_area",
+      "capability_selector": "settings.set_motion_area",
+      "capability_ids": [
+        "candidate:domestic:1732:reviewed"
+      ],
+      "operation_ids": [
+        "cn.settings.set_motion_area"
+      ],
+      "scope_revision": "2026-11-21-r52-regional-motion-area",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内开发者应用令牌；资料未独立列明托管/子账号和具体权限。",
+      "device_requirements": "确认账号、目标设备和准确通道。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "冻结真实目标与调用上限。需独立的安全测试区域、授权变更和可执行恢复方案。"
+      ],
+      "expected_evidence": {
+        "read": "仅保存授权范围内的状态和形态。",
+        "write": "显式授权内的设置和恢复另记。",
+        "physical": "不从成功回执推导实际检测生效。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "未确认原始设置可无损恢复前，不对真实设备执行。",
+      "source_refs": [
+        "docs/coordination/regional-motion-area/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1732.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "待确认此场景的资源和权限。"
+      ],
+      "limitations": [
+        "此条曾只有未解析的 curl 观察。原文路由/方法/表格与表单样例证实为国内设置。curl 令牌行格式不完整，响应示意含尾逗号。输入字符串不从数组推导。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3729-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "regional_motion_area",
+      "capability_selector": "settings.set_motion_area",
+      "capability_ids": [
+        "candidate:overseas:3729:d0"
+      ],
+      "operation_ids": [
+        "global.settings.set_motion_area"
+      ],
+      "scope_revision": "2026-11-21-r52-regional-motion-area",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:account_cluster_not_confirmed",
+      "account_role_permissions": "托管和子账号支持，要求 Config 权限。",
+      "device_requirements": "确认账号、目标设备和准确通道。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "冻结真实目标与调用上限。需独立的安全测试区域、授权变更和可执行恢复方案。"
+      ],
+      "expected_evidence": {
+        "read": "仅保存授权范围内的状态和形态。",
+        "write": "显式授权内的设置和恢复另记。",
+        "physical": "不从成功回执推导实际检测生效。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "未确认原始设置可无损恢复前，不对真实设备执行。",
+      "source_refs": [
+        "docs/coordination/regional-motion-area/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3729.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "待确认此场景的资源和权限。"
+      ],
+      "limitations": [
+        "海外用 query 传 area；区域部署、端侧解释和恢复效果待核。不可使用国内表单或把国内位图示意泛化。"
       ]
     }
   ],

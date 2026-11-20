@@ -2491,6 +2491,55 @@
         "国内 1727 E14;E58;E62",
         "docs/coordination/overseas-alarm-sound/admission.json"
       ]
+    },
+    {
+      "id": "cn.settings.get_motion_area.grid_and_device_coverage",
+      "region": "domestic",
+      "source_doc_id": "1731",
+      "source_url": "https://open.ys7.com/help/1731",
+      "source_content_sha256": "004783ab798aece8924adc8da47d95cd3a49c66e932b066397830d110544f9be",
+      "description": "国内专用接口。文档同时报告了网格行数、列数与整数数组，E50/E90 中一处四列示例把 [1,2,4,8,6] 依次对应第4、3、2、1列以及第2和第3列，但未给出通用的型号宽度或设备朝向规则，也未说明如何换算为 setter 所需字符串。请求头 channelNo 为 String，响应中 channelNo 为 int。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 原样透传行数、列数与整数数组，位掩码含义与区域字符串构造交由调用方处理，channelNo 按请求 String、响应 int 各自声明的类型处理。",
+      "evidence": [
+        "E14",
+        "E46;E50;E90",
+        "E93",
+        "docs/coordination/regional-motion-area/admission.json"
+      ]
+    },
+    {
+      "id": "cn.settings.set_motion_area.example_syntax_and_write_semantics",
+      "region": "domestic",
+      "source_doc_id": "1732",
+      "source_url": "https://open.ys7.com/help/1732",
+      "source_content_sha256": "0d40c9a7aff69c347b1dcf333921691d40de598889983cf13436c2e07e1ae4ab",
+      "description": "国内路由与 POST 方法由 E6、E9、E12、E42、E60 共同确认，尽管提取器只记录了未解析的 curl。证据存在瑕疵，E60 的 token 头格式错误，E64 含尾随逗号但根 code 为字符串 \"200\"，必需的 token 头以 E12 为准，area 为必需表单字符串。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 执行单次写入，不做重试，也不回读校验写入结果。",
+      "evidence": [
+        "E6;E9;E12",
+        "E42;E56;E60",
+        "E64;E68",
+        "docs/coordination/regional-motion-area/admission.json"
+      ]
+    },
+    {
+      "id": "global.settings.set_motion_area.area_encoding_and_regional_readback",
+      "region": "overseas",
+      "source_doc_id": "3729",
+      "source_url": "https://open.ys7.com/help/en/3729",
+      "source_content_sha256": "dd9efadcceec76eecbaae3f01ab56f72d3c6107d79bd1c06f0f41283a7878535",
+      "description": "海外接口为 {areaDomain} 下的 POST，携带 3 个请求头，明确支持托管与子账户场景并要求 Config 权限。area 为必需 query 字符串，请求体为空，区别于国内路由 1732 中 area 作为表单字段的用法。该操作以 HTTP 成功且 body.meta.code 为整数 200 确认请求已被受理，不证明设置已生效。3728 的字面 GET 标注国内主机，与海外区域 token 策略冲突，不能据此推断存在海外 GET。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 仅以 body.meta.code 的整数 200 判定请求被受理，不自动发起 GET、失败回滚或跨区域请求。data/raw 在显式访问时原样保留，敏感信息在展示与诊断中脱敏，不在呈现中暴露标识符，不假设国内外权限互通。",
+      "evidence": [
+        "E2;E5;E8",
+        "E36;E53;E87;E90",
+        "海外 3728 E5",
+        "海外 473 E57/R4",
+        "docs/coordination/regional-motion-area/admission.json"
+      ]
     }
   ]
 }

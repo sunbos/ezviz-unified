@@ -6779,6 +6779,110 @@
           }
         }
       }
+    },
+    {
+      "operation_id": "cn.settings.get_motion_area",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "channel_no": "01"
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": "01"
+      },
+      "data": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": 1,
+        "rows": 2,
+        "columns": 2,
+        "area": [
+          3,
+          1
+        ],
+        "extra": {
+          "nested": {
+            "label": "synthetic",
+            "flags": [
+              true,
+              false
+            ]
+          }
+        }
+      }
+    },
+    {
+      "operation_id": "cn.settings.set_motion_area",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "channel_no": "01",
+        "area": "3, 1 & 0+2"
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": "01",
+        "area": "3, 1 & 0+2"
+      },
+      "data": {
+        "extension": {
+          "nested": {
+            "mode": "synthetic",
+            "attributes": {
+              "retry": 0,
+              "tags": [
+                "alpha",
+                "beta"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "operation_id": "global.settings.set_motion_area",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "channel_no": "01",
+        "area": "3, 1 & 0+2"
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": "01",
+        "area": "3, 1 & 0+2"
+      },
+      "data": {
+        "extension": {
+          "nested": {
+            "mode": "synthetic",
+            "attributes": {
+              "retry": 0,
+              "tags": [
+                "alpha",
+                "beta"
+              ]
+            }
+          }
+        }
+      }
     }
   ]
 }

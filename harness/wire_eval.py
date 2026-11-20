@@ -78,6 +78,9 @@ _REDACTED_MESSAGE_OPERATION_IDS = frozenset(
         "cn.device_add_links.create",
         "cn.device_add_links.records",
         "cn.device_add_links.list",
+        "cn.settings.get_motion_area",
+        "cn.settings.set_motion_area",
+        "global.settings.set_motion_area",
     }
 )
 _MESSAGE_FAULT = "contract-eval-fault"

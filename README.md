@@ -143,6 +143,19 @@ python -m examples.alarm_sound --mode sync
 python -m examples.alarm_sound --mode async
 ```
 
+### 国内与海外设备侦测区域
+
+国内官方文档把这项能力称为人形检测区域，海外的 detection area 则按设备能力覆盖画面变化与人形侦测，使用前请确认设备支持情况。SDK 在 settings 命名空间提供读取方法 `client.settings.get_motion_area(device_serial, channel_no=channel_no)` 与写入方法 `client.settings.set_motion_area(device_serial, channel_no=channel_no, area=area)`。AsyncClient 提供同名方法，例如 `await async_client.settings.get_motion_area(device_serial, channel_no=channel_no)`，两种客户端都返回 ApiResponse。device_serial 与 channel_no 是两个必填字符串，SDK 会将其放入请求头发送。[国内文档 1731](https://open.ys7.com/help/1731) [海外文档 3728](https://open.ys7.com/help/en/3728)
+
+国内读取成功后可在 `response.data['area']` 取得整数列表，行数与列数随设备而异，SDK 不提供通用编解码，也不会把它转换成可回写的字符串。调用海外读取会在鉴权之前抛出 ValueError，因为文档 3728 标注的主机是 open.ys7.com，而文档 473 把海外凭证绑定到各自的 areaDomain。SDK 不会把海外凭证发往国内主机。[海外文档 3728](https://open.ys7.com/help/en/3728) [海外文档 473](https://open.ys7.com/help/en/473)
+
+写入时 SDK 把调用方提供的非空白 UTF-8 字符串原样发出，不解析也不改写，国内放在表单字段，海外按所属区域放在查询参数。写入没有预读取、重试、回读或恢复环节。平台返回成功后，设备上的实际覆盖效果仍需单独确认，对真实设备执行写入与恢复请另行取得授权。离线演示中鉴权请求与业务请求都使用 MockTransport，只能展示离线调用流程，不能证明真机配置。运行下面两条命令可分别体验同步与异步调用。[国内文档 1732](https://open.ys7.com/help/1732) [海外文档 3729](https://open.ys7.com/help/en/3729)
+
+```shell
+python -m examples.motion_area --mode sync
+python -m examples.motion_area --mode async
+```
+
 ## 海外用户 OAuth
 
 `ezviz_unified.oauth` 导出 `OAuth`、`AsyncOAuth` 与结果类型 `OAuthGrant`、`OAuthRefreshResult`，构造形如 `OAuth(app_key, auth_origin=…, api_origin=…)`。调用方须事先分别核实两个不同的区域 HTTPS origin，`auth_origin` 只绑定认证服务域名，`api_origin` 只绑定业务服务域名，本模块不推导这对 origin，不启动监听器，也不自动打开浏览器。

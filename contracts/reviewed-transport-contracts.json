@@ -21355,6 +21355,227 @@
       },
       "source_content_sha256": "84203aedfcca87134b5df1ac6ecfd5d086717370a2c619ca456a747d4ad74d8b",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.settings.get_motion_area",
+      "region": "domestic",
+      "source_doc_id": "1731",
+      "source_url": "https://open.ys7.com/help/1731",
+      "method": "GET",
+      "path": "/api/v3/device/motion/detect/get",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E46;E50;E93"
+      },
+      "constraints": [
+        {
+          "fact": "GET 使用三个必填字符串请求头，没有查询参数或正文。",
+          "evidence": "E7;E11;E14;E42"
+        },
+        {
+          "fact": "区域数组按行列描述，rows 平分探测距离，columns 平分探测角度。SDK 保留 data 中的整数数组和扩展字段。",
+          "evidence": "E46;E50;E90"
+        }
+      ],
+      "uncertainties": [
+        "整数数组及 rows/columns 不构成通用网格编码或写入原值；不承诺形状乘积、位宽、方向。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/device/motion/detect/get",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E42"
+      },
+      "source_content_sha256": "004783ab798aece8924adc8da47d95cd3a49c66e932b066397830d110544f9be",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.settings.set_motion_area",
+      "region": "domestic",
+      "source_doc_id": "1732",
+      "source_url": "https://open.ys7.com/help/1732",
+      "method": "POST",
+      "path": "/api/v3/device/motion/detect/set",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E12"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E12"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E12"
+        },
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "constant": "application/x-www-form-urlencoded",
+          "location": "header",
+          "evidence": "E12"
+        },
+        {
+          "name": "area",
+          "type": "String",
+          "required": true,
+          "location": "body",
+          "evidence": "E42;E60"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E64;E68"
+      },
+      "constraints": [
+        {
+          "fact": "POST 以三个必填字符串请求头标识认证、设备和通道，必填 area 字符串作为表单字段传输。",
+          "evidence": "E6;E9;E12;E42;E60"
+        },
+        {
+          "fact": "成功示意的根层 code 是字符串，末尾的逗号属于示例格式问题。",
+          "evidence": "E64;E68"
+        }
+      ],
+      "uncertainties": [
+        "此条曾只有未解析的 curl 观察。原文路由/方法/表格与表单样例证实为国内设置。curl 令牌行格式不完整，响应示意含尾逗号。输入字符串不从数组推导。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/v3/device/motion/detect/set",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E6;E9;E12;E42;E60"
+      },
+      "source_content_sha256": "0d40c9a7aff69c347b1dcf333921691d40de598889983cf13436c2e07e1ae4ab",
+      "read_only": false
+    },
+    {
+      "operation_id": "global.settings.set_motion_area",
+      "region": "overseas",
+      "source_doc_id": "3729",
+      "source_url": "https://open.ys7.com/help/en/3729",
+      "method": "POST",
+      "path": "/api/v3/device/motion/detect/set",
+      "base_url": "{areaDomain}",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E8"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E8"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E8"
+        },
+        {
+          "name": "area",
+          "type": "string",
+          "required": true,
+          "location": "query",
+          "evidence": "E36"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E53;E87;E90",
+        "envelope_paths": [
+          "body"
+        ]
+      },
+      "constraints": [
+        {
+          "fact": "托管账号和子账号需要 Config 权限。",
+          "evidence": "E2"
+        },
+        {
+          "fact": "三个必填字符串请求头传输令牌、设备和通道，area 是必填的 query 字符串，SDK 不发送业务正文。",
+          "evidence": "E0;E5;E8;E36"
+        },
+        {
+          "fact": "上游以 body.meta 确认请求结果，未提供硬件实际生效的证明。",
+          "evidence": "E53;E87;E90"
+        }
+      ],
+      "uncertainties": [
+        "海外用 query 传 area；区域部署、端侧解释和恢复效果待核。不可使用国内表单或把国内位图示意泛化。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/v3/device/motion/detect/set",
+        "encoding": "none",
+        "evidence": "E0;E5;E8;E36"
+      },
+      "source_content_sha256": "dd9efadcceec76eecbaae3f01ab56f72d3c6107d79bd1c06f0f41283a7878535",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -21528,6 +21749,10 @@
     {
       "review": "docs/coordination/overseas-alarm-sound/admission.json",
       "note": "海外 3727 设置告警提示音模式，3730 发起单次试音。两项独立 POST 均以 body.meta 确认请求结果，权限、参数和区域差异见冻结审查。"
+    },
+    {
+      "review": "docs/coordination/regional-motion-area/admission.json",
+      "note": "国内 1731 查询、1732 表单设置与海外 3729 query 设置分别核对。海外 3728 的固定国内主机与令牌区域规则冲突，详见该批审查。"
     }
   ]
 }
