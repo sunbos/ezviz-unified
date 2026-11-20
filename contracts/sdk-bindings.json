@@ -3867,6 +3867,32 @@
       "public_entry": "settings.set_light_linkage",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "global.settings.set_alarm_sound_mode",
+      "region": "overseas",
+      "source_doc_id": "3727",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.set_alarm_sound_mode",
+        "AsyncSettings.set_alarm_sound_mode"
+      ],
+      "public_entry": "settings.set_alarm_sound_mode",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "global.settings.play_audition",
+      "region": "overseas",
+      "source_doc_id": "3730",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.play_audition",
+        "AsyncSettings.play_audition"
+      ],
+      "public_entry": "settings.play_audition",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

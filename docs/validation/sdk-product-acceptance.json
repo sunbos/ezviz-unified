@@ -154,7 +154,7 @@
         "max_operations": 6,
         "freeze_required": false
       },
-      "authorization_status": "reuse_existing_scope",
+      "authorization_status": "recorded",
       "recovery_plan": "读操作无需设备回滚；总预算/每路由上限在delegate前拦截。异常、超时、取消均关闭async client/transport；不因失败扩大目标或重跑。本case不允许额外认证刷新请求，SDK原有重放政策不修改，超预算尝试导致本case failed而非忽略/计passed。",
       "source_refs": [
         "contracts/reviewed-transport-contracts.json",
@@ -175,9 +175,9 @@
         "tools/live/README.md",
         "docs/validation/2026-11-19-domestic-async-read/offline.json"
       ],
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "blockers": [
-        "本地异步执行器及相关边界测试已通过。真实联调仍需在用户本机隐藏输入凭据，并获得符合预算和固定六步判据的回执。"
+        "未取得设备详情及后续四步的成功回执。此次受控执行已终止。"
       ],
       "capability_ids": [
         "contract:cn.token.get",
@@ -199,7 +199,7 @@
       ],
       "scope_revision": "2026-11-19-r18-domestic-async-read-design",
       "freeze_state": "frozen_for_implementation",
-      "resource_state": "unknown_awaiting_configuration_check",
+      "resource_state": "domestic_authentication_and_first_list_succeeded",
       "limitations": [
         "本行只覆盖一个case的六个业务动作，不覆盖CLI运行、海外、托管设备、子账户全集、媒体访问或物理操作。",
         "空设备列表、缺可用serial、权限/协议/网络失败均不能算成功；empty/missing resource记录not_verified或对应未就绪状态。",
@@ -212,7 +212,14 @@
         "ASYNC-DIAGNOSTIC": "pending",
         "ASYNC-NEGATIVE-BOUNDARY": "met",
         "ASYNC-MATRIX-RECEIPT": "pending"
-      }
+      },
+      "execution_outcome": "not_verified",
+      "execution_note": "使用国内主分支 SDK 和真实本机 TTY 的隐藏输入。认证与首页列表成功，在首页首台设备的详情步骤未取得成功回执。额外的进程内传输守卫检查此前诊断失败并拒绝进一步外发；通道、状态、能力与版本请求均未发出。未记录平台业务码或原始错误，不能断定失败原因。",
+      "attempted_code_commit": "e687fa0f477be6354b739133292adf1eaa6b6ab6",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-21-domestic-async-first-device/execution.json",
+        "docs/validation/live/2026-11-21-domestic-async-first-device/receipt.json"
+      ]
     },
     {
       "case_id": "ACC-CN-CLI-EXAMPLE-001",
@@ -26824,50 +26831,70 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:3727:d0",
+      "capability_selector": "settings.set_alarm_sound_mode",
       "capability_ids": [
         "candidate:overseas:3727:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.settings.set_alarm_sound_mode"
+      ],
+      "scope_revision": "2026-11-21-r50-overseas-alarm-sound",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
+      "account_role_permissions": "支持托管和子账号，要求 Config 权限。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "认证与业务使用合成模拟传输，按冻结来源和独立测试判据执行。"
       ],
       "expected_evidence": {
-        "read": "围绕“设置告警音模式”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "不预读、无隐式读回。",
+        "write": "单次请求、query/header/空体、嵌套响应、错误、取消、隐私与合成示例。",
+        "physical": "不连接设备，不确认真实发声或配置生效。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/43"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/43",
+        "docs/coordination/overseas-alarm-sound/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3727.source.json"
       ],
-      "pending_questions": [],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+      "pending_questions": [
+        "配置写入的生效时点、型号与可恢复性待设备核验；校验相关错误不表示可添加验证码输入。"
       ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_alarm_sound_actions.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_alarm_sound.py",
+        "examples/alarm_sound.py",
+        "README.md"
+      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "25a0cf66b259e7bd25f3365427c09236d4d108fe",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-overseas-alarm-sound/offline.json"
       ]
     },
     {
@@ -26981,50 +27008,70 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:3730:d0",
+      "capability_selector": "settings.play_audition",
       "capability_ids": [
         "candidate:overseas:3730:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.settings.play_audition"
+      ],
+      "scope_revision": "2026-11-21-r50-overseas-alarm-sound",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
+      "account_role_permissions": "支持托管和子账号，要求 Config 权限。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "认证与业务使用合成模拟传输，按冻结来源和独立测试判据执行。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求设备播放试音”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "不预读、无隐式读回。",
+        "write": "单次请求、query/header/空体、嵌套响应、错误、取消、隐私与合成示例。",
+        "physical": "不连接设备，不确认真实发声或配置生效。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/46"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/46",
+        "docs/coordination/overseas-alarm-sound/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3730.source.json"
       ],
-      "pending_questions": [],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+      "pending_questions": [
+        "未提供声响开始、完成、持续时间或停止回执，不能承诺撤回试音。"
       ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_alarm_sound_actions.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_alarm_sound.py",
+        "examples/alarm_sound.py",
+        "README.md"
+      ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "25a0cf66b259e7bd25f3365427c09236d4d108fe",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-overseas-alarm-sound/offline.json"
       ]
     },
     {
@@ -35194,6 +35241,104 @@
       ],
       "limitations": [
         "回执不保证物理点灯、即时生效、超时未执行或可恢复性；海外没有声明验证码输入。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3727-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_alarm_sound",
+      "capability_selector": "settings.set_alarm_sound_mode",
+      "capability_ids": [
+        "candidate:overseas:3727:d0"
+      ],
+      "operation_ids": [
+        "global.settings.set_alarm_sound_mode"
+      ],
+      "scope_revision": "2026-11-21-r50-overseas-alarm-sound",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:account_cluster_not_confirmed",
+      "account_role_permissions": "支持托管和子账号，要求 Config 权限。",
+      "device_requirements": "明确集群、支持此功能的设备和可操作时段。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "分别明确目标设备、允许参数、次数、可能影响及处置安排。"
+      ],
+      "expected_evidence": {
+        "read": "如需读回须在授权范围内。",
+        "write": "单次设置或单次试音的受控回执。",
+        "physical": "需要独立确认设备配置或实际声音，不能从业务回执推断。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "需可信旧模式、显式恢复和核验。",
+      "source_refs": [
+        "docs/coordination/overseas-alarm-sound/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3727.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "待确认设备、控权和具体操作授权。"
+      ],
+      "limitations": [
+        "配置写入的生效时点、型号与可恢复性待设备核验；校验相关错误不表示可添加验证码输入。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3730-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_alarm_sound",
+      "capability_selector": "settings.play_audition",
+      "capability_ids": [
+        "candidate:overseas:3730:d0"
+      ],
+      "operation_ids": [
+        "global.settings.play_audition"
+      ],
+      "scope_revision": "2026-11-21-r50-overseas-alarm-sound",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:account_cluster_not_confirmed",
+      "account_role_permissions": "支持托管和子账号，要求 Config 权限。",
+      "device_requirements": "明确集群、支持此功能的设备和可操作时段。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "分别明确目标设备、允许参数、次数、可能影响及处置安排。"
+      ],
+      "expected_evidence": {
+        "read": "如需读回须在授权范围内。",
+        "write": "单次设置或单次试音的受控回执。",
+        "physical": "需要独立确认设备配置或实际声音，不能从业务回执推断。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "试音前核实环境、授权音量与影响；已发出的声音无法撤销，官方未提供停止指令。",
+      "source_refs": [
+        "docs/coordination/overseas-alarm-sound/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3730.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "待确认设备、控权和具体操作授权。"
+      ],
+      "limitations": [
+        "未提供声响开始、完成、持续时间或停止回执，不能承诺撤回试音。"
       ]
     }
   ],

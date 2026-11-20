@@ -2454,6 +2454,43 @@
         "国内 1740 E14;E52;E56",
         "docs/coordination/overseas-motion-linked-light/admission.json"
       ]
+    },
+    {
+      "id": "global.settings.set_alarm_sound_mode.acknowledgement_and_stored_mode",
+      "region": "overseas",
+      "source_doc_id": "3727",
+      "source_url": "https://open.ys7.com/help/en/3727",
+      "source_content_sha256": "748ee92cab93ce0f7627d9e6d8b4a5f2e38c9882d05ff85f951c08fd4c8bb9a0",
+      "description": "海外 3727 与 3726 是两个独立接口，3727 按 E30 定义用查询参数 type 以字符串 \"0\" 短音、\"1\" 长音、\"2\" 静音设置告警提示音模式。3726 GET 仅读取已存配置，其数据字段 alarmSoundMode 为整数，无法证明设备发声，也不用于停止声音。E47/E81 响应只带 status 与 body.meta 的 ACK，不返回设置后的实际模式。国内 1277 是另一套 PUT，字段为 enable、soundType 与可选 voiceId 自定义语音，与本接口无关。海外 3727 支持托管账号与子账号并需要 Config 权限。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 接收非布尔整数 mode，转换为查询字符串 type 后发送一次业务 POST，解析 ApiResponse 并保留响应中可能的扩展数据。不做自动重试、跟随 GET 回读、字段回退或状态恢复，10002 与传输超时不会重放。ACK 仅代表请求被受理，设备实际提示音模式与发声情况属未知。",
+      "evidence": [
+        "E2;E3",
+        "E5;E8;E30",
+        "E47;E81",
+        "E84",
+        "海外 3726 E31;E80",
+        "国内 1277 E14;E58;E62",
+        "docs/coordination/overseas-alarm-sound/admission.json"
+      ]
+    },
+    {
+      "id": "global.settings.play_audition.acknowledgement_and_audible_effect",
+      "region": "overseas",
+      "source_doc_id": "3730",
+      "source_url": "https://open.ys7.com/help/en/3730",
+      "source_content_sha256": "84203aedfcca87134b5df1ac6ecfd5d086717370a2c619ca456a747d4ad74d8b",
+      "description": "海外 3730 按 E30 定义用查询参数 voiceIndex 以字符串 \"200\"、\"201\"、\"202\" 试听告警音，volume 为可选字符串 \"1\" 至 \"100\"，文档标注默认 \"1\"。voiceIndex \"202\" 是文档给出的静音试听选项，文档未提供停止、取消或回滚手段。E53/E87 响应只带 status 与 body.meta 的 ACK，播放是否发生、时长与真实音量均无回执。国内 1727 路径相同但单独列出 Content-Type 并使用根级字符串 code/msg，这些差异不迁移。海外 3730 支持托管账号与子账号并需要 Config 权限。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 接收非布尔整数 voice_index 与可选整数 volume，两者均拒绝布尔值，转换为查询字符串 voiceIndex 与 volume 后发送一次业务 POST，volume 为 None 时省略该参数，不注入文档默认值。解析 ApiResponse 并保留可能的扩展数据，不做自动重试、跟随 GET、回退或停止恢复，10002 与传输超时不会重放。ACK 只代表请求受理，设备实际播放与真实音量属未知。",
+      "evidence": [
+        "E2;E3",
+        "E5;E8;E30",
+        "E53;E87",
+        "E90",
+        "国内 1727 E14;E58;E62",
+        "docs/coordination/overseas-alarm-sound/admission.json"
+      ]
     }
   ]
 }

@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "e687fa0f477be6354b739133292adf1eaa6b6ab6",
+  "scope_revision": "2026-11-21-r50-overseas-alarm-sound",
+  "cohort_id": "OVERSEAS-ALARM-SOUND-001",
+  "operations": [
+    {
+      "operation_id": "global.settings.set_alarm_sound_mode",
+      "capability_id": "candidate:overseas:3727:d0",
+      "name": "set_alarm_sound_mode",
+      "entry": "settings.set_alarm_sound_mode",
+      "doc_id": "3727",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-3727-D0-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-3727-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Settings": "def set_alarm_sound_mode(self, device_serial: str, mode: int) -> ApiResponse",
+        "AsyncSettings": "async def set_alarm_sound_mode(self, device_serial: str, mode: int) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/en/3727",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3727.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/3727.structure.json",
+      "html_sha256": "748ee92cab93ce0f7627d9e6d8b4a5f2e38c9882d05ff85f951c08fd4c8bb9a0",
+      "method": "POST",
+      "path": "/api/v3/device/alarmSound/enabled/set",
+      "read_only": false,
+      "permission": "支持托管和子账号，要求 Config 权限。",
+      "unknown": "配置写入的生效时点、型号与可恢复性待设备核验；校验相关错误不表示可添加验证码输入。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "string",
+          "required": true,
+          "location": "header",
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "string",
+          "required": true,
+          "location": "header",
+          "evidence": "E8/R3"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "location": "query",
+          "evidence": "E30/R2"
+        }
+      ],
+      "elements": {
+        "permissions": [
+          2,
+          3
+        ],
+        "route": 5,
+        "headers": 8,
+        "query": 30,
+        "fields": 47,
+        "example": 81,
+        "errors": 84
+      }
+    },
+    {
+      "operation_id": "global.settings.play_audition",
+      "capability_id": "candidate:overseas:3730:d0",
+      "name": "play_audition",
+      "entry": "settings.play_audition",
+      "doc_id": "3730",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-3730-D0-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-3730-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Settings": "def play_audition(self, device_serial: str, voice_index: int, *, volume: int | None = None) -> ApiResponse",
+        "AsyncSettings": "async def play_audition(self, device_serial: str, voice_index: int, *, volume: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/en/3730",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3730.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/3730.structure.json",
+      "html_sha256": "84203aedfcca87134b5df1ac6ecfd5d086717370a2c619ca456a747d4ad74d8b",
+      "method": "POST",
+      "path": "/api/v3/device/audition",
+      "read_only": false,
+      "permission": "支持托管和子账号，要求 Config 权限。",
+      "unknown": "未提供声响开始、完成、持续时间或停止回执，不能承诺撤回试音。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "string",
+          "required": true,
+          "location": "header",
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "string",
+          "required": true,
+          "location": "header",
+          "evidence": "E8/R3"
+        },
+        {
+          "name": "voiceIndex",
+          "type": "string",
+          "required": true,
+          "location": "query",
+          "evidence": "E30/R2"
+        },
+        {
+          "name": "volume",
+          "type": "string",
+          "required": false,
+          "location": "query",
+          "evidence": "E30/R3"
+        }
+      ],
+      "elements": {
+        "permissions": [
+          2,
+          3
+        ],
+        "route": 5,
+        "headers": 8,
+        "query": 30,
+        "fields": 53,
+        "example": 87,
+        "errors": 90
+      }
+    }
+  ],
+  "regional_cross_checks": [
+    {
+      "region": "overseas",
+      "doc_id": "3726",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3726.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/3726.structure.json",
+      "html_sha256": "f2ec2e45a80e4b4d3ad7eec1d323a4126901d02cb147bd87d2ff754810f371b5",
+      "element_pointers": [
+        "E31",
+        "E80"
+      ],
+      "role": "独立读取告警音配置，可提供此前设备上报的配置值。读取不撤销声音。"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "1727",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1727.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1727.structure.json",
+      "html_sha256": "e7441f106f05d5377fd8a5d5b35ad357225e1bb0fc9673afe150fe9392db8d8d",
+      "element_pointers": [
+        "E7",
+        "E11",
+        "E14",
+        "E54",
+        "E58",
+        "E62"
+      ],
+      "role": "国内相同试音路径支持 query 字段交叉验证。国内声明的 Content-Type 和顶层字符串 code/msg 不移植。"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "1277",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1277.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1277.structure.json",
+      "html_sha256": "b604a496185542e6d20a2291bf175266c306a8217d696f993be5d692a2f28651",
+      "element_pointers": [
+        "E7",
+        "E11",
+        "E14"
+      ],
+      "role": "国内 PUT 使用另一条设备级路由，enable、soundType 和 voiceId 不适用于海外 3727。"
+    }
+  ],
+  "sdk_choices": [
+    "两个操作均为独立的海外显式写操作。客户端按已验证的地区业务 origin 发送单次 POST，仅在请求头发送 accessToken、deviceSerial。两种方法均复用现有 _header、地区校验、body 响应策略和诊断，不自动补充通道、验证码或其他字段。",
+    "3727 的 mode 接受非 bool 整数 0、1、2，映射为单一 query 字符串 type。模式表示短鸣、长鸣、静音。设置不隐式执行读取、试音或恢复。既有 get_alarm_sound_mode 是独立入口。",
+    "3730 的 voice_index 接受非 bool 整数 200、201、202，映射为 query 字符串 voiceIndex，分别为提醒、警报、静音音色。volume 可省，显式指定时接受非 bool 整数 1–100 并转为字符串。省略时让平台应用其文档默认 1。202 是静音音色，文档没有给出停止指令或播放时长。",
+    "两个操作都不发送业务正文。只接受 body.meta.code 整数 200 的封装。原始 ApiResponse、缺省 data 和扩展 data 均按上游回执保留，不从回执推断已发出声音。即使 HTTP 成功、令牌过期、网络超时，也不自动重发写操作。",
+    "示例 python -m examples.alarm_sound --mode sync 或 --mode async，在认证与业务 MockTransport 上分别显式调用两个入口，不读真实账号、媒体或设备配置，仅输出 mode、mode_set、audition_acknowledged。用户主动调用真实 SDK 试音可能立即发声。",
+    "真实设置验收需要 Config、指定设备/时段、可信原值与允许的恢复手段。试音需另行批准音色、音量、环境和次数。设备是否支持、配置生效时间、物理是否发声和能否提前终止均不能由离线响应证明。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/settings.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批仅使用合成传输。控制台显示设备在线不等于具有这些操作的 Config 权限或实际触发声音的授权。"
+}
