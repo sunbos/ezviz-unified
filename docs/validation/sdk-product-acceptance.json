@@ -12475,70 +12475,77 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:5061:d0",
+      "capability_selector": "illumination.get_night_vision",
       "capability_ids": [
         "candidate:domestic:5061:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.illumination.get_night_vision"
+      ],
+      "scope_revision": "2026-11-20-r44-domestic-night-vision",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
+      "account_role_permissions": "资料确认托管 Config，未单独确认子账号可读。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "repository_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用冻结契约和合成设备、令牌。认证和业务网络均使用模拟传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求经通用键值操作通道查询设备暖光调节与亮灯时长配置”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "单通道键值 GET、对象/原字符串和只读 CLI 表示。",
+        "write": "精确的路径、query 和表单，异常、取消、隐私及同步异步诊断均与冻结范围一致。",
+        "physical": "离线不证明真实设备照明效果。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/52"
+        "docs/coordination/SP088/scenario-input.json#/entries/52",
+        "docs/coordination/domestic-night-vision/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5061.source.json"
       ],
       "pending_questions": [
-        "暖光调节与亮灯时长是合并返回还是分项读取待核",
-        "该通道中本场景的操作标识待核",
-        "与设备照明能力的适用前提待核"
+        "valueInfo 字段表标字符串、示例为对象。未说明单位、范围、默认通道或支持机型。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5062-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:5062:d0",
+      "capability_selector": "illumination.set_night_vision",
       "capability_ids": [
         "candidate:domestic:5062:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.illumination.set_night_vision"
+      ],
+      "scope_revision": "2026-11-20-r44-domestic-night-vision",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
+      "account_role_permissions": "资料明确支持托管和子账号 Config。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
       "surface": [
         "sync",
@@ -12546,38 +12553,41 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "使用冻结契约和合成设备、令牌。认证和业务网络均使用模拟传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求经通用键值操作通道设置设备暖光调节与亮灯时长”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "写入口不会预读或自动读回。",
+        "write": "精确的路径、query 和表单，异常、取消、隐私及同步异步诊断均与冻结范围一致。",
+        "physical": "离线不证明真实设备照明效果。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/53"
+        "docs/coordination/SP088/scenario-input.json#/entries/53",
+        "docs/coordination/domestic-night-vision/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5062.source.json"
       ],
       "pending_questions": [
-        "与candidate:domestic:5061:d0是否构成同一配置的读写对待核",
-        "暖光档位与时长结构待核"
+        "参数表在 body 下列出 token，示例在 query 携带。未规定部分更新、单位、可用范围、设备生效时间或完整结果枚举。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5064-D0-OFFLINE-001",
@@ -34529,6 +34539,104 @@
       ],
       "limitations": [
         "返回的过期时间是毫秒时间戳。url 表列字符串但示例也含 null；不从 expired 推定 url 是否一定存在。未声明总量、排序稳定性或独立下一页游标。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5061-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_night_vision",
+      "capability_selector": "illumination.get_night_vision",
+      "capability_ids": [
+        "candidate:domestic:5061:d0"
+      ],
+      "operation_ids": [
+        "cn.illumination.get_night_vision"
+      ],
+      "scope_revision": "2026-11-20-r44-domestic-night-vision",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "资料确认托管 Config，未单独确认子账号可读。",
+      "device_requirements": "指定真实通道、支持暖光的设备和相应账户权限。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "指定测试目标、频次和观测范围。"
+      ],
+      "expected_evidence": {
+        "read": "仅留次数、类型和结果。",
+        "write": "只读。",
+        "physical": "如需确认真实照明效果须取得单独人工观察证据。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读取配置。",
+      "source_refs": [
+        "docs/coordination/domestic-night-vision/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5061.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待确认适用测试资源与操作范围。"
+      ],
+      "limitations": [
+        "valueInfo 字段表标字符串、示例为对象。未说明单位、范围、默认通道或支持机型。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5062-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_night_vision",
+      "capability_selector": "illumination.set_night_vision",
+      "capability_ids": [
+        "candidate:domestic:5062:d0"
+      ],
+      "operation_ids": [
+        "cn.illumination.set_night_vision"
+      ],
+      "scope_revision": "2026-11-20-r44-domestic-night-vision",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "资料明确支持托管和子账号 Config。",
+      "device_requirements": "指定真实通道、支持暖光的设备和相应账户权限。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "指定测试目标、频次和观测范围。事先取得原配置、可恢复的测试值与授权时段。"
+      ],
+      "expected_evidence": {
+        "read": "仅留次数、类型和结果。",
+        "write": "按授权参数记录返回及恢复结果。",
+        "physical": "如需确认真实照明效果须取得单独人工观察证据。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "按预先确认的原配置恢复并取得回读或人工确认。",
+      "source_refs": [
+        "docs/coordination/domestic-night-vision/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5062.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "待确认适用测试资源与操作范围。"
+      ],
+      "limitations": [
+        "参数表在 body 下列出 token，示例在 query 携带。未规定部分更新、单位、可用范围、设备生效时间或完整结果枚举。"
       ]
     }
   ],
