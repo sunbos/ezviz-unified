@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "02765206b1359e33c7581b172b0322cdd4129322",
+  "scope_revision": "2026-11-20-r45-domestic-rtmp-aac",
+  "operations": [
+    {
+      "operation_id": "cn.video.get_rtmp_aac_support",
+      "capability_id": "candidate:domestic:3736:d0",
+      "name": "get_rtmp_aac_support",
+      "entry": "video.get_rtmp_aac_support",
+      "doc_id": "3736",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-3736-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-3736-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Video": "def get_rtmp_aac_support(self, device_serial: str, *, channel: int | None = None) -> ApiResponse",
+        "AsyncVideo": "async def get_rtmp_aac_support(self, device_serial: str, *, channel: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/3736",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/3736.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/3736.structure.json",
+      "html_sha256": "9387533e0fd6bd82c9b02981ab3f0a5087f0dc6d6791340fcadbdcfb2dea4e2c",
+      "method": "GET",
+      "path": "/api/service/media/aac/transfer",
+      "read_only": true,
+      "permission": "E14 列出应用、托管和子账户等令牌类型。localIndex 省略或为 0 要求设备级 CONFIG，否则要求通道级 CONFIG。",
+      "unknown": "返回支持能力。当前开关状态、可用型号与实际 RTMP 编码未获证明。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "localIndex",
+          "location": "header",
+          "type": "Int",
+          "required": false,
+          "evidence": "E14/R4"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 42,
+        "example": 46,
+        "fields": 50,
+        "errors": 82
+      }
+    },
+    {
+      "operation_id": "cn.video.set_rtmp_aac_enabled",
+      "capability_id": "candidate:domestic:3735:d0",
+      "name": "set_rtmp_aac_enabled",
+      "entry": "video.set_rtmp_aac_enabled",
+      "doc_id": "3735",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-3735-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-3735-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Video": "def set_rtmp_aac_enabled(self, device_serial: str, enabled: bool, *, channel: int | None = None) -> ApiResponse",
+        "AsyncVideo": "async def set_rtmp_aac_enabled(self, device_serial: str, enabled: bool, *, channel: int | None = None) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/3735",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/3735.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/3735.structure.json",
+      "html_sha256": "1fb218b003c06f42f19a2f50a6d638c07c5d6d0b7733bd704fcf4f8bb577f96c",
+      "method": "POST",
+      "path": "/api/service/media/aac/transfer",
+      "read_only": false,
+      "permission": "需要国内访问令牌及设备配置权限。E40 未按 GET 的口径逐类列出令牌适用性。真实操作另需确认账户计费和操作授权。",
+      "unknown": "未给出现行价格、开关原值查询、恢复保证或显式通道生效时限。POST 成功只证明平台受理。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E40/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E40/R3"
+        },
+        {
+          "name": "localIndex",
+          "location": "header",
+          "type": "Int",
+          "required": false,
+          "evidence": "E40/R4"
+        },
+        {
+          "name": "enable",
+          "location": "query",
+          "type": "Int",
+          "required": true,
+          "evidence": "E40/R5"
+        }
+      ],
+      "elements": {
+        "route": 33,
+        "method": 37,
+        "parameters": 40,
+        "request": 75,
+        "example": 79,
+        "fields": 83,
+        "errors": 108
+      }
+    }
+  ],
+  "sdk_choices": [
+    "国内 video.get_rtmp_aac_support 和 video.set_rtmp_aac_enabled 复用既有区域、认证、视频请求头及传输。每个调用由使用者显式选择设备。deviceSerial 是非空、可打印且无首尾空格的 ASCII 请求头值。SDK 的 channel 只接受非负整数或 None，拒绝 bool。None 省略 localIndex，0 显式发送为 0，正整数指定通道。",
+    "GET 无查询参数、无正文。成功要求根层 meta.code 为整数 200，data.enable 为 JSON 布尔值。该字段表示平台报告的转码支持能力，不能据此取得当前开关值。返回原 ApiResponse、raw、data 及未知字段，false 是正常结果。令牌失效时仅按既有只读规则刷新一次。",
+    "POST 的 enabled 是严格的 Python 布尔值，传输为 query enable=0 或 1，除请求头外无其他参数，无正文。接受根层整数 200 的 meta 回执，无需 data 或任务编号，允许上游附加数据。设置不自动重放、不自行检查支持、不取流、不读回，也不根据成功响应宣称媒体已转码。",
+    "官方文档针对国内 RTMP 的云端 G.711 转 AAC，HLS 暂不支持。视频设备本身的编码设置与录像文件异步处理使用独立接口。归档记有计费政策及 2024 年 12 月起的限时免费说明，未核定现行收费或账户余额能否覆盖费用。未传 localIndex 时默认 0，文档说明在这种情形下新设备与已取流设备的生效时间可能不同，后者最长可延迟三天。未对显式通道承诺同一时效。",
+    "只读 CLI 为 python -m examples.rtmp_aac --mode sync 或 --mode async。必须明确国内地区、应用配置及设备序列号，可选择 EZVIZ_CHANNEL_NO。仅查询一次能力，成功输出 region、mode、status、supported。配置、SDK 和正常 I/O 失败以固定信息报告，取消或中断另行标识。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/video.py",
+    "src/ezviz_unified/vod.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批仅合成传输验证，不执行收费、设备配置、媒体播放或恢复操作。"
+}
