@@ -119,7 +119,7 @@ python -m examples.working_mode_plans --mode sync
 python -m examples.working_mode_plans --mode async
 ```
 
-### 海外设备告警音模式
+### 海外设备告警音模式与试音
 
 `client.settings.get_alarm_sound_mode(serial)` 和 `await async_client.settings.get_alarm_sound_mode(serial)` 读取设备上报的告警音配置。官方列明托管账号及子账号需要 `Get` 权限。SDK 先向配置的海外认证入口获取令牌，再向令牌返回的 `areaDomain` 发送 GET。令牌和设备序列号分别放在 `accessToken`、`deviceSerial` 请求头中，无需通道参数。[海外文档 3726](https://open.ys7.com/help/en/3726)
 
@@ -130,6 +130,17 @@ SDK 按该页字段表和示例采用 `body.meta.code` 为整数 200 的响应�
 ```bash
 python -m examples.alarm_sound_mode --mode sync
 python -m examples.alarm_sound_mode --mode async
+```
+
+设置告警音模式调用 `client.settings.set_alarm_sound_mode(serial, 2)`，异步版本写作 `await async_client.settings.set_alarm_sound_mode(serial, 2)`。`mode` 仅接受非布尔的整数类型，作为查询字段 `type` 发送，0 表示短鸣、1 表示长鸣、2 表示静音，这是一次显式的设备配置变更，本身不会自动发出试音调用。[海外文档 3727](https://open.ys7.com/help/en/3727)
+
+试音接口调用 `client.settings.play_audition(serial, 202, volume=1)` 提交一次请求，可能令设备立即开始物理播放，实际是否发声在观察前无法确定，异步同样用 `await` 前缀。`voice_index` 为非布尔整数，作为查询字段 `voiceIndex` 发送，200 表示提醒提示音、201 表示告警蜂鸣音，文档只将 202 定义为静音音色，没有规定它可以中止已开始的播放，也未提供时长或停止控制。`volume` 可选，必须为 1 到 100 的非布尔整数，传 `None` 则省略该字段，平台文档默认值为 1。[海外文档 3730](https://open.ys7.com/help/en/3730)
+
+托管账号与子账号调用这两个接口都需具备 `Config` 权限。两者均为向 `areaDomain` 发起的单次 `POST`，`accessToken` 与 `deviceSerial` 放在请求头中，不带请求体与 `Content-Type`，只要 `body.meta.code` 为整数 200 即返回原始 `ApiResponse`，`data` 允许缺省或包含扩展内容。SDK 不会自动回读配置、设置后试音、失败重试、停止播放或恢复旧值。真实配置写入和实际试音须分别授权，未在真实网关、真实发声或恢复流程上验证。离线 CLI 硬编码内存中的鉴权与业务模拟，不使用账号、配置、设备或网络，仅报告 `mode`、`mode_set` 与 `audition_acknowledged`，与上文的真实获取器 CLI 相互独立。
+
+```sh
+python -m examples.alarm_sound --mode sync
+python -m examples.alarm_sound --mode async
 ```
 
 ## 海外用户 OAuth

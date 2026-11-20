@@ -82,6 +82,26 @@ _GET_ALARM_SOUND_MODE = Operation(
     policy=_BODY_META_POLICY,
 )
 
+_SET_ALARM_SOUND_MODE = Operation(
+    name="settings.set_alarm_sound_mode",
+    method="POST",
+    path="/api/v3/device/alarmSound/enabled/set",
+    regions=_OVERSEAS_REGIONS,
+    token_location="header",
+    read_only=False,
+    policy=_BODY_META_POLICY,
+)
+
+_PLAY_AUDITION = Operation(
+    name="settings.play_audition",
+    method="POST",
+    path="/api/v3/device/audition",
+    regions=_OVERSEAS_REGIONS,
+    token_location="header",
+    read_only=False,
+    policy=_BODY_META_POLICY,
+)
+
 _GET_LIGHT_LINKAGE = Operation(
     name="settings.get_light_linkage",
     method="GET",
@@ -491,6 +511,26 @@ def _timing_plan_response(response: ApiResponse) -> ApiResponse:
     return response
 
 
+def _set_alarm_sound_mode_params(mode: int) -> dict[str, str]:
+    value = int.__int__(_check_int(mode, "mode"))
+    if value not in (0, 1, 2):
+        raise ValueError("mode must be 0, 1 or 2")
+    return {"type": str(value)}
+
+
+def _play_audition_params(voice_index: int, volume: int | None) -> dict[str, str]:
+    voice = int.__int__(_check_int(voice_index, "voice_index"))
+    if voice not in (200, 201, 202):
+        raise ValueError("voice_index must be 200, 201 or 202")
+    params = {"voiceIndex": str(voice)}
+    if volume is not None:
+        level = int.__int__(_check_int(volume, "volume"))
+        if not 1 <= level <= 100:
+            raise ValueError("volume must be between 1 and 100")
+        params["volume"] = str(level)
+    return params
+
+
 def _alarm_sound_mode_response(response: ApiResponse) -> ApiResponse:
     """Return the response when the alarm sound mode payload shape is valid."""
     data = response.data
@@ -806,6 +846,40 @@ class Settings:
             )
             return _alarm_sound_mode_response(response)
 
+    def set_alarm_sound_mode(self, device_serial: str, mode: int) -> ApiResponse:
+        """Set the alarm sound mode for an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_alarm_sound_mode",
+            mode="sync",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            params = _set_alarm_sound_mode_params(mode)
+            return self._client.request(
+                _SET_ALARM_SOUND_MODE,
+                headers={"deviceSerial": serial},
+                params=params,
+            )
+
+    def play_audition(
+        self, device_serial: str, voice_index: int, *, volume: int | None = None
+    ) -> ApiResponse:
+        """Play an alarm sound audition on an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.play_audition",
+            mode="sync",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            params = _play_audition_params(voice_index, volume)
+            return self._client.request(
+                _PLAY_AUDITION,
+                headers={"deviceSerial": serial},
+                params=params,
+            )
+
     def get_chime(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Read the doorbell chime configuration (overseas region only).
 
@@ -1110,6 +1184,40 @@ class AsyncSettings:
                 headers={"deviceSerial": serial},
             )
             return _alarm_sound_mode_response(response)
+
+    async def set_alarm_sound_mode(self, device_serial: str, mode: int) -> ApiResponse:
+        """Set the alarm sound mode for an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_alarm_sound_mode",
+            mode="async",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            params = _set_alarm_sound_mode_params(mode)
+            return await self._client.request(
+                _SET_ALARM_SOUND_MODE,
+                headers={"deviceSerial": serial},
+                params=params,
+            )
+
+    async def play_audition(
+        self, device_serial: str, voice_index: int, *, volume: int | None = None
+    ) -> ApiResponse:
+        """Play an alarm sound audition on an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.play_audition",
+            mode="async",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            params = _play_audition_params(voice_index, volume)
+            return await self._client.request(
+                _PLAY_AUDITION,
+                headers={"deviceSerial": serial},
+                params=params,
+            )
 
     async def get_chime(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Read the doorbell chime configuration (overseas region only).

@@ -21198,6 +21198,163 @@
       },
       "source_content_sha256": "36812eeb04ef69ea54b3c37dafb0260f40b254a2e15b1baf3ff2c903fa2b23c6",
       "read_only": false
+    },
+    {
+      "operation_id": "global.settings.set_alarm_sound_mode",
+      "region": "overseas",
+      "source_doc_id": "3727",
+      "source_url": "https://open.ys7.com/help/en/3727",
+      "method": "POST",
+      "path": "/api/v3/device/alarmSound/enabled/set",
+      "base_url": "{areaDomain}",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "string",
+          "required": true,
+          "location": "header",
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "string",
+          "required": true,
+          "location": "header",
+          "evidence": "E8/R3"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "location": "query",
+          "evidence": "E30/R2"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "envelope_paths": [
+          "body"
+        ],
+        "values": [
+          200
+        ],
+        "evidence": "E47;E81;E84"
+      },
+      "constraints": [
+        {
+          "fact": "支持托管和子账号，要求 Config 权限。",
+          "evidence": "E2;E3"
+        },
+        {
+          "fact": "POST 使用 accessToken 和 deviceSerial 两个业务 header。SDK 将参数置于 query，不发送业务正文。",
+          "evidence": "E0;E5;E8;E30"
+        },
+        {
+          "fact": "type 采用字符串 0、1、2，分别是短鸣、长鸣、静音。",
+          "evidence": "E30"
+        },
+        {
+          "fact": "响应示例只有 body.meta。SDK 以整数 200 确认业务成功，保留可能返回的扩展 data。每次调用只发一次业务 POST，不自动读取或恢复模式。",
+          "evidence": "E47;E81;E84"
+        }
+      ],
+      "uncertainties": [
+        "配置写入的生效时点、型号与可恢复性待设备核验；校验相关错误不表示可添加验证码输入。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/v3/device/alarmSound/enabled/set",
+        "encoding": "none",
+        "evidence": "E0;E5;E8;E30"
+      },
+      "source_content_sha256": "748ee92cab93ce0f7627d9e6d8b4a5f2e38c9882d05ff85f951c08fd4c8bb9a0",
+      "read_only": false
+    },
+    {
+      "operation_id": "global.settings.play_audition",
+      "region": "overseas",
+      "source_doc_id": "3730",
+      "source_url": "https://open.ys7.com/help/en/3730",
+      "method": "POST",
+      "path": "/api/v3/device/audition",
+      "base_url": "{areaDomain}",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "string",
+          "required": true,
+          "location": "header",
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "string",
+          "required": true,
+          "location": "header",
+          "evidence": "E8/R3"
+        },
+        {
+          "name": "voiceIndex",
+          "type": "string",
+          "required": true,
+          "location": "query",
+          "evidence": "E30/R2"
+        },
+        {
+          "name": "volume",
+          "type": "string",
+          "required": false,
+          "location": "query",
+          "evidence": "E30/R3"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "envelope_paths": [
+          "body"
+        ],
+        "values": [
+          200
+        ],
+        "evidence": "E53;E87;E90"
+      },
+      "constraints": [
+        {
+          "fact": "支持托管和子账号，要求 Config 权限。",
+          "evidence": "E2;E3"
+        },
+        {
+          "fact": "POST 使用 accessToken 和 deviceSerial 两个业务 header。SDK 将参数置于 query，不发送业务正文。",
+          "evidence": "E0;E5;E8;E30"
+        },
+        {
+          "fact": "voiceIndex 采用字符串 200、201、202，分别是提醒音、警报音、静音。volume 可选，范围 1 至 100，文档默认值为 1。SDK 省略未传的 volume。",
+          "evidence": "E30"
+        },
+        {
+          "fact": "响应示例只有 body.meta。SDK 以整数 200 确认业务成功，保留可能返回的扩展 data。每次调用只发一次业务 POST，不自动重放或发送其他试音。",
+          "evidence": "E53;E87;E90"
+        }
+      ],
+      "uncertainties": [
+        "未提供声响开始、完成、持续时间或停止回执，不能承诺撤回试音。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/v3/device/audition",
+        "encoding": "none",
+        "evidence": "E0;E5;E8;E30"
+      },
+      "source_content_sha256": "84203aedfcca87134b5df1ac6ecfd5d086717370a2c619ca456a747d4ad74d8b",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -21367,6 +21524,10 @@
     {
       "review": "docs/coordination/overseas-motion-linked-light/admission.json",
       "note": "海外 3722 和 3723 以固定查询参数 type=301 读写移动侦测灯光联动开关，权限、返回结构和支持的选择器见海外契约。"
+    },
+    {
+      "review": "docs/coordination/overseas-alarm-sound/admission.json",
+      "note": "海外 3727 设置告警提示音模式，3730 发起单次试音。两项独立 POST 均以 body.meta 确认请求结果，权限、参数和区域差异见冻结审查。"
     }
   ]
 }

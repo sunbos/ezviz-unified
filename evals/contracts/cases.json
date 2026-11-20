@@ -6728,6 +6728,57 @@
       "data": {
         "extResult": "synthetic-extension"
       }
+    },
+    {
+      "operation_id": "global.settings.set_alarm_sound_mode",
+      "args": [
+        {
+          "$ref": "device_serial"
+        },
+        0
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "type": "0"
+      },
+      "data": {
+        "extension": {
+          "synthetic": {
+            "note": "write-ack",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "operation_id": "global.settings.play_audition",
+      "args": [
+        {
+          "$ref": "device_serial"
+        },
+        201
+      ],
+      "kwargs": {
+        "volume": 37
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "voiceIndex": "201",
+        "volume": "37"
+      },
+      "data": {
+        "extension": {
+          "synthetic": {
+            "note": "write-ack",
+            "value": "audition"
+          }
+        }
+      }
     }
   ]
 }
