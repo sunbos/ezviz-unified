@@ -9854,19 +9854,30 @@
       "pending_questions": [
         "714 E50 将 channel 列为 String、value 列为 Int，E46 样例的 channel 为整数、value 为字符串；保留两种表示。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_detection_sensitivity.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_detection_sensitivity.py",
+        "examples/detection_sensitivity.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "32b9960f8dda6f84f6084eb7dcf76215b86adc19",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-detection-sensitivity/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-715-D0-OFFLINE-001",
@@ -9914,19 +9925,30 @@
       "pending_questions": [
         "channelNo 未传表示设备本身；只给出 type 0。SDK 固定显式传 0，其他模式和生效情况待核。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_detection_sensitivity.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_detection_sensitivity.py",
+        "examples/detection_sensitivity.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "32b9960f8dda6f84f6084eb7dcf76215b86adc19",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-detection-sensitivity/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-719-D0-OFFLINE-001",
@@ -11671,19 +11693,30 @@
       "pending_questions": [
         "本页查询结构明确，未列明子账户权限或完整支持机型。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_detection_sensitivity.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_detection_sensitivity.py",
+        "examples/detection_sensitivity.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "32b9960f8dda6f84f6084eb7dcf76215b86adc19",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-detection-sensitivity/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1734-D0-OFFLINE-001",
@@ -11731,19 +11764,30 @@
       "pending_questions": [
         "前提 support_sensibility_adjust=1，仅限该页。成功回执不能说明实际感应效果或可恢复性。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_detection_sensitivity.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_detection_sensitivity.py",
+        "examples/detection_sensitivity.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "32b9960f8dda6f84f6084eb7dcf76215b86adc19",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-detection-sensitivity/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1735-D0-OFFLINE-001",

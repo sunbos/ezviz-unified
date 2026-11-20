@@ -3943,7 +3943,7 @@
         "AsyncSettings.get_motion_sensitivity"
       ],
       "public_entry": "settings.get_motion_sensitivity",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3956,7 +3956,7 @@
         "AsyncSettings.set_motion_sensitivity"
       ],
       "public_entry": "settings.set_motion_sensitivity",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3969,7 +3969,7 @@
         "AsyncSettings.get_detection_sensitivity"
       ],
       "public_entry": "settings.get_detection_sensitivity",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3982,7 +3982,7 @@
         "AsyncSettings.set_detection_sensitivity"
       ],
       "public_entry": "settings.set_detection_sensitivity",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
