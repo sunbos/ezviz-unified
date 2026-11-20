@@ -4021,7 +4021,7 @@
         "AsyncRecordings.by_time"
       ],
       "public_entry": "recordings.by_time",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -4034,7 +4034,7 @@
         "AsyncRecordings.by_text_time"
       ],
       "public_entry": "recordings.by_text_time",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

@@ -13340,19 +13340,30 @@
       "pending_questions": [
         "返回记录的字段名及类型在两种示例间有差异，保留原值。服务端默认时区、保存期、文件可播放性未核定。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/recordings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_stored_recordings.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_recording_files.py",
+        "examples/recording_files.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "a118d9be2ad4577eceb72de0d7f0b631cf1b1f16",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-stored-recordings/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1424-D0-OFFLINE-001",
@@ -36228,19 +36239,30 @@
       "pending_questions": [
         "目录归于智能电梯网络摄像机，正文提到安全帽相机。表与 curl 均使用字符串 startTime/stopTime，机型适用范围、时区和实际账户权限待核。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/recordings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_stored_recordings.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_recording_files.py",
+        "examples/recording_files.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "a118d9be2ad4577eceb72de0d7f0b631cf1b1f16",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-stored-recordings/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CN-1600-COMPONENT-RECORDING-TIME-LIVE-001",
