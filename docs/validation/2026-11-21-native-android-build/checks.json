@@ -1,0 +1,354 @@
+{
+  "schema_version": 1,
+  "scope": "official_android_534_unsigned_release_consumption",
+  "baseline_commit": "4349e1c7e30336f85614ad6542a90484494cbbd4",
+  "verified_code_commit": "f4badea5b2ab4381476de01b3c165185e33b7431",
+  "source_test_sha256": {
+    "docs/coordination/native-android-build/scope.json": "dfc95b2a97b3a0c1310cff1da0d9964f6aa1bf662a5353096e838723feb87ba9",
+    "docs/validation/2026-11-21-native-android-build/source-review.json": "677b40b33c02d54dc15324e620876eaf3ee36ae579745b1faf0a3bd6622390b0",
+    "examples/android_sdk_build/settings.gradle": "ffb7adc57b3a045c1aa47027a17cdf9f5828d9e0c28798b17b0995bbd771285c",
+    "examples/android_sdk_build/app/build.gradle": "f3e61ec162dd57b85320e2d848ccb77332530b4b6fda9bfdc56ec6c768ad61e3",
+    "examples/android_sdk_build/app/src/main/AndroidManifest.xml": "a4aa505c15ce61c8667900c819fd70bc8aac52db52ff8d913d74a556b4eb8a60",
+    "examples/android_sdk_build/app/src/main/java/org/example/ezvizprobe/NativeSDKProbe.java": "0f84e6a54b871d4a05d08d877cd58d244e0970bade83c40c7e89105092d0da79",
+    "tools/native/verify_android_build.py": "6ae8e95126b0ca8d2276bbcc0a221d870abfcf268d4db677d2fea3fe0fccd01a",
+    "tools/native/android_probe_bytecode.py": "005f863e95ac8baf3884c2c98f9fa41cd788faa525669496df64cbb41e94489c",
+    "docs/official-mobile-sdk.md": "43e28873d521356c122dc01f65937448b88cea20ffd5b3f69ccb7f6356e1494f",
+    ".github/workflows/android-sdk.yml": "4e1be58a4421221990ee72513a38ea6333027d212f6dd3304fadb1e436c4bf77"
+  },
+  "workflow_evidence": {
+    "event": "pull_request",
+    "headSha": "f4badea5b2ab4381476de01b3c165185e33b7431",
+    "databaseId": 44836832310,
+    "url": "https://github.com/sunbos/ezviz-unified/actions/runs/44836832310",
+    "job_id": 136635234982,
+    "conclusion": "success",
+    "steps": {
+      "Set up job": "success",
+      "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803": "success",
+      "Build unsigned APK with official EZOpenSDK": "success",
+      "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803": "success",
+      "Complete job": "success"
+    },
+    "tested_checkout_sha": "f4badea5b2ab4381476de01b3c165185e33b7431"
+  },
+  "verification": {
+    "passed": true,
+    "checked_out_sha": "f4badea5b2ab4381476de01b3c165185e33b7431",
+    "offline_rebuilt": true,
+    "unsigned": true,
+    "native_runtime_calls": 0,
+    "matched_descriptors": 9,
+    "asset_count": 58,
+    "so_counts": {
+      "arm64-v8a": 37,
+      "armeabi-v7a": 37
+    },
+    "resolved_aar_sha256": "d93f556aa26eee51049efbdaa6a85fc2116220a6500153810062954966a9a571",
+    "manifest_app_permissions": [],
+    "declared_components": 0,
+    "negative_controls_confirmed": true,
+    "runner_result": {
+      "archive": {
+        "abis": {
+          "arm64-v8a": {
+            "elf_bits": 64,
+            "elf_machine": 183,
+            "files": 37,
+            "sha256_manifest": "967461f5d1c0b024785f4fc2c641e30dfc989fee8f318c566094634ea8e132c2"
+          },
+          "armeabi-v7a": {
+            "elf_bits": 32,
+            "elf_machine": 40,
+            "files": 37,
+            "sha256_manifest": "9ea851db472bf7b5a77dbd6aba637a7b0d309012394d4d965971bdb34d812493"
+          }
+        },
+        "apk_sha256": "dda35adc4b12dbf0e3740fbfd331a32bbeebb786f0e39ec277c47157e73e45ef",
+        "asset_count": 58,
+        "assets_sha256": "1d2f1a8dc2f69e8f6ddb8695159037b53e203663efab619af2361d13b5c0636b",
+        "manifest": {
+          "application_id": "org.example.ezvizprobe",
+          "components": 0,
+          "min_sdk": 21,
+          "permissions": 0,
+          "target_sdk": 35
+        },
+        "negative_controls": {
+          "injected_permission": {
+            "reason": "apk.permissions",
+            "rejected": true
+          },
+          "same_size_member": {
+            "member": "assets/common_title.9.png",
+            "reason": "apk.member_digest",
+            "rejected": true
+          }
+        },
+        "resource_sources": 48,
+        "signed": false
+      },
+      "build_passes": [
+        "online_assembleRelease",
+        "offline_rerun_assembleRelease"
+      ],
+      "bytecode": {
+        "class_invocations": [
+          {
+            "descriptor": "(II)Ljava/util/List;",
+            "name": "getDeviceList",
+            "owner": "com/videogo/openapi/EZOpenSDK"
+          },
+          {
+            "descriptor": "(Ljava/lang/String;)V",
+            "name": "setAccessToken",
+            "owner": "com/videogo/openapi/EZOpenSDK"
+          },
+          {
+            "descriptor": "(Ljava/lang/String;Ljava/lang/String;)V",
+            "name": "setServerUrl",
+            "owner": "com/videogo/openapi/EZOpenSDK"
+          },
+          {
+            "descriptor": "(Ljava/util/Calendar;)Z",
+            "name": "seekPlayback",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Ljava/lang/String;)V",
+            "name": "setPlayVerifyCode",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Lcom/videogo/openapi/EZConstants$EZPlaybackRate;)Z",
+            "name": "setPlaybackRate",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Lcom/videogo/openapi/EZConstants$EZPlaybackRate;I)Z",
+            "name": "setPlaybackRate",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Landroid/view/SurfaceHolder;)Z",
+            "name": "setSurfaceHold",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Landroid/view/SurfaceHolder;I)Z",
+            "name": "setSurfaceHold",
+            "owner": "com/videogo/openapi/EZPlayer"
+          }
+        ],
+        "dependency_classes": [
+          "com/google/gson/Gson",
+          "okhttp3/OkHttpClient",
+          "okio/Buffer"
+        ],
+        "dex_files": [
+          {
+            "name": "classes.dex",
+            "sha256": "acbb67547259c5cab79257f76db1e6d5b4c8e0efb358c6a558dcdd16cbaadb20"
+          }
+        ],
+        "dex_invocations": [
+          {
+            "descriptor": "(II)Ljava/util/List;",
+            "name": "getDeviceList",
+            "owner": "com/videogo/openapi/EZOpenSDK"
+          },
+          {
+            "descriptor": "(Ljava/lang/String;)V",
+            "name": "setAccessToken",
+            "owner": "com/videogo/openapi/EZOpenSDK"
+          },
+          {
+            "descriptor": "(Ljava/lang/String;Ljava/lang/String;)V",
+            "name": "setServerUrl",
+            "owner": "com/videogo/openapi/EZOpenSDK"
+          },
+          {
+            "descriptor": "(Ljava/util/Calendar;)Z",
+            "name": "seekPlayback",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Ljava/lang/String;)V",
+            "name": "setPlayVerifyCode",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Lcom/videogo/openapi/EZConstants$EZPlaybackRate;)Z",
+            "name": "setPlaybackRate",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Lcom/videogo/openapi/EZConstants$EZPlaybackRate;I)Z",
+            "name": "setPlaybackRate",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Landroid/view/SurfaceHolder;)Z",
+            "name": "setSurfaceHold",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Landroid/view/SurfaceHolder;I)Z",
+            "name": "setSurfaceHold",
+            "owner": "com/videogo/openapi/EZPlayer"
+          }
+        ],
+        "invalid_java_method": {
+          "exit_code": 1,
+          "reason": "cannot_find_symbol_for_negative_control",
+          "rejected": true
+        },
+        "java_positive": {
+          "exit_code": 0
+        },
+        "probe_class_sha256": "1ae68ca1cbbee5f192ee2eafdf8e8b9a0deef169bf5a1f41675f7a9510a95c60",
+        "vendor_classes": [
+          "com/videogo/openapi/EZGlobalSDK",
+          "com/videogo/openapi/EZOpenSDK",
+          "com/videogo/openapi/EZPlayer"
+        ],
+        "vendor_method_definitions": [
+          {
+            "descriptor": "(II)Ljava/util/List;",
+            "name": "getDeviceList",
+            "owner": "com/videogo/openapi/EZOpenSDK"
+          },
+          {
+            "descriptor": "(Ljava/lang/String;)V",
+            "name": "setAccessToken",
+            "owner": "com/videogo/openapi/EZOpenSDK"
+          },
+          {
+            "descriptor": "(Ljava/lang/String;Ljava/lang/String;)V",
+            "name": "setServerUrl",
+            "owner": "com/videogo/openapi/EZOpenSDK"
+          },
+          {
+            "descriptor": "(Ljava/util/Calendar;)Z",
+            "name": "seekPlayback",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Ljava/lang/String;)V",
+            "name": "setPlayVerifyCode",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Lcom/videogo/openapi/EZConstants$EZPlaybackRate;)Z",
+            "name": "setPlaybackRate",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Lcom/videogo/openapi/EZConstants$EZPlaybackRate;I)Z",
+            "name": "setPlaybackRate",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Landroid/view/SurfaceHolder;)Z",
+            "name": "setSurfaceHold",
+            "owner": "com/videogo/openapi/EZPlayer"
+          },
+          {
+            "descriptor": "(Landroid/view/SurfaceHolder;I)Z",
+            "name": "setSurfaceHold",
+            "owner": "com/videogo/openapi/EZPlayer"
+          }
+        ]
+      },
+      "consumer": {
+        "apk_bytes": 49095759,
+        "apk_sha256": "dda35adc4b12dbf0e3740fbfd331a32bbeebb786f0e39ec277c47157e73e45ef",
+        "input_sha256": {
+          "app_build": "f3e61ec162dd57b85320e2d848ccb77332530b4b6fda9bfdc56ec6c768ad61e3",
+          "manifest": "a4aa505c15ce61c8667900c819fd70bc8aac52db52ff8d913d74a556b4eb8a60",
+          "probe": "0f84e6a54b871d4a05d08d877cd58d244e0970bade83c40c7e89105092d0da79",
+          "settings": "ffb7adc57b3a045c1aa47027a17cdf9f5828d9e0c28798b17b0995bbd771285c"
+        }
+      },
+      "coordinate": "io.github.ezviz-open:ezviz-sdk:5.34",
+      "dependencies": {
+        "aar_sha256": "d93f556aa26eee51049efbdaa6a85fc2116220a6500153810062954966a9a571",
+        "configuration": "releaseRuntimeClasspath",
+        "pom_sha256": "d9ef6ec7f97ccf83fb3a0fdb572dfd6cea28ad541342f7bbf3774b819b310155",
+        "runtime_jar_sha256": {
+          "com.google.code.gson:gson:2.8.5": "233a0149fc365c9f6edbd683cfe266b19bdc773be98eabdaf6b3c924b48e7d81",
+          "com.squareup.okhttp3:okhttp:3.12.1": "07c3d82ca7eaf4722f00b2da807dc7860f6169ae60cfedcf5d40218f90880a46",
+          "com.squareup.okio:okio:1.15.0": "693fa319a7e8843300602b204023b7674f106ebcb577f2dd5807212b66118bd2"
+        }
+      },
+      "device_requests": 0,
+      "dex_sha256": {
+        "classes.dex": "acbb67547259c5cab79257f76db1e6d5b4c8e0efb358c6a558dcdd16cbaadb20"
+      },
+      "emulator_runs": 0,
+      "executed": false,
+      "installed": false,
+      "passed": true,
+      "resources": {
+        "configurations": [
+          "default",
+          "zh"
+        ],
+        "localized_example": "ez_ai_cloud_default_title",
+        "symbol_set_sha256": "5830e360a003c2e91c00654dc6fde773aa74f0a139df819d555ab09cc696c45e",
+        "symbols": 95,
+        "type_counts": {
+          "drawable": 25,
+          "id": 28,
+          "layout": 9,
+          "string": 33
+        }
+      },
+      "runner": {
+        "GITHUB_RUN_ATTEMPT": "1",
+        "GITHUB_RUN_ID": "44836832310",
+        "GITHUB_SHA": "d849e59f57db5ffdff7f257615bef0ca465eaddb",
+        "ImageOS": "ubuntu24",
+        "ImageVersion": "20261116.133.1",
+        "checkout": "f4badea5b2ab4381476de01b3c165185e33b7431"
+      },
+      "signed": false,
+      "toolchain": {
+        "agp": "8.9.2",
+        "agp_runtime_jar_sha256": "6c313d24d07ac393cfc7db5d63c5029e7d20b278781c42b2d22adf9bcc7dba30",
+        "build_tools": "35.0.0",
+        "compile_sdk": 35,
+        "gradle": "8.11.1",
+        "java_version": "17.0.21",
+        "jdk_major": 17,
+        "target_sdk": 35
+      }
+    },
+    "accepted_rollouts": [
+      {
+        "label": "SP541-RuntimeReceipt",
+        "sha256": "21598c5de25b574a57bf113f6517cc64c19e069826d139c9f51f51117b6e1348"
+      },
+      {
+        "label": "SP541-VerifyReceipt",
+        "sha256": "528a67e4650cc32db988beb483b16d84b87bca1e59e54df3ee0ea510b7e4c8fe"
+      },
+      {
+        "label": "SP541-BytecodeReceipt",
+        "sha256": "01f6f2400fccb899b6ac9ea9e00c53d5deba1b06ce6c5f04ed3bb8e73db95fa8"
+      },
+      {
+        "label": "SP541-SourceReceipt",
+        "sha256": "4786b673723ae6f3922dcb5187f885d10d50f85769d8add91d26d4f8d41a83b2"
+      },
+      {
+        "label": "SP541-WorkflowHelperPathReceipt",
+        "sha256": "d177825441df3ec11ab0b8cb0370f4aede143e950b80c6ec9be459fba01d3be5"
+      },
+      {
+        "label": "SP541-WorkflowHeadReceipt",
+        "sha256": "2c446eabd7176daecd58ac5534b3f4b741fc4ce8b7fb39325c9da064f5199ecf"
+      }
+    ]
+  },
+  "limits": "仅验证固定 Maven 组件的未混淆 APK 消费、DEX、资源与未签名状态；没有签名安装、启动进程、加载 JNI 或接触账户和设备。此前 iOS 的结果独立保留。"
+}

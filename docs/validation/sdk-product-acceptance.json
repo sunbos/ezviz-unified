@@ -553,10 +553,12 @@
         "H264-LOCAL-BROWSER": "met",
         "HEVC-SOFT-LOCAL": "met",
         "OVERSEAS-FLV-H264-LOCAL": "met",
-        "IOS-534-UNSIGNED-CONSUMER-BUILD": "met"
+        "IOS-534-UNSIGNED-CONSUMER-BUILD": "met",
+        "ANDROID-534-UNSIGNED-APK-BUILD": "met"
       },
       "execution_evidence_refs": [
-        "docs/validation/2026-11-21-native-ios-initialization/checks.json"
+        "docs/validation/2026-11-21-native-ios-initialization/checks.json",
+        "docs/validation/2026-11-21-native-android-build/checks.json"
       ]
     },
     {
@@ -36648,20 +36650,34 @@
       "source_refs": [
         "docs/coordination/native-android-build/scope.json"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
+      "code_artifact_evidence_refs": [
+        "docs/coordination/native-android-build/scope.json",
+        "docs/validation/2026-11-21-native-android-build/source-review.json",
+        "examples/android_sdk_build/settings.gradle",
+        "examples/android_sdk_build/app/build.gradle",
+        "examples/android_sdk_build/app/src/main/AndroidManifest.xml",
+        "examples/android_sdk_build/app/src/main/java/org/example/ezvizprobe/NativeSDKProbe.java",
+        "tools/native/verify_android_build.py",
+        "tools/native/android_probe_bytecode.py",
+        "docs/official-mobile-sdk.md",
+        ".github/workflows/android-sdk.yml"
+      ],
+      "result": "recorded_evidence",
       "criterion_assessment": {
-        "DEPENDENCIES": "pending",
-        "RELEASE_APK": "pending",
-        "BYTECODE_DEX": "pending",
-        "NATIVE_RESOURCES": "pending",
-        "NEGATIVES": "pending"
+        "DEPENDENCIES": "met",
+        "RELEASE_APK": "met",
+        "BYTECODE_DEX": "met",
+        "NATIVE_RESOURCES": "met",
+        "NEGATIVES": "met"
       },
       "limitations": [
         "签名、权限、真机和媒体独立于构建。"
       ],
-      "blockers": [
-        "待实际 Gradle 构建。"
+      "blockers": [],
+      "execution_outcome": "passed",
+      "verified_code_commit": "f4badea5b2ab4381476de01b3c165185e33b7431",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-native-android-build/checks.json"
       ]
     },
     {
