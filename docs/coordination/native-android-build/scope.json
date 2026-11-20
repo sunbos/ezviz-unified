@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "4349e1c7e30336f85614ad6542a90484494cbbd4",
+  "scope_revision": "2026-11-21-r60-native-android-build",
+  "cohort_id": "NATIVE-ANDROID-AAR-534-001",
+  "component": {
+    "repository": "https://repo.maven.apache.org/maven2",
+    "coordinate": "io.github.ezviz-open:ezviz-sdk:5.34",
+    "pom_sha256": "d9ef6ec7f97ccf83fb3a0fdb572dfd6cea28ad541342f7bbf3774b819b310155",
+    "aar_bytes": 50305579,
+    "aar_sha256": "d93f556aa26eee51049efbdaa6a85fc2116220a6500153810062954966a9a571",
+    "classes_jar_sha256": "dda4a07f013321a1a597b77422542b38128a27a83c04bcdacda71c475acfa9e7",
+    "classes_major_version": 52,
+    "vendor_package": "com.videogo.ezvizsdk",
+    "minimum_android_api": 21,
+    "abis": {
+      "arm64-v8a": {
+        "elf_bits": 64,
+        "machine": 183,
+        "libraries": 37
+      },
+      "armeabi-v7a": {
+        "elf_bits": 32,
+        "machine": 40,
+        "libraries": 37
+      }
+    },
+    "embedded_jars": 12,
+    "assets": 58,
+    "resource_sources": 48,
+    "direct_maven_dependencies": [],
+    "runtime_jars": {
+      "com.squareup.okhttp3:okhttp:3.12.1": {
+        "sha256": "07c3d82ca7eaf4722f00b2da807dc7860f6169ae60cfedcf5d40218f90880a46",
+        "bytes": 422787,
+        "source_url": "https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/3.12.1/okhttp-3.12.1.jar"
+      },
+      "com.squareup.okio:okio:1.15.0": {
+        "sha256": "693fa319a7e8843300602b204023b7674f106ebcb577f2dd5807212b66118bd2",
+        "bytes": 88732,
+        "source_url": "https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.15.0/okio-1.15.0.jar"
+      },
+      "com.google.code.gson:gson:2.8.5": {
+        "sha256": "233a0149fc365c9f6edbd683cfe266b19bdc773be98eabdaf6b3c924b48e7d81",
+        "bytes": 241622,
+        "source_url": "https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar"
+      }
+    },
+    "symbols": [
+      {
+        "owner": "com/videogo/openapi/EZOpenSDK",
+        "name": "setServerUrl",
+        "descriptor": "(Ljava/lang/String;Ljava/lang/String;)V",
+        "candidate_id": "candidate:domestic:native-ref:setServerUrl"
+      },
+      {
+        "owner": "com/videogo/openapi/EZOpenSDK",
+        "name": "setAccessToken",
+        "descriptor": "(Ljava/lang/String;)V",
+        "candidate_id": "candidate:domestic:native-ref:setAccessToken"
+      },
+      {
+        "owner": "com/videogo/openapi/EZOpenSDK",
+        "name": "getDeviceList",
+        "descriptor": "(II)Ljava/util/List;",
+        "candidate_id": "candidate:domestic:native-ref:getDeviceList"
+      },
+      {
+        "owner": "com/videogo/openapi/EZPlayer",
+        "name": "setSurfaceHold",
+        "descriptor": "(Landroid/view/SurfaceHolder;)Z",
+        "candidate_id": "candidate:domestic:native-ref:setSurfaceHold"
+      },
+      {
+        "owner": "com/videogo/openapi/EZPlayer",
+        "name": "setSurfaceHold",
+        "descriptor": "(Landroid/view/SurfaceHolder;I)Z",
+        "candidate_id": "candidate:domestic:native-ref:setSurfaceHold"
+      },
+      {
+        "owner": "com/videogo/openapi/EZPlayer",
+        "name": "setPlayVerifyCode",
+        "descriptor": "(Ljava/lang/String;)V",
+        "candidate_id": "candidate:domestic:native-ref:setPlayVerifyCode"
+      },
+      {
+        "owner": "com/videogo/openapi/EZPlayer",
+        "name": "seekPlayback",
+        "descriptor": "(Ljava/util/Calendar;)Z",
+        "candidate_id": "candidate:domestic:native-ref:seekPlayback"
+      },
+      {
+        "owner": "com/videogo/openapi/EZPlayer",
+        "name": "setPlaybackRate",
+        "descriptor": "(Lcom/videogo/openapi/EZConstants$EZPlaybackRate;)Z",
+        "candidate_id": "candidate:domestic:native-ref:setPlaybackRate"
+      },
+      {
+        "owner": "com/videogo/openapi/EZPlayer",
+        "name": "setPlaybackRate",
+        "descriptor": "(Lcom/videogo/openapi/EZConstants$EZPlaybackRate;I)Z",
+        "candidate_id": "candidate:domestic:native-ref:setPlaybackRate"
+      }
+    ],
+    "r_txt_sha256": "47cde01f43fdec3b1640a187917b77afccf670ab4a1c9c41e812a1fb703101af"
+  },
+  "toolchain": {
+    "runner": "ubuntu-24.04",
+    "jdk_major": 17,
+    "compile_sdk": 35,
+    "target_sdk": 35,
+    "build_tools": "35.0.0",
+    "agp": "8.9.2",
+    "gradle": "8.11.1",
+    "gradle_distribution": "https://services.gradle.org/distributions/gradle-8.11.1-bin.zip",
+    "gradle_distribution_sha256": "f397b287023acdba1e9f6fc5ea72d22dd63669d59ed4a289a29b1a76eee151c6",
+    "ci_workflow": "Android SDK consumer",
+    "ci_file": ".github/workflows/android-sdk.yml"
+  },
+  "sources": [
+    {
+      "doc_id": "4149",
+      "source_ref": "portal-2026-11-17:domestic:4149",
+      "source_url": "https://open.ys7.com/help/4149",
+      "html_sha256": "5e23da46a039a03f21a96b1ef0d3f0eb2f1c26207e76b1a7e1013b9e280efa1f",
+      "raw_file": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4149.source.json",
+      "structure_file": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4149.structure.json",
+      "structure_sha256": "ccd02b9508773b688dd6ac97a67d6f73238198ed83ce790fc36e5fea20ee5eb3"
+    },
+    {
+      "doc_id": "4150",
+      "source_ref": "portal-2026-11-17:domestic:4150",
+      "source_url": "https://open.ys7.com/help/4150",
+      "html_sha256": "1f12f6597a0f8b8dc3bbcc1658e7d982ad71998f22401d1b9cfb16859a62ee98",
+      "raw_file": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4150.source.json",
+      "structure_file": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4150.structure.json",
+      "structure_sha256": "c4572433f9bea51ffdf1f1b99fef68dfb7dc310b5856abe33a00ea0ac9bd7184"
+    },
+    {
+      "doc_id": "4151",
+      "source_ref": "portal-2026-11-17:domestic:4151",
+      "source_url": "https://open.ys7.com/help/4151",
+      "html_sha256": "457034f85afd23fa4dbe8a9803159c23bc9bec53913c6ad6f8994b08a068a91d",
+      "raw_file": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4151.source.json",
+      "structure_file": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4151.structure.json",
+      "structure_sha256": "37f40343aa23140868fe9caebc54fb0a3ead963e05c1f685ca61c4ba732d125e"
+    }
+  ],
+  "acceptance": {
+    "project": "examples/android_sdk_build",
+    "settings": "examples/android_sdk_build/settings.gradle",
+    "app_build": "examples/android_sdk_build/app/build.gradle",
+    "manifest": "examples/android_sdk_build/app/src/main/AndroidManifest.xml",
+    "probe": "examples/android_sdk_build/app/src/main/java/org/example/ezvizprobe/NativeSDKProbe.java",
+    "probe_class": "org.example.ezvizprobe.NativeSDKProbe",
+    "application_id": "org.example.ezvizprobe",
+    "verifier": "tools/native/verify_android_build.py",
+    "guide": "docs/official-mobile-sdk.md",
+    "source_review": "docs/validation/2026-11-21-native-android-build/source-review.json",
+    "proof": "docs/validation/2026-11-21-native-android-build/checks.json",
+    "case_ids": [
+      "ACC-ANDROID-534-UNSIGNED-APK-001",
+      "ACC-ANDROID-534-SIGNED-DEVICE-001"
+    ],
+    "objectives": [
+      "普通 com.android.application 项目，通过 mavenCentral 的准确坐标与文档 E6 两个直接依赖消费组件。核对 Gradle 实际解析的 AAR/POM 与额外 3 个运行 JAR 的摘要和坐标。禁止替换为 flatDir、stub 或仅 javac 伪装 Gradle 构建。JDK17 与已装 android-35/build-tools35.0.0；不安装 Android SDK、不自动接受 SDK 许可。隔离 Gradle 用户缓存与工程目录。不使用私有依赖源或凭据。",
+      "按正常 release assemble 产出 APK。允许首次公共依赖获取，再以隔离、预备好的同一依赖缓存和 Gradle offline 重新生成实际 APK；关闭签名、缩减和资源缩减，本次只验证未混淆的消费包。Java Probe 为无平台入口的类型化方法：只声明两类 SDK 的七个名称九个实际描述符，使用传入变量，不在任何运行入口调用 SDK，不写入真实 token/设备。不得请求实际设备列表、权限或使用模拟器。release minSdk21、target35；不登记 Activity、启动组件或业务权限。",
+      "验证最终 unsigned APK（apksigner 签名缺失的明确拒绝及签名痕迹检查），manifest 解码的 applicationId、sdk 版本与实际组件/无业务权限。资源经过 AAPT2 后以真实资源表核对布局/资源名称和代表性有差异的配置，不能用原 XML 字节对比编译资源。58 个 assets 与两个 ABI 的各37个 ELF SO 对齐来源、成员名、内容 SHA 及 ELF32 ARM / ELF64 AArch64。检查输入 AndroidManifest/实际依赖范围和文档17次权限示例的边界。",
+      "通过消费 .class 与最终 DEX 两处证据：Java 编译器发出的真实 owner/name/descriptor，最终 Probe DEX 指令确实引用九个目标方法；最终 DEX 定义含厂商真实类和 SDK 描述符及依赖。不可用搜索整个 APK 字符串代替 DEX 证据。minify=false 与保持原生库符号是验收选择，不据此声称 R8 或 JNI 在真机上通过。",
+      "负例应真正触发边界：同一 Java 编译环境中错误方法名必须在相应符号处失败；相同大小的 .so 或 asset 改一字节必须由同一摘要校验拒绝；合成的非授权权限必须被最终 manifest 检查拒绝。控制输入仅在临时副本，不修改官方缓存和工作树。发布可复核的无个人信息 JSON 回执，记录 runner、Gradle/AGP/JDK/SDK、真实 Gradle source revisions、APK/DEX/Maven 摘要、负例及未运行/未签名/零设备调用。不得上传 APK、Logcat 或任何用户数据，只留精简证据。",
+      "GitHub Actions 采用只读权限和预装工具，独立于 Python CI、只在本例验收输入变化的 PR/主分支与手动触发；head 绑定 GitHub 实际 run/job，保留失败后修复记录。Python runtime、wheel 与 sdist 均不带 APK/AAR、Gradle 或 Java 运行时依赖。"
+    ]
+  },
+  "limits": "只验收实际编译、DEX、Manifest、JNI 和资源打入 release APK。签名、安装启动、JNI 加载、授权与业务表现均需另行验收。"
+}
