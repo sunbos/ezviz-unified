@@ -35001,8 +35001,8 @@
         "global.settings.get_timing_plan"
       ],
       "scope_revision": "2026-11-20-r48-overseas-working-mode-plans",
-      "freeze_state": "awaiting_resource_scope_and_authorization",
-      "region_cluster": "overseas:account_cluster_not_confirmed",
+      "freeze_state": "frozen_for_execution",
+      "region_cluster": "overseas:Singapore",
       "account_role_permissions": "支持托管和子账号，要求 Get 权限。",
       "device_requirements": "确认集群、目标设备/型号及服务适用性。",
       "surface": [
@@ -35011,7 +35011,7 @@
       ],
       "risk": "read_only",
       "preconditions": [
-        "明确目标、授权、请求上限。无需设备写入。"
+        "用户授权同一新加坡应用的首页首台设备，最多两次认证、一次列表、同步与异步各一次只读计划查询。首错即停。"
       ],
       "expected_evidence": {
         "read": "仅保存状态、次数和类型。",
@@ -35019,24 +35019,30 @@
         "physical": "平台受理与设备计划生效须分别验证。"
       },
       "bounded": {
-        "max_requests": null,
-        "max_operations": null,
-        "freeze_required": true
+        "max_requests": 5,
+        "max_operations": 3,
+        "freeze_required": false
       },
-      "authorization_status": "not_authorized",
+      "authorization_status": "recorded",
       "recovery_plan": "仅单设备查询。",
       "source_refs": [
         "docs/coordination/overseas-working-mode-plans/admission.json",
         "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3724.source.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_resource_confirmation",
+      "result": "recorded_evidence",
       "blockers": [
-        "待确认目标资源及本场景所需授权。"
+        "未取得同步与异步均成功的只读回执。原调用预算到此停止。"
       ],
       "limitations": [
         "字段表和非严格示例给出周计划与时段嵌套；支持型号与时区、段数和可恢复性未确认。"
-      ]
+      ],
+      "execution_outcome": "not_verified",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-20-singapore-first-device-working-mode-plan/receipt.json"
+      ],
+      "execution_note": "认证和首页首台选择已完成，同步计划查询返回 SDK 错误。首次失败即停，异步未执行。未记录计划内容、业务码或原始异常，无法据此判定权限、设备状态或型号支持。",
+      "attempted_code_commit": "42cb633fa3ee19dd9fe8fd8f2eee57a3207dc5c1"
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-3725-D0-LIVE-001",

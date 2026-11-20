@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 新加坡首页首台设备工作模式计划实测
+
+认证和首页首台选择已完成，同步计划查询返回 SDK 错误。首次失败即停，异步未执行。未记录计划内容、业务码或原始异常，无法据此判定权限、设备状态或型号支持。 本次获准上限为 5 次 HTTP，实际放行 3 次。本项仍待通过。[脱敏回执](live/2026-11-20-singapore-first-device-working-mode-plan/receipt.json)
+
 ## 海外移动侦测联动灯
 
 查询固定发送 type=301，并完整保留返回数据。只读示例仅在返回类型为 301 时解释开关值。设置在 query 中提交两个字符串字段，成功回执可只有 body.meta。设备同步时点、实际灯效和恢复情况仍待真实验收。[来源及类型差异](../coordination/overseas-motion-linked-light/admission.json) · [离线验收](2026-11-20-overseas-motion-linked-light/offline.json)

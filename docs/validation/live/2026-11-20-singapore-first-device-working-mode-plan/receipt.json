@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "case_id": "ACC-CANDIDATE-OVERSEAS-3724-D0-LIVE-001",
+  "region_cluster": "Singapore",
+  "code_commit": "42cb633fa3ee19dd9fe8fd8f2eee57a3207dc5c1",
+  "at_utc": "2026-11-20T15:38:48.453143+00:00",
+  "approved_http_limit": 5,
+  "admitted_http_attempts": 3,
+  "last_admitted_stage": "sync_plan",
+  "status": "sdk_error",
+  "reads": {},
+  "returned_week_groups": {},
+  "device_config_changed": false
+}
