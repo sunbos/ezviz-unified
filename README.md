@@ -102,6 +102,21 @@ python -m examples.alarm_sound_mode --mode sync
 python -m examples.alarm_sound_mode --mode async
 ```
 
+## 海外 OAuth 登录辅助
+
+`ezviz_unified.oauth` 导出 `OAuth`、`AsyncOAuth` 与结果类型 `OAuthGrant`，构造形如 `OAuth(app_key, auth_origin=…, api_origin=…)`。调用方须事先分别核实两个不同的区域 HTTPS origin，`auth_origin` 只绑定认证服务域名，`api_origin` 只绑定业务服务域名，本模块不推导这对 origin，不启动监听器，也不自动打开浏览器。
+
+`build_login_url` 只在本地拼装固定全球登录地址 `https://openauth.ezvizlife.com`，`area_id` 为正整数，表示用户注册的国家或地区，可通过 `client.settings.list_areas` 查询，演示用的 `area_id` 是合成占位，不代表区域映射。`client_type` 区分 PC `19` 与移动端 `11`、`13`，仅移动端必须提供 `bundle_id`，`response_type` 可选 `token` 或 `refresh_token`。应用把生成的地址呈现给用户浏览器，SDK 不执行导航。交互完成后由宿主应用把实际得到的回跳地址交给 `parse_redirect`，它仅接受已配置 `auth_origin` 下的 `/oauth/success`，拒绝任何 `query` 包括空 `query`，只解码 `fragment`。结果须含非空 `access_token`，选 `refresh_token` 时还要求返回非空 `refresh_token`，本版本不执行 §1.3 刷新。解码后若回跳携带 `areaDomain` 则与 `api_origin` 显式比较，若携带 `authDomain` 则与 `auth_origin` 显式比较，未知字段在解码后原样保留。
+
+```bash
+python -m examples.oauth_login --mode sync
+python -m examples.oauth_login --mode async
+```
+
+`AsyncOAuth` 的两个方法均可 `await`，只做本地计算。示例全程使用合成数据，只输出 `mode` 字符串与 `login_url_built`、`redirect_parsed` 两个布尔值，不读取账户配置，不传输或持久化令牌。
+
+`OAuthGrant` 暴露 `access_token`、`refresh_token`、`open_id`、`expires_in`、`area_domain`、`auth_domain` 具名字段，以及保存全部解码字段的不可变 `fields`。`repr` 隐藏凭据与扩展值，直接读字段仍属敏感操作。`expires_in` 如出现按非负整数保留，单位未经证实，不换算 TTL。`expected_state` 仅在调用方提供时做本地比对，登录请求没有官方记录的 `state` 透传，企业或移动端自定义回调协议亦未获验证。本交付未执行真实用户登录，也未验证真实令牌签发。`appSecret` 或既有新加坡只读设备授权均不能建立用户登录。
+
 ## 海外 DDNS 只读查询
 
 三个查询均可通过 `Client.ddns` 和 `AsyncClient.ddns` 调用。海外业务请求发往认证返回的 `areaDomain`，使用表单中的 `accessToken`，沿用统一的错误分类与只读重试。

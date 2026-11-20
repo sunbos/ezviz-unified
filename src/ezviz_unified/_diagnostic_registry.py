@@ -240,6 +240,8 @@ ADDITIONAL_ENTRYPOINTS: frozenset[str] = frozenset(
         "client.cleanup",
         "inspect_device",
         "inspect_device_async",
+        "oauth.build_login_url",
+        "oauth.parse_redirect",
         "application",
     }
 )
