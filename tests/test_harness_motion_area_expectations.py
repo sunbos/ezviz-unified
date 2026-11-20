@@ -24,6 +24,7 @@ REDACTED_OPERATION_IDS = (
     "cn.settings.get_detection_sensitivity",
     "cn.settings.set_detection_sensitivity",
     "cn.video.get_video_codec",
+    "cn.devices.list_by_id",
 )
 
 FACADES = {
@@ -36,6 +37,7 @@ FACADES = {
     "cn.settings.set_detection_sensitivity": (Settings, "set_detection_sensitivity"),
     "cn.devices.get": (Devices, "get"),
     "cn.video.get_video_codec": (Video, "get_video_codec"),
+    "cn.devices.list_by_id": (Devices, "list_by_id"),
 }
 
 READ_ONLY_OPERATION_IDS = {
@@ -44,6 +46,7 @@ READ_ONLY_OPERATION_IDS = {
     "cn.settings.get_detection_sensitivity",
     "cn.video.get_video_codec",
     "cn.devices.get",
+    "cn.devices.list_by_id",
 }
 
 MUTATIONS = {
@@ -51,11 +54,20 @@ MUTATIONS = {
     "raw": lambda response: replace(response, raw={}),
     "data": lambda response: replace(response, data={}),
     "mask": lambda response: replace(response, message="***"),
+    "drop_page": lambda response: replace(
+        response, raw={k: v for k, v in response.raw.items() if k != "page"}
+    ),
+    "corrupt_page": lambda response: replace(
+        response,
+        raw={**response.raw, "page": {**response.raw["page"], "nextId": "contract-eval-corrupt"}},
+    ),
 }
 
 PARAMS = [
     *itertools.product(REDACTED_OPERATION_IDS, ("leak", "raw", "data")),
     ("cn.devices.get", "mask"),
+    ("cn.devices.list_by_id", "drop_page"),
+    ("cn.devices.list_by_id", "corrupt_page"),
 ]
 
 

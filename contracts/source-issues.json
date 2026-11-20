@@ -2618,6 +2618,23 @@
         "国内 2377 E7;E11;E14",
         "docs/coordination/domestic-video-codec-read/admission.json"
       ]
+    },
+    {
+      "id": "cn.devices.list_by_id.cursor_transport_and_page_end",
+      "region": "domestic",
+      "source_doc_id": "3947",
+      "source_url": "https://open.ys7.com/help/3947",
+      "source_content_sha256": "f430e2b2ef897b436fb48103bb14e558c2a46c67829f49642176f702414367b3",
+      "description": "文档 3947 的 E14 参数表 将四个字段全部列为 query 参数。E48 在 form 中只发送 accessToken、pageStart 和 pageSize，并省略 id。文档 673 显示同一个 URL 也用于以 form 方式传递页码。id 与 pageStart 同时传入时的优先级未知。E56 说明空的 nextId 表示最后一页，但未指明其确切的 JSON 表示形式。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 只通过 query 发送请求参数，不尝试 form 方式，也不自动翻页。SDK 使用 page.nextId 作为分页游标，而不是行 id。SDK 将空字符串或显式 null 视为分页结束，并要求响应中包含 nextId。当返回错误码 10002 时，SDK 可以执行一次刷新并重试一次。",
+      "evidence": [
+        "E3;E7;E11;E14",
+        "E48",
+        "E52;E56;E140",
+        "国内 673 E14;E48;E52;E56",
+        "docs/coordination/domestic-device-cursor/admission.json"
+      ]
     }
   ]
 }

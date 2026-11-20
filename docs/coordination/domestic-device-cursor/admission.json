@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "0bcc6edcbc631af21712830f1702824e741cd456",
+  "scope_revision": "2026-11-21-r55-domestic-device-cursor",
+  "cohort_id": "DOMESTIC-DEVICE-CURSOR-001",
+  "operations": [
+    {
+      "doc_id": "3947",
+      "source_url": "https://open.ys7.com/help/3947",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/3947.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/3947.structure.json",
+      "html_sha256": "f430e2b2ef897b436fb48103bb14e558c2a46c67829f49642176f702414367b3",
+      "operation_id": "cn.devices.list_by_id",
+      "capability_id": "candidate:domestic:3947:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-3947-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-3947-D0-LIVE-001"
+      ],
+      "entry": "devices.list_by_id",
+      "name": "list_by_id",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/lapp/device/list",
+      "read_only": true,
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageStart",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageSize",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "id",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 48,
+        "example": 52,
+        "fields": 56,
+        "errors": 140
+      },
+      "signatures": {
+        "Devices": "def list_by_id(self, *, cursor: str | None = None, page_start: int | None = None, page_size: int | None = None) -> ApiResponse",
+        "AsyncDevices": "async def list_by_id(self, *, cursor: str | None = None, page_start: int | None = None, page_size: int | None = None) -> ApiResponse"
+      },
+      "permission": "国内当前账户设备。子账户仅能查询萤石协议接入的设备。3947 未给出最低权限名称或托管设备支持范围。",
+      "unknown": "3947 E14 把四个字段列为 query；E48 对三个共同字段使用 form 且未传 id。SDK 按该页唯一完整字段表提交 query，线上组合及 id 和 pageStart 同传的优先级未实证。"
+    }
+  ],
+  "related_numbered_list": {
+    "doc_id": "673",
+    "source_url": "https://open.ys7.com/help/673",
+    "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/673.source.json",
+    "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/673.structure.json",
+    "html_sha256": "9b6636cd7a15e0660ffa100dfaa67f7a5a55b856b758e79e6d46622c5d69bce3"
+  },
+  "wire_adjudication": {
+    "table": "E14",
+    "curl": "E48",
+    "selected": "query",
+    "confirmed_by_live_service": false,
+    "prior_contract": "cn.devices.list",
+    "legacy_source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/673.source.json",
+    "other_evidence": "同批 673 form 页码分页；海外 476 仅普通分页。没有找到能够独立确认 3947 全套参数被线上接受的游标请求示例。"
+  },
+  "sdk_choices": [
+    "3947 查询当前账号的一页。独立方法与独立 operation_id，保留原 673/海外 devices.list 的位置参数、form 编码、区域规则以及国内上界 400。国内检查先于参数处理、鉴权和网络；沿用 devices.py 的既有校验与读操作单次 10002 刷新，不增加业务分页或替代请求。",
+    "仅在 query 传 accessToken 及显式提供的 id、pageStart、pageSize，不发 form、JSON 或 Content-Type。cursor=None 为首轮可省；显式游标是非空白、可编码为 UTF-8 且不含 C0/C1/DEL 的不透明字符串，保留原字符与非空白游标首尾空格。不猜数值、不截断或普通哈希。数字分页参数均为真正整数；page_start 采用 SDK 对“不超过100页”的包含上界解释 0–100，page_size 1–50。None 均省略，平台描述默认 size=10。若调用方同时显式提供游标和页码则均原样发送，优先关系未证。",
+    "成功根层 code 是字符串 200；data 是对象列表；根层 page 必须是对象且有 nextId。非空有效字符串表示有下一页，空字符串按文档作末页，显式 JSON null 作为 SDK 对“空”的兼容解释。缺少 nextId 或非法非空游标要报 ProtocolError，防止误报末页；若 total、size 出现须为非 bool 整数。保留响应原值/扩展/顺序与可空行字段，不以数组长度、total 或行 id 推导下一页。data/raw 对主动调用者可见。",
+    "查询令牌、游标和设备清单均敏感。使用独立的严格受管 HTTPX 展示策略隐藏整段 query、原因短语及上游自由文本，诊断仅留固定入口和类别。示例及异常不得展示游标、设备名、序列号、网络地址、账户标识或 token。不修改全局 HTTPX 或其他操作策略。",
+    "可显式运行的 python -m examples.device_cursor --mode sync|async。复用 examples._common.load_config 与国内配置，可选本地环境项 EZVIZ_DEVICE_CURSOR（不放入 argv）。每次只调用 list_by_id(cursor=...,page_size=1) 一次；不取第二页、不读取详情、不打印游标。验证带 cursor 或 None 的配置后，只输出 JSON returned_items 为 0 或 1、has_next 为布尔。若服务端返回超过1行则固定错误退出，不截断当成功。固定 usage: python -m examples.device_cursor --mode sync|async；固定错误 error: device cursor query failed；成功/错误/取消退出 0/1/130，非预期异常传播。本批离线测试从合成输入隔离真实凭据。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/devices.py",
+    "src/ezviz_unified/client.py",
+    "examples/_common.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批离线。真实验证需单独明确账号、页面上限与游标来源，不复用先前不同业务的单次请求额度。"
+}

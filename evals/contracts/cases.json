@@ -7025,6 +7025,34 @@
           }
         }
       }
+    },
+    {
+      "operation_id": "cn.devices.list_by_id",
+      "args": [],
+      "kwargs": {
+        "cursor": "c +&/一",
+        "page_start": 4,
+        "page_size": 2
+      },
+      "fields": {
+        "id": "c +&/一",
+        "pageStart": 4,
+        "pageSize": 2
+      },
+      "data": [
+        {
+          "id": "row-one",
+          "netAddress": null,
+          "extra": {
+            "synthetic": true
+          }
+        }
+      ],
+      "response_page": {
+        "total": 11,
+        "size": 2,
+        "nextId": "next +&/二"
+      }
     }
   ]
 }

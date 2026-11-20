@@ -21,6 +21,10 @@
 
 本次单独执行先前未开始的账号级通道流量明细。仅第一页、每页一条；同步与异步分别使用受限的认证和业务请求，首次失败即停。未重跑账号汇总或按日明细。 仅放行了一次同步认证尝试，未发出流量业务请求，异步未执行。回执没有保存具体错误原因。 本次获准上限为 4 次 HTTP，实际放行 1 次。本项仍待通过。[脱敏回执](live/2026-11-20-domestic-account-channel-traffic/receipt.json)
 
+## 国内设备 `list_by_id` 单页入口验收
+
+国内接口 3947 采用独立单页入口 `devices.list_by_id`，同步和异步签名相同，`cursor`、`page_start`、`page_size` 均为可选关键字参数，返回 `ApiResponse`。对照记录中，E14 将四个字段全部列入 query，E48 以表单发送其中三个共同字段且未传 id。SDK 按参数表通过 query 发送，一次只取一页。原 673 的 `devices.list` 继续使用表单按页码查询。同步与异步实现均以模拟传输验证，未向真实账号核验远端兼容性。[冻结契约](../coordination/domestic-device-cursor/admission.json) · [离线回执](2026-11-21-domestic-device-cursor/offline.json)
+
 ## 国内视频编码配置只读查询验收
 
 国内 1595 接口提供只读查询能力，用于获取指定设备所选码流的编码配置，托管设备须先获得 CONFIG 权限方可调用。同步和异步查询及两个 CLI 模式均通过合成传输验证。本次未访问真实设备、读取媒体流或验证播放器兼容性。[冻结契约](../coordination/domestic-video-codec-read/admission.json) · [离线回执](2026-11-21-domestic-video-codec-read/offline.json)

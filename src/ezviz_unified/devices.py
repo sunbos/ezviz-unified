@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import replace
 from typing import TYPE_CHECKING
 
 from .diagnostic_report import _diagnostic_scope
@@ -21,6 +22,73 @@ _MIN_PAGE_SIZE = 1
 _MAX_PAGE_SIZE = 50
 
 _POLICY = ResponsePolicy(success_values=("200",))
+
+_OP_LIST_BY_ID = Operation(
+    "devices.list_by_id",
+    "POST",
+    "/api/lapp/device/list",
+    regions=frozenset({_DOMESTIC}),
+    token_location="query",
+    read_only=True,
+    policy=replace(
+        _POLICY,
+        redact_device_add_details=True,
+        redact_message_urls=True,
+    ),
+)
+
+
+def _valid_device_cursor(value: object) -> bool:
+    if not isinstance(value, str):
+        return False
+    if not value.strip():
+        return False
+    for char in value:
+        code = ord(char)
+        if code < 0x20 or 0x7F <= code <= 0x9F or 0xD800 <= code <= 0xDFFF:
+            return False
+    return True
+
+
+def _device_cursor_params(
+    cursor: str | None, page_start: int | None, page_size: int | None
+) -> dict[str, str | int]:
+    params: dict[str, str | int] = {}
+    if cursor is not None:
+        if not _valid_device_cursor(cursor):
+            raise ValueError("invalid device cursor")
+        params["id"] = cursor
+    if page_start is not None:
+        start = _check_int("page_start", page_start)
+        if not 0 <= start <= 100:
+            raise ValueError("page_start must be between 0 and 100")
+        params["pageStart"] = start
+    if page_size is not None:
+        params["pageSize"] = _check_page_size(page_size)
+    return params
+
+
+def _check_device_cursor_page(response: ApiResponse) -> ApiResponse:
+    raw = response.raw
+    page = raw.get("page") if isinstance(raw, dict) else None
+    rows = response.data
+    if (
+        isinstance(rows, list)
+        and all(isinstance(row, dict) for row in rows)
+        and isinstance(page, dict)
+        and "nextId" in page
+    ):
+        next_id = page["nextId"]
+        if (next_id is None or next_id == "" or _valid_device_cursor(next_id)) and all(
+            k not in page or type(page[k]) is int for k in ("total", "size")
+        ):
+            return response
+    raise ProtocolError(
+        "invalid device cursor page",
+        operation=response.operation,
+        http_status=response.http_status,
+    )
+
 
 _OP_LIST_MANAGED = Operation(
     "devices.list_managed",
@@ -174,6 +242,23 @@ class Devices(DeviceManagement):
             }
             return self._client.request(_OP_LIST, data=data)
 
+    def list_by_id(
+        self,
+        *,
+        cursor: str | None = None,
+        page_start: int | None = None,
+        page_size: int | None = None,
+    ) -> ApiResponse:
+        with _diagnostic_scope(self._client, entrypoint="devices.list_by_id", mode="sync"):
+            _require_domestic(self._client.region.scope)
+            params = _device_cursor_params(
+                cursor=cursor,
+                page_start=page_start,
+                page_size=page_size,
+            )
+            response = self._client.request(_OP_LIST_BY_ID, params=params)
+            return _check_device_cursor_page(response)
+
     def list_managed(self, page_start: int = 0, page_size: int = 10) -> ApiResponse:
         with _diagnostic_scope(self._client, entrypoint="devices.list_managed", mode="sync"):
             return self._client.request(
@@ -241,6 +326,23 @@ class AsyncDevices(AsyncDeviceManagement):
                 "pageSize": _check_page_size(page_size),
             }
             return await self._client.request(_OP_LIST, data=data)
+
+    async def list_by_id(
+        self,
+        *,
+        cursor: str | None = None,
+        page_start: int | None = None,
+        page_size: int | None = None,
+    ) -> ApiResponse:
+        with _diagnostic_scope(self._client, entrypoint="devices.list_by_id", mode="async"):
+            _require_domestic(self._client.region.scope)
+            params = _device_cursor_params(
+                cursor=cursor,
+                page_start=page_start,
+                page_size=page_size,
+            )
+            response = await self._client.request(_OP_LIST_BY_ID, params=params)
+            return _check_device_cursor_page(response)
 
     async def list_managed(self, page_start: int = 0, page_size: int = 10) -> ApiResponse:
         with _diagnostic_scope(self._client, entrypoint="devices.list_managed", mode="async"):

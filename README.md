@@ -39,6 +39,17 @@ with Client(
 
 `inspect_device(client, device_serial, channel=1)` 与 `inspect_device_async` 按固定顺序组合设备信息、通道、状态、能力、版本五次只读调用，逐项返回 `InspectionResult`，并提供不含序列号、通道、载荷或异常原文的 `public_summary()`；认证级错误立即中断。示例 `examples.inspection_sync`/`inspection_async` 用 `EZVIZ_DEVICE_SERIAL` 与 `EZVIZ_CHANNEL` 显式指定一台已知设备，不枚举账号设备，退出码 0/2/1 分别对应全部成功、部分失败、配置或 SDK 级失败；用法与输出契约见[接入指南的单设备检查节](docs/getting-started.md#单设备检查)。
 
+### 国内设备列表游标分页
+
+同步客户端可调用 `client.devices.list_by_id(page_size=1)`，异步客户端则使用 `await async_client.devices.list_by_id(cursor=cursor, page_size=1)`，二者都只发送单页请求且仅支持国内区域。翻页游标取自 `response.raw["page"]["nextId"]`，`response.data` 为服务端返回的原始行记录，当 nextId 为 None 或空字符串时即表示已到末页，应停止翻页。仅当 nextId 非空时，调用方才可在后续显式调用中将其作为 cursor 传入，SDK 不会自动翻页。可选参数 cursor、page_start、page_size 为 None 时一律不下发，page_start 取值 0 至 100 属于 SDK 侧的本地解释，page_size 允许 1 至 50 而服务端默认每页 10 条。若 id 与 pageStart 同时传入，二者的排序与优先级尚未经过实际验证，更多背景见 [国内文档 3947](https://open.ys7.com/help/3947)。
+
+参数映射依据 3947 文档中唯一完整的参数表，该表将 accessToken、id、pageStart、pageSize 四项全部归入 query。文档示例的 POST curl 将 accessToken、pageStart、pageSize 三项以 form 形式提交且省略了 id。SDK 将调用方提供的所有参数均以 query 形式发送，与该表一致，目前无线上实测证据也没有回退方案。已有的 `devices.list`（见 673 文档）不受影响，本接口在子账号下只能列出 EZVIZ 协议设备。CLI 需配置 `EZVIZ_REGION=domestic`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET`，可选游标通过环境变量 `EZVIZ_DEVICE_CURSOR` 传入，每次运行只执行一次逻辑上的 list_by_id(page_size=1) 调用（如遇 10002 可能触发一次 token 刷新并重放该请求），输出仅包含 returned_items 与 has_next 两个字段，验证全部基于本地离线夹具完成。
+
+```sh
+python -m examples.device_cursor --mode sync
+python -m examples.device_cursor --mode async
+```
+
 ### 国内设备充电状态
 
 `client.devices.charging_status(serial)` 和 `await async_client.devices.charging_status(serial)` 查询设备上报的充电状态。SDK 将原样保留大小写的设备序列号和访问令牌放进 GET 请求头。只读请求收到令牌过期码 `10002` 时，可刷新的令牌提供方最多刷新并重试一次。[充电状态（1739）](https://open.ys7.com/help/1739)

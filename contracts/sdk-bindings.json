@@ -3997,6 +3997,19 @@
       "public_entry": "video.get_video_codec",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.devices.list_by_id",
+      "region": "domestic",
+      "source_doc_id": "3947",
+      "module": "src/ezviz_unified/devices.py",
+      "symbols": [
+        "Devices.list_by_id",
+        "AsyncDevices.list_by_id"
+      ],
+      "public_entry": "devices.list_by_id",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }
