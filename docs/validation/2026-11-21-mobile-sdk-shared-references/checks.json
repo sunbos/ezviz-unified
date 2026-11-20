@@ -1,0 +1,377 @@
+{
+  "schema_version": 1,
+  "scope": "mobile_sdk_shared_reference_review_only",
+  "baseline_commit": "4e08ccca3067e27b9ac63e8e29a392a80a667d73",
+  "reviewed_commit": "97c9902e8742e86b142a5350fc6011e1d0f72ea7",
+  "source_test_sha256": {
+    "docs/coordination/mobile-sdk-shared-references/scope.json": "5454157a849481261e736298baf98c6d16381a52a0f09e38da07ca8aa58cc05d",
+    "docs/coordination/mobile-sdk-shared-references/verify.py": "2b81f13bdfea1640b8583b1961ac1d0faa0ea93f4765294dcecc97c60df59088",
+    "docs/validation/2026-11-21-mobile-sdk-shared-references/review.json": "86391aed13f1680c9e00cc23698e1f88e08583ba900e1f02fc4c5d14c9f566c3",
+    "docs/coordination/mobile-sdk-shared-references/native-symbol-intake.json": "e4efd71519184265a43412de51476117d26904110011a1dc11ed1f8f7a1eaafd",
+    "docs/capabilities/scope-register.json": "63e7b444440f0a9434c7769c728963f9476dcac1cbc4bcb4ce8424ebf57257e8",
+    "docs/validation/sdk-product-acceptance.json": "aa213fcb289d7d4a44e49c82d64b5fc3367eb287ba4b6fd78ebceb5acc5ace1c",
+    "docs/official-mobile-sdk.md": "c685348018668b82bd994792cd51846e7097c6b8c2b44ac1c19353f08d74c24e",
+    "README.md": "61de35e2545bc3306adafc042bcf1f6b3d0c1fa6e62cb2d50e561145de032f53"
+  },
+  "source_review": {
+    "before": {
+      "blocked_source": 69,
+      "in_review": 49,
+      "pending": 3871,
+      "reviewed": 62
+    },
+    "after": {
+      "blocked_source": 69,
+      "in_review": 51,
+      "pending": 3862,
+      "reviewed": 69
+    },
+    "reviewed": [
+      "5240",
+      "5241",
+      "5242",
+      "5243",
+      "5244",
+      "5245",
+      "37"
+    ],
+    "in_review": [
+      "4146",
+      "4148"
+    ]
+  },
+  "manual_symbol_observations": 8,
+  "provisional_native_candidates": 7,
+  "required_product_cases": {
+    "total": 490,
+    "passed": 315,
+    "remaining": 175,
+    "changed": false
+  },
+  "native_runtime_evidence": {
+    "native_builds": 0,
+    "native_runs": 0,
+    "device_requests": 0,
+    "logs_collected": 0,
+    "uploads": 0,
+    "python_operations_added": 0
+  },
+  "public_document_recheck": {
+    "public_docs_only": true,
+    "credentials_used": false,
+    "device_api_requests": 0,
+    "personal_data_queries": 0,
+    "source_batch": "2026-11-17-sdk-product-main",
+    "checked_at_utc": "2026-11-20T21:24:56.241348+00:00",
+    "documents": [
+      {
+        "doc_id": "5240",
+        "region": "domestic",
+        "reference": "https://open.ys7.com/help/5240",
+        "status": 200,
+        "html_sha256": "c8efe8da04ece816efb035832ba9b0432ae3964aac21ccc29bcccbf56a20aba8",
+        "matches_frozen_html": true
+      },
+      {
+        "doc_id": "5241",
+        "region": "domestic",
+        "reference": "https://open.ys7.com/help/5241",
+        "status": 200,
+        "html_sha256": "c8efe8da04ece816efb035832ba9b0432ae3964aac21ccc29bcccbf56a20aba8",
+        "matches_frozen_html": true
+      },
+      {
+        "doc_id": "5242",
+        "region": "domestic",
+        "reference": "https://open.ys7.com/help/5242",
+        "status": 200,
+        "html_sha256": "c70499b44a94a2deab908d21c376a69227b920174803c79ded87ccbfb7ff93c1",
+        "matches_frozen_html": true
+      },
+      {
+        "doc_id": "5243",
+        "region": "domestic",
+        "reference": "https://open.ys7.com/help/5243",
+        "status": 200,
+        "html_sha256": "c70499b44a94a2deab908d21c376a69227b920174803c79ded87ccbfb7ff93c1",
+        "matches_frozen_html": true
+      },
+      {
+        "doc_id": "5244",
+        "region": "domestic",
+        "reference": "https://open.ys7.com/help/5244",
+        "status": 200,
+        "html_sha256": "a51887b219530e0732e1810cd7d601815a97e12d6f000b7b30d2e85ce395c8fa",
+        "matches_frozen_html": true
+      },
+      {
+        "doc_id": "5245",
+        "region": "domestic",
+        "reference": "https://open.ys7.com/help/5245",
+        "status": 200,
+        "html_sha256": "a51887b219530e0732e1810cd7d601815a97e12d6f000b7b30d2e85ce395c8fa",
+        "matches_frozen_html": true
+      },
+      {
+        "doc_id": "4148",
+        "region": "domestic",
+        "reference": "https://open.ys7.com/help/4148",
+        "status": 200,
+        "html_sha256": "1bdb78bd81285dcb3407773429588dd81766fd6adb6c62b10445658c893a802c",
+        "matches_frozen_html": true
+      },
+      {
+        "doc_id": "37",
+        "region": "domestic",
+        "reference": "https://open.ys7.com/help/37",
+        "status": 200,
+        "html_sha256": "896eb5a9fa395aa8c9a356c68dd23ec43480a4b1f14e1eab1a1b121ed7a8aa6d",
+        "matches_frozen_html": true
+      },
+      {
+        "doc_id": "4146",
+        "region": "domestic",
+        "reference": "https://open.ys7.com/help/4146",
+        "status": 200,
+        "html_sha256": "b36b84a08ea2665cb0b183c3f6074bca58429692c723c28fff50c92449cd9ab2",
+        "matches_frozen_html": true
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": "python3 -O docs/coordination/mobile-sdk-shared-references/verify.py --repo . --snapshot-dir data/official-docs/2026-11-17-sdk-product-main",
+      "result": {
+        "passed": true,
+        "scope_revision": "2026-11-21-r58-mobile-sdk-shared-references",
+        "scope_baseline": "4e08ccca3067e27b9ac63e8e29a392a80a667d73",
+        "verified_pages": [
+          "5240",
+          "5241",
+          "5242",
+          "5243",
+          "5244",
+          "5245",
+          "4148",
+          "37",
+          "4146"
+        ],
+        "navigation_edges": [
+          [
+            "5240",
+            "4148"
+          ],
+          [
+            "5241",
+            "4148"
+          ],
+          [
+            "5242",
+            "37"
+          ],
+          [
+            "5243",
+            "37"
+          ],
+          [
+            "5244",
+            "4146"
+          ],
+          [
+            "5245",
+            "4146"
+          ]
+        ],
+        "runtime_evidence": {
+          "native_builds": 0,
+          "native_runs": 0,
+          "device_requests": 0,
+          "logs_collected": 0,
+          "uploads": 0,
+          "python_operations_added": 0
+        },
+        "native_observations": [
+          "manual:domestic:37:e1067",
+          "manual:domestic:37:e1071",
+          "manual:domestic:37:e2899",
+          "manual:domestic:37:e929",
+          "manual:domestic:4146:e17",
+          "manual:domestic:4146:e19",
+          "manual:domestic:4146:e7",
+          "manual:domestic:4148:e82"
+        ],
+        "native_candidates": [
+          "candidate:domestic:native-ref:getDeviceList",
+          "candidate:domestic:native-ref:seekPlayback",
+          "candidate:domestic:native-ref:setAccessToken",
+          "candidate:domestic:native-ref:setPlayVerifyCode",
+          "candidate:domestic:native-ref:setPlaybackRate",
+          "candidate:domestic:native-ref:setServerUrl",
+          "candidate:domestic:native-ref:setSurfaceHold"
+        ]
+      },
+      "local_receipt_sha256": "cbeba7098ffc5b6d1fcc08bda7346bda2398be962bb0eef56e1ea80f8f7d714d"
+    },
+    {
+      "command": "python3 -O docs/coordination/mobile-sdk-shared-references/verify.py --repo . --snapshot-dir data/official-docs/2026-11-17-sdk-product-main --self-test",
+      "result": {
+        "passed": true,
+        "scope_revision": "2026-11-21-r58-mobile-sdk-shared-references",
+        "scope_baseline": "4e08ccca3067e27b9ac63e8e29a392a80a667d73",
+        "verified_pages": [
+          "5240",
+          "5241",
+          "5242",
+          "5243",
+          "5244",
+          "5245",
+          "4148",
+          "37",
+          "4146"
+        ],
+        "navigation_edges": [
+          [
+            "5240",
+            "4148"
+          ],
+          [
+            "5241",
+            "4148"
+          ],
+          [
+            "5242",
+            "37"
+          ],
+          [
+            "5243",
+            "37"
+          ],
+          [
+            "5244",
+            "4146"
+          ],
+          [
+            "5245",
+            "4146"
+          ]
+        ],
+        "runtime_evidence": {
+          "native_builds": 0,
+          "native_runs": 0,
+          "device_requests": 0,
+          "logs_collected": 0,
+          "uploads": 0,
+          "python_operations_added": 0
+        },
+        "native_observations": [
+          "manual:domestic:37:e1067",
+          "manual:domestic:37:e1071",
+          "manual:domestic:37:e2899",
+          "manual:domestic:37:e929",
+          "manual:domestic:4146:e17",
+          "manual:domestic:4146:e19",
+          "manual:domestic:4146:e7",
+          "manual:domestic:4148:e82"
+        ],
+        "native_candidates": [
+          "candidate:domestic:native-ref:getDeviceList",
+          "candidate:domestic:native-ref:seekPlayback",
+          "candidate:domestic:native-ref:setAccessToken",
+          "candidate:domestic:native-ref:setPlayVerifyCode",
+          "candidate:domestic:native-ref:setPlaybackRate",
+          "candidate:domestic:native-ref:setServerUrl",
+          "candidate:domestic:native-ref:setSurfaceHold"
+        ],
+        "mutations": [
+          {
+            "mutation": "edges",
+            "rejected_by": "edges doc=5240"
+          },
+          {
+            "mutation": "menus",
+            "rejected_by": "menu_path doc=5240"
+          },
+          {
+            "mutation": "facts",
+            "rejected_by": "facts.demo"
+          },
+          {
+            "mutation": "runtime",
+            "rejected_by": "review.runtime"
+          },
+          {
+            "mutation": "register",
+            "rejected_by": "register.state doc=4148"
+          },
+          {
+            "mutation": "alias",
+            "rejected_by": "source.alias doc=5240"
+          },
+          {
+            "mutation": "gate",
+            "rejected_by": "gate.criterion"
+          },
+          {
+            "mutation": "native-element",
+            "rejected_by": "native.element doc=37"
+          },
+          {
+            "mutation": "native-implementation",
+            "rejected_by": "native.implementation"
+          }
+        ]
+      },
+      "local_receipt_sha256": "912c425be8932a826033a8c9e7428c9c7344880da3ac6f33ab994858bbe35276"
+    },
+    {
+      "command": ".venv/bin/python -m ruff check --no-cache docs/coordination/mobile-sdk-shared-references/verify.py",
+      "result": "All checks passed!",
+      "local_receipt_sha256": "eb87dc7ba0afae7f3be5dcbff256a1015719c820e79f5b409c12af867964adb3"
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check --no-cache docs/coordination/mobile-sdk-shared-references/verify.py",
+      "result": "1 file already formatted",
+      "local_receipt_sha256": "eabab9d4e2cd869f51f1182c4a6e9b5ad8f298b0d575723e85962e729b4a1e4c"
+    }
+  ],
+  "missing_archive_rejected": true,
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "local_receipts": [
+      {
+        "task": "SP535-GuideReceipt",
+        "sha256": "0eaef993b240b670947801762c529a9e9b653b5f6cb0126d891200e16ed5c2b7"
+      },
+      {
+        "task": "SP535-RegistryReceipt",
+        "sha256": "860de89b7d9d22e1e94feb0487acdb6c14a92b5d9085f6d90d353c097f33cbbd"
+      },
+      {
+        "task": "SP535-VerifyReceipt",
+        "sha256": "de6d49ca888fabf4fde94b57a5ba461c3cf23b0658c0ed0b397f95e0694bf6b5"
+      },
+      {
+        "task": "SP536-NativeReceipt",
+        "sha256": "ad738830fca63978ad0327b5c1ec32ed12f66ed82c37303eae1de746307ec5d1"
+      },
+      {
+        "task": "SP536-ProjectionReceipt",
+        "sha256": "614409b45ac1035828dc64ab7c8389e5817506fb38da522cb7d26b3890b64eea"
+      },
+      {
+        "task": "SP536-GuideFieldsReceipt",
+        "sha256": "5a5dbfb5c09d6636a21d857f3e7bf8e22d6660ddd467f3d79ceded7ec3e429d5"
+      },
+      {
+        "task": "SP537-AcceptanceDocReceipt",
+        "sha256": "a292154b1f175fea0413d4c22160bb343a99bcd4ac6ff847680fed511aa3a40f"
+      },
+      {
+        "task": "SP536-VerifyNativeReceipt",
+        "sha256": "5e0b876289d9333cb871a57b38c64c45cd25418a7e8b54682ce0e844ff36937a"
+      }
+    ]
+  },
+  "limits": "来源归属、平台事实与原生方法线索经离线核验。包版本、平台专属方法签名和客户端运行结果仍需独立核查。"
+}
