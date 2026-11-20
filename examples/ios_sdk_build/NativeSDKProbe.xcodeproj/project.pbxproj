@@ -1,0 +1,339 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		000000000000000000000065 /* Probe.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000064 /* Probe.m */; };
+		00000000000000000000008E /* EZOpenSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 00000000000000000000008D /* EZOpenSDK */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		000000000000000000000064 /* Probe.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Probe.m; sourceTree = "<group>"; };
+		00000000000000000000006E /* NativeSDKProbe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeSDKProbe.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+				00000000000000000000012C /* CNN_SR_X2_fp16_ios_w1472xh828.bin */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CNN_SR_X2_fp16_ios_w1472xh828.bin"; path = "Vendor/SDK-iOS/dist/EZOpenSDK/dynamicSDK/CNN_SR_X2_fp16_ios_w1472xh828.bin"; sourceTree = SOURCE_ROOT; };
+		000000000000000000000190 /* CNN_SR_X2_fp16_ios_w1472xh828.bin in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000012C /* CNN_SR_X2_fp16_ios_w1472xh828.bin */; };
+		00000000000000000000012D /* CNN_SR_X2_fp16_ios_w828xh1472.bin */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CNN_SR_X2_fp16_ios_w828xh1472.bin"; path = "Vendor/SDK-iOS/dist/EZOpenSDK/dynamicSDK/CNN_SR_X2_fp16_ios_w828xh1472.bin"; sourceTree = SOURCE_ROOT; };
+		000000000000000000000191 /* CNN_SR_X2_fp16_ios_w828xh1472.bin in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000012D /* CNN_SR_X2_fp16_ios_w828xh1472.bin */; };
+		00000000000000000000012E /* CNN_SR_X4_fp16_ios_w432xh768.bin */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CNN_SR_X4_fp16_ios_w432xh768.bin"; path = "Vendor/SDK-iOS/dist/EZOpenSDK/dynamicSDK/CNN_SR_X4_fp16_ios_w432xh768.bin"; sourceTree = SOURCE_ROOT; };
+		000000000000000000000192 /* CNN_SR_X4_fp16_ios_w432xh768.bin in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000012E /* CNN_SR_X4_fp16_ios_w432xh768.bin */; };
+		00000000000000000000012F /* CNN_SR_X4_fp16_ios_w768xh432.bin */ = {isa = PBXFileReference; lastKnownFileType = file; name = "CNN_SR_X4_fp16_ios_w768xh432.bin"; path = "Vendor/SDK-iOS/dist/EZOpenSDK/dynamicSDK/CNN_SR_X4_fp16_ios_w768xh432.bin"; sourceTree = SOURCE_ROOT; };
+		000000000000000000000193 /* CNN_SR_X4_fp16_ios_w768xh432.bin in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000012F /* CNN_SR_X4_fp16_ios_w768xh432.bin */; };
+		000000000000000000000130 /* EZAICloud.bundle */ = {isa = PBXFileReference; lastKnownFileType = wrapper.plug-in; name = "EZAICloud.bundle"; path = "Vendor/SDK-iOS/dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle"; sourceTree = SOURCE_ROOT; };
+		000000000000000000000194 /* EZAICloud.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000130 /* EZAICloud.bundle */; };
+		000000000000000000000131 /* Ezviz_Audio_Enhance_Model_Up_16K.bin */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ezviz_Audio_Enhance_Model_Up_16K.bin"; path = "Vendor/SDK-iOS/dist/EZOpenSDK/dynamicSDK/Ezviz_Audio_Enhance_Model_Up_16K.bin"; sourceTree = SOURCE_ROOT; };
+		000000000000000000000195 /* Ezviz_Audio_Enhance_Model_Up_16K.bin in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000131 /* Ezviz_Audio_Enhance_Model_Up_16K.bin */; };
+		000000000000000000000132 /* com.hri.hpc.mobile.ios.player.metallib */ = {isa = PBXFileReference; lastKnownFileType = file; name = "com.hri.hpc.mobile.ios.player.metallib"; path = "Vendor/SDK-iOS/dist/EZOpenSDK/dynamicSDK/com.hri.hpc.mobile.ios.player.metallib"; sourceTree = SOURCE_ROOT; };
+		000000000000000000000196 /* com.hri.hpc.mobile.ios.player.metallib in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000132 /* com.hri.hpc.mobile.ios.player.metallib */; };
+
+/* Begin PBXFrameworksBuildPhase section */
+		000000000000000000000083 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00000000000000000000008E /* EZOpenSDK in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		000000000000000000000078 = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000064 /* Probe.m */,
+								00000000000000000000012C /* CNN_SR_X2_fp16_ios_w1472xh828.bin */,
+				00000000000000000000012D /* CNN_SR_X2_fp16_ios_w828xh1472.bin */,
+				00000000000000000000012E /* CNN_SR_X4_fp16_ios_w432xh768.bin */,
+				00000000000000000000012F /* CNN_SR_X4_fp16_ios_w768xh432.bin */,
+				000000000000000000000130 /* EZAICloud.bundle */,
+				000000000000000000000131 /* Ezviz_Audio_Enhance_Model_Up_16K.bin */,
+				000000000000000000000132 /* com.hri.hpc.mobile.ios.player.metallib */,
+				000000000000000000000079 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		000000000000000000000079 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				00000000000000000000006E /* NativeSDKProbe.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		000000000000000000000096 /* NativeSDKProbe */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0000000000000000000000A1 /* Build configuration list for PBXNativeTarget "NativeSDKProbe" */;
+			buildPhases = (
+				000000000000000000000082 /* Sources */,
+				000000000000000000000083 /* Frameworks */,
+				000000000000000000000084 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NativeSDKProbe;
+			packageProductDependencies = (
+				00000000000000000000008D /* EZOpenSDK */,
+			);
+			productName = NativeSDKProbe;
+			productReference = 00000000000000000000006E /* NativeSDKProbe.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		000000000000000000000097 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					000000000000000000000096 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 0000000000000000000000A0 /* Build configuration list for PBXProject "NativeSDKProbe" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 000000000000000000000078;
+			packageReferences = (
+				00000000000000000000008C /* XCLocalSwiftPackageReference "Vendor/SDK-iOS" */,
+			);
+			productRefGroup = 000000000000000000000079 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				000000000000000000000096 /* NativeSDKProbe */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		000000000000000000000084 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+								000000000000000000000190 /* CNN_SR_X2_fp16_ios_w1472xh828.bin in Resources */,
+				000000000000000000000191 /* CNN_SR_X2_fp16_ios_w828xh1472.bin in Resources */,
+				000000000000000000000192 /* CNN_SR_X4_fp16_ios_w432xh768.bin in Resources */,
+				000000000000000000000193 /* CNN_SR_X4_fp16_ios_w768xh432.bin in Resources */,
+				000000000000000000000194 /* EZAICloud.bundle in Resources */,
+				000000000000000000000195 /* Ezviz_Audio_Enhance_Model_Up_16K.bin in Resources */,
+				000000000000000000000196 /* com.hri.hpc.mobile.ios.player.metallib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		000000000000000000000082 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				000000000000000000000065 /* Probe.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0000000000000000000000AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		0000000000000000000000AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0000000000000000000000AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-Werror=objc-method-access",
+					"-Werror=undeclared-selector",
+					"-Werror=incompatible-pointer-types",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = example.ezviz.NativeSDKProbe;
+				PRODUCT_NAME = NativeSDKProbe;
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0000000000000000000000AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				COMPRESS_PNG_FILES = NO;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-Werror=objc-method-access",
+					"-Werror=undeclared-selector",
+					"-Werror=incompatible-pointer-types",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = example.ezviz.NativeSDKProbe;
+				PRODUCT_NAME = NativeSDKProbe;
+				SDKROOT = iphoneos;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0000000000000000000000A0 /* Build configuration list for PBXProject "NativeSDKProbe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0000000000000000000000AA /* Debug */,
+				0000000000000000000000AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0000000000000000000000A1 /* Build configuration list for PBXNativeTarget "NativeSDKProbe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0000000000000000000000AC /* Debug */,
+				0000000000000000000000AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		00000000000000000000008C /* XCLocalSwiftPackageReference "Vendor/SDK-iOS" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "Vendor/SDK-iOS";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		00000000000000000000008D /* EZOpenSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00000000000000000000008C /* XCLocalSwiftPackageReference "Vendor/SDK-iOS" */;
+			productName = EZOpenSDK;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 000000000000000000000097 /* Project object */;
+}

@@ -1,0 +1,794 @@
+{
+  "schema_version": 1,
+  "scope_ref": "docs/coordination/native-ios-initialization/scope.json",
+  "guide_ref": "docs/official-mobile-sdk.md",
+  "review_kind": "portal_examples_and_pinned_release_headers",
+  "sources": {
+    "4151": {
+      "source_ref": "portal-2026-11-17:domestic:4151",
+      "platform": "Android",
+      "source_url": "https://open.ys7.com/help/4151",
+      "menu_path": [
+        "SDK及示例",
+        "Android SDK",
+        "Android 集成",
+        "SDK初始化"
+      ],
+      "html_sha256": "457034f85afd23fa4dbe8a9803159c23bc9bec53913c6ad6f8994b08a068a91d",
+      "structure_sha256": "37f40343aa23140868fe9caebc54fb0a3ead963e05c1f685ca61c4ba732d125e",
+      "assessment": "本文档的角色为 Android 调用示例来源，其中 setServerUrl（含海外示例）、setAccessToken 与 getDeviceList 均通过 SDK 实例调用出现，示例调用不构成方法声明、返回类型或版本证据。文档声明 AccessToken 与受限 TKToken 互斥，后者需服务端参与且存在按功能与通道受限的令牌类型，相关指针见 4334。以上仅确认来源角色，不涉运行时断言。",
+      "review_state_at_source_review": "in_review",
+      "remaining": [
+        "按版本区分的 Android 授权模式行为，包括 AccessToken 与受限 TKToken 互斥的生效细节及受限令牌类型适用范围，仍待版本化平台证据确认。",
+        "Android 账号切换场景下的令牌处置与重新授权行为仍待确认。",
+        "Android 开发者调试相关行为，包括调试开关与示例入口的实际作用，仍待确认。",
+        "setServerUrl、setAccessToken 与 getDeviceList 的正式方法声明、返回类型及引入版本属 Android 平台特定剩余证据。"
+      ],
+      "authorization_modes": {
+        "element_index": 22,
+        "options": [
+          "AccessToken",
+          "TKToken"
+        ],
+        "mutually_exclusive": true,
+        "restricted_token_scope": "function_and_channel_limited",
+        "backend_issuance_required": true,
+        "token_table_element": 50,
+        "documented_types": [
+          "httpToken",
+          "deviceToken",
+          "deviceGlobalToken",
+          "deviceVideoToken",
+          "previewStreamToken",
+          "playbackStreamToken",
+          "talkStreamToken"
+        ],
+        "further_reference": {
+          "element_index": 103,
+          "doc_id": "4334"
+        },
+        "sdk_release_pinned_by_page": false
+      },
+      "existing_candidate_examples": {
+        "setServerUrl": [
+          {
+            "element_index": 14,
+            "normalized_call_form": "EzvizApplication.getOpenSDK().setServerUrl(apiEndpoint, authEndpoint)",
+            "candidate_id": "candidate:domestic:native-ref:setServerUrl",
+            "evidence_kind": "documented_call_example"
+          },
+          {
+            "element_index": 18,
+            "normalized_call_form": "EzvizApplication.getOpenSDK().setServerUrl(apiEndpoint, null)",
+            "candidate_id": "candidate:domestic:native-ref:setServerUrl",
+            "evidence_kind": "documented_call_example"
+          }
+        ],
+        "setAccessToken": [
+          {
+            "element_index": 28,
+            "normalized_call_form": "EzvizApplication.getOpenSDK().setAccessToken(accessToken)",
+            "candidate_id": "candidate:domestic:native-ref:setAccessToken",
+            "evidence_kind": "documented_call_example"
+          }
+        ],
+        "getDeviceList": [
+          {
+            "element_index": 31,
+            "normalized_call_form": "EzvizApplication.getOpenSDK().getDeviceList(pageStart, pageSize)",
+            "candidate_id": "candidate:domestic:native-ref:getDeviceList",
+            "evidence_kind": "documented_call_example"
+          }
+        ]
+      },
+      "additional_numeric_observations": [
+        {
+          "symbol": "initLib",
+          "element_index": 10,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "initLib",
+          "element_index": 18,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "enableSDKWithTKToken",
+          "element_index": 38,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "initLib",
+          "element_index": 38,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setHttpToken",
+          "element_index": 41,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "enableSDKWithTKToken",
+          "element_index": 46,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "initLib",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "openChangePasswordPage",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "openCloudPage",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "openLoginPage",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setDeviceToken",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setHttpToken",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setStreamToken",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setDebugStreamEnable",
+          "element_index": 122,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "logout",
+          "element_index": 112,
+          "source_role": "documented_account_switch_step",
+          "disposition": "pending_native_contract_review"
+        }
+      ],
+      "limits": [
+        "示例只核对源文写出的调用形态。平台实际签名、对应发布版本与宿主行为须分别验证。",
+        "受限令牌类型表及 4334 的引用不构成账户授权或设备操作证据。"
+      ],
+      "account_switch_documentation": {
+        "step_elements": [
+          112,
+          113,
+          114
+        ],
+        "review": "文档顺序为退出、重新初始化、重新授权；实际宿主行为待核。"
+      }
+    },
+    "4077": {
+      "source_ref": "portal-2026-11-17:domestic:4077",
+      "platform": "iOS",
+      "source_url": "https://open.ys7.com/help/4077",
+      "menu_path": [
+        "SDK及示例",
+        "iOS SDK",
+        "iOS 集成",
+        "iOS-SDK初始化"
+      ],
+      "html_sha256": "b8c9ceaf5e6fddb3b6ede8a52ef929d487c1fe66be76c421174786a7b7f04006",
+      "structure_sha256": "dd19053b77ff338eb496db2ed721a07208d823aeb540e8d1a2ff55bc5f357aa5",
+      "assessment": "本文档的角色为 iOS Objective-C 调用示例来源，示例以类方法形式调用 setAccessToken: 与 getDeviceList:pageSize:completion:，且 iOS 与海外 SDK 初始化示例存在差异，5.34 公开头文件中的确切声明由独立核验承担。文档声明 AccessToken 与受限 TKToken 互斥，后者需服务端参与且存在按功能与通道受限的令牌类型，相关指针见 4334。以上仅确认来源角色，不涉运行时断言。",
+      "review_state_at_source_review": "in_review",
+      "remaining": [
+        "按版本区分的 iOS 授权模式行为，包括 AccessToken 与受限 TKToken 互斥的生效细节及受限令牌类型适用范围，仍待版本化平台证据确认。",
+        "iOS 账号切换场景下的令牌处置与重新授权行为仍待确认。",
+        "iOS 开发者调试相关行为仍待确认。",
+        "需在已授权的 iOS 宿主中验证 getDeviceList 回调和授权模式行为。公开头和文档示例的静态对照见 ios_release.header_selectors。"
+      ],
+      "authorization_modes": {
+        "element_index": 20,
+        "options": [
+          "AccessToken",
+          "TKToken"
+        ],
+        "mutually_exclusive": true,
+        "restricted_token_scope": "function_and_channel_limited",
+        "backend_issuance_required": true,
+        "token_table_element": 51,
+        "documented_types": [
+          "httpToken",
+          "deviceToken",
+          "deviceGlobalToken",
+          "deviceVideoToken",
+          "previewStreamToken",
+          "playbackStreamToken",
+          "talkStreamToken"
+        ],
+        "further_reference": {
+          "element_index": 104,
+          "doc_id": "4334"
+        },
+        "sdk_release_pinned_by_page": false
+      },
+      "existing_candidate_examples": {
+        "setAccessToken": [
+          {
+            "element_index": 27,
+            "normalized_call_form": "[EZOpenSDK setAccessToken:accessToken]",
+            "candidate_id": "candidate:domestic:native-ref:setAccessToken",
+            "evidence_kind": "documented_call_example"
+          }
+        ],
+        "getDeviceList": [
+          {
+            "element_index": 30,
+            "normalized_call_form": "[EZOpenSDK getDeviceList:pageIndex pageSize:pageSize completion:^(NSArray *deviceList, NSInteger totalCount, NSError *error) { … }]",
+            "candidate_id": "candidate:domestic:native-ref:getDeviceList",
+            "evidence_kind": "documented_call_example"
+          }
+        ]
+      },
+      "additional_numeric_observations": [
+        {
+          "symbol": "initLibWithAppKey",
+          "element_index": 9,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "initLibWithAppKey",
+          "element_index": 13,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "initLibWithAppKey",
+          "element_index": 17,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "enableSDKWithTKToken",
+          "element_index": 38,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "initLibWithAppKey",
+          "element_index": 38,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setHttpToken",
+          "element_index": 41,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "enableSDKWithTKToken",
+          "element_index": 46,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "initLibWithAppKey",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "openChangePasswordPage",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "openCloudPage",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "openLoginPage",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setDeviceTokenForDeviceSerial",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setHttpToken",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setStreamToken",
+          "element_index": 46,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setDebugLogEnable",
+          "element_index": 121,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setDebugStreamEnable",
+          "element_index": 121,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "logout",
+          "element_index": 112,
+          "source_role": "documented_account_switch_step",
+          "disposition": "pending_native_contract_review"
+        }
+      ],
+      "limits": [
+        "示例只核对源文写出的调用形态。平台实际签名、对应发布版本与宿主行为须分别验证。",
+        "受限令牌类型表及 4334 的引用不构成账户授权或设备操作证据。"
+      ],
+      "account_switch_documentation": {
+        "step_elements": [
+          112,
+          113,
+          114
+        ],
+        "review": "文档顺序为退出、重新初始化、重新授权；实际宿主行为待核。"
+      }
+    },
+    "4191": {
+      "source_ref": "portal-2026-11-17:domestic:4191",
+      "platform": "Harmony",
+      "source_url": "https://open.ys7.com/help/4191",
+      "menu_path": [
+        "SDK及示例",
+        "Harmony SDK",
+        "Harmony 集成",
+        "SDK初始化"
+      ],
+      "html_sha256": "1e749d259c66dda20f1fbb34b4c5b70d9682e07a956cda6224e26ec048e0b687",
+      "structure_sha256": "2d16ea8e4f1d86e60d28cd8f6789fd03e2dff04a5767565856b0b8f8c972d94d",
+      "assessment": "本文档的角色为 Harmony 调用示例来源，setAccessToken 以 await 形式出现，getDeviceList 采用回调形式，据此不能推断确切的 ArkTS 类型标注或跨平台一致签名。文档声明 AccessToken 与受限 TKToken 互斥，后者需服务端参与且存在按功能与通道受限的令牌类型，相关指针见 4334。以上仅确认来源角色，不涉运行时断言。",
+      "review_state_at_source_review": "in_review",
+      "remaining": [
+        "按版本区分的 Harmony 授权模式行为，包括 AccessToken 与受限 TKToken 互斥的生效细节及受限令牌类型适用范围，仍待版本化平台证据确认。",
+        "Harmony 账号切换场景下的令牌处置与重新授权行为仍待确认。",
+        "Harmony 开发者调试相关行为仍待确认。",
+        "setAccessToken 与 getDeviceList 的 ArkTS 类型标注、回调签名及跨平台一致性属 Harmony 平台特定剩余证据。",
+        "账号切换步骤 E108 与此前初始化示例的符号不同，需由对应 Harmony SDK 版本的规范确认。"
+      ],
+      "authorization_modes": {
+        "element_index": 15,
+        "options": [
+          "AccessToken",
+          "TKToken"
+        ],
+        "mutually_exclusive": true,
+        "restricted_token_scope": "function_and_channel_limited",
+        "backend_issuance_required": true,
+        "token_table_element": 46,
+        "documented_types": [
+          "httpToken",
+          "deviceToken",
+          "deviceGlobalToken",
+          "deviceVideoToken",
+          "previewStreamToken",
+          "playbackStreamToken",
+          "talkStreamToken"
+        ],
+        "further_reference": {
+          "element_index": 99,
+          "doc_id": "4334"
+        },
+        "sdk_release_pinned_by_page": false
+      },
+      "existing_candidate_examples": {
+        "setAccessToken": [
+          {
+            "element_index": 22,
+            "normalized_call_form": "await EZOpenSDK.setAccessToken(accessToken)",
+            "candidate_id": "candidate:domestic:native-ref:setAccessToken",
+            "evidence_kind": "documented_call_example"
+          }
+        ],
+        "getDeviceList": [
+          {
+            "element_index": 25,
+            "normalized_call_form": "EZOpenSDK.getDeviceList(pageStart, pageSize, (deviceList, totalCount, error) => { … })",
+            "candidate_id": "candidate:domestic:native-ref:getDeviceList",
+            "evidence_kind": "documented_call_example"
+          }
+        ]
+      },
+      "additional_numeric_observations": [
+        {
+          "symbol": "initLibWithAppKey",
+          "element_index": 8,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "initLibWithAppKey",
+          "element_index": 12,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "enableSDKWithTKToken",
+          "element_index": 33,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "initLibWithAppKey",
+          "element_index": 33,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setHttpToken",
+          "element_index": 36,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "enableSDKWithTKToken",
+          "element_index": 41,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "initLibWithAppKey",
+          "element_index": 41,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setDeviceTokenForDeviceSerial",
+          "element_index": 41,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setHttpToken",
+          "element_index": 41,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setStreamToken",
+          "element_index": 41,
+          "source_role": "example_comment",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setDebugLogEnable",
+          "element_index": 116,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "setDebugStreamEnable",
+          "element_index": 116,
+          "source_role": "example_code",
+          "disposition": "pending_native_contract_review"
+        },
+        {
+          "symbol": "logout",
+          "element_index": 107,
+          "source_role": "documented_account_switch_step",
+          "disposition": "pending_native_contract_review"
+        }
+      ],
+      "limits": [
+        "示例只核对源文写出的调用形态。平台实际签名、对应发布版本与宿主行为须分别验证。",
+        "受限令牌类型表及 4334 的引用不构成账户授权或设备操作证据。"
+      ],
+      "account_switch_documentation": {
+        "step_elements": [
+          107,
+          108,
+          109
+        ],
+        "review": "E108 将第二步称为重新初始化，但给出的符号是 setAccessToken，E109 也使用该符号。须在对应 Harmony 版本核对切换步骤。"
+      }
+    },
+    "5357": {
+      "source_ref": "portal-2026-11-17:domestic:5357",
+      "platform": "iOS",
+      "source_url": "https://open.ys7.com/help/5357",
+      "menu_path": [
+        "SDK及示例",
+        "iOS SDK",
+        "iOS 集成",
+        "iOS SMP安装"
+      ],
+      "html_sha256": "f1ad735bdff62536396ad87dbabb9703fcebae30e59cb07e28acaeaa546209e5",
+      "structure_sha256": "ee36d4c02ca796c2f94b7ac419497f3bb197905f9888bc5e66ce5608dc698097",
+      "assessment": "官方 iOS SPM 接入指南指向上游仓库并采用 Up to Next Major Version 规则，未做版本固定。包声明最低系统版本为 12.0，而实际 5.34 二进制对应最低 13.0，目标设备为 arm64，七组资源需手动拷贝。源码评审无法确立编译、签名、安装、启动与播放是否成立。",
+      "review_state_at_source_review": "in_review",
+      "remaining": [
+        "未签名链接与七组资源手动拷贝的验收归属用例 ACC-IOS-SPM-534-DEVICE-BUILD-001。",
+        "已签名真机的启动、运行时行为与权限验收独立于上述用例，仍需等待相应资源到位后另行确认。",
+        "未签名构建回执需记录解析时使用的官方清单、精确发行材料和缓存输入。"
+      ],
+      "installation_evidence": {
+        "requirements_table_element": 2,
+        "documented_xcode_minimum": "15.0",
+        "documented_ios_minimum": "12.0",
+        "device_only": "arm64",
+        "simulator_supported": false,
+        "package_repository_element": 24,
+        "dependency_rule": {
+          "element_index": 26,
+          "value": "Up to Next Major Version",
+          "pins_exact_version": false
+        },
+        "destination_target_element": 30,
+        "resources_elements": [
+          32,
+          34,
+          40,
+          42,
+          44,
+          46,
+          48,
+          50,
+          52,
+          56,
+          57,
+          62
+        ],
+        "import_elements": [
+          68,
+          72
+        ],
+        "import_module": "EZOpenSDKFramework",
+        "physical_device_instruction_element": 75
+      },
+      "conditional_source_resolution": {
+        "case_id": "ACC-IOS-SPM-534-DEVICE-BUILD-001",
+        "report_ref": "docs/validation/2026-11-21-native-ios-initialization/checks.json",
+        "required_evidence": "清单与发行包哈希、真机目标未签名编译链接及七组资源逐文件核验。"
+      }
+    }
+  },
+  "ios_release": {
+    "repository": "https://github.com/Ezviz-OpenBiz/SDK-iOS",
+    "tag": "5.34",
+    "commit": "60990dde343272f4b6d30b0893c094c0869c5f32",
+    "git_tree": "8b1f1ac99e85b37d00aa04af3eb8f275b70a02af",
+    "manifest_sha256": "e64226a266a5946d7cc86fcfa493096e056395e4fc09135c13c5b68cdbec9622",
+    "wrapper_sha256": "9028a63bf2256a32adc85b6dc16ba37c63643985390b635be89ac210aa5ad087",
+    "zip_url": "https://github.com/Ezviz-OpenBiz/SDK-iOS/releases/download/5.34/EZOpenSDKFramework.xcframework.zip",
+    "zip_bytes": 13385946,
+    "zip_sha256": "f7d9043c781910cab519b5cb89508917d849a094f1df11507eec02d495e2742d",
+    "binary_sha256": "8d8067115c320da068a8953d2d66059d8eccfef7a3fe86e05d65083c396fc498",
+    "xcframework_info_sha256": "ce85c825a1ebc08cf6b04632a9860dcbedbc559cf2f689adc9984ac929d02911",
+    "framework_info_sha256": "b583e26f7d1325a723334bb943c8ce69f09034bf1be91c10e317afb1c57915cd",
+    "supported_platform": "ios",
+    "available_slice": "ios-arm64",
+    "package_declared_minimum": "12.0",
+    "binary_declared_minimum": "13.0",
+    "consumer_deployment_target": "13.0",
+    "swift_tools": "5.9",
+    "product": "EZOpenSDK",
+    "wrapper_target": "EZOpenSDKWrapper",
+    "binary_module": "EZOpenSDKFramework",
+    "verified_public_header_count": 60,
+    "header_selectors": {
+      "setAccessToken": {
+        "class_name": "EZOpenSDK",
+        "dispatch": "+",
+        "selector": "setAccessToken:",
+        "header": "EZOpenSDK.h",
+        "line": 130,
+        "header_sha256": "de6324bad4bc2ef1e879e231d86fe54506f26dcb9ec45ee20d00823a4e320c7e",
+        "intake_id": "candidate:domestic:native-ref:setAccessToken",
+        "end_line": 130,
+        "declaration": "+ (void)setAccessToken:(NSString *)accessToken;"
+      },
+      "getDeviceList": {
+        "class_name": "EZOpenSDK",
+        "dispatch": "+",
+        "selector": "getDeviceList:pageSize:completion:",
+        "header": "EZOpenSDK.h",
+        "line": 548,
+        "header_sha256": "de6324bad4bc2ef1e879e231d86fe54506f26dcb9ec45ee20d00823a4e320c7e",
+        "intake_id": "candidate:domestic:native-ref:getDeviceList",
+        "end_line": 550,
+        "declaration": "+ (NSURLSessionDataTask *)getDeviceList:(NSInteger)pageIndex pageSize:(NSInteger)pageSize completion:(void (^)(NSArray *deviceList, NSInteger totalCount, NSError * __nullable error))completion;"
+      },
+      "setPlayVerifyCode": {
+        "class_name": "EZPlayer",
+        "dispatch": "-",
+        "selector": "setPlayVerifyCode:",
+        "header": "EZPlayer.h",
+        "line": 301,
+        "header_sha256": "1f2d73f197b3e1fa0258039501d3db570bce097edec0b20ff77101c147019d0a",
+        "intake_id": "candidate:domestic:native-ref:setPlayVerifyCode",
+        "end_line": 301,
+        "declaration": "- (void)setPlayVerifyCode:(NSString *)verifyCode;"
+      },
+      "seekPlayback": {
+        "class_name": "EZPlayer",
+        "dispatch": "-",
+        "selector": "seekPlayback:",
+        "header": "EZPlayer.h",
+        "line": 455,
+        "header_sha256": "1f2d73f197b3e1fa0258039501d3db570bce097edec0b20ff77101c147019d0a",
+        "intake_id": "candidate:domestic:native-ref:seekPlayback",
+        "end_line": 455,
+        "declaration": "- (void)seekPlayback:(NSDate *)offsetTime;"
+      },
+      "setPlaybackRate": {
+        "class_name": "EZPlayer",
+        "dispatch": "-",
+        "selector": "setPlaybackRate:mode:",
+        "header": "EZPlayer.h",
+        "line": 484,
+        "header_sha256": "1f2d73f197b3e1fa0258039501d3db570bce097edec0b20ff77101c147019d0a",
+        "intake_id": "candidate:domestic:native-ref:setPlaybackRate",
+        "end_line": 484,
+        "declaration": "- (BOOL)setPlaybackRate:(EZPlaybackRate)rate mode:(NSUInteger)mode;"
+      }
+    },
+    "exact_spellings_absent_from_public_headers": [
+      "setServerUrl",
+      "setSurfaceHold"
+    ],
+    "resource_pins_ref": "docs/coordination/native-ios-initialization/scope.json#/component/resources",
+    "manual_resource_groups": [
+      {
+        "name": "com.hri.hpc.mobile.ios.player.metallib",
+        "doc_element": 40,
+        "checkout_members": [
+          "dist/EZOpenSDK/dynamicSDK/com.hri.hpc.mobile.ios.player.metallib"
+        ],
+        "file_count": 1
+      },
+      {
+        "name": "CNN_SR_X2_fp16_ios_w1472xh828.bin",
+        "doc_element": 42,
+        "checkout_members": [
+          "dist/EZOpenSDK/dynamicSDK/CNN_SR_X2_fp16_ios_w1472xh828.bin"
+        ],
+        "file_count": 1
+      },
+      {
+        "name": "CNN_SR_X2_fp16_ios_w828xh1472.bin",
+        "doc_element": 44,
+        "checkout_members": [
+          "dist/EZOpenSDK/dynamicSDK/CNN_SR_X2_fp16_ios_w828xh1472.bin"
+        ],
+        "file_count": 1
+      },
+      {
+        "name": "CNN_SR_X4_fp16_ios_w432xh768.bin",
+        "doc_element": 46,
+        "checkout_members": [
+          "dist/EZOpenSDK/dynamicSDK/CNN_SR_X4_fp16_ios_w432xh768.bin"
+        ],
+        "file_count": 1
+      },
+      {
+        "name": "CNN_SR_X4_fp16_ios_w768xh432.bin",
+        "doc_element": 48,
+        "checkout_members": [
+          "dist/EZOpenSDK/dynamicSDK/CNN_SR_X4_fp16_ios_w768xh432.bin"
+        ],
+        "file_count": 1
+      },
+      {
+        "name": "Ezviz_Audio_Enhance_Model_Up_16K.bin",
+        "doc_element": 50,
+        "checkout_members": [
+          "dist/EZOpenSDK/dynamicSDK/Ezviz_Audio_Enhance_Model_Up_16K.bin"
+        ],
+        "file_count": 1
+      },
+      {
+        "name": "EZAICloud.bundle",
+        "doc_element": 52,
+        "checkout_members": [
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_arrow_back.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_arrow_down.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_arrow_right.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_btn_send.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_check_blue.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_check_green.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_cover_placeholder.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_cross_gray.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_play_icon.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_suggest_star.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_upgrade_bg.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_upgrade_icon.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_welcome_bg.png",
+          "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_welcome_logo.png"
+        ],
+        "file_count": 14
+      }
+    ],
+    "regular_resource_files": 20,
+    "install_destination": "App target → Build Phases → Copy Bundle Resources。保留 EZAICloud.bundle 的目录层级。",
+    "evidence_scope": "精确到该 tag、提交、发行 ZIP 与公开头。声明和制品检查不能确定设备运行或账户权限。"
+  },
+  "public_document_check": {
+    "checked_at_utc": "2026-11-20T22:07:39.258699+00:00",
+    "public_docs_only": true,
+    "credentials_used": false,
+    "device_api_requests": 0,
+    "log_collections": 0,
+    "media_requests": 0,
+    "pages": [
+      {
+        "region": "domestic",
+        "doc_id": "4151",
+        "reference": "https://open.ys7.com/help/4151",
+        "status": 200,
+        "html_sha256": "457034f85afd23fa4dbe8a9803159c23bc9bec53913c6ad6f8994b08a068a91d",
+        "matches_frozen_html": true
+      },
+      {
+        "region": "domestic",
+        "doc_id": "4077",
+        "reference": "https://open.ys7.com/help/4077",
+        "status": 200,
+        "html_sha256": "b8c9ceaf5e6fddb3b6ede8a52ef929d487c1fe66be76c421174786a7b7f04006",
+        "matches_frozen_html": true
+      },
+      {
+        "region": "domestic",
+        "doc_id": "4191",
+        "reference": "https://open.ys7.com/help/4191",
+        "status": 200,
+        "html_sha256": "1e749d259c66dda20f1fbb34b4c5b70d9682e07a956cda6224e26ec048e0b687",
+        "matches_frozen_html": true
+      },
+      {
+        "region": "domestic",
+        "doc_id": "5357",
+        "reference": "https://open.ys7.com/help/5357",
+        "status": 200,
+        "html_sha256": "f1ad735bdff62536396ad87dbabb9703fcebae30e59cb07e28acaeaa546209e5",
+        "matches_frozen_html": true
+      }
+    ]
+  },
+  "build_check_ref": "docs/validation/2026-11-21-native-ios-initialization/checks.json",
+  "limits": [
+    "三端初始化文档均未指定精确 SDK 发布版本。iOS 5.34 的公开头证据不外推到 Android 或 Harmony。",
+    "此前七项候选中的两个精确拼写未在此版本 iOS 公开头中定位，旧版本、其他平台或不同命名另行审核。",
+    "此记录仅收录文档和发行材料事实，具体编译、链接、资源完整性以及负对照结果由独立构建回执给出。未安装或运行应用、查询真实设备、读取日志或媒体。"
+  ]
+}
