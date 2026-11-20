@@ -13299,55 +13299,60 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:1422:d0",
+      "capability_selector": "recordings.by_time",
       "capability_ids": [
         "candidate:domestic:1422:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.recordings.by_time"
+      ],
+      "scope_revision": "2026-11-21-r56-domestic-stored-recordings",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
+      "account_role_permissions": "国内已授权账户，仍需 accessToken。子账号最小权限标为“无”，错误表保留未开通服务、非开发者等限制。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "合成认证及业务传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求按时间查询云存储录像文件信息”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "单次查询参数与响应原值；两种方法独立，不自动续页。",
+        "write": "只读，不下载、播放或获取封面。",
+        "physical": "不验证真实设备录像。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/63"
+        "docs/coordination/SP088/scenario-input.json#/entries/63",
+        "docs/coordination/domestic-stored-recordings/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1422.source.json"
       ],
       "pending_questions": [
-        "返回为录像文件元信息清单还是含播放/下载地址待核",
-        "云存储服务开通与时间范围上限前提待核",
-        "查询按设备通道还是按存储计划维度进行待核"
+        "返回记录的字段名及类型在两种示例间有差异，保留原值。服务端默认时区、保存期、文件可播放性未核定。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1424-D0-OFFLINE-001",
@@ -36126,6 +36131,165 @@
       ],
       "limitations": [
         "3947 E14 把四个字段列为 query；E48 对三个共同字段使用 form 且未传 id。SDK 按该页唯一完整字段表提交 query，线上组合及 id 和 pageStart 同传的优先级未实证。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1422-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_stored_recordings",
+      "capability_selector": "recordings.by_time",
+      "capability_ids": [
+        "candidate:domestic:1422:d0"
+      ],
+      "operation_ids": [
+        "cn.recordings.by_time"
+      ],
+      "scope_revision": "2026-11-21-r56-domestic-stored-recordings",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内已授权账户，仍需 accessToken。子账号最小权限标为“无”，错误表保留未开通服务、非开发者等限制。",
+      "device_requirements": "可用的国内授权设备与录像来源。",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "确认单台授权设备、通道、录像来源、时间范围和请求上限。"
+      ],
+      "expected_evidence": {
+        "read": "仅保存次数、状态及返回结构。",
+        "write": "不写配置、不开流、不访问文件或封面。",
+        "physical": "平台返回不证明视频可播放。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读元数据。",
+      "source_refs": [
+        "docs/coordination/domestic-stored-recordings/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1422.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待确认该场景资源及权限。"
+      ],
+      "limitations": [
+        "返回记录的字段名及类型在两种示例间有差异，保留原值。服务端默认时区、保存期、文件可播放性未核定。"
+      ]
+    },
+    {
+      "case_id": "ACC-CN-1600-COMPONENT-RECORDING-TIME-OFFLINE-001",
+      "tier": "required",
+      "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
+      "case_origin": "reviewed_component_variant",
+      "capability_selector": "recordings.by_text_time",
+      "capability_ids": [
+        "candidate:domestic:1600:reviewed"
+      ],
+      "operation_ids": [
+        "cn.recordings.by_text_time"
+      ],
+      "scope_revision": "2026-11-21-r56-domestic-stored-recordings",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内已授权账户，仍需 accessToken。1600 未列子账户最低权限或普遍适用的机型。",
+      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "合成认证及业务传输。"
+      ],
+      "expected_evidence": {
+        "read": "单次查询参数与响应原值；两种方法独立，不自动续页。",
+        "write": "只读，不下载、播放或获取封面。",
+        "physical": "不验证真实设备录像。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
+      "source_refs": [
+        "docs/coordination/domestic-stored-recordings/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1600.source.json"
+      ],
+      "pending_questions": [
+        "目录归于智能电梯网络摄像机，正文提到安全帽相机。表与 curl 均使用字符串 startTime/stopTime，机型适用范围、时区和实际账户权限待核。"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "pending_execution",
+      "blockers": [
+        "待离线执行。"
+      ],
+      "limitations": [
+        "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
+    },
+    {
+      "case_id": "ACC-CN-1600-COMPONENT-RECORDING-TIME-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_stored_recordings",
+      "capability_selector": "recordings.by_text_time",
+      "capability_ids": [
+        "candidate:domestic:1600:reviewed"
+      ],
+      "operation_ids": [
+        "cn.recordings.by_text_time"
+      ],
+      "scope_revision": "2026-11-21-r56-domestic-stored-recordings",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内已授权账户，仍需 accessToken。1600 未列子账户最低权限或普遍适用的机型。",
+      "device_requirements": "可用的国内授权设备与录像来源。另需确认具体设备支持 1600 的组件语义。",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "确认单台授权设备、通道、录像来源、时间范围和请求上限。"
+      ],
+      "expected_evidence": {
+        "read": "仅保存次数、状态及返回结构。",
+        "write": "不写配置、不开流、不访问文件或封面。",
+        "physical": "平台返回不证明视频可播放。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读元数据。",
+      "source_refs": [
+        "docs/coordination/domestic-stored-recordings/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1600.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待确认该场景资源及权限。"
+      ],
+      "limitations": [
+        "目录归于智能电梯网络摄像机，正文提到安全帽相机。表与 curl 均使用字符串 startTime/stopTime，机型适用范围、时区和实际账户权限待核。"
       ]
     }
   ],
