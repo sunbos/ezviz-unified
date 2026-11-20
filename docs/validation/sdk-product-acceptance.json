@@ -36725,6 +36725,104 @@
       "blockers": [
         "待确认设备/签名/真实授权。"
       ]
+    },
+    {
+      "case_id": "ACC-HARMONY-190-UNSIGNED-HAP-001",
+      "tier": "required",
+      "case_origin": "native_harmony_190_integration",
+      "capability_selector": "official HarmonyOS EZOpenSDK 1.9.0 consumer",
+      "capability_ids": [
+        "integration:mobile.harmony_ezopensdk_hap_consumer"
+      ],
+      "operation_ids": [],
+      "scope_revision": "2026-11-21-r61-native-harmony-sdk",
+      "freeze_state": "frozen_build_criteria_pending_authorized_resources",
+      "region_cluster": "official_harmony_api12",
+      "account_role_permissions": "须确认商业 SDK 与工具链在本次环境的使用授权",
+      "device_requirements": "受支持的 HarmonyOS API12 构建机",
+      "surface": [
+        "native_harmony_unsigned_build"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "先确认 HAR 商业使用许可、工具链及执行环境。"
+      ],
+      "expected_evidence": {
+        "read": "构建、产物、ABC 与依赖来源",
+        "write": "无业务写入",
+        "physical": "结构审查和模板不证明运行。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "awaiting_confirmation",
+      "recovery_plan": "不修改设备设置。",
+      "source_refs": [
+        "docs/coordination/native-harmony-sdk-build/scope.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "criterion_assessment": {
+        "RELEASE_INPUT": "pending",
+        "ARKTS_CONSUMER": "pending",
+        "HVIGOR_BUILD": "pending",
+        "HAP_CONTENT": "pending",
+        "BUILD_NEGATIVES": "pending"
+      },
+      "limitations": [
+        "不将预编发行物或其他平台的成功继承为 HAP 通过。"
+      ],
+      "blockers": [
+        "本次商业集成授权及合规的 API12 构建环境待确认。"
+      ]
+    },
+    {
+      "case_id": "ACC-HARMONY-190-SIGNED-DEVICE-001",
+      "tier": "required",
+      "case_origin": "native_harmony_190_integration",
+      "capability_selector": "official HarmonyOS EZOpenSDK 1.9.0 consumer",
+      "capability_ids": [
+        "integration:mobile.harmony_ezopensdk_hap_consumer"
+      ],
+      "operation_ids": [],
+      "scope_revision": "2026-11-21-r61-native-harmony-sdk",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "official_harmony_api12",
+      "account_role_permissions": "还需独立限定账号和真实业务操作",
+      "device_requirements": "支持设备/签名/测试用户及批准的业务范围",
+      "surface": [
+        "native_harmony_signed_device"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "先确认 HAR 商业使用许可、工具链及执行环境。"
+      ],
+      "expected_evidence": {
+        "read": "有界真实应用运行",
+        "write": "无业务写入",
+        "physical": "结构审查和模板不证明运行。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "awaiting_confirmation",
+      "recovery_plan": "不修改设备设置。",
+      "source_refs": [
+        "docs/coordination/native-harmony-sdk-build/scope.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "criterion_assessment": {},
+      "limitations": [
+        "不将预编发行物或其他平台的成功继承为 HAP 通过。"
+      ],
+      "blockers": [
+        "签名资源、设备、账号和授权未确认。"
+      ]
     }
   ],
   "release_gates": [
