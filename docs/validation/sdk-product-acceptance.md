@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 国内 RTMP 云端音频转 AAC
+
+已在模拟传输中验收同步和异步的能力查询、云端转码开关及只读示例。查询返回布尔支持值。设置接受平台仅含 meta 的成功回执，一次业务调用只发送一次设置请求。当前开关值、真实账户权限、费率、RTMP 音频格式和恢复效果仍待核验。归档中 HLS 暂不支持这项服务。[接口与证据边界](../coordination/domestic-rtmp-aac/admission.json) · [离线回执](2026-11-20-domestic-rtmp-aac/offline.json)
+
 ## 国内暖光和夜视配置
 
 在模拟传输中验证了同步和异步读取、设置，以及只读 CLI。读取保留平台返回的对象或字符串。设置按文档示例传递一次查询令牌，将三个完整配置值编码为表单内的 JSON 字符串。亮度和时长的单位、支持机型、实际照明效果仍待核实。真实配置读取需要明确通道和权限，写入另需确认测试值与恢复安排。[范围和来源差异](../coordination/domestic-night-vision/admission.json) · [离线验收](2026-11-20-domestic-night-vision/offline.json)

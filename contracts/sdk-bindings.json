@@ -3777,6 +3777,32 @@
       "public_entry": "illumination.set_night_vision",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.video.get_rtmp_aac_support",
+      "region": "domestic",
+      "source_doc_id": "3736",
+      "module": "src/ezviz_unified/video.py",
+      "symbols": [
+        "Video.get_rtmp_aac_support",
+        "AsyncVideo.get_rtmp_aac_support"
+      ],
+      "public_entry": "video.get_rtmp_aac_support",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.video.set_rtmp_aac_enabled",
+      "region": "domestic",
+      "source_doc_id": "3735",
+      "module": "src/ezviz_unified/video.py",
+      "symbols": [
+        "Video.set_rtmp_aac_enabled",
+        "AsyncVideo.set_rtmp_aac_enabled"
+      ],
+      "public_entry": "video.set_rtmp_aac_enabled",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

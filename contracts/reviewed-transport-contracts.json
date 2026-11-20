@@ -20651,6 +20651,145 @@
       },
       "source_content_sha256": "0d47c3cd9c75b3075f489c838f1bfc722dfa156133a53897a708d50f2702f4db",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.video.get_rtmp_aac_support",
+      "region": "domestic",
+      "source_doc_id": "3736",
+      "source_url": "https://open.ys7.com/help/3736",
+      "method": "GET",
+      "path": "/api/service/media/aac/transfer",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E14/R3"
+        },
+        {
+          "name": "localIndex",
+          "location": "header",
+          "type": "Int",
+          "required": false,
+          "evidence": "E14/R4"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E46;E50;E82"
+      },
+      "constraints": [
+        {
+          "fact": "E14 列出应用、托管和子账户等令牌类型。localIndex 省略或为 0 要求设备级 CONFIG，否则要求通道级 CONFIG。",
+          "evidence": "E14/R2;E14/R4"
+        },
+        {
+          "fact": "根层 meta.code 为整数 200 时，data.enable 必须为布尔值，表示转码支持能力。false 是正常结果，保留响应中的扩展字段。",
+          "evidence": "E3;E46;E50;E82"
+        }
+      ],
+      "uncertainties": [
+        "返回支持能力。当前开关状态、可用型号与实际 RTMP 编码未获证明。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/service/media/aac/transfer",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E42"
+      },
+      "source_content_sha256": "9387533e0fd6bd82c9b02981ab3f0a5087f0dc6d6791340fcadbdcfb2dea4e2c",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.video.set_rtmp_aac_enabled",
+      "region": "domestic",
+      "source_doc_id": "3735",
+      "source_url": "https://open.ys7.com/help/3735",
+      "method": "POST",
+      "path": "/api/service/media/aac/transfer",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E40/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "String",
+          "required": true,
+          "evidence": "E40/R3"
+        },
+        {
+          "name": "localIndex",
+          "location": "header",
+          "type": "Int",
+          "required": false,
+          "evidence": "E40/R4"
+        },
+        {
+          "name": "enable",
+          "location": "query",
+          "type": "Int",
+          "required": true,
+          "evidence": "E40/R5"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E79;E83;E108"
+      },
+      "constraints": [
+        {
+          "fact": "国内账户需有访问设备的权限，E40 未逐类列出可写令牌或 CONFIG 权限范围。",
+          "evidence": "E40/R2;E108"
+        },
+        {
+          "fact": "转码开关适用于 RTMP。enable 在 query 中使用 0 或 1，请求没有正文。省略 localIndex 时文档默认值为 0，已取流设备在该默认场景最长可延迟三天生效。",
+          "evidence": "E13;E16;E40/R4;E40/R5;E75"
+        },
+        {
+          "fact": "根层 meta.code 为整数 200 表示平台受理。成功示例只有 meta，SDK 保留上游附加的 data，不自动重放。",
+          "evidence": "E79;E83;E108;docs/coordination/domestic-rtmp-aac/admission.json"
+        }
+      ],
+      "uncertainties": [
+        "未给出现行价格、开关原值查询、恢复保证或显式通道生效时限。POST 成功只证明平台受理。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/media/aac/transfer",
+        "encoding": "none",
+        "evidence": "E33;E37;E40;E75"
+      },
+      "source_content_sha256": "1fb218b003c06f42f19a2f50a6d638c07c5d6d0b7733bd704fcf4f8bb577f96c",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -20804,6 +20943,10 @@
     {
       "review": "docs/coordination/domestic-night-vision/admission.json",
       "note": "国内设备暖光与亮灯时长读写。5061 保留 valueInfo 的两种表示，5062 按请求示例区分查询令牌与表单字段。"
+    },
+    {
+      "review": "docs/coordination/domestic-rtmp-aac/admission.json",
+      "note": "国内 RTMP 音频转 AAC。3736 查询支持能力，3735 通过查询参数设置转码开关。"
     }
   ]
 }

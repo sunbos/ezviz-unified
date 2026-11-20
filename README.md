@@ -490,6 +490,16 @@ python -m examples.talk_speaker_volume --mode sync
 
 `client.video`提供清晰度、预览编码、音视频codec、视频类开关的设置，以及本地录像编码和开关查询，仅国内。预览参数使用`PreviewEncoding`，分辨率/帧率是官方枚举代码；本地录像查询不视为预览设置的逆操作。`VideoSwitch`包含隐私遮蔽、休眠、人脸开锁、特写追踪和LOGO；设置不自动重放。JSON/form位置、权限、参数省略规则和源码缺项见[视频说明](docs/research/2026-11-14-video-configuration.md)，真实效果仍未验证。
 
+### 国内 RTMP 云端音频转码
+
+同步与异步客户端都提供 `client.video.get_rtmp_aac_support(serial)` 和 `client.video.set_rtmp_aac_enabled(serial, True)`，用于将国内 RTMP 播放与取流的 G.711 音频在云端转码为 AAC。异步客户端对任一调用都加 `await`。`enabled` 须为严格布尔值，`channel` 只接受非负整数或 None 并拒绝布尔值，None 省略 `localIndex`，0 会显式发送。
+
+`get_rtmp_aac_support` 返回的 `data.enable` 是布尔值，只描述平台报告的转码支持能力，不反映当前开关状态，也无法在改动前备份原值用于恢复。`set_rtmp_aac_enabled` 只控制云端 RTMP 的 G.711 转 AAC，SDK 不自动重放或读回，成功响应仅表示平台已受理。设备自身的音频编码设置与录像文件异步处理等 VOD 任务使用独立接口，HLS 暂不支持该转码。
+
+查询接口列出应用、托管和子账户等令牌类型可用，`localIndex` 省略或为 0 要求设备级 CONFIG，为正整数时要求通道级 CONFIG。设置接口需要国内访问令牌及设备配置权限，官方未按查询接口的口径逐类列出令牌适用性，真实写入还需确认账户计费和操作授权。归档记有计费政策及 2024 年 12 月起的限时免费说明，未核定现行收费或账户余额能否覆盖费用。`localIndex` 省略时默认 0，使用该默认值时从未取流的全新设备立即生效，已取流设备最长可能延迟三天，官方未对显式通道给出同一时效。
+
+只读示例 `python -m examples.rtmp_aac --mode sync` 和 `python -m examples.rtmp_aac --mode async` 需显式设置 `EZVIZ_REGION=domestic`、`EZVIZ_DEVICE_SERIAL`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET`，`EZVIZ_CHANNEL_NO` 可省略或填写非负 ASCII 十进制，输出仅含 region、mode、status、supported。本批仅完成离线验证，未使用真实账户，未确认配置变更、转码后的音频或计费。官方文档见 [3735 设置](https://open.ys7.com/help/3735) 与 [3736 查询](https://open.ys7.com/help/3736)。
+
 ## 图像参数
 
 国内同步与异步客户端均支持设备图像配置。`client.imaging.get_display_mode(serial)` 读取显示预设，`set_display_mode(serial, mode)` 设置标准、写实或艳丽。`imaging.get(serial, ImageSetting.IMAGE_PARAMS)` 等六项原有查询继续使用各自契约。

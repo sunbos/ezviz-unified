@@ -2317,6 +2317,40 @@
         "E40;E79",
         "docs/coordination/domestic-night-vision/admission.json"
       ]
+    },
+    {
+      "id": "cn.video.get_rtmp_aac_support.support_and_switch_state",
+      "region": "domestic",
+      "source_doc_id": "3736",
+      "source_url": "https://open.ys7.com/help/3736",
+      "source_content_sha256": "9387533e0fd6bd82c9b02981ab3f0a5087f0dc6d6791340fcadbdcfb2dea4e2c",
+      "description": "3736 的 data.enable 布尔值表示是否支持转码，资料未提供当前开关状态。省略 localIndex 或传 0 需要设备级 CONFIG 权限，正数需要通道级 CONFIG 权限。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 保留原始 data 与 enable 布尔值。false 是正常结果，无法用来恢复开关。",
+      "evidence": [
+        "E3",
+        "E14/R2;E14/R4",
+        "E42",
+        "E46;E50",
+        "docs/coordination/domestic-rtmp-aac/admission.json"
+      ]
+    },
+    {
+      "id": "cn.video.set_rtmp_aac_enabled.billing_timing_and_receipt",
+      "region": "domestic",
+      "source_doc_id": "3735",
+      "source_url": "https://open.ys7.com/help/3735",
+      "source_content_sha256": "1fb218b003c06f42f19a2f50a6d638c07c5d6d0b7733bd704fcf4f8bb577f96c",
+      "description": "3735 适用于 RTMP 云端转码。归档中的限时免费说明未确认现行价格。省略 localIndex 时默认为 0，已取流设备最长可延迟三天生效，显式正数通道的时限未说明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 以根层 meta 回执确认受理，保留附加 data，不自动重放、读回或回滚。",
+      "evidence": [
+        "E13;E15;E16;E19",
+        "E40/R4;E40/R5",
+        "E75",
+        "E79;E83;E108",
+        "docs/coordination/domestic-rtmp-aac/admission.json"
+      ]
     }
   ]
 }
