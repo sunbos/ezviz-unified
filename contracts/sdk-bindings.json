@@ -4008,7 +4008,7 @@
         "AsyncDevices.list_by_id"
       ],
       "public_entry": "devices.list_by_id",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
