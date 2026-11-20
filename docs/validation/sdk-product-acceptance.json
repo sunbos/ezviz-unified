@@ -552,8 +552,12 @@
         "OTHER-COMPONENT-SCOPES": "pending",
         "H264-LOCAL-BROWSER": "met",
         "HEVC-SOFT-LOCAL": "met",
-        "OVERSEAS-FLV-H264-LOCAL": "met"
-      }
+        "OVERSEAS-FLV-H264-LOCAL": "met",
+        "IOS-534-UNSIGNED-CONSUMER-BUILD": "met"
+      },
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-native-ios-initialization/checks.json"
+      ]
     },
     {
       "case_id": "ACC-WRITE-OPERATIONS-001",
@@ -36497,6 +36501,115 @@
       ],
       "limitations": [
         "原文未说明合并/替换规则、时区、回读/恢复方法及其他机型支持；E72 的令牌头行语法不完整，采用 E12。eventArg 只描述执行后停用标志。"
+      ]
+    },
+    {
+      "case_id": "ACC-IOS-SPM-534-DEVICE-BUILD-001",
+      "tier": "required",
+      "case_origin": "native_ios_spm_534_integration",
+      "capability_selector": "official iOS SPM 5.34 host integration",
+      "capability_ids": [
+        "integration:mobile.ios_ezopensdk_spm_consumer"
+      ],
+      "operation_ids": [],
+      "scope_revision": "2026-11-21-r59-native-ios-initialization",
+      "freeze_state": "frozen_for_build_verification",
+      "region_cluster": "official_ios_device_platform",
+      "account_role_permissions": "无需平台凭据",
+      "device_requirements": "Xcode iphoneos SDK 与官方完整发行输入",
+      "surface": [
+        "native_ios_device_build"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "通过真实 Xcode App target 和普通 XCLocalSwiftPackageReference 指向官方精确版本 checkout；不改第三方 Package.swift 或替换其 binaryTarget 实现。先验证制品和资源 SHA，再让 SPM 解析并链接，记录公开依赖获取和本地构建的区别。正常路径仅用匿名公共发行材料。",
+        "编译实际 Objective-C 客户端，@import EZOpenSDKFramework，使用公开头类型/方法，保留编译器严格 selector 和 block 类型检查。五个签名均可在同一编译单元中以从不被 main 调用的类型化函数引用，禁止用字符串动态查找替代。令牌、设备、用户、媒体不用。拒绝一个明确错误 selector 的负对照，须失败在预期 diagnostic。",
+        "通用 iphoneos arm64、iOS 13.0 target，应用签名禁用。用 vtool 和 otool/nm 验证宿主 Mach-O 平台、架构、厂商动态库加载关系及真实 Objective-C class 外部引用；检查嵌入的 framework 与发行包一致。如构建过程合法 strip/处理二进制，则核原制品及嵌入的相同 UUID/平台/架构/加载标识。必须有七组二十个真实资源文件，逐一按摘要验证安装位置，bundle 不可拍平。"
+      ],
+      "expected_evidence": {
+        "read": "签名、链接、制品和资源证据",
+        "write": "无业务写入",
+        "physical": "不将构建计为设备运行。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "只读原生集成。",
+      "source_refs": [
+        "docs/coordination/native-ios-initialization/scope.json"
+      ],
+      "code_artifact_evidence_refs": [
+        "docs/coordination/native-ios-initialization/scope.json",
+        "docs/validation/2026-11-21-native-ios-initialization/source-review.json",
+        "examples/ios_sdk_build/Probe.m",
+        "examples/ios_sdk_build/NativeSDKProbe.xcodeproj/project.pbxproj",
+        "tools/native/verify_ios_spm.py",
+        "docs/official-mobile-sdk.md"
+      ],
+      "result": "recorded_evidence",
+      "criterion_assessment": {
+        "PACKAGE": "met",
+        "COMPILE_LINK": "met",
+        "RESOURCES": "met",
+        "NEGATIVE": "met"
+      },
+      "limitations": [
+        "不从编译推定安装或播放。"
+      ],
+      "blockers": [],
+      "execution_outcome": "passed",
+      "verified_code_commit": "53f4a8966565e8e12851e159d77c5cfd69f50eae",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-native-ios-initialization/checks.json"
+      ]
+    },
+    {
+      "case_id": "ACC-IOS-SPM-534-SIGNED-DEVICE-001",
+      "tier": "required",
+      "case_origin": "native_ios_spm_534_integration",
+      "capability_selector": "official iOS SPM 5.34 host integration",
+      "capability_ids": [
+        "integration:mobile.ios_ezopensdk_spm_consumer"
+      ],
+      "operation_ids": [],
+      "scope_revision": "2026-11-21-r59-native-ios-initialization",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "official_ios_device_platform",
+      "account_role_permissions": "另行冻结账户、操作、调用上限及权限",
+      "device_requirements": "已授权 iOS 物理设备、可用开发团队签名及合法账号",
+      "surface": [
+        "native_ios_signed_device"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "确认适用设备、签名、时间窗与具体只读范围。"
+      ],
+      "expected_evidence": {
+        "read": "有界真实应用启动和已授权结果",
+        "write": "无业务写入",
+        "physical": "不将构建计为设备运行。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读原生集成。",
+      "source_refs": [
+        "docs/coordination/native-ios-initialization/scope.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "criterion_assessment": {},
+      "limitations": [
+        "不从编译推定安装或播放。"
+      ],
+      "blockers": [
+        "未确认设备、签名及平台实测范围。"
       ]
     }
   ],
