@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "scope_revision": "2026-11-21-r59-native-ios-initialization",
+  "baseline_commit": "78120c4edb44b6ecaebdf65ead00034e966523c6",
+  "cohort_id": "NATIVE-IOS-SPM-534-001",
+  "source_pages": [
+    {
+      "doc_id": "4151",
+      "platform": "Android",
+      "source_ref": "portal-2026-11-17:domestic:4151",
+      "source_url": "https://open.ys7.com/help/4151",
+      "html_sha256": "457034f85afd23fa4dbe8a9803159c23bc9bec53913c6ad6f8994b08a068a91d",
+      "raw_file": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4151.source.json",
+      "structure_file": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4151.structure.json",
+      "structure_sha256": "37f40343aa23140868fe9caebc54fb0a3ead963e05c1f685ca61c4ba732d125e",
+      "menu": [
+        [
+          "SDK及示例",
+          "Android SDK",
+          "Android 集成",
+          "SDK初始化"
+        ]
+      ]
+    },
+    {
+      "doc_id": "4077",
+      "platform": "iOS",
+      "source_ref": "portal-2026-11-17:domestic:4077",
+      "source_url": "https://open.ys7.com/help/4077",
+      "html_sha256": "b8c9ceaf5e6fddb3b6ede8a52ef929d487c1fe66be76c421174786a7b7f04006",
+      "raw_file": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4077.source.json",
+      "structure_file": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4077.structure.json",
+      "structure_sha256": "dd19053b77ff338eb496db2ed721a07208d823aeb540e8d1a2ff55bc5f357aa5",
+      "menu": [
+        [
+          "SDK及示例",
+          "iOS SDK",
+          "iOS 集成",
+          "iOS-SDK初始化"
+        ]
+      ]
+    },
+    {
+      "doc_id": "4191",
+      "platform": "Harmony",
+      "source_ref": "portal-2026-11-17:domestic:4191",
+      "source_url": "https://open.ys7.com/help/4191",
+      "html_sha256": "1e749d259c66dda20f1fbb34b4c5b70d9682e07a956cda6224e26ec048e0b687",
+      "raw_file": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/4191.source.json",
+      "structure_file": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/4191.structure.json",
+      "structure_sha256": "2d16ea8e4f1d86e60d28cd8f6789fd03e2dff04a5767565856b0b8f8c972d94d",
+      "menu": [
+        [
+          "SDK及示例",
+          "Harmony SDK",
+          "Harmony 集成",
+          "SDK初始化"
+        ]
+      ]
+    },
+    {
+      "doc_id": "5357",
+      "platform": "iOS",
+      "source_ref": "portal-2026-11-17:domestic:5357",
+      "source_url": "https://open.ys7.com/help/5357",
+      "html_sha256": "f1ad735bdff62536396ad87dbabb9703fcebae30e59cb07e28acaeaa546209e5",
+      "raw_file": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5357.source.json",
+      "structure_file": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/5357.structure.json",
+      "structure_sha256": "ee36d4c02ca796c2f94b7ac419497f3bb197905f9888bc5e66ce5608dc698097",
+      "menu": [
+        [
+          "SDK及示例",
+          "iOS SDK",
+          "iOS 集成",
+          "iOS SMP安装"
+        ]
+      ]
+    }
+  ],
+  "component": {
+    "repository": "https://github.com/Ezviz-OpenBiz/SDK-iOS",
+    "tag": "5.34",
+    "commit": "60990dde343272f4b6d30b0893c094c0869c5f32",
+    "git_tree": "8b1f1ac99e85b37d00aa04af3eb8f275b70a02af",
+    "manifest_sha256": "e64226a266a5946d7cc86fcfa493096e056395e4fc09135c13c5b68cdbec9622",
+    "wrapper_sha256": "9028a63bf2256a32adc85b6dc16ba37c63643985390b635be89ac210aa5ad087",
+    "zip_url": "https://github.com/Ezviz-OpenBiz/SDK-iOS/releases/download/5.34/EZOpenSDKFramework.xcframework.zip",
+    "zip_bytes": 13385946,
+    "zip_sha256": "f7d9043c781910cab519b5cb89508917d849a094f1df11507eec02d495e2742d",
+    "binary_sha256": "8d8067115c320da068a8953d2d66059d8eccfef7a3fe86e05d65083c396fc498",
+    "xcframework_info_sha256": "ce85c825a1ebc08cf6b04632a9860dcbedbc559cf2f689adc9984ac929d02911",
+    "framework_info_sha256": "b583e26f7d1325a723334bb943c8ce69f09034bf1be91c10e317afb1c57915cd",
+    "supported_platform": "ios",
+    "available_slice": "ios-arm64",
+    "package_declared_minimum": "12.0",
+    "binary_declared_minimum": "13.0",
+    "consumer_deployment_target": "13.0",
+    "swift_tools": "5.9",
+    "product": "EZOpenSDK",
+    "wrapper_target": "EZOpenSDKWrapper",
+    "binary_module": "EZOpenSDKFramework",
+    "resources": {
+      "dist/EZOpenSDK/dynamicSDK/CNN_SR_X2_fp16_ios_w1472xh828.bin": {
+        "bytes": 87873,
+        "git_blob": "5f1f53aa4b6ecc4cfa359fe07e3dcf78727ba8bc",
+        "sha256": "af8ae3b9ce80399a9b1dcec09e1c09cd7906b2358c318dd00c367484f498d79a"
+      },
+      "dist/EZOpenSDK/dynamicSDK/CNN_SR_X2_fp16_ios_w828xh1472.bin": {
+        "bytes": 87873,
+        "git_blob": "1d5f314b5006edabf2be3602eba968a691656dff",
+        "sha256": "60d9831b322159ba1a1706f065846d19fc986ba6ca5e30fb3c9a1b7588c91cec"
+      },
+      "dist/EZOpenSDK/dynamicSDK/CNN_SR_X4_fp16_ios_w432xh768.bin": {
+        "bytes": 91965,
+        "git_blob": "46c6b350f9a84666b42830bf86c48cba0622464f",
+        "sha256": "39b5fb7dfdaf3175ee08ebcca4b7e690fc29d63c9c170669c38d04d4353fef6c"
+      },
+      "dist/EZOpenSDK/dynamicSDK/CNN_SR_X4_fp16_ios_w768xh432.bin": {
+        "bytes": 91965,
+        "git_blob": "026f700ce35f7b297eaf388e3df51cdd68e588c6",
+        "sha256": "50c9f7b9b3b9ab921a594045fece8badae44df6a9eb4492146a5ca2ebf48bb5f"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_arrow_back.png": {
+        "bytes": 1300,
+        "git_blob": "5c6b610dd9213aa505a601df0373c64e41aff1c3",
+        "sha256": "48a7e54a76af79994799bf4569558748bce157dc8c2c39e938d7a159721616a3"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_arrow_down.png": {
+        "bytes": 1011,
+        "git_blob": "520d4cfb8eb86aa85a444f79812de73024dd8f00",
+        "sha256": "b7d7e5fae975a07a2f674bc55f18603fcf9eaa05702b4c159f05e94b588f9e4c"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_arrow_right.png": {
+        "bytes": 1107,
+        "git_blob": "fd446bf9e5035c7142b77e8440711a5007612fd5",
+        "sha256": "d958699040dd01254cde120a450812bd0231294f32ecbb3f74943cea80067f7f"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_btn_send.png": {
+        "bytes": 2860,
+        "git_blob": "180411cf40e12dded17f146244b11e4b3aa5e33d",
+        "sha256": "4eae3760bbd07af2814c4e4744a529230d986889ff2534d4d0e38a0651892d2b"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_check_blue.png": {
+        "bytes": 1044,
+        "git_blob": "4b50e8c32dfa5d94343cac0183a4578f93231b77",
+        "sha256": "177e06afa5e2a862e5d55e30804c22b3b7d3a96ef43f3c51fa51afe2cea3c4ab"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_check_green.png": {
+        "bytes": 1028,
+        "git_blob": "17930f0301a69e1d832544ae88e6d323057a2dff",
+        "sha256": "f9829ebdbb1c086e2f6b7dc5bb565398c8b8f2b3422dc3eb00c1ebaf85eb86bb"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_cover_placeholder.png": {
+        "bytes": 56870,
+        "git_blob": "e786fc61dc9d39046e6d85083ce90674eb4f2b57",
+        "sha256": "4904dea48f1d4c47a4102d72c657f8b3fe769638c4dac14553a36a8ee0a8486d"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_cross_gray.png": {
+        "bytes": 1305,
+        "git_blob": "a623ddffee24c473e7e6811a556938b6afae934d",
+        "sha256": "8d63ba4d065cfdad4e82145a702efcc458cdd123714a81d5fb9a63e0340f07f5"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_play_icon.png": {
+        "bytes": 891,
+        "git_blob": "a4288046313340be48685e77278bea838e8de202",
+        "sha256": "9766133847e8cb141b80d3b4b71f2b969f28aee62749a912024a2fa334d7ec19"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_suggest_star.png": {
+        "bytes": 2083,
+        "git_blob": "09ab724673a9e45f8e38a783a0e4de3bd89e9392",
+        "sha256": "16e8d792d1ee48f92497f3e4f9229c433e472ef54b6dadcdf122ca0512a7bee1"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_upgrade_bg.png": {
+        "bytes": 138037,
+        "git_blob": "6d92501f4d20e977085dc8a863c5a9a79c439985",
+        "sha256": "8d361b604948d21906563b6e6b5514dd5089a1abecf3567fb3fc84b0a9b4b63f"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_upgrade_icon.png": {
+        "bytes": 70306,
+        "git_blob": "fe943d4bee1700ed91bd39396c27dd29645cc2a9",
+        "sha256": "6c3ab75164ce45243fc8a29b33d91833dcf73107839ecd9757c85fb827fff9e9"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_welcome_bg.png": {
+        "bytes": 82433,
+        "git_blob": "d46cc513a1b541e38d693265f99875c59402ce6b",
+        "sha256": "1772b785fceafc8c6962570f7b37117421f4e3c1d18cb628cff6c1617ed95acc"
+      },
+      "dist/EZOpenSDK/dynamicSDK/EZAICloud.bundle/ez_ai_cloud_welcome_logo.png": {
+        "bytes": 63974,
+        "git_blob": "4dbf5f7bffe83eec9d8ac234ad2642fd221511bd",
+        "sha256": "457c3b223c3db2dc58131a7257bc9c7053e9334e2b9fb9592b06f3718db151ee"
+      },
+      "dist/EZOpenSDK/dynamicSDK/Ezviz_Audio_Enhance_Model_Up_16K.bin": {
+        "bytes": 1239076,
+        "git_blob": "fc17112f4ad624bcd48f9db35861a515dd2597d1",
+        "sha256": "2c136a294c266df1cd71df54b9f5c9737973cf916e0cd64f46d8dd720a450731"
+      },
+      "dist/EZOpenSDK/dynamicSDK/com.hri.hpc.mobile.ios.player.metallib": {
+        "bytes": 182710,
+        "git_blob": "bbff7b0f89fb966120e0a1cc0aefa307938161ff",
+        "sha256": "fa1a00e44dc826d43ff3f96b7d4461faad1f5a0eb5c02c2ff76b415b21b29efc"
+      }
+    },
+    "resource_groups": 7,
+    "resource_files": 20,
+    "notes": "Deploy target for the unsigned build follows the actual release binary. Earliest supported operating system in use has not been tested."
+  },
+  "ios_header_symbols": {
+    "setAccessToken": {
+      "class_name": "EZOpenSDK",
+      "dispatch": "+",
+      "selector": "setAccessToken:",
+      "header": "EZOpenSDK.h",
+      "line": 130,
+      "header_sha256": "de6324bad4bc2ef1e879e231d86fe54506f26dcb9ec45ee20d00823a4e320c7e",
+      "intake_id": "candidate:domestic:native-ref:setAccessToken"
+    },
+    "getDeviceList": {
+      "class_name": "EZOpenSDK",
+      "dispatch": "+",
+      "selector": "getDeviceList:pageSize:completion:",
+      "header": "EZOpenSDK.h",
+      "line": 548,
+      "header_sha256": "de6324bad4bc2ef1e879e231d86fe54506f26dcb9ec45ee20d00823a4e320c7e",
+      "intake_id": "candidate:domestic:native-ref:getDeviceList"
+    },
+    "setPlayVerifyCode": {
+      "class_name": "EZPlayer",
+      "dispatch": "-",
+      "selector": "setPlayVerifyCode:",
+      "header": "EZPlayer.h",
+      "line": 301,
+      "header_sha256": "1f2d73f197b3e1fa0258039501d3db570bce097edec0b20ff77101c147019d0a",
+      "intake_id": "candidate:domestic:native-ref:setPlayVerifyCode"
+    },
+    "seekPlayback": {
+      "class_name": "EZPlayer",
+      "dispatch": "-",
+      "selector": "seekPlayback:",
+      "header": "EZPlayer.h",
+      "line": 455,
+      "header_sha256": "1f2d73f197b3e1fa0258039501d3db570bce097edec0b20ff77101c147019d0a",
+      "intake_id": "candidate:domestic:native-ref:seekPlayback"
+    },
+    "setPlaybackRate": {
+      "class_name": "EZPlayer",
+      "dispatch": "-",
+      "selector": "setPlaybackRate:mode:",
+      "header": "EZPlayer.h",
+      "line": 484,
+      "header_sha256": "1f2d73f197b3e1fa0258039501d3db570bce097edec0b20ff77101c147019d0a",
+      "intake_id": "candidate:domestic:native-ref:setPlaybackRate"
+    }
+  },
+  "init_doc_symbols": {
+    "Android": {
+      "setServerUrl": [
+        14,
+        18
+      ],
+      "setAccessToken": [
+        28
+      ],
+      "getDeviceList": [
+        31
+      ]
+    },
+    "iOS": {
+      "setAccessToken": [
+        27
+      ],
+      "getDeviceList": [
+        30
+      ]
+    },
+    "Harmony": {
+      "setAccessToken": [
+        22
+      ],
+      "getDeviceList": [
+        25
+      ]
+    }
+  },
+  "acceptance": {
+    "source": "examples/ios_sdk_build/Probe.m",
+    "project": "examples/ios_sdk_build/NativeSDKProbe.xcodeproj/project.pbxproj",
+    "verifier": "tools/native/verify_ios_spm.py",
+    "guide": "docs/official-mobile-sdk.md",
+    "report": "docs/validation/2026-11-21-native-ios-initialization/checks.json",
+    "scheme": "NativeSDKProbe",
+    "source_checkout_relative": "Vendor/SDK-iOS",
+    "app_name": "NativeSDKProbe.app",
+    "required_cases": [
+      "ACC-IOS-SPM-534-DEVICE-BUILD-001",
+      "ACC-IOS-SPM-534-SIGNED-DEVICE-001"
+    ],
+    "objectives": [
+      "通过真实 Xcode App target 和普通 XCLocalSwiftPackageReference 指向官方精确版本 checkout；不改第三方 Package.swift 或替换其 binaryTarget 实现。先验证制品和资源 SHA，再让 SPM 解析并链接，记录公开依赖获取和本地构建的区别。正常路径仅用匿名公共发行材料。",
+      "编译实际 Objective-C 客户端，@import EZOpenSDKFramework，使用公开头类型/方法，保留编译器严格 selector 和 block 类型检查。五个签名均可在同一编译单元中以从不被 main 调用的类型化函数引用，禁止用字符串动态查找替代。令牌、设备、用户、媒体不用。拒绝一个明确错误 selector 的负对照，须失败在预期 diagnostic。",
+      "通用 iphoneos arm64、iOS 13.0 target，应用签名禁用。用 vtool 和 otool/nm 验证宿主 Mach-O 平台、架构、厂商动态库加载关系及真实 Objective-C class 外部引用；检查嵌入的 framework 与发行包一致。如构建过程合法 strip/处理二进制，则核原制品及嵌入的相同 UUID/平台/架构/加载标识。必须有七组二十个真实资源文件，逐一按摘要验证安装位置，bundle 不可拍平。",
+      "对所有输入使用临时私有工作目录与本次 package/derived 缓存，不编辑用户键链、开发者证书、git 全局设置或清理整台机的缓存。不启动模拟器、不安装/运行应用，保留真实设备启动和授权独立未验。模拟器不列为成功目标；通过实际发行包的平台字段与真机二进制 load command 证明没有模拟器 slice。",
+      "额外验证篡改/缺失 resource 导致具体 fail，并核验公开声明和实际 archive。若普通 SPM 发布路径受阻，保留失败回执；不把直接裸链接或本地重写 manifest 标成普通 SPM 成功。Python wheel/sdist 不携带原生制品，SDK 不新增此运行依赖。"
+    ]
+  },
+  "limits": [
+    "三端文档仅证各自调用形态。Android/Harmony 各自包版本、签名及构建仍待核，不从 iOS 推断。iOS 精确 selector setServerUrl/setSurfaceHold 未在当前发行公开头中定位。",
+    "官方 Demo 登录与播放器媒体功能、RTC、日志采集、真实授权及真实机身运行均不在这次构建通过的范围。"
+  ]
+}
