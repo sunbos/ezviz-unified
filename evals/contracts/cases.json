@@ -6684,6 +6684,50 @@
       "data": {
         "syntheticUnknownExtension": "syntheticValue"
       }
+    },
+    {
+      "operation_id": "global.settings.get_light_linkage",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "type": "301"
+      },
+      "data": {
+        "type": 2,
+        "enable": 1,
+        "subSerial": "SYNTH-SUB-0001",
+        "extUnknown": {
+          "nested": "synthetic-extension"
+        }
+      }
+    },
+    {
+      "operation_id": "global.settings.set_light_linkage",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "enabled": false
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "type": "301",
+        "enable": "0"
+      },
+      "data": {
+        "extResult": "synthetic-extension"
+      }
     }
   ]
 }

@@ -21047,6 +21047,157 @@
       },
       "source_content_sha256": "aa017fdeb22f9fde09b6c814b28d3f7ec2cb8a25e9a500c29666635b570a01f2",
       "read_only": false
+    },
+    {
+      "operation_id": "global.settings.get_light_linkage",
+      "region": "overseas",
+      "source_doc_id": "3722",
+      "source_url": "https://open.ys7.com/help/en/3722",
+      "method": "GET",
+      "path": "/api/v3/device/switchStatus/get",
+      "base_url": "{areaDomain}",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "string",
+          "location": "header",
+          "required": true,
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "string",
+          "location": "header",
+          "required": true,
+          "evidence": "E8/R3"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "query",
+          "required": true,
+          "evidence": "E30/R2",
+          "constant": "301"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "envelope_paths": [
+          "body"
+        ],
+        "values": [
+          200
+        ],
+        "evidence": "E47;E101;E104"
+      },
+      "constraints": [
+        {
+          "fact": "支持托管账号及子账号，要求 Get 权限。",
+          "evidence": "E2;E3"
+        },
+        {
+          "fact": "请求使用字符串 query 参数 type=301，不发送业务正文。",
+          "evidence": "E8;E30"
+        },
+        {
+          "fact": "body.data 中 type 和 enable 为整数。SDK 验证 subSerial 如存在则为字符串，保留未知整数和扩展字段。E101 示例的返回 type 为 2。",
+          "evidence": "E47;E101"
+        }
+      ],
+      "uncertainties": [
+        "E101 的 type=2 与 E30 固定 type=301 不一致。真实设备的读数、支持型号及状态新鲜度待核。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "{areaDomain}/api/v3/device/switchStatus/get",
+        "encoding": "none",
+        "evidence": "E0;E5;E8;E30"
+      },
+      "source_content_sha256": "5b6a1bcbdf331c3bb35997f76527587c2ecc0bd6b86cc6e32785c3061ec551c6",
+      "read_only": true
+    },
+    {
+      "operation_id": "global.settings.set_light_linkage",
+      "region": "overseas",
+      "source_doc_id": "3723",
+      "source_url": "https://open.ys7.com/help/en/3723",
+      "method": "POST",
+      "path": "/api/v3/device/switchStatus/set",
+      "base_url": "{areaDomain}",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "string",
+          "location": "header",
+          "required": true,
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "string",
+          "location": "header",
+          "required": true,
+          "evidence": "E8/R3"
+        },
+        {
+          "name": "enable",
+          "type": "string",
+          "location": "query",
+          "required": true,
+          "evidence": "E30/R2"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "query",
+          "required": true,
+          "evidence": "E30/R3",
+          "constant": "301"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "envelope_paths": [
+          "body"
+        ],
+        "values": [
+          200
+        ],
+        "evidence": "E53;E87;E90"
+      },
+      "constraints": [
+        {
+          "fact": "支持托管账号及子账号，要求 Config 权限。",
+          "evidence": "E2;E3"
+        },
+        {
+          "fact": "请求使用字符串 query 参数 type=301，不发送业务正文。",
+          "evidence": "E8;E30"
+        },
+        {
+          "fact": "enable 以字符串 0 或 1 放在 query 中，分别表示关闭和打开。示例成功响应仅含 body.meta。SDK 原样保留扩展 data，写入只发送一次，不自动读回。",
+          "evidence": "E30/R2;E53;E87"
+        }
+      ],
+      "uncertainties": [
+        "回执不保证物理点灯、即时生效、超时未执行或可恢复性；海外没有声明验证码输入。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/v3/device/switchStatus/set",
+        "encoding": "none",
+        "evidence": "E0;E5;E8;E30"
+      },
+      "source_content_sha256": "36812eeb04ef69ea54b3c37dafb0260f40b254a2e15b1baf3ff2c903fa2b23c6",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -21212,6 +21363,10 @@
     {
       "review": "docs/coordination/overseas-working-mode-plans/admission.json",
       "note": "海外 3724 和 3725 分别查询和设置设备工作模式计划。3725 的表单编码参考国内同路径文档，工作模式和权限采用海外契约。"
+    },
+    {
+      "review": "docs/coordination/overseas-motion-linked-light/admission.json",
+      "note": "海外 3722 和 3723 以固定查询参数 type=301 读写移动侦测灯光联动开关，权限、返回结构和支持的选择器见海外契约。"
     }
   ]
 }

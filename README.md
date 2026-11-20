@@ -89,6 +89,21 @@ python -m examples.a1_detectors --mode async --query bindable
 python -m examples.a1_detectors --mode sync --query linked
 ```
 
+### 海外移动侦测联动灯光
+
+`client.settings.get_light_linkage(serial)` 查询移动侦测联动灯光状态，`client.settings.set_light_linkage(serial, enabled=True)` 提交一次写入，异步版本均通过 `await` 调用。两个接口支持托管和子账号，读取要求 `Get` 权限，写入要求 `Config` 权限。请求发往令牌指定并经地区校验的业务域 `areaDomain`，`accessToken` 与 `deviceSerial` 放在请求头。GET 的查询字符串只有 `type=301`，POST 的查询字符串恰好是 `type=301` 与 `enable=1` 或 `enable=0`，`enabled` 仅接受布尔值。两个请求都没有业务正文和 `Content-Type`，海外接口未声明 `channelNo` 或验证码参数，SDK 一律不发送。[海外文档 3722](https://open.ys7.com/help/en/3722) [海外文档 3723](https://open.ys7.com/help/en/3723)
+
+海外 3722 的参数表要求 `type=301`，返回示例却给出 `type=2`，这是官方文档自身的差异，SDK 不据此改写返回值。两个接口的成功响应都要求 `body.meta.code` 为整数 `200`。GET 还要求 `body.data` 为对象，其中 `type` 与 `enable` 必须是非布尔整数，`subSerial` 若存在须为字符串，其余扩展字段原样保留在 `ApiResponse` 中。POST 成功时可以没有 `data`，也可以带任意扩展 `data`，均按原始回执返回。示例 CLI 仅当读回 `type=301` 且 `enable` 为 `1` 或 `0` 时报告 `on` 或 `off`，`type` 不匹配或 `enable` 为未知整数时报告 `unknown`。写入回执中 `meta.code` 为 `200` 仅表示平台受理，不代表灯已物理点亮或生效。写入接口不自动预读、重放、读回或恢复，GET 遇到平台返回 `10002` 且令牌提供方支持刷新时最多刷新并重试一次。
+
+目前未对真实海外网关、硬件、查询、写入或恢复做过验收。在获授权的设备上临时修改开关以验收写入时，应先获得明确批准，记录与请求一致的 `type=301` 读取结果，且原始 `enable` 须为可确认的 `0` 或 `1`，写入后恢复原值并独立复查。类型不符或读数未知时，不得用该结果推导写入值或恢复值。国内 1740 与 1741 在同一路径下另列 `channelNo` 等参数和响应类型，仅适用于各自文档。
+
+本机配置 `EZVIZ_REGION=overseas`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET`、`EZVIZ_DEVICE_SERIAL` 后可运行以下示例，需要指定认证集群时可设置 `EZVIZ_AUTH_BASE_URL`。CLI 只执行一次逻辑上的真实只读查询，仅输出 `region`、`mode`、`status`、`selector_matches` 和 `state`。
+
+```bash
+python -m examples.light_linkage --mode sync
+python -m examples.light_linkage --mode async
+```
+
 ### 海外设备工作模式计划
 
 `client.settings.get_timing_plan(serial)` 查询设备工作模式计划，`client.settings.set_timing_plan(serial, enabled=True, start_time="08:00", end_time="18:00", week="0,2", mode=1)` 提交一次写入，异步版本中两者均通过 `await` 调用。两个接口均支持托管和子账号，读取要求 `Get` 权限、写入要求 `Config` 权限。SDK 向令牌指定并经地区校验的业务域 `areaDomain` 发送请求，`accessToken` 与 `deviceSerial` 放入请求头。[海外文档 3724](https://open.ys7.com/help/en/3724) [海外文档 3725](https://open.ys7.com/help/en/3725)
