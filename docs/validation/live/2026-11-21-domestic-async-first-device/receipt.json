@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "scope": "domestic_async_device_inspection",
+  "outcome": "failed",
+  "mode": "async",
+  "read_only": true,
+  "http_requests": 3,
+  "logical_calls": 3,
+  "attempted_routes": [
+    "auth",
+    "list",
+    "info"
+  ],
+  "successful_steps": [
+    "list"
+  ],
+  "diagnostics_intact": true,
+  "closed": true,
+  "boundary_rejected": true
+}

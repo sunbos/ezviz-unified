@@ -154,7 +154,7 @@
         "max_operations": 6,
         "freeze_required": false
       },
-      "authorization_status": "reuse_existing_scope",
+      "authorization_status": "recorded",
       "recovery_plan": "读操作无需设备回滚；总预算/每路由上限在delegate前拦截。异常、超时、取消均关闭async client/transport；不因失败扩大目标或重跑。本case不允许额外认证刷新请求，SDK原有重放政策不修改，超预算尝试导致本case failed而非忽略/计passed。",
       "source_refs": [
         "contracts/reviewed-transport-contracts.json",
@@ -175,9 +175,9 @@
         "tools/live/README.md",
         "docs/validation/2026-11-19-domestic-async-read/offline.json"
       ],
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "blockers": [
-        "本地异步执行器及相关边界测试已通过。真实联调仍需在用户本机隐藏输入凭据，并获得符合预算和固定六步判据的回执。"
+        "未取得设备详情及后续四步的成功回执。此次受控执行已终止。"
       ],
       "capability_ids": [
         "contract:cn.token.get",
@@ -199,7 +199,7 @@
       ],
       "scope_revision": "2026-11-19-r18-domestic-async-read-design",
       "freeze_state": "frozen_for_implementation",
-      "resource_state": "unknown_awaiting_configuration_check",
+      "resource_state": "domestic_authentication_and_first_list_succeeded",
       "limitations": [
         "本行只覆盖一个case的六个业务动作，不覆盖CLI运行、海外、托管设备、子账户全集、媒体访问或物理操作。",
         "空设备列表、缺可用serial、权限/协议/网络失败均不能算成功；empty/missing resource记录not_verified或对应未就绪状态。",
@@ -212,7 +212,14 @@
         "ASYNC-DIAGNOSTIC": "pending",
         "ASYNC-NEGATIVE-BOUNDARY": "met",
         "ASYNC-MATRIX-RECEIPT": "pending"
-      }
+      },
+      "execution_outcome": "not_verified",
+      "execution_note": "使用国内主分支 SDK 和真实本机 TTY 的隐藏输入。认证与首页列表成功，在首页首台设备的详情步骤未取得成功回执。额外的进程内传输守卫检查此前诊断失败并拒绝进一步外发；通道、状态、能力与版本请求均未发出。未记录平台业务码或原始错误，不能断定失败原因。",
+      "attempted_code_commit": "e687fa0f477be6354b739133292adf1eaa6b6ab6",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-21-domestic-async-first-device/execution.json",
+        "docs/validation/live/2026-11-21-domestic-async-first-device/receipt.json"
+      ]
     },
     {
       "case_id": "ACC-CN-CLI-EXAMPLE-001",

@@ -42,7 +42,7 @@
     "acceptance": {
       "path": "docs/validation/sdk-product-acceptance.json",
       "schema": 1,
-      "sha256": "bf2fc1a917f72a7d36c163c0db88e0fc1fd5493030fb8989e1001805cbccdbb0"
+      "sha256": "984c5f368f0993a1f62ff8e50722b2832173c539dde23270cd96ed7f3d3aa47b"
     },
     "plan_scope_register": {
       "path": "docs/plans/2026-11-17-capability-scope-register.md",
@@ -455,6 +455,11 @@
       "path": "docs/validation/live/2026-11-20-domestic-account-channel-traffic/receipt.json",
       "schema": 1,
       "sha256": "a102a5edca0e0848efa8e60859af42382f2494cb93f0d7e84717a6dcfef8cb2d"
+    },
+    "domestic_async_device_first_read_current": {
+      "path": "docs/validation/live/2026-11-21-domestic-async-first-device/execution.json",
+      "schema": 1,
+      "sha256": "4ae70b080bcb165688dba4a045f59781b03d8b3cbbd28175244375fefba58bae"
     }
   },
   "scope_state": {
@@ -464,7 +469,7 @@
     "required_acceptance_complete": false,
     "product_complete": false,
     "ratification_ref": "docs/coordination/SP030/admission.json",
-    "latest_update_ref": "docs/validation/2026-11-21-overseas-alarm-sound/offline.json"
+    "latest_update_ref": "docs/validation/live/2026-11-21-domestic-async-first-device/execution.json"
   },
   "queues": [
     {"queue_id":"batch_1_A","batch":1,"worker":"A","owner":"第一批A","scope":"OPEN API非组件来源（包括1273）及一级云接入","source_count":326,"component_families":[],"classification_counts":{"D":195,"E":4,"Z":127,"M":0},"candidate_intake_refs":["docs/capabilities/domestic-voice-review-candidates.json"]},

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "case_id": "ACC-CN-ASYNC-READONLY-001",
+  "code_commit": "e687fa0f477be6354b739133292adf1eaa6b6ab6",
+  "started_at_utc": "2026-11-20T16:36:49.535698+00:00",
+  "finished_at_utc": "2026-11-20T16:39:49.719077+00:00",
+  "outcome": "not_verified",
+  "scope": "domestic_async_first_device_channel_one_read_only",
+  "acceptance_ref": "docs/coordination/domestic-async-read/admission.json",
+  "max_http_requests": 7,
+  "max_business_calls": 6,
+  "receipt_ref": "docs/validation/live/2026-11-21-domestic-async-first-device/receipt.json",
+  "receipt_sha256": "ab06fc065d2b17bd2097f21edb51b68f18efca6636162cd8af56ad4a715a4200",
+  "source_sha256": {
+    "src/ezviz_unified/client.py": "3d17233deac52c9f75375bedc5b9582df3cba5de6576365b0717a6bcd2c39e04",
+    "src/ezviz_unified/auth.py": "e6b53a75fefa81af507c6a7ab2fd2bbfc60420092f82152e5bde631d9608c9b1",
+    "src/ezviz_unified/inspection.py": "65ec20d3ef66e2b18b9e68b43e6a4d37cbae4d88c3141ac8e5a3214b49f0866a",
+    "src/ezviz_unified/devices.py": "cfc1755f449f52e585a95d51ae79623ec64c0fa854866ba60daf819287a21376",
+    "src/ezviz_unified/diagnostics.py": "f8bb12a10e5e7581560c3e0fc06a637ad257f4e42de8e0490c934577117396df",
+    "src/ezviz_unified/diagnostic_report.py": "a51bc53010fe8e62e41f2b43cc57390562bccc84b67c03d529c69edff2558083",
+    "src/ezviz_unified/transport.py": "8c8818b08f3d3ddf07c8889e1d972605b51bbd88ac7c1dcafecdb62ab8cb7d6b",
+    "tools/live/verify_diagnostics.py": "cdc9b5ff628a33dac0dd2a70a46c33c08b0641af53604e10a21651e1a4e37b5f",
+    "tools/live/verify_diagnostics_async.py": "4b2fc04d2eda229a84a70891d183b764f884921ba2e4b2ae9f23258bde32e38f"
+  },
+  "supplemental_guard": {
+    "policy": "在上次 SDK call 或 attempt 产生 failed/cancelled 事件后，在下一次 HTTP 放行前拒绝。沿用原执行器的有序路由、固定设备和通道 1 的守卫。",
+    "private_driver_sha256": "35ff50812608b4f207999222cd13acfa31484cc9d6ef0c9eac13431ad040031c"
+  },
+  "execution_note": "使用国内主分支 SDK 和真实本机 TTY 的隐藏输入。认证与首页列表成功，在首页首台设备的详情步骤未取得成功回执。额外的进程内传输守卫检查此前诊断失败并拒绝进一步外发；通道、状态、能力与版本请求均未发出。未记录平台业务码或原始错误，不能断定失败原因。"
+}

@@ -21,6 +21,10 @@
 
 本次单独执行先前未开始的账号级通道流量明细。仅第一页、每页一条；同步与异步分别使用受限的认证和业务请求，首次失败即停。未重跑账号汇总或按日明细。 仅放行了一次同步认证尝试，未发出流量业务请求，异步未执行。回执没有保存具体错误原因。 本次获准上限为 4 次 HTTP，实际放行 1 次。本项仍待通过。[脱敏回执](live/2026-11-20-domestic-account-channel-traffic/receipt.json)
 
+## 国内异步设备只读验收
+
+使用国内主分支 SDK 和真实本机 TTY 的隐藏输入。认证与首页列表成功，在首页首台设备的详情步骤未取得成功回执。额外的进程内传输守卫检查此前诊断失败并拒绝进一步外发；通道、状态、能力与版本请求均未发出。未记录平台业务码或原始错误，不能断定失败原因。 本次放行 3/7 次 HTTP，客户端已关闭，诊断完整。该案例仍待通过。[执行记录](live/2026-11-21-domestic-async-first-device/execution.json) · [脱敏回执](live/2026-11-21-domestic-async-first-device/receipt.json)
+
 ## 海外告警音模式与试音
 
 同步和异步的模式设置、显式试音，以及两种模式的合成示例均已通过离线验收。设置与试音各自仅发出一次 POST。模式写入不触发试音，试音的静音音色也不能用来确认播放已停止。真实设备发声、配置生效与恢复仍需分别授权和验证。[协议与来源](../coordination/overseas-alarm-sound/admission.json) · [离线回执](2026-11-21-overseas-alarm-sound/offline.json)
@@ -149,7 +153,7 @@
 ## 待设计/待资源（不算完成）
 
 - 云录制 1.0 文件与 VOD 元数据（既有批 `b251b11`，已随 PR #16 合并入 main `254ea73`，历史结论保留）：四条 **OFFLINE** required（`ACC-CANDIDATE-CN-5341/1375/1377/5342-D0-OFFLINE-001`）已 `recorded_evidence`+`passed`，证据 [checks.json](2026-11-18-cloud-files/checks.json)；对应四条 **LIVE** required（`5341`/`1375`/`1377`/`5342` 的 `-D0-LIVE-001`）仍 `awaiting_authorization`/`awaiting_resource_confirmation`，`freeze_state=awaiting_resource_scope_and_authorization`、真实资源/权限/请求上限未冻结，`max_requests=null` 不可运行；截至当时的已核离线/历史记录中这些 case 未发真实云请求。scenario `ACC-CN-VOD-RESOURCE-DISCOVERY-001` `result=pending_execution`，仅离线安全判据 `met`；其 SP166 国内只读资源发现窗口实际**超时关闭**、无报告、`execution_outcome=not_verified`、实际 HTTP 数 `null`（不可声称 0 或账号无资源），见 [live/2026-11-18-vod-resource-discovery/attempt.json](live/2026-11-18-vod-resource-discovery/attempt.json)。**新增 VOD remux/任务批 `fce298b`**：四条 OFFLINE（`3971`/`3972`/`4941`/`3973`）已 `recorded_evidence`+`passed`（见文末当前批次），四条 LIVE 未执行/未授权或资源未齐。
-- `ACC-CN-ASYNC-READONLY-001`：国内异步真实只读场景的本批代码已随 [PR #19](https://github.com/sunbos/ezviz-unified/pull/19) 合并入 main（merge commit `b8fb888`），main 上四个 CI profile 已全部通过（[run 44386257260](https://github.com/sunbos/ezviz-unified/actions/runs/44386257260)）；离线验收回执已留档 [offline.json](2026-11-19-domestic-async-read/offline.json)：独立 async 路径至多 7 次 HTTP，认证与空列表合计 2 次 HTTP，其中 1 次为业务调用；live 实测仍 pending（`result=pending_execution`），等待用户本机隐藏输入后生成真实回执，未实测不得报 passed，不记录任何真实设备/账号标识。
+- `ACC-CN-ASYNC-READONLY-001`：异步执行器随 [PR #19](https://github.com/sunbos/ezviz-unified/pull/19) 合并。当前国内真实核验已完成认证和首页列表，设备详情及后续步骤仍待通过。[最新真实回执](live/2026-11-21-domestic-async-first-device/receipt.json)。
 - `ACC-CN-CLI-EXAMPLE-001`：CLI 联网验收范围已冻结为六个既有 CLI 主入口，上限 20 次 HTTP / 14 次业务调用；其中空首页的四个列表类 CLI 共 8 次 HTTP，另跳过两个 inspection 入口；冻结上限见 [admission.json](../coordination/domestic-cli-read/admission.json)；当前无真实运行，`result=pending_execution`，等待真实 CLI 回执，未实测不得报 passed。
 - `ACC-OS-DEVICE-READONLY-001` 的完整设备检查仍待验收。另行授权的同步场景已验证首台设备的型号、列表在线状态与通道清单；通道状态接口、设备能力和版本均未调用。[基础读取回执](live/2026-11-19-singapore-first-device/receipt.json)
 - `ACC-DOMAIN-OFFLINE-PER-NEW-001`：各新增业务域逐项要求 offline contract + error path + diagnostics 覆盖，先行于任何 live 声明；`max_operations=null` 且 `freeze_required=true`。本通配行仅为政策占位——每个准入矩阵的具体能力都必须派生自己的具体验收行（具体 selector、地区/集群、bounded 请求/操作数、授权状态、判据）并先冻结后执行；`needs_review`/`blocked_source` 项不算准入也不算完成。
