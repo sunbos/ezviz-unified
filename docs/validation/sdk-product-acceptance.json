@@ -552,8 +552,12 @@
         "OTHER-COMPONENT-SCOPES": "pending",
         "H264-LOCAL-BROWSER": "met",
         "HEVC-SOFT-LOCAL": "met",
-        "OVERSEAS-FLV-H264-LOCAL": "met"
-      }
+        "OVERSEAS-FLV-H264-LOCAL": "met",
+        "IOS-534-UNSIGNED-CONSUMER-BUILD": "met"
+      },
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-native-ios-initialization/checks.json"
+      ]
     },
     {
       "case_id": "ACC-WRITE-OPERATIONS-001",
@@ -36537,19 +36541,29 @@
       "source_refs": [
         "docs/coordination/native-ios-initialization/scope.json"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
+      "code_artifact_evidence_refs": [
+        "docs/coordination/native-ios-initialization/scope.json",
+        "docs/validation/2026-11-21-native-ios-initialization/source-review.json",
+        "examples/ios_sdk_build/Probe.m",
+        "examples/ios_sdk_build/NativeSDKProbe.xcodeproj/project.pbxproj",
+        "tools/native/verify_ios_spm.py",
+        "docs/official-mobile-sdk.md"
+      ],
+      "result": "recorded_evidence",
       "criterion_assessment": {
-        "PACKAGE": "pending",
-        "COMPILE_LINK": "pending",
-        "RESOURCES": "pending",
-        "NEGATIVE": "pending"
+        "PACKAGE": "met",
+        "COMPILE_LINK": "met",
+        "RESOURCES": "met",
+        "NEGATIVE": "met"
       },
       "limitations": [
         "不从编译推定安装或播放。"
       ],
-      "blockers": [
-        "待实际构建。"
+      "blockers": [],
+      "execution_outcome": "passed",
+      "verified_code_commit": "53f4a8966565e8e12851e159d77c5cfd69f50eae",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-native-ios-initialization/checks.json"
       ]
     },
     {

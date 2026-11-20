@@ -1,0 +1,230 @@
+{
+  "schema_version": 1,
+  "scope": "native_ios_534_unsigned_generic_device_consumer",
+  "baseline_commit": "78120c4edb44b6ecaebdf65ead00034e966523c6",
+  "verified_code_commit": "53f4a8966565e8e12851e159d77c5cfd69f50eae",
+  "source_test_sha256": {
+    "docs/coordination/native-ios-initialization/scope.json": "68a24c7af9b93677cf32a267f9cd1033712df3c8ed6c42a8d83b9efeeee3a9fd",
+    "docs/validation/2026-11-21-native-ios-initialization/source-review.json": "a8b732302a37a3b08c9976fd6b5de07019636ae59716edb82df3e229c9239b98",
+    "examples/ios_sdk_build/Probe.m": "201ed8587003d67627391f57c510c9a52dd9f518901bc1bedaeed8288cfff9ef",
+    "examples/ios_sdk_build/NativeSDKProbe.xcodeproj/project.pbxproj": "d16e7d1a35d44c1b876375cbfdc1f67eabc84c8298b67fb9953291938d439398",
+    "tools/native/verify_ios_spm.py": "99c81b9e0bb8ff3d50aad8821c7c71b05f885e70c639881cbb2f79293b6bf883",
+    "docs/official-mobile-sdk.md": "b6e4e16c3414f8c84557e0c32c37861b4a2f0dc979492ad8df42f2261e4958a4"
+  },
+  "public_document_check": {
+    "public_docs_only": true,
+    "credentials_used": false,
+    "device_api_requests": 0,
+    "log_collections": 0,
+    "media_requests": 0,
+    "source_batch": "2026-11-17-sdk-product-main",
+    "checked_at_utc": "2026-11-20T22:07:39.258699+00:00",
+    "documents": [
+      {
+        "region": "domestic",
+        "doc_id": "4151",
+        "reference": "https://open.ys7.com/help/4151",
+        "status": 200,
+        "html_sha256": "457034f85afd23fa4dbe8a9803159c23bc9bec53913c6ad6f8994b08a068a91d",
+        "matches_frozen_html": true
+      },
+      {
+        "region": "domestic",
+        "doc_id": "4077",
+        "reference": "https://open.ys7.com/help/4077",
+        "status": 200,
+        "html_sha256": "b8c9ceaf5e6fddb3b6ede8a52ef929d487c1fe66be76c421174786a7b7f04006",
+        "matches_frozen_html": true
+      },
+      {
+        "region": "domestic",
+        "doc_id": "4191",
+        "reference": "https://open.ys7.com/help/4191",
+        "status": 200,
+        "html_sha256": "1e749d259c66dda20f1fbb34b4c5b70d9682e07a956cda6224e26ec048e0b687",
+        "matches_frozen_html": true
+      },
+      {
+        "region": "domestic",
+        "doc_id": "5357",
+        "reference": "https://open.ys7.com/help/5357",
+        "status": 200,
+        "html_sha256": "f1ad735bdff62536396ad87dbabb9703fcebae30e59cb07e28acaeaa546209e5",
+        "matches_frozen_html": true
+      }
+    ]
+  },
+  "package_identity": {
+    "repository": "https://github.com/Ezviz-OpenBiz/SDK-iOS",
+    "tag": "5.34",
+    "commit": "60990dde343272f4b6d30b0893c094c0869c5f32",
+    "git_tree": "8b1f1ac99e85b37d00aa04af3eb8f275b70a02af",
+    "manifest_sha256": "e64226a266a5946d7cc86fcfa493096e056395e4fc09135c13c5b68cdbec9622",
+    "wrapper_sha256": "9028a63bf2256a32adc85b6dc16ba37c63643985390b635be89ac210aa5ad087",
+    "zip_bytes": 13385946,
+    "zip_sha256": "f7d9043c781910cab519b5cb89508917d849a094f1df11507eec02d495e2742d"
+  },
+  "verification": {
+    "passed": true,
+    "release_commit": "60990dde343272f4b6d30b0893c094c0869c5f32",
+    "zip_sha256": "f7d9043c781910cab519b5cb89508917d849a094f1df11507eec02d495e2742d",
+    "device_platform": true,
+    "linked_vendor": true,
+    "embedded_vendor": true,
+    "verified_group_count": 7,
+    "verified_file_count": 20,
+    "five_selectors_checked": true,
+    "app_runs": 0,
+    "device_requests": 0,
+    "signed_install": false,
+    "commands": [
+      "SP538-NativeBuild",
+      "SP538-NativeRedaction",
+      "SP538-VerifyFinalLint",
+      "SP538-VerifyFinalFormat"
+    ],
+    "command_evidence": [
+      {
+        "task": "SP538-NativeBuild",
+        "summary": "unsigned arm64 iPhoneOS host compiled and linked with the official Swift package",
+        "local_execution_sha256": "a77e37296daa4e67385394f9706a1485cadcfff2f226fe9543fafda9a83a4478",
+        "model": "devin/swe-2",
+        "effort": "max"
+      },
+      {
+        "task": "SP538-NativeRedaction",
+        "summary": "two failing compiler or destination diagnostics emitted allowlisted categories without synthetic private markers",
+        "local_execution_sha256": "01926fde23ca27d45070aac955f327a1c145cbd17bef10fd2c01ea8dee7ec0c5",
+        "model": "devin/swe-2",
+        "effort": "max"
+      },
+      {
+        "task": "SP538-VerifyFinalLint",
+        "summary": "All checks passed!",
+        "local_execution_sha256": "33660dd4e7c867630f1d458d7a6d9d23147e1e387b57c32cabfd08d781585aa5",
+        "model": "devin/swe-2",
+        "effort": "max"
+      },
+      {
+        "task": "SP538-VerifyFinalFormat",
+        "summary": "1 file already formatted",
+        "local_execution_sha256": "eefabfd5091bb6ad3e570e883c6904ea3d79c888bd8142fb71cd7d5c01587176",
+        "model": "devin/swe-2",
+        "effort": "max"
+      }
+    ],
+    "exact_tool_report": {
+      "build_route": {
+        "generic_exit": 70,
+        "generic_reason": "generic_destination_ineligible",
+        "selection": "xcode_target_iphoneos"
+      },
+      "component": {
+        "binary_sha256": "8d8067115c320da068a8953d2d66059d8eccfef7a3fe86e05d65083c396fc498",
+        "commit": "60990dde343272f4b6d30b0893c094c0869c5f32",
+        "git_tree": "8b1f1ac99e85b37d00aa04af3eb8f275b70a02af",
+        "manifest_sha256": "e64226a266a5946d7cc86fcfa493096e056395e4fc09135c13c5b68cdbec9622",
+        "observed_slice": "ios-arm64",
+        "release_archive_sha": "f7d9043c781910cab519b5cb89508917d849a094f1df11507eec02d495e2742d",
+        "remote_checksum": "f7d9043c781910cab519b5cb89508917d849a094f1df11507eec02d495e2742d",
+        "remote_url": "https://github.com/Ezviz-OpenBiz/SDK-iOS/releases/download/5.34/EZOpenSDKFramework.xcframework.zip",
+        "swiftpm_remote_binary_resolved": true,
+        "tag": "5.34",
+        "wrapper_sha256": "9028a63bf2256a32adc85b6dc16ba37c63643985390b635be89ac210aa5ad087",
+        "zip_sha256": "f7d9043c781910cab519b5cb89508917d849a094f1df11507eec02d495e2742d"
+      },
+      "consumer": {
+        "iphoneos_sdk": "26.5",
+        "probe_sha256": "201ed8587003d67627391f57c510c9a52dd9f518901bc1bedaeed8288cfff9ef",
+        "project_sha256": "d16e7d1a35d44c1b876375cbfdc1f67eabc84c8298b67fb9953291938d439398",
+        "target": "NativeSDKProbe",
+        "xcode_build": "17F113",
+        "xcode_version": "Xcode 26.6"
+      },
+      "device_requests": 0,
+      "executed": false,
+      "installed": false,
+      "link": {
+        "app_sha256": "fbad1aaf7e11f6b1b2bbde5486aef11022546996157478e6c9576dd31df0f795",
+        "architecture": "arm64",
+        "consumer_sha256": "b48abb345d73926915dbc40c7d1e96cbb76e5f026d270f54b0710d2edab4b24f",
+        "embedded_sha256": "8d8067115c320da068a8953d2d66059d8eccfef7a3fe86e05d65083c396fc498",
+        "install_name": "@rpath/EZOpenSDKFramework.framework/EZOpenSDKFramework",
+        "minos": "13.0",
+        "original_sha256": "8d8067115c320da068a8953d2d66059d8eccfef7a3fe86e05d65083c396fc498",
+        "platform": "IOS",
+        "sdk_class_refs": [
+          "_OBJC_CLASS_$_EZOpenSDK",
+          "_OBJC_CLASS_$_EZPlayer"
+        ],
+        "selectors": [
+          "setAccessToken:",
+          "getDeviceList:pageSize:completion:",
+          "setPlayVerifyCode:",
+          "seekPlayback:",
+          "setPlaybackRate:mode:"
+        ],
+        "signed": false,
+        "simulator_slice": false,
+        "uuid": "100E37FA-9099-387F-B2C5-F9080C5CF0A5"
+      },
+      "negative_controls": {
+        "compiler": {
+          "exit": 1,
+          "reason": "unknown_objc_selector",
+          "sources": 2
+        },
+        "resource": {
+          "reason": "resource.digest:CNN_SR_X2_fp16_ios_w1472xh828.bin",
+          "relative": "CNN_SR_X2_fp16_ios_w1472xh828.bin",
+          "sources": 20
+        }
+      },
+      "passed": true,
+      "resources": {
+        "files": 20,
+        "groups": 7,
+        "sha256_by_path": {
+          "CNN_SR_X2_fp16_ios_w1472xh828.bin": "af8ae3b9ce80399a9b1dcec09e1c09cd7906b2358c318dd00c367484f498d79a",
+          "CNN_SR_X2_fp16_ios_w828xh1472.bin": "60d9831b322159ba1a1706f065846d19fc986ba6ca5e30fb3c9a1b7588c91cec",
+          "CNN_SR_X4_fp16_ios_w432xh768.bin": "39b5fb7dfdaf3175ee08ebcca4b7e690fc29d63c9c170669c38d04d4353fef6c",
+          "CNN_SR_X4_fp16_ios_w768xh432.bin": "50c9f7b9b3b9ab921a594045fece8badae44df6a9eb4492146a5ca2ebf48bb5f",
+          "EZAICloud.bundle/ez_ai_cloud_arrow_back.png": "48a7e54a76af79994799bf4569558748bce157dc8c2c39e938d7a159721616a3",
+          "EZAICloud.bundle/ez_ai_cloud_arrow_down.png": "b7d7e5fae975a07a2f674bc55f18603fcf9eaa05702b4c159f05e94b588f9e4c",
+          "EZAICloud.bundle/ez_ai_cloud_arrow_right.png": "d958699040dd01254cde120a450812bd0231294f32ecbb3f74943cea80067f7f",
+          "EZAICloud.bundle/ez_ai_cloud_btn_send.png": "4eae3760bbd07af2814c4e4744a529230d986889ff2534d4d0e38a0651892d2b",
+          "EZAICloud.bundle/ez_ai_cloud_check_blue.png": "177e06afa5e2a862e5d55e30804c22b3b7d3a96ef43f3c51fa51afe2cea3c4ab",
+          "EZAICloud.bundle/ez_ai_cloud_check_green.png": "f9829ebdbb1c086e2f6b7dc5bb565398c8b8f2b3422dc3eb00c1ebaf85eb86bb",
+          "EZAICloud.bundle/ez_ai_cloud_cover_placeholder.png": "4904dea48f1d4c47a4102d72c657f8b3fe769638c4dac14553a36a8ee0a8486d",
+          "EZAICloud.bundle/ez_ai_cloud_cross_gray.png": "8d63ba4d065cfdad4e82145a702efcc458cdd123714a81d5fb9a63e0340f07f5",
+          "EZAICloud.bundle/ez_ai_cloud_play_icon.png": "9766133847e8cb141b80d3b4b71f2b969f28aee62749a912024a2fa334d7ec19",
+          "EZAICloud.bundle/ez_ai_cloud_suggest_star.png": "16e8d792d1ee48f92497f3e4f9229c433e472ef54b6dadcdf122ca0512a7bee1",
+          "EZAICloud.bundle/ez_ai_cloud_upgrade_bg.png": "8d361b604948d21906563b6e6b5514dd5089a1abecf3567fb3fc84b0a9b4b63f",
+          "EZAICloud.bundle/ez_ai_cloud_upgrade_icon.png": "6c3ab75164ce45243fc8a29b33d91833dcf73107839ecd9757c85fb827fff9e9",
+          "EZAICloud.bundle/ez_ai_cloud_welcome_bg.png": "1772b785fceafc8c6962570f7b37117421f4e3c1d18cb628cff6c1617ed95acc",
+          "EZAICloud.bundle/ez_ai_cloud_welcome_logo.png": "457c3b223c3db2dc58131a7257bc9c7053e9334e2b9fb9592b06f3718db151ee",
+          "Ezviz_Audio_Enhance_Model_Up_16K.bin": "2c136a294c266df1cd71df54b9f5c9737973cf916e0cd64f46d8dd720a450731",
+          "com.hri.hpc.mobile.ios.player.metallib": "fa1a00e44dc826d43ff3f96b7d4461faad1f5a0eb5c02c2ff76b415b21b29efc"
+        }
+      },
+      "signed": false,
+      "simulator_run": false,
+      "simulator_slice": false
+    },
+    "delegate_receipts": [
+      {
+        "name": "SP538-SdkReceipt.json",
+        "sha256": "575088325a3f034fafb994244a918d6bfff5bf25c656b198f1043587071ae49d"
+      },
+      {
+        "name": "SP538-SourceReceipt.json",
+        "sha256": "6f0a407badb577b3a47a7ab89c9efd9d2939c3402013213608a9d9d596e12680"
+      },
+      {
+        "name": "SP538-VerifyReceipt.json",
+        "sha256": "559ca0a603cd9fd4a040db9584591fcbb0c611a909efdad538632b9875802e34"
+      }
+    ]
+  },
+  "limits": "本次证据止于 iPhoneOS 设备目标编译、链接、嵌入与资源完整性。没有在物理设备或模拟器上安装启动、授权、调用设备或播放媒体。Linux Python CI 单独验证包及回归。"
+}
