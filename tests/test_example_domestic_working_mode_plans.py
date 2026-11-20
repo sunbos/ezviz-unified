@@ -2,11 +2,11 @@ import asyncio
 import json
 import os
 
-import examples.domestic_working_mode_plans as cli
 import httpx
 import pytest
 from test_example_night_vision import _Rig
 
+import examples.domestic_working_mode_plans as cli
 from ezviz_unified.settings import AsyncSettings, Settings
 
 USAGE = "usage: python -m examples.domestic_working_mode_plans --mode sync|async --action read|write-demo\n"
