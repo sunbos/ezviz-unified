@@ -156,6 +156,19 @@ python -m examples.motion_area --mode sync
 python -m examples.motion_area --mode async
 ```
 
+### 国内设备检测灵敏度
+
+设备级移动侦测用 `client.settings.get_motion_sensitivity(device_serial)` 读取、`client.settings.set_motion_sensitivity(device_serial, value=3, channel_no=channel_no)` 写入，`value` 取 0–6 的整数，`channel_no` 为可选整数，省略表示设备本身，SDK 固定发送 `type=0`，子账户最小权限 714 为 Get、715 为 Config 且 Cam 资源限定到设备和通道。714 字段表把 `channel` 列为 String、`value` 列为 Int，官方示例却给出整数 channel 和字符串 value，SDK 两种表示都接受且不强转，读取结果保留各行 `channel`、`type`、`value` 原值与未知字段。见 [国内文档 714](https://open.ys7.com/help/714) 与 [国内文档 715](https://open.ys7.com/help/715)。
+
+按通道的检测灵敏度用 `client.settings.get_detection_sensitivity(device_serial, channel_no=channel_no)` 读取、`client.settings.set_detection_sensitivity(device_serial, channel_no=channel_no, detection_type="3", value="50")` 写入，`channel_no` 为保留前导零的字符串，`detection_type` 只能取 `"3"`（PIR）或 `"4"`（人形），`value` 为 1–100 的十进制字符串，写入前提是设备能力 `support_sensibility_adjust=1`，SDK 不隐式查能力、读旧值或恢复原值，也不提供两族接口之间的量表换算。`AsyncClient` 的 `settings` 有同名方法，调用时加 `await`。见 [国内文档 1733](https://open.ys7.com/help/1733) 与 [国内文档 1734](https://open.ys7.com/help/1734)。
+
+两个写入各只发一次业务请求且失败不重放，平台成功回执不代表设备实际生效或可恢复，需自行核实与还原，两个读取遇 `10002` 可刷新一次令牌,并返回 `ApiResponse`,原始数据行位于 `response.data`。示例离线运行，认证与四个业务传输全部本地模拟，不触达真实设备，行为对应 [国内文档 714](https://open.ys7.com/help/714)、[国内文档 715](https://open.ys7.com/help/715)、[国内文档 1733](https://open.ys7.com/help/1733)、[国内文档 1734](https://open.ys7.com/help/1734)。
+
+```sh
+python -m examples.detection_sensitivity --mode sync
+python -m examples.detection_sensitivity --mode async
+```
+
 ## 海外用户 OAuth
 
 `ezviz_unified.oauth` 导出 `OAuth`、`AsyncOAuth` 与结果类型 `OAuthGrant`、`OAuthRefreshResult`，构造形如 `OAuth(app_key, auth_origin=…, api_origin=…)`。调用方须事先分别核实两个不同的区域 HTTPS origin，`auth_origin` 只绑定认证服务域名，`api_origin` 只绑定业务服务域名，本模块不推导这对 origin，不启动监听器，也不自动打开浏览器。

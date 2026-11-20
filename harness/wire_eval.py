@@ -81,6 +81,10 @@ _REDACTED_MESSAGE_OPERATION_IDS = frozenset(
         "cn.settings.get_motion_area",
         "cn.settings.set_motion_area",
         "global.settings.set_motion_area",
+        "cn.settings.get_motion_sensitivity",
+        "cn.settings.set_motion_sensitivity",
+        "cn.settings.get_detection_sensitivity",
+        "cn.settings.set_detection_sensitivity",
     }
 )
 _MESSAGE_FAULT = "contract-eval-fault"

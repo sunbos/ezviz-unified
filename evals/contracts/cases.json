@@ -6883,6 +6883,118 @@
           }
         }
       }
+    },
+    {
+      "operation_id": "cn.settings.get_motion_sensitivity",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        }
+      },
+      "data": [
+        {
+          "channel": "01",
+          "type": "0",
+          "value": 2,
+          "ext": {
+            "synthetic": true
+          }
+        },
+        {
+          "channel": 2,
+          "type": "0",
+          "value": "5"
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.settings.set_motion_sensitivity",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "channel_no": 2,
+        "value": 0
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "type": 0,
+        "value": 0,
+        "channelNo": 2
+      },
+      "data": {
+        "ext": {
+          "synthetic": true
+        }
+      }
+    },
+    {
+      "operation_id": "cn.settings.get_detection_sensitivity",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "channel_no": "01"
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": "01"
+      },
+      "data": [
+        {
+          "channel": 1,
+          "type": "3",
+          "value": "007",
+          "ext": {
+            "synthetic": true
+          }
+        },
+        {
+          "channel": 2,
+          "type": "4",
+          "value": "005"
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.settings.set_detection_sensitivity",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "channel_no": "01",
+        "detection_type": "4",
+        "value": "007"
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": "01",
+        "type": "4",
+        "value": "007"
+      },
+      "data": {
+        "ext": {
+          "synthetic": true
+        }
+      }
     }
   ]
 }

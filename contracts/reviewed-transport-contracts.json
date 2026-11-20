@@ -21576,6 +21576,319 @@
       },
       "source_content_sha256": "dd9efadcceec76eecbaae3f01ab56f72d3c6107d79bd1c06f0f41283a7878535",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.settings.get_motion_sensitivity",
+      "region": "domestic",
+      "source_doc_id": "714",
+      "source_url": "https://open.ys7.com/help/714",
+      "method": "POST",
+      "path": "/api/lapp/device/algorithm/config/get",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E46;E50;E82"
+      },
+      "constraints": [
+        {
+          "fact": "子账户最小 Get，Cam 资源限定到设备和通道。",
+          "evidence": "E3"
+        },
+        {
+          "fact": "POST 只读查询使用表单 accessToken 和 deviceSerial。接口当前描述 type 0 的移动侦测灵敏度。",
+          "evidence": "E7;E11;E14;E42"
+        },
+        {
+          "fact": "响应 data 是对象数组。E50 的 channel 为 String、value 为 Int，而 E46 示例的 channel 为整数、value 为字符串；SDK 保留原始表示和扩展字段。",
+          "evidence": "E46;E50"
+        }
+      ],
+      "uncertainties": [
+        "714 E50 将 channel 列为 String、value 列为 Int，E46 样例的 channel 为整数、value 为字符串；保留两种表示。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/device/algorithm/config/get",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E42"
+      },
+      "source_content_sha256": "0a98082e50a7a0afbab84265613ce3679a7978b924ac4ff1de85a68a81f57fe5",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.settings.set_motion_sensitivity",
+      "region": "domestic",
+      "source_doc_id": "715",
+      "source_url": "https://open.ys7.com/help/715",
+      "method": "POST",
+      "path": "/api/lapp/device/algorithm/config/set",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "Int",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "type",
+          "type": "Int",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "value",
+          "type": "Int",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E64;E68;E84"
+      },
+      "constraints": [
+        {
+          "fact": "子账户最小 Config，Cam 资源限定到设备和通道。",
+          "evidence": "E3"
+        },
+        {
+          "fact": "表单 value 是 0 至 6 的整数，0 表示最低。channelNo 可选，省略表示设备本身。type 可选且默认 0，SDK 显式发送 0。",
+          "evidence": "E7;E11;E14;E60"
+        },
+        {
+          "fact": "根层字符串 code 确认请求成功，示例没有 data。",
+          "evidence": "E64;E68"
+        }
+      ],
+      "uncertainties": [
+        "channelNo 未传表示设备本身；只给出 type 0。SDK 固定显式传 0，其他模式和生效情况待核。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/device/algorithm/config/set",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E60"
+      },
+      "source_content_sha256": "1470ed136a4e915f74e8ed22340dd7822eb7b775776ef749673c6f596d93b1ab",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.settings.get_detection_sensitivity",
+      "region": "domestic",
+      "source_doc_id": "1733",
+      "source_url": "https://open.ys7.com/help/1733",
+      "method": "GET",
+      "path": "/api/v3/device/detect/config/get",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E46;E50;E82"
+      },
+      "constraints": [
+        {
+          "fact": "GET 仅使用三个必填字符串请求头 accessToken、deviceSerial、channelNo。",
+          "evidence": "E7;E11;E14;E42"
+        },
+        {
+          "fact": "data 是对象数组，每行 channel 为 Int，type、value 为 String。3 表示 PIR，4 表示人形，文档给出的灵敏度范围为 1 至 100。",
+          "evidence": "E46;E50"
+        }
+      ],
+      "uncertainties": [
+        "本页查询结构明确，未列明子账户权限或完整支持机型。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/device/detect/config/get",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E42"
+      },
+      "source_content_sha256": "a26c0d4c8816d5a023aa7699a6458b43b6d73ba9039035088373efa2e78f0596",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.settings.set_detection_sensitivity",
+      "region": "domestic",
+      "source_doc_id": "1734",
+      "source_url": "https://open.ys7.com/help/1734",
+      "method": "POST",
+      "path": "/api/v3/device/detect/config/set",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "type",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "value",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E64;E68;E84"
+      },
+      "constraints": [
+        {
+          "fact": "设备需支持能力集 support_sensibility_adjust=1。",
+          "evidence": "E3"
+        },
+        {
+          "fact": "POST 以三个字符串请求头标识认证、设备和通道，表单字符串 type 取 3（PIR）或 4（人形），字符串 value 范围 1 至 100。",
+          "evidence": "E7;E11;E14;E60"
+        },
+        {
+          "fact": "设置示例仅返回根层 code 和 msg。",
+          "evidence": "E64;E68"
+        }
+      ],
+      "uncertainties": [
+        "前提 support_sensibility_adjust=1，仅限该页。成功回执不能说明实际感应效果或可恢复性。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/v3/device/detect/config/set",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E60"
+      },
+      "source_content_sha256": "4175c99bd93cd696e3f0a3cc0804d93fd10ad40ddb3162c3edf4bec929dd8d52",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -21753,6 +22066,10 @@
     {
       "review": "docs/coordination/regional-motion-area/admission.json",
       "note": "国内 1731 查询、1732 表单设置与海外 3729 query 设置分别核对。海外 3728 的固定国内主机与令牌区域规则冲突，详见该批审查。"
+    },
+    {
+      "review": "docs/coordination/domestic-detection-sensitivity/admission.json",
+      "note": "国内 714、715 的移动侦测档位与 1733、1734 的通道 PIR/人形灵敏度分别登记。714 字段类型分歧和 1734 设备能力前提见冻结审查。"
     }
   ]
 }

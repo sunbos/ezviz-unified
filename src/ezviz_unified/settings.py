@@ -75,7 +75,7 @@ _BODY_META_POLICY = ResponsePolicy(
 # Motion area coordinates reveal which zones a device watches, so both
 # regional policies opt into the device-add redaction switch for this
 # sensitive data.
-_MOTION_AREA_DOMESTIC_POLICY = replace(
+_DOMESTIC_DEVICE_SETTINGS_POLICY = replace(
     _POLICY,
     redact_device_add_details=True,
 )
@@ -85,6 +85,46 @@ _MOTION_AREA_OVERSEAS_POLICY = replace(
     redact_device_add_details=True,
 )
 
+_GET_MOTION_SENSITIVITY = Operation(
+    name="settings.get_motion_sensitivity",
+    method="POST",
+    path="/api/lapp/device/algorithm/config/get",
+    regions=frozenset({_DOMESTIC}),
+    token_location="form",
+    read_only=True,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
+_SET_MOTION_SENSITIVITY = Operation(
+    name="settings.set_motion_sensitivity",
+    method="POST",
+    path="/api/lapp/device/algorithm/config/set",
+    regions=frozenset({_DOMESTIC}),
+    token_location="form",
+    read_only=False,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
+_GET_DETECTION_SENSITIVITY = Operation(
+    name="settings.get_detection_sensitivity",
+    method="GET",
+    path="/api/v3/device/detect/config/get",
+    regions=frozenset({_DOMESTIC}),
+    token_location="header",
+    read_only=True,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
+_SET_DETECTION_SENSITIVITY = Operation(
+    name="settings.set_detection_sensitivity",
+    method="POST",
+    path="/api/v3/device/detect/config/set",
+    regions=frozenset({_DOMESTIC}),
+    token_location="header",
+    read_only=False,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
 _GET_MOTION_AREA = Operation(
     name="settings.get_motion_area",
     method="GET",
@@ -92,7 +132,7 @@ _GET_MOTION_AREA = Operation(
     regions=frozenset({_DOMESTIC}),
     token_location="header",
     read_only=True,
-    policy=_MOTION_AREA_DOMESTIC_POLICY,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
 )
 
 _SET_MOTION_AREA = Operation(
@@ -102,7 +142,7 @@ _SET_MOTION_AREA = Operation(
     regions=frozenset({_DOMESTIC}),
     token_location="header",
     read_only=False,
-    policy=_MOTION_AREA_DOMESTIC_POLICY,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
 )
 
 _SET_MOTION_AREA_OVERSEAS = Operation(
@@ -451,14 +491,137 @@ def _overseas_get_op(name: str, path: str, *, read_only: bool) -> Operation:
     )
 
 
+def _motion_sensitivity_form(device_serial: str) -> dict[str, str]:
+    return {
+        "deviceSerial": _check_serial(
+            _check_text(device_serial, "deviceSerial"),
+            domestic=True,
+        ),
+    }
+
+
+def _motion_sensitivity_write_form(
+    device_serial: str,
+    *,
+    value: int,
+    channel_no: int | None,
+) -> dict[str, str | int]:
+    form: dict[str, str | int] = dict(_motion_sensitivity_form(device_serial))
+    level = _check_int(value, "value")
+    if level < 0 or level > 6:
+        raise ValueError("value must be an integer between 0 and 6")
+    form["type"] = 0
+    form["value"] = level
+    if channel_no is not None:
+        form["channelNo"] = _check_int(channel_no, "channelNo")
+    return form
+
+
+def _is_text_or_int(value: object) -> bool:
+    if isinstance(value, bool):
+        return False
+    return isinstance(value, str) or isinstance(value, int)
+
+
+def _protocol_error(message: str, response: ApiResponse) -> ProtocolError:
+    return ProtocolError(
+        message,
+        operation=response.operation,
+        http_status=response.http_status,
+    )
+
+
+def _motion_sensitivity_response(response: ApiResponse) -> ApiResponse:
+    data = response.data
+    if not isinstance(data, list):
+        raise _protocol_error("motion sensitivity data is not a list", response)
+    for row in data:
+        if not isinstance(row, dict):
+            raise _protocol_error(
+                "motion sensitivity row is malformed",
+                response,
+            )
+        if (
+            not _is_text_or_int(row.get("channel"))
+            or not isinstance(row.get("type"), str)
+            or not _is_text_or_int(row.get("value"))
+        ):
+            raise _protocol_error(
+                "motion sensitivity row is malformed",
+                response,
+            )
+    return response
+
+
+def _detection_sensitivity_response(response: ApiResponse) -> ApiResponse:
+    data = response.data
+    if not isinstance(data, list):
+        raise _protocol_error(
+            "detection sensitivity data is not a list",
+            response,
+        )
+    for row in data:
+        if not isinstance(row, dict):
+            raise _protocol_error(
+                "detection sensitivity row is malformed",
+                response,
+            )
+        channel = row.get("channel")
+        if (
+            isinstance(channel, bool)
+            or not isinstance(channel, int)
+            or not isinstance(row.get("type"), str)
+            or not isinstance(row.get("value"), str)
+        ):
+            raise _protocol_error(
+                "detection sensitivity row is malformed",
+                response,
+            )
+    return response
+
+
+def _check_detection_type(detection_type: object) -> str:
+    if not isinstance(detection_type, str) or detection_type not in ("3", "4"):
+        raise ValueError("detection_type must be the string '3' or '4'")
+    return detection_type
+
+
+def _check_detection_value(value: object) -> str:
+    if not isinstance(value, str) or not value.isascii() or not value.isdigit():
+        raise ValueError("value must be a non-empty ASCII digit string")
+    significant = value.lstrip("0")
+    if not significant or len(significant) > 3 or (len(significant) == 3 and significant > "100"):
+        raise ValueError("value must be between 1 and 100")
+    return value
+
+
+def _detection_sensitivity_form(
+    detection_type: object,
+    value: object,
+) -> dict[str, str]:
+    return {
+        "type": _check_detection_type(detection_type),
+        "value": _check_detection_value(value),
+    }
+
+
+def _detection_sensitivity_write_headers(
+    device_serial: str,
+    channel_no: str,
+) -> dict[str, str]:
+    headers = _device_channel_headers(device_serial, channel_no)
+    headers["Content-Type"] = _FORM_CONTENT_TYPE
+    return headers
+
+
 def _check_motion_area_read_scope(scope: object) -> None:
     """Reject the unresolved overseas read before parameters or requests."""
     if scope == _OVERSEAS:
         raise ValueError("overseas motion area read origin is unresolved")
 
 
-def _motion_area_headers(device_serial: str, channel_no: str) -> dict[str, str]:
-    """Return the device and channel headers shared by motion area calls."""
+def _device_channel_headers(device_serial: str, channel_no: str) -> dict[str, str]:
+    """Return validated device and channel headers for v3 settings."""
     return {
         "deviceSerial": _header("device_serial", device_serial),
         "channelNo": _header("channel_no", channel_no),
@@ -819,6 +982,92 @@ class Settings:
             op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
             return self._client.request(op, data=data)
 
+    def get_motion_sensitivity(self, device_serial: str) -> ApiResponse:
+        """Return the motion detection sensitivity of a domestic device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_motion_sensitivity",
+            mode="sync",
+        ):
+            _require_domestic(self._client.region.scope)
+            response = self._client.request(
+                _GET_MOTION_SENSITIVITY,
+                data=_motion_sensitivity_form(device_serial),
+                headers={"Content-Type": _FORM_CONTENT_TYPE},
+            )
+            return _motion_sensitivity_response(response)
+
+    def set_motion_sensitivity(
+        self,
+        device_serial: str,
+        *,
+        value: int,
+        channel_no: int | None = None,
+    ) -> ApiResponse:
+        """Set the motion detection sensitivity of a domestic device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_motion_sensitivity",
+            mode="sync",
+        ):
+            _require_domestic(self._client.region.scope)
+            return self._client.request(
+                _SET_MOTION_SENSITIVITY,
+                data=_motion_sensitivity_write_form(
+                    device_serial,
+                    value=value,
+                    channel_no=channel_no,
+                ),
+                headers={"Content-Type": _FORM_CONTENT_TYPE},
+            )
+
+    def get_detection_sensitivity(
+        self,
+        device_serial: str,
+        *,
+        channel_no: str,
+    ) -> ApiResponse:
+        """Return the detection sensitivity of a domestic device channel."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_detection_sensitivity",
+            mode="sync",
+        ):
+            _require_domestic(self._client.region.scope)
+            response = self._client.request(
+                _GET_DETECTION_SENSITIVITY,
+                headers=_device_channel_headers(device_serial, channel_no),
+            )
+            return _detection_sensitivity_response(response)
+
+    def set_detection_sensitivity(
+        self,
+        device_serial: str,
+        *,
+        channel_no: str,
+        detection_type: str,
+        value: str,
+    ) -> ApiResponse:
+        """Set detection sensitivity on a domestic device channel.
+
+        Requires the device to report support_sensibility_adjust=1; the SDK
+        does not probe capabilities or restore previous values.
+        """
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_detection_sensitivity",
+            mode="sync",
+        ):
+            _require_domestic(self._client.region.scope)
+            return self._client.request(
+                _SET_DETECTION_SENSITIVITY,
+                data=_detection_sensitivity_form(detection_type, value),
+                headers=_detection_sensitivity_write_headers(
+                    device_serial,
+                    channel_no,
+                ),
+            )
+
     def get_motion_area(self, device_serial: str, *, channel_no: str) -> ApiResponse:
         """Return the motion detection area of a domestic device.
 
@@ -832,7 +1081,7 @@ class Settings:
             _check_motion_area_read_scope(self._client.region.scope)
             response = self._client.request(
                 _GET_MOTION_AREA,
-                headers=_motion_area_headers(device_serial, channel_no),
+                headers=_device_channel_headers(device_serial, channel_no),
             )
             return _motion_area_response(response)
 
@@ -853,7 +1102,7 @@ class Settings:
             entrypoint="settings.set_motion_area",
             mode="sync",
         ):
-            headers = _motion_area_headers(device_serial, channel_no)
+            headers = _device_channel_headers(device_serial, channel_no)
             value = _motion_area_value(area)
             if self._client.region.scope == _OVERSEAS:
                 return self._client.request(
@@ -1206,6 +1455,92 @@ class AsyncSettings:
             op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
             return await self._client.request(op, data=data)
 
+    async def get_motion_sensitivity(self, device_serial: str) -> ApiResponse:
+        """Return the motion detection sensitivity of a domestic device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_motion_sensitivity",
+            mode="async",
+        ):
+            _require_domestic(self._client.region.scope)
+            response = await self._client.request(
+                _GET_MOTION_SENSITIVITY,
+                data=_motion_sensitivity_form(device_serial),
+                headers={"Content-Type": _FORM_CONTENT_TYPE},
+            )
+            return _motion_sensitivity_response(response)
+
+    async def set_motion_sensitivity(
+        self,
+        device_serial: str,
+        *,
+        value: int,
+        channel_no: int | None = None,
+    ) -> ApiResponse:
+        """Set the motion detection sensitivity of a domestic device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_motion_sensitivity",
+            mode="async",
+        ):
+            _require_domestic(self._client.region.scope)
+            return await self._client.request(
+                _SET_MOTION_SENSITIVITY,
+                data=_motion_sensitivity_write_form(
+                    device_serial,
+                    value=value,
+                    channel_no=channel_no,
+                ),
+                headers={"Content-Type": _FORM_CONTENT_TYPE},
+            )
+
+    async def get_detection_sensitivity(
+        self,
+        device_serial: str,
+        *,
+        channel_no: str,
+    ) -> ApiResponse:
+        """Return the detection sensitivity of a domestic device channel."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_detection_sensitivity",
+            mode="async",
+        ):
+            _require_domestic(self._client.region.scope)
+            response = await self._client.request(
+                _GET_DETECTION_SENSITIVITY,
+                headers=_device_channel_headers(device_serial, channel_no),
+            )
+            return _detection_sensitivity_response(response)
+
+    async def set_detection_sensitivity(
+        self,
+        device_serial: str,
+        *,
+        channel_no: str,
+        detection_type: str,
+        value: str,
+    ) -> ApiResponse:
+        """Set detection sensitivity on a domestic device channel.
+
+        Requires the device to report support_sensibility_adjust=1; the SDK
+        does not probe capabilities or restore previous values.
+        """
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_detection_sensitivity",
+            mode="async",
+        ):
+            _require_domestic(self._client.region.scope)
+            return await self._client.request(
+                _SET_DETECTION_SENSITIVITY,
+                data=_detection_sensitivity_form(detection_type, value),
+                headers=_detection_sensitivity_write_headers(
+                    device_serial,
+                    channel_no,
+                ),
+            )
+
     async def get_motion_area(self, device_serial: str, *, channel_no: str) -> ApiResponse:
         """Return the motion detection area of a domestic device.
 
@@ -1219,7 +1554,7 @@ class AsyncSettings:
             _check_motion_area_read_scope(self._client.region.scope)
             response = await self._client.request(
                 _GET_MOTION_AREA,
-                headers=_motion_area_headers(device_serial, channel_no),
+                headers=_device_channel_headers(device_serial, channel_no),
             )
             return _motion_area_response(response)
 
@@ -1240,7 +1575,7 @@ class AsyncSettings:
             entrypoint="settings.set_motion_area",
             mode="async",
         ):
-            headers = _motion_area_headers(device_serial, channel_no)
+            headers = _device_channel_headers(device_serial, channel_no)
             value = _motion_area_value(area)
             if self._client.region.scope == _OVERSEAS:
                 return await self._client.request(
