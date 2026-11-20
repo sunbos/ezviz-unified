@@ -1,6 +1,6 @@
 """A04 proof: every frozen business entrypoint is really entered.
 
-All 223 public paths run through their real method bodies (sync and async)
+All 224 public paths run through their real method bodies (sync and async)
 with decoded synthetic wire-case arguments while ``client.request`` is
 replaced by a no-network stub returning ``ApiResponse``. Assertions use
 recorded diagnostic events only - never source inspection.
@@ -79,7 +79,15 @@ def _decode(contract, case):
     if not isinstance(args, list) or not isinstance(kwargs, dict):
         pytest.fail("wire case must decode to positional args and kwargs")
     response_data = wire_eval._decode_value(case["data"], context, registry)
-    return context, args, kwargs, response_data
+    response_raw = None
+    if "response_page" in case:
+        response_raw = {
+            "page": wire_eval._decode_value(case["response_page"], context, registry),
+            "data": response_data,
+            "code": "200",
+            "msg": "",
+        }
+    return context, args, kwargs, response_data, response_raw
 
 
 def _field(event, name, default="none"):
@@ -87,8 +95,8 @@ def _field(event, name, default="none"):
 
 
 def test_registry_covers_frozen_lists():
-    assert len(ENTRIES) == 223
-    assert len(set(ENTRIES)) == 223
+    assert len(ENTRIES) == 224
+    assert len(set(ENTRIES)) == 224
     assert frozenset(ENTRIES) | frozenset(ADDITIONAL) == ENTRYPOINTS
     assert frozenset(COVERAGE["operation_names"]) == OPERATIONS
 
@@ -103,13 +111,15 @@ def test_every_entrypoint_has_a_wire_case():
 def test_business_entry_records_call_scope(entry, mode):
     contract = CONTRACTS[ENTRY_OPERATION[entry]]
     case = CASES[ENTRY_OPERATION[entry]]
-    context, args, kwargs, response_data = _decode(contract, case)
+    context, args, kwargs, response_data, response_raw = _decode(contract, case)
     region = wire_eval._region_for(ezviz_unified, contract)
     recorder = DiagnosticRecorder()
     produced = []
 
     def _record(operation):
-        response = ApiResponse(200, "200", operation=operation.name, data=response_data)
+        response = ApiResponse(
+            200, "200", operation=operation.name, data=response_data, raw=response_raw
+        )
         produced.append(response)
         return response
 

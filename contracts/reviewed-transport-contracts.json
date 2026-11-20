@@ -21964,6 +21964,85 @@
       },
       "source_content_sha256": "4365f6138b8026792174362977074616208e90a8c527a2afdc38815186ecf97c",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.devices.list_by_id",
+      "region": "domestic",
+      "source_doc_id": "3947",
+      "source_url": "https://open.ys7.com/help/3947",
+      "method": "POST",
+      "path": "/api/lapp/device/list",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageStart",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageSize",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "id",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E52;E56;E140"
+      },
+      "constraints": [
+        {
+          "fact": "子账户仅能查询萤石协议接入的设备。本页未给出子账户最低权限名称。",
+          "evidence": "E3"
+        },
+        {
+          "fact": "参数表将必填 accessToken 与选填 id、pageStart、pageSize 列在 query。pageSize 的平台默认值为 10，上限为 50。SDK 只传显式提供的分页字段，并把页码上界解释为含 100。",
+          "evidence": "E7;E11;E14"
+        },
+        {
+          "fact": "请求示例以 --data-urlencode 提交三个共同字段，未包含 id。SDK 采用完整参数表的 query 布局，实际线上接受情况待核。",
+          "evidence": "E14;E48"
+        },
+        {
+          "fact": "成功响应的根层 code 为字符串，data 是对象数组，根层 page.nextId 是独立的下一页游标。SDK 接受空字符串或显式 null 为末页并保留原值，缺失该字段会报错。",
+          "evidence": "E52;E56"
+        }
+      ],
+      "uncertainties": [
+        "3947 E14 把四个字段列为 query；E48 对三个共同字段使用 form 且未传 id。SDK 按该页唯一完整字段表提交 query，线上组合及 id 和 pageStart 同传的优先级未实证。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/device/list",
+        "encoding": "none",
+        "evidence": "E7;E11;E14（SDK 采用字段表）；E48 为相异的无 id 表单示例"
+      },
+      "source_content_sha256": "f430e2b2ef897b436fb48103bb14e558c2a46c67829f49642176f702414367b3",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -22149,6 +22228,10 @@
     {
       "review": "docs/coordination/domestic-video-codec-read/admission.json",
       "note": "独立登记国内 1595 设备视频编码配置查询。国内 1594 E4/E5 将写接口迁移至已登记的 2377，保留该文档关系。"
+    },
+    {
+      "review": "docs/coordination/domestic-device-cursor/admission.json",
+      "note": "国内 3947 游标设备列表按 E14 的完整 query 参数表单独登记。E48 的表单示例缺少 id，同路径 673 的页码表单及既有绑定继续保留。"
     }
   ]
 }

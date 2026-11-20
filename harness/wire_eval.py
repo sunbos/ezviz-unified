@@ -73,6 +73,7 @@ _REFRESH_SKEW = 0.0
 _AUTH_EXPIRE_MS = 2000123
 _TOKEN_EXPIRES_AT = 2000.123
 _MESSAGE_OK = "contract-eval-ok"
+_CURSOR_LIST_OPERATION = "cn.devices.list_by_id"
 _REDACTED_MESSAGE_OPERATION_IDS = frozenset(
     {
         "cn.device_add_links.create",
@@ -86,6 +87,7 @@ _REDACTED_MESSAGE_OPERATION_IDS = frozenset(
         "cn.settings.get_detection_sensitivity",
         "cn.settings.set_detection_sensitivity",
         "cn.video.get_video_codec",
+        _CURSOR_LIST_OPERATION,
     }
 )
 _MESSAGE_FAULT = "contract-eval-fault"
@@ -138,6 +140,7 @@ _CASE_KEYS = frozenset(
         "json_fields",
         "json_body",
         "path_fields",
+        "response_page",
     }
 )
 _BODY_TYPES = frozenset({"object", "array", "string", "integer", "number", "boolean", "null"})
@@ -353,11 +356,21 @@ def _set_path(root: dict, dotted: str, value: object) -> None:
     node[parts[-1]] = value
 
 
-def _build_payload(success: dict, layout: str, code: object, message: str, data: object) -> dict:
+def _build_payload(
+    success: dict,
+    layout: str,
+    code: object,
+    message: str,
+    data: object,
+    *,
+    response_page: dict | None = None,
+) -> dict:
     envelope: dict = {}
     _set_path(envelope, success["code_path"], code)
     _set_path(envelope, success["message_path"], message)
     _set_path(envelope, success["data_path"], data)
+    if response_page is not None:
+        envelope["page"] = response_page
     envelope[_EVAL_MARKER] = _EVAL_MARKER_VALUE
     if not layout:
         return envelope
@@ -676,6 +689,8 @@ def _normalize_case(raw: object, contract_map: dict, context: dict, dto_registry
     operation_id = raw.get("operation_id")
     if not isinstance(operation_id, str) or operation_id not in contract_map:
         raise _Reject("unknown_operation_id")
+    if ("response_page" in raw) != (operation_id == _CURSOR_LIST_OPERATION):
+        raise _Reject("case_invalid")
     args = raw.get("args", [])
     kwargs = raw.get("kwargs", {})
     fields = raw.get("fields", {})
@@ -719,6 +734,19 @@ def _normalize_case(raw: object, contract_map: dict, context: dict, dto_registry
         ),
         "data": _decode_value(raw.get("data"), context, dto_registry),
     }
+    if "response_page" in raw:
+        response_page = _decode_value(raw["response_page"], context, dto_registry)
+        if not isinstance(response_page, dict) or "nextId" not in response_page:
+            raise _Reject("case_invalid")
+        next_id = response_page["nextId"]
+        if next_id is not None and not isinstance(next_id, str):
+            raise _Reject("case_invalid")
+        for key in ("total", "size"):
+            if key in response_page and (
+                not isinstance(response_page[key], int) or isinstance(response_page[key], bool)
+            ):
+                raise _Reject("case_invalid")
+        decoded["response_page"] = response_page
     # Contract-side template consistency is re-checked here so a structural
     # defect reports contract_invalid rather than a misleading case_invalid.
     _check_path_template(contract)
@@ -1304,6 +1332,9 @@ async def _execute_cell(
         success_code,
         _MESSAGE_OK,
         None if case is None else case["data"],
+        response_page=(
+            case.get("response_page") if case is not None and scenario != _HTTP_FAULT else None
+        ),
     )
 
     def fault_payload(digits: str) -> dict:
@@ -1417,7 +1448,14 @@ def _verify_operation_run(
 ) -> str | None:
     success = contract["success"]
     success_code = success["values"][0]
-    success_payload = _build_payload(success, layout, success_code, _MESSAGE_OK, case["data"])
+    success_payload = _build_payload(
+        success,
+        layout,
+        success_code,
+        _MESSAGE_OK,
+        case["data"],
+        response_page=case.get("response_page"),
+    )
     if queues.exceeded:
         return "request_limit_exceeded"
     expected_origin = auth_contract["base_url"]
