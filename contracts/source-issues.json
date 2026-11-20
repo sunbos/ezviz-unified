@@ -2601,6 +2601,23 @@
         "E64;E68;E84",
         "docs/coordination/domestic-detection-sensitivity/admission.json"
       ]
+    },
+    {
+      "id": "cn.video.get_video_codec.configuration_and_media_evidence",
+      "region": "domestic",
+      "source_doc_id": "1595",
+      "source_url": "https://open.ys7.com/help/1595",
+      "source_content_sha256": "4365f6138b8026792174362977074616208e90a8c527a2afdc38815186ecf97c",
+      "description": "文档中 0 至 7 是已列出的编码配置取值，不能用来判断实际媒体编码或播放器兼容性。1595 E3 要求托管设备具备 CONFIG，但未给出子账户的最低权限。1594 E4/E5 的写入已迁移到 2377，后者使用 PUT 请求，通过 localIndex 定位，并以 H264/H265 字符串表示编码格式。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "应用可读取原始整数取值和扩展字段，通道传 None 时交由服务端默认 1。SDK 查询单台设备的指定码流。令牌失效返回 10002 时可刷新令牌一次并重试读取。SDK 不涉及写入、媒体请求或自动发现。",
+      "evidence": [
+        "E3;E7;E11;E14;E49",
+        "E53;E57;E82",
+        "国内 1594 E4;E5",
+        "国内 2377 E7;E11;E14",
+        "docs/coordination/domestic-video-codec-read/admission.json"
+      ]
     }
   ]
 }

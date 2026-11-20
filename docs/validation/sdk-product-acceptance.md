@@ -21,6 +21,10 @@
 
 本次单独执行先前未开始的账号级通道流量明细。仅第一页、每页一条；同步与异步分别使用受限的认证和业务请求，首次失败即停。未重跑账号汇总或按日明细。 仅放行了一次同步认证尝试，未发出流量业务请求，异步未执行。回执没有保存具体错误原因。 本次获准上限为 4 次 HTTP，实际放行 1 次。本项仍待通过。[脱敏回执](live/2026-11-20-domestic-account-channel-traffic/receipt.json)
 
+## 国内视频编码配置只读查询验收
+
+国内 1595 接口提供只读查询能力，用于获取指定设备所选码流的编码配置，托管设备须先获得 CONFIG 权限方可调用。同步和异步查询及两个 CLI 模式均通过合成传输验证。本次未访问真实设备、读取媒体流或验证播放器兼容性。[冻结契约](../coordination/domestic-video-codec-read/admission.json) · [离线回执](2026-11-21-domestic-video-codec-read/offline.json)
+
 ## 国内移动侦测与 PIR／人形检测灵敏度
 
 萤石国内协议的移动侦测灵敏度接口中，714 查询的契约表格标注 channel 为字符串、value 为整数，而其示例却把 channel 写成整数、value 写成字符串，SDK 按原样保留字段及类型，不做归一化处理。715 设置允许省略通道参数，省略时作用于设备本身。1733 与 1734 分别按指定通道查询与设置 PIR 或人形检测灵敏度。本批四项操作在模拟传输下同步与异步调用均通过验收，期间未访问真实设备，也未验证设置在设备上的实际效果。[冻结契约](../coordination/domestic-detection-sensitivity/admission.json) · [离线回执](2026-11-21-domestic-detection-sensitivity/offline.json)

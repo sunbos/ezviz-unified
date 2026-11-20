@@ -3984,6 +3984,19 @@
       "public_entry": "settings.set_detection_sensitivity",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.video.get_video_codec",
+      "region": "domestic",
+      "source_doc_id": "1595",
+      "module": "src/ezviz_unified/video.py",
+      "symbols": [
+        "Video.get_video_codec",
+        "AsyncVideo.get_video_codec"
+      ],
+      "public_entry": "video.get_video_codec",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }
