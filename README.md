@@ -10,6 +10,8 @@
 
 产品能力范围的权威登记见 [docs/capabilities/README.md](docs/capabilities/README.md)：按 `capability_id` → `acceptance_case_refs` 定位验收证据，并区分 `implementation.status`、`review`、`result`、`freeze_state` 与 `requirement=required` 口径；登记数量与 wire 证据不代表覆盖率或产品级验收通过。
 
+查阅 [移动端 EZOpenSDK 接入与排障指南](docs/official-mobile-sdk.md) 可了解如何按 Android、iOS 或 Harmony 选择官方 Demo，并核对原生错误码。
+
 ## 设备查询
 
 首次使用请按[接入指南](docs/getting-started.md)安装并运行同步/异步示例；示例显式选择地区，仅查询首个分页，默认不输出设备身份信息。

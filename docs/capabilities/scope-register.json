@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope_revision": "2026-11-21-r57-domestic-working-mode-plans",
+  "scope_revision": "2026-11-21-r58-mobile-sdk-shared-references",
   "baseline_commit": "641d6cc10010b11a49c65c9d6783f92eefda00d3",
   "inputs": {
     "reviewed_contracts": {
@@ -535,6 +535,11 @@
       "path": "docs/validation/2026-11-21-domestic-working-mode-plans/offline.json",
       "schema": 1,
       "sha256": "aa3a2c9d1eca37b5ae8524f2b7ea5344eb46dbe4426d3bdc8b3fc6df0ad7096c"
+    },
+    "mobile_sdk_shared_references_review": {
+      "path": "docs/validation/2026-11-21-mobile-sdk-shared-references/review.json",
+      "schema": 1,
+      "sha256": "86391aed13f1680c9e00cc23698e1f88e08583ba900e1f02fc4c5d14c9f566c3"
     }
   },
   "scope_state": {
@@ -544,7 +549,7 @@
     "required_acceptance_complete": false,
     "product_complete": false,
     "ratification_ref": "docs/coordination/SP030/admission.json",
-    "latest_update_ref": "docs/validation/2026-11-21-domestic-working-mode-plans/offline.json"
+    "latest_update_ref": "docs/validation/2026-11-21-mobile-sdk-shared-references/review.json"
   },
   "queues": [
     {"queue_id":"batch_1_A","batch":1,"worker":"A","owner":"第一批A","scope":"OPEN API非组件来源（包括1273）及一级云接入","source_count":326,"component_families":[],"classification_counts":{"D":195,"E":4,"Z":127,"M":0},"candidate_intake_refs":["docs/capabilities/domestic-voice-review-candidates.json"]},
@@ -3495,7 +3500,7 @@
     {"source_ref":"portal-2026-11-17:domestic:3697","content_sha256":"0d1a91a9e14b01f14e2c11eeb0aeec93437894a0f08a11ab34a83fe40b134151","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:3698","content_sha256":"7d89cd92d38e22799fd71e0662d59cbd49dfa18fb3ac68b276374ee88340c7e5","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:3699","content_sha256":"dca1e21acc2b090e3eb00fb8f25a26b54aa80cdf9efc025d4b8a5060713bfc93","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
-    {"source_ref":"portal-2026-11-17:domestic:37","content_sha256":"896eb5a9fa395aa8c9a356c68dd23ec43480a4b1f14e1eab1a1b121ed7a8aa6d","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
+    {"source_ref":"portal-2026-11-17:domestic:37","content_sha256":"896eb5a9fa395aa8c9a356c68dd23ec43480a4b1f14e1eab1a1b121ed7a8aa6d","owner_queue":"batch_3_A","requirement":"required_review","review_state":"reviewed","resolution_refs":["docs/validation/2026-11-21-mobile-sdk-shared-references/review.json#/sources/37"],"review_record_ref":"docs/validation/2026-11-21-mobile-sdk-shared-references/review.json","unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:370","content_sha256":null,"owner_queue":"batch_3_B","requirement":"required_review","review_state":"blocked_source","resolution_refs":[],"review_record_ref":null,"unknowns":["source_body_unavailable"],"blockers":["source_body_unavailable_or_unusable"]},
     {"source_ref":"portal-2026-11-17:domestic:3700","content_sha256":"86aa7c8e5d27fae077475c8f8b9b357953ae7b1068dc7f2b5cb797100759cb2a","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:3701","content_sha256":"ba337ed63e15d0d8fdafac50fc6cebc2045951d3b4b9d926a9fb09c48587c976","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
@@ -3796,9 +3801,9 @@
     {"source_ref":"portal-2026-11-17:domestic:4128","content_sha256":"da64675e57860782b970f14977d3feca93dfcbae9d56e823f3f021cf19b9455e","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:4132","content_sha256":"ba9726a9451c5b0cc70a873393b9dfd9f0f87e365682efe150644b32603e901a","owner_queue":"batch_1_C","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:4145","content_sha256":"12178ef692200072ef1daeefbce880684f69c81d378cd63c7b3058b390f79e8b","owner_queue":"batch_1_B","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
-    {"source_ref":"portal-2026-11-17:domestic:4146","content_sha256":"b36b84a08ea2665cb0b183c3f6074bca58429692c723c28fff50c92449cd9ab2","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
+    {"source_ref":"portal-2026-11-17:domestic:4146","content_sha256":"b36b84a08ea2665cb0b183c3f6074bca58429692c723c28fff50c92449cd9ab2","owner_queue":"batch_3_A","requirement":"required_review","review_state":"in_review","resolution_refs":["docs/validation/2026-11-21-mobile-sdk-shared-references/review.json#/sources/4146"],"review_record_ref":"docs/validation/2026-11-21-mobile-sdk-shared-references/review.json","unknowns":["需按版本与平台确认预览验证码与回放速率相关原生 API 的契约，并在相应授权主机上取得行为证据。","需查明 tkToken 在各平台与版本下的权威绑定关系与作用域，并说明在授权主机内的核验方式，核验过程不得输出任何凭据或个人数据。"]},
     {"source_ref":"portal-2026-11-17:domestic:4147","content_sha256":"f39b6f32e60be90e72b9c1d5b2637c700f4beb8256c1f24fb37d74ab94edf7a2","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
-    {"source_ref":"portal-2026-11-17:domestic:4148","content_sha256":"1bdb78bd81285dcb3407773429588dd81766fd6adb6c62b10445658c893a802c","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
+    {"source_ref":"portal-2026-11-17:domestic:4148","content_sha256":"1bdb78bd81285dcb3407773429588dd81766fd6adb6c62b10445658c893a802c","owner_queue":"batch_3_A","requirement":"required_review","review_state":"in_review","resolution_refs":["docs/validation/2026-11-21-mobile-sdk-shared-references/review.json#/sources/4148"],"review_record_ref":"docs/validation/2026-11-21-mobile-sdk-shared-references/review.json","unknowns":["需固定 iOS 与 Harmony 侧 SDK 与 Demo 的精确版本号、安装包或来源摘要，以及签名与系统兼容性等前置条件。","需核对带版本的原生 SDK getDeviceList 文档与实际授权主机上的真实行为是否一致。"]},
     {"source_ref":"portal-2026-11-17:domestic:4149","content_sha256":"5e23da46a039a03f21a96b1ef0d3f0eb2f1c26207e76b1a7e1013b9e280efa1f","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:4150","content_sha256":"1f12f6597a0f8b8dc3bbcc1658e7d982ad71998f22401d1b9cfb16859a62ee98","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:4151","content_sha256":"457034f85afd23fa4dbe8a9803159c23bc9bec53913c6ad6f8994b08a068a91d","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
@@ -4187,12 +4192,12 @@
     {"source_ref":"portal-2026-11-17:domestic:5237","content_sha256":"fca3d372cf95214bada67be40b1fc42a979a262e0e9ffaa5286216c036b1aaa7","owner_queue":"batch_1_B","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:5238","content_sha256":"2424e88de5ac0edb2a10aef8464ed34445175099a8978b2e6b91e3b10013eea3","owner_queue":"batch_1_B","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:5239","content_sha256":"5a4259afb1bae21ef1ab7d8ea9f81268fb21ab620efc82472cb7e87e31d2844b","owner_queue":"batch_1_C","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
-    {"source_ref":"portal-2026-11-17:domestic:5240","content_sha256":"c8efe8da04ece816efb035832ba9b0432ae3964aac21ccc29bcccbf56a20aba8","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
-    {"source_ref":"portal-2026-11-17:domestic:5241","content_sha256":"c8efe8da04ece816efb035832ba9b0432ae3964aac21ccc29bcccbf56a20aba8","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
-    {"source_ref":"portal-2026-11-17:domestic:5242","content_sha256":"c70499b44a94a2deab908d21c376a69227b920174803c79ded87ccbfb7ff93c1","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
-    {"source_ref":"portal-2026-11-17:domestic:5243","content_sha256":"c70499b44a94a2deab908d21c376a69227b920174803c79ded87ccbfb7ff93c1","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
-    {"source_ref":"portal-2026-11-17:domestic:5244","content_sha256":"a51887b219530e0732e1810cd7d601815a97e12d6f000b7b30d2e85ce395c8fa","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
-    {"source_ref":"portal-2026-11-17:domestic:5245","content_sha256":"a51887b219530e0732e1810cd7d601815a97e12d6f000b7b30d2e85ce395c8fa","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
+    {"source_ref":"portal-2026-11-17:domestic:5240","content_sha256":"c8efe8da04ece816efb035832ba9b0432ae3964aac21ccc29bcccbf56a20aba8","owner_queue":"batch_3_A","requirement":"required_review","review_state":"reviewed","resolution_refs":["docs/validation/2026-11-21-mobile-sdk-shared-references/review.json#/sources/5240"],"review_record_ref":"docs/validation/2026-11-21-mobile-sdk-shared-references/review.json","unknowns":[]},
+    {"source_ref":"portal-2026-11-17:domestic:5241","content_sha256":"c8efe8da04ece816efb035832ba9b0432ae3964aac21ccc29bcccbf56a20aba8","owner_queue":"batch_3_A","requirement":"required_review","review_state":"reviewed","resolution_refs":["docs/validation/2026-11-21-mobile-sdk-shared-references/review.json#/sources/5241"],"review_record_ref":"docs/validation/2026-11-21-mobile-sdk-shared-references/review.json","unknowns":[]},
+    {"source_ref":"portal-2026-11-17:domestic:5242","content_sha256":"c70499b44a94a2deab908d21c376a69227b920174803c79ded87ccbfb7ff93c1","owner_queue":"batch_3_A","requirement":"required_review","review_state":"reviewed","resolution_refs":["docs/validation/2026-11-21-mobile-sdk-shared-references/review.json#/sources/5242"],"review_record_ref":"docs/validation/2026-11-21-mobile-sdk-shared-references/review.json","unknowns":[]},
+    {"source_ref":"portal-2026-11-17:domestic:5243","content_sha256":"c70499b44a94a2deab908d21c376a69227b920174803c79ded87ccbfb7ff93c1","owner_queue":"batch_3_A","requirement":"required_review","review_state":"reviewed","resolution_refs":["docs/validation/2026-11-21-mobile-sdk-shared-references/review.json#/sources/5243"],"review_record_ref":"docs/validation/2026-11-21-mobile-sdk-shared-references/review.json","unknowns":[]},
+    {"source_ref":"portal-2026-11-17:domestic:5244","content_sha256":"a51887b219530e0732e1810cd7d601815a97e12d6f000b7b30d2e85ce395c8fa","owner_queue":"batch_3_A","requirement":"required_review","review_state":"reviewed","resolution_refs":["docs/validation/2026-11-21-mobile-sdk-shared-references/review.json#/sources/5244"],"review_record_ref":"docs/validation/2026-11-21-mobile-sdk-shared-references/review.json","unknowns":[]},
+    {"source_ref":"portal-2026-11-17:domestic:5245","content_sha256":"a51887b219530e0732e1810cd7d601815a97e12d6f000b7b30d2e85ce395c8fa","owner_queue":"batch_3_A","requirement":"required_review","review_state":"reviewed","resolution_refs":["docs/validation/2026-11-21-mobile-sdk-shared-references/review.json#/sources/5245"],"review_record_ref":"docs/validation/2026-11-21-mobile-sdk-shared-references/review.json","unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:5258","content_sha256":"1c40fff02e1c4bf859c6d79520a4f4f7f21494808789f9a598d86291999a445d","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:5259","content_sha256":"d4c87b205407e95f450c251fc0fe278c4da874527c92ba3767e61b72b58a651b","owner_queue":"batch_3_A","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
     {"source_ref":"portal-2026-11-17:domestic:5261","content_sha256":"bef629c372f00b3ee501287b6b7d28b83424dceca72fcce4068e00f5947fa6e6","owner_queue":"batch_1_C","requirement":"required_review","review_state":"pending","resolution_refs":[],"review_record_ref":null,"unknowns":[]},
@@ -8129,9 +8134,9 @@
     "cohort_count": 41,
     "source_review_states": {
       "blocked_source": 69,
-      "in_review": 49,
-      "pending": 3871,
-      "reviewed": 62
+      "in_review": 51,
+      "pending": 3862,
+      "reviewed": 69
     },
     "phase_2_deferred": [
       "app_adapter",
