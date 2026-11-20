@@ -13,6 +13,18 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 新加坡首页首台设备工作模式计划实测
+
+认证和首页首台选择已完成，同步计划查询返回 SDK 错误。首次失败即停，异步未执行。未记录计划内容、业务码或原始异常，无法据此判定权限、设备状态或型号支持。 本次获准上限为 5 次 HTTP，实际放行 3 次。本项仍待通过。[脱敏回执](live/2026-11-20-singapore-first-device-working-mode-plan/receipt.json)
+
+## 国内账号通道流量明细实测
+
+本次单独执行先前未开始的账号级通道流量明细。仅第一页、每页一条；同步与异步分别使用受限的认证和业务请求，首次失败即停。未重跑账号汇总或按日明细。 仅放行了一次同步认证尝试，未发出流量业务请求，异步未执行。回执没有保存具体错误原因。 本次获准上限为 4 次 HTTP，实际放行 1 次。本项仍待通过。[脱敏回执](live/2026-11-20-domestic-account-channel-traffic/receipt.json)
+
+## 海外移动侦测联动灯
+
+查询固定发送 type=301，并完整保留返回数据。只读示例仅在返回类型为 301 时解释开关值。设置在 query 中提交两个字符串字段，成功回执可只有 body.meta。设备同步时点、实际灯效和恢复情况仍待真实验收。[来源及类型差异](../coordination/overseas-motion-linked-light/admission.json) · [离线验收](2026-11-20-overseas-motion-linked-light/offline.json)
+
 ## 海外设备工作模式计划
 
 同步和异步的查询、设置及单设备只读示例均通过模拟传输验收。读取保留周计划和各时段的原始层级。设置提交一组平铺的表单字段，编码选择参考国内同路径文档。时区、整表替换或合并规则和真实设备生效情况仍待核实。读取结果不能直接充当恢复表单。[冻结的区域差异](../coordination/overseas-working-mode-plans/admission.json) · [离线回执](2026-11-20-overseas-working-mode-plans/offline.json)
@@ -104,7 +116,7 @@
 | case_id | 结论边界 |
 | --- | --- |
 | `ACC-CN-SYNC-READONLY-001` | 国内同步单设备只读链已合并证据：[live 记录](live/2026-11-16-diagnostics-v1/README.md)。2026-11-16 21:24:44（Asia/Shanghai），首页 `page_size=1` 首台普通设备、通道 1。6 个业务逻辑入口 = `devices.list` 1 次 + `inspect_device` 固定五项（`devices.get`/`devices.channels`/`devices.status`/`diagnostics.capabilities`/`diagnostics.version`）；认证另占 1 次 HTTP，共 7 次 HTTP。该回执执行器为 `tools/live/verify_diagnostics.py`（`--serve`，scope `bounded_domestic_diagnostic_v1`），非 `verify_devices.py`。64 事件、`dropped_events=0`、`recording_errors=0`，运行所用 SDK 源码与预检快照哈希一致（commit `99613ea`），main CI `43878741197` 已通过 3.12–3.15，回归 4419 tests + 11 subtests。仅同步、单设备、单通道样本；真实当前设备配置尚未提供，不得声称仍在线。 |
-| `ACC-OS-PUBLIC-TIMEZONE-001` | 新加坡集群公开时区 sync/async 证据：[singapore.json](live/2026-11-15-public-timezones/singapore.json)。仅覆盖该集群匿名目录调用，不代表硬件或其他集群。 |
+| `ACC-OS-PUBLIC-TIMEZONE-001` | 在新加坡公开时区目录使用匿名 SDK 同步和异步各查询一次，均返回列表和成功码。[当前代码实测](live/2026-11-20-public-timezones/singapore.json) · [先前记录](live/2026-11-15-public-timezones/singapore.json)。范围限该公开目录。 |
 | `ACC-OS-AUTH-EMPTYLIST-001` | 新加坡账号显式区域入口认证 + 一页空设备列表：[overseas.json](live/2026-11-14-overseas/overseas.json)。默认入口对本账号返回业务码 10017；空列表只证明当次账号当次范围，不证明设备可用、其他集群或 async。 |
 | `ACC-OS-PUBLIC-AREAS-OFFLINE-001` | 公开国家/地区目录离线验收已通过（`execution_outcome=passed`，verified code commit `58e7881`）：证据 [checks.json](2026-11-17-public-areas/checks.json)（说明见 [README](2026-11-17-public-areas/README.md)）。初始 targeted 3 failed / 311 passed，定向修订后 SDK/harness targeted 327、示例 22、全量 4580+35 subtests、registered contracts 204 / wire 1664 全过，mypy 43 文件、Ruff 通过；`0.1.0a1` wheel/sdist 构建、内容检查、Twine、干净安装（sdist 2744 测试）完成，安装依赖走网络、SDK smoke 不触真实 API。属 code58 开发候选验证，**非最终 SDK 产品 release 或 PyPI 发布**。 |
 | `ACC-OS-PUBLIC-AREAS-SDK-001` | 公开国家/地区目录 SDK 真实验收已通过（`execution_outcome=passed`，同一 commit）：证据 [sdk.json](live/2026-11-17-public-area-directory/sdk.json)（说明见 [README](live/2026-11-17-public-area-directory/README.md)）。UTC 2026-11-17T02:52:27 固定 `https://open.ezvizlife.com` 匿名 sync/async 各一次，合计 2 HTTP/2 逻辑调用；两 mode HTTP 200 + 业务码 `"200"`，`data` 240 项且四字段类型全部匹配，identity 编码每 mode 16442 字节，client/transport 均关闭；回执只存计数/类型/状态/hash（SHA `88cce20d…7adc`），46 输入 pin 与 code58 一致。240 为当次观察值非保证；仅 GET+identity，未覆盖其他 origin/POST/压缩路径/集群路由/设备。 |

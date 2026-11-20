@@ -2418,6 +2418,42 @@
         "国内 1720 E12;E37;E72",
         "docs/coordination/overseas-working-mode-plans/admission.json"
       ]
+    },
+    {
+      "id": "global.settings.get_light_linkage.query_selector_and_returned_type",
+      "region": "overseas",
+      "source_doc_id": "3722",
+      "source_url": "https://open.ys7.com/help/en/3722",
+      "source_content_sha256": "5b6a1bcbdf331c3bb35997f76527587c2ecc0bd6b86cc6e32785c3061ec551c6",
+      "description": "海外接口 3722 查询设备移动侦测灯光联动状态。E30 要求在查询字符串中携带 type=301，E101 响应示例给出整数 type=2，E47 将 type 与 enable 描述为整数、subSerial 描述为字符串类型。托管账号与子账号调用该接口需要 Get 权限。国内对应接口 1741 中，E14 带 channelNo 并额外支持 305，E56 的 enable 为布尔值，E52 使用顶层字符串 code，这些差异不适用于海外接口。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 校验响应中的整数 type 与 enable，将 subSerial 作为可选字符串解析，并保留未知整数取值与扩展字段。当响应 type 与请求的 301 不一致时，SDK 不将其识别为 301 的状态，也不做额外推断。",
+      "evidence": [
+        "E2;E3",
+        "E8;E30",
+        "E47;E101",
+        "E104",
+        "国内 1741 E14;E52;E56",
+        "docs/coordination/overseas-motion-linked-light/admission.json"
+      ]
+    },
+    {
+      "id": "global.settings.set_light_linkage.acknowledgement_and_physical_effect",
+      "region": "overseas",
+      "source_doc_id": "3723",
+      "source_url": "https://open.ys7.com/help/en/3723",
+      "source_content_sha256": "36812eeb04ef69ea54b3c37dafb0260f40b254a2e15b1baf3ff2c903fa2b23c6",
+      "description": "海外接口 3723 设置移动侦测灯光联动开关。E30 要求在查询字符串中传入字符串 type=\"301\" 与 enable=\"0\" 或 \"1\"，无业务请求体，E53/E87 的应答仅含 body.meta。托管账号与子账号调用该接口需要 Config 权限。国内对应接口 1740 中，E14 额外支持 650，E52/E56 使用根级字符串 code 与 msg，格式与海外不同。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 只发送一次业务 POST，不自动重放也不回读设备状态，并保留应答中的扩展数据。成功回执仅表示请求被接受，不能证明灯光的实际物理效果，超时后是否仍会执行以及状态能否恢复均未确认，SDK 不保证最终生效。",
+      "evidence": [
+        "E2;E3",
+        "E8;E30",
+        "E53;E87",
+        "E90",
+        "国内 1740 E14;E52;E56",
+        "docs/coordination/overseas-motion-linked-light/admission.json"
+      ]
     }
   ]
 }

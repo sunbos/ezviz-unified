@@ -3841,6 +3841,32 @@
       "public_entry": "settings.set_timing_plan",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "global.settings.get_light_linkage",
+      "region": "overseas",
+      "source_doc_id": "3722",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.get_light_linkage",
+        "AsyncSettings.get_light_linkage"
+      ],
+      "public_entry": "settings.get_light_linkage",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "global.settings.set_light_linkage",
+      "region": "overseas",
+      "source_doc_id": "3723",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.set_light_linkage",
+        "AsyncSettings.set_light_linkage"
+      ],
+      "public_entry": "settings.set_light_linkage",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

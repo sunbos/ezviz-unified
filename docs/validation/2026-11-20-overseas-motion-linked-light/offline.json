@@ -1,0 +1,448 @@
+{
+  "schema_version": 1,
+  "focused_wire": {
+    "cells": [
+      {
+        "operation_id": "global.settings.get_light_linkage",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_light_linkage",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_light_linkage",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_light_linkage",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_light_linkage",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_light_linkage",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_light_linkage",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_light_linkage",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_light_linkage",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_light_linkage",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_light_linkage",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_light_linkage",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_light_linkage",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_light_linkage",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_light_linkage",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_light_linkage",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      }
+    ],
+    "real_api_used": false,
+    "sdk_sha256": "02346ad2d83c6b876f9a72bf93448ec3ba96f02fa98ec1c50a9b6ba81f4b11c5",
+    "execution_sha256": "5f79ae542c4ce959944c9a33e8404f3407bd5e7fad4a29fdad53950f9f134f31",
+    "full_cases_sha256": "ec5caa9ed2c31695480c1dd1bcbcd86faa3b33a06d76d26f14c5882a51a4ac30"
+  },
+  "scope": "overseas_motion_linked_light_offline",
+  "code_commit": "c9a645bdb4634bae929879f8504b63c282ea9fbd",
+  "bindings_sha256_at_code_commit": "f1a11739a330348969229e29ca93cf5df92a6a75117df408104e98ac03c3803a",
+  "source_test_sha256": {
+    "src/ezviz_unified/settings.py": "02346ad2d83c6b876f9a72bf93448ec3ba96f02fa98ec1c50a9b6ba81f4b11c5",
+    "src/ezviz_unified/_diagnostic_registry.py": "862a4ce8fe9e83afaee8575a2d829e40784c8de9c1d0d110899bca9b3505d0e6",
+    "docs/diagnostics-v1-coverage.json": "f3c7eb817c4f1cba146b16b7c6c1654a26db46655e164107ed84d905e394f9f3",
+    "docs/diagnostics.md": "aec0a48768f7044c8e2608df98e2e444a1db35ecd37ff9f8505bd7d6885b0e2c",
+    "tests/test_harness_diagnostic_coverage.py": "573fa4717fd3450ffd74893f820ab13a6644a89d45c62585e491a0c9085b4b62",
+    "tests/test_sdk_light_linkage.py": "340b6ca17c78495b03875c51afd7f7ab6fae1ec0d9fecb9e0f5d63540e270d00",
+    "tests/test_example_light_linkage.py": "f77c82790a2159d2796c5851042c8768fda3617344b72536790e4d38730b580e",
+    "examples/light_linkage.py": "00dcdbfec5767fab3fc9ed51a61e73e1c4250faf1b09ec46e76634f9af5ba784",
+    "README.md": "083ba4b250995cc70f5ef2eafa3015496391fbc0f92c139f6d1070436b2a7857",
+    "contracts/reviewed-transport-contracts.json": "4344742ea30ff285dedcfd85d611a2bdf81551294789680c43381fa150d80559",
+    "contracts/source-issues.json": "65fa773387dabee4b307ef453f458c7ae7ff2bf4972bbe7ccfb7459d0612c057",
+    "evals/contracts/cases.json": "ec5caa9ed2c31695480c1dd1bcbcd86faa3b33a06d76d26f14c5882a51a4ac30",
+    "docs/coordination/overseas-motion-linked-light/admission.json": "de1df60828fbef241a5315f78be35a4a8153eb2d12edb39ec39dd88f7f3ce400",
+    "contracts/coverage.json": "44e95739794ee1bfa3012db8ddf343ce6e59281da726986523d32ff339632344"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP506-RegCases",
+        "input_commit": "95567371dda5deede274c39200dc955860661a6d",
+        "write_scope": [
+          "evals/contracts/cases.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "6bddb7ec9b49e906cbec72efd27f727a286987c5b507f408d22106f41f30d699",
+        "local_receipt_sha256": "3514c5be0c86eff83908d39aa2d44ea15ef8323d3c0216b48313524a128d103a",
+        "candidate_sha256": "dcd25c6ab0a0a7fd507f91ba24a33facb0c67d3f0748ff3f9720569b4cdf4822",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "f37ae4ba42f627081c6437232dfc197644b6de28b0a8946b8ea0fd5fbedad64f"
+      },
+      {
+        "task": "SP506-RegDoc",
+        "input_commit": "95567371dda5deede274c39200dc955860661a6d",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "14c5712378ca07b0ad30f11310e753519f26a2517f10441ddddd4bc020f43641",
+        "local_receipt_sha256": "a390eecfd9fc0b7b0b4b198f082dc47ba3b9d9a34c46f5e99f0bfe7b621da526",
+        "candidate_sha256": "1782cd2203a6269fce2c4a4826031ec8b44b4280a99bbca211c4bda151d4ad4c",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "e1e795399ede8747ef533d085fbd48dee38bf1d9244c83f379591bd5900383d8"
+      },
+      {
+        "task": "SP506-RegIssuesR2",
+        "input_commit": "95567371dda5deede274c39200dc955860661a6d",
+        "write_scope": [
+          "contracts/source-issues.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "067743b6f7784abb96f3fd552fe030f30df4b7c865907aea6f6334f2f125916c",
+        "local_receipt_sha256": "5fba38cbe750a4d4ddcf48cb472751f354be02f090e15492d1f27d7c0c56822e",
+        "candidate_sha256": "95ddb42acfc9f825cb01e563cda9a2fae1342d01c6993cf498625f588e089493",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "047e46f4cbdcac8ddabca9bfcd10a5d15f4112eecb79a4c71998637d07bd8a14"
+      },
+      {
+        "task": "SP506-SdkCliR1",
+        "input_commit": "95567371dda5deede274c39200dc955860661a6d",
+        "write_scope": [
+          "examples/light_linkage.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "c066c87d2349d12d51bcf2e15948b5d8f9d415ad0c2dd1986dd9d38645840ddc",
+        "local_receipt_sha256": "1e8a6b7925f95c03084860396d20dc7866fd106b459690f20e6359ef926fdec5",
+        "candidate_sha256": "479090edc667960b1a1615f99740fe9cccee3fa99a4a7c68e3371e77c397e8a6",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "1e6d8af3406324641fb1b57394d37fa1830285f3bcaa29ba7da024bd8b23f1f4"
+      },
+      {
+        "task": "SP506-SdkCore",
+        "input_commit": "95567371dda5deede274c39200dc955860661a6d",
+        "write_scope": [
+          "src/ezviz_unified/settings.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "4910db338233600dc8698cb9ea4e676cc705067b32fee5ec7f620b3d47af44d9",
+        "local_receipt_sha256": "abff71ac6b0d8f86feb39c65acf8b4579451e310a0ef5889845b07c9e6d49125",
+        "candidate_sha256": "ff6c31bb2b115fb156b0516e4e19ea2a1ad7ab6b8cc80c86c6e0245888197693",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "33694f76c7acf2ee9406306bdc39cc0e9d85abf4f31fd946a0d481c9f8199f19"
+      },
+      {
+        "task": "SP506-SdkReadmeR2",
+        "input_commit": "95567371dda5deede274c39200dc955860661a6d",
+        "write_scope": [
+          "README.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "e0acc5b6ff80d215ba71aff2c733b774fb35be0919a55b2e225778dc15140631",
+        "local_receipt_sha256": "a961c739bc5d0d7f271f2370afa47ddd55b5809d1930bb3656068bca42542ced",
+        "candidate_sha256": "d62b723698413954de0a82e89cb95ec0c8f9bcefad054992d0dacce6ceb197eb",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "01e26f5604522bfb0d8a599cf8421f7e9ee066b5c332a115244a77fa784a12e5"
+      },
+      {
+        "task": "SP506-TestCli",
+        "input_commit": "95567371dda5deede274c39200dc955860661a6d",
+        "write_scope": [
+          "tests/test_example_light_linkage.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "0548d6d69eb9461a2364ee508b9f45a6bf7c50011608a93c88dd546e1b20161b",
+        "local_receipt_sha256": "652a0039dda72e2b40329f62b3ed4ebd172c4ff4a68a4cbecf250e98eb49c10e",
+        "candidate_sha256": "442db5cbbd6f00a209426e41dbcf777300c72e6b2f543ba9aced94d5ec4ed642",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "fd921569b4673ce43053bd300f3849ba24be03c1edd2208d66ce7e52cd842829"
+      },
+      {
+        "task": "SP506-TestSdkBad",
+        "input_commit": "95567371dda5deede274c39200dc955860661a6d",
+        "write_scope": [
+          "tests/test_sdk_light_linkage.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "d00fcbe19743b624cb173e023777680aa00a305baf4f96cf31fa027666ef789b",
+        "local_receipt_sha256": "49afe41e6457d6aa38fe4f57c9076190178cbab00d5af2d803cf8866717535ca",
+        "candidate_sha256": "a2c67db9bb15ec3e74b9f37f3415ce264854fafd9491f6dbfc2ad66252eb9311",
+        "disposition": "reviewed_source_for_later_integration"
+      },
+      {
+        "task": "SP506-TestSdkWire",
+        "input_commit": "95567371dda5deede274c39200dc955860661a6d",
+        "write_scope": [
+          "tests/test_sdk_light_linkage.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "ee195d09c4491863fc40b4f728868f78878bf45a4ab1d054a378a11774294361",
+        "local_receipt_sha256": "7fe801854ca913761bee30ae064fe1274f804aaa2443d4fb9454c3f5c04f9051",
+        "candidate_sha256": "3ceced33ecea6db37d86034e22cb32db1b4595ecbbc437b6a1ea53b601aabccd",
+        "disposition": "reviewed_source_for_later_integration"
+      },
+      {
+        "task": "SP506-TestSdkWireR1",
+        "input_commit": "95567371dda5deede274c39200dc955860661a6d",
+        "write_scope": [
+          "tests/test_sdk_light_linkage.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "916f5e7bff4879b1533213185bdbb7d4643c3fecd4a15aaa494adfc42d23ab2c",
+        "local_receipt_sha256": "511e5ae30eaac9cb9fd0754c493d1ab690996557c2fa528fc4fa62f718ea6235",
+        "candidate_sha256": "059ab21b75873d1dd25f921a7b3afd6be805230b8f2ae1f582c1e236ea667421",
+        "disposition": "reviewed_source_for_later_integration"
+      }
+    ],
+    "deterministic_integration": [
+      {
+        "task": "SP506-RegBindings",
+        "write_scope": [
+          "contracts/sdk-bindings.json"
+        ],
+        "integration_receipt_sha256": "9e5dc413e3e1092fbf30dc451ea0e757e274a182be0376da0b38df2fcdbf58c8"
+      },
+      {
+        "task": "SP506-RegContracts",
+        "write_scope": [
+          "contracts/reviewed-transport-contracts.json"
+        ],
+        "integration_receipt_sha256": "aa67f0c5eaf35cc09c1d6dcd2565e9e9045e9ef5e6f6b945d866f093eeb6db5f"
+      },
+      {
+        "task": "SP506-RegPrivate",
+        "write_scope": [
+          "src/ezviz_unified/_diagnostic_registry.py"
+        ],
+        "integration_receipt_sha256": "5a2e9d38f0f3679c6ab1e8a42752ef6f1b14e2553deeabdf7328caa73290f057"
+      },
+      {
+        "task": "SP506-RegPublic",
+        "write_scope": [
+          "docs/diagnostics-v1-coverage.json"
+        ],
+        "integration_receipt_sha256": "bc89bf2895402d08cf4495cd9e0eb6fd4c06cf53817d521abd4c66c65308c13a"
+      },
+      {
+        "task": "SP506-RegSummary",
+        "write_scope": [
+          "contracts/coverage.json"
+        ],
+        "integration_receipt_sha256": "0836b2207f9780dc9cb2afd585c12afd3d8dc36e3a8bdc0a5353cec117c0513d"
+      },
+      {
+        "task": "SP506-RegTestCount",
+        "write_scope": [
+          "tests/test_harness_diagnostic_coverage.py"
+        ],
+        "integration_receipt_sha256": "1b84a0833af40d180236806fe0f6b5a964db610e1cbe91d5abfc2265297c3fe0"
+      },
+      {
+        "task": "README factual review and integration",
+        "write_scope": [
+          "README.md"
+        ],
+        "integration_receipt_sha256": "01e26f5604522bfb0d8a599cf8421f7e9ee066b5c332a115244a77fa784a12e5"
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "task": "SP506-RegIssues",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "3c8e9fd456da81936a32adafc53a92527817155bcb4d1f2e28854874b0b6fd09"
+      },
+      {
+        "task": "SP506-RegIssuesR1",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "895b929067b53a446e4621dfd41612ae9976d652fe6e0923e87b5573a2d65689"
+      },
+      {
+        "task": "SP506-SdkCli",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "a7e0cbff7431dac2e5e4e05791a7c63528eb1ee8a2c1b54e3b258a132bef5410"
+      },
+      {
+        "task": "SP506-SdkReadme",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "46d85cf05b273bd3e93f936e6093fb21afa3127dd7a607747dc0ebdea6a1e301"
+      },
+      {
+        "task": "SP506-SdkReadmeR1",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "6a2463578ead1e67d5046e68275a3a9ba2b7952d62bbec473b5805a40af2b1b1"
+      },
+      {
+        "task": "SP506-TestSdk",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "0e7028d0b4f96af822d879dfa4d59a69bd3efdd600543730959b7c0935b56afe"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_light_linkage.py",
+      "summary": "154 passed in 0.74s",
+      "local_receipt_sha256": "1e8abc26b35f9d4ba9381999d07705960ebc2038e2bbe6e1439dc4b19f6ac873",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_light_linkage.py",
+      "summary": "46 passed in 0.37s",
+      "local_receipt_sha256": "80bd970cb19152038c6962d2614882143bd102dffa1af837b346c4a7c13532b0",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "11694 passed, 35 subtests passed in 69.02s (0:01:09)",
+      "local_receipt_sha256": "0ada558d9b8d64f639fdd27a6e916ad18001537a3f282d92f6aece70be09ba0d",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "286 registered contracts, 2320/2320 offline wire checks passed",
+      "local_receipt_sha256": "8bdff15cd1545ce60ee7a1c17f296926b6f66e3df80306340148b2c23228ca0b",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "286 registered bindings, 572 sync/async symbols checked",
+      "local_receipt_sha256": "b6e5a702d57e8e82aabc0a619ed1f661d388a3dae16baa45df6b8c9c60b32bfd",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 65 source files",
+      "local_receipt_sha256": "16a9676f07b21202910778a9760c5bf30bb9bcab927059d34625d17f23f90a65",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/settings.py src/ezviz_unified/_diagnostic_registry.py examples/light_linkage.py tests/test_sdk_light_linkage.py tests/test_example_light_linkage.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "47d5e8434b6d4ff4908ce7de33ff4a1e58746d616b2278be6624752b1337ebe5",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/settings.py src/ezviz_unified/_diagnostic_registry.py examples/light_linkage.py tests/test_sdk_light_linkage.py tests/test_example_light_linkage.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "6 files already formatted",
+      "local_receipt_sha256": "5580b1ba45e79f83d4158e3d3f7f40b1007d95308fa3e0a334c50b2b5ab8e56a",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_harness_diagnostic_coverage.py",
+      "summary": "432 passed in 1.11s",
+      "local_receipt_sha256": "eea776dd57b664120fad9bad785a97dbcd3bf143f729c85c27aa1a388be06f17",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "本批仅用合成传输。已用模拟传输验证固定选择器、真实 SDK 返回类型和只读示例。真实 Get/Config 权限、支持型号、响应是否对应 301、配置生效和物理灯效仍待核验。"
+}

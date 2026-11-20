@@ -82,6 +82,26 @@ _GET_ALARM_SOUND_MODE = Operation(
     policy=_BODY_META_POLICY,
 )
 
+_GET_LIGHT_LINKAGE = Operation(
+    name="settings.get_light_linkage",
+    method="GET",
+    path="/api/v3/device/switchStatus/get",
+    regions=_OVERSEAS_REGIONS,
+    token_location="header",
+    read_only=True,
+    policy=_BODY_META_POLICY,
+)
+
+_SET_LIGHT_LINKAGE = Operation(
+    name="settings.set_light_linkage",
+    method="POST",
+    path="/api/v3/device/switchStatus/set",
+    regions=_OVERSEAS_REGIONS,
+    token_location="header",
+    read_only=False,
+    policy=_BODY_META_POLICY,
+)
+
 _GET_TIMING_PLAN = Operation(
     name="settings.get_timing_plan",
     method="GET",
@@ -389,6 +409,23 @@ def _pir_area_set_request(
     return _overseas_op("set_pir_area", "/api/lapp/device/pir/set", read_only=False), data
 
 
+def _light_linkage_response(response: ApiResponse) -> ApiResponse:
+    """Return the response when the light linkage payload shape is valid."""
+    data = response.data
+    if (
+        not isinstance(data, dict)
+        or type(data.get("type")) is not int
+        or type(data.get("enable")) is not int
+        or ("subSerial" in data and not isinstance(data["subSerial"], str))
+    ):
+        raise ProtocolError(
+            "unexpected settings.get_light_linkage response shape",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
+
+
 def _check_week(value: object) -> str:
     if not isinstance(value, str) or not all(
         len(day) == 1 and "0" <= day <= "6" for day in value.split(",")
@@ -679,6 +716,38 @@ class Settings:
             )
             return self._client.request(op, data=data)
 
+    def get_light_linkage(self, device_serial: str) -> ApiResponse:
+        """Return the motion-linked light status for an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_light_linkage",
+            mode="sync",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            response = self._client.request(
+                _GET_LIGHT_LINKAGE,
+                headers={"deviceSerial": serial},
+                params={"type": "301"},
+            )
+            return _light_linkage_response(response)
+
+    def set_light_linkage(self, device_serial: str, enabled: bool) -> ApiResponse:
+        """Set the motion-linked light status for an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_light_linkage",
+            mode="sync",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            flag = _check_enabled(enabled)
+            return self._client.request(
+                _SET_LIGHT_LINKAGE,
+                headers={"deviceSerial": serial},
+                params={"type": "301", "enable": "1" if flag else "0"},
+            )
+
     def get_timing_plan(self, device_serial: str) -> ApiResponse:
         """Return the timing plan for an overseas device."""
         with _diagnostic_scope(
@@ -951,6 +1020,38 @@ class AsyncSettings:
                 device_serial, area, channel, self._client.region.scope
             )
             return await self._client.request(op, data=data)
+
+    async def get_light_linkage(self, device_serial: str) -> ApiResponse:
+        """Return the motion-linked light status for an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_light_linkage",
+            mode="async",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            response = await self._client.request(
+                _GET_LIGHT_LINKAGE,
+                headers={"deviceSerial": serial},
+                params={"type": "301"},
+            )
+            return _light_linkage_response(response)
+
+    async def set_light_linkage(self, device_serial: str, enabled: bool) -> ApiResponse:
+        """Set the motion-linked light status for an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_light_linkage",
+            mode="async",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            flag = _check_enabled(enabled)
+            return await self._client.request(
+                _SET_LIGHT_LINKAGE,
+                headers={"deviceSerial": serial},
+                params={"type": "301", "enable": "1" if flag else "0"},
+            )
 
     async def get_timing_plan(self, device_serial: str) -> ApiResponse:
         """Return the timing plan for an overseas device."""

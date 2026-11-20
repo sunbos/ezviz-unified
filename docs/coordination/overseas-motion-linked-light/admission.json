@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "42cb633fa3ee19dd9fe8fd8f2eee57a3207dc5c1",
+  "scope_revision": "2026-11-20-r49-overseas-motion-linked-light",
+  "cohort_id": "OVERSEAS-MOTION-LINKED-LIGHT-001",
+  "operations": [
+    {
+      "operation_id": "global.settings.get_light_linkage",
+      "capability_id": "candidate:overseas:3722:d0",
+      "doc_id": "3722",
+      "name": "get_light_linkage",
+      "entry": "settings.get_light_linkage",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-3722-D0-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-3722-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Settings": "def get_light_linkage(self, device_serial: str) -> ApiResponse",
+        "AsyncSettings": "async def get_light_linkage(self, device_serial: str) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/en/3722",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3722.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/3722.structure.json",
+      "html_sha256": "5b6a1bcbdf331c3bb35997f76527587c2ecc0bd6b86cc6e32785c3061ec551c6",
+      "method": "GET",
+      "path": "/api/v3/device/switchStatus/get",
+      "read_only": true,
+      "permission": "支持托管账号及子账号，要求 Get 权限。",
+      "unknown": "E101 的 type=2 与 E30 固定 type=301 不一致。真实设备的读数、支持型号及状态新鲜度待核。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "string",
+          "location": "header",
+          "required": true,
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "string",
+          "location": "header",
+          "required": true,
+          "evidence": "E8/R3"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "query",
+          "required": true,
+          "evidence": "E30/R2",
+          "constant": "301"
+        }
+      ],
+      "elements": {
+        "permissions": [
+          2,
+          3
+        ],
+        "route": 5,
+        "headers": 8,
+        "query": 30,
+        "fields": 47,
+        "example": 101,
+        "errors": 104
+      }
+    },
+    {
+      "operation_id": "global.settings.set_light_linkage",
+      "capability_id": "candidate:overseas:3723:d0",
+      "doc_id": "3723",
+      "name": "set_light_linkage",
+      "entry": "settings.set_light_linkage",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-3723-D0-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-3723-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Settings": "def set_light_linkage(self, device_serial: str, enabled: bool) -> ApiResponse",
+        "AsyncSettings": "async def set_light_linkage(self, device_serial: str, enabled: bool) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/en/3723",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3723.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/3723.structure.json",
+      "html_sha256": "36812eeb04ef69ea54b3c37dafb0260f40b254a2e15b1baf3ff2c903fa2b23c6",
+      "method": "POST",
+      "path": "/api/v3/device/switchStatus/set",
+      "read_only": false,
+      "permission": "支持托管账号及子账号，要求 Config 权限。",
+      "unknown": "回执不保证物理点灯、即时生效、超时未执行或可恢复性；海外没有声明验证码输入。",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "string",
+          "location": "header",
+          "required": true,
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "string",
+          "location": "header",
+          "required": true,
+          "evidence": "E8/R3"
+        },
+        {
+          "name": "enable",
+          "type": "string",
+          "location": "query",
+          "required": true,
+          "evidence": "E30/R2"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "location": "query",
+          "required": true,
+          "evidence": "E30/R3",
+          "constant": "301"
+        }
+      ],
+      "elements": {
+        "permissions": [
+          2,
+          3
+        ],
+        "route": 5,
+        "headers": 8,
+        "query": 30,
+        "fields": 53,
+        "example": 87,
+        "errors": 90
+      }
+    }
+  ],
+  "regional_cross_checks": [
+    {
+      "region": "domestic",
+      "doc_id": "1740",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1740.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1740.structure.json",
+      "html_sha256": "092f75da2a89b7a1a441cb335e0fbdcd1a270d0d999d52f0743304d368438ab1",
+      "element_pointers": [
+        "E14",
+        "E48",
+        "E52",
+        "E56"
+      ],
+      "role": "同路径请求示例可佐证 query 位置。国内额外的 650、305、channelNo 和响应类型只在各自来源中成立。"
+    },
+    {
+      "region": "domestic",
+      "doc_id": "1741",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1741.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1741.structure.json",
+      "html_sha256": "1b1aa0ae8913a2b7699fe9625c9c0d5ccb1b1f627b5a2587c0e0d19aa7ecf701",
+      "element_pointers": [
+        "E14",
+        "E48",
+        "E52",
+        "E56"
+      ],
+      "role": "同路径请求示例可佐证 query 位置。国内额外的 650、305、channelNo 和响应类型只在各自来源中成立。"
+    }
+  ],
+  "sdk_choices": [
+    "同步与异步均复用既有 settings、海外区域和请求头校验、body 包装的整数成功码策略。只在用户显式调用时发业务请求，根据授权令牌核验业务 origin，accessToken 和 deviceSerial 只放 header。新增入口纳入诊断字段白名单和真实方法调用覆盖。",
+    "读取仅发送固定的字符串 query type=301，无正文。要求 body.meta.code 为整数 200，body.data 为对象且含有整数 type 和 enable，拒绝布尔值。subSerial 若存在须为字符串。返回原始 ApiResponse，保留其他字段和未知整数。3722 E101 示意写 type=2，输入说明 E30 却指定 301，SDK 不据此改写返回值或放宽请求选择器。",
+    "设置使用 POST，query 只携带 type=301 与 enable=1/0 两个字符串，enabled 输入严格为布尔值。无业务正文、无 channelNo、自定义 type 或验证码。成功可仅含 body.meta，也可有扩展 data，按原始业务回执返回。写不自动重放，不先查询、不自动读回。GET 保留既有只读令牌失效刷新一次规则。",
+    "示例 python -m examples.light_linkage --mode sync 或 --mode async。明确海外地区及设备序列号，只读一次。成功输出 region、mode、status、selector_matches 和 state。仅返回 type=301 且 enable=1 或 0 时显示 on 或 off；其余显示 unknown。不根据未知值执行写入。",
+    "Get 和 Config 分别适用于读和写，文档明确托管及子账号支持。设备能否响应、配置同步时点及灯效需要分别验证。若返回类型与请求不同，或读数不是可确认的原始开关状态，不能用该结果制定恢复请求。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/settings.py",
+    "src/ezviz_unified/illumination.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批只运行合成请求，不访问真实设备、不触发物理联动灯。"
+}
