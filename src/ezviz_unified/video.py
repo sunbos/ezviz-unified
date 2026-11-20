@@ -18,6 +18,7 @@ from enum import IntEnum
 from typing import TYPE_CHECKING, NamedTuple
 
 from .diagnostic_report import _diagnostic_scope
+from .errors import ProtocolError
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -360,6 +361,56 @@ async def _asend(client: AsyncClient, plan: _Plan) -> ApiResponse:
     )
 
 
+_AAC_TRANSFER_PATH = "/api/service/media/aac/transfer"
+
+
+def _aac_headers(serial: object, channel: object | None) -> dict[str, str]:
+    """Shared header checks plus the AAC-only serial/channel rules."""
+    headers = _device_headers(serial, channel)
+    value = headers["deviceSerial"]
+    if value != value.strip(" "):
+        raise ValueError("device_serial must not have leading or trailing spaces")
+    if channel is not None and _check_channel(channel) < 0:
+        raise ValueError("channel must be a nonnegative int")
+    return headers
+
+
+def _rtmp_aac_support_plan(serial: object, channel: object | None, scope: str) -> _Plan:
+    _require_domestic(scope)
+    return _Plan(
+        operation=_meta_op(
+            "get_rtmp_aac_support",
+            "GET",
+            _AAC_TRANSFER_PATH,
+            read_only=True,
+        ),
+        headers=_aac_headers(serial, channel),
+    )
+
+
+def _rtmp_aac_enabled_plan(
+    serial: object, enabled: object, channel: object | None, scope: str
+) -> _Plan:
+    _require_domestic(scope)
+    return _Plan(
+        operation=_meta_op("set_rtmp_aac_enabled", "POST", _AAC_TRANSFER_PATH),
+        params={"enable": int(_check_enabled(enabled))},
+        headers=_aac_headers(serial, channel),
+    )
+
+
+def _check_rtmp_aac_support(response: ApiResponse) -> ApiResponse:
+    """Require ``data.enable`` to be a JSON bool; ``False`` is a valid answer."""
+    data = response.data
+    if not isinstance(data, dict) or not isinstance(data.get("enable"), bool):
+        raise ProtocolError(
+            "rtmp aac support response must contain a boolean data.enable",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
+
+
 class Video:
     """Synchronous facade over the reviewed device video operations."""
 
@@ -421,6 +472,36 @@ class Video:
     ) -> ApiResponse:
         with _diagnostic_scope(self._client, entrypoint="video.set_switch", mode="sync"):
             plan = _set_switch_plan(device_serial, switch, enabled, self._client.region.scope)
+            return _send(self._client, plan)
+
+    def get_rtmp_aac_support(
+        self, device_serial: str, *, channel: int | None = None
+    ) -> ApiResponse:
+        """Report whether the device supports cloud RTMP AAC transcoding.
+
+        The returned flag is the platform-advertised capability, not the saved
+        switch state.
+        """
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="video.get_rtmp_aac_support",
+            mode="sync",
+        ):
+            plan = _rtmp_aac_support_plan(device_serial, channel, self._client.region.scope)
+            return _check_rtmp_aac_support(_send(self._client, plan))
+
+    def set_rtmp_aac_enabled(
+        self, device_serial: str, enabled: bool, *, channel: int | None = None
+    ) -> ApiResponse:
+        """Change the cloud RTMP G.711-to-AAC conversion switch."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="video.set_rtmp_aac_enabled",
+            mode="sync",
+        ):
+            plan = _rtmp_aac_enabled_plan(
+                device_serial, enabled, channel, self._client.region.scope
+            )
             return _send(self._client, plan)
 
 
@@ -489,4 +570,34 @@ class AsyncVideo:
     ) -> ApiResponse:
         with _diagnostic_scope(self._client, entrypoint="video.set_switch", mode="async"):
             plan = _set_switch_plan(device_serial, switch, enabled, self._client.region.scope)
+            return await _asend(self._client, plan)
+
+    async def get_rtmp_aac_support(
+        self, device_serial: str, *, channel: int | None = None
+    ) -> ApiResponse:
+        """Report whether the device supports cloud RTMP AAC transcoding.
+
+        The returned flag is the platform-advertised capability, not the saved
+        switch state.
+        """
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="video.get_rtmp_aac_support",
+            mode="async",
+        ):
+            plan = _rtmp_aac_support_plan(device_serial, channel, self._client.region.scope)
+            return _check_rtmp_aac_support(await _asend(self._client, plan))
+
+    async def set_rtmp_aac_enabled(
+        self, device_serial: str, enabled: bool, *, channel: int | None = None
+    ) -> ApiResponse:
+        """Change the cloud RTMP G.711-to-AAC conversion switch."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="video.set_rtmp_aac_enabled",
+            mode="async",
+        ):
+            plan = _rtmp_aac_enabled_plan(
+                device_serial, enabled, channel, self._client.region.scope
+            )
             return await _asend(self._client, plan)

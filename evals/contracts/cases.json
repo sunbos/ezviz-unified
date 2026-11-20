@@ -6551,6 +6551,45 @@
         "result": "fixture-result",
         "unknownField": "synthetic-unknown"
       }
+    },
+    {
+      "operation_id": "cn.video.get_rtmp_aac_support",
+      "args": [
+        "SYN-AAC-G1"
+      ],
+      "kwargs": {
+        "channel": 0
+      },
+      "fields": {
+        "deviceSerial": "SYN-AAC-G1",
+        "localIndex": "0"
+      },
+      "data": {
+        "enable": false,
+        "syntheticExtension": {
+          "sample": 7
+        }
+      }
+    },
+    {
+      "operation_id": "cn.video.set_rtmp_aac_enabled",
+      "args": [
+        "SYN-AAC-W2",
+        true
+      ],
+      "kwargs": {
+        "channel": 7
+      },
+      "fields": {
+        "deviceSerial": "SYN-AAC-W2",
+        "localIndex": "7",
+        "enable": "1"
+      },
+      "data": {
+        "syntheticExtension": {
+          "sample": 7
+        }
+      }
     }
   ]
 }
