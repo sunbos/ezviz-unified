@@ -26865,19 +26865,30 @@
       "pending_questions": [
         "配置写入的生效时点、型号与可恢复性待设备核验；校验相关错误不表示可添加验证码输入。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_alarm_sound_actions.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_alarm_sound.py",
+        "examples/alarm_sound.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "25a0cf66b259e7bd25f3365427c09236d4d108fe",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-overseas-alarm-sound/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-3728-D0-OFFLINE-001",
@@ -27031,19 +27042,30 @@
       "pending_questions": [
         "未提供声响开始、完成、持续时间或停止回执，不能承诺撤回试音。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_alarm_sound_actions.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_alarm_sound.py",
+        "examples/alarm_sound.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "25a0cf66b259e7bd25f3365427c09236d4d108fe",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-overseas-alarm-sound/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-1-OFFLINE-001",

@@ -3878,7 +3878,7 @@
         "AsyncSettings.set_alarm_sound_mode"
       ],
       "public_entry": "settings.set_alarm_sound_mode",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3891,7 +3891,7 @@
         "AsyncSettings.play_audition"
       ],
       "public_entry": "settings.play_audition",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

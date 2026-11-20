@@ -21,6 +21,10 @@
 
 本次单独执行先前未开始的账号级通道流量明细。仅第一页、每页一条；同步与异步分别使用受限的认证和业务请求，首次失败即停。未重跑账号汇总或按日明细。 仅放行了一次同步认证尝试，未发出流量业务请求，异步未执行。回执没有保存具体错误原因。 本次获准上限为 4 次 HTTP，实际放行 1 次。本项仍待通过。[脱敏回执](live/2026-11-20-domestic-account-channel-traffic/receipt.json)
 
+## 海外告警音模式与试音
+
+同步和异步的模式设置、显式试音，以及两种模式的合成示例均已通过离线验收。设置与试音各自仅发出一次 POST。模式写入不触发试音，试音的静音音色也不能用来确认播放已停止。真实设备发声、配置生效与恢复仍需分别授权和验证。[协议与来源](../coordination/overseas-alarm-sound/admission.json) · [离线回执](2026-11-21-overseas-alarm-sound/offline.json)
+
 ## 海外移动侦测联动灯
 
 查询固定发送 type=301，并完整保留返回数据。只读示例仅在返回类型为 301 时解释开关值。设置在 query 中提交两个字符串字段，成功回执可只有 body.meta。设备同步时点、实际灯效和恢复情况仍待真实验收。[来源及类型差异](../coordination/overseas-motion-linked-light/admission.json) · [离线验收](2026-11-20-overseas-motion-linked-light/offline.json)
