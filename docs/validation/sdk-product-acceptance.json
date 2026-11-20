@@ -11292,19 +11292,30 @@
       "pending_questions": [
         "1723 E56 标注 Object，但字段路径与 E52 示例表示 data、weekPlans、timePlan 为对象数组。时区、类型17/19业务含义、支持机型未确定。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_working_mode_plans.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_domestic_working_mode_plans.py",
+        "examples/domestic_working_mode_plans.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-working-mode-plans/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1724-D0-OFFLINE-001",
@@ -36414,19 +36425,30 @@
       "pending_questions": [
         "原文未说明合并/替换规则、时区、回读/恢复方法及其他机型支持；E72 的令牌头行语法不完整，采用 E12。eventArg 只描述执行后停用标志。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_working_mode_plans.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_domestic_working_mode_plans.py",
+        "examples/domestic_working_mode_plans.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "73fff8da2fe88c9df5ae337e9bb3eaee78842eee",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-working-mode-plans/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CN-1720-HUASHU-4G-WORKING-PLAN-LIVE-001",

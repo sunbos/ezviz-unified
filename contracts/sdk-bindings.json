@@ -4047,7 +4047,7 @@
         "AsyncSettings.get_working_mode_plans"
       ],
       "public_entry": "settings.get_working_mode_plans",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -4060,7 +4060,7 @@
         "AsyncSettings.set_huashu_4g_working_mode_plan"
       ],
       "public_entry": "settings.set_huashu_4g_working_mode_plan",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
