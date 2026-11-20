@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "3301971c775ef34703c5ea2409919178761bb424",
+  "scope_revision": "2026-11-21-r51-overseas-flv-preview",
+  "cohort_id": "OVERSEAS-FLV-PREVIEW-001",
+  "capability_id": "integration:media.overseas_flv_preview",
+  "parent_case": "ACC-MEDIA-OFFICIAL-INTEGRATION-001",
+  "case_ids": [
+    "ACC-MEDIA-FLV-H264-OS-LOCAL-001",
+    "ACC-MEDIA-FLV-H264-OS-PLATFORM-001"
+  ],
+  "source": {
+    "doc_id": "534",
+    "region": "overseas",
+    "url": "https://open.ys7.com/help/en/534",
+    "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/534.source.json",
+    "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/534.structure.json",
+    "content_sha256": "94f2eedda4e0e15f2f20d1d255a3e45699ebc51341851f07259d4b14ff6302dd",
+    "parameters": "E36",
+    "reviewed_operation": "global.playback.create"
+  },
+  "official_component": {
+    "name": "ezuikit-flv",
+    "version": "2.1.2-beta.2",
+    "archive": "data/official-components/2026-11-17/npm-flv-final-bounded/4f5d247f1a1c0dbeec439c4fcde1bba5067f5a55d16d9f7368a0b9ca570601fc.tgz",
+    "archive_sha256": "4f5d247f1a1c0dbeec439c4fcde1bba5067f5a55d16d9f7368a0b9ca570601fc",
+    "bytes": 1192055,
+    "members": {
+      "package/index.js": {
+        "served_as": "/vendor/index.js",
+        "sha256": "5efdb94d01cff42f628693437e46d65110196eb87ee588bf8a569822d1d8489b",
+        "bytes": 2010000
+      },
+      "package/style.css": {
+        "served_as": "/vendor/style.css",
+        "sha256": "352a3e34535fde4dfb5a198fa7207132dc919e0ab644229d7d2be57a6ec1673a",
+        "bytes": 76410
+      },
+      "package/decoder.js": {
+        "served_as": "/vendor/decoder.js",
+        "sha256": "f4c6c4046fa6266f12079ddd235c0689816cd6e6e21bfb51f8a8d7ba849bbc87",
+        "bytes": 77742
+      },
+      "package/decoder.wasm": {
+        "served_as": "/vendor/decoder.wasm",
+        "sha256": "c91f446fa528a8bb3119f891de27286f88b318811722a77f962fa14404905724",
+        "bytes": 1011230
+      }
+    },
+    "public_global": "EzuikitFlv",
+    "expected_umd_version": "2.1.2",
+    "input_inventory": "docs/capabilities/official-component-artifacts-2026-11-17.json"
+  },
+  "sdk": {
+    "arguments": {
+      "channel": 1,
+      "protocol": 4,
+      "kind": 1
+    },
+    "auth_calls": 1,
+    "business_calls": 1,
+    "real_platform_calls": 0,
+    "scope": "以真实同步 Client 走海外应用认证及区域表单，使用两个 httpx.MockTransport 回应，检查正确 origin、路径、字段、成功码和 data.url。"
+  },
+  "entrypoints": {
+    "server": "python -m examples.flv_preview --archive PATH [--port 0]",
+    "verifier": "node tools/media/verify_flv.cjs --base http://127.0.0.1:PORT [--chrome PATH]",
+    "page_controls": [
+      "#player",
+      "#play-preview",
+      "#stop-preview",
+      "#status"
+    ],
+    "routes": [
+      "/",
+      "/preview.js",
+      "/preview.json",
+      "/media/preview.flv",
+      "/vendor/index.js",
+      "/vendor/style.css",
+      "/vendor/decoder.js",
+      "/vendor/decoder.wasm"
+    ]
+  },
+  "decisions": [
+    "下载或分发组件不属于本批动作。使用方提供固定归档，先核对大小及 SHA-256，再仅读取固定普通文件。SDK 包不嵌入厂商代码、测试视频、浏览器、FFmpeg 或 Node 依赖。组件元数据与 UMD 的静态版本标识分别核验。",
+    "演示在 127.0.0.1 绑定临时端口，只接受确切 Host 及已登记的同源路径；使用适当的 MIME、Referrer-Policy、CSP。前端只接受本 origin 的预置 FLV 地址，拒绝其他来源及查询参数，服务不读取真实账户、设备或外来媒体。仅显式点击播放或停止，处理页面退出。官方 JS 不作补丁，ignoreMonitor 等公开配置限制外发。",
+    "FFmpeg 在临时范围生成有限 H.264/FLV，320×180、12 fps、至少 9 秒、yuv420p、无音轨，画面按红、绿、蓝循环。浏览器验收独立检查媒体文件头和真实厂商脚本字节。播放器采用官方 H.264 MSE 路径。服务、临时资源及播放器实例应可退出、释放。",
+    "在同一真实 video 的 requestVideoFrameCallback 中观察至少 3 帧、320×180、mediaTime 至少推进 0.5 秒，采样实际解码像素取得红绿蓝三个连续主色（允许循环起点不同）。显式停止时验证真实 pause/destroy 及媒体资源解除；页面离开/重新加载也须验证销毁。不以构造成功、ready 事件、HTTP 成功或媒体头部代替解码。",
+    "以 Chromium 的独立浏览器上下文核对页面请求，同源允许清单、禁用 service worker、拒绝外部请求/WebSocket/重定向。打印固定状态、摘要与数值，避免原始 URL、日志、错误或像素出现在回执。此核验针对受测页面的媒体行为。"
+  ],
+  "limits": [
+    "仅验证官方 Web 播放器、本机浏览器及合成 H.264 FLV。未签发真实媒体地址、观看设备、验证海外集群的实时流、网络质量、其他编解码器、RTC 或原生端。",
+    "真实海外签发/播放涉及访问凭据、设备隐私和可能的流量。在目标、时间、允许的通道/协议及结束和处置安排另行确认前，保留为待授权。"
+  ]
+}

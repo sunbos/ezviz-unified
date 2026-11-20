@@ -218,6 +218,10 @@ python -m examples.ddns --mode sync --query get
 
 `client.vod`另提供四个仅国内的转封装与查询入口，同步/异步共用同名方法：`create_remux_task`（官方明确非幂等的异步任务创建，不自动重放，仅返回`ApiResponse`，不变成任务句柄）、`task`与`tasks`（只读的单任务查询与任务分页列表，不自动翻页或轮询）以及`recording_urls`（按设备、通道与时段签发录像地址；其`read_only=False`是SDK为禁自动重放的选择，来源未明确无副作用，非官方写/非幂等结论）。官方声明的范围/权限边界包括：`create_remux_task`限企业用户、不支持托管/子账号且需已有对应时段云录像；`recording_urls`要求设备开通云存储且对应时段有录像、同样不支持托管/子账号；两个查询接口的来源仅明确accessToken，额外账号或套餐权限未声明，由服务端判定；SDK不把这些前提互相移植。全部参数校验、Header字符串规则与时间边界见[云点播转封装说明](docs/research/2026-11-18-vod-remux.md)；任务状态编码、地址字段名与`fileNodeId`/`taskId`各自独立，SDK不发明映射或完成判据。本批四个入口仍未做真实调用验证；各能力的验收状态见[产品能力登记](docs/capabilities/README.md)与[验收登记](docs/validation/sdk-product-acceptance.json)中对应`candidate:domestic:*`行，登记数量不代表覆盖率或产品级验收通过。
 
+## 海外 FLV 预览
+
+本地示例使用海外 SDK 的 FLV 预览参数（`protocol=4`），由官方 Web 播放器播放合成 H.264 画面。真实媒体地址签发和观看需另行授权。操作步骤详见 [FLV 本地预览指南](docs/official-flv-preview.md)。
+
 ## 官方 HLS 播放器接入
 
 源码示例串联 `Client.playback.create` 和官方 `@ezuikit/player-hls@2.0.0`。默认使用 H.264，也可用 `--codec h265` 播放自行生成的 HEVC 测试片，验证官方 WASM 解码和 WebGL 画面。示例使用合成地址，真实设备预览另需授权。运行方式及可复现的浏览器验证见[HLS 预览指南](docs/official-hls-preview.md)。

@@ -1,0 +1,511 @@
+{
+  "schema_version": 1,
+  "scope": "overseas_flv_h264_official_web_component_local",
+  "code_commit": "6c46899dd75f746c67e20db962bf5e989bfaeb02",
+  "source_test_sha256": {
+    "examples/flv_preview.py": "1a8f55a17d8238456974b1e6acd9827ea7c0a18ea405ab5b806414af8ea2c2f2",
+    "examples/flv_preview_assets/index.html": "c67ef22e9020a8134a8634854ee12d3d63386769555f5293439859f314b9d0fa",
+    "examples/flv_preview_assets/player.html": "78df8d8a10f23d2422704d24f308705ffc750b735263ab2c97e49bb50c20ea55",
+    "examples/flv_preview_assets/preview.js": "d6c1043c24a5d952c71cd2430ce0b32e26bc838ec5e644db5475da0097b71bab",
+    "tools/media/verify_flv.cjs": "f27bcc3fcbd7338967beb4e4a203e6613ab0fa96538123602fef6810d093e529",
+    "tests/test_example_flv_preview.py": "fe9d8eb06c038fa19a8bd078e57765e6b68ea67779838e95e711416ecee0fe60",
+    "docs/official-flv-preview.md": "622108e898dc4b5fdbe84865d0f26d11b1827ce77a50f8b9ff01cd6340e4d3e8",
+    "README.md": "40c1f92a17b6bb8992511b85714d23d9bb9b32419273ebf5a3a49f01eb5d4177",
+    "tools/media/package.json": "a15939e56d390a5b68ff6279821977708b1c8016a01f2d393a0fdea16b0df348",
+    ".github/workflows/ci.yml": "49a81d6915537d4fd5f965b498a89ce60be2c01770f580f75169e603e733b28b",
+    "docs/coordination/overseas-flv-preview/worker-lifecycle.json": "a46868a6237a3826f008ac1f78d6d2d1affa0027ef177796367a32c660e18fe1",
+    "docs/coordination/overseas-flv-preview/admission.json": "23a5f89a457c0a7d9c0120c3e1314de9ea445acf48d80c62a1868f50a29e5f4f",
+    "src/ezviz_unified/playback.py": "9186a3d033816ca84e6b1123a14f5751bee87a2b76215be3a9f81bd5e36d33c8",
+    "src/ezviz_unified/client.py": "3d17233deac52c9f75375bedc5b9582df3cba5de6576365b0717a6bcd2c39e04",
+    "src/ezviz_unified/transport.py": "8c8818b08f3d3ddf07c8889e1d972605b51bbd88ac7c1dcafecdb62ab8cb7d6b",
+    "src/ezviz_unified/auth.py": "e6b53a75fefa81af507c6a7ab2fd2bbfc60420092f82152e5bde631d9608c9b1",
+    "contracts/reviewed-transport-contracts.json": "8df2453aaec6303c371719af1930704eea57b05bbade663099ff38c5750d7193",
+    "contracts/sdk-bindings.json": "52aac95abb954e1d1eb0a8d21b279107bf2540dd0d90c47fd37e32e2a7cec210",
+    "tools/media/package-lock.json": "90c0c7696cb8c5f316726d7b6390b5990733eb29ab655815a4d9b3572a919957",
+    "docs/capabilities/official-component-artifacts-2026-11-17.json": "94809f665058bace862c15447d930198231623f6093e4826d203c5b0728508ed"
+  },
+  "component": {
+    "package": "ezuikit-flv",
+    "version": "2.1.2-beta.2",
+    "umd_version": "2.1.2",
+    "archive_sha256": "4f5d247f1a1c0dbeec439c4fcde1bba5067f5a55d16d9f7368a0b9ca570601fc",
+    "member_sha256": {
+      "package/index.js": "5efdb94d01cff42f628693437e46d65110196eb87ee588bf8a569822d1d8489b",
+      "package/style.css": "352a3e34535fde4dfb5a198fa7207132dc919e0ab644229d7d2be57a6ec1673a",
+      "package/decoder.js": "f4c6c4046fa6266f12079ddd235c0689816cd6e6e21bfb51f8a8d7ba849bbc87",
+      "package/decoder.wasm": "c91f446fa528a8bb3119f891de27286f88b318811722a77f962fa14404905724"
+    }
+  },
+  "browser": {
+    "browser": "Chromium 143.0.7499.4",
+    "playwright_core": "1.57.0",
+    "archive_sha256": "4f5d247f1a1c0dbeec439c4fcde1bba5067f5a55d16d9f7368a0b9ca570601fc",
+    "sdk_calls": "one overseas playback.create invocation using two injected MockTransport responses",
+    "real_platform_requests": 0,
+    "observations": {
+      "rgb": {
+        "result": "pass",
+        "verifier_exit": 0,
+        "expected_rejection": false,
+        "stage": "done",
+        "width": 320,
+        "height": 180,
+        "decoded_frames_observed": 19,
+        "media_delta_ms": 2000,
+        "dominant_colors": [
+          "red",
+          "green",
+          "blue"
+        ],
+        "media_requests": 3,
+        "external_page_requests": 0,
+        "websocket_attempts": 0,
+        "csp_violations": 0,
+        "bundle_pinned": true,
+        "flv_header_verified": true,
+        "chrome_sandbox": true,
+        "browser_cleanup": {
+          "pagesClosed": true,
+          "contextClosed": true,
+          "browserClosed": true
+        },
+        "server_sigint_clean": true,
+        "temp_dirs_removed": true,
+        "bash_receipt_sha256": "2748d1b0e0f044a1a6cc021405bac99599ad70d217f213c71b09b04f55d719fd",
+        "local_observation_sha256": "563678b3ac182128def3fb03e267e52833e159ccf7931ac33fcd718a41acd850",
+        "release": {
+          "stopRelease": {
+            "paused": 1,
+            "destroyed": 1,
+            "workerTerminateCalls": 0,
+            "videoDetached": true,
+            "sourceRevoked": true,
+            "sourceClosed": true,
+            "mediaStable": true,
+            "parentOpen": true,
+            "workersStarted": 1,
+            "workersClosed": 1
+          },
+          "pagehideRelease": {
+            "paused": 2,
+            "destroyed": 2,
+            "workerTerminateCalls": 0,
+            "videoDetached": true,
+            "sourceRevoked": true,
+            "mediaStable": true,
+            "workersStarted": 1,
+            "workersClosed": 1
+          },
+          "eofRelease": {
+            "ended": 1,
+            "paused": 1,
+            "destroyed": 1,
+            "workerTerminateCalls": 0,
+            "videoDetached": true,
+            "sourceRevoked": true,
+            "sourceClosed": true,
+            "mediaStable": true,
+            "workersStarted": 1,
+            "workersClosed": 1
+          }
+        }
+      },
+      "static": {
+        "result": "fail",
+        "verifier_exit": 1,
+        "expected_rejection": true,
+        "stage": "pixels",
+        "width": 320,
+        "height": 180,
+        "decoded_frames_observed": 140,
+        "media_delta_ms": 11667,
+        "dominant_colors": [
+          "red"
+        ],
+        "media_requests": 1,
+        "external_page_requests": 0,
+        "websocket_attempts": 0,
+        "csp_violations": 0,
+        "bundle_pinned": true,
+        "flv_header_verified": true,
+        "chrome_sandbox": true,
+        "browser_cleanup": {
+          "pagesClosed": true,
+          "contextClosed": true,
+          "browserClosed": true
+        },
+        "server_sigint_clean": true,
+        "temp_dirs_removed": true,
+        "bash_receipt_sha256": "5ed293721e82d178ce6ed187dae7b2ea7ca7a9671c53f5910f8288a1c3cd0f7f",
+        "local_observation_sha256": "611287d1e0d597d7ec3630f457fde23c8f531056a6710e4380ca325fd619a906"
+      }
+    },
+    "fixture": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 320,
+          "height": 180,
+          "pix_fmt": "yuv420p",
+          "avg_frame_rate": "12/1"
+        }
+      ],
+      "format": {
+        "format_name": "flv",
+        "duration": "12.000000"
+      }
+    },
+    "fixture_colors_checked": true,
+    "server_routes_checked": 9,
+    "controller_invalid_inputs_checked": 10,
+    "controller_evidence_sha256": "8271e1db59b12f6f126f6e1eb6507ced568a9977442028b10908444ff694d061",
+    "server_evidence_sha256": "f39572a141ffd0e04d4a92346b73b4818e85a1e54317cf0b6d7d3af4538c17e4",
+    "acceptance_bundle_sha256": "98dd7014f3fbca7a1e960538d95f6058da47c3e6d528b48b21d53e510a6edddd",
+    "prior_observations": {
+      "unisolated_worker_remained_responsive": true,
+      "wait_after_top_page_stop_ms": 4800,
+      "evidence_sha256": "569e8755981c61ccd665a46a432ff020490fff6e18befc98939d75c93dce434d",
+      "chrome157_shutdown_timeout_observed": true
+    }
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_example_flv_preview.py tests/test_example_hls_preview.py",
+      "summary": "54 passed in 1.00s",
+      "local_receipt_sha256": "3998a925a1ace45628b2ee2f5af632ece3b8d065bf8d0b62cc3fa2b1231ae0d7",
+      "tool_error": false
+    },
+    {
+      "command": "npm --prefix tools/media run check:flv",
+      "summary": "FLV browser verifier and page JavaScript syntax passed",
+      "local_receipt_sha256": "b23fbbcf8e9e631f07e2a9c570af88b72df9b09e96d42642f33d46460e9a316b",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check examples/flv_preview.py tests/test_example_flv_preview.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "a0ac3c7e93e208214eff738e344afec30703b46e1c40b43587ef6d6e35ed6ec8",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check examples/flv_preview.py tests/test_example_flv_preview.py",
+      "summary": "2 files already formatted",
+      "local_receipt_sha256": "eaa7883f19d6023a7fd34ce35210944814ef17955a85f425100f1bcd5f319a72",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "11911 passed, 35 subtests passed in 75.92s (0:01:15)",
+      "local_receipt_sha256": "642a0ec85fe9dda2ee1e6b0d4109a27afdac4bcaab37b815fce306caa06bafc7",
+      "tool_error": false
+    }
+  ],
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP513-ServerFrameCode",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "examples/flv_preview.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "5d9a3fd6f0057fb0bd044f3e0ae5da3b47afe2450b80c6b5abe1972d8d75da44",
+        "dispatch_sha256": "f78c41c9bbfdfc20340b02e2806e637c0481f5352da29d89a305d46022ae1c04",
+        "execution_sha256": "35c1b07fdcdeceda1e8c731220d43d3424949a17ae77180dad77f2f921875b60",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision",
+        "spec_sha256": "b73ff338f8dc30ba8d0e18711a2f27875ffbd878ae1d1ad1196f4cca287140af"
+      },
+      {
+        "task": "SP513-ServerFrameTests",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "tests/test_example_flv_preview.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "7e971d720e0fb6d3dbaec4550caf83b75e0c90687fa144e122bd97009840ee0d",
+        "dispatch_sha256": "bd26340b4a65734a3314ca20d93b04720547cb91e189c7203fbbc170fbc59f2c",
+        "execution_sha256": "f210e527d1e99bbcfe1bd5030ed2ee1b0498d297319e9581a976033d8b1f7005",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision",
+        "spec_sha256": "79d535f1a01a7e7deabf7e7447588f2778fbe265c84c91ebc7b079d96ea3e729"
+      },
+      {
+        "task": "SP513-ServerFrameTestsR1",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "tests/test_example_flv_preview.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "250f7bb0d2a701b087e6b4c1b4ac9a49a8777f17039f86b30e58a81e35806b07",
+        "dispatch_sha256": "f6f3a280a18c640a1d6d752aebe59fcb6c5a315dc8d80f25ab9f375d43771d05",
+        "execution_sha256": "0f349ebacfccf19c4843bd3017a6a431c037c1a2fbf6ca6cb2ad958c0c59b367",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision",
+        "spec_sha256": "1f07534f24ed008b57a35a74794113e51221f120f6a438e6af50fd0c5ebcdbce"
+      },
+      {
+        "task": "SP513-ServerNarrow",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "examples/flv_preview.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "6df5a75e67267a2c958c22ea04d26363be89fb36f22a8983ba62a5ac74e935c2",
+        "dispatch_sha256": "8a0fcea73d0c4960552f3478843dab9fa51c2ca409257faa94b9feb3919ad33c",
+        "execution_sha256": "fcd1aa2e79c29af7ab6010cd127c7dd5932ab720bf2aff3ba31e32e27d9a2df5",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision",
+        "spec_sha256": "57d358de4446f8be97bb338e50b9c916a1a33358ed167f27e91b01d462c799ad"
+      },
+      {
+        "task": "SP513-ServerOrigin",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "examples/flv_preview.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "b81101174a7fa6db126440643ac7002cb329bf2d17cb6b29020818a65138bdeb",
+        "dispatch_sha256": "e5601ce8e71cf8e51e2a3f98d0d0765d1e5648c154452643c2069ae075396d20",
+        "execution_sha256": "7c0556732b3caff71da5e651d3b85985b150509742a858009f04c2d5655af971",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision",
+        "spec_sha256": "dd525a1d88edb4d92810172022301942e5b11f8b712ff601c13f34362899abd3"
+      },
+      {
+        "task": "SP513-ServerTests",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "tests/test_example_flv_preview.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "cd323dfb14c60e4286adbe050e056f6ff2150269d0610f4e0d0ed8a693b8573c",
+        "dispatch_sha256": "4b92acab49bd5ce0186fbd353fc2c4a2f6dfcf7efcd347bf94ec1388aee5f0b1",
+        "execution_sha256": "ecc9930212d70dfa5eb8864c418522ed49bf7687a31453dced290ca981320126",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision",
+        "spec_sha256": "18c8f709332e1610eb3fa71a847a65b587cf941bf4820c7b8818b642e5aa830e"
+      },
+      {
+        "task": "SP513-PlayerFrameCancel",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "examples/flv_preview_assets/preview.js"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "ef58425ddcc6572d746a4271fcc64d8d59e26f27ca3b4fdc4b72ac9f6bec2400",
+        "dispatch_sha256": "718d3705bc34624bc599ac7c2251729637f18dd1f994e762da2ca81456af57cd",
+        "execution_sha256": "d0ba8bdd51b70382cb201ea53432e02087971554b8799a2d277357d7215733b1",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision"
+      },
+      {
+        "task": "SP513-PlayerFrameChild",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "examples/flv_preview_assets/player.html"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "39c036169559595b07694ecbcc1015a49aaa6c2bf09850a4dad045514f049cf3",
+        "dispatch_sha256": "1b6e3aad7fdc24e9cf4ff38af276db21292c8f364372509eff25452f060e433c",
+        "execution_sha256": "8892a6c1ba109b2a6b64922d6d55e9a033bf3c442d9698e347cab194c374d349",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision"
+      },
+      {
+        "task": "SP513-PlayerFrameJS",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "examples/flv_preview_assets/preview.js"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "3ea862dcc2e7826372bd5b73f6a02a8aa20aced94efdcc005ad2fde625b9f6fa",
+        "dispatch_sha256": "8d791a08c08ce487a5ccab8d11aad146d26dddde44b76169058069bc0ae3e215",
+        "execution_sha256": "d8736af7add452dec772ba53b8a108fea71027a99ada869fc1300d7ea71ced75",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision"
+      },
+      {
+        "task": "SP513-PlayerFrameParent",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "examples/flv_preview_assets/index.html"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "f70fad5f3b2d9135ac45b717cea44d09f0f95b341ec8d8dd014cc234c398a29e",
+        "dispatch_sha256": "28b36f80cd4ddcaba6dd7923cef182ffe94aa110cf1182076d27305b746a58c0",
+        "execution_sha256": "8b709260eff7f95b781a0e65cf53aabb4ebfa9ac1ac2326ff9e27f8ea5b927c4",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision"
+      },
+      {
+        "task": "SP513-PlayerHtml",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "examples/flv_preview_assets/index.html"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "ecbd62744fadc7e947af5c812240809729f4522fd736ba97c6c41b3983db4d25",
+        "dispatch_sha256": "0225429e8cab5bf08c0a9201fce241710fbe7fe3a8787067f0eb2ae42bdfcd3c",
+        "execution_sha256": "c311a6b442a9f4a8bb7f2774148a21a4adff45aecde63fca564343c441a79036",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision"
+      },
+      {
+        "task": "SP513-PlayerJS",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "examples/flv_preview_assets/preview.js"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "37c9f7171f0fbda6e8be20bd0e4626677d8d99fe5539692a090eb61000a7b5a3",
+        "dispatch_sha256": "5ae6ad887413c7d4c6eebc38b997b3f5ef4c698cd79972713b9253e10ee04643",
+        "execution_sha256": "96d6644cf92f33345bb2317b3554a0caa13b1a1d027a0496690312132b58c122",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision"
+      },
+      {
+        "task": "SP513-PlayerJSR1",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "examples/flv_preview_assets/preview.js"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "102c0cde9f2628ee51e6f5aab5e3436e363a56c65771abadb7227db58018873f",
+        "dispatch_sha256": "0f32d9949e49cc383ad68e865b1d9c54fad0d58f01be3d8d00b190516513486f",
+        "execution_sha256": "4e1c5d017a12bc6cdbe6cec4d45bb823f4f5803e74eb7bef8ab380bddefcd077",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision"
+      },
+      {
+        "task": "SP513-PlayerJSR4",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "examples/flv_preview_assets/preview.js"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "f3f32338ef99f3ddd2679c1c7729aa6f1ccade35096fd12827b83f11d633118c",
+        "dispatch_sha256": "8effcafa59a15a2aaafa8e5d06449402257877845a8a7c44a661ebd2bd63b07b",
+        "execution_sha256": "74b5fb6bb3658a0adc4da976f92e6c8162edae78eaa7626b93d520248c80cad0",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision"
+      },
+      {
+        "task": "SP513-VerifyDiagnostics",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "tools/media/verify_flv.cjs"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "0bda1cc61b90bbdffb07500fc1cac93ce7a731403236c7231ad416da71a436e8",
+        "dispatch_sha256": "df96ec9afb45ef40173fca84815a658de78c8767afaf6dced188c653de47ba59",
+        "execution_sha256": "41b5e0560071ba8c58c98f05d8b34a98ce89d8647555327543593604b5237c30",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision",
+        "spec_sha256": "932ac1fa7ee89f547bb55ffc770c80d261ad990e1c6e3e65e8067f3cc5a8eede"
+      },
+      {
+        "task": "SP513-VerifyProbes",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "tools/media/verify_flv.cjs"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "cdcb5437f87be498751eb639d29eeb61b9a2e22411844f361e5089aa310ae4f0",
+        "dispatch_sha256": "86e06226b8c4945ee9c4cd43e28e8d3e067e6277eb11a45f3890c2e13e7cc6b8",
+        "execution_sha256": "f35c0db6fa6b60881397b4cb3f8520096445bf593fa8521f9ff3c2823ed99d6f",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision",
+        "spec_sha256": "2eddcae2fdae6fd19b5dc8ead6978d65a39a47efc2b29e8877396084f1d04748"
+      },
+      {
+        "task": "SP513-VerifyRun",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "tools/media/verify_flv.cjs"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "33adfe343cf9c03cf8d28a37a8b18426efd54f81bd4c9be4bb9afde0772ea05b",
+        "dispatch_sha256": "bb7cc644461bfa072221fc422ddfd8202373d017819e30c31fb39ed6c51fb2b5",
+        "execution_sha256": "b3e68e3a09a4dfffe2f3560f02f0b2676d29a5803aa296d1333f6db2c41bf016",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision",
+        "spec_sha256": "431ce931d067d136cf364668b342363b3ab4eefc5770383d7c13bd83833ea68e"
+      },
+      {
+        "task": "SP513-VerifyWorkerCode",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "tools/media/verify_flv.cjs"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "d4fb2f252e0da25239492cc02f8caa27914ef8f93f891f6fc0878b7662447671",
+        "dispatch_sha256": "8fef8eb6b3440b92be3ecfe79b7624e0cc316475cef73d8f255f1940a11befc8",
+        "execution_sha256": "c9cb8c311075c0c909f2440f811f49eaa4ba7c462c8408e3e54b4554693a89a1",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision",
+        "spec_sha256": "5eb7a1012670ab9ba21a7a903b908ff682bbf45e9e78f45dfb850820a7c03fb2"
+      },
+      {
+        "task": "SP514-DocsGuide",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "docs/official-flv-preview.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "c62fe4cca62358fb5696e4d4fa280aedd36984de3f8d628e53f344bc1d57731b",
+        "dispatch_sha256": "eee7170f4a207ea8381eb6bbc55332766d75f571c67700684209c79e92c23881",
+        "execution_sha256": "bc3ee6cc3ed2112e19fb1dba7aff5ea8460e0cdc154f9b715c9f7d160b89bfdc",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision",
+        "spec_sha256": "eb0969981a2ab13855b585b96b7d20786f907c26d3e2d42940716c60b94f7123"
+      },
+      {
+        "task": "SP514-DocsReadme",
+        "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+        "write_scope": [
+          "README.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "commands": [],
+        "candidate_sha256": "304ae813cc2672587a996a20865f9f9805a0d7660f85f62b34534238cebae681",
+        "dispatch_sha256": "a784af34656f18326a8115b192894e1a387cacb98039aa10eccd36ba1843f513",
+        "execution_sha256": "4a1b0322dea3ac34b6ce4a45fee1a78202be5698fa835ec47ee62d318e5ca02c",
+        "disposition": "reviewed_source_in_integration_or_subsequent_revision",
+        "spec_sha256": "6b00ac3d51c55d79887f3750fd01792a84d3db1992835067f2d3285da017b9a7"
+      }
+    ],
+    "unaccepted": {
+      "SP513-ServerCode": {
+        "execution_sha256": "c7e17220d4a0f000cdbe5b2525150df686d3987497276c1e9351e9b92b19d897",
+        "disposition": "not_accepted_as_standalone_delivery"
+      },
+      "SP513-PlayerJSR2": {
+        "execution_sha256": "9c0338282955fb675128d3468c5e298e7d6379b85f4bb1db3193b8b44e276c7a",
+        "disposition": "not_accepted_as_standalone_delivery"
+      },
+      "SP513-PlayerJSR3": {
+        "execution_sha256": "8ee36b300a475b68cd7a8b667c23f5877f3668723b4c5faf77b2c9ed03acf93b",
+        "disposition": "not_accepted_as_standalone_delivery"
+      },
+      "SP513-VerifyFrameRun": {
+        "execution_sha256": "56f1fbd1b4206bdd8f2b8e4dc815427be0647213b251730aeca8ab1e01d5892d",
+        "disposition": "not_accepted_as_standalone_delivery"
+      }
+    },
+    "server_lineage_sha256": "f36d0d7ce885d58b48105b1cba7c361d361920fecb964861bf07f1d83f837e09",
+    "verifier_lineage_sha256": "98dd7014f3fbca7a1e960538d95f6058da47c3e6d528b48b21d53e510a6edddd"
+  },
+  "related_regression": {
+    "input_commit": "3301971c775ef34703c5ea2409919178761bb424",
+    "regression_scope": "The SDK source, reviewed HTTP contracts, wire evaluation harness, optional runtime dependencies and existing HLS implementation are unchanged. Exact-head CI reruns its normal gates.",
+    "transport_contract_delta": 0
+  },
+  "real_platform_executed": false,
+  "limits": "仅覆盖本机配套 Chromium 的 H.264 MSE、合成 FLV 和模拟海外签发。真实海外地址、用户观看授权、设备播放、其他浏览器、原生或 RTC 尚需独立证据。系统 Chrome 157 的验收器曾在关闭浏览器时超时。"
+}

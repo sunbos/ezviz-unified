@@ -39,6 +39,10 @@ jobs:
         if: matrix.python == '3.12'
         working-directory: tools/media
         run: npm run check
+      - name: Check optional FLV example JavaScript syntax
+        if: matrix.python == '3.12'
+        working-directory: tools/media
+        run: npm run check:flv
       - name: Build distribution
         run: python -m build
       - name: Check distribution contents and metadata
