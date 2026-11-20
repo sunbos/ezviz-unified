@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "9a030500fdd5f1cad6fed006daaa3bc29333626d",
+  "scope_revision": "2026-11-21-r52-regional-motion-area",
+  "cohort_id": "REGIONAL-MOTION-AREA-001",
+  "operations": [
+    {
+      "operation_id": "cn.settings.get_motion_area",
+      "capability_id": "candidate:domestic:1731:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1731-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1731-D0-LIVE-001"
+      ],
+      "entry": "settings.get_motion_area",
+      "name": "get_motion_area",
+      "doc_id": "1731",
+      "region": "domestic",
+      "method": "GET",
+      "path": "/api/v3/device/motion/detect/get",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/1731",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1731.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1731.structure.json",
+      "html_sha256": "004783ab798aece8924adc8da47d95cd3a49c66e932b066397830d110544f9be",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 42,
+        "example": 46,
+        "fields": 50,
+        "errors": 93
+      },
+      "signatures": {
+        "Settings": "def get_motion_area(self, device_serial: str, *, channel_no: str) -> ApiResponse",
+        "AsyncSettings": "async def get_motion_area(self, device_serial: str, *, channel_no: str) -> ApiResponse"
+      },
+      "permission": "国内开发者应用令牌；资料未独立列明托管/子账号和具体权限。",
+      "unknown": "整数数组及 rows/columns 不构成通用网格编码或写入原值；不承诺形状乘积、位宽、方向。"
+    },
+    {
+      "operation_id": "cn.settings.set_motion_area",
+      "capability_id": "candidate:domestic:1732:reviewed",
+      "case_ids": [
+        "ACC-CN-1732-MOTION-AREA-SET-OFFLINE-001",
+        "ACC-CN-1732-MOTION-AREA-SET-LIVE-001"
+      ],
+      "entry": "settings.set_motion_area",
+      "name": "set_motion_area",
+      "doc_id": "1732",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/v3/device/motion/detect/set",
+      "read_only": false,
+      "source_url": "https://open.ys7.com/help/1732",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1732.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1732.structure.json",
+      "html_sha256": "0d40c9a7aff69c347b1dcf333921691d40de598889983cf13436c2e07e1ae4ab",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E12"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E12"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E12"
+        },
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "required": true,
+          "constant": "application/x-www-form-urlencoded",
+          "location": "header",
+          "evidence": "E12"
+        },
+        {
+          "name": "area",
+          "type": "String",
+          "required": true,
+          "location": "body",
+          "evidence": "E42;E60"
+        }
+      ],
+      "elements": {
+        "route": 6,
+        "method": 9,
+        "headers": 12,
+        "body": 42,
+        "request": 60,
+        "example": 64,
+        "fields": 68
+      },
+      "signatures": {
+        "Settings": "def set_motion_area(self, device_serial: str, *, channel_no: str, area: str) -> ApiResponse",
+        "AsyncSettings": "async def set_motion_area(self, device_serial: str, *, channel_no: str, area: str) -> ApiResponse"
+      },
+      "permission": "国内开发者应用令牌；资料未独立列明托管/子账号和具体权限。",
+      "unknown": "此条曾只有未解析的 curl 观察。原文路由/方法/表格与表单样例证实为国内设置。curl 令牌行格式不完整，响应示意含尾逗号。输入字符串不从数组推导。"
+    },
+    {
+      "operation_id": "global.settings.set_motion_area",
+      "capability_id": "candidate:overseas:3729:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-3729-D0-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-3729-D0-LIVE-001"
+      ],
+      "entry": "settings.set_motion_area",
+      "name": "set_motion_area",
+      "doc_id": "3729",
+      "region": "overseas",
+      "method": "POST",
+      "path": "/api/v3/device/motion/detect/set",
+      "read_only": false,
+      "source_url": "https://open.ys7.com/help/en/3729",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3729.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/3729.structure.json",
+      "html_sha256": "dd9efadcceec76eecbaae3f01ab56f72d3c6107d79bd1c06f0f41283a7878535",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E8"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E8"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "required": true,
+          "location": "header",
+          "evidence": "E8"
+        },
+        {
+          "name": "area",
+          "type": "string",
+          "required": true,
+          "location": "query",
+          "evidence": "E36"
+        }
+      ],
+      "elements": {
+        "permission": 2,
+        "route": 5,
+        "headers": 8,
+        "query": 36,
+        "example": 87,
+        "fields": 53,
+        "errors": 90
+      },
+      "signatures": {
+        "Settings": "def set_motion_area(self, device_serial: str, *, channel_no: str, area: str) -> ApiResponse",
+        "AsyncSettings": "async def set_motion_area(self, device_serial: str, *, channel_no: str, area: str) -> ApiResponse"
+      },
+      "permission": "托管和子账号支持，要求 Config 权限。",
+      "unknown": "海外用 query 传 area；区域部署、端侧解释和恢复效果待核。不可使用国内表单或把国内位图示意泛化。"
+    }
+  ],
+  "unresolved": {
+    "capability_id": "candidate:overseas:3728:d0",
+    "case_id": "ACC-CANDIDATE-OVERSEAS-3728-D0-OFFLINE-001",
+    "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3728.source.json",
+    "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/3728.structure.json",
+    "html_sha256": "fdc18ec8ee9d85d33473f21603b4fda8c0308d9bb10dbf888e2ec3c2ef5d1ecd",
+    "regional_source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/473.source.json",
+    "regional_source_sha256": "9593c796fe05d711b44477ffbe13d0689f164cac329e9b3ef0165b054ce4fe14",
+    "decision": "3728 E5 指定国内主机，但 473 E57/R4 要求海外凭据只用于所属区域。未找到该 GET 在海外业务 origin 部署的独立证据。不得向国内发送海外令牌或自动试探多个 origin。",
+    "fixed_error": "overseas motion area read origin is unresolved"
+  },
+  "public_document_recheck": {
+    "checked_at_utc": "2026-11-20T18:27:10.492304+00:00",
+    "public_docs_only": true,
+    "credentials_used": false,
+    "device_api_requests": 0,
+    "documents": {
+      "3728": {
+        "http_status": 200,
+        "document_confirmed": true,
+        "html_sha256": "fdc18ec8ee9d85d33473f21603b4fda8c0308d9bb10dbf888e2ec3c2ef5d1ecd",
+        "literal_domestic_get": true,
+        "area_domain_set": false
+      },
+      "3729": {
+        "http_status": 200,
+        "document_confirmed": true,
+        "html_sha256": "dd9efadcceec76eecbaae3f01ab56f72d3c6107d79bd1c06f0f41283a7878535",
+        "literal_domestic_get": false,
+        "area_domain_set": true
+      }
+    }
+  },
+  "sdk_choices": [
+    "国内 GET 和两地 SET 在 Settings 与 AsyncSettings 上提供相同方法名，按已确认的地区选择各自独立的契约。海外 GET 在认证、参数处理和传输之前抛出固定 ValueError（overseas motion area read origin is unresolved），仅保留本地 call 诊断。该拒绝不计为实现或验收海外 GET。",
+    "deviceSerial 和 channelNo 均为必填字符串请求头，复用现有可打印 ASCII、无首尾空格的 header 校验。只选择显式设备与通道，不扩大读写范围。area 作为不透明非空白 UTF-8 字符串传递，拒绝控制字符与非法编码，不转整数数组、不改写空格与顺序、不假定通用掩码编码。",
+    "国内 POST 仅在 application/x-www-form-urlencoded 正文发送 area；海外 POST 仅在 query 发送 area 且无业务正文。SET 一次发送，不预读、不重试、不回读，不自动恢复。国内 GET 没有 query/正文，允许沿用现有 10002 单次刷新，响应 data 必须是对象且 area 为真正整数数组；可选 rows、columns、channelNo 是非 bool 整数，deviceSerial 若有为字符串。不推断数组长度或实际覆盖效果，不丢弃响应扩展字段。",
+    "国内成功为根层字符串 code=\"200\"，海外 SET 为 body.meta.code 整数 200。SET 接受无 data 的业务成功和扩展 data。全部返回原 ApiResponse，显式访问的 data/raw 是敏感信息。复用既有严格请求/响应展示策略（历史开关 redact_device_add_details）隐藏受管 HTTPX INFO 查询和原因短语、上游非空自由文本及未知字符串码。分类按原始码，诊断仅收白名单。不改变无关客户端、其他策略或全球 HTTPX 行为。",
+    "示例 python -m examples.motion_area --mode sync 或 --mode async，认证和业务均走 MockTransport，分别演示国内读取、国内写入和海外写入，只输出 mode、domestic_read、domestic_write、overseas_write。没有设备访问、实际区域设置或平台调试。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/settings.py",
+    "src/ezviz_unified/vod.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批不访问真实设备。读取或设置侦测区域与之前设备检查的授权分别核定。"
+}
