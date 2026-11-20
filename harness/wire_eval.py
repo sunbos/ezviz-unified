@@ -85,6 +85,7 @@ _REDACTED_MESSAGE_OPERATION_IDS = frozenset(
         "cn.settings.set_motion_sensitivity",
         "cn.settings.get_detection_sensitivity",
         "cn.settings.set_detection_sensitivity",
+        "cn.video.get_video_codec",
     }
 )
 _MESSAGE_FAULT = "contract-eval-fault"

@@ -21889,6 +21889,81 @@
       },
       "source_content_sha256": "4175c99bd93cd696e3f0a3cc0804d93fd10ad40ddb3162c3edf4bec929dd8d52",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.video.get_video_codec",
+      "region": "domestic",
+      "source_doc_id": "1595",
+      "source_url": "https://open.ys7.com/help/1595",
+      "method": "GET",
+      "path": "/api/v3/das/device/video/encode",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "Int",
+          "location": "header",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "streamType",
+          "type": "Int",
+          "location": "query",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E53;E57;E82"
+      },
+      "constraints": [
+        {
+          "fact": "托管设备需要 CONFIG 权限。",
+          "evidence": "E3"
+        },
+        {
+          "fact": "请求头 accessToken、deviceSerial 必填，channelNo 是可选整数，文档默认值为 1。必填 query 整数 streamType 的 1 和 2 分别代表主码流与子码流。",
+          "evidence": "E7;E11;E14;E49"
+        },
+        {
+          "fact": "根层 meta.code 是整数。data.videoCode 为整数，0 至 7 依次表示私有 H264、标准 H264、标准 MPEG4、标准 MPEG2、MJPEG、标准 H265、SMART264 和 SMART265。SDK 保留未知整数和扩展字段。",
+          "evidence": "E53;E57;E82"
+        }
+      ],
+      "uncertainties": [
+        "页面列出 0–7 八种编码，对新增代码及具体设备的实际码流不作保证。1595 与配置切换、录像编码和媒体解码独立。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/das/device/video/encode",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E49"
+      },
+      "source_content_sha256": "4365f6138b8026792174362977074616208e90a8c527a2afdc38815186ecf97c",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -22070,6 +22145,10 @@
     {
       "review": "docs/coordination/domestic-detection-sensitivity/admission.json",
       "note": "国内 714、715 的移动侦测档位与 1733、1734 的通道 PIR/人形灵敏度分别登记。714 字段类型分歧和 1734 设备能力前提见冻结审查。"
+    },
+    {
+      "review": "docs/coordination/domestic-video-codec-read/admission.json",
+      "note": "独立登记国内 1595 设备视频编码配置查询。国内 1594 E4/E5 将写接口迁移至已登记的 2377，保留该文档关系。"
     }
   ]
 }

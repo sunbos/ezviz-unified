@@ -582,6 +582,17 @@ python -m examples.talk_speaker_volume --mode sync
 
 `client.video`提供清晰度、预览编码、音视频codec、视频类开关的设置，以及本地录像编码和开关查询，仅国内。预览参数使用`PreviewEncoding`，分辨率/帧率是官方枚举代码；本地录像查询不视为预览设置的逆操作。`VideoSwitch`包含隐私遮蔽、休眠、人脸开锁、特写追踪和LOGO；设置不自动重放。JSON/form位置、权限、参数省略规则和源码缺项见[视频说明](docs/research/2026-11-14-video-configuration.md)，真实效果仍未验证。
 
+### 国内设备视频编码格式查询
+
+通过 `client.video.get_video_codec(device_serial, stream=1)`（同步）或 `await async_client.video.get_video_codec(device_serial, stream=2, channel=1)`（异步）读取设备在平台侧配置的视频编码格式，其中 `stream=1` 为主码流、`stream=2` 为子码流，省略 `channel` 时服务端按默认通道 1 处理。该接口仅限国内设备，托管（hosted）设备需具备平台侧已授予的 `CONFIG` 权限。返回 `ApiResponse`，原始整数保留在 `response.data["videoCode"]` 中，未知整数原样透传，常见取值如 1=标准 H.264、5=标准 H.265。该值为平台配置，与本地录像或媒体探测得到的实际编码可能不同。写操作说明现为文档迁移公告，指向既有的 2377 写方法。参考 [国内文档 1594](https://open.ys7.com/help/1594)、[国内文档 2377](https://open.ys7.com/help/2377)、[国内文档 1595](https://open.ys7.com/help/1595)。
+
+CLI 为单次显式读取，通过 `EZVIZ_REGION=domestic`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET`、`EZVIZ_DEVICE_SERIAL` 与可选的 `EZVIZ_CHANNEL_NO` 配置，输出仅含 `video_code` 与 `codec` 字段，未知数值映射为 `null`/`unknown`，示例可使用真实授权配置，本批次仅以离线合成样本验证。
+
+```bash
+python -m examples.video_codec --mode sync --stream 1
+python -m examples.video_codec --stream 2 --mode async
+```
+
 ### 国内 RTMP 云端音频转码
 
 同步与异步客户端都提供 `client.video.get_rtmp_aac_support(serial)` 和 `client.video.set_rtmp_aac_enabled(serial, True)`，用于将国内 RTMP 播放与取流的 G.711 音频在云端转码为 AAC。异步客户端对任一调用都加 `await`。`enabled` 须为严格布尔值，`channel` 只接受非负整数或 None 并拒绝布尔值，None 省略 `localIndex`，0 会显式发送。

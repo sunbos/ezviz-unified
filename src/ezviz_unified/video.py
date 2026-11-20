@@ -2,18 +2,25 @@
 
 Covers the reviewed domestic video operations: quality level (2286), preview
 encoding (2297), local-recording encoding query (2841), audio/video codec
-switching (2372/2377), and the video-related device switches (4376/4377).
-Header-bound operations carry accessToken, deviceSerial, and an optional
-localIndex in headers and answer with a meta.code/meta.message/data envelope
-where only integer 200 marks success. The legacy preview-encoding setter is
-the exception: it keeps the token and every field in the form and answers
-code/msg with the string "200".
+switching (2372/2377), the video-related device switches (4376/4377), and
+the doc1595 get_video_codec query.
+
+Most older operations are header-bound: accessToken, deviceSerial, and an
+optional localIndex where documented sit in headers and answer with a
+meta.code/meta.message/data envelope where only integer 200 marks success.
+get_video_codec differs: required deviceSerial and accessToken headers, an
+optional channelNo header (omitted means the server defaults to 1), required
+query streamType 1 or 2, and no media fetching; success is integer 200 at
+root meta.code.
+
+The legacy preview-encoding setter is the exception: token and every field
+stay in the form, answering code/msg with the string "200".
 """
 
 from __future__ import annotations
 
 from collections.abc import Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from enum import IntEnum
 from typing import TYPE_CHECKING, NamedTuple
 
@@ -21,6 +28,7 @@ from .diagnostic_report import _diagnostic_scope
 from .errors import ProtocolError
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
+from .vod import _header
 
 if TYPE_CHECKING:
     from .client import AsyncClient, Client
@@ -361,6 +369,45 @@ async def _asend(client: AsyncClient, plan: _Plan) -> ApiResponse:
     )
 
 
+_GET_VIDEO_CODEC = Operation(
+    name="video.get_video_codec",
+    method="GET",
+    path="/api/v3/das/device/video/encode",
+    regions=_REGIONS,
+    token_location="header",
+    read_only=True,
+    policy=replace(_META_POLICY, redact_device_add_details=True),
+)
+
+
+def _get_video_codec_plan(
+    device_serial: object,
+    stream: object,
+    channel: object | None,
+    scope: str,
+) -> _Plan:
+    _require_domestic(scope)
+    headers = {"deviceSerial": _header("device_serial", device_serial)}
+    if channel is not None:
+        headers["channelNo"] = str(_check_channel(channel))
+    return _Plan(
+        operation=_GET_VIDEO_CODEC,
+        params={"streamType": _int_in(stream, "stream", _STREAM_TYPES)},
+        headers=headers,
+    )
+
+
+def _check_video_codec_response(response: ApiResponse) -> ApiResponse:
+    data = response.data
+    if not isinstance(data, dict) or type(data.get("videoCode")) is not int:
+        raise ProtocolError(
+            "video.get_video_codec returned an unexpected response",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
+
+
 _AAC_TRANSFER_PATH = "/api/service/media/aac/transfer"
 
 
@@ -452,6 +499,14 @@ class Video:
         with _diagnostic_scope(self._client, entrypoint="video.set_audio_codec", mode="sync"):
             plan = _audio_codec_plan(device_serial, codec, channel, self._client.region.scope)
             return _send(self._client, plan)
+
+    def get_video_codec(
+        self, device_serial: str, *, stream: int, channel: int | None = None
+    ) -> ApiResponse:
+        """Return the video codec reported by a domestic device."""
+        with _diagnostic_scope(self._client, entrypoint="video.get_video_codec", mode="sync"):
+            plan = _get_video_codec_plan(device_serial, stream, channel, self._client.region.scope)
+            return _check_video_codec_response(_send(self._client, plan))
 
     def set_video_codec(
         self, device_serial: str, codec: str, *, stream: int, channel: int | None = None
@@ -550,6 +605,14 @@ class AsyncVideo:
         with _diagnostic_scope(self._client, entrypoint="video.set_audio_codec", mode="async"):
             plan = _audio_codec_plan(device_serial, codec, channel, self._client.region.scope)
             return await _asend(self._client, plan)
+
+    async def get_video_codec(
+        self, device_serial: str, *, stream: int, channel: int | None = None
+    ) -> ApiResponse:
+        """Return the video codec reported by a domestic device."""
+        with _diagnostic_scope(self._client, entrypoint="video.get_video_codec", mode="async"):
+            plan = _get_video_codec_plan(device_serial, stream, channel, self._client.region.scope)
+            return _check_video_codec_response(await _asend(self._client, plan))
 
     async def set_video_codec(
         self, device_serial: str, codec: str, *, stream: int, channel: int | None = None

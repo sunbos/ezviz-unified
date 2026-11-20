@@ -6995,6 +6995,36 @@
           "synthetic": true
         }
       }
+    },
+    {
+      "operation_id": "cn.video.get_video_codec",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "stream": 2,
+        "channel": 1
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "streamType": 2,
+        "channelNo": 1
+      },
+      "data": {
+        "videoCode": 7,
+        "ext": {
+          "synthetic": {
+            "nested": {
+              "flag": true,
+              "label": "extension"
+            }
+          }
+        }
+      }
     }
   ]
 }
