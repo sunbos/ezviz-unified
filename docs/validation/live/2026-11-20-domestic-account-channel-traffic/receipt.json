@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "case_id": "ACC-CANDIDATE-CN-1426-D0-LIVE-001",
+  "region_cluster": "domestic",
+  "scope": "traffic.day_details",
+  "code_commit": "42cb633fa3ee19dd9fe8fd8f2eee57a3207dc5c1",
+  "at_utc": "2026-11-20T15:59:08.208149+00:00",
+  "approved_http_limit": 4,
+  "admitted_http_attempts": 1,
+  "status": "not_verified",
+  "profiles": [
+    {
+      "mode": "sync",
+      "status": "failed",
+      "admitted_http_attempts": 1,
+      "data_type": null
+    }
+  ],
+  "device_api_called": false,
+  "modifications": false,
+  "business_requests_admitted": 0,
+  "async_status": "skipped"
+}

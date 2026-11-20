@@ -31628,17 +31628,22 @@
         "docs/coordination/domestic-traffic/account-read.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "blockers": [
-        "等待来自本次独立交互终端会话的受控真实回执。"
+        "未取得同步与异步均成功的只读回执。原调用预算到此停止。"
       ],
       "limitations": [
         "离线通过或返回成功不能证明统计数据准确或设备功能。"
       ],
-      "execution_note": "前一项按日明细同步查询未通过，依首次失败停止的规则，本项两个模式均未执行。",
+      "execution_note": "本次单独执行先前未开始的账号级通道流量明细。仅第一页、每页一条；同步与异步分别使用受限的认证和业务请求，首次失败即停。未重跑账号汇总或按日明细。 仅放行了一次同步认证尝试，未发出流量业务请求，异步未执行。回执没有保存具体错误原因。",
       "prior_attempt_refs": [
         "docs/validation/live/2026-11-19-domestic-account-traffic/receipt.json"
-      ]
+      ],
+      "execution_outcome": "not_verified",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-20-domestic-account-channel-traffic/receipt.json"
+      ],
+      "attempted_code_commit": "42cb633fa3ee19dd9fe8fd8f2eee57a3207dc5c1"
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1427-D0-LIVE-001",
