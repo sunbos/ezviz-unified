@@ -6620,6 +6620,70 @@
         "scope": "fixture returned scope",
         "state": "SYNTHETIC+STATE/值"
       }
+    },
+    {
+      "operation_id": "global.settings.get_timing_plan",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        }
+      },
+      "data": {
+        "weekPlans": [
+          {
+            "weekDay": "0,1,2,3,4",
+            "timePlan": [
+              {
+                "beginTime": "08:00",
+                "endTime": "18:30",
+                "eventArg": "mode:1",
+                "unknownNestedExtension": {
+                  "vendorField": "vendorValue"
+                }
+              }
+            ]
+          },
+          {
+            "weekDay": "5,6",
+            "timePlan": []
+          }
+        ],
+        "subType": 0
+      }
+    },
+    {
+      "operation_id": "global.settings.set_timing_plan",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "enabled": false,
+        "start_time": "23:48",
+        "end_time": "00:12",
+        "week": "6,0,6",
+        "mode": 0
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "enable": "0",
+        "startTime": "23:48",
+        "endTime": "00:12",
+        "week": "6,0,6",
+        "eventArg": "0"
+      },
+      "data": {
+        "syntheticUnknownExtension": "syntheticValue"
+      }
     }
   ]
 }

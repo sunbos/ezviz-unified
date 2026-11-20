@@ -20884,6 +20884,169 @@
         "evidence": "E259;E266;E269;E319"
       },
       "read_only": false
+    },
+    {
+      "operation_id": "global.settings.get_timing_plan",
+      "region": "overseas",
+      "source_doc_id": "3724",
+      "source_url": "https://open.ys7.com/help/en/3724",
+      "method": "GET",
+      "path": "/api/v3/device/timing/plan/get",
+      "base_url": "{areaDomain}",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R3"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "envelope_paths": [
+          "body"
+        ],
+        "values": [
+          200
+        ],
+        "evidence": "E31;E110;E113"
+      },
+      "constraints": [
+        {
+          "fact": "支持托管和子账号，要求 Get 权限。",
+          "evidence": "E2;E3"
+        },
+        {
+          "fact": "body.data.weekPlans 为周计划对象列表，包含周重复值和时段列表。读取保留时段中的 eventArg 原文与额外字段。",
+          "evidence": "E31;E110"
+        }
+      ],
+      "uncertainties": [
+        "字段表和非严格示例给出周计划与时段嵌套；支持型号与时区、段数和可恢复性未确认。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "{areaDomain}/api/v3/device/timing/plan/get",
+        "encoding": "none",
+        "evidence": "E0;E5;E8"
+      },
+      "source_content_sha256": "7ef3e49f33cf52a11879c12db273522c3e8c8b527163739828c6582ff033f010",
+      "read_only": true
+    },
+    {
+      "operation_id": "global.settings.set_timing_plan",
+      "region": "overseas",
+      "source_doc_id": "3725",
+      "source_url": "https://open.ys7.com/help/en/3725",
+      "method": "POST",
+      "path": "/api/v3/device/timing/plan/set",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R2"
+        },
+        {
+          "name": "deviceSerial",
+          "location": "header",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R3"
+        },
+        {
+          "name": "enable",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "evidence": "E30/R2"
+        },
+        {
+          "name": "startTime",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "evidence": "E30/R3"
+        },
+        {
+          "name": "endTime",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "evidence": "E30/R4"
+        },
+        {
+          "name": "week",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "evidence": "E30/R5"
+        },
+        {
+          "name": "eventArg",
+          "location": "body",
+          "type": "string",
+          "required": false,
+          "evidence": "E30/R6"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "envelope_paths": [
+          "body"
+        ],
+        "values": [
+          200
+        ],
+        "evidence": "E71;E105;E108"
+      },
+      "constraints": [
+        {
+          "fact": "支持托管和子账号，要求 Config 权限。",
+          "evidence": "E2;E3"
+        },
+        {
+          "fact": "enable 为字符串 1 或 0。3725 将 CS-CB3-R100-2D2WFL 的不生效注记限定在 enable 字段。",
+          "evidence": "E30/R2"
+        },
+        {
+          "fact": "开始和结束时间、星期均为必填字符串。SDK 按 HH:mm 接受时间，按 0（周日）至 6（周六）的 CSV 接受星期并保留顺序和重复。",
+          "evidence": "E30/R3–R5;海外 3724 E110"
+        },
+        {
+          "fact": "eventArg 可选。海外文档给出工作模式 0–3 及默认 0，SDK 在调用方省略时不发送该字段。成功示例仅含 body.meta。",
+          "evidence": "E30/R6;E71;E105"
+        }
+      ],
+      "uncertainties": [
+        "海外编码及合并/覆盖未明确，enable 的型号限制不外推至整项操作，时区及跨日语义未知。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/v3/device/timing/plan/set",
+        "encoding": "application/x-www-form-urlencoded（SDK 选择；海外原文仅列 body 字段，国内同路径 1720 E12/E72 佐证编码）",
+        "evidence": "E0;E5;E8;E30;国内 1720 E12/E72"
+      },
+      "source_content_sha256": "aa017fdeb22f9fde09b6c814b28d3f7ec2cb8a25e9a500c29666635b570a01f2",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -21045,6 +21208,10 @@
     {
       "review": "docs/coordination/overseas-oauth-refresh/admission.json",
       "note": "海外 469 §1.3 用户令牌刷新。请求字段冲突与响应字段类型选择见准入记录。"
+    },
+    {
+      "review": "docs/coordination/overseas-working-mode-plans/admission.json",
+      "note": "海外 3724 和 3725 分别查询和设置设备工作模式计划。3725 的表单编码参考国内同路径文档，工作模式和权限采用海外契约。"
     }
   ]
 }

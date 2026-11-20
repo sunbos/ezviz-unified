@@ -89,6 +89,21 @@ python -m examples.a1_detectors --mode async --query bindable
 python -m examples.a1_detectors --mode sync --query linked
 ```
 
+### 海外设备工作模式计划
+
+`client.settings.get_timing_plan(serial)` 查询设备工作模式计划，`client.settings.set_timing_plan(serial, enabled=True, start_time="08:00", end_time="18:00", week="0,2", mode=1)` 提交一次写入，异步版本中两者均通过 `await` 调用。两个接口均支持托管和子账号，读取要求 `Get` 权限、写入要求 `Config` 权限。SDK 向令牌指定并经地区校验的业务域 `areaDomain` 发送请求，`accessToken` 与 `deviceSerial` 放入请求头。[海外文档 3724](https://open.ys7.com/help/en/3724) [海外文档 3725](https://open.ys7.com/help/en/3725)
+
+读取成功时 `response.data["weekPlans"]` 为按星期分组的对象列表，每组可以包含多个时段，`weekDay` 与各时段的 `beginTime`、`endTime`、`eventArg` 保留原始字符串，官方例示 `eventArg` 形如 `"mode:1"`。文档未列出 `enable`，额外字段原样保留。写入的 `enabled` 仅接受布尔值并映射为 `1` 或 `0`，`mode` 可选且仅接受非布尔整数 0–3，以字符串 `eventArg` 发送，例如 `mode=1` 发送 `eventArg="1"`，省略时不发送。每次显式写入提交一个表单，`enabled=False` 时同样发送 `enable`、`startTime`、`endTime`、`week` 四个字段。`week` 原样传递逗号连接的 0–6，0 表示周日，`start_time`、`end_time` 要求严格 `HH:mm`。3725 提醒，`enable` 对型号 `CS-CB3-R100-2D2WFL` 可能无效。海外写入页未标注媒体类型，SDK 依据国内同路径文档 1720 的 E12、E72 选择 `application/x-www-form-urlencoded`。[国内文档 1720](https://open.ys7.com/help/1720)
+
+写入只执行一次，不自动重发、预读、读回或恢复，成功响应不证明设备物理生效。GET 遇到平台报告令牌失效（`10002`）且令牌提供方支持刷新时，最多刷新并重试一次。时区、跨日、重叠与替换语义、支持型号与恢复方式均未确认，不能从读取结果推导出可无损还原原计划的写入参数。真实海外网关、硬件、查询、写入与效果均未验证。
+
+本机配置 `EZVIZ_REGION=overseas`、`EZVIZ_APP_KEY`、`EZVIZ_APP_SECRET`、`EZVIZ_DEVICE_SERIAL` 后可运行以下只读示例，需要指定认证集群时可设置 `EZVIZ_AUTH_BASE_URL`。CLI 仅输出 `region`、`mode`、`status` 和 `week_plan_count`，最后一个字段是返回的分组数。
+
+```bash
+python -m examples.working_mode_plans --mode sync
+python -m examples.working_mode_plans --mode async
+```
+
 ### 海外设备告警音模式
 
 `client.settings.get_alarm_sound_mode(serial)` 和 `await async_client.settings.get_alarm_sound_mode(serial)` 读取设备上报的告警音配置。官方列明托管账号及子账号需要 `Get` 权限。SDK 先向配置的海外认证入口获取令牌，再向令牌返回的 `areaDomain` 发送 GET。令牌和设备序列号分别放在 `accessToken`、`deviceSerial` 请求头中，无需通道参数。[海外文档 3726](https://open.ys7.com/help/en/3726)

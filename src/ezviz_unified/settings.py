@@ -47,6 +47,7 @@ from dataclasses import dataclass
 from enum import StrEnum
 from typing import TYPE_CHECKING
 
+from .cruise import _check_time
 from .diagnostic_report import _diagnostic_scope
 from .errors import ProtocolError
 from .models import ApiResponse, ResponsePolicy
@@ -62,6 +63,15 @@ _OVERSEAS_REGIONS = frozenset({_OVERSEAS})
 
 _POLICY = ResponsePolicy(success_values=("200",))
 
+_BODY_META_POLICY = ResponsePolicy(
+    code_path="meta.code",
+    message_path="meta.message",
+    data_path="data",
+    success_values=(200,),
+    envelope_paths=("body",),
+    redact_message_urls=True,
+)
+
 _GET_ALARM_SOUND_MODE = Operation(
     name="settings.get_alarm_sound_mode",
     method="GET",
@@ -69,14 +79,27 @@ _GET_ALARM_SOUND_MODE = Operation(
     regions=_OVERSEAS_REGIONS,
     token_location="header",
     read_only=True,
-    policy=ResponsePolicy(
-        code_path="meta.code",
-        message_path="meta.message",
-        data_path="data",
-        success_values=(200,),
-        envelope_paths=("body",),
-        redact_message_urls=True,
-    ),
+    policy=_BODY_META_POLICY,
+)
+
+_GET_TIMING_PLAN = Operation(
+    name="settings.get_timing_plan",
+    method="GET",
+    path="/api/v3/device/timing/plan/get",
+    regions=_OVERSEAS_REGIONS,
+    token_location="header",
+    read_only=True,
+    policy=_BODY_META_POLICY,
+)
+
+_SET_TIMING_PLAN = Operation(
+    name="settings.set_timing_plan",
+    method="POST",
+    path="/api/v3/device/timing/plan/set",
+    regions=_OVERSEAS_REGIONS,
+    token_location="header",
+    read_only=False,
+    policy=_BODY_META_POLICY,
 )
 
 _FORM_CONTENT_TYPE = "application/x-www-form-urlencoded"
@@ -366,6 +389,71 @@ def _pir_area_set_request(
     return _overseas_op("set_pir_area", "/api/lapp/device/pir/set", read_only=False), data
 
 
+def _check_week(value: object) -> str:
+    if not isinstance(value, str) or not all(
+        len(day) == 1 and "0" <= day <= "6" for day in value.split(",")
+    ):
+        raise ValueError("week must be comma-separated digits 0-6")
+    return value
+
+
+def _timing_plan_form(
+    enabled: bool, start_time: str, end_time: str, week: str, mode: int | None
+) -> dict[str, str]:
+    form = {
+        "enable": "1" if _check_enabled(enabled) else "0",
+        "startTime": _check_time("start_time", start_time),
+        "endTime": _check_time("end_time", end_time),
+        "week": _check_week(week),
+    }
+    if mode is not None:
+        mode_value = int(_check_int(mode, "mode"))
+        if not 0 <= mode_value <= 3:
+            raise ValueError("mode must be an integer between 0 and 3")
+        form["eventArg"] = str(mode_value)
+    return form
+
+
+def _timing_plan_data_valid(data: dict[str, object]) -> bool:
+    if "subSerial" in data and not isinstance(data["subSerial"], str):
+        return False
+    if "subType" in data and type(data["subType"]) is not int:
+        return False
+    week_plans = data.get("weekPlans")
+    if not isinstance(week_plans, list):
+        return False
+    for group in week_plans:
+        if not isinstance(group, dict):
+            return False
+        if "weekDay" in group and not isinstance(group["weekDay"], str):
+            return False
+        if "timePlan" not in group:
+            continue
+        time_plan = group["timePlan"]
+        if not isinstance(time_plan, list):
+            return False
+        for period in time_plan:
+            if not isinstance(period, dict) or not all(
+                isinstance(period[key], str)
+                for key in ("beginTime", "endTime", "eventArg")
+                if key in period
+            ):
+                return False
+    return True
+
+
+def _timing_plan_response(response: ApiResponse) -> ApiResponse:
+    """Return the response when the timing plan payload shape is valid."""
+    data = response.data
+    if not isinstance(data, dict) or not _timing_plan_data_valid(data):
+        raise ProtocolError(
+            "unexpected settings.get_timing_plan response shape",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
+
+
 def _alarm_sound_mode_response(response: ApiResponse) -> ApiResponse:
     """Return the response when the alarm sound mode payload shape is valid."""
     data = response.data
@@ -590,6 +678,49 @@ class Settings:
                 device_serial, area, channel, self._client.region.scope
             )
             return self._client.request(op, data=data)
+
+    def get_timing_plan(self, device_serial: str) -> ApiResponse:
+        """Return the timing plan for an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_timing_plan",
+            mode="sync",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            response = self._client.request(
+                _GET_TIMING_PLAN,
+                headers={"deviceSerial": serial},
+            )
+            return _timing_plan_response(response)
+
+    def set_timing_plan(
+        self,
+        device_serial: str,
+        *,
+        enabled: bool,
+        start_time: str,
+        end_time: str,
+        week: str,
+        mode: int | None = None,
+    ) -> ApiResponse:
+        """Set the timing plan for an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_timing_plan",
+            mode="sync",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            form = _timing_plan_form(enabled, start_time, end_time, week, mode)
+            return self._client.request(
+                _SET_TIMING_PLAN,
+                headers={
+                    "deviceSerial": serial,
+                    "Content-Type": _FORM_CONTENT_TYPE,
+                },
+                data=form,
+            )
 
     def get_alarm_sound_mode(self, device_serial: str) -> ApiResponse:
         """Return the alarm sound mode for an overseas device."""
@@ -820,6 +951,49 @@ class AsyncSettings:
                 device_serial, area, channel, self._client.region.scope
             )
             return await self._client.request(op, data=data)
+
+    async def get_timing_plan(self, device_serial: str) -> ApiResponse:
+        """Return the timing plan for an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_timing_plan",
+            mode="async",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            response = await self._client.request(
+                _GET_TIMING_PLAN,
+                headers={"deviceSerial": serial},
+            )
+            return _timing_plan_response(response)
+
+    async def set_timing_plan(
+        self,
+        device_serial: str,
+        *,
+        enabled: bool,
+        start_time: str,
+        end_time: str,
+        week: str,
+        mode: int | None = None,
+    ) -> ApiResponse:
+        """Set the timing plan for an overseas device."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_timing_plan",
+            mode="async",
+        ):
+            _require_overseas(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            form = _timing_plan_form(enabled, start_time, end_time, week, mode)
+            return await self._client.request(
+                _SET_TIMING_PLAN,
+                headers={
+                    "deviceSerial": serial,
+                    "Content-Type": _FORM_CONTENT_TYPE,
+                },
+                data=form,
+            )
 
     async def get_alarm_sound_mode(self, device_serial: str) -> ApiResponse:
         """Return the alarm sound mode for an overseas device."""
