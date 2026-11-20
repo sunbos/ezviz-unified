@@ -1,0 +1,508 @@
+{
+  "schema_version": 1,
+  "focused_wire": {
+    "cells": [
+      {
+        "operation_id": "cn.illumination.get_night_vision",
+        "mode": "sync",
+        "scenario": "success",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.get_night_vision",
+        "mode": "sync",
+        "scenario": "auth_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.get_night_vision",
+        "mode": "sync",
+        "scenario": "permission_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.get_night_vision",
+        "mode": "sync",
+        "scenario": "http_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.get_night_vision",
+        "mode": "async",
+        "scenario": "success",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.get_night_vision",
+        "mode": "async",
+        "scenario": "auth_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.get_night_vision",
+        "mode": "async",
+        "scenario": "permission_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.get_night_vision",
+        "mode": "async",
+        "scenario": "http_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.set_night_vision",
+        "mode": "sync",
+        "scenario": "success",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.set_night_vision",
+        "mode": "sync",
+        "scenario": "auth_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.set_night_vision",
+        "mode": "sync",
+        "scenario": "permission_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.set_night_vision",
+        "mode": "sync",
+        "scenario": "http_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.set_night_vision",
+        "mode": "async",
+        "scenario": "success",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.set_night_vision",
+        "mode": "async",
+        "scenario": "auth_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.set_night_vision",
+        "mode": "async",
+        "scenario": "permission_fault",
+        "passed": true
+      },
+      {
+        "operation_id": "cn.illumination.set_night_vision",
+        "mode": "async",
+        "scenario": "http_fault",
+        "passed": true
+      }
+    ],
+    "case_sha256": "30412d093d6d9399214c0091a59884edc14bf8221da2f611a0c5274e0420f7b2",
+    "sdk_sha256": "36daa0167b04cd5007dd07a4b68e1766c2ff1a1f14f4f2f15da9b25e0a7b7ddb",
+    "live_requests": 0
+  },
+  "scope": "domestic_night_vision_configuration_offline",
+  "code_commit": "115a9972e4a6da5c35b89ad68585710e14f8005c",
+  "bindings_sha256_at_code_commit": "443371db6df3a1f018401bc30a9ec4c9d86b78de13d62fed5adee5a872bb5eb8",
+  "source_test_sha256": {
+    "src/ezviz_unified/illumination.py": "36daa0167b04cd5007dd07a4b68e1766c2ff1a1f14f4f2f15da9b25e0a7b7ddb",
+    "src/ezviz_unified/_diagnostic_registry.py": "20e40f301bc2f7fb5176b02aa7449dca0ddedb4b8563aac1787c415b45e76eb9",
+    "docs/diagnostics-v1-coverage.json": "a4f7e2770c4bd3017cdfc608643fef96bde7ebf29eb82c4bc28c9db322138b3c",
+    "docs/diagnostics.md": "e135a1442c18956e5ed2da0e99f512afd55acca971f16315ce1cb0076b3238b9",
+    "tests/test_harness_diagnostic_coverage.py": "8e2e7cb49e60f112345ea695e7f24c57721e287ed2c397997ae0b8568043272f",
+    "tests/test_sdk_night_vision.py": "fc9ce8d01edfca210b5e62b4645800c1423ac760a033666c0c4c77a90cb22301",
+    "tests/test_example_night_vision.py": "73266e0b4ff32e5f7d14e6c58c9ba85580e2e9ebe3e05f8380f1a097ee62e3a8",
+    "examples/night_vision.py": "c3a64db87f6b976ea10fafd1114da1d73b55a553669d106ea08873e5bdee610d",
+    "README.md": "17b236993cefe6d19cb8e1f0ff213c7fd45ffd5be146c2b1ce85571a1f02816e",
+    "contracts/reviewed-transport-contracts.json": "00d21d1f34ebadb56782ad32a841418d3ace68badc1fa517b9d2c9428dc23cf1",
+    "contracts/source-issues.json": "c5475f2272fc3b40cbb0a6848ea53e927cb4708a4c342c7b336549b2faa5e33a",
+    "evals/contracts/cases.json": "5369dbb39bf6ce1374ac6b9342b835ea2a5060a3eb85c2c1dbfb6ad26e64172d",
+    "docs/coordination/domestic-night-vision/admission.json": "8b37f9f180491dd2a5972ac46f1ffadd5970eb834205b3fc7eeeb20598f39760",
+    "contracts/coverage.json": "de22b01ae767c9e9fa6b14dd65f092d2d06e627832400966bb64686cb20d62fd"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP490-RegCases",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "evals/contracts/cases.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "91b2d58c02205b0b5a82ba2f1d6d9cf474be9e28f7224738e7c05d79edd24c42",
+        "local_receipt_sha256": "784778818877507b57aff720ac1608931f7cdd4636c605ec9c1cdaab137dd182",
+        "candidate_sha256": "0e2893a66b056237df21201a9f83e458cd7833aa067dc15a2e9afd6819943633",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "1c0b9bea4300bb37e89c2a6be3afcbaffa2a11450c9e2d4924a8b83e3cd30fe9"
+      },
+      {
+        "task": "SP490-RegDoc",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "c5c243592d5b25d69a6652e752b85f8d1614503ef5b5ab6a077dd54fdf825a1b",
+        "local_receipt_sha256": "19c526e11268c6f72ba740a5937e07578df3fb7ddc7542c8f379240444b7aa70",
+        "candidate_sha256": "dc305f709d8f5fc2d873604f842271a46c767ec3a94d483160a8205d447d1adb",
+        "disposition": "revised_before_acceptance",
+        "integration_receipt_sha256": "d42672d14ff41bd865b7b6e5f88e1f034c07acd1994ca52c7e670c053685c560",
+        "followup": "SP490-RegDocRefine"
+      },
+      {
+        "task": "SP490-RegDocRefine",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "ee0cc2ca13d46a934c2fa63ea7e793d91100b83e26efb418b32ace666ce6c6aa",
+        "local_receipt_sha256": "31d42d818b270f27503f782951624283c1238be793f0b8876642291d82955951",
+        "candidate_sha256": "bc04965b33bd015578f80cc49300742c7ef0b0b57c2a4e6cdc30230f47412241",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "45579aea49e3e60db990c5d9e3b0fe2f78c98e05a8591c5cf6fcc8b45c71d4ab"
+      },
+      {
+        "task": "SP490-RegIssues",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "contracts/source-issues.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "3754078658a06940f19e19d81e87ff8d0985fc3ad7c32913bff94193c099b04b",
+        "local_receipt_sha256": "1917df220767a231cbfb6b729ab26c12100fd48143bcde64b4ada18098494a71",
+        "candidate_sha256": "1170fb1ccdae24a3cfa65d886c925bc98bd6d3b80a0284877ce5e930521db215",
+        "disposition": "revised_before_acceptance",
+        "integration_receipt_sha256": "db7ff3a7bdfc5da0d2a871ad5968f3a9488b72ad2e36d6b9d6fde39b40a62fae",
+        "followup": "SP490-RegIssuesRefine"
+      },
+      {
+        "task": "SP490-RegIssuesRefine",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "contracts/source-issues.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "30f77af3033ab3bfac8f603532f1ae2ab1ff20794fd5890b71c6ab150c4a7cb3",
+        "local_receipt_sha256": "530f701b5bfb483d5a827c4bf26ddfbd9e7fcd755c02a7645caae0c80379a99f",
+        "candidate_sha256": "ca5eada3e3247d15ae718c45283167fad6caa01a9863b12237cbeebeb2498695",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "0cd702def13a5f2e82f5fe11b0cc04884dbac8bf28acf1a218627005b14c50d4"
+      },
+      {
+        "task": "SP490-SdkCli",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "examples/night_vision.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "c42c3a7261656aeca4dedfdc7c49e5a63919de86af2d1fcf3a29839fa10b640d",
+        "local_receipt_sha256": "7d21bdb4683d66e0ae15bbde1e7c5c71bbd70d1b99e049fc460c7f3a7bf261f2",
+        "candidate_sha256": "3de79437b320e76b607020bba47f64c995b1346a30f45475eaefc4c6da13956d",
+        "disposition": "revised_before_acceptance",
+        "integration_receipt_sha256": "2f85f64cc88c4369b9fa344b95e86c5670deacb5eb89e6d96a3463b794f3c278",
+        "followup": "SP490-SdkCliR1"
+      },
+      {
+        "task": "SP490-SdkCliR1",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "examples/night_vision.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "746ce64992cbc64cc8ae3016f477e45ce91d9577f04ee41ff896f8685fd9e112",
+        "local_receipt_sha256": "2e758e0c97e7a0913c932d4bdb4324d5f9fd202990f618b268b945bc753de1b7",
+        "candidate_sha256": "fb4173c29de58c62a2a90c592b6c2fdcbf964065bbf5268f8f231dc056bbe652",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "70b12799d352bc14097180f4daac9e6fb12ed5fdfe1939900c376a06c62f07b4"
+      },
+      {
+        "task": "SP490-SdkCore",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "src/ezviz_unified/illumination.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "1070fc5ce395e346fe46cc9f9c93705dd97500c80b2625ee9819eee03b9eb052",
+        "local_receipt_sha256": "3cd1bfe12b20e71ec76cbc885d3f5cc751261a75423b42a9cf93aeae6221cd39",
+        "candidate_sha256": "341a3ba03148f3e7cddff8d12554375b45cf27dd25ecd58bf8a8c37eb972742a",
+        "disposition": "revised_before_acceptance",
+        "integration_receipt_sha256": "a66a219a2014742e3a426a627b54251eafbe48fbc95508dfd52e260d355147df",
+        "followup": "SP490-SdkCoreR1"
+      },
+      {
+        "task": "SP490-SdkCoreR1",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "src/ezviz_unified/illumination.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "264091112c9982a4b6bb5723266b1e7fbc0ccabc2f8bfa83dfdad6d5b8368a7d",
+        "local_receipt_sha256": "5df2d3041a353be55df5eaa512779ec6025e2ab56c7d49814eb50b71351915b5",
+        "candidate_sha256": "bdfa280ea9cd8a6d4f800034bb36d463d545142f4e53308c6167679811fbd707",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "25dc0e258a43919fce7dd0bb44e5b6f27fa957e362671d2e24e4b6a18124893a"
+      },
+      {
+        "task": "SP490-SdkReadme",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "README.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "c5201a599ca936377995c02ce35b65558628f85892a7e3858d87496555a2c597",
+        "local_receipt_sha256": "9198f5543e1873caa77cb9871c1aa73c5ded1b1ffa1e4945762c137deb1bedde",
+        "candidate_sha256": "9520d04403e8add881d38f75b7a19cb5b808a3ba34f589b84e5b53c2ef6e1f01",
+        "disposition": "revised_before_acceptance",
+        "followup": "SP490-SdkReadmeR1"
+      },
+      {
+        "task": "SP490-SdkReadmeR1",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "README.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "8bc22f7aaf57a93534e7e681482a18d313979529697d5a0872bc6369a97e455e",
+        "local_receipt_sha256": "3f5194927ad099301b2a5abfda09c50e6ac78368cf03ffe5ec8e322c9174ba76",
+        "candidate_sha256": "5c154113bcea03c791fc6879eefef27393a1613e36c14594f4bce1bb0720b27a",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "f0060d06074ebf81aa4c6e248000ada609b8a91a7dc30d59d7d136eed5c95aae"
+      },
+      {
+        "task": "SP490-TestCLI",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "tests/test_example_night_vision.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "7c5e6ec433d293b0b38653d6cc29b9275c18ca35f7ff770a024e5d7f579ab23c",
+        "local_receipt_sha256": "dd46d0989a73572bf6863ea9b4a5b1b961f4a059b7f10f018a1665e1e860a5bd",
+        "candidate_sha256": "96be77bc4bd93cf936db6a72a326e5585a83afd71f80aed42667ef6f12a407c3",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "7dcd81693fe89d37ce1c1808f3356a539f8c5f93da0279d95a385a79e8fe8570"
+      },
+      {
+        "task": "SP490-TestCLIRefine",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "tests/test_example_night_vision.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "4f2cf58d8569491f87bef4c122c32ff948609bab96b1282577b72ac09a3276e2",
+        "local_receipt_sha256": "ed3c74796676088ea581d97808909fdb6359dac7d9ae9dd7177709e3d6074825",
+        "candidate_sha256": "b61fccbc07ccd95c2a79b2a5d550c3cd21c4b30c381fd6c9d3b4370c186a99e7",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "6a8bf3136b58e561ba7a687cb200d66dc03953c72ce116353ae424c8df681b6a"
+      },
+      {
+        "task": "SP490-TestSDKCancelFix",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "tests/test_sdk_night_vision.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "0a6f0df29d807de77b11d656d56f5b74c0c7b70c4a68c5a809fefad4680d717f",
+        "local_receipt_sha256": "bf7c1f57d83772a8105b18523257de540230e2580c00caf298327279640266af",
+        "candidate_sha256": "57aea12e85f1ae374cf88e28e50d53786dc229b5cf76f9ff252e9686f2e6b4b1",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "832f760faec86f98c446d7b77a40e1e6b2727eb6ced9e59e4e3d90578cebc34c"
+      },
+      {
+        "task": "SP490-TestSDKDiagnosticsFix",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "tests/test_sdk_night_vision.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "c09e3b2b1e5eb2d61084af6d9916fc1f8657a73f4c07989765eb0e586c35a792",
+        "local_receipt_sha256": "90dd9d999ad570aca14a020fdab0f17efedebf67d11cd64ad76a160fb5cd6873",
+        "candidate_sha256": "408299acf58a5bc9a8b5d295a346f2f887548de80a4a625aa064bf8dcf09baa1",
+        "disposition": "revised_before_integration"
+      },
+      {
+        "task": "SP490-TestSDKFailures",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "tests/test_sdk_night_vision.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "f4b6e85857b4f9ebfa843a7c850733b48f373cdf73027e4dbc8d756d7d9d3c83",
+        "local_receipt_sha256": "f058a0127abef7ca2c7e586c456e9093159003be254c19014410b2156d923419",
+        "candidate_sha256": "5cbb56c18f34b1983a9db95c6338cc72185b4ff02875c96efd9f600109f6f2be",
+        "disposition": "revised_before_integration"
+      },
+      {
+        "task": "SP490-TestSDKFields",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "tests/test_sdk_night_vision.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "b6ac2c49510e0db5df15dfdb7f1ef5aa23f1b184b80a06c93bc3a75f2169943e",
+        "local_receipt_sha256": "8c31661d7611c930c1e0abf35dd1237384070303a9abee872a20f57b177a68b1",
+        "candidate_sha256": "53406df02f3e964abc668a50a9a2b6d9c331b3afbb4ef462e99196191f2950f1",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "4746c157b750ab83a753a8d4b92014776792b2f4a3cace7877f2941ea637ee56"
+      },
+      {
+        "task": "SP490-TestSDKWire",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "tests/test_sdk_night_vision.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "9259e4b9ce5267167150f81310a32593a2083edfd3c0d16998718926b501c445",
+        "local_receipt_sha256": "200146a14a436e8f1ea782bb935faeee744c29748ba46ccbc3e2115accccef06",
+        "candidate_sha256": "9eda142d7bf7d6a442d81e3e79a5d9cefc61cdcc9d62e289b08585e3034f137b",
+        "disposition": "revised_before_integration"
+      },
+      {
+        "task": "SP490-TestSDKWireFix",
+        "input_commit": "cb7ad5d97fc7f7878de8836df196fb3df21dbbcd",
+        "write_scope": [
+          "tests/test_sdk_night_vision.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "28cdbd07a124408e0f42f690ef39f5b09b07b4a1f3dc69dd4917923a5d54000a",
+        "local_receipt_sha256": "8a07f6dac1a084552c9955d8f758d058b6cdd5ec5a926b38280e8d6d639b85ea",
+        "candidate_sha256": "ca7890bc43cead0032fbd973134db5f96ae2e029ab61b921960903cc1ff34807",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "13794c67adc4b41c9bfd82f13fea25647d0e8ebe3cd4a1b8dae5897de99954f1"
+      }
+    ],
+    "deterministic_integration": [
+      {
+        "task": "SP490-RegContracts",
+        "write_scope": [
+          "contracts/reviewed-transport-contracts.json"
+        ],
+        "integration_receipt_sha256": "f9731fc535290080620f66e2942b86df53c103e060a42ae7fa806ab15ec462fb"
+      },
+      {
+        "task": "SP490-RegBindings",
+        "write_scope": [
+          "contracts/sdk-bindings.json"
+        ],
+        "integration_receipt_sha256": "d01f83be2476ffca1f226ae8ca24740b0f43268ca47cbcac8c6f3890fd18c1a3"
+      },
+      {
+        "task": "SP490-RegPublic",
+        "write_scope": [
+          "docs/diagnostics-v1-coverage.json"
+        ],
+        "integration_receipt_sha256": "feaf7db0f22cbaec9c873a284f4086436eb9ef7def7f8e87543b161521e0be9a"
+      },
+      {
+        "task": "SP490-RegPrivate",
+        "write_scope": [
+          "src/ezviz_unified/_diagnostic_registry.py"
+        ],
+        "integration_receipt_sha256": "99a7bae58ed2a5c03375709d39a5b442af09897c403236c1ddb82cb679542291"
+      },
+      {
+        "task": "SP490-RegSummary",
+        "write_scope": [
+          "contracts/coverage.json"
+        ],
+        "integration_receipt_sha256": "38ef643a241e18b541ebae4fcb1944ae59cce6da9fb6b2dc6a51c5c3f49ecc2d"
+      },
+      {
+        "task": "SP490-RegTestCount",
+        "write_scope": [
+          "tests/test_harness_diagnostic_coverage.py"
+        ],
+        "integration_receipt_sha256": "69906182fd524533494dd4d3946dde24af085d6733aa291f0a43611324fa090b"
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "task": "SP490-TestSDK",
+        "disposition": "not_integrated",
+        "reason": "执行形态或候选输出不符合单文件约定，未应用。",
+        "local_receipt_sha256": "c8c013d0e9d60daa5ca5e596643882e60d6d6af36d2c8aeab771413598d28168"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_night_vision.py tests/test_example_night_vision.py tests/test_sdk_illumination.py",
+      "summary": "164 passed in 0.89s",
+      "local_receipt_sha256": "36768ef80fcc85281b4435d5f2cbb5888e985018aa042f3328e3694831344858",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q tests/test_example_night_vision.py",
+      "summary": "27 passed in 0.30s",
+      "local_receipt_sha256": "8d2dd2c730369bcf60d6c941c3dbdbb278a767eaca71368426883aadea6f1a3e",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_harness_diagnostic_coverage.py",
+      "summary": "420 passed in 1.28s",
+      "local_receipt_sha256": "e983b4c7608077c832b14188b114403a138f5d42acefd3bbd15406910abdeb2f",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "10630 passed, 35 subtests passed in 65.77s (0:01:05)",
+      "local_receipt_sha256": "f1acae5cb33536c5d26b4eb762665821e0df4f431e02cdd4c0545cc7fbc3103d",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "279 registered contracts, 2264/2264 offline wire checks passed",
+      "local_receipt_sha256": "bd1fde1a2f58c96629944b9bee981956f1d799247ef5b9fb0409f18f1b2dee6a",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "279 registered bindings, 558 sync/async symbols checked",
+      "local_receipt_sha256": "bbb5b8db84bc0f6d4fc3747ad08ec12a72cce3e3f197674bb023a8d72d15bb01",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 63 source files",
+      "local_receipt_sha256": "98f131e68181865ccda326aa9362ae85c5e8612d0587f802131fc4d4d20a3627",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/illumination.py src/ezviz_unified/_diagnostic_registry.py examples/night_vision.py tests/test_sdk_night_vision.py tests/test_example_night_vision.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "fd4fba21b1b259b8768cc4ead4791d7dc9b71b9c0907c66f99f2ea2562a552c3",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/illumination.py src/ezviz_unified/_diagnostic_registry.py examples/night_vision.py tests/test_sdk_night_vision.py tests/test_example_night_vision.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "6 files already formatted",
+      "local_receipt_sha256": "3ac7988a543a3fe545345b04c59904e57140158e5eb815dd9fbda90826f212d9",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "本批仅用合成传输。真实 Config 权限、支持设备、实际配置值、单位、范围、配置生效和恢复均待分别核验。"
+}

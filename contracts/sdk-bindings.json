@@ -3762,7 +3762,7 @@
         "AsyncIllumination.get_night_vision"
       ],
       "public_entry": "illumination.get_night_vision",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -3775,7 +3775,7 @@
         "AsyncIllumination.set_night_vision"
       ],
       "public_entry": "illumination.set_night_vision",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

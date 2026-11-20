@@ -12516,19 +12516,30 @@
       "pending_questions": [
         "valueInfo 字段表标字符串、示例为对象。未说明单位、范围、默认通道或支持机型。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/illumination.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_night_vision.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_night_vision.py",
+        "examples/night_vision.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "115a9972e4a6da5c35b89ad68585710e14f8005c",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-night-vision/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5062-D0-OFFLINE-001",
@@ -12575,19 +12586,28 @@
       "pending_questions": [
         "参数表在 body 下列出 token，示例在 query 携带。未规定部分更新、单位、可用范围、设备生效时间或完整结果枚举。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/illumination.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_night_vision.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "115a9972e4a6da5c35b89ad68585710e14f8005c",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-domestic-night-vision/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5064-D0-OFFLINE-001",
