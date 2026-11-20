@@ -26572,66 +26572,77 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:3724:d0",
+      "capability_selector": "settings.get_timing_plan",
       "capability_ids": [
         "candidate:overseas:3724:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.settings.get_timing_plan"
+      ],
+      "scope_revision": "2026-11-20-r48-overseas-working-mode-plans",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
+      "account_role_permissions": "支持托管和子账号，要求 Get 权限。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "冻结来源和独立请求判据，认证和业务均只用合成传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询工作模式定时计划”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "核对海外业务 origin、GET 空体、周计划嵌套和计数示例。",
+        "write": "核对请求字段、诊断/隐私、错误和两种模式；仅模拟请求。",
+        "physical": "离线不证明真实工作模式或计划生效。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/40"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/40",
+        "docs/coordination/overseas-working-mode-plans/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3724.source.json"
       ],
-      "pending_questions": [],
+      "pending_questions": [
+        "字段表和非严格示例给出周计划与时段嵌套；支持型号与时区、段数和可恢复性未确认。"
+      ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+        "待离线执行。"
       ],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-3725-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:3725:d0",
+      "capability_selector": "settings.set_timing_plan",
       "capability_ids": [
         "candidate:overseas:3725:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.settings.set_timing_plan"
+      ],
+      "scope_revision": "2026-11-20-r48-overseas-working-mode-plans",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
+      "account_role_permissions": "支持托管和子账号，要求 Config 权限。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
       "surface": [
         "sync",
@@ -26639,39 +26650,41 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "冻结来源和独立请求判据，认证和业务均只用合成传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“设置工作模式定时计划”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "设置不会预读或自动读回。",
+        "write": "核对请求字段、诊断/隐私、错误和两种模式；仅模拟请求。",
+        "physical": "离线不证明真实工作模式或计划生效。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/41"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/41",
+        "docs/coordination/overseas-working-mode-plans/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3725.source.json"
       ],
       "pending_questions": [
-        "body encoding is not declared",
-        "week description is misaligned in the source",
-        "overwrite vs merge semantics and timezone handling are unknown"
+        "海外编码及合并/覆盖未明确，enable 的型号限制不外推至整项操作，时区及跨日语义未知。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+        "待离线执行。"
       ],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-3726-D0-OFFLINE-001",
@@ -34911,6 +34924,104 @@
       "result": "awaiting_authorization",
       "blockers": [
         "缺乏已核准用户刷新材料与专项操作授权。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3724-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_working_mode_plans",
+      "capability_selector": "settings.get_timing_plan",
+      "capability_ids": [
+        "candidate:overseas:3724:d0"
+      ],
+      "operation_ids": [
+        "global.settings.get_timing_plan"
+      ],
+      "scope_revision": "2026-11-20-r48-overseas-working-mode-plans",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:account_cluster_not_confirmed",
+      "account_role_permissions": "支持托管和子账号，要求 Get 权限。",
+      "device_requirements": "确认集群、目标设备/型号及服务适用性。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "明确目标、授权、请求上限。无需设备写入。"
+      ],
+      "expected_evidence": {
+        "read": "仅保存状态、次数和类型。",
+        "write": "只读。",
+        "physical": "平台受理与设备计划生效须分别验证。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "仅单设备查询。",
+      "source_refs": [
+        "docs/coordination/overseas-working-mode-plans/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3724.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待确认目标资源及本场景所需授权。"
+      ],
+      "limitations": [
+        "字段表和非严格示例给出周计划与时段嵌套；支持型号与时区、段数和可恢复性未确认。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3725-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_working_mode_plans",
+      "capability_selector": "settings.set_timing_plan",
+      "capability_ids": [
+        "candidate:overseas:3725:d0"
+      ],
+      "operation_ids": [
+        "global.settings.set_timing_plan"
+      ],
+      "scope_revision": "2026-11-20-r48-overseas-working-mode-plans",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:account_cluster_not_confirmed",
+      "account_role_permissions": "支持托管和子账号，要求 Config 权限。",
+      "device_requirements": "确认集群、目标设备/型号及服务适用性。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "明确目标、授权、请求上限。事前确认配置影响、原计划、授权时段和独立恢复途径。"
+      ],
+      "expected_evidence": {
+        "read": "仅保存状态、次数和类型。",
+        "write": "授权内的设置及恢复单独记录。",
+        "physical": "平台受理与设备计划生效须分别验证。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "恢复方案须独立确认，不能将读取结果直接作为设置表单。",
+      "source_refs": [
+        "docs/coordination/overseas-working-mode-plans/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3725.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "待确认目标资源及本场景所需授权。"
+      ],
+      "limitations": [
+        "海外编码及合并/覆盖未明确，enable 的型号限制不外推至整项操作，时区及跨日语义未知。"
       ]
     }
   ],
