@@ -21,6 +21,10 @@
 
 本次单独执行先前未开始的账号级通道流量明细。仅第一页、每页一条；同步与异步分别使用受限的认证和业务请求，首次失败即停。未重跑账号汇总或按日明细。 仅放行了一次同步认证尝试，未发出流量业务请求，异步未执行。回执没有保存具体错误原因。 本次获准上限为 4 次 HTTP，实际放行 1 次。本项仍待通过。[脱敏回执](live/2026-11-20-domestic-account-channel-traffic/receipt.json)
 
+## 国内存储录像接口离线验收记录
+
+1422 接受毫秒时间，返回文件数组或分页对象。1600 接受文本时间，列于智能电梯网络摄像机目录，正文提到安全帽相机，适用机型尚待实测。两种接口的同步、异步调用和 CLI 均通过模拟传输验收。本次未读取真实设备录像元数据或访问媒体。[冻结契约](../coordination/domestic-stored-recordings/admission.json) · [离线回执](2026-11-21-domestic-stored-recordings/offline.json)
+
 ## 国内设备 `list_by_id` 单页入口验收
 
 国内接口 3947 采用独立单页入口 `devices.list_by_id`，同步和异步签名相同，`cursor`、`page_start`、`page_size` 均为可选关键字参数，返回 `ApiResponse`。对照记录中，E14 将四个字段全部列入 query，E48 以表单发送其中三个共同字段且未传 id。SDK 按参数表通过 query 发送，一次只取一页。原 673 的 `devices.list` 继续使用表单按页码查询。同步与异步实现均以模拟传输验证，未向真实账号核验远端兼容性。[冻结契约](../coordination/domestic-device-cursor/admission.json) · [离线回执](2026-11-21-domestic-device-cursor/offline.json)

@@ -22043,6 +22043,210 @@
       },
       "source_content_sha256": "f430e2b2ef897b436fb48103bb14e558c2a46c67829f49642176f702414367b3",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.recordings.by_time",
+      "region": "domestic",
+      "source_doc_id": "1422",
+      "source_url": "https://open.ys7.com/help/1422",
+      "method": "POST",
+      "path": "/api/lapp/video/by/time",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "Int",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "startTime",
+          "type": "Long",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "endTime",
+          "type": "Long",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "recType",
+          "type": "Int",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "version",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageSize",
+          "type": "Int",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E82;E86;E90;E206"
+      },
+      "constraints": [
+        {
+          "fact": "子账号 token 所需最小权限标为“无”。接口仍需令牌，错误表列出设备未添加、服务未开通和非开发者账户等情况。",
+          "evidence": "E3;E14;E206"
+        },
+        {
+          "fact": "form 中提供设备序列号，可选 channelNo 为 Int，startTime/endTime 为毫秒 Long。recType 0、1、2 分别表示自动、云及本地录像。省略来源与时间时由服务端处理。",
+          "evidence": "E7;E11;E14;E78"
+        },
+        {
+          "fact": "云存储 recType=1 时 version=2.0 可分页，pageSize 为 1 至 1000。本地 recType=2 时 version=2.0 且 pageSize 非空才可分页，范围为 1 至 500。",
+          "evidence": "E14"
+        },
+        {
+          "fact": "data 是对象数组或包含 files 数组、布尔 isAll、整数 nextFileTime 的分页对象。isAll=true 时 nextFileTime 为 0。响应示例的 createTime 同时存在字符串和整数形式，SDK 保留原始字段及扩展。文档明确 downloadPath 不可用于下载录像。",
+          "evidence": "E82;E86;E90"
+        }
+      ],
+      "uncertainties": [
+        "返回记录的字段名及类型在两种示例间有差异，保留原值。服务端默认时区、保存期、文件可播放性未核定。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/video/by/time",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E78"
+      },
+      "source_content_sha256": "ca091619e6519e71927789be8ea9bf1aad71dfda98d8ab702cd1c49de16e2c95",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.recordings.by_text_time",
+      "region": "domestic",
+      "source_doc_id": "1600",
+      "source_url": "https://open.ys7.com/help/1600",
+      "method": "POST",
+      "path": "/api/lapp/video/by/time",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "startTime",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "stopTime",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "recType",
+          "type": "Int",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E64;E68;E108"
+      },
+      "constraints": [
+        {
+          "fact": "组件目录列为智能电梯网络摄像机，正文提到安全帽相机。实际适用范围待核。",
+          "evidence": "E3"
+        },
+        {
+          "fact": "表单 accessToken 必填。deviceSerial、字符串 channelNo、日期时间字符串 startTime 和 stopTime、整数 recType 均可省略。",
+          "evidence": "E7;E11;E14;E60"
+        },
+        {
+          "fact": "成功返回文件行数组。响应时间字段为毫秒，与请求中的日期时间字符串表示不同。",
+          "evidence": "E64;E68"
+        }
+      ],
+      "uncertainties": [
+        "目录归于智能电梯网络摄像机，正文提到安全帽相机。表与 curl 均使用字符串 startTime/stopTime，机型适用范围、时区和实际账户权限待核。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/video/by/time",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E60"
+      },
+      "source_content_sha256": "9f60bdb23e399dbea9225255ae00945103033d90c849c57216cfb6633bad11e2",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -22232,6 +22436,10 @@
     {
       "review": "docs/coordination/domestic-device-cursor/admission.json",
       "note": "国内 3947 游标设备列表按 E14 的完整 query 参数表单独登记。E48 的表单示例缺少 id，同路径 673 的页码表单及既有绑定继续保留。"
+    },
+    {
+      "review": "docs/coordination/domestic-stored-recordings/admission.json",
+      "note": "国内 1422 毫秒时间与 1600 组件文本时间分别登记。1491 仅是非分页请求子集，1766 的同路径示例和 5371 的索引仅作局部交叉依据。"
     }
   ]
 }

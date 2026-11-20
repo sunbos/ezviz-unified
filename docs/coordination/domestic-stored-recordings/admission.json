@@ -1,0 +1,275 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "3e5e60a6b3f48301656d3de918f5e5d9fdf526e6",
+  "scope_revision": "2026-11-21-r56-domestic-stored-recordings",
+  "cohort_id": "DOMESTIC-STORED-RECORDINGS-001",
+  "operations": [
+    {
+      "doc_id": "1422",
+      "source_url": "https://open.ys7.com/help/1422",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1422.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1422.structure.json",
+      "html_sha256": "ca091619e6519e71927789be8ea9bf1aad71dfda98d8ab702cd1c49de16e2c95",
+      "category_paths": [
+        [
+          "OPEN API",
+          "云直播",
+          "录像文件查询",
+          "云存储录像查询",
+          "根据时间获取存储文件信息"
+        ]
+      ],
+      "operation_id": "cn.recordings.by_time",
+      "capability_id": "candidate:domestic:1422:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1422-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1422-D0-LIVE-001"
+      ],
+      "entry": "recordings.by_time",
+      "name": "by_time",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/lapp/video/by/time",
+      "read_only": true,
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "Int",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "startTime",
+          "type": "Long",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "endTime",
+          "type": "Long",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "recType",
+          "type": "Int",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "version",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageSize",
+          "type": "Int",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 78,
+        "example": 82,
+        "fields": 90,
+        "errors": 206,
+        "paged_example": 86
+      },
+      "signatures": {
+        "Recordings": "def by_time(self, device_serial: str, *, channel: int | None = None, start_time_ms: int | None = None, end_time_ms: int | None = None, rec_type: int | None = None, version: str | None = None, page_size: int | None = None) -> ApiResponse",
+        "AsyncRecordings": "async def by_time(self, device_serial: str, *, channel: int | None = None, start_time_ms: int | None = None, end_time_ms: int | None = None, rec_type: int | None = None, version: str | None = None, page_size: int | None = None) -> ApiResponse"
+      },
+      "permission": "国内已授权账户，仍需 accessToken。子账号最小权限标为“无”，错误表保留未开通服务、非开发者等限制。",
+      "unknown": "返回记录的字段名及类型在两种示例间有差异，保留原值。服务端默认时区、保存期、文件可播放性未核定。"
+    },
+    {
+      "doc_id": "1600",
+      "source_url": "https://open.ys7.com/help/1600",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1600.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1600.structure.json",
+      "html_sha256": "9f60bdb23e399dbea9225255ae00945103033d90c849c57216cfb6633bad11e2",
+      "category_paths": [
+        [
+          "OPEN API",
+          "设备云组件仓",
+          "智能电梯网络摄像机",
+          "基础功能",
+          "视频功能",
+          "根据时间获取存储文件信息"
+        ]
+      ],
+      "operation_id": "cn.recordings.by_text_time",
+      "capability_id": "candidate:domestic:1600:reviewed",
+      "case_ids": [
+        "ACC-CN-1600-COMPONENT-RECORDING-TIME-OFFLINE-001",
+        "ACC-CN-1600-COMPONENT-RECORDING-TIME-LIVE-001"
+      ],
+      "entry": "recordings.by_text_time",
+      "name": "by_text_time",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/lapp/video/by/time",
+      "read_only": true,
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "startTime",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "stopTime",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "recType",
+          "type": "Int",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 60,
+        "example": 64,
+        "fields": 68,
+        "errors": 108
+      },
+      "signatures": {
+        "Recordings": "def by_text_time(self, *, device_serial: str | None = None, channel: str | None = None, start_time: str | None = None, stop_time: str | None = None, rec_type: int | None = None) -> ApiResponse",
+        "AsyncRecordings": "async def by_text_time(self, *, device_serial: str | None = None, channel: str | None = None, start_time: str | None = None, stop_time: str | None = None, rec_type: int | None = None) -> ApiResponse"
+      },
+      "permission": "国内已授权账户，仍需 accessToken。1600 未列子账户最低权限或普遍适用的机型。",
+      "unknown": "目录归于智能电梯网络摄像机，正文提到安全帽相机。表与 curl 均使用字符串 startTime/stopTime，机型适用范围、时区和实际账户权限待核。"
+    }
+  ],
+  "related_sources": [
+    {
+      "doc_id": "1491",
+      "source_url": "https://open.ys7.com/help/1491",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1491.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1491.structure.json",
+      "html_sha256": "f48455155d5f33285ad2a2007646e0d87ffe69563b80b98b57abe598cbb590b5",
+      "category_paths": [
+        [
+          "OPEN API",
+          "设备云组件仓",
+          "安全帽相机",
+          "工地巡检组件",
+          "视频功能",
+          "根据时间获取存储文件信息"
+        ]
+      ],
+      "decision": "1491 是安全帽相机文档展示的 1422 非分页请求子集。归档未提供回复样例，真实机型支持继续在对应验收范围内单列。"
+    },
+    {
+      "doc_id": "1766",
+      "source_url": "https://open.ys7.com/help/1766",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1766.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1766.structure.json",
+      "html_sha256": "e9b47b4d922528998d3473077901ba14dcc6d29bc1a6933bd3c760c939e76d7e",
+      "category_paths": [
+        [
+          "OPEN API",
+          "设备云组件仓",
+          "安全帽相机",
+          "接口样例"
+        ]
+      ],
+      "decision": "仅将 E224 中的同路径示例作为交叉依据，其他协议和整页仍待逐项审核。"
+    },
+    {
+      "doc_id": "5371",
+      "source_url": "https://open.ys7.com/help/5371",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5371.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/5371.structure.json",
+      "html_sha256": "b6849fc523aa7568716e303c07df23b1c8619ac3a3f98101a8a3cb3da2cbc0b8",
+      "category_paths": [
+        [
+          "云接入",
+          "设备接入",
+          "三方协议设备接入",
+          "接口清单"
+        ]
+      ],
+      "decision": "E196/E197 是到 1422 的索引；不关闭整页。"
+    }
+  ],
+  "sdk_choices": [
+    "两种方法均在诊断作用域中先检查国内地区，仅在表单发送 accessToken 和选填/必填业务字段，不发 query、JSON、业务认证头或替代请求；Content-Type 为 application/x-www-form-urlencoded。使用根 code 字符串 200、msg、data 与单操作严格展示策略，不修改已有 recordings.local。只读 10002 单次刷新并重发同一表单；不自动续页、不访问返回地址。",
+    "1422 设备必填，1600 可省。提供序列号时要求非空白 UTF-8 可编码并拒绝小写 ASCII 字母，保留原值。rec_type 可省或为非 bool 整数 0/1/2。所有 None 均省略，让服务端决定默认时间与来源。",
+    "1422 channel 为可选真正整数；两个时间独立可省，为有符号 64 位毫秒整数，不推断本地时区，不套同日限制，两端均给时要求开始不晚于结束（SDK 选择）。可选 version 仅支持文档有据的精确字符串 2.0。pageSize 仅显式 rec_type 1 或 2 可用：云 1..1000，本地 1..500。rec_type=1 + version=2.0 可分页，不必设置 size；本地还需设置 size。请求记录元数据，不能用返回路径下载录像。",
+    "1422 接受两种在文档中展示的实际 data 形状：对象数组，或含 files 对象数组、严格布尔 isAll 与有符号 64 位整数 nextFileTime 的对象。SDK 以返回形状验证；即便请求分页，若返回列表仍保留原形，此时续页状态未知。isAll=true 要求 nextFileTime=0；对 false 不额外假定符号、单调性或末行时间。不能从 files 数量推断末页。原行、扩展、null、旧字段 cameraNo/不同类型 createTime 原样保留。",
+    "1600 使用可选非空白 UTF-8 字符串 channelNo，不转换数字或剥除前导零。startTime/stopTime 分别可省，接受文档示例的有效日历字符串 YYYY-MM-DD HH:MM:SS（ASCII 固定宽度，SDK 校验选择），不附加时区或转换成 epoch，两端给出时开始不晚于结束。其 data 必须为对象数组，不接受 1422 的分页对象；保留响应行类型、未知字段和原始层级，不与另一方 fileType 值相互转换。",
+    "CLI python -m examples.recording_files --mode sync|async --query cloud|local|component，各选项一次，顺序不限。帮助及无效参数在读取配置前处理。复用 examples._common.load_config，仅国内；所有模式显式本地 EZVIZ_DEVICE_SERIAL，通道默认省略。cloud/local 单次调用 by_time，rec_type 1/2、version=2.0、page_size=1，不自动跟进；收到超过一行则固定错误。component 还要求 EZVIZ_RECORD_START_TIME、EZVIZ_RECORD_STOP_TIME 两个有效时间以限制范围，单次 by_text_time，rec_type/channel 省略，不发送分页字段。输出一行 JSON 只含 returned_files 整数与 has_more：分页取 not isAll，普通数组（含组件）取 null。固定 usage: python -m examples.recording_files --mode sync|async --query cloud|local|component；error: recording files query failed；退出 0/1/130，非预期异常传播。全批验收使用合成配置和 MockTransport。",
+    "不回显或持久化设备/拥有者/文件标识、时间、校验串、封面、下载地址或上游自由文本。SDK 的 data/raw 由调用者有意访问。仅检查配置/文件元数据，不拉取任何媒体、获取额外权限、或承诺实际可播放。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/recordings.py",
+    "src/ezviz_unified/traffic.py",
+    "src/ezviz_unified/settings.py",
+    "examples/_common.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批仅合成传输，未读实际设备录像元数据或媒体。"
+}

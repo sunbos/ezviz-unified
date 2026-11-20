@@ -532,6 +532,18 @@ rows = await async_client.traffic.day_details(page_size=1)
 
 国内支持 `record_type=1..5`、`page_size=1..500`、`query_by_nvr`、`location=1/2`；海外record_type仅1..4，其他三个参数会明确拒绝。国内data包含records与翻页游标，海外data为数组；不自动翻页、不获取媒体内容。[契约差异与待验证项](docs/research/2026-11-14-recording-contracts.md)中保留时间单位/时区及错误表的证据限制。
 
+### 国内存储录像文件时间查询
+
+国内录像按时间查询 `client.recordings.by_time(device_serial, rec_type=1, version="2.0", page_size=1)`，`rec_type` 取 0 自动、1 云存储、2 本地，同步与异步客户端均可用。`start_time_ms` 与 `end_time_ms` 为有符号 int64 毫秒值，各自独立可选，自动来源不携带分页大小，云存储 `page_size` 限 1–1000、本地限 1–500，`version="2.0"` 下云存储可不传大小翻页，本地录像须同时传 `version` 和 `page_size` 才返回分页结构。`response.data` 可能是文件数组，也可能是含 `files`、`isAll`、`nextFileTime` 的对象，字段均按原始行保留，SDK 不会自动续页或下载，`downloadPath` 不能用于保存录像，分页对象的 `isAll` 为 `false` 时，可显式再次调用并把该页 `nextFileTime` 作为 `start_time_ms` 传入。文档标注最低子账号权限为无，但仍需有效 token 与接口资格，交互式 CLI 要求已有国内 EZVIZ 配置及 `EZVIZ_DEVICE_SERIAL`，仅输出 `returned_files` 与 `has_more`，当 `data` 为列表时后者为 null。契约以 [国内文档 1422](https://open.ys7.com/help/1422) 为准。
+
+另有按文本时间查询 `client.recordings.by_text_time(device_serial=device_serial, start_time=start, stop_time=stop)`，同样面向国内并支持同步与异步调用，起止时间为定长日历字符串 `YYYY-MM-DD HH:MM:SS`，可选 `channel` 须传字符串以保留前导零，`response.data` 只接受对象数组，SDK 的起止时间均可省略。CLI 的 `component` 模式为限制范围而要求 `EZVIZ_RECORD_START_TIME` 与 `EZVIZ_RECORD_STOP_TIME`。两接口均向同一路由发送 POST，文档记载的参数格式不同。1600 归档目录将其列于智能电梯网络摄像机下，正文提及安全帽相机，故实际适用机型与账号权限均未获文档确认。全部验证均基于离线合成数据，不涉及媒体文件或真实设备。契约以 [国内文档 1600](https://open.ys7.com/help/1600) 为准。
+
+```sh
+python -m examples.recording_files --mode sync --query cloud
+python -m examples.recording_files --query local --mode async
+python -m examples.recording_files --mode sync --query component
+```
+
 ## 云台、预置点与巡航
 
 `client.ptz`提供start/stop/mirror、add_preset/move_preset/clear_preset，以及仅国内的presets/calibrate/reset。写操作不自动重放。start后需显式stop；关闭客户端不会停止设备。国内允许方向16，海外仅0–11且stop必须提供direction。型号能力与预置点上限由设备决定。

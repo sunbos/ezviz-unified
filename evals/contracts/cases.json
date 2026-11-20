@@ -7053,6 +7053,79 @@
         "size": 2,
         "nextId": "next +&/二"
       }
+    },
+    {
+      "operation_id": "cn.recordings.by_time",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "channel": 1,
+        "start_time_ms": 0,
+        "end_time_ms": 2000,
+        "rec_type": 2,
+        "version": "2.0",
+        "page_size": 2
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": 1,
+        "startTime": 0,
+        "endTime": 2000,
+        "recType": 2,
+        "version": "2.0",
+        "pageSize": 2
+      },
+      "data": {
+        "files": [
+          {
+            "fileId": null,
+            "createTime": 0,
+            "extra": {
+              "synthetic": true
+            }
+          }
+        ],
+        "isAll": false,
+        "nextFileTime": 1000,
+        "extra": {
+          "synthetic": true
+        }
+      }
+    },
+    {
+      "operation_id": "cn.recordings.by_text_time",
+      "args": [],
+      "kwargs": {
+        "device_serial": {
+          "$ref": "device_serial"
+        },
+        "channel": "01",
+        "start_time": "2032-02-29 00:00:00",
+        "stop_time": "2032-03-01 00:00:00",
+        "rec_type": 1
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": "01",
+        "startTime": "2032-02-29 00:00:00",
+        "stopTime": "2032-03-01 00:00:00",
+        "recType": 1
+      },
+      "data": [
+        {
+          "fileType": 1,
+          "extra": {
+            "synthetic": true
+          }
+        }
+      ]
     }
   ]
 }
