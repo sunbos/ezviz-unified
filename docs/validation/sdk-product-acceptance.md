@@ -13,6 +13,10 @@
 - `required`：本轮必须项；未完成或未核定即不标 Goal complete。
 - `scenario`：代表性与风险场景；写操作等高风险项另需逐案授权。
 
+## 海外移动侦测联动灯
+
+查询固定发送 type=301，并完整保留返回数据。只读示例仅在返回类型为 301 时解释开关值。设置在 query 中提交两个字符串字段，成功回执可只有 body.meta。设备同步时点、实际灯效和恢复情况仍待真实验收。[来源及类型差异](../coordination/overseas-motion-linked-light/admission.json) · [离线验收](2026-11-20-overseas-motion-linked-light/offline.json)
+
 ## 海外设备工作模式计划
 
 同步和异步的查询、设置及单设备只读示例均通过模拟传输验收。读取保留周计划和各时段的原始层级。设置提交一组平铺的表单字段，编码选择参考国内同路径文档。时区、整表替换或合并规则和真实设备生效情况仍待核实。读取结果不能直接充当恢复表单。[冻结的区域差异](../coordination/overseas-working-mode-plans/admission.json) · [离线回执](2026-11-20-overseas-working-mode-plans/offline.json)
