@@ -17,6 +17,10 @@
 
 认证和首页首台选择已完成，同步计划查询返回 SDK 错误。首次失败即停，异步未执行。未记录计划内容、业务码或原始异常，无法据此判定权限、设备状态或型号支持。 本次获准上限为 5 次 HTTP，实际放行 3 次。本项仍待通过。[脱敏回执](live/2026-11-20-singapore-first-device-working-mode-plan/receipt.json)
 
+## Android SDK 5.34 未签名 release APK 验收核对
+
+本次验收核对针对 Android SDK 5.34 的未签名 release APK，逐项检查消费工程调用的七个方法名、九个 DEX 方法描述符，以及 armeabi-v7a 与 arm64-v8a 两种 ABI 的 JNI 本地库和资源是否齐备一致。Gradle 离线重建已通过，最终 APK 中的九个调用、74 个原生库和 58 个 assets 均已核对。签名、安装、真实设备授权与运行仍为独立待核项，不在本次核对覆盖范围之内。[接入指南](../official-mobile-sdk.md) · [验收记录](2026-11-21-native-android-build/checks.json)
+
 ## iOS 原生构建核验
 
 本轮 iOS 原生构建核验覆盖 SDK 5.34 arm64 无签名消费工程、5 个公开 Objective-C 选择器与 7 组手工资源，实际结果以验收回执为准。Android 与 Harmony 本次仅进行文档比对。已签名真机的安装启动、账户与设备操作以及媒体属于独立验收。 [接入指南](../official-mobile-sdk.md) · [验收记录](2026-11-21-native-ios-initialization/checks.json)

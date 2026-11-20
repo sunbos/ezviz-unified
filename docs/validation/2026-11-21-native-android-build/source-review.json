@@ -1,0 +1,405 @@
+{
+  "schema_version": 1,
+  "scope_ref": "docs/coordination/native-android-build/scope.json",
+  "guide_ref": "docs/official-mobile-sdk.md",
+  "review_kind": "portal_documentation_and_official_maven_artifacts",
+  "public_documents": {
+    "4149_4150": "本批复核公开正文。",
+    "4151": "沿用上批同一 HTML SHA 的公开回执。",
+    "credentials_used": false,
+    "device_requests": 0,
+    "media_requests": 0,
+    "log_collections": 0
+  },
+  "sources": {
+    "4149": {
+      "doc_id": "4149",
+      "source_ref": "portal-2026-11-17:domestic:4149",
+      "source_url": "https://open.ys7.com/help/4149",
+      "html_sha256": "5e23da46a039a03f21a96b1ef0d3f0eb2f1c26207e76b1a7e1013b9e280efa1f",
+      "structure_sha256": "ccd02b9508773b688dd6ac97a67d6f73238198ed83ce790fc36e5fea20ee5eb3",
+      "assessment": "E3 与 E6 的依赖坐标指向 Maven Central，厂商 5.34 的 POM 未列出任何依赖项。应用依照 E6 自行声明 OkHttp 3.12.1 与 Gson 2.8.5，其中 OkHttp 经其父 POM 管理引入 Okio 1.15.0。E10 给出混淆指引，但包内自带规则与门户文字存在差异。",
+      "remaining": [
+        "核实 R8 处理后实际保留的类、回调可达性及运行兼容性。"
+      ],
+      "public_check": {
+        "status": 200,
+        "checked_at_utc": "2026-11-20T22:52:49.227118+00:00",
+        "fresh_this_batch": true,
+        "matches_frozen_html": true
+      },
+      "element_pointers": {
+        "repository": 3,
+        "sdk_and_app_dependencies": 6,
+        "jni_source_directory_and_abi_filters": 6,
+        "shrinker_instructions": 10
+      },
+      "dependency_examples": [
+        "io.github.ezviz-open:ezviz-sdk:5.34",
+        "com.squareup.okhttp3:okhttp:3.12.1",
+        "com.google.code.gson:gson:2.8.5"
+      ],
+      "consumer_shrinker": {
+        "documented_rules_element": 10,
+        "aar_proguard_sha256": "79488488398f5f5aed236dd6e9f914599370d04dfe70fda61b8c83bf739b1088",
+        "same_normalized_rule_lines_as_archive": false,
+        "minified_runtime_verified": false
+      },
+      "min_sdk_specified_on_page": false
+    },
+    "4150": {
+      "doc_id": "4150",
+      "source_ref": "portal-2026-11-17:domestic:4150",
+      "source_url": "https://open.ys7.com/help/4150",
+      "html_sha256": "1f12f6597a0f8b8dc3bbcc1658e7d982ad71998f22401d1b9cfb16859a62ee98",
+      "structure_sha256": "c4572433f9bea51ffdf1f1b99fef68dfb7dc310b5856abe33a00ea0ac9bd7184",
+      "assessment": "E4 说明网页登录及开通云存储中间页涉及的 Activity。E7 记录 19 次权限出现、17 个唯一权限名称，按基础、配网、对讲与 Demo 分组。SDK 库的 Manifest 中无任何权限或 Activity 声明，实际 APK 需按所用功能逐项核对。",
+      "remaining": [
+        "按 Android 版本、目标 API 与机型对运行时授权行为的独立验证，受保护的 Demo 项不得列为通用要求。"
+      ],
+      "public_check": {
+        "status": 200,
+        "checked_at_utc": "2026-11-20T22:52:49.170061+00:00",
+        "fresh_this_batch": true,
+        "matches_frozen_html": true
+      },
+      "element_pointers": {
+        "hosted_web_activity": 4,
+        "permission_groups": 7
+      },
+      "host_activity": {
+        "name": "com.videogo.main.EzvizWebViewActivity",
+        "documented_scope": "供 SDK 中间页显示，例如登录或开通云存储。",
+        "present_in_classes_jar": true,
+        "declared_in_library_manifest": false,
+        "screen_orientation": "portrait",
+        "config_changes": [
+          "orientation",
+          "keyboardHidden"
+        ]
+      },
+      "permission_namespace": "android.permission",
+      "documented_permission_groups": {
+        "base": [
+          "INTERNET",
+          "READ_PHONE_STATE"
+        ],
+        "network_setup": [
+          "INTERNET",
+          "CHANGE_NETWORK_STATE",
+          "ACCESS_WIFI_STATE",
+          "CHANGE_WIFI_STATE",
+          "ACCESS_FINE_LOCATION",
+          "ACCESS_NETWORK_STATE",
+          "CHANGE_WIFI_MULTICAST_STATE"
+        ],
+        "talk": [
+          "MODIFY_AUDIO_SETTINGS",
+          "RECORD_AUDIO"
+        ],
+        "demo": [
+          "RECEIVE_BOOT_COMPLETED",
+          "MOUNT_UNMOUNT_FILESYSTEMS",
+          "READ_LOGS",
+          "BLUETOOTH",
+          "ACCESS_FINE_LOCATION",
+          "CAMERA",
+          "READ_EXTERNAL_STORAGE",
+          "WRITE_EXTERNAL_STORAGE"
+        ]
+      },
+      "permission_occurrences": 19,
+      "unique_permission_names": 17,
+      "protected_lint_examples": [
+        "MOUNT_UNMOUNT_FILESYSTEMS",
+        "READ_LOGS"
+      ],
+      "boundary": "这些是文档按功能列举的权限。tools:ignore 是 lint 标记，不能据此确定实际授权。"
+    },
+    "4151": {
+      "doc_id": "4151",
+      "source_ref": "portal-2026-11-17:domestic:4151",
+      "source_url": "https://open.ys7.com/help/4151",
+      "html_sha256": "457034f85afd23fa4dbe8a9803159c23bc9bec53913c6ad6f8994b08a068a91d",
+      "structure_sha256": "37f40343aa23140868fe9caebc54fb0a3ead963e05c1f685ca61c4ba732d125e",
+      "assessment": "E14 与 E18 的 setServerUrl、E28 的 setAccessToken、E31 的 getDeviceList 均为调用示例，本轮未在用户设备上执行。七个既有候选方法名在 5.34 classes.jar 的 EZOpenSDK 与 EZPlayer 中对应 9 个公开 JVM 描述符，与门户给出的三个示例相互独立。",
+      "remaining": [
+        "两种互斥授权模式、账号切换及受限 token 的功能与通道约束在授权 Android 宿主中的行为验证。"
+      ],
+      "public_check": {
+        "status": 200,
+        "checked_at_utc": "2026-11-20T22:07:39.258699+00:00",
+        "fresh_this_batch": false,
+        "matches_frozen_html": true
+      },
+      "element_pointers": {
+        "mutually_exclusive_authorization_modes": 22,
+        "restricted_token_table": 50,
+        "limited_token_reference": 103,
+        "account_switch_steps": [
+          112,
+          113,
+          114
+        ],
+        "debug_example": 122
+      },
+      "existing_candidate_examples": {
+        "setServerUrl": [
+          {
+            "element_index": 14,
+            "normalized_call_form": "EzvizApplication.getOpenSDK().setServerUrl(apiEndpoint, authEndpoint)",
+            "candidate_id": "candidate:domestic:native-ref:setServerUrl",
+            "evidence_kind": "documented_call_example"
+          },
+          {
+            "element_index": 18,
+            "normalized_call_form": "EzvizApplication.getOpenSDK().setServerUrl(apiEndpoint, null)",
+            "candidate_id": "candidate:domestic:native-ref:setServerUrl",
+            "evidence_kind": "documented_call_example"
+          }
+        ],
+        "setAccessToken": [
+          {
+            "element_index": 28,
+            "normalized_call_form": "EzvizApplication.getOpenSDK().setAccessToken(accessToken)",
+            "candidate_id": "candidate:domestic:native-ref:setAccessToken",
+            "evidence_kind": "documented_call_example"
+          }
+        ],
+        "getDeviceList": [
+          {
+            "element_index": 31,
+            "normalized_call_form": "EzvizApplication.getOpenSDK().getDeviceList(pageStart, pageSize)",
+            "candidate_id": "candidate:domestic:native-ref:getDeviceList",
+            "evidence_kind": "documented_call_example"
+          }
+        ]
+      },
+      "authorization_modes": {
+        "element_index": 22,
+        "options": [
+          "AccessToken",
+          "TKToken"
+        ],
+        "mutually_exclusive": true,
+        "restricted_token_scope": "function_and_channel_limited",
+        "backend_issuance_required": true,
+        "token_table_element": 50,
+        "documented_types": [
+          "httpToken",
+          "deviceToken",
+          "deviceGlobalToken",
+          "deviceVideoToken",
+          "previewStreamToken",
+          "playbackStreamToken",
+          "talkStreamToken"
+        ],
+        "further_reference": {
+          "element_index": 103,
+          "doc_id": "4334"
+        },
+        "sdk_release_pinned_by_page": false
+      },
+      "prior_document_review": {
+        "ref": "docs/validation/2026-11-21-native-ios-initialization/source-review.json",
+        "reason": "复用已确认的 Android 文档调用示例与权限边界。Android 的版本化字节码证据在本记录单独核定。"
+      }
+    }
+  },
+  "maven": {
+    "repository": "https://repo.maven.apache.org/maven2",
+    "vendor_pom": {
+      "artifact": "ezviz-sdk",
+      "url": "https://repo.maven.apache.org/maven2/io/github/ezviz-open/ezviz-sdk/5.34/ezviz-sdk-5.34.pom",
+      "http_status": 200,
+      "pom_sha256": "d9ef6ec7f97ccf83fb3a0fdb572dfd6cea28ad541342f7bbf3774b819b310155",
+      "packaging": "aar",
+      "direct_dependency_count": 0,
+      "root_has_dependencies_element": false,
+      "module_metadata_http_status": 404,
+      "pom_referenced_repository": "https://github.com/Ezviz-Open/EzvizSDK-Android/tree/4.16.1"
+    },
+    "runtime_jars": {
+      "com.squareup.okhttp3:okhttp:3.12.1": {
+        "source_url": "https://repo.maven.apache.org/maven2/com/squareup/okhttp3/okhttp/3.12.1/okhttp-3.12.1.jar",
+        "bytes": 422787,
+        "sha256": "07c3d82ca7eaf4722f00b2da807dc7860f6169ae60cfedcf5d40218f90880a46",
+        "relationship": "explicit_example_dependency"
+      },
+      "com.squareup.okio:okio:1.15.0": {
+        "source_url": "https://repo.maven.apache.org/maven2/com/squareup/okio/okio/1.15.0/okio-1.15.0.jar",
+        "bytes": 88732,
+        "sha256": "693fa319a7e8843300602b204023b7674f106ebcb577f2dd5807212b66118bd2",
+        "relationship": "transitive_via_okhttp"
+      },
+      "com.google.code.gson:gson:2.8.5": {
+        "source_url": "https://repo.maven.apache.org/maven2/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar",
+        "bytes": 241622,
+        "sha256": "233a0149fc365c9f6edbd683cfe266b19bdc773be98eabdaf6b3c924b48e7d81",
+        "relationship": "explicit_example_dependency"
+      }
+    },
+    "dependency_management": {
+      "okhttp_pom_sha256": "940676b124a8eea8ad7576f9be072c82d7dc7fe350ad895a36081f0c93ae99a6",
+      "okhttp_parent_pom_sha256": "f57c6f089beeedb5b73cdaca7167998ce74505ae9a3d9aeacd72e0ebb0fbf4bc",
+      "managed_okio_version": "1.15.0",
+      "okhttp_provided_dependencies": [
+        "conscrypt-openjdk-uber",
+        "android",
+        "jsr305",
+        "animal-sniffer-annotations"
+      ],
+      "gson_pom_sha256": "b8308557a7fccc92d9fe7c8cd0599258b361285d2ecde7689eda98843255a092",
+      "gson_test_dependencies": [
+        "junit"
+      ]
+    },
+    "source_version_limit": "POM 的 SCM 链接仍指 4.16.1，不能代替 5.34 构建输入。"
+  },
+  "aar_surface": {
+    "coordinate": "io.github.ezviz-open:ezviz-sdk:5.34",
+    "bytes": 50305579,
+    "aar_sha256": "d93f556aa26eee51049efbdaa6a85fc2116220a6500153810062954966a9a571",
+    "classes_jar_sha256": "dda4a07f013321a1a597b77422542b38128a27a83c04bcdacda71c475acfa9e7",
+    "r_txt_sha256": "47cde01f43fdec3b1640a187917b77afccf670ab4a1c9c41e812a1fb703101af",
+    "classes_major_version": 52,
+    "manifest": {
+      "sha256": "19cc38cda2c5e8f9f05cbecfd589d7d194c021619d15588e0b96b7c8493283ff",
+      "minSdk": 21,
+      "uses_permission_count": 0,
+      "uses_feature_count": 0,
+      "app_child_count": 0
+    },
+    "aar_metadata": {
+      "aarFormatVersion": "1.0",
+      "aarMetadataVersion": "1.0",
+      "minCompileSdk": "1",
+      "minCompileSdkExtension": "0",
+      "minAndroidGradlePluginVersion": "1.0.0",
+      "coreLibraryDesugaringEnabled": "false"
+    },
+    "abis": {
+      "arm64-v8a": {
+        "elf_bits": 64,
+        "machine": 183,
+        "libraries": 37
+      },
+      "armeabi-v7a": {
+        "elf_bits": 32,
+        "machine": 40,
+        "libraries": 37
+      }
+    },
+    "embedded_jars": 12,
+    "assets": 58,
+    "resource_sources": 48,
+    "seven_names_nine_public_descriptors": [
+      {
+        "owner": "com/videogo/openapi/EZOpenSDK",
+        "name": "setServerUrl",
+        "descriptor": "(Ljava/lang/String;Ljava/lang/String;)V",
+        "candidate_id": "candidate:domestic:native-ref:setServerUrl",
+        "class_sha256": "0271407e1cb9382e3ee4330759c69ce888187a97dec0f8a04ecf1bfdeacb9250",
+        "dispatch": "public_instance",
+        "generic_signature": null,
+        "declared_exceptions": []
+      },
+      {
+        "owner": "com/videogo/openapi/EZOpenSDK",
+        "name": "setAccessToken",
+        "descriptor": "(Ljava/lang/String;)V",
+        "candidate_id": "candidate:domestic:native-ref:setAccessToken",
+        "class_sha256": "0271407e1cb9382e3ee4330759c69ce888187a97dec0f8a04ecf1bfdeacb9250",
+        "dispatch": "public_instance",
+        "generic_signature": null,
+        "declared_exceptions": []
+      },
+      {
+        "owner": "com/videogo/openapi/EZOpenSDK",
+        "name": "getDeviceList",
+        "descriptor": "(II)Ljava/util/List;",
+        "candidate_id": "candidate:domestic:native-ref:getDeviceList",
+        "class_sha256": "0271407e1cb9382e3ee4330759c69ce888187a97dec0f8a04ecf1bfdeacb9250",
+        "dispatch": "public_instance",
+        "generic_signature": "(II)Ljava/util/List<Lcom/videogo/openapi/bean/EZDeviceInfo;>;",
+        "declared_exceptions": [
+          "com/videogo/exception/BaseException"
+        ]
+      },
+      {
+        "owner": "com/videogo/openapi/EZPlayer",
+        "name": "setSurfaceHold",
+        "descriptor": "(Landroid/view/SurfaceHolder;)Z",
+        "candidate_id": "candidate:domestic:native-ref:setSurfaceHold",
+        "class_sha256": "9e0fea9c83acf672ded6a180885abce74ee48f50efd89d78d50a96c51b406a77",
+        "dispatch": "public_instance",
+        "generic_signature": null,
+        "declared_exceptions": []
+      },
+      {
+        "owner": "com/videogo/openapi/EZPlayer",
+        "name": "setSurfaceHold",
+        "descriptor": "(Landroid/view/SurfaceHolder;I)Z",
+        "candidate_id": "candidate:domestic:native-ref:setSurfaceHold",
+        "class_sha256": "9e0fea9c83acf672ded6a180885abce74ee48f50efd89d78d50a96c51b406a77",
+        "dispatch": "public_instance",
+        "generic_signature": null,
+        "declared_exceptions": []
+      },
+      {
+        "owner": "com/videogo/openapi/EZPlayer",
+        "name": "setPlayVerifyCode",
+        "descriptor": "(Ljava/lang/String;)V",
+        "candidate_id": "candidate:domestic:native-ref:setPlayVerifyCode",
+        "class_sha256": "9e0fea9c83acf672ded6a180885abce74ee48f50efd89d78d50a96c51b406a77",
+        "dispatch": "public_instance",
+        "generic_signature": null,
+        "declared_exceptions": []
+      },
+      {
+        "owner": "com/videogo/openapi/EZPlayer",
+        "name": "seekPlayback",
+        "descriptor": "(Ljava/util/Calendar;)Z",
+        "candidate_id": "candidate:domestic:native-ref:seekPlayback",
+        "class_sha256": "9e0fea9c83acf672ded6a180885abce74ee48f50efd89d78d50a96c51b406a77",
+        "dispatch": "public_instance",
+        "generic_signature": null,
+        "declared_exceptions": []
+      },
+      {
+        "owner": "com/videogo/openapi/EZPlayer",
+        "name": "setPlaybackRate",
+        "descriptor": "(Lcom/videogo/openapi/EZConstants$EZPlaybackRate;)Z",
+        "candidate_id": "candidate:domestic:native-ref:setPlaybackRate",
+        "class_sha256": "9e0fea9c83acf672ded6a180885abce74ee48f50efd89d78d50a96c51b406a77",
+        "dispatch": "public_instance",
+        "generic_signature": null,
+        "declared_exceptions": []
+      },
+      {
+        "owner": "com/videogo/openapi/EZPlayer",
+        "name": "setPlaybackRate",
+        "descriptor": "(Lcom/videogo/openapi/EZConstants$EZPlaybackRate;I)Z",
+        "candidate_id": "candidate:domestic:native-ref:setPlaybackRate",
+        "class_sha256": "9e0fea9c83acf672ded6a180885abce74ee48f50efd89d78d50a96c51b406a77",
+        "dispatch": "public_instance",
+        "generic_signature": null,
+        "declared_exceptions": []
+      }
+    ]
+  },
+  "toolchain_scope": {
+    "runner": "ubuntu-24.04",
+    "jdk_major": 17,
+    "compile_sdk": 35,
+    "target_sdk": 35,
+    "build_tools": "35.0.0",
+    "agp": "8.9.2",
+    "gradle": "8.11.1"
+  },
+  "build_check_ref": "docs/validation/2026-11-21-native-android-build/checks.json",
+  "limits": [
+    "本记录核对发布文件和文档。实际 Java 编译、DEX 引用、Manifest 及资源打包结果由独立的未签名 APK 验收记录给出。",
+    "签名、安装、真机运行、系统授权、JNI 动态加载、R8 混淆和媒体行为需要单独证据。iOS 构建与这些 Android 条件相互独立。"
+  ]
+}

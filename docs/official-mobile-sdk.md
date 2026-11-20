@@ -37,6 +37,54 @@
 
 Android 开发者用 Android Studio Logcat，非开发者安装 APK 后可取 demo SDK 日志。iOS 用 Xcode 调试控制台或签名包内日志工具。Harmony 仅有文档列出的文件位置，收集流程未经验证。不要收集或索取屏幕上解密后的口令。
 
+## Android 5.34 的 Gradle 集成
+
+在应用模块声明 SDK 和依赖，再按使用的功能选择组件和权限。[Gradle 安装](https://open.ys7.com/help/4149)
+
+### 依赖坐标
+
+SDK 以 AAR 形式发布，Maven 坐标为 `io.github.ezviz-open:ezviz-sdk:5.34`，厂商 POM 不附带依赖声明。应用需要在自身模块中声明 `com.squareup.okhttp3:okhttp:3.12.1` 与 `com.google.code.gson:gson:2.8.5`。`com.squareup.okio:okio:1.15.0` 由 OkHttp 传递引入，版本由 OkHttp 的父 POM 管理。
+
+```groovy
+dependencies {
+    implementation 'io.github.ezviz-open:ezviz-sdk:5.34'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
+}
+```
+
+### 平台与工具链
+
+产物提供 `armeabi-v7a` 与 `arm64-v8a` 两种 ABI，其清单声明 minSdk 21。示例工程采用 JDK 17、Gradle 8.11.1、AGP 8.9.2、compileSdk 与 targetSdk 35 以及 Build Tools 35.0.0。
+
+### 组件注册
+
+AAR 内含厂商提供的 Activity 类。只有当应用使用其网页登录或云服务页面时，才需要在应用清单中注册 `com.videogo.main.EzvizWebViewActivity`。
+
+### 权限
+
+[权限配置](https://open.ys7.com/help/4150) 将权限分为基础、配网、对讲与 Demo 示例等组别。SDK 库清单本身不含权限声明，应用按业务需要自行声明。Demo 中出现的受限权限只是示例而非授予，通用示例应用不需要业务权限。
+
+### 初始化与接口
+
+[Android 初始化](https://open.ys7.com/help/4151) 的示例覆盖 `setServerUrl`、`setAccessToken` 与 `getDeviceList`，受保护的令牌类型需要应用后端配合。在锁定的 5.34 AAR 中，四个播放方法名与上述三个方法合计对应九个 Java 描述符，其中 `setPlaybackRate` 与 `setSurfaceHold` 存在重载。
+
+### 可复现验证
+
+在仓库根目录使用预装的 JDK 17、Gradle 8.11.1 和 Android SDK。可用 `GRADLE_8_11_1` 指定 Gradle 可执行文件，`JDK17_HOME` 指定 JDK 目录。GitHub 上的 `Android SDK consumer` 工作流使用预装 JDK 和 SDK，并下载和校验固定的 Gradle 发行包。未签名 release APK 的验收会核对消费类和最终 DEX 中调用的类名、方法名与描述符，并对照源 AAR 的 JNI 库、assets 摘要和编译后的资源表。R8 混淆、签名、真机安装启动与授权、JNI 加载与媒体能力、兼容性等项仍需单独取证。具体版本与实际结果见 [冻结输入](coordination/native-android-build/scope.json) 和 [构建验收记录](validation/2026-11-21-native-android-build/checks.json)。
+
+```sh
+(
+  set -eu
+  gradle_bin="${GRADLE_8_11_1:-$(command -v gradle || true)}"
+  : "${gradle_bin:?请用 GRADLE_8_11_1 指定现有 Gradle 8.11.1 可执行文件}"
+  android_sdk="${ANDROID_SDK_ROOT:-${ANDROID_HOME:?请指定已安装的 Android SDK}}"
+  jdk17="${JDK17_HOME:-${JAVA_HOME_17_X64:-${JAVA_HOME:?请指定 JDK 17 目录}}}"
+  python3 tools/native/verify_android_build.py --repo . \
+    --gradle "$gradle_bin" --android-sdk "$android_sdk" --jdk "$jdk17"
+)
+```
+
 ## iOS 5.34 的 Swift Package Manager 集成
 
 集成环境需要 Xcode 15 或更高版本，包清单采用 Swift tools 5.9。清单声明的最低系统版本为 iOS 12.0，而 5.34 实际二进制框架的最低要求为 iOS 13.0，本批接入工程采用 iOS 13.0 部署目标。发行包只有 iphoneos arm64 真机切片，未提供模拟器切片。
@@ -76,4 +124,4 @@ setServerUrl 与 setSurfaceHold 未出现在这批 iOS 公开头文件中，不�
 
 ## 仍待确认
 
-4148 涉及的官方 Demo 仍需分别固定工程版本并验证签名产物。上节补充了 iOS SDK 5.34 发布物的公开声明。Android 与 Harmony 的对应版本、三端受限令牌和真实宿主行为仍待核实。上一批只检查共享文档，未连接真机、收集日志或提交工单。[共享资料审查记录](validation/2026-11-21-mobile-sdk-shared-references/review.json)另有 6 个 iOS、Harmony 菜单项指向 Android 菜单下的 3 篇共享页面，读者在各受支持平台均可参考这些页面。
+4148 涉及的官方 Demo 仍需分别固定工程版本并验证签名产物。上节补充了 iOS SDK 5.34 发布物的公开声明。Android 5.34 的发布物与核验入口见上文。Harmony 的精确 SDK 版本、三端受限令牌和真机行为仍待核实。上一批只检查共享文档，未连接真机、收集日志或提交工单。[共享资料审查记录](validation/2026-11-21-mobile-sdk-shared-references/review.json)另有 6 个 iOS、Harmony 菜单项指向 Android 菜单下的 3 篇共享页面，读者在各受支持平台均可参考这些页面。

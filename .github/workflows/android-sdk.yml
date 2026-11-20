@@ -1,0 +1,63 @@
+name: Android SDK consumer
+
+on:
+  pull_request:
+    paths:
+      - "examples/android_sdk_build/**"
+      - "tools/native/verify_android_build.py"
+      - "tools/native/android_probe_bytecode.py"
+      - ".github/workflows/android-sdk.yml"
+      - "docs/coordination/native-android-build/scope.json"
+  push:
+    branches: [main]
+    paths:
+      - "examples/android_sdk_build/**"
+      - "tools/native/verify_android_build.py"
+      - "tools/native/android_probe_bytecode.py"
+      - ".github/workflows/android-sdk.yml"
+      - "docs/coordination/native-android-build/scope.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  android-consumer:
+    name: Android SDK 5.34 unsigned APK
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Build unsigned APK with official EZOpenSDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf 'ANDROID_SDK_INPUT_COMMIT=%s\n' "$(git rev-parse HEAD)"
+
+          ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:?Android SDK is not available}}"
+          export ANDROID_SDK_ROOT
+          test -x "$JAVA_HOME_17_X64/bin/javac"
+          test -f "$ANDROID_SDK_ROOT/platforms/android-35/android.jar"
+          test -x "$ANDROID_SDK_ROOT/build-tools/35.0.0/aapt2"
+
+          gradle_dir="$(mktemp -d "$RUNNER_TEMP/ezviz-gradle.XXXXXX")"
+
+          curl --fail --location --connect-timeout 15 --max-time 300 --retry 2 \
+            --output "$gradle_dir/gradle-8.11.1-bin.zip" \
+            "https://services.gradle.org/distributions/gradle-8.11.1-bin.zip"
+
+          printf '%s  %s\n' \
+            "f397b287023acdba1e9f6fc5ea72d22dd63669d59ed4a289a29b1a76eee151c6" \
+            "$gradle_dir/gradle-8.11.1-bin.zip" | sha256sum --check
+
+          unzip -q "$gradle_dir/gradle-8.11.1-bin.zip" -d "$gradle_dir"
+
+          python3 tools/native/verify_android_build.py \
+            --repo . \
+            --gradle "$gradle_dir/gradle-8.11.1/bin/gradle" \
+            --android-sdk "$ANDROID_SDK_ROOT" \
+            --jdk "$JAVA_HOME_17_X64"

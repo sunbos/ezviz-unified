@@ -553,10 +553,12 @@
         "H264-LOCAL-BROWSER": "met",
         "HEVC-SOFT-LOCAL": "met",
         "OVERSEAS-FLV-H264-LOCAL": "met",
-        "IOS-534-UNSIGNED-CONSUMER-BUILD": "met"
+        "IOS-534-UNSIGNED-CONSUMER-BUILD": "met",
+        "ANDROID-534-UNSIGNED-APK-BUILD": "met"
       },
       "execution_evidence_refs": [
-        "docs/validation/2026-11-21-native-ios-initialization/checks.json"
+        "docs/validation/2026-11-21-native-ios-initialization/checks.json",
+        "docs/validation/2026-11-21-native-android-build/checks.json"
       ]
     },
     {
@@ -36610,6 +36612,118 @@
       ],
       "blockers": [
         "未确认设备、签名及平台实测范围。"
+      ]
+    },
+    {
+      "case_id": "ACC-ANDROID-534-UNSIGNED-APK-001",
+      "tier": "required",
+      "case_origin": "native_android_534_integration",
+      "capability_selector": "official EZOpenSDK Android 5.34 release APK",
+      "capability_ids": [
+        "integration:mobile.android_ezopensdk_aar_consumer"
+      ],
+      "operation_ids": [],
+      "scope_revision": "2026-11-21-r60-native-android-build",
+      "freeze_state": "frozen_for_build_verification",
+      "region_cluster": "official_android_apk",
+      "account_role_permissions": "无凭据构建",
+      "device_requirements": "JDK17/Android SDK35/build-tools 与真实 Maven 制品",
+      "surface": [
+        "native_android_release_build"
+      ],
+      "risk": "offline_only",
+      "preconditions": [
+        "冻结的普通依赖和离线构建、内容验证。"
+      ],
+      "expected_evidence": {
+        "read": "构建及包内容",
+        "write": "无业务写入",
+        "physical": "不推定真机加载或播放"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "无设置写入。",
+      "source_refs": [
+        "docs/coordination/native-android-build/scope.json"
+      ],
+      "code_artifact_evidence_refs": [
+        "docs/coordination/native-android-build/scope.json",
+        "docs/validation/2026-11-21-native-android-build/source-review.json",
+        "examples/android_sdk_build/settings.gradle",
+        "examples/android_sdk_build/app/build.gradle",
+        "examples/android_sdk_build/app/src/main/AndroidManifest.xml",
+        "examples/android_sdk_build/app/src/main/java/org/example/ezvizprobe/NativeSDKProbe.java",
+        "tools/native/verify_android_build.py",
+        "tools/native/android_probe_bytecode.py",
+        "docs/official-mobile-sdk.md",
+        ".github/workflows/android-sdk.yml"
+      ],
+      "result": "recorded_evidence",
+      "criterion_assessment": {
+        "DEPENDENCIES": "met",
+        "RELEASE_APK": "met",
+        "BYTECODE_DEX": "met",
+        "NATIVE_RESOURCES": "met",
+        "NEGATIVES": "met"
+      },
+      "limitations": [
+        "签名、权限、真机和媒体独立于构建。"
+      ],
+      "blockers": [],
+      "execution_outcome": "passed",
+      "verified_code_commit": "f4badea5b2ab4381476de01b3c165185e33b7431",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-native-android-build/checks.json"
+      ]
+    },
+    {
+      "case_id": "ACC-ANDROID-534-SIGNED-DEVICE-001",
+      "tier": "required",
+      "case_origin": "native_android_534_integration",
+      "capability_selector": "official EZOpenSDK Android 5.34 release APK",
+      "capability_ids": [
+        "integration:mobile.android_ezopensdk_aar_consumer"
+      ],
+      "operation_ids": [],
+      "scope_revision": "2026-11-21-r60-native-android-build",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "official_android_apk",
+      "account_role_permissions": "需要独立限定授权",
+      "device_requirements": "合法签名与支持 ARM ABI 的 Android 测试设备及相应授权",
+      "surface": [
+        "native_android_signed_device"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "先确认签名、测试设备、账号权限和操作上限。"
+      ],
+      "expected_evidence": {
+        "read": "另行冻结真实登录与限定操作",
+        "write": "无业务写入",
+        "physical": "不推定真机加载或播放"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "无设置写入。",
+      "source_refs": [
+        "docs/coordination/native-android-build/scope.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "criterion_assessment": {},
+      "limitations": [
+        "签名、权限、真机和媒体独立于构建。"
+      ],
+      "blockers": [
+        "待确认设备/签名/真实授权。"
       ]
     }
   ],
