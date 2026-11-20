@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "input_commit": "42abfcefae3fedb728c2d1041cdb567a0fc381f3",
+  "previous_scope": "docs/coordination/overseas-flv-preview/admission.json",
+  "reason": "直接在顶层创建官方播放器时，调用真实 pause 和 destroy 后原视频与 MSE 已释放。真实 Chrome 仍观察到一个可响应的 Worker，在 4.8 秒后仍未退出；重新加载页面后才退出。",
+  "source_observation_sha256": "569e8755981c61ccd665a46a432ff020490fff6e18befc98939d75c93dce434d",
+  "design": [
+    "为每次显式播放创建独立同源 iframe，只加载固定 /player.html。子文档加载固定的官方 UMD 和 CSS，原始组件字节不变。在子文档中创建播放器和 Worker。",
+    "父页面保留播放、停止按钮与状态。停止、异常、自然结束或父页离开时各实例只销毁一次，并移除这一子文档。页面级清理负责释放本次播放的 Worker，不能将此解释为组件独立 destroy 即有相同效果。",
+    "仅本机父/子页面允许同源 frame-src，子页限同源 frame-ancestors；其余既有路由、地址校验、网络边界与 SDK 协议不放宽。"
+  ],
+  "acceptance": [
+    "实际记录 Worker 创建和退出。在父页保持打开的显式停止后、关闭 context 之前，确认本次 Worker 全部退出且 video/MSE 已释放。",
+    "再次播放/离开页面和自然 EOF 也应释放本次 iframe 与真实实例，页面可重复使用。解码、时间、色序与资源/网络原有判据均保留。"
+  ]
+}
