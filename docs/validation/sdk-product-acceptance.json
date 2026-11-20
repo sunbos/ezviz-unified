@@ -11590,19 +11590,30 @@
       "pending_questions": [
         "整数数组及 rows/columns 不构成通用网格编码或写入原值；不承诺形状乘积、位宽、方向。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_motion_area.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_motion_area.py",
+        "examples/motion_area.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "71e3582064f87e8bb49e297770a985b5436dea0c",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-regional-motion-area/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1733-D0-OFFLINE-001",
@@ -27010,19 +27021,30 @@
       "pending_questions": [
         "海外用 query 传 area；区域部署、端侧解释和恢复效果待核。不可使用国内表单或把国内位图示意泛化。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_motion_area.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_motion_area.py",
+        "examples/motion_area.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "71e3582064f87e8bb49e297770a985b5436dea0c",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-regional-motion-area/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-3730-D0-OFFLINE-001",
@@ -35587,19 +35609,30 @@
       "pending_questions": [
         "此条曾只有未解析的 curl 观察。原文路由/方法/表格与表单样例证实为国内设置。curl 令牌行格式不完整，响应示意含尾逗号。输入字符串不从数组推导。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_motion_area.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_motion_area.py",
+        "examples/motion_area.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "71e3582064f87e8bb49e297770a985b5436dea0c",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-regional-motion-area/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CN-1732-MOTION-AREA-SET-LIVE-001",
