@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "172794caffabf0cc4c4039b0a94efedaa3fb9f98",
+  "scope_revision": "2026-11-20-r44-domestic-night-vision",
+  "operations": [
+    {
+      "operation_id": "cn.illumination.get_night_vision",
+      "capability_id": "candidate:domestic:5061:d0",
+      "name": "get_night_vision",
+      "entry": "illumination.get_night_vision",
+      "doc_id": "5061",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-5061-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-5061-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Illumination": "def get_night_vision(self, device_serial: str, channel_no: int) -> ApiResponse",
+        "AsyncIllumination": "async def get_night_vision(self, device_serial: str, channel_no: int) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/5061",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5061.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/5061.structure.json",
+      "html_sha256": "ddda44ee0c944c7ea049eaf34401ccffa62998b9fe122da131cc477d115d3472",
+      "method": "GET",
+      "path": "/api/v3/keyValue/{deviceSerial}/{channelNo}/op",
+      "read_only": true,
+      "permission": "资料确认托管 Config，未单独确认子账号可读。",
+      "unknown": "valueInfo 字段表标字符串、示例为对象。未说明单位、范围、默认通道或支持机型。",
+      "parameters": [
+        {
+          "name": "deviceSerial",
+          "location": "path",
+          "type": "string",
+          "required": true,
+          "evidence": "E5 path template; channel type is SDK choice"
+        },
+        {
+          "name": "channelNo",
+          "location": "path",
+          "type": "int",
+          "required": true,
+          "evidence": "E5 path template; channel type is SDK choice"
+        },
+        {
+          "name": "accessToken",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R2;E30"
+        },
+        {
+          "name": "key",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "constant": "NightVision_Model",
+          "evidence": "E8/R3;E30"
+        }
+      ],
+      "elements": {
+        "permissions": 2,
+        "route": 5,
+        "parameters": 8,
+        "request": 30,
+        "example": 88,
+        "fields": 34,
+        "errors": 91
+      }
+    },
+    {
+      "operation_id": "cn.illumination.set_night_vision",
+      "capability_id": "candidate:domestic:5062:d0",
+      "name": "set_night_vision",
+      "entry": "illumination.set_night_vision",
+      "doc_id": "5062",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-5062-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-5062-D0-LIVE-001"
+      ],
+      "signatures": {
+        "Illumination": "def set_night_vision(self, device_serial: str, channel_no: int, *, luminance: int, duration: int, mode: FillLightMode | int) -> ApiResponse",
+        "AsyncIllumination": "async def set_night_vision(self, device_serial: str, channel_no: int, *, luminance: int, duration: int, mode: FillLightMode | int) -> ApiResponse"
+      },
+      "source_url": "https://open.ys7.com/help/5062",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5062.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/5062.structure.json",
+      "html_sha256": "0d47c3cd9c75b3075f489c838f1bfc722dfa156133a53897a708d50f2702f4db",
+      "method": "PUT",
+      "path": "/api/v3/keyValue/{deviceSerial}/{channelNo}/op",
+      "read_only": false,
+      "permission": "资料明确支持托管和子账号 Config。",
+      "unknown": "参数表在 body 下列出 token，示例在 query 携带。未规定部分更新、单位、可用范围、设备生效时间或完整结果枚举。",
+      "parameters": [
+        {
+          "name": "deviceSerial",
+          "location": "path",
+          "type": "string",
+          "required": true,
+          "evidence": "E5 path template; channel type is SDK choice"
+        },
+        {
+          "name": "channelNo",
+          "location": "path",
+          "type": "int",
+          "required": true,
+          "evidence": "E5 path template; channel type is SDK choice"
+        },
+        {
+          "name": "accessToken",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R2;E36"
+        },
+        {
+          "name": "key",
+          "location": "form",
+          "type": "string",
+          "required": true,
+          "constant": "NightVision_Model",
+          "evidence": "E8/R3;E36"
+        },
+        {
+          "name": "value",
+          "location": "form",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R4;E36"
+        }
+      ],
+      "elements": {
+        "permissions": 2,
+        "route": 5,
+        "parameters": 8,
+        "request": 36,
+        "example": 79,
+        "fields": 40,
+        "errors": 82
+      }
+    }
+  ],
+  "sdk_choices": [
+    "国内同步和异步入口挂在既有 illumination。SDK 要求显式传入设备序列号和整数通道号，不为通道设置默认值或推断设备型号。路径绑定沿用客户端逐段校验与百分号编码。所有整数参数拒绝 bool。",
+    "GET 查询串含单个 accessToken 与固定 key=NightVision_Model。返回根层整数 meta.code=200 后，data 必须为对象，valueInfo 按 E34 字段表接受原字符串，也按 E88 示例接受对象。对象中已给出的 luminance、duration 与 graphicType 是整数。未知字段和整数枚举保留，不解析字符串或推断默认配置。",
+    "PUT 按 E36 示例在 query 放一次 accessToken，在 application/x-www-form-urlencoded 中放 key 和 value。value 是包含 luminance、duration、graphicType 三个整数的 JSON 字符串。完整三字段是 SDK 的选择，官方没有规定部分更新。模式复用 FillLightMode 0–3，亮度与时长不增加无来源单位、范围或默认值。返回根层整数 meta.code=200 和 data.result 字符串，保留原始响应。",
+    "只读查询遇到符合既有策略的令牌失效可刷新一次。设置不自动重发、不读回、不改变其他 illumination 入口。查询令牌和路径序列号复用现有路径及传输脱敏，错误保留原 SDK 分类，本地诊断沿用字段和值白名单。",
+    "示例 python -m examples.night_vision --mode sync 或 --mode async，要求显式 domestic 地区、设备序列号、通道及应用配置。仅执行一次业务读取。成功回执包括 region、mode、status、value_info_type，不公开序列号、通道、令牌、配置值或响应原文。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/illumination.py",
+    "src/ezviz_unified/_path.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "真实读取需要符合范围的国内测试通道，设置及恢复需另行授权。"
+}

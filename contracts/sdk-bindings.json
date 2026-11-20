@@ -3751,6 +3751,32 @@
       "public_entry": "device_add_links.list",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.illumination.get_night_vision",
+      "region": "domestic",
+      "source_doc_id": "5061",
+      "module": "src/ezviz_unified/illumination.py",
+      "symbols": [
+        "Illumination.get_night_vision",
+        "AsyncIllumination.get_night_vision"
+      ],
+      "public_entry": "illumination.get_night_vision",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.illumination.set_night_vision",
+      "region": "domestic",
+      "source_doc_id": "5062",
+      "module": "src/ezviz_unified/illumination.py",
+      "symbols": [
+        "Illumination.set_night_vision",
+        "AsyncIllumination.set_night_vision"
+      ],
+      "public_entry": "illumination.set_night_vision",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

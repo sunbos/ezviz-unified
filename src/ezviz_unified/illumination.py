@@ -15,16 +15,24 @@ available in the other region, and the overseas setter rejects the
 domestic-only mode 3. Returned ``data`` (including
 ``graphicType``/``luminance``/``duration``) is passed through untouched;
 the documented fixed values are never injected.
+
+Domestic devices additionally support ``get_night_vision`` and
+``set_night_vision``, which read and write the per-channel
+``NightVision_Model`` key through the domestic key/value get/set
+endpoints. ``get_mode`` remains overseas-only.
 """
 
 from __future__ import annotations
 
+import json
 from enum import IntEnum
 from typing import TYPE_CHECKING, NamedTuple
 
 from .diagnostic_report import _diagnostic_scope
+from .errors import ProtocolError
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
+from .storage_models import _integer
 
 if TYPE_CHECKING:
     from .client import AsyncClient, Client
@@ -182,6 +190,88 @@ def _set_enabled_call(scope: str, serial: object, enabled: object) -> _Call:
     )
 
 
+_NIGHT_VISION_POLICY = ResponsePolicy(
+    code_path="meta.code",
+    message_path="meta.message",
+    data_path="data",
+    success_values=(200,),
+    redact_message_urls=True,
+)
+
+_NIGHT_VISION_KEY = "NightVision_Model"
+_NIGHT_VISION_PATH = "/api/v3/keyValue/{deviceSerial}/{channelNo}/op"
+
+_GET_NIGHT_VISION = Operation(
+    "illumination.get_night_vision",
+    "GET",
+    _NIGHT_VISION_PATH,
+    token_location="query",
+    regions=frozenset({_DOMESTIC}),
+    read_only=True,
+    policy=_NIGHT_VISION_POLICY,
+)
+
+_SET_NIGHT_VISION = Operation(
+    "illumination.set_night_vision",
+    "PUT",
+    _NIGHT_VISION_PATH,
+    token_location="query",
+    regions=frozenset({_DOMESTIC}),
+    read_only=False,
+    policy=_NIGHT_VISION_POLICY,
+)
+
+
+def _night_vision_path_params(device_serial: str, channel_no: object) -> dict[str, str]:
+    return {
+        "deviceSerial": device_serial,
+        "channelNo": str(_integer("channel_no", channel_no)),
+    }
+
+
+def _night_vision_form(luminance: object, duration: object, mode: object) -> dict[str, str]:
+    value = json.dumps(
+        {
+            "luminance": _integer("luminance", luminance),
+            "duration": _integer("duration", duration),
+            "graphicType": _check_mode(mode).value,
+        },
+        separators=(",", ":"),
+    )
+    return {"key": _NIGHT_VISION_KEY, "value": value}
+
+
+def _malformed(message: str, response: ApiResponse) -> ProtocolError:
+    return ProtocolError(message, operation=response.operation, http_status=response.http_status)
+
+
+def _check_night_vision_info(response: ApiResponse) -> ApiResponse:
+    data = response.data
+    if not isinstance(data, dict):
+        raise _malformed("night vision response data must be an object", response)
+    info = data.get("valueInfo")
+    if isinstance(info, str):
+        return response
+    if not isinstance(info, dict):
+        raise _malformed("night vision response valueInfo must be a string or object", response)
+    for key in ("luminance", "duration", "graphicType"):
+        if key in info:
+            field = info[key]
+            if isinstance(field, bool) or not isinstance(field, int):
+                raise _malformed(
+                    "night vision response valueInfo field must be an integer",
+                    response,
+                )
+    return response
+
+
+def _check_night_vision_result(response: ApiResponse) -> ApiResponse:
+    data = response.data
+    if not isinstance(data, dict) or not isinstance(data.get("result"), str):
+        raise _malformed("night vision response result must be a string", response)
+    return response
+
+
 class Illumination:
     """Synchronous facade over the reviewed fill-light operations."""
 
@@ -219,6 +309,36 @@ class Illumination:
                 params=call.params,
                 data=call.data,
             )
+
+    def get_night_vision(self, device_serial: str, channel_no: int) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="illumination.get_night_vision", mode="sync"
+        ):
+            response = self._client.request(
+                _GET_NIGHT_VISION,
+                path_params=_night_vision_path_params(device_serial, channel_no),
+                params={"key": _NIGHT_VISION_KEY},
+            )
+            return _check_night_vision_info(response)
+
+    def set_night_vision(
+        self,
+        device_serial: str,
+        channel_no: int,
+        *,
+        luminance: int,
+        duration: int,
+        mode: FillLightMode | int,
+    ) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="illumination.set_night_vision", mode="sync"
+        ):
+            response = self._client.request(
+                _SET_NIGHT_VISION,
+                path_params=_night_vision_path_params(device_serial, channel_no),
+                data=_night_vision_form(luminance, duration, mode),
+            )
+            return _check_night_vision_result(response)
 
 
 class AsyncIllumination:
@@ -258,3 +378,33 @@ class AsyncIllumination:
                 params=call.params,
                 data=call.data,
             )
+
+    async def get_night_vision(self, device_serial: str, channel_no: int) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="illumination.get_night_vision", mode="async"
+        ):
+            response = await self._client.request(
+                _GET_NIGHT_VISION,
+                path_params=_night_vision_path_params(device_serial, channel_no),
+                params={"key": _NIGHT_VISION_KEY},
+            )
+            return _check_night_vision_info(response)
+
+    async def set_night_vision(
+        self,
+        device_serial: str,
+        channel_no: int,
+        *,
+        luminance: int,
+        duration: int,
+        mode: FillLightMode | int,
+    ) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="illumination.set_night_vision", mode="async"
+        ):
+            response = await self._client.request(
+                _SET_NIGHT_VISION,
+                path_params=_night_vision_path_params(device_serial, channel_no),
+                data=_night_vision_form(luminance, duration, mode),
+            )
+            return _check_night_vision_result(response)
