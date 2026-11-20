@@ -42,7 +42,9 @@
       "installed_package",
       "receiver_core",
       "loopback_http",
-      "platform_callback"
+      "platform_callback",
+      "official_component",
+      "browser"
     ],
     "risk": "read_only | write_bounded | destructive_guarded | release | offline_only",
     "preconditions": [
@@ -538,17 +540,19 @@
         "docs/coordination/official-hls-preview/admission.json",
         "docs/official-hls-preview.md",
         "docs/validation/2026-11-19-official-hls-preview/checks.json",
-        "docs/validation/2026-11-19-official-hevc-preview/checks.json"
+        "docs/validation/2026-11-19-official-hevc-preview/checks.json",
+        "docs/validation/2026-11-21-overseas-flv-preview/checks.json"
       ],
       "result": "awaiting_design",
       "blockers": [
-        "H.264 与 HEVC 软件解码已分别取得本机证据。真实平台、RTC、海外与原生等范围仍需独立验收。"
+        "已有国内 HLS H.264/HEVC 和海外 SDK 接入本机 H.264/FLV 的证据。真实平台、其他媒体协议、RTC 与原生端仍分别验收。"
       ],
       "criterion_assessment": {
         "HLS-PATH-DESIGN": "met",
         "OTHER-COMPONENT-SCOPES": "pending",
         "H264-LOCAL-BROWSER": "met",
-        "HEVC-SOFT-LOCAL": "met"
+        "HEVC-SOFT-LOCAL": "met",
+        "OVERSEAS-FLV-H264-LOCAL": "met"
       }
     },
     {
@@ -35383,20 +35387,39 @@
       "source_refs": [
         "docs/coordination/overseas-flv-preview/admission.json",
         "docs/capabilities/official-component-artifacts-2026-11-17.json",
-        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/534.source.json"
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/534.source.json",
+        "docs/coordination/overseas-flv-preview/worker-lifecycle.json"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
+      "code_artifact_evidence_refs": [
+        "examples/flv_preview.py",
+        "examples/flv_preview_assets/index.html",
+        "examples/flv_preview_assets/player.html",
+        "examples/flv_preview_assets/preview.js",
+        "tools/media/verify_flv.cjs",
+        "tests/test_example_flv_preview.py",
+        "docs/official-flv-preview.md",
+        "README.md",
+        "tools/media/package.json",
+        ".github/workflows/ci.yml"
+      ],
+      "result": "recorded_evidence",
       "criterion_assessment": {
-        "SDK-ADDRESS": "pending",
-        "PINNED-PLAYER": "pending",
-        "DECODED-VIDEO": "pending",
-        "CLEANUP": "pending",
-        "PAGE-NETWORK": "pending"
+        "SDK-ADDRESS": "met",
+        "PINNED-PLAYER": "met",
+        "DECODED-VIDEO": "met",
+        "CLEANUP": "met",
+        "PAGE-NETWORK": "met"
       },
-      "blockers": [
-        "待离线执行。"
-      ]
+      "blockers": [],
+      "execution_outcome": "passed",
+      "verified_code_commit": "6c46899dd75f746c67e20db962bf5e989bfaeb02",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-overseas-flv-preview/checks.json"
+      ],
+      "limitations": [
+        "仅覆盖本机配套 Chromium 的 H.264 MSE、合成 FLV 和模拟海外签发。真实海外地址、用户观看授权、设备播放、其他浏览器、原生或 RTC 尚需独立证据。系统 Chrome 157 的验收器曾在关闭浏览器时超时。"
+      ],
+      "execution_note": "实际运行官方浏览器组件。真实平台签发与设备播放另行验收。"
     },
     {
       "case_id": "ACC-MEDIA-FLV-H264-OS-PLATFORM-001",
