@@ -6501,6 +6501,56 @@
           "extra": true
         }
       ]
+    },
+    {
+      "operation_id": "cn.illumination.get_night_vision",
+      "args": [
+        "SYN 夜%9",
+        7
+      ],
+      "kwargs": {},
+      "path_fields": {
+        "deviceSerial": "SYN 夜%9",
+        "channelNo": "7"
+      },
+      "fields": {
+        "key": "NightVision_Model"
+      },
+      "data": {
+        "valueInfo": {
+          "luminance": 32,
+          "duration": 0,
+          "graphicType": 8,
+          "extra": {
+            "fixtureKey": "synthetic",
+            "fixtureNum": 1
+          }
+        }
+      }
+    },
+    {
+      "operation_id": "cn.illumination.set_night_vision",
+      "args": [
+        "SYN 夜%9",
+        7
+      ],
+      "kwargs": {
+        "luminance": 0,
+        "duration": 13,
+        "mode": 3
+      },
+      "path_fields": {
+        "deviceSerial": "SYN 夜%9",
+        "channelNo": "7"
+      },
+      "fields": {
+        "key": "NightVision_Model",
+        "value": "{\"luminance\":0,\"duration\":13,\"graphicType\":3}"
+      },
+      "data": {
+        "result": "fixture-result",
+        "unknownField": "synthetic-unknown"
+      }
     }
   ]
 }

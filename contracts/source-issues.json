@@ -2281,6 +2281,42 @@
         "E47;E51;E100",
         "docs/coordination/domestic-device-add-links/admission.json"
       ]
+    },
+    {
+      "id": "cn.illumination.get_night_vision.value_info_representation",
+      "region": "domestic",
+      "source_doc_id": "5061",
+      "source_url": "https://open.ys7.com/help/5061",
+      "source_content_sha256": "ddda44ee0c944c7ea049eaf34401ccffa62998b9fe122da131cc477d115d3472",
+      "description": "5061 的 E34 将 valueInfo 标为字符串，E88 展示对象。E2 确认托管 Config，子账号读取权限未单列。两份资料均未给出亮度和时长的单位或范围、默认通道和适用机型。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "保留字符串或对象的原始表示。对象保留未知字段和模式值，字符串直接返回。",
+      "evidence": [
+        "E2",
+        "E5",
+        "E7;E8",
+        "E30",
+        "E34;E88",
+        "docs/coordination/domestic-night-vision/admission.json"
+      ]
+    },
+    {
+      "id": "cn.illumination.set_night_vision.token_location_and_write_scope",
+      "region": "domestic",
+      "source_doc_id": "5062",
+      "source_url": "https://open.ys7.com/help/5062",
+      "source_content_sha256": "0d47c3cd9c75b3075f489c838f1bfc722dfa156133a53897a708d50f2702f4db",
+      "description": "5062 的 E7、E8 将 accessToken 列在 body 下，E36 示例在 query 携带令牌。部分更新、亮度和时长的单位与范围及 result 的完整取值未说明。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "按 E36 在 query 发送一个 accessToken，在表单内发送 key 和 JSON 字符串 value。SDK 要求提供三个整数字段。保留 data.result 字符串，OK 仅为示例。设置请求只发一次。",
+      "evidence": [
+        "E2",
+        "E5",
+        "E7;E8",
+        "E36",
+        "E40;E79",
+        "docs/coordination/domestic-night-vision/admission.json"
+      ]
     }
   ]
 }

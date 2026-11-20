@@ -20500,6 +20500,157 @@
       },
       "source_content_sha256": "dde22f8f35c88b8cecd16ca33d08e392e357e2345f8caa37148164a17d563bd5",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.illumination.get_night_vision",
+      "region": "domestic",
+      "source_doc_id": "5061",
+      "source_url": "https://open.ys7.com/help/5061",
+      "method": "GET",
+      "path": "/api/v3/keyValue/{deviceSerial}/{channelNo}/op",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "deviceSerial",
+          "location": "path",
+          "type": "string",
+          "required": true,
+          "evidence": "E5 path template; channel type is SDK choice"
+        },
+        {
+          "name": "channelNo",
+          "location": "path",
+          "type": "int",
+          "required": true,
+          "evidence": "E5 path template; channel type is SDK choice"
+        },
+        {
+          "name": "accessToken",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R2;E30"
+        },
+        {
+          "name": "key",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "constant": "NightVision_Model",
+          "evidence": "E8/R3;E30"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E34;E88;E91"
+      },
+      "constraints": [
+        {
+          "fact": "资料确认托管 Config，未单独确认子账号可读。",
+          "evidence": "E2"
+        },
+        {
+          "fact": "data.valueInfo 接受字段表中的字符串或示例中的对象。对象内已返回的 luminance、duration、graphicType 为整数，保留其他字段与未知整数枚举。",
+          "evidence": "E0;E5;E7;E8;E30;E34;E88;E91"
+        }
+      ],
+      "uncertainties": [
+        "valueInfo 字段表标字符串、示例为对象。未说明单位、范围、默认通道或支持机型。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/keyValue/{deviceSerial}/{channelNo}/op",
+        "encoding": "none",
+        "evidence": "E0;E5;E7;E8;E30"
+      },
+      "source_content_sha256": "ddda44ee0c944c7ea049eaf34401ccffa62998b9fe122da131cc477d115d3472",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.illumination.set_night_vision",
+      "region": "domestic",
+      "source_doc_id": "5062",
+      "source_url": "https://open.ys7.com/help/5062",
+      "method": "PUT",
+      "path": "/api/v3/keyValue/{deviceSerial}/{channelNo}/op",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "deviceSerial",
+          "location": "path",
+          "type": "string",
+          "required": true,
+          "evidence": "E5 path template; channel type is SDK choice"
+        },
+        {
+          "name": "channelNo",
+          "location": "path",
+          "type": "int",
+          "required": true,
+          "evidence": "E5 path template; channel type is SDK choice"
+        },
+        {
+          "name": "accessToken",
+          "location": "query",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R2;E36"
+        },
+        {
+          "name": "key",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "constant": "NightVision_Model",
+          "evidence": "E8/R3;E36"
+        },
+        {
+          "name": "value",
+          "location": "body",
+          "type": "string",
+          "required": true,
+          "evidence": "E8/R4;E36"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E40;E79;E82"
+      },
+      "constraints": [
+        {
+          "fact": "资料明确支持托管和子账号 Config。",
+          "evidence": "E2"
+        },
+        {
+          "fact": "表单 value 是含 luminance、duration、graphicType 三个整数的 JSON 字符串。SDK 一次发送这三个字段并限制写入模式为 0–3。成功的 data.result 为字符串。",
+          "evidence": "E0;E5;E7;E8;E36;E40;E79;E82"
+        }
+      ],
+      "uncertainties": [
+        "参数表在 body 下列出 token，示例在 query 携带。未规定部分更新、单位、可用范围、设备生效时间或完整结果枚举。"
+      ],
+      "transport_evidence": {
+        "method": "PUT",
+        "path": "https://open.ys7.com/api/v3/keyValue/{deviceSerial}/{channelNo}/op",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E0;E5;E7;E8;E36"
+      },
+      "source_content_sha256": "0d47c3cd9c75b3075f489c838f1bfc722dfa156133a53897a708d50f2702f4db",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -20649,6 +20800,10 @@
     {
       "review": "docs/coordination/domestic-device-add-links/admission.json",
       "note": "国内仅开发者账号的设备添加工具：区分签发和实际添加记录，期限单位、游标类型、过期地址为空各自登记。"
+    },
+    {
+      "review": "docs/coordination/domestic-night-vision/admission.json",
+      "note": "国内设备暖光与亮灯时长读写。5061 保留 valueInfo 的两种表示，5062 按请求示例区分查询令牌与表单字段。"
     }
   ]
 }

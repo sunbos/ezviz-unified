@@ -508,6 +508,12 @@ python -m examples.talk_speaker_volume --mode sync
 
 `client.maintenance`提供固件/模块查询与显式升级、指定介质格式化；查询不自动轮询，触发操作不自动重放或修改前置安全状态。`client.illumination`按地区处理补光模式、读取与开关，国内模式0–3、海外0–2。参数顺序、旧版迁移与[响应层级证据](docs/research/2026-11-14-maintenance-illumination.md)有明确说明；没有真实设备维护操作。
 
+国内夜视配置读写通过 `client.illumination` 上的独立入口完成，同步与异步客户端签名一致。读取调用形如 `client.illumination.get_night_vision(serial, channel_no)`，写入调用形如 `client.illumination.set_night_vision(serial, channel_no, luminance=..., duration=..., mode=...)`，真机写入与配置恢复尚未执行也未验证。
+
+两个方法均返回 `ApiResponse`，`data` 属性为字典。读取响应的 `data["valueInfo"]` 保留官方原始值，字段表标注为字符串而示例为对象，SDK 接受两种形态。写入响应中含有 `data["result"]` 字符串，仅凭该字符串不能确认硬件已实际生效。`mode` 沿用 0–3 的 `FillLightMode`，官方未说明 `luminance` 与 `duration` 的单位或取值范围。写入为单次 PUT，不自动重试也不读回，当前已完成离线验证。
+
+示例 `python -m examples.night_vision --mode sync` 或 `--mode async` 仅执行一次读取，需显式设置 `EZVIZ_REGION=domestic`、`EZVIZ_DEVICE_SERIAL`、`EZVIZ_CHANNEL_NO`、`EZVIZ_APP_KEY` 与 `EZVIZ_APP_SECRET`。输出仅含 `region`、`mode`、`status`、`value_info_type` 四项回执字段，设备配置值不展示。接口约定见官方文档[读取夜视配置](https://open.ys7.com/help/5061)与[设置夜视配置](https://open.ys7.com/help/5062)。
+
 ## OTAP物模型与账户托管
 
 `client.otap`目前仅国内提供四个物模型入口：`get_property`与`latest_property`为只读查询（平台缓存值、`data.desired`/`data.reported`），`set_property`与`invoke_action`把调用方给定的裸JSON对象下发到设备；业务标识与令牌均置于Header，两个GET无请求体。服务调用为同步接口，平台等待上限16秒，需要完整等待请显式设置更大的`Client(timeout=...)`；写入后不自动再查询、不轮询，`desired`/`reported`中的`null`与`false`原样保留。`latest_property`按来源校验`local_index`（`0`或非零开头、不超过10位）与标识符长度<255，旧v3接口仅要求非空白。
