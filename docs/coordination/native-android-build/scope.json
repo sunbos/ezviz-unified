@@ -165,7 +165,7 @@
     "objectives": [
       "普通 com.android.application 项目，通过 mavenCentral 的准确坐标与文档 E6 两个直接依赖消费组件。核对 Gradle 实际解析的 AAR/POM 与额外 3 个运行 JAR 的摘要和坐标。禁止替换为 flatDir、stub 或仅 javac 伪装 Gradle 构建。JDK17 与已装 android-35/build-tools35.0.0；不安装 Android SDK、不自动接受 SDK 许可。隔离 Gradle 用户缓存与工程目录。不使用私有依赖源或凭据。",
       "按正常 release assemble 产出 APK。允许首次公共依赖获取，再以隔离、预备好的同一依赖缓存和 Gradle offline 重新生成实际 APK；关闭签名、缩减和资源缩减，本次只验证未混淆的消费包。Java Probe 为无平台入口的类型化方法：只声明两类 SDK 的七个名称九个实际描述符，使用传入变量，不在任何运行入口调用 SDK，不写入真实 token/设备。不得请求实际设备列表、权限或使用模拟器。release minSdk21、target35；不登记 Activity、启动组件或业务权限。",
-      "验证最终 unsigned APK（apksigner 签名缺失的明确拒绝及签名痕迹检查），manifest 解码的 applicationId、sdk 版本与实际组件/无业务权限。资源经过 AAPT2 后以真实资源表核对布局/资源名称和代表性有差异的配置，不能用原 XML 字节对比编译资源。58 个 assets 与两个 ABI 的各37个 ELF SO 对齐来源、成员名、内容 SHA 及 ELF32 ARM / ELF64 AArch64。检查输入 AndroidManifest/实际依赖范围和文档17次权限示例的边界。",
+      "验证最终 unsigned APK（apksigner 签名缺失的明确拒绝及签名痕迹检查），manifest 解码的 applicationId、sdk 版本与实际组件/无业务权限。资源经过 AAPT2 后以真实资源表核对布局/资源名称和代表性有差异的配置，不能用原 XML 字节对比编译资源。58 个 assets 与两个 ABI 的各37个 ELF SO 对齐来源、成员名、内容 SHA 及 ELF32 ARM / ELF64 AArch64。检查输入 AndroidManifest/实际依赖范围和文档19次权限条目、去重17个权限名称的边界。",
       "通过消费 .class 与最终 DEX 两处证据：Java 编译器发出的真实 owner/name/descriptor，最终 Probe DEX 指令确实引用九个目标方法；最终 DEX 定义含厂商真实类和 SDK 描述符及依赖。不可用搜索整个 APK 字符串代替 DEX 证据。minify=false 与保持原生库符号是验收选择，不据此声称 R8 或 JNI 在真机上通过。",
       "负例应真正触发边界：同一 Java 编译环境中错误方法名必须在相应符号处失败；相同大小的 .so 或 asset 改一字节必须由同一摘要校验拒绝；合成的非授权权限必须被最终 manifest 检查拒绝。控制输入仅在临时副本，不修改官方缓存和工作树。发布可复核的无个人信息 JSON 回执，记录 runner、Gradle/AGP/JDK/SDK、真实 Gradle source revisions、APK/DEX/Maven 摘要、负例及未运行/未签名/零设备调用。不得上传 APK、Logcat 或任何用户数据，只留精简证据。",
       "GitHub Actions 采用只读权限和预装工具，独立于 Python CI、只在本例验收输入变化的 PR/主分支与手动触发；head 绑定 GitHub 实际 run/job，保留失败后修复记录。Python runtime、wheel 与 sdist 均不带 APK/AAR、Gradle 或 Java 运行时依赖。"

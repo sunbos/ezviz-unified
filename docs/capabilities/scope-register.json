@@ -564,7 +564,7 @@
     "android_native_build_admission": {
       "path": "docs/coordination/native-android-build/scope.json",
       "schema": 1,
-      "sha256": "ac5072e13269aab6bf60d8c9b8c9ea33b6b4efcdd1825b14d4eab1fd5714b419"
+      "sha256": "dfc95b2a97b3a0c1310cff1da0d9964f6aa1bf662a5353096e838723feb87ba9"
     }
   },
   "scope_state": {
