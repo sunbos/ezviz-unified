@@ -26956,55 +26956,58 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:469:1.1",
+      "capability_selector": "oauth.build_login_url / oauth.parse_redirect",
       "capability_ids": [
         "candidate:overseas:469:1.1"
       ],
       "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "scope_revision": "2026-11-20-r46-overseas-oauth-login",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
-      "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
-      "surface": [],
+      "account_role_permissions": "离线合成用户授权数据，真实登录须获得终端用户同意。",
+      "device_requirements": "本地导航构造和解析无须设备。",
+      "surface": [
+        "sync",
+        "async",
+        "repository_example"
+      ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。",
-        "本候选的调用或接收surface尚未冻结；当前空列表不代表该层不适用。"
+        "冻结 §1.1 来源与本地公开接口；禁止示例访问真实平台或用户配置。"
       ],
       "expected_evidence": {
-        "read": "围绕“构建终端用户OAuth登录地址并解析回跳”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "输出地址结构、fragment 解析、不可变字段与敏感值处理。",
+        "write": "零真实或模拟业务 HTTP 调用，无浏览器、监听器或凭据存储。",
+        "physical": "离线不证明用户授权、令牌有效或设备可见。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/0"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/0",
+        "docs/coordination/overseas-oauth-login/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/469.source.json"
       ],
       "pending_questions": [
-        "the client_type 'required' cell actually contains an abnormal String error text, not a normal Y/N — requiredness cannot be claimed",
-        "reviewed constraint (e77): bundleId is required when client_type is 11 or 13 — a login-specific rule, independent of the refresh table",
-        "one additional table row exists beyond this packet (other_rows_not_in_this_packet=1); request_schema_status stays partial_pending_full_contract_review",
-        "response field names/types in the fragment must be re-read at contract time",
-        "the page GET is browser-behavior inference only; do not assert an official GET declaration"
+        "真实授权、地区与回跳交付机制。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+        "待离线执行。"
       ],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
-      ]
+      ],
+      "criterion_assessment": {
+        "LOCAL-PROTOCOL": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-11-OFFLINE-001",
@@ -34786,6 +34789,50 @@
       ],
       "limitations": [
         "未给出现行价格、开关原值查询、恢复保证或显式通道生效时限。POST 成功只证明平台受理。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-469-1-1-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_user_oauth_consent",
+      "capability_selector": "oauth.build_login_url / oauth.parse_redirect",
+      "capability_ids": [
+        "candidate:overseas:469:1.1"
+      ],
+      "operation_ids": [],
+      "scope_revision": "2026-11-20-r46-overseas-oauth-login",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas_confirmed_oauth_cluster",
+      "account_role_permissions": "具资格的终端用户，知情同意登录及签发令牌。",
+      "device_requirements": "无需绑定设备。需要已经核实的地区、应用登记及受控回跳交付。",
+      "surface": [
+        "application_navigation",
+        "local_redirect_parser"
+      ],
+      "risk": "authorization_state_change",
+      "preconditions": [
+        "确认地区/应用、用户同意、回跳交付和凭据处置。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录交互授权结果和回跳解析状态。",
+        "write": "签发用户令牌需要新的具体授权。",
+        "physical": "不查询设备或媒体。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "登录前确认使用与处置范围、令牌失效或适用的撤销方式。原始令牌不留存。",
+      "source_refs": [
+        "docs/coordination/overseas-oauth-login/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/469.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "真实终端用户同意和受控回跳环境尚未确认。"
       ]
     }
   ],
