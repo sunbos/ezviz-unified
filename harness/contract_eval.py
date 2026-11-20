@@ -18,6 +18,8 @@ from .registry import RegistryError
 
 _WORKER = Path(__file__).with_name("_contract_worker.py")
 _SCENARIOS = {"success", "auth_fault", "permission_fault", "http_fault"}
+_REFRESH_OPERATION = "global.oauth.refresh_token"
+_REFRESH_SCENARIOS = {"success", "refresh_expired", "binding_mismatch", "http_fault"}
 _PROBLEMS = {
     "case_invalid",
     "contract_invalid",
@@ -105,7 +107,7 @@ def _validate_report(report: dict, contracts: dict, cases: dict) -> None:
         for op in selected
         for mode in ("sync", "async")
         for layout in contract_map[op]["success"].get("envelope_paths", [""])
-        for scenario in _SCENARIOS
+        for scenario in (_REFRESH_SCENARIOS if op == _REFRESH_OPERATION else _SCENARIOS)
     }
     results = report.get("results")
     if not isinstance(results, list):

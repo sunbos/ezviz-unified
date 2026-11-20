@@ -88,6 +88,8 @@ _PERMISSION_FAULT = "permission_fault"
 _HTTP_FAULT = "http_fault"
 _SUCCESS = "success"
 _SCENARIOS = (_SUCCESS, _AUTH_FAULT, _PERMISSION_FAULT, _HTTP_FAULT)
+_REFRESH_OPERATION = "global.oauth.refresh_token"
+_REFRESH_SCENARIOS = (_SUCCESS, "refresh_expired", "binding_mismatch", _HTTP_FAULT)
 _MODES = ("sync", "async")
 
 _FORMAT_RE = re.compile(r"\{([A-Za-z_][A-Za-z0-9_]*)\}")
@@ -1531,6 +1533,13 @@ def _run_cell(
     auth_contract: dict,
 ) -> str | None:
     """Execute one (mode, layout, scenario) cell; return a problem or None."""
+    if contract["operation_id"] == _REFRESH_OPERATION:
+        try:
+            return asyncio.run(_run_refresh_cell(package, contract, case, layout, scenario, mode))
+        except _Reject as exc:
+            return exc.problem
+        except Exception:
+            return "harness_error"
     api_origin = _API_ORIGIN[contract["region"]]
     try:
         outcome_kind, outcome, queues, recorded = _run_coro(
@@ -1578,10 +1587,105 @@ def _run_cell(
         return "harness_error"
 
 
+async def _run_refresh_cell(package, contract, case, layout, scenario, mode) -> str | None:
+    auth_origin = (
+        "https://eval-auth-async.ezvizlife.com"
+        if mode == "async"
+        else "https://eval-auth-sync.ezvizlife.com"
+    )
+    api_origin = _API_ORIGIN["overseas"]
+    data = case["data"]
+    if not isinstance(data, dict):
+        return "case_invalid"
+    if scenario == "success":
+        code, message, status = contract["success"]["values"][0], _MESSAGE_OK, 200
+        tokens = (data.get("access_token"), data.get("refresh_token"))
+        if any(not isinstance(token, str) or not token for token in tokens):
+            return "case_invalid"
+    elif scenario == "refresh_expired":
+        code, message, status = "70004", _MESSAGE_FAULT, 200
+    elif scenario == "binding_mismatch":
+        code, message, status = "70005", _MESSAGE_FAULT, 200
+    elif scenario == "http_fault":
+        code, message, status = None, None, 500
+    else:
+        return "case_invalid"
+    queue = _BoundedQueues(1, 0)
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        queue.record_business(request)
+        if status == 500:
+            return httpx.Response(500)
+        return httpx.Response(
+            status, json=_build_payload(contract["success"], layout, code, message, data)
+        )
+
+    cls = package.OAuth if mode == "sync" else package.AsyncOAuth
+    client = cls(_CONTEXT["app_key"], auth_origin=auth_origin, api_origin=api_origin)
+    outcome = captured = None
+    try:
+        outcome = client.refresh_token(
+            *case["args"], **case["kwargs"], transport=httpx.MockTransport(handler)
+        )
+        if mode == "async":
+            outcome = await outcome
+    except Exception as exc:
+        captured = exc
+    if queue.exceeded:
+        return "request_limit_exceeded"
+    if len(queue.business_requests) != 1:
+        return "request_count_mismatch"
+    actual = queue.business_requests[0]
+    if str(actual.url) != auth_origin + contract["path"]:
+        return "request_mismatch"
+    expected = _expected_wire(contract, case["fields"], case["json_fields"], "")
+    expected["origin"] = auth_origin
+    expected["path"] = case["expected_path"]
+    expected["ct_specs"] = case["ct_specs"]
+    wire = _check_business_request(actual, contract, expected)
+    if wire is not None:
+        return wire
+    if scenario == "success":
+        if captured is not None:
+            return "unexpected_exception"
+        if type(outcome) is not package.OAuthRefreshResult:
+            return "response_mismatch"
+        pairs = (
+            ("access_token", "access_token"),
+            ("refresh_token", "refresh_token"),
+            ("open_id", "openId"),
+            ("expires_in", "expires_in"),
+            ("scope", "scope"),
+            ("state", "state"),
+        )
+        if any(not _strict_equal(getattr(outcome, attr), data.get(key)) for attr, key in pairs):
+            return "response_mismatch"
+        return None
+    if captured is None:
+        return "expected_exception_absent"
+    if _MESSAGE_FAULT in str(captured) or _MESSAGE_FAULT in repr(captured):
+        return "response_mismatch"
+    exc_type = {
+        "refresh_expired": package.AuthenticationError,
+        "binding_mismatch": package.PermissionDeniedError,
+    }.get(scenario, package.ApiError)
+    if type(captured) is not exc_type:
+        return "wrong_exception_type"
+    if getattr(captured, "http_status", None) != status:
+        return "wrong_exception_status"
+    if scenario != _HTTP_FAULT and not _strict_equal(getattr(captured, "code", None), code):
+        return "wrong_exception_status"
+    return None
+
+
+def _scenarios(operation_id: str) -> tuple[str, ...]:
+    return _REFRESH_SCENARIOS if operation_id == _REFRESH_OPERATION else _SCENARIOS
+
+
 def _emit_grid(emit, operation_id: str, layouts: list, problem: str) -> None:
     for mode in _MODES:
         for layout in layouts:
-            for scenario in _SCENARIOS:
+            for scenario in _scenarios(operation_id):
                 emit(operation_id, mode, layout, scenario, problem)
 
 
@@ -1590,7 +1694,25 @@ def _run_case_all(emit, package, contract, binding, case, contract_map) -> None:
     is_auth_op = operation_id in _AUTH_OPERATION_IDS
     try:
         _check_contract(contract)
-        if is_auth_op:
+        if operation_id == _REFRESH_OPERATION:
+            if (
+                contract["region"] != "overseas"
+                or contract["read_only"]
+                or contract["token_location"] != "none"
+                or contract.get("base_url") != "{authDomain}"
+                or contract["success"]["values"] != ["200"]
+            ):
+                raise _Reject("contract_invalid")
+            symbols = ["OAuth.refresh_token", "AsyncOAuth.refresh_token"]
+            if (
+                not isinstance(binding, dict)
+                or binding.get("module") != "src/ezviz_unified/oauth.py"
+                or binding.get("symbols") not in (symbols, symbols[::-1])
+                or "public_entry" in binding
+            ):
+                raise _Reject("binding_invalid")
+            auth_contract = contract
+        elif is_auth_op:
             auth_contract = _check_auth_contract(contract)
         else:
             if binding is None:
@@ -1604,7 +1726,7 @@ def _run_case_all(emit, package, contract, binding, case, contract_map) -> None:
         return
     for mode in _MODES:
         for layout in layouts:
-            for scenario in _SCENARIOS:
+            for scenario in _scenarios(operation_id):
                 problem = _run_cell(
                     package=package,
                     contract=contract,

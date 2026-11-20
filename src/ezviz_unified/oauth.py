@@ -1,4 +1,4 @@
-"""Build overseas OAuth login URLs and parse regional return fragments locally."""
+"""Build overseas OAuth login URLs, parse regional return fragments, and refresh user grants once."""
 
 from __future__ import annotations
 
@@ -7,13 +7,22 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from urllib.parse import quote, unquote_plus, urlencode, urlsplit
 
+import httpx
+
+from ._oauth_refresh import (
+    _REFRESH_OPERATION,
+    OAuthRefreshResult,
+    _refresh_form,
+    _refresh_result,
+)
 from ._path import render_path
 from .auth_models import RegionConfig, _normalize_origin
 from .diagnostic_report import DiagnosticRecorder, _diagnostic_scope
+from .transport import AsyncTransport, SyncTransport
 
 _RESPONSE_TYPES = frozenset({"token", "refresh_token"})
 _HEX_DIGITS = frozenset("0123456789abcdefABCDEF")
-__all__ = ["OAuth", "AsyncOAuth", "OAuthGrant"]
+__all__ = ["OAuth", "AsyncOAuth", "OAuthGrant", "OAuthRefreshResult"]
 _LOGIN_ORIGIN = "https://openauth.ezvizlife.com"
 _LOGIN_PATH_TEMPLATE = "/oauth/ddns/{appKey}"
 _ALLOWED_CLIENT_TYPES = (11, 13, 19)
@@ -242,12 +251,64 @@ class _OAuthBase:
         if self._region.auth_base_url == self._region.api_base_url:
             raise ValueError("auth_origin and api_origin must be different origins")
         self._diagnostic_recorder = diagnostic_recorder
+        self._app_key = app_key
 
     def __repr__(self) -> str:
         return f"{type(self).__name__}()"
 
 
 class OAuth(_OAuthBase):
+    def refresh_token(
+        self,
+        refresh_token: str,
+        *,
+        open_id: str,
+        bundle_id: str,
+        scope: str | None = None,
+        state: str | None = None,
+        timeout: float = 10.0,
+        transport: httpx.BaseTransport | None = None,
+    ) -> OAuthRefreshResult:
+        """Refresh a user grant once and close the injected transport after the request."""
+        with _diagnostic_scope(
+            self,
+            entrypoint="oauth.refresh_token",
+            mode="sync",
+            operation=_REFRESH_OPERATION,
+        ):
+            form = _refresh_form(
+                self._app_key,
+                refresh_token,
+                open_id,
+                bundle_id,
+                scope,
+                state,
+            )
+            if transport is not None and not isinstance(transport, httpx.BaseTransport):
+                raise TypeError("transport must be an httpx.BaseTransport instance")
+            with SyncTransport(
+                self._region.auth_base_url,
+                timeout=timeout,
+                transport=transport,
+                trust_env=False,
+            ) as client:
+                with _diagnostic_scope(
+                    self,
+                    entrypoint="oauth.refresh_token",
+                    mode="sync",
+                    kind="attempt",
+                    attempt=1,
+                    operation=_REFRESH_OPERATION,
+                ):
+                    reply = client.request(
+                        _REFRESH_OPERATION.method,
+                        _REFRESH_OPERATION.path,
+                        data=form,
+                        policy=_REFRESH_OPERATION.policy,
+                        operation=_REFRESH_OPERATION.name,
+                    )
+                    return _refresh_result(reply, state)
+
     def build_login_url(
         self,
         area_id: int,
@@ -273,6 +334,57 @@ class OAuth(_OAuthBase):
 
 
 class AsyncOAuth(_OAuthBase):
+    async def refresh_token(
+        self,
+        refresh_token: str,
+        *,
+        open_id: str,
+        bundle_id: str,
+        scope: str | None = None,
+        state: str | None = None,
+        timeout: float = 10.0,
+        transport: httpx.AsyncBaseTransport | None = None,
+    ) -> OAuthRefreshResult:
+        """Refresh a user grant once and close the injected transport after the request."""
+        with _diagnostic_scope(
+            self,
+            entrypoint="oauth.refresh_token",
+            mode="async",
+            operation=_REFRESH_OPERATION,
+        ):
+            form = _refresh_form(
+                self._app_key,
+                refresh_token,
+                open_id,
+                bundle_id,
+                scope,
+                state,
+            )
+            if transport is not None and not isinstance(transport, httpx.AsyncBaseTransport):
+                raise TypeError("transport must be an httpx.AsyncBaseTransport instance")
+            async with AsyncTransport(
+                self._region.auth_base_url,
+                timeout=timeout,
+                transport=transport,
+                trust_env=False,
+            ) as client:
+                with _diagnostic_scope(
+                    self,
+                    entrypoint="oauth.refresh_token",
+                    mode="async",
+                    kind="attempt",
+                    attempt=1,
+                    operation=_REFRESH_OPERATION,
+                ):
+                    reply = await client.request(
+                        _REFRESH_OPERATION.method,
+                        _REFRESH_OPERATION.path,
+                        data=form,
+                        policy=_REFRESH_OPERATION.policy,
+                        operation=_REFRESH_OPERATION.name,
+                    )
+                    return _refresh_result(reply, state)
+
     async def build_login_url(
         self,
         area_id: int,

@@ -65,6 +65,7 @@ text = recorder.to_json()      # 仅返回 str
 - 国内夜视配置的同步和异步调用分别按 `illumination.get_night_vision` 和 `illumination.set_night_vision` 记录。诊断报告不包含设备序列号、通道、令牌或夜视参数值。
 - 国内 RTMP AAC 查询与设置分别以 `video.get_rtmp_aac_support` 和 `video.set_rtmp_aac_enabled` 记录，同步和异步调用使用相同名称。诊断报告不包含令牌、设备序列号、通道或 AAC 参数值。
 - 新增的本地入口 `oauth.build_login_url` 与 `oauth.parse_redirect` 对应 `OAuth`/`AsyncOAuth` 的同步与异步调用，启用 recorder 时在诊断报告中记录 `kind=call` 的开始与终态事件。两个入口仅执行本地计算，不发出 `authentication`、`attempt` 或 `retry` 事件。诊断记录不含 appKey、URL、fragment、令牌、字段实际取值或未知字段数据。
+- 启用 recorder 时，`oauth.refresh_token` 在输入校验前开始记录 `call`。进入发送阶段才为 `global.oauth.refresh_token` 记录一次 `attempt`，两个作用域各有终态。刷新不触发开发者认证或自动重试。SDK 遮盖上游自由文本、未知字符串与整数业务码，以及本次请求的 HTTPX 原因短语。刷新入口启用默认关闭的 `ResponsePolicy.redact_oauth_details`。它返回的 `OAuthRefreshResult` 只暴露规定字段，调用方仍须保护凭据。直接使用底层 `decode_response` 时，脱敏只作用于公开展示，成功载荷仍可从 `raw` 显式访问。
 - `Client.request`/`AsyncClient.request`：含关闭拒绝与 `_prepare`。
 - `authentication`：`get_token`、同步上下文对协程的拒绝、`await`、`validate_provider_token`；普通 provider 异常保留阶段信息。匿名路径（`anonymous=True`）不产生 authentication 事件。`authentication` 记 `succeeded` 可能命中既有 token 缓存，不代表本次发出过认证 HTTP 请求。
 - `transport_setup`：仅 transport factory/origin 校验与注入，不含任何真实请求。

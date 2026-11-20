@@ -47,7 +47,7 @@ from .live_streams import AsyncLiveStreams, LiveStreams
 from .maintenance import AsyncMaintenance, Maintenance
 from .message_subscriptions import AsyncMessageSubscriptions, MessageSubscriptions
 from .models import ApiResponse, ResponsePolicy
-from .oauth import AsyncOAuth, OAuth, OAuthGrant
+from .oauth import AsyncOAuth, OAuth, OAuthGrant, OAuthRefreshResult
 from .operations import Operation
 from .osd import AsyncOsd, Osd
 from .otap import AsyncOtap, Otap
@@ -180,6 +180,7 @@ __all__ = [
     "JSON_NULL",
     "OAuth",
     "OAuthGrant",
+    "OAuthRefreshResult",
     "Operation",
     "Otap",
     "Ownership",

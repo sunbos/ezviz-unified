@@ -80,7 +80,43 @@ def _text(value: object) -> str:
     return ""
 
 
-def _classify(http_status: int, code: ScalarCode | None) -> type[ApiError]:
+_OAUTH_BUSINESS_CODES: Final = frozenset(
+    {
+        200,
+        10001,
+        10017,
+        10023,
+        49999,
+        70003,
+        70004,
+        70005,
+        70006,
+        "200",
+        "10001",
+        "10017",
+        "10023",
+        "49999",
+        "70003",
+        "70004",
+        "70005",
+        "70006",
+    }
+)
+_OAUTH_AUTH_CODES: Final = frozenset({70003, 70004, "70003", "70004"})
+_OAUTH_PERMISSION_CODES: Final = frozenset({10023, 70005, 70006, "10023", "70005", "70006"})
+
+
+def _classify(http_status: int, code: ScalarCode | None, policy: ResponsePolicy) -> type[ApiError]:
+    if policy.redact_oauth_details:
+        if http_status == 401:
+            return AuthenticationError
+        if http_status == 403:
+            return PermissionDeniedError
+        if code in _OAUTH_AUTH_CODES:
+            return AuthenticationError
+        if code in _OAUTH_PERMISSION_CODES:
+            return PermissionDeniedError
+        return ApiError
     if http_status == 401 or code in _AUTH_CODES:
         return AuthenticationError
     if http_status == 403 or code in _PERMISSION_CODES:
@@ -93,6 +129,8 @@ def _present_message(
     policy: ResponsePolicy,
     secrets: tuple[str, ...],
 ) -> str:
+    if policy.redact_oauth_details:
+        return ""
     text = _text(value)
     if policy.redact_device_add_details:
         return REDACTED if text else ""
@@ -109,6 +147,10 @@ def _resolve_code(
 ) -> ScalarCode | None:
     """Sanitize a string code containing a URL when opted in; classification
     always uses the original scalar, so int codes pass through unchanged."""
+    if policy.redact_oauth_details and code is not None:
+        if code in _OAUTH_BUSINESS_CODES:
+            return code
+        return REDACTED
     if not isinstance(code, str):
         return code
     if policy.redact_device_add_details:
@@ -138,7 +180,15 @@ def decode_response(
     elif not isinstance(policy, ResponsePolicy):
         raise TypeError(f"policy must be a ResponsePolicy, got {type(policy).__name__}")
 
-    if policy.redact_registration_fields and isinstance(payload, dict):
+    if policy.redact_oauth_details:
+        secrets = ()
+        if operation == "":
+            operation = ""
+        elif operation == "global.oauth.refresh_token":
+            operation = "global.oauth.refresh_token"
+        else:
+            operation = "other"
+    elif policy.redact_registration_fields and isinstance(payload, dict):
         data = payload.get("data")
         rows = data.get("data") if isinstance(data, dict) else None
         secrets = _registration_secrets(secrets, data, rows)
@@ -163,7 +213,7 @@ def decode_response(
                 policy,
                 secrets,
             )
-        error_type = _classify(http_status, business_code)
+        error_type = _classify(http_status, business_code, policy)
         raise error_type(
             message or f"HTTP {http_status} error",
             code=_resolve_code(business_code, policy, secrets),
@@ -181,14 +231,18 @@ def decode_response(
         )
     if not matches:
         raise ProtocolError(
-            f"missing business code at '{policy.code_path}'",
+            "missing business code"
+            if policy.redact_oauth_details
+            else f"missing business code at '{policy.code_path}'",
             http_status=http_status,
             operation=operation,
             secrets=secrets,
         )
     if len(matches) > 1:
         raise ProtocolError(
-            f"ambiguous response envelope: '{policy.code_path}' is present "
+            "ambiguous response envelope"
+            if policy.redact_oauth_details
+            else f"ambiguous response envelope: '{policy.code_path}' is present "
             f"in {len(matches)} candidates",
             http_status=http_status,
             operation=operation,
@@ -205,14 +259,18 @@ def decode_response(
 
     if raw_code is _MISSING:
         raise ProtocolError(
-            f"missing business code at '{policy.code_path}'",
+            "missing business code"
+            if policy.redact_oauth_details
+            else f"missing business code at '{policy.code_path}'",
             http_status=http_status,
             operation=operation,
             secrets=secrets,
         )
     if not _is_scalar_code(raw_code):
         raise ProtocolError(
-            f"non-scalar business code at '{policy.code_path}' ({type(raw_code).__name__})",
+            "non-scalar business code"
+            if policy.redact_oauth_details
+            else f"non-scalar business code at '{policy.code_path}' ({type(raw_code).__name__})",
             http_status=http_status,
             operation=operation,
             secrets=secrets,
@@ -221,7 +279,7 @@ def decode_response(
     rendered_code = _resolve_code(code, policy, secrets)
 
     if code not in policy.success_values:
-        error_type = _classify(http_status, code)
+        error_type = _classify(http_status, code, policy)
         raise error_type(
             message or f"business error code {rendered_code}",
             code=rendered_code,
@@ -235,14 +293,18 @@ def decode_response(
         if device_code is _MISSING:
             if policy.require_device_code:
                 raise ProtocolError(
-                    f"missing device code at '{policy.device_code_path}'",
+                    "missing device code"
+                    if policy.redact_oauth_details
+                    else f"missing device code at '{policy.device_code_path}'",
                     http_status=http_status,
                     operation=operation,
                     secrets=secrets,
                 )
         elif not _is_scalar_code(device_code):
             raise ProtocolError(
-                f"non-scalar device code at '{policy.device_code_path}' "
+                "non-scalar device code"
+                if policy.redact_oauth_details
+                else f"non-scalar device code at '{policy.device_code_path}' "
                 f"({type(device_code).__name__})",
                 http_status=http_status,
                 operation=operation,
@@ -267,7 +329,8 @@ def decode_response(
     return ApiResponse(
         http_status=http_status,
         code=rendered_code
-        if policy.redact_device_add_details and rendered_code is not None
+        if rendered_code is not None
+        and (policy.redact_oauth_details or policy.redact_device_add_details)
         else code,
         operation=operation,
         message=message,

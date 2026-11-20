@@ -20790,6 +20790,100 @@
       },
       "source_content_sha256": "1fb218b003c06f42f19a2f50a6d638c07c5d6d0b7733bd704fcf4f8bb577f96c",
       "read_only": false
+    },
+    {
+      "operation_id": "global.oauth.refresh_token",
+      "region": "overseas",
+      "source_doc_id": "469",
+      "source_url": "https://open.ys7.com/help/en/469",
+      "source_content_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+      "method": "POST",
+      "path": "/oauth/token/refreshToken",
+      "base_url": "{authDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "none",
+      "parameters": [
+        {
+          "name": "refresh_token",
+          "location": "body",
+          "required": true,
+          "type": "String",
+          "evidence": "E269/R2;E319"
+        },
+        {
+          "name": "grant_type",
+          "location": "body",
+          "required": true,
+          "type": "String",
+          "evidence": "E269/R3;E319",
+          "constant": "refresh_token"
+        },
+        {
+          "name": "client_id",
+          "location": "body",
+          "required": true,
+          "type": "String",
+          "evidence": "E269/R4;E319"
+        },
+        {
+          "name": "open_id",
+          "location": "body",
+          "required": true,
+          "type": "String",
+          "evidence": "E269/R5;E319"
+        },
+        {
+          "name": "bundleId",
+          "location": "body",
+          "required": true,
+          "type": "String",
+          "evidence": "E269/R6;E319"
+        },
+        {
+          "name": "scope",
+          "location": "body",
+          "required": false,
+          "type": "String",
+          "evidence": "E269/R7;E319"
+        },
+        {
+          "name": "state",
+          "location": "body",
+          "required": false,
+          "type": "String",
+          "evidence": "E269/R8;E319"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E323;E327;E355;E388"
+      },
+      "constraints": [
+        {
+          "fact": "使用构造时独立配置的海外用户授权 origin。client_id 取应用 appKey，grant_type 固定为 refresh_token；用户刷新材料与 open_id 由调用方显式提供。",
+          "evidence": "E259;E269;E319;docs/coordination/overseas-oauth-refresh/admission.json"
+        },
+        {
+          "fact": "刷新执行一次。字符串 200 与对象 data 表示成功；结果保留新令牌及实际返回的可选字段。提交 state 时按冻结策略核对原值。",
+          "evidence": "E323;E327;E355;docs/coordination/overseas-oauth-refresh/admission.json"
+        }
+      ],
+      "uncertainties": [
+        "请求表与报文示例在 openId/open_id 拼写及 bundleId 必填性上相异。",
+        "令牌类型标注与字符串示例相异，expires_in 时间单位未给出。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{authDomain}/oauth/token/refreshToken",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E259;E266;E269;E319"
+      },
+      "read_only": false
     }
   ],
   "reviews": [
@@ -20947,6 +21041,10 @@
     {
       "review": "docs/coordination/domestic-rtmp-aac/admission.json",
       "note": "国内 RTMP 音频转 AAC。3736 查询支持能力，3735 通过查询参数设置转码开关。"
+    },
+    {
+      "review": "docs/coordination/overseas-oauth-refresh/admission.json",
+      "note": "海外 469 §1.3 用户令牌刷新。请求字段冲突与响应字段类型选择见准入记录。"
     }
   ]
 }
