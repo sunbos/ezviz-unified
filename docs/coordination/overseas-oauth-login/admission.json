@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "3cc7249bde54c23ff9ea7ad99098b7a2ca02663b",
+  "scope_revision": "2026-11-20-r46-overseas-oauth-login",
+  "cohort_id": "OVERSEAS-OAUTH-LOGIN-001",
+  "capability_id": "candidate:overseas:469:1.1",
+  "case_ids": [
+    "ACC-CANDIDATE-OVERSEAS-469-1-1-OFFLINE-001",
+    "ACC-CANDIDATE-OVERSEAS-469-1-1-LIVE-001"
+  ],
+  "region": "overseas",
+  "source": {
+    "url": "https://open.ys7.com/help/en/469",
+    "section": "1.1",
+    "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/469.source.json",
+    "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/469.structure.json",
+    "html_sha256": "fa599256d11f6097dc4dd429b1b1bc2f93f3431007b327ca2216f03633add4e8",
+    "login": [
+      "E73",
+      "E75",
+      "E77"
+    ],
+    "redirect": [
+      "E120",
+      "E121",
+      "E122"
+    ]
+  },
+  "entries": [
+    "oauth.build_login_url",
+    "oauth.parse_redirect"
+  ],
+  "symbols": [
+    "OAuth.build_login_url",
+    "OAuth.parse_redirect",
+    "AsyncOAuth.build_login_url",
+    "AsyncOAuth.parse_redirect"
+  ],
+  "public_api": {
+    "classes": [
+      "OAuth",
+      "AsyncOAuth"
+    ],
+    "result": "OAuthGrant",
+    "constructor": "(app_key: str, *, auth_origin: str, api_origin: str, diagnostic_recorder: DiagnosticRecorder | None = None)",
+    "build_login_url": "(area_id: int, *, client_type: int, response_type: str = 'token', bundle_id: str | None = None) -> str",
+    "parse_redirect": "(redirect_url: str, *, response_type: str = 'token', expected_state: str | None = None) -> OAuthGrant",
+    "async": "两个方法在 AsyncOAuth 上均可 await，仅执行本地计算。"
+  },
+  "choices": [
+    "使用方分别提供事先核实的海外授权与业务 HTTPS origin，沿用 RegionConfig 海外域/端口校验。规范化后两者须不同，并仅用于各自角色。域名后缀或 fragment 提供的值不单独构成信任。§1.1 例示新加坡区域授权 origin 路径 /oauth/success；资料未证明任意企业或移动自定义回调可用。只实现这种有证据的 HTTPS 回跳形态。",
+    "登录导航固定全球 HTTPS origin openauth.ezvizlife.com 和 /oauth/ddns/{appKey}。appKey 作为一个安全编码的路径段；areaId 是显式正整数，client_type 显式接受 11、13、19；这两项约束的必填性和范围属于 SDK 选择，client_type 的官方必填列有误。response_type 可选 token 或 refresh_token。移动 11 和 13 需要 bundleId；19 可省略或提供。查询串仅含相应官方字段，不添加 state、redirect_uri 等资料未列的参数，不执行导航。",
+    "parse_redirect 仅接受预先配置的授权 origin 与 /oauth/success，无 query，仅解码 fragment。保留已解码未知字段和值，不接受重复名称、空字段名、无效百分号转义、非法 UTF-8 或原始空白/控制字符。必须有非空 access_token，refresh_token 模式还须有非空 refresh_token。缺省其他字段不补造。open_id 和刷新材料按可选处理；expires_in 如出现，按非负 ASCII 十进制整数保留，同时 fields 保留原字符串。单位未证实，不换算为 TTL 或秒。",
+    "返回的 areaDomain 和 authDomain 如出现，分别与独立预置的业务和授权 origin 校验，缺失不推断。OAuthGrant 提供 access_token、refresh_token、open_id、expires_in、area_domain、auth_domain 和不可变 fields（全部解码字段）；repr/str 隐藏凭据及扩展值。只在调用方提供 expected_state 时严格比对，不据此声称官方登录请求具备端到端状态关联。",
+    "两入口使用既有 recorder 的固定额外入口白名单，覆盖同步/异步 call 的开始和终态；没有 HTTP attempt、认证或重试。记录和错误不含原始 URL、字段内容或完整异常链。纯本地助手不占用服务端传输契约数量。",
+    "示例 python -m examples.oauth_login --mode sync 或 --mode async 完全使用合成数据，只输出 mode、login_url_built、redirect_parsed，不读取账户配置、不启动浏览器/监听器、不传输或持久化令牌。"
+  ],
+  "acceptance": [
+    "检查请求源、路径及 query 字段和编码，验证 PC、iOS、Android 的输入规则。",
+    "验证两种回跳模式、配置的两个 origin、可选状态、严格编码、完整不可变 fields、固定错误和敏感值表示。",
+    "两种 SDK 模式均通过真实方法检查诊断事件与零网络行为，执行示例、全量离线回归、类型、格式、产物、安装、PR/main CI。"
+  ],
+  "live": "真实验收需由有资格的海外终端用户另行同意交互登录并在受控应用内解析回跳。该行为可能签发用户令牌。现有设备读取授权和应用 AppKey 不能替代。本批不实施真实登录。",
+  "refresh_review": {
+    "capability": "candidate:overseas:469:1.3",
+    "scope": "独立必需项 §1.3，尚未实施，不从本地解析推定刷新通过。",
+    "evidence": [
+      "E259–269",
+      "E319",
+      "E323",
+      "E355"
+    ],
+    "issues": [
+      "§1.3 表格列 openId、bundleId 必填，表单例使用 open_id 并省略 bundleId。",
+      "刷新 JSON 两个令牌是字符串，字段表却标 int；expires_in 的时间单位没有明确声明。",
+      "授权域与业务域分别核验，刷新响应没有给出新路由。用户刷新与 §1.2 已登记的开发者取 token 流程独立。"
+    ]
+  },
+  "reuse": [
+    "src/ezviz_unified/auth_models.py",
+    "src/ezviz_unified/diagnostic_report.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ]
+}

@@ -47,6 +47,7 @@ from .live_streams import AsyncLiveStreams, LiveStreams
 from .maintenance import AsyncMaintenance, Maintenance
 from .message_subscriptions import AsyncMessageSubscriptions, MessageSubscriptions
 from .models import ApiResponse, ResponsePolicy
+from .oauth import AsyncOAuth, OAuth, OAuthGrant
 from .operations import Operation
 from .osd import AsyncOsd, Osd
 from .otap import AsyncOtap, Otap
@@ -118,6 +119,7 @@ __all__ = [
     "AsyncLiveLimits",
     "AsyncLiveStreams",
     "AsyncThirdPartyProtocols",
+    "AsyncOAuth",
     "AsyncOsd",
     "AsyncPassengerFlow",
     "AsyncTraffic",
@@ -176,6 +178,8 @@ __all__ = [
     "Imaging",
     "InspectionResult",
     "JSON_NULL",
+    "OAuth",
+    "OAuthGrant",
     "Operation",
     "Otap",
     "Ownership",
