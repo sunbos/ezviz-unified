@@ -26468,68 +26468,77 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:3722:d0",
+      "capability_selector": "settings.get_light_linkage",
       "capability_ids": [
         "candidate:overseas:3722:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.settings.get_light_linkage"
+      ],
+      "scope_revision": "2026-11-20-r49-overseas-motion-linked-light",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
+      "account_role_permissions": "支持托管账号及子账号，要求 Get 权限。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "在合成认证和业务传输中按冻结的来源与判据验证。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询移动侦测联动灯开关状态”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "核对 query type=301、原始整数及选择器不匹配时的显示。",
+        "write": "仅模拟显式写及错误处理，核对请求次数、诊断与隐私。",
+        "physical": "离线不证明真实设备接受配置或产生灯效。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/38"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/38",
+        "docs/coordination/overseas-motion-linked-light/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3722.source.json"
       ],
       "pending_questions": [
-        "response table presents status → body → meta; do not assume a root-level meta beyond what the source shows"
+        "E101 的 type=2 与 E30 固定 type=301 不一致。真实设备的读数、支持型号及状态新鲜度待核。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+        "待离线执行。"
       ],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-3723-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:3723:d0",
+      "capability_selector": "settings.set_light_linkage",
       "capability_ids": [
         "candidate:overseas:3723:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.settings.set_light_linkage"
+      ],
+      "scope_revision": "2026-11-20-r49-overseas-motion-linked-light",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
+      "account_role_permissions": "支持托管账号及子账号，要求 Config 权限。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
       "surface": [
         "sync",
@@ -26537,35 +26546,41 @@
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "在合成认证和业务传输中按冻结的来源与判据验证。"
       ],
       "expected_evidence": {
-        "read": "围绕“设置移动侦测联动灯开关”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "不预读或自动回读。",
+        "write": "仅模拟显式写及错误处理，核对请求次数、诊断与隐私。",
+        "physical": "离线不证明真实设备接受配置或产生灯效。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/39"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/39",
+        "docs/coordination/overseas-motion-linked-light/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3723.source.json"
       ],
-      "pending_questions": [],
+      "pending_questions": [
+        "回执不保证物理点灯、即时生效、超时未执行或可恢复性；海外没有声明验证码输入。"
+      ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+        "待离线执行。"
       ],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-3724-D0-OFFLINE-001",
@@ -35042,6 +35057,104 @@
       ],
       "limitations": [
         "海外编码及合并/覆盖未明确，enable 的型号限制不外推至整项操作，时区及跨日语义未知。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3722-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_motion_linked_light",
+      "capability_selector": "settings.get_light_linkage",
+      "capability_ids": [
+        "candidate:overseas:3722:d0"
+      ],
+      "operation_ids": [
+        "global.settings.get_light_linkage"
+      ],
+      "scope_revision": "2026-11-20-r49-overseas-motion-linked-light",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:account_cluster_not_confirmed",
+      "account_role_permissions": "支持托管账号及子账号，要求 Get 权限。",
+      "device_requirements": "已指定海外集群、设备和支持联动灯的型号。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "明确目标、权限和请求预算。"
+      ],
+      "expected_evidence": {
+        "read": "仅保留获准的返回形态、类型是否匹配和分类。",
+        "write": "只读。",
+        "physical": "灯效需独立观测，平台回执仅证明平台回应。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读单一设备，无配置修改。",
+      "source_refs": [
+        "docs/coordination/overseas-motion-linked-light/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3722.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待确认指定资源与本场景授权。"
+      ],
+      "limitations": [
+        "E101 的 type=2 与 E30 固定 type=301 不一致。真实设备的读数、支持型号及状态新鲜度待核。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-3723-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_motion_linked_light",
+      "capability_selector": "settings.set_light_linkage",
+      "capability_ids": [
+        "candidate:overseas:3723:d0"
+      ],
+      "operation_ids": [
+        "global.settings.set_light_linkage"
+      ],
+      "scope_revision": "2026-11-20-r49-overseas-motion-linked-light",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas:account_cluster_not_confirmed",
+      "account_role_permissions": "支持托管账号及子账号，要求 Config 权限。",
+      "device_requirements": "已指定海外集群、设备和支持联动灯的型号。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "明确目标、权限和请求预算。确认原 type 与开关值、授权时段、恢复与验证途径。"
+      ],
+      "expected_evidence": {
+        "read": "仅保留获准的返回形态、类型是否匹配和分类。",
+        "write": "有专项授权后记录设置、恢复与验证结果。",
+        "physical": "灯效需独立观测，平台回执仅证明平台回应。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "须确认同一目标且返回类型为 301、原值可信、可恢复并独立验证。",
+      "source_refs": [
+        "docs/coordination/overseas-motion-linked-light/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/3723.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "待确认指定资源与本场景授权。"
+      ],
+      "limitations": [
+        "回执不保证物理点灯、即时生效、超时未执行或可恢复性；海外没有声明验证码输入。"
       ]
     }
   ],
