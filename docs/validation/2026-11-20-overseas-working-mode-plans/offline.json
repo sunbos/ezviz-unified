@@ -1,0 +1,543 @@
+{
+  "schema_version": 1,
+  "focused_wire": {
+    "cells": [
+      {
+        "operation_id": "global.settings.get_timing_plan",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_timing_plan",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_timing_plan",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_timing_plan",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_timing_plan",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_timing_plan",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_timing_plan",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.get_timing_plan",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_timing_plan",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_timing_plan",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_timing_plan",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_timing_plan",
+        "mode": "sync",
+        "layout": "body",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_timing_plan",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_timing_plan",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_timing_plan",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.settings.set_timing_plan",
+        "mode": "async",
+        "layout": "body",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      }
+    ],
+    "real_api_used": false,
+    "sdk_sha256": "3ee7a8f3b0fc0c8334ace808f18ae3affab41323c839e000005a19540c30f84d",
+    "execution_sha256": "277e545c70f2fee04dc5ea506a27c5f4e1dfab6b09a51a150f774cc09926e4ee",
+    "full_cases_sha256": "0fc3b29f1aa697b6ac87aa9767b60e56e11c8a2f3ea78fc32c619a509a70d0e1"
+  },
+  "scope": "overseas_working_mode_plans_offline",
+  "code_commit": "9f2de311c9ba7b1aa4081a1b89ea757777c8b5ba",
+  "bindings_sha256_at_code_commit": "625dd273528bff5e1933e72f2e574489d6fe8007b38a99a5414297f54224ab34",
+  "source_test_sha256": {
+    "src/ezviz_unified/settings.py": "3ee7a8f3b0fc0c8334ace808f18ae3affab41323c839e000005a19540c30f84d",
+    "src/ezviz_unified/_diagnostic_registry.py": "5e4d3d570fcb36924abf1b64b2c9db8a8e243f7d88da4e4b638a12bb638d3920",
+    "docs/diagnostics-v1-coverage.json": "d8fd5053d931350cb110befa9c84f0ffda00e217ac8fe48beea74ac6a4d014ad",
+    "docs/diagnostics.md": "dd2e0a20f238a57b0cb0373d205f22af41a7754c7ac9fcd6c7796a9b9872681c",
+    "tests/test_harness_diagnostic_coverage.py": "c0e907f328e03972e10976cbcd930a03fdf43796cdd009f8f3d46ed272710f07",
+    "tests/test_sdk_working_mode_plans.py": "621f94bd72735d903f17ff747c2db3a3f954eb4ae5a5a99ca3b2d58190897d12",
+    "tests/test_example_working_mode_plans.py": "2ce5b0d4d72d6af4badf009058cb125a6cf90c0c744a155cee5301855aaed327",
+    "examples/working_mode_plans.py": "99e94ff230a123c0b886aa295b9393b8879a574f15da21fc2bf42efb13e35065",
+    "README.md": "ee076e5a2cb550ccb36374caeb1a6613f30ccbb081783eb1be390ce52495735e",
+    "contracts/reviewed-transport-contracts.json": "6072ebb2695529a18bd079ae166debc96bfaee311f15b3d91dd248c68d7355dc",
+    "contracts/source-issues.json": "f50b9f3f89c7a70e06e4979546568f845ce88f2b4bf132f968013786684b9b38",
+    "evals/contracts/cases.json": "0fc3b29f1aa697b6ac87aa9767b60e56e11c8a2f3ea78fc32c619a509a70d0e1",
+    "docs/coordination/overseas-working-mode-plans/admission.json": "3fb19d7008215c61ab4e582ea77f6b43277c1e2d726f90ace47347c56dbe5a5a",
+    "contracts/coverage.json": "6a4ba7b124061fb2d83b9cd33d78e63a01288f4060e28853cbf1b875b9e6b1ed"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP503-RegCasesR1",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "evals/contracts/cases.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "ab9219af244d2d42ec6d6d9d5c06342166ac785ef25a8be7d70e902c271ea402",
+        "local_receipt_sha256": "228226c06695013869c87d9804d780830b35f590ee775dc07c034b5052abb742",
+        "candidate_sha256": "80428d35d8d6d0ea6e31fc9bebe039a7baf92ee86e7c3e6ee88f270388c0301f",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "819613e1a448438935e6d453dee4c9208951586df222d05b040fca3bd9565d59"
+      },
+      {
+        "task": "SP503-RegDocR1",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "a6dc9b10ad8d69bd2381f2a4b03a730ea1d70f7ac046318c16ae88839471b723",
+        "local_receipt_sha256": "40346f5b1016f5a1799f60aad2a8f8f2d5db51f3db870c468e5a87519966805d",
+        "candidate_sha256": "81bb9690cb4286fbe32efa05cacd84d71198de773083fea7f2c407bc3404ecf8",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "c9535449a8aa81af29ceba84e3a23017661e3b5a1106aea851fa47bd6cc2fdd7"
+      },
+      {
+        "task": "SP503-RegIssuesR2",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "contracts/source-issues.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "d0b46ef901ff59386deb36c0d204efb59f9ef8e94aa7279b4c7771bcaf6fa851",
+        "local_receipt_sha256": "9b5df7951415b8846ee3363ba7ee5ed8c42d876596e2faa139b3058ee77d9046",
+        "candidate_sha256": "4f7787fc212ef78a0b9011c7b2e9dedd3ddebca988359d8cf7c86902b78d5b6d",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "af5d1b63c57f2a8432e957005f5e8b45d93e8ce846a7ef55e4e1658d78c76e98"
+      },
+      {
+        "task": "SP503-SdkCli",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "examples/working_mode_plans.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "beec4cfdcb78e11448b8d2b357b461c1a201ad4e10f607045c91c47cfb51f0ee",
+        "local_receipt_sha256": "fa3d66e2e966b5a2bd70121ead8789fb323f1d3bc96c1c793ca8164b26f4fb32",
+        "candidate_sha256": "d50b2ce1d562243de99968cf66bede08166cc7e8f06a87c7ca96859a41f104a5",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "c8179c867950cf1a78fa6f3998bcdfa0f96b031586dc20319bb3f9eb05cf51f2"
+      },
+      {
+        "task": "SP503-SdkCore",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "src/ezviz_unified/settings.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "3ffb189978e5800c9c85d9b5247fcddd402aa3edb94ade3608b8671a5f9b4df1",
+        "local_receipt_sha256": "d86cb1f771e1995ca809063d991546b10e5b9e6f893bf2c50f4f59afe6884c4e",
+        "candidate_sha256": "29b553d8c248d9461d865b4d84ef7c429e9ba379af3f0526f07caffe454caabb",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "752d48582bf39eb5ff548b1e3061cb1731c3c877e45ce981e898905b41aa1653"
+      },
+      {
+        "task": "SP503-SdkCoreRefine",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "src/ezviz_unified/settings.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "78b5aca42ad62b1668fcfd139e88f052935f712a678745b112923b2dd20456ed",
+        "local_receipt_sha256": "0254d19310b62de12b402495818e3fb5ad4cdc74846760b7066390b1ca2a7854",
+        "candidate_sha256": "88c1a65aa26af304e94d92796bcff18d7b214fd3d40324421f1cc0035df110c1",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "9bb514fa36186e9e59f13eee0c99e2b64f9dfa2369699593615adfb713dc7d29"
+      },
+      {
+        "task": "SP503-SdkMode",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "src/ezviz_unified/settings.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "9274aed28f6d8fe975e0360c8007c2ddf196d071ba77e4ba48a75626d7439564",
+        "local_receipt_sha256": "208048f8da9903ad4c3e21554e797cf1f82878adca9aa04312acf4b531680a9a",
+        "candidate_sha256": "5c434751df6f121737f810cd79b4e714789fb9bc3b9cf484187133b573c0e7ea",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "f58a03ed1585f78cea57cf623f094f5f633be6c6e387675fc6368a5b3a032e59"
+      },
+      {
+        "task": "SP503-SdkReadmeR1",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "README.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "112bc894dcece5d294c2f3072762d89cff9e2d2dfa5aa602130b10e0821ded5f",
+        "local_receipt_sha256": "99edbcb6c1fb8f2269c9ec0abbbf27fa3ea69b21749cf58366febb7db7a5ec52",
+        "candidate_sha256": "4181668136152335f4384fc1008270529730aff1a84993a08ab9ed6df9d95a06",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "613fd816aa3427b9da56f2c96be03263366f5a031061375e55ba50246f423fb6"
+      },
+      {
+        "task": "SP503-TestCliBase",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "tests/test_example_working_mode_plans.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "db8ac00ba410315867347caf8996e18f122b34c54289a92b744fb84391491416",
+        "local_receipt_sha256": "9d184f4457acf552f7a066ee41d5ea4854431ab9d36ae85bef30d8dacf4bcd3c",
+        "candidate_sha256": "5afaf46a794ce03208a8d676e10833dee1b924b542661b32fd34e68bde7e7770",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "f0d9c698f7d53882cd430db03a7a7a4ec65e6205b7ed95c6f16c75cefae8cc3f"
+      },
+      {
+        "task": "SP503-TestCliCorrections",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "tests/test_example_working_mode_plans.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "f5f5957d7b07e98899e423f271b1b2c134b660e59ebd92d5d29f96f306ecf582",
+        "local_receipt_sha256": "0f2582b7f121bcc3c29f5cdff96167a764637c5fa743f69045ae2c3b5c57a8ac",
+        "candidate_sha256": "24e3883a3564be86c2f9cd41c6c5c2215bdb8df145c8a7af77b0572dc1d0e7a2",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "eb9e702d04ff813f786b8b2ea388c01a743c33c44fcb3d3f838dd83f0c12ec39"
+      },
+      {
+        "task": "SP503-TestCliGuards",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "tests/test_example_working_mode_plans.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "ce9c74843476ee8a86fc620b3499ba90ef8536ad2ada9be4253917fdabda519a",
+        "local_receipt_sha256": "81c878de44056862c9e1e73edb12ff92e55270f8e577df3bd607560255edfb26",
+        "candidate_sha256": "42b48de6d2ab6a6786a87782b684cee4cb6000bc33268e2298b6eaada982fc6b",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "04ae2f167623cf54f1430258d2fcaab78292120e0c50342734fdfcf1addfed38"
+      },
+      {
+        "task": "SP503-TestSdkCorrections",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "tests/test_sdk_working_mode_plans.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "74a390d02ed01d28e3d040ede31e90346cc2237365743b28209fb7fe74b7ba13",
+        "local_receipt_sha256": "a09e811e1f6b1653a90f840aad62da883e5af7797d2038617165a13a89656947",
+        "candidate_sha256": "6d97fae82cf32a4b85c4dd962476da540563529bee8888dd63233f0334cefef4",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "ccf2f399ef5b7077e040bfad1740773bf8ce0b80b97ca3200d8b16c1fa7c312e"
+      },
+      {
+        "task": "SP503-TestSdkErrors",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "tests/test_sdk_working_mode_plans.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "da800b17adcb5141c6eec2af90bf51ef0302184f927bd0b7da537a5fd029b674",
+        "local_receipt_sha256": "f4f97f59e23ff2e927e1fe336875555f8edfb2e60682f0e87dbd8ad0ededc293",
+        "candidate_sha256": "4d3331e2b26b35cc0d640c9a27d508b6362c9d0ea2cf9b9ef4b824cf6a3442f8",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "8e342d48a0d09c85f718aed30697fa9000f0e5320d97cab99fec56a5f6b41ad2"
+      },
+      {
+        "task": "SP503-TestSdkFinalFix",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "tests/test_sdk_working_mode_plans.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "6158c90ad84cf6506fccc30e50b61d7a8fd27a9900c89de5e508ee92fbb4a67c",
+        "local_receipt_sha256": "46bf5cb2270ca15b0ffeeec5f73a9720fad28b5f879df9e1bce4a66166a9dcf9",
+        "candidate_sha256": "1edfbfbd954d55cd2037571befe980f7fd78ed92d73624955e24b34055c75456",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "8e0e14abd7827ed6f06c2bd7a39627007920886e7c961050f50c86bc71e4beaf"
+      },
+      {
+        "task": "SP503-TestSdkFormat",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "tests/test_sdk_working_mode_plans.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "627cb51e424ecf3cc92b36dc95dcd9c77da5d6623a4470713c58df9cbf555be8",
+        "local_receipt_sha256": "2688ff1869a1633c2665f04ee677c7ce6d28693caf1ac526c0563e2e6f2ce5b0",
+        "candidate_sha256": "209aafff40b13667cdb68cd053b26a2d65526bb015dfb3ea528c4eb52dc829b8",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "bf41ae2c490b2c94295d299d44aeb0e3790b15ae5b3eea82f62ed3bbf526f865"
+      },
+      {
+        "task": "SP503-TestSdkSchemaFix",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "tests/test_sdk_working_mode_plans.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "72d488ec5b79ef6c17635cfd7fc6b674ea6f6117778ae436cde378f7c2e724cc",
+        "local_receipt_sha256": "5d879f3f70b02dc62b53449499b01a450e0e2ac39599e52abef1b2ea5782b05d",
+        "candidate_sha256": "04d8c9fd9adfdd90dc6506646a0460ed32b8f5ff094442a93a16c07c4bc7c13c",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "f18afe01de9ef3ae25ec4ea5fc9f743a4709326c6eeb7f0ebc730637827116f9"
+      },
+      {
+        "task": "SP503-TestSdkWire",
+        "input_commit": "d8eb45a003be0748469dae50b478f5ef6a763861",
+        "write_scope": [
+          "tests/test_sdk_working_mode_plans.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "b2d5760485aff47940530222f3454c659c624f3d897828c0ba82277d26b58024",
+        "local_receipt_sha256": "ee67ddd15094622f84c193197395ef054de127b89a566783344f090fd37f32cc",
+        "candidate_sha256": "df708e80c96fdbb0735e7f9d19a05c5e640833d24d1182e8b47c1088f942f011",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "353f7a00d0f20b1d11184b8a99c116b6367f9686aedd6f9b53c4819e8801670c"
+      }
+    ],
+    "deterministic_integration": [
+      {
+        "task": "SP503-RegBindings",
+        "write_scope": [
+          "contracts/sdk-bindings.json"
+        ],
+        "integration_receipt_sha256": "58b81b947a2b81c6aadec56b71b255e2c4ec51dfdb354a4c6be53b0f4094653e"
+      },
+      {
+        "task": "SP503-RegContracts",
+        "write_scope": [
+          "contracts/reviewed-transport-contracts.json"
+        ],
+        "integration_receipt_sha256": "093b3a6ddb320fcedb076a12603baaf14cb7c70c08bbac3739972334db94c46b"
+      },
+      {
+        "task": "SP503-RegPrivate",
+        "write_scope": [
+          "src/ezviz_unified/_diagnostic_registry.py"
+        ],
+        "integration_receipt_sha256": "646cc22114e33741671af67eb415d8297f6470f839c19f86fd72cf3b240ad9e2"
+      },
+      {
+        "task": "SP503-RegPublic",
+        "write_scope": [
+          "docs/diagnostics-v1-coverage.json"
+        ],
+        "integration_receipt_sha256": "f8d307f7773194f6c12617fb1f9d72247f3bb7b72523691994b69afebf363018"
+      },
+      {
+        "task": "SP503-RegSummary",
+        "write_scope": [
+          "contracts/coverage.json"
+        ],
+        "integration_receipt_sha256": "1a6af7b435aae16f37f315b6e8a84cfcd835d863abfdc70494195d57dd956d43"
+      },
+      {
+        "task": "SP503-RegTestCount",
+        "write_scope": [
+          "tests/test_harness_diagnostic_coverage.py"
+        ],
+        "integration_receipt_sha256": "965574a224aa0bdf247d56b158ee5b24ce55fed7c050a0939d8d096fcaabcbe0"
+      },
+      {
+        "task": "SP503-SdkReadmeEditorial",
+        "write_scope": [
+          "README.md"
+        ],
+        "integration_receipt_sha256": "e5e7fe39ea080652646670a6de5904662a0e7c44268085d876f968e60ace338e"
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "task": "SP503-RegCases",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "3e92be5f490ad48f7885c41302ac47ed67f79e6d8c47fe75f16b0a4caa677519"
+      },
+      {
+        "task": "SP503-RegDoc",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "3a501050537e559bab5c938a081aa5dacb05bfdf0d9343af6aa1f5d4648dd409"
+      },
+      {
+        "task": "SP503-RegIssues",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "b9706dd1c785158fa5410a40a53c4c2c680c69d5b3971cac7b165f63e623a412"
+      },
+      {
+        "task": "SP503-RegIssuesR1",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "c9757e3357304b0f3b086b78b1039aa495e0db3a4589729cf9ba283347c0c43b"
+      },
+      {
+        "task": "SP503-SdkReadme",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "e69ec4e3645d84147b465567c34c25c4178497ff9fe24f96a68f5f667cac9f9e"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_working_mode_plans.py",
+      "summary": "200 passed in 0.81s",
+      "local_receipt_sha256": "9befca075dacd3a02d4bc6de68fc8c5b09ee65ee505052188ae39aeac5460a32",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_example_working_mode_plans.py",
+      "summary": "32 passed in 0.31s",
+      "local_receipt_sha256": "086345bfc7bd67a901d887f322751d3d4d4d5227030293004cb1e22620baac0d",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "11490 passed, 35 subtests passed in 69.34s (0:01:09)",
+      "local_receipt_sha256": "cebede1886656aeef9c090f33788d9daf6165d38c0f01b687a5b5c856870bca7",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "284 registered contracts, 2304/2304 offline wire checks passed",
+      "local_receipt_sha256": "c3a7f95f526a531e6be8909ee1547d618c34b91e3e330ef409bd230462022ef0",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "284 registered bindings, 568 sync/async symbols checked",
+      "local_receipt_sha256": "9b5106537c36ea0540a54c27906d6e61c9dbbd638d798660b6f8752d8b790212",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 65 source files",
+      "local_receipt_sha256": "07a62aab5e1fafe25d476a7e16bd551d0a3a3eaea73eb94183fb2612155251b6",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check src/ezviz_unified/settings.py src/ezviz_unified/_diagnostic_registry.py examples/working_mode_plans.py tests/test_sdk_working_mode_plans.py tests/test_example_working_mode_plans.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "234b215553a0abc686b95cdb67ab8d789ad042deff2691686ca5eacd43d98889",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check src/ezviz_unified/settings.py src/ezviz_unified/_diagnostic_registry.py examples/working_mode_plans.py tests/test_sdk_working_mode_plans.py tests/test_example_working_mode_plans.py tests/test_harness_diagnostic_coverage.py",
+      "summary": "6 files already formatted",
+      "local_receipt_sha256": "9332dd28446bca42cb5a1adcb202292ba38467d5997c5d992e59370daf86f5fa",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_harness_diagnostic_coverage.py",
+      "summary": "428 passed in 1.07s",
+      "local_receipt_sha256": "f997bae8f7f3887e44433450a6412cb2b2b14c0d21476a93e0d168a883fc6154",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "本批仅用合成传输。已验证模拟传输及 SDK 选择的表单。真实 Get/Config 权限、支持型号、平台采用的编码、时区、生效和恢复均待分别核验。"
+}

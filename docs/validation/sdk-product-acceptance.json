@@ -26613,19 +26613,30 @@
       "pending_questions": [
         "字段表和非严格示例给出周计划与时段嵌套；支持型号与时区、段数和可恢复性未确认。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_working_mode_plans.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_working_mode_plans.py",
+        "examples/working_mode_plans.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "9f2de311c9ba7b1aa4081a1b89ea757777c8b5ba",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-overseas-working-mode-plans/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-3725-D0-OFFLINE-001",
@@ -26672,19 +26683,28 @@
       "pending_questions": [
         "海外编码及合并/覆盖未明确，enable 的型号限制不外推至整项操作，时区及跨日语义未知。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_working_mode_plans.py",
+        "evals/contracts/cases.json",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "9f2de311c9ba7b1aa4081a1b89ea757777c8b5ba",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-20-overseas-working-mode-plans/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-3726-D0-OFFLINE-001",
