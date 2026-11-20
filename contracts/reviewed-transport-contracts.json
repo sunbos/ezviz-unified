@@ -22247,6 +22247,185 @@
       },
       "source_content_sha256": "9f60bdb23e399dbea9225255ae00945103033d90c849c57216cfb6633bad11e2",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.settings.get_working_mode_plans",
+      "region": "domestic",
+      "source_doc_id": "1723",
+      "source_url": "https://open.ys7.com/help/1723",
+      "method": "GET",
+      "path": "/api/v3/device/timing/plan/get",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "timingPlanType",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E52;E56;E112"
+      },
+      "constraints": [
+        {
+          "fact": "国内设备工作模式计划查询使用令牌和设备序列号请求头。错误 10031 表示子账户或开发者权限不足，未指定最低权限。",
+          "evidence": "E14;E48;E112"
+        },
+        {
+          "fact": "channelNo 和 timingPlanType 是可选的整数 query 参数。timingPlanType 仅有 17、19，服务端默认 17。",
+          "evidence": "E7;E11;E14;E48"
+        },
+        {
+          "fact": "根层 data 是计划对象数组，weekPlans、timePlan 按字段路径及示例为嵌套数组。SDK 保留原始行、扩展字段和字符串 eventArg。",
+          "evidence": "E52;E56"
+        }
+      ],
+      "uncertainties": [
+        "1723 E56 标注 Object，但字段路径与 E52 示例表示 data、weekPlans、timePlan 为对象数组。时区、类型17/19业务含义、支持机型未确定。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/device/timing/plan/get",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E48"
+      },
+      "source_content_sha256": "690bfdab9dccd05dea8733c58a1d2c5b6bf42a393378f80cf211e4a9c07083a9",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.settings.set_huashu_4g_working_mode_plan",
+      "region": "domestic",
+      "source_doc_id": "1720",
+      "source_url": "https://open.ys7.com/help/1720",
+      "method": "POST",
+      "path": "/api/v3/device/timing/plan/set",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E12",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E12"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E12"
+        },
+        {
+          "name": "enable",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E37;E72"
+        },
+        {
+          "name": "startTime",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E37;E72"
+        },
+        {
+          "name": "endTime",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E37;E72"
+        },
+        {
+          "name": "week",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E37;E72"
+        },
+        {
+          "name": "eventArg",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E37;E72"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E76;E80"
+      },
+      "constraints": [
+        {
+          "fact": "标题限定为华数 4G 摄像头工作模式计划设置，未明确适用固件或最低账号权限。",
+          "evidence": "文档标题;E3"
+        },
+        {
+          "fact": "请求使用必填表单 Content-Type 及令牌、序列号请求头。enable、startTime、endTime、week 均为必填表单字符串，可选 eventArg 默认 0，1 表示执行后停用，0 表示执行后不停用。",
+          "evidence": "E6;E9;E12;E37;E72"
+        },
+        {
+          "fact": "示例 ACK 返回根层字符串 code 和 msg，不含 data。SDK 接受无 data 的成功响应及扩展字段。",
+          "evidence": "E76;E80"
+        }
+      ],
+      "uncertainties": [
+        "原文未说明合并/替换规则、时区、回读/恢复方法及其他机型支持；E72 的令牌头行语法不完整，采用 E12。eventArg 只描述执行后停用标志。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/v3/device/timing/plan/set",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E6;E9;E12;E37;E72"
+      },
+      "source_content_sha256": "c4e8c721f23192284bc1f3d28a4364254f94a796889a1d2c6b66eaef383b9379",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -22440,6 +22619,10 @@
     {
       "review": "docs/coordination/domestic-stored-recordings/admission.json",
       "note": "国内 1422 毫秒时间与 1600 组件文本时间分别登记。1491 仅是非分页请求子集，1766 的同路径示例和 5371 的索引仅作局部交叉依据。"
+    },
+    {
+      "review": "docs/coordination/domestic-working-mode-plans/admission.json",
+      "note": "国内 1723 计划查询与 1720 华数 4G 专用设置分别登记。海外 3724/3725 的业务响应层级、权限和写入工作模式继续采用已审核的海外契约。"
     }
   ]
 }

@@ -205,6 +205,16 @@ _SET_LIGHT_LINKAGE = Operation(
     policy=_BODY_META_POLICY,
 )
 
+_GET_WORKING_MODE_PLANS = Operation(
+    name="settings.get_working_mode_plans",
+    method="GET",
+    path="/api/v3/device/timing/plan/get",
+    regions=frozenset({_DOMESTIC}),
+    token_location="header",
+    read_only=True,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
 _GET_TIMING_PLAN = Operation(
     name="settings.get_timing_plan",
     method="GET",
@@ -213,6 +223,16 @@ _GET_TIMING_PLAN = Operation(
     token_location="header",
     read_only=True,
     policy=_BODY_META_POLICY,
+)
+
+_SET_HUASHU_4G_WORKING_MODE_PLAN = Operation(
+    name="settings.set_huashu_4g_working_mode_plan",
+    method="POST",
+    path="/api/v3/device/timing/plan/set",
+    regions=frozenset({_DOMESTIC}),
+    token_location="header",
+    read_only=False,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
 )
 
 _SET_TIMING_PLAN = Operation(
@@ -750,6 +770,50 @@ def _timing_plan_data_valid(data: dict[str, object]) -> bool:
     return True
 
 
+def _working_mode_plan_params(
+    channel: int | None,
+    timing_plan_type: int | None,
+) -> dict[str, int]:
+    params: dict[str, int] = {}
+    if channel is not None:
+        params["channelNo"] = _check_int(channel, "channelNo")
+    if timing_plan_type is not None:
+        if type(timing_plan_type) is not int or timing_plan_type not in (17, 19):
+            raise ValueError("timingPlanType must be 17 or 19")
+        params["timingPlanType"] = timing_plan_type
+    return params
+
+
+def _check_working_mode_plans(response: ApiResponse) -> ApiResponse:
+    if isinstance(response.data, list) and all(
+        isinstance(row, dict)
+        and _timing_plan_data_valid(row)
+        and ("enable" not in row or type(row["enable"]) is int)
+        for row in response.data
+    ):
+        return response
+    raise ProtocolError(
+        "unexpected working mode plans response",
+        operation=response.operation,
+        http_status=response.http_status,
+    )
+
+
+def _huashu_4g_plan_form(
+    enabled: bool,
+    start_time: str,
+    end_time: str,
+    week: str,
+    stop_after_execution: bool | None,
+) -> dict[str, str]:
+    if stop_after_execution is not None and type(stop_after_execution) is not bool:
+        raise ValueError("stop_after_execution must be a bool")
+    form = _timing_plan_form(enabled, start_time, end_time, week, mode=None)
+    if stop_after_execution is not None:
+        form["eventArg"] = "1" if stop_after_execution else "0"
+    return form
+
+
 def _timing_plan_response(response: ApiResponse) -> ApiResponse:
     """Return the response when the timing plan payload shape is valid."""
     data = response.data
@@ -1171,6 +1235,52 @@ class Settings:
                 _SET_LIGHT_LINKAGE,
                 headers={"deviceSerial": serial},
                 params={"type": "301", "enable": "1" if flag else "0"},
+            )
+
+    def get_working_mode_plans(
+        self, device_serial: str, *, channel: int | None = None, timing_plan_type: int | None = None
+    ) -> ApiResponse:
+        """Return one domestic device's working mode plans."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_working_mode_plans",
+            mode="sync",
+        ):
+            _require_domestic(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            response = self._client.request(
+                _GET_WORKING_MODE_PLANS,
+                headers={"deviceSerial": serial},
+                params=_working_mode_plan_params(channel, timing_plan_type),
+            )
+            return _check_working_mode_plans(response)
+
+    def set_huashu_4g_working_mode_plan(
+        self,
+        device_serial: str,
+        *,
+        enabled: bool,
+        start_time: str,
+        end_time: str,
+        week: str,
+        stop_after_execution: bool | None = None,
+    ) -> ApiResponse:
+        """Set the working mode plan on a supported Huashu 4G camera."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_huashu_4g_working_mode_plan",
+            mode="sync",
+        ):
+            _require_domestic(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            form = _huashu_4g_plan_form(enabled, start_time, end_time, week, stop_after_execution)
+            return self._client.request(
+                _SET_HUASHU_4G_WORKING_MODE_PLAN,
+                headers={
+                    "deviceSerial": serial,
+                    "Content-Type": _FORM_CONTENT_TYPE,
+                },
+                data=form,
             )
 
     def get_timing_plan(self, device_serial: str) -> ApiResponse:
@@ -1644,6 +1754,52 @@ class AsyncSettings:
                 _SET_LIGHT_LINKAGE,
                 headers={"deviceSerial": serial},
                 params={"type": "301", "enable": "1" if flag else "0"},
+            )
+
+    async def get_working_mode_plans(
+        self, device_serial: str, *, channel: int | None = None, timing_plan_type: int | None = None
+    ) -> ApiResponse:
+        """Return one domestic device's working mode plans."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.get_working_mode_plans",
+            mode="async",
+        ):
+            _require_domestic(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            response = await self._client.request(
+                _GET_WORKING_MODE_PLANS,
+                headers={"deviceSerial": serial},
+                params=_working_mode_plan_params(channel, timing_plan_type),
+            )
+            return _check_working_mode_plans(response)
+
+    async def set_huashu_4g_working_mode_plan(
+        self,
+        device_serial: str,
+        *,
+        enabled: bool,
+        start_time: str,
+        end_time: str,
+        week: str,
+        stop_after_execution: bool | None = None,
+    ) -> ApiResponse:
+        """Set the working mode plan on a supported Huashu 4G camera."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="settings.set_huashu_4g_working_mode_plan",
+            mode="async",
+        ):
+            _require_domestic(self._client.region.scope)
+            serial = _header("device_serial", device_serial)
+            form = _huashu_4g_plan_form(enabled, start_time, end_time, week, stop_after_execution)
+            return await self._client.request(
+                _SET_HUASHU_4G_WORKING_MODE_PLAN,
+                headers={
+                    "deviceSerial": serial,
+                    "Content-Type": _FORM_CONTENT_TYPE,
+                },
+                data=form,
             )
 
     async def get_timing_plan(self, device_serial: str) -> ApiResponse:

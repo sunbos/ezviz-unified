@@ -28,6 +28,8 @@ REDACTED_OPERATION_IDS = (
     "cn.devices.list_by_id",
     "cn.recordings.by_time",
     "cn.recordings.by_text_time",
+    "cn.settings.get_working_mode_plans",
+    "cn.settings.set_huashu_4g_working_mode_plan",
 )
 
 FACADES = {
@@ -43,6 +45,8 @@ FACADES = {
     "cn.devices.list_by_id": (Devices, "list_by_id"),
     "cn.recordings.by_time": (Recordings, "by_time"),
     "cn.recordings.by_text_time": (Recordings, "by_text_time"),
+    "cn.settings.get_working_mode_plans": (Settings, "get_working_mode_plans"),
+    "cn.settings.set_huashu_4g_working_mode_plan": (Settings, "set_huashu_4g_working_mode_plan"),
 }
 
 READ_ONLY_OPERATION_IDS = {
@@ -54,6 +58,7 @@ READ_ONLY_OPERATION_IDS = {
     "cn.devices.list_by_id",
     "cn.recordings.by_time",
     "cn.recordings.by_text_time",
+    "cn.settings.get_working_mode_plans",
 }
 
 MUTATIONS = {
