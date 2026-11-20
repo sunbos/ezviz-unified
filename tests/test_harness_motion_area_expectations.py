@@ -14,20 +14,33 @@ ROOT = Path(__file__).resolve().parents[1]
 MODES = ("sync", "async")
 SCENARIOS = ("success", "auth_fault", "permission_fault", "http_fault")
 
-MOTION_OPERATION_IDS = (
+REDACTED_OPERATION_IDS = (
     "cn.settings.get_motion_area",
     "cn.settings.set_motion_area",
     "global.settings.set_motion_area",
+    "cn.settings.get_motion_sensitivity",
+    "cn.settings.set_motion_sensitivity",
+    "cn.settings.get_detection_sensitivity",
+    "cn.settings.set_detection_sensitivity",
 )
 
 FACADES = {
     "cn.settings.get_motion_area": (Settings, "get_motion_area"),
     "cn.settings.set_motion_area": (Settings, "set_motion_area"),
     "global.settings.set_motion_area": (Settings, "set_motion_area"),
+    "cn.settings.get_motion_sensitivity": (Settings, "get_motion_sensitivity"),
+    "cn.settings.set_motion_sensitivity": (Settings, "set_motion_sensitivity"),
+    "cn.settings.get_detection_sensitivity": (Settings, "get_detection_sensitivity"),
+    "cn.settings.set_detection_sensitivity": (Settings, "set_detection_sensitivity"),
     "cn.devices.get": (Devices, "get"),
 }
 
-READ_ONLY_OPERATION_IDS = {"cn.settings.get_motion_area", "cn.devices.get"}
+READ_ONLY_OPERATION_IDS = {
+    "cn.settings.get_motion_area",
+    "cn.settings.get_motion_sensitivity",
+    "cn.settings.get_detection_sensitivity",
+    "cn.devices.get",
+}
 
 MUTATIONS = {
     "leak": lambda response: replace(response, message="contract-eval-ok"),
@@ -37,7 +50,7 @@ MUTATIONS = {
 }
 
 PARAMS = [
-    *itertools.product(MOTION_OPERATION_IDS, ("leak", "raw", "data")),
+    *itertools.product(REDACTED_OPERATION_IDS, ("leak", "raw", "data")),
     ("cn.devices.get", "mask"),
 ]
 

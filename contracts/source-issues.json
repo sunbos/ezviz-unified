@@ -2540,6 +2540,67 @@
         "海外 473 E57/R4",
         "docs/coordination/regional-motion-area/admission.json"
       ]
+    },
+    {
+      "id": "cn.settings.get_motion_sensitivity.source_row_scalar_types",
+      "region": "domestic",
+      "source_doc_id": "714",
+      "source_url": "https://open.ys7.com/help/714",
+      "source_content_sha256": "0a98082e50a7a0afbab84265613ce3679a7978b924ac4ff1de85a68a81f57fe5",
+      "description": "根响应是 JSON 对象，数组位于根层 data 字段。E50 表中 channel 为字符串、value 为整数，E46 示例中 channel 为整数、value 为字符串，两处 type 都是字符串。文档只说明移动侦测类型“0”与取值 0 到 6。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 不过滤返回项，不解释或转换 type 与 value，不按设置范围裁剪读结果，保留原始字段、类型、顺序和空列表。",
+      "evidence": [
+        "E3;E14;E42",
+        "E46;E50",
+        "E82",
+        "docs/coordination/domestic-detection-sensitivity/admission.json"
+      ]
+    },
+    {
+      "id": "cn.settings.set_motion_sensitivity.device_scope_and_write_effect",
+      "region": "domestic",
+      "source_doc_id": "715",
+      "source_url": "https://open.ys7.com/help/715",
+      "source_content_sha256": "1470ed136a4e915f74e8ed22340dd7822eb7b775776ef749673c6f596d93b1ab",
+      "description": "文档的 type 可选且默认为 0，SDK 对外没有 type 参数，此方法始终显式发送 0。channelNo 省略时指设备本身，value 为 0 到 6 的整数。E64 是根层字符串 code 的 ACK 示例，没有 data，E68 是字段表。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "成功仅说明请求已被受理，SDK 不重试、不回读。",
+      "evidence": [
+        "E3;E14;E60",
+        "E64;E68;E84",
+        "docs/coordination/domestic-detection-sensitivity/admission.json"
+      ]
+    },
+    {
+      "id": "cn.settings.get_detection_sensitivity.permissions_and_row_types",
+      "region": "domestic",
+      "source_doc_id": "1733",
+      "source_url": "https://open.ys7.com/help/1733",
+      "source_content_sha256": "a26c0d4c8816d5a023aa7699a6458b43b6d73ba9039035088373efa2e78f0596",
+      "description": "根层 data 为数组，channel 为整数，type 与 value 均为字符串，3 表示 PIR、4 表示人形，文档未列明子账号权限或完整支持机型。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 保留所有记录，不做换算。",
+      "evidence": [
+        "E3;E14;E42",
+        "E46;E50;E82",
+        "docs/coordination/domestic-detection-sensitivity/admission.json"
+      ]
+    },
+    {
+      "id": "cn.settings.set_detection_sensitivity.capability_and_write_effect",
+      "region": "domestic",
+      "source_doc_id": "1734",
+      "source_url": "https://open.ys7.com/help/1734",
+      "source_content_sha256": "4175c99bd93cd696e3f0a3cc0804d93fd10ad40ddb3162c3edf4bec929dd8d52",
+      "description": "support_sensibility_adjust=1 仅为本页设置的前提，表单中 type 与 value 均为字符串，type 取 3 或 4，value 范围 1 到 100，与 715 分属不同配置。E64 为示例、E68 为字段表，ACK 并不证明端侧生效。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 不隐式查询能力，也不回读。",
+      "evidence": [
+        "E3;E14;E60",
+        "E64;E68;E84",
+        "docs/coordination/domestic-detection-sensitivity/admission.json"
+      ]
     }
   ]
 }

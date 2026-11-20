@@ -1,6 +1,8 @@
 # EZVIZ Unified 实施路线
 
-**2026-11-18 本地消息接收验收更新：** 经 Codex 验收，有界签名 Webhook 仓库接收示例三项本地 case 通过；最终全量 pytest 4705 项 + 35 subtests、Ruff 9 个文件通过；链路覆盖真实 loopback TCP、CLI help 退出 0 / 非 TTY 退出 1、真实本机 PTY 合成 secret 关闭回显且 0 入站、deadline 退出 0。记录见[验收目录](../validation/2026-11-18-webhook-receiver/README.md)与[接收示例说明](../webhook-receiver.md)。上述均为合成/本地层证据，不代表平台或设备事件验收；两个平台 case 与原 policy 仍资源授权未就绪，海外仍无绑定设备；SDK 源码、依赖与传输重试未改，PyPI 未发布，完整 SDK 产品与第二轮工作均未完成；本段不预写当前 PR 合并/main CI 或发布结论，相关计数不作官方覆盖率。
+截至 2026-11-21，新加坡账户在 11 月 19 日对首页首台设备的型号识别、在线状态识别与通道查询在当次实测中通过，2026-11-21 国内异步首台设备实测共发起 3 次 HTTP 请求，依次为认证、列表与详情各一次，其中列表请求成功，详情请求失败后即停止。上述回执仅涵盖当次设备与操作，其他权限及设备当前状态仍待核实。[新加坡实测回执](../validation/live/2026-11-19-singapore-first-device/receipt.json) · [国内异步实测回执](../validation/live/2026-11-21-domestic-async-first-device/receipt.json) · [产品验收记录](../validation/sdk-product-acceptance.md)。
+
+**2026-11-18 本地消息接收验收更新：** 经 Codex 验收，有界签名 Webhook 仓库接收示例三项本地 case 通过；最终全量 pytest 4705 项 + 35 subtests、Ruff 9 个文件通过；链路覆盖真实 loopback TCP、CLI help 退出 0 / 非 TTY 退出 1、真实本机 PTY 合成 secret 关闭回显且 0 入站、deadline 退出 0。记录见[验收目录](../validation/2026-11-18-webhook-receiver/README.md)与[接收示例说明](../webhook-receiver.md)。上述均为合成/本地层证据，不代表平台或设备事件验收；两个平台 case 与原 policy 仍资源授权未就绪，该批验收时尚未确认海外设备绑定；SDK 源码、依赖与传输重试未改，PyPI 未发布，完整 SDK 产品与第二轮工作均未完成；本段不预写当前 PR 合并/main CI 或发布结论，相关计数不作官方覆盖率。
 
 **2026-11-18 状态注记（此前能力登记批次（基线 78b6195）的历史状态）：** 本批为能力登记与文档元数据更新（基线 78b6195），字段口径见 [能力登记数据说明](../capabilities/README.md)；不含新 SDK 实现、实测或发行完成。诊断 v1 已交付，2026-11-16 国内只读实测见（[记录](../validation/live/2026-11-16-diagnostics-v1/README.md)）。
 
