@@ -1,0 +1,44 @@
+{
+  "outcome": "passed",
+  "admitted_http_attempts": 2,
+  "checks": [
+    {
+      "mode": "sync",
+      "http_status": 200,
+      "business_code": "200",
+      "data_type": "list",
+      "items": 105
+    },
+    {
+      "mode": "async",
+      "http_status": 200,
+      "business_code": "200",
+      "data_type": "list",
+      "items": 105
+    }
+  ],
+  "schema_version": 1,
+  "case_id": "ACC-OS-PUBLIC-TIMEZONE-001",
+  "code_commit": "c9a645bdb4634bae929879f8504b63c282ea9fbd",
+  "at_utc": "2026-11-20T07:12:42.213757+00:00",
+  "regional_host": "isgpopen.ezvizlife.com",
+  "path": "/api/lapp/timezone/list",
+  "max_http_attempts": 2,
+  "credentials_used": false,
+  "device_api_called": false,
+  "request_languages": [
+    "ENGLISH",
+    "SIMPCN"
+  ],
+  "source_sha256": {
+    "src/ezviz_unified/client.py": "3d17233deac52c9f75375bedc5b9582df3cba5de6576365b0717a6bcd2c39e04",
+    "src/ezviz_unified/settings.py": "02346ad2d83c6b876f9a72bf93448ec3ba96f02fa98ec1c50a9b6ba81f4b11c5",
+    "src/ezviz_unified/operations.py": "fda7103e1b0e1bce9eda49fa7ec39083e38ad27b90e5352c5cf2f6d63a17944f",
+    "src/ezviz_unified/transport.py": "8c8818b08f3d3ddf07c8889e1d972605b51bbd88ac7c1dcafecdb62ab8cb7d6b"
+  },
+  "evidence": "bounded_anonymous_live_sdk_recheck",
+  "previous_receipt": "docs/validation/live/2026-11-15-public-timezones/singapore.json",
+  "reason": "与上次回执相比，当前 client、operation 和 settings 源文件的哈希均有变化。本次用当前实现重核了已冻结的新加坡公开目录用例。",
+  "scope": "无认证与设备选择。顺序执行两个匿名目录读取，分别使用 ENGLISH 和 SIMPCN，首次失败即停。输出只保留状态、列表类型和条数。",
+  "limitations": "仅证明记录时刻该新加坡公开目录的同步与异步 SDK 返回形态，不验证其他集群、设备设置或列表内容正确性。"
+}

@@ -305,8 +305,16 @@
         "src/ezviz_unified/settings.py"
       ],
       "result": "recorded_evidence",
-      "blockers": [
-        "Evidence covers only the listed Singapore host and anonymous catalog calls; device settings and other clusters remain unverified; public catalog success is not device/hardware evidence."
+      "blockers": [],
+      "execution_outcome": "passed",
+      "verified_code_commit": "c9a645bdb4634bae929879f8504b63c282ea9fbd",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-20-public-timezones/singapore.json"
+      ],
+      "execution_note": "已在当前代码提交用两个不带凭据的 SDK 请求复核，首次失败即停。",
+      "limitations": [
+        "Evidence covers only the listed Singapore host and anonymous catalog calls; device settings and other clusters remain unverified; public catalog success is not device/hardware evidence.",
+        "仅证明记录时刻该新加坡公开目录的同步与异步 SDK 返回形态，不验证其他集群、设备设置或列表内容正确性。"
       ]
     },
     {
