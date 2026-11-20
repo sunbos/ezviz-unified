@@ -1,0 +1,216 @@
+{
+  "scope_revision": "2026-11-21-r58-mobile-sdk-shared-references",
+  "baseline_commit": "4e08ccca3067e27b9ac63e8e29a392a80a667d73",
+  "schema_version": 1,
+  "batch": "data/official-docs/2026-11-17-sdk-product-main",
+  "scope": "国内移动原生 SDK 菜单跳转、三份共享资料的语义审核及集成指南",
+  "pages": {
+    "5240": {
+      "source_ref": "portal-2026-11-17:domestic:5240",
+      "menu_path": [
+        "SDK及示例",
+        "iOS SDK",
+        "Demo使用指南"
+      ],
+      "source_url": "https://open.ys7.com/help/5240",
+      "raw_file": "pages/domestic/5240.source.json",
+      "raw_file_sha256": "e16660852411bc358a835957b08f29b9dc3062f87e6a30d905f516a4cb66740f",
+      "html_sha256": "c8efe8da04ece816efb035832ba9b0432ae3964aac21ccc29bcccbf56a20aba8",
+      "structure_file": "derived/domestic/5240.structure.json",
+      "structure_sha256": "85d8aeed7af5ce4ed32248eb9f421cccdfb531bbd341357ae306d9d4c569bb10",
+      "kind": "document_redirect",
+      "final_review_state": "reviewed",
+      "target": "4148",
+      "link_element": 1
+    },
+    "5241": {
+      "source_ref": "portal-2026-11-17:domestic:5241",
+      "menu_path": [
+        "SDK及示例",
+        "Harmony SDK",
+        "Demo使用指南"
+      ],
+      "source_url": "https://open.ys7.com/help/5241",
+      "raw_file": "pages/domestic/5241.source.json",
+      "raw_file_sha256": "52a5a5793bf9b4c8de8a89ab75c92efa987be128cd4398d1d86a42d6b764f05c",
+      "html_sha256": "c8efe8da04ece816efb035832ba9b0432ae3964aac21ccc29bcccbf56a20aba8",
+      "structure_file": "derived/domestic/5241.structure.json",
+      "structure_sha256": "85d8aeed7af5ce4ed32248eb9f421cccdfb531bbd341357ae306d9d4c569bb10",
+      "kind": "document_redirect",
+      "final_review_state": "reviewed",
+      "target": "4148",
+      "link_element": 1
+    },
+    "5242": {
+      "source_ref": "portal-2026-11-17:domestic:5242",
+      "menu_path": [
+        "SDK及示例",
+        "iOS SDK",
+        "错误码"
+      ],
+      "source_url": "https://open.ys7.com/help/5242",
+      "raw_file": "pages/domestic/5242.source.json",
+      "raw_file_sha256": "42761501b8114f3d976100e7b111a1a17b8d0e69360c05e3d2f4104e5eeeb448",
+      "html_sha256": "c70499b44a94a2deab908d21c376a69227b920174803c79ded87ccbfb7ff93c1",
+      "structure_file": "derived/domestic/5242.structure.json",
+      "structure_sha256": "26ab12715ad719870db77561eaf0cbdcf016470908c854e7a3d158333f53ced7",
+      "kind": "document_redirect",
+      "final_review_state": "reviewed",
+      "target": "37",
+      "link_element": 1
+    },
+    "5243": {
+      "source_ref": "portal-2026-11-17:domestic:5243",
+      "menu_path": [
+        "SDK及示例",
+        "Harmony SDK",
+        "错误码"
+      ],
+      "source_url": "https://open.ys7.com/help/5243",
+      "raw_file": "pages/domestic/5243.source.json",
+      "raw_file_sha256": "2405838acb4518259dc8e7b2ebc95d1a449298fed386ebe3a82abe0f8f67910e",
+      "html_sha256": "c70499b44a94a2deab908d21c376a69227b920174803c79ded87ccbfb7ff93c1",
+      "structure_file": "derived/domestic/5243.structure.json",
+      "structure_sha256": "26ab12715ad719870db77561eaf0cbdcf016470908c854e7a3d158333f53ced7",
+      "kind": "document_redirect",
+      "final_review_state": "reviewed",
+      "target": "37",
+      "link_element": 1
+    },
+    "5244": {
+      "source_ref": "portal-2026-11-17:domestic:5244",
+      "menu_path": [
+        "SDK及示例",
+        "iOS SDK",
+        "SDK常见问题&问题反馈须知"
+      ],
+      "source_url": "https://open.ys7.com/help/5244",
+      "raw_file": "pages/domestic/5244.source.json",
+      "raw_file_sha256": "d6bef5882460a4e84665904a645948fbefd490b0acb036f70e6074808dcc248c",
+      "html_sha256": "a51887b219530e0732e1810cd7d601815a97e12d6f000b7b30d2e85ce395c8fa",
+      "structure_file": "derived/domestic/5244.structure.json",
+      "structure_sha256": "25ec24e707df198c26f5bd4b20d99f300b893625e4c3e5a4afdffe35ba98bf14",
+      "kind": "document_redirect",
+      "final_review_state": "reviewed",
+      "target": "4146",
+      "link_element": 1
+    },
+    "5245": {
+      "source_ref": "portal-2026-11-17:domestic:5245",
+      "menu_path": [
+        "SDK及示例",
+        "Harmony SDK",
+        "SDK常见问题&问题反馈须知"
+      ],
+      "source_url": "https://open.ys7.com/help/5245",
+      "raw_file": "pages/domestic/5245.source.json",
+      "raw_file_sha256": "95a42618f23ab02a36af6e238ba49f02a022c767bd7e0675cf5e352aea7ace42",
+      "html_sha256": "a51887b219530e0732e1810cd7d601815a97e12d6f000b7b30d2e85ce395c8fa",
+      "structure_file": "derived/domestic/5245.structure.json",
+      "structure_sha256": "25ec24e707df198c26f5bd4b20d99f300b893625e4c3e5a4afdffe35ba98bf14",
+      "kind": "document_redirect",
+      "final_review_state": "reviewed",
+      "target": "4146",
+      "link_element": 1
+    },
+    "37": {
+      "source_ref": "portal-2026-11-17:domestic:37",
+      "menu_path": [
+        "SDK及示例",
+        "Android SDK",
+        "错误码"
+      ],
+      "source_url": "https://open.ys7.com/help/37",
+      "raw_file": "pages/domestic/37.source.json",
+      "raw_file_sha256": "7bf870068ac56125fe29c3049dbb9f4543d0c51522599a43b9b18fa5a81f5c1d",
+      "html_sha256": "896eb5a9fa395aa8c9a356c68dd23ec43480a4b1f14e1eab1a1b121ed7a8aa6d",
+      "structure_file": "derived/domestic/37.structure.json",
+      "structure_sha256": "c2bb699d3918f147de3f25531abe4318de0396022c983b3aec90b1307c98b57e",
+      "kind": "native_error_reference",
+      "final_review_state": "reviewed"
+    },
+    "4146": {
+      "source_ref": "portal-2026-11-17:domestic:4146",
+      "menu_path": [
+        "SDK及示例",
+        "Android SDK",
+        "SDK常见问题&问题反馈须知"
+      ],
+      "source_url": "https://open.ys7.com/help/4146",
+      "raw_file": "pages/domestic/4146.source.json",
+      "raw_file_sha256": "466e3e7d5b436a0d4c3a83e6d8bd16ad443d3b87535e29980edd7927cb1018fc",
+      "html_sha256": "b36b84a08ea2665cb0b183c3f6074bca58429692c723c28fff50c92449cd9ab2",
+      "structure_file": "derived/domestic/4146.structure.json",
+      "structure_sha256": "10746a837b718c3d49a9e0c7f56c1a5075d2413ed056db3cfd3446fc1632f38f",
+      "kind": "native_troubleshooting_reference",
+      "final_review_state": "in_review"
+    },
+    "4148": {
+      "source_ref": "portal-2026-11-17:domestic:4148",
+      "menu_path": [
+        "SDK及示例",
+        "Android SDK",
+        "Demo使用指南"
+      ],
+      "source_url": "https://open.ys7.com/help/4148",
+      "raw_file": "pages/domestic/4148.source.json",
+      "raw_file_sha256": "e10bc326a0daedbb6604c075f8f9b83d92bf4d01a27290b43da79becac6272be",
+      "html_sha256": "1bdb78bd81285dcb3407773429588dd81766fd6adb6c62b10445658c893a802c",
+      "structure_file": "derived/domestic/4148.structure.json",
+      "structure_sha256": "99aa13703431d8ae3a8fc4ff1b48f7ea6f208542c576f4affaa6141aca3b6521",
+      "kind": "official_demo_guide",
+      "final_review_state": "in_review"
+    }
+  },
+  "guide": "docs/official-mobile-sdk.md",
+  "review": "docs/validation/2026-11-21-mobile-sdk-shared-references/review.json",
+  "public_evidence": "仅公开九页正文摘要及当前 HTTP 状态。无账户/设备/日志/客户端运行。",
+  "fact_requirements": {
+    "demo": [
+      "sdk_region_version",
+      "android_demo_distribution",
+      "ios_demo_distribution",
+      "harmony_demo_distribution",
+      "login_fields",
+      "device_list_check",
+      "regional_origin_boundary",
+      "platform_log_instructions",
+      "unresolved_native_artifacts"
+    ],
+    "errors": [
+      "platforms",
+      "native_error_namespace",
+      "ios_negative_network_errors",
+      "numeric_lookup_examples",
+      "unknown_code",
+      "no_python_error_mapping"
+    ],
+    "faq": [
+      "areas",
+      "native_methods",
+      "token_scope",
+      "feedback_channels",
+      "privacy",
+      "limits"
+    ]
+  },
+  "state_policy": {
+    "aliases": "六个菜单身份分别登记，只关闭导航来源；目标采用其独立来源的状态。",
+    "37": "作为四端原生错误码资料完成整表结构和代表性释义核查；不转译为 Python 或服务端错误映射。",
+    "4148": "Demo 表、字段、跨端与地区说明已核；精确安装包/版本、签名材料、原生 getDeviceList 的平台约定及其规范来源，另待完成。",
+    "4146": "排错与受控反馈说明已核；原生预览验证、回放速率、以及 tkToken 的平台绑定/版本与进一步规范来源仍待完成。",
+    "native_gate": "ACC-MEDIA-OFFICIAL-INTEGRATION-001 及 OTHER-COMPONENT-SCOPES 保持现状；本批不执行客户端、读取日志、调用设备或提交工单。"
+  },
+  "presentation": "README 指向中文指南；指南给出选择平台与官方 Demo、最低配置、两个错误码示例、隐私友好的问题反馈、未核范围及官方来源。只用公开、必要的字段名，不复制私有数据或整份错误码表。",
+  "verification": {
+    "entry": "docs/coordination/mobile-sdk-shared-references/verify.py",
+    "normal_command": "python3 -O docs/coordination/mobile-sdk-shared-references/verify.py --repo . --snapshot-dir data/official-docs/2026-11-17-sdk-product-main",
+    "negative_command": "python3 -O docs/coordination/mobile-sdk-shared-references/verify.py --repo . --snapshot-dir data/official-docs/2026-11-17-sdk-product-main --self-test",
+    "invariants": [
+      "逐页核对 catalog 原文件/正文 SHA、平台菜单、六条 E1 的原 HTML href/派生链接/独立 edges、三个目标实际元素及承载语义。",
+      "不得用相同正文哈希合并不同入口或将目标误改为 iOS/Harmony 菜单。",
+      "对账 scope-register 的九行及记录引用、能力/案例状态；真实运行标识必须为 false；归档缺失必须失败。",
+      "对错配目标、互换同正文入口的平台、混淆 Demo 和 SDK 地区、把本地材料改成真机通过、把未决目标改为完成等真实改值做精确拒绝验证。"
+    ]
+  }
+}
