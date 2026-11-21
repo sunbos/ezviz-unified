@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "scope_revision": "2026-11-21-r68-domestic-otap-image-flip",
+  "scope_revision": "2026-11-21-r69-domestic-detection-read-live",
   "baseline_commit": "641d6cc10010b11a49c65c9d6783f92eefda00d3",
   "inputs": {
     "reviewed_contracts": {
@@ -42,7 +42,7 @@
     "acceptance": {
       "path": "docs/validation/sdk-product-acceptance.json",
       "schema": 1,
-      "sha256": "9cef419db9b9d27430f4909c239a0cb9aea1d549280fb4c8184af703d2a1af86"
+      "sha256": "04081605777c057e85c588d674164c401607c7a789e4ee3a53a78a94a41a2d7c"
     },
     "plan_scope_register": {
       "path": "docs/plans/2026-11-17-capability-scope-register.md",
@@ -654,6 +654,16 @@
       "path": "docs/validation/2026-11-21-domestic-otap-image-flip/offline.json",
       "schema": 1,
       "sha256": "1895dcbd8a3685dca81ddc1b9ff12c4150aa4277ecd4441ef9335f8585206332"
+    },
+    "domestic_detection_read_live_admission": {
+      "path": "docs/coordination/domestic-detection-read-live/admission.json",
+      "schema": 1,
+      "sha256": "3a424278111bdd3c7010099490504468c7026c7050ee02b3f5af76da87a9d992"
+    },
+    "domestic_async_first_device_second_attempt": {
+      "path": "docs/validation/live/2026-11-21-domestic-async-first-device-second/execution.json",
+      "schema": 1,
+      "sha256": "b775088006ef121deb976548393a9bafbc709c7cdb79229a82c531bd86d14dae"
     }
   },
   "scope_state": {
@@ -663,7 +673,7 @@
     "required_acceptance_complete": false,
     "product_complete": false,
     "ratification_ref": "docs/coordination/SP030/admission.json",
-    "latest_update_ref": "docs/validation/2026-11-21-domestic-otap-image-flip/offline.json"
+    "latest_update_ref": "docs/coordination/domestic-detection-read-live/admission.json"
   },
   "queues": [
     {"queue_id":"batch_1_A","batch":1,"worker":"A","owner":"第一批A","scope":"OPEN API非组件来源（包括1273）及一级云接入","source_count":326,"component_families":[],"classification_counts":{"D":195,"E":4,"Z":127,"M":0},"candidate_intake_refs":["docs/capabilities/domestic-voice-review-candidates.json"]},

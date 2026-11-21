@@ -179,7 +179,7 @@
       ],
       "result": "recorded_evidence",
       "blockers": [
-        "未取得设备详情及后续四步的成功回执。此次受控执行已终止。"
+        "两次独立尝试均止于详情请求且未保留可区分根因的错误类别；该案不自动重跑。"
       ],
       "capability_ids": [
         "contract:cn.token.get",
@@ -216,11 +216,13 @@
         "ASYNC-MATRIX-RECEIPT": "pending"
       },
       "execution_outcome": "not_verified",
-      "execution_note": "使用国内主分支 SDK 和真实本机 TTY 的隐藏输入。认证与首页列表成功，在首页首台设备的详情步骤未取得成功回执。额外的进程内传输守卫检查此前诊断失败并拒绝进一步外发；通道、状态、能力与版本请求均未发出。未记录平台业务码或原始错误，不能断定失败原因。",
-      "attempted_code_commit": "e687fa0f477be6354b739133292adf1eaa6b6ab6",
+      "execution_note": "北京时间 2026-11-21 的第二次独立国内异步首设备检查共放行三次 HTTP。认证和首页列表成功，详情请求未取得成功回执，后续通道、状态、能力及版本请求未发出。客户端已关闭，诊断完整。没有保留足以区分平台、权限或传输原因的错误详情。",
+      "attempted_code_commit": "a8ed6c81e8f1a5f23260b2f2f011a6299fa92f57",
       "execution_evidence_refs": [
         "docs/validation/live/2026-11-21-domestic-async-first-device/execution.json",
-        "docs/validation/live/2026-11-21-domestic-async-first-device/receipt.json"
+        "docs/validation/live/2026-11-21-domestic-async-first-device/receipt.json",
+        "docs/validation/live/2026-11-21-domestic-async-first-device-second/execution.json",
+        "docs/validation/live/2026-11-21-domestic-async-first-device-second/receipt.json"
       ]
     },
     {
@@ -37297,8 +37299,8 @@
       "operation_ids": [
         "cn.settings.get_intelligent_detection_switch"
       ],
-      "scope_revision": "2026-11-21-r64-domestic-intelligent-detection",
-      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "scope_revision": "2026-11-21-r69-domestic-detection-read-live",
+      "freeze_state": "frozen_for_bounded_live_verification",
       "region_cluster": "domestic",
       "account_role_permissions": "子账户最小 Get，Cam 资源限定到设备和通道。",
       "device_requirements": "设备支持智能检测且使用适用的布撤防状态。",
@@ -37308,7 +37310,7 @@
       ],
       "risk": "read_only",
       "preconditions": [
-        "先确认具体账户、设备及请求上限。"
+        "须先有上一轮结束回执和本轮离线边界检查，再共用本组 9 次 HTTP 预算。"
       ],
       "expected_evidence": {
         "read": "仅保存授权的状态及形态。",
@@ -37316,24 +37318,26 @@
         "physical": "设备设置生效情况单独检验。"
       },
       "bounded": {
-        "max_requests": null,
-        "max_operations": null,
-        "freeze_required": true
+        "max_requests": 9,
+        "max_operations": 2,
+        "freeze_required": false
       },
-      "authorization_status": "not_authorized",
+      "authorization_status": "authorized_bounded_read_only",
       "recovery_plan": "只读。",
       "source_refs": [
         "docs/coordination/domestic-intelligent-detection/admission.json",
-        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/726.source.json"
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/726.source.json",
+        "docs/coordination/domestic-detection-read-live/admission.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_resource_confirmation",
+      "result": "pending_execution",
       "blockers": [
-        "待确认具体资源和权限。"
+        "等待有界执行及可核验回执。"
       ],
       "limitations": [
         "可选 type 的含义依赖布撤防状态与互斥选择。官方未给出支持机型清单。"
-      ]
+      ],
+      "shared_request_budget_ref": "docs/coordination/domestic-detection-read-live/admission.json"
     },
     {
       "case_id": "ACC-CANDIDATE-CN-727-D0-LIVE-001",
@@ -37444,8 +37448,8 @@
       "operation_ids": [
         "cn.settings.get_alarm_detection_mode"
       ],
-      "scope_revision": "2026-11-21-r64-domestic-intelligent-detection",
-      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "scope_revision": "2026-11-21-r69-domestic-detection-read-live",
+      "freeze_state": "frozen_for_bounded_live_verification",
       "region_cluster": "domestic",
       "account_role_permissions": "国内应用凭据；本页未给出子账户权限。",
       "device_requirements": "设备支持对应人形/PIR检测模式。文档未提供能力位。",
@@ -37455,7 +37459,7 @@
       ],
       "risk": "read_only",
       "preconditions": [
-        "先确认具体账户、设备及请求上限。"
+        "须先有上一轮结束回执和本轮离线边界检查，再共用本组 9 次 HTTP 预算。"
       ],
       "expected_evidence": {
         "read": "仅保存授权的状态及形态。",
@@ -37463,24 +37467,26 @@
         "physical": "设备设置生效情况单独检验。"
       },
       "bounded": {
-        "max_requests": null,
-        "max_operations": null,
-        "freeze_required": true
+        "max_requests": 9,
+        "max_operations": 2,
+        "freeze_required": false
       },
-      "authorization_status": "not_authorized",
+      "authorization_status": "authorized_bounded_read_only",
       "recovery_plan": "只读。",
       "source_refs": [
         "docs/coordination/domestic-intelligent-detection/admission.json",
-        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1725.source.json"
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1725.source.json",
+        "docs/coordination/domestic-detection-read-live/admission.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_resource_confirmation",
+      "result": "pending_execution",
       "blockers": [
-        "待确认具体资源和权限。"
+        "等待有界执行及可核验回执。"
       ],
       "limitations": [
         "查询嵌套 data.valueInfo.type。两份 v3 文档只列成功码，未给出最低角色或持久性承诺。"
-      ]
+      ],
+      "shared_request_budget_ref": "docs/coordination/domestic-detection-read-live/admission.json"
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-7-LIVE-001",
@@ -37541,8 +37547,8 @@
       "operation_ids": [
         "cn.settings.get_advanced_alarm_detection_type"
       ],
-      "scope_revision": "2026-11-21-r66-domestic-advanced-detection-type",
-      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "scope_revision": "2026-11-21-r69-domestic-detection-read-live",
+      "freeze_state": "frozen_for_bounded_live_verification",
       "region_cluster": "domestic",
       "account_role_permissions": "国内账户可查询已授权设备。本页未声明最低角色、托管权限、套餐或能力位。",
       "device_requirements": "支持高级告警侦测类型查询的设备，适用型号与固件待实测。",
@@ -37552,31 +37558,33 @@
       ],
       "risk": "read_only",
       "preconditions": [
-        "确认该设备、查询授权与 HTTP 上限。"
+        "须先有上一轮结束回执和本轮离线边界检查，再共用本组 9 次 HTTP 预算。"
       ],
       "expected_evidence": {
         "read": "仅保留是否成功及响应形态，不记录设备资料。",
         "physical": "API 程序状态不能证明实际检测效果。"
       },
       "bounded": {
-        "max_requests": null,
-        "max_operations": null,
-        "freeze_required": true
+        "max_requests": 9,
+        "max_operations": 2,
+        "freeze_required": false
       },
-      "authorization_status": "not_authorized",
+      "authorization_status": "authorized_bounded_read_only",
       "recovery_plan": "只读。",
       "source_refs": [
         "docs/coordination/domestic-advanced-detection-type/admission.json",
-        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1742.source.json"
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1742.source.json",
+        "docs/coordination/domestic-detection-read-live/admission.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_resource_confirmation",
+      "result": "pending_execution",
       "blockers": [
-        "待确认代表设备与权限。"
+        "等待有界执行及可核验回执。"
       ],
       "limitations": [
         "文档返回单个整数类型。E60 只列成功码，错误枚举及真实设备适用范围仍待核定。"
-      ]
+      ],
+      "shared_request_budget_ref": "docs/coordination/domestic-detection-read-live/admission.json"
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5289-D0-LIVE-001",

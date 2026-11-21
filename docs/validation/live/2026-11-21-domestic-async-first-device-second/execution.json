@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "case_id": "ACC-CN-ASYNC-READONLY-001",
+  "scope": "domestic_async_first_device_channel_one_read_only",
+  "code_commit": "a8ed6c81e8f1a5f23260b2f2f011a6299fa92f57",
+  "started_at_utc": "2026-11-21T01:07:30.994447+00:00",
+  "finished_at_utc": "2026-11-21T03:18:30.566835+00:00",
+  "outcome": "not_verified",
+  "max_http_requests": 7,
+  "max_business_calls": 6,
+  "acceptance_ref": "docs/coordination/domestic-async-read/admission.json",
+  "receipt_ref": "docs/validation/live/2026-11-21-domestic-async-first-device-second/receipt.json",
+  "receipt_sha256": "ab06fc065d2b17bd2097f21edb51b68f18efca6636162cd8af56ad4a715a4200",
+  "source_sha256": {
+    "src/ezviz_unified/client.py": "3d17233deac52c9f75375bedc5b9582df3cba5de6576365b0717a6bcd2c39e04",
+    "src/ezviz_unified/auth.py": "e6b53a75fefa81af507c6a7ab2fd2bbfc60420092f82152e5bde631d9608c9b1",
+    "src/ezviz_unified/inspection.py": "65ec20d3ef66e2b18b9e68b43e6a4d37cbae4d88c3141ac8e5a3214b49f0866a",
+    "src/ezviz_unified/devices.py": "b39eaf22f8ed8135e5a2fdff207707ee8d090facee5fea472f9571908ffd5e83",
+    "src/ezviz_unified/diagnostics.py": "f8bb12a10e5e7581560c3e0fc06a637ad257f4e42de8e0490c934577117396df",
+    "src/ezviz_unified/diagnostic_report.py": "a51bc53010fe8e62e41f2b43cc57390562bccc84b67c03d529c69edff2558083",
+    "src/ezviz_unified/transport.py": "8c8818b08f3d3ddf07c8889e1d972605b51bbd88ac7c1dcafecdb62ab8cb7d6b",
+    "tools/live/verify_diagnostics.py": "cdc9b5ff628a33dac0dd2a70a46c33c08b0641af53604e10a21651e1a4e37b5f",
+    "tools/live/verify_diagnostics_async.py": "4b2fc04d2eda229a84a70891d183b764f884921ba2e4b2ae9f23258bde32e38f"
+  },
+  "supplemental_guard": {
+    "policy": "在上次 SDK call 或 attempt 产生 failed/cancelled 事件后，在下一次 HTTP 放行前拒绝。沿用原执行器的有序路由、固定设备和通道 1 的守卫。",
+    "private_driver_sha256": "13302f8901b5f33a525b60695e8e29df06ba357d56696093f6a3d520d29824cd"
+  },
+  "execution_note": "北京时间 2026-11-21 的第二次独立国内异步首设备检查共放行三次 HTTP。认证和首页列表成功，详情请求未取得成功回执，后续通道、状态、能力及版本请求未发出。客户端已关闭，诊断完整。没有保留足以区分平台、权限或传输原因的错误详情。",
+  "prior_attempt_ref": "docs/validation/live/2026-11-21-domestic-async-first-device/execution.json"
+}
