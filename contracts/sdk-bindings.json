@@ -4190,7 +4190,7 @@
         "AsyncDetectors.rename"
       ],
       "public_entry": "detectors.rename",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

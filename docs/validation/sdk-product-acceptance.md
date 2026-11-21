@@ -17,6 +17,10 @@
 
 认证和首页首台选择已完成，同步计划查询返回 SDK 错误。首次失败即停，异步未执行。未记录计划内容、业务码或原始异常，无法据此判定权限、设备状态或型号支持。 本次获准上限为 5 次 HTTP，实际放行 3 次。本项仍待通过。[脱敏回执](live/2026-11-20-singapore-first-device-working-mode-plan/receipt.json)
 
+## 海外 A1 探测器改名验收
+
+海外文档 481 第 1.7 节为指定 A1 与已关联探测器修改显示名称，请求采用表单写入，应答以根层字符串形式的成功码及确认应答标示受理；该文档其它未审小节不随此项完成。同步与异步接口仅经合成传输验收，本批未读取或修改真实名称，亦未证明实际生效。[冻结契约](../coordination/overseas-a1-detector-rename/admission.json) · [离线回执](2026-11-21-overseas-a1-detector-rename/offline.json)
+
 ## 国内智能检测开关及人形／PIR 模式验收
 
 国内 726/727 为智能检测开关的查询（`settings.get_intelligent_detection_switch`）与设置（`settings.set_intelligent_detection_switch`），`detection_type` 可选 302/304，省略时表示画面变化检测，开关实际生效受设备布撤防与互斥状态影响。独立的 1724/1725 为 AI 人形/PIR 模式的选择启用（`settings.select_alarm_detection_mode`）与嵌套状态读取（`settings.get_alarm_detection_mode`），该模式不能用 `enable` 参数关闭。同步与异步签名均通过合成传输验证，本批未改变真实设备状态，也未确认检测效果。

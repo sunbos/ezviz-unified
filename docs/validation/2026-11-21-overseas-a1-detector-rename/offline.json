@@ -1,0 +1,492 @@
+{
+  "schema_version": 1,
+  "public_document_recheck": {
+    "status": "anonymous_public_document_comparison",
+    "public_reference": "https://open.ys7.com/help/en/481",
+    "doc_id": "481",
+    "http_status": 200,
+    "checked_at_utc": "2026-11-21T01:45:45.925358+00:00",
+    "html_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+    "matches_archive": true,
+    "sections": [
+      "1.2",
+      "1.7"
+    ],
+    "device_api_requests": 0,
+    "account_api_requests": 0,
+    "credentials_used": false
+  },
+  "focused_wire": {
+    "cells": [
+      {
+        "operation_id": "global.detectors.rename",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.detectors.rename",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.detectors.rename",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.detectors.rename",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.detectors.rename",
+        "mode": "async",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.detectors.rename",
+        "mode": "async",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.detectors.rename",
+        "mode": "async",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.detectors.rename",
+        "mode": "async",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      }
+    ],
+    "oracle_mutation_tests": 72,
+    "real_api_used": false,
+    "sdk_sha256": "5c2b30af131106584d1461ad6b2336d8762ec1c8261f17604d2d9e658bf5d453",
+    "execution_sha256": "6f6406db2a50e34b8cd4ec86c2984bd64b915d082c6af24fcfee9a3b6872410d",
+    "full_cases_sha256": "eed644ab157f607ce0c071f2cfcff340885bd6d85abaa91a58928e38e674d25b"
+  },
+  "scope": "overseas_a1_detector_rename_offline",
+  "code_commit": "4c6d2d12a61d2f8175847730c3516b49a209cfca",
+  "bindings_sha256_at_code_commit": "fdbf901c0c45bbfc28467892347768c02a3a17456519bb5c9b6801695f2a0209",
+  "source_test_sha256": {
+    "src/ezviz_unified/detectors.py": "5c2b30af131106584d1461ad6b2336d8762ec1c8261f17604d2d9e658bf5d453",
+    "src/ezviz_unified/_diagnostic_registry.py": "594c2c98ab8081ec30ea7be918aaaab469a52e0a70bf1e8289a4944415f8ccf2",
+    "docs/diagnostics-v1-coverage.json": "7d96223d6186fa33d89f614d534bcd8ae9fbc2a693ff9fd17d3e626fe795babf",
+    "docs/diagnostics.md": "92055f10759e37ac352a87a432701e2ead9da95691ec0722af4e498a48670ce3",
+    "tests/test_harness_diagnostic_coverage.py": "a579127f770e281014c247426c7713edcc8d1fb1c4ead5cc6b44b7ac8f24cb26",
+    "tests/test_sdk_overseas_a1_detector_rename.py": "9042756a584a601a6f9e0ead60980dfccb93a54e4d72c9ffabfaa83a1c0c279e",
+    "tests/test_example_a1_detector_rename.py": "7f1285d8bcb6537b04580395baa0dbe82b2f985115917abcce789148b9f12713",
+    "examples/a1_detector_rename.py": "b31c7d4d1474c1030c3d89ef2c2b654e8c56ad6bb8abbadd8b4a6cd689ec16b8",
+    "README.md": "8a984f092c1b01884e1193a237d548f55bcfe40db0ca6a789b9065dbdffdfde9",
+    "contracts/reviewed-transport-contracts.json": "bda4db3026c34c9eb9b50441885506a3b78970e873c445ea33ae7a31ae19fcff",
+    "contracts/source-issues.json": "33fbfad522df1e3851a4389af96ca72a5503eedf1b95f2ff71156f5b0721aa90",
+    "evals/contracts/cases.json": "eed644ab157f607ce0c071f2cfcff340885bd6d85abaa91a58928e38e674d25b",
+    "docs/coordination/overseas-a1-detector-rename/admission.json": "5351ff85884a3b696c0f7b826cd693b37089e38912a8e08a34c7c708c834e39a",
+    "contracts/coverage.json": "07102e3cb896fafe776574519d141683a3b38eb091eae805bc804118213fe01f",
+    "harness/wire_eval.py": "83f3fc835caf5d9e61b43e6fe6199af2e43f66a75a777bc970c42cbe41359a7a",
+    "tests/test_harness_motion_area_expectations.py": "777c6014f7b19963a28617b3755bdd69ff66043270d2bfc53789d19027e7087c",
+    "src/ezviz_unified/models.py": "66743762edadfe1c0c03967d5cac22ad4df728e4fd99624bfcbbf2a86ac6d408",
+    "src/ezviz_unified/response.py": "15d8635e7cdabc70aa6a052983f6a539e41c8571cc73e1fcdae9da8c119a5503"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP560-RegBindings",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "contracts/sdk-bindings.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "e705868b2d38dd3b2c0b3f6a0f5dc48fc2d6373501dfc8471dee195f55a4ee72",
+        "local_receipt_sha256": "d94a2c17e6fb05078dd2ef73c16d2449fcdf1c4077394901507c6f79a7b4a21d",
+        "candidate_sha256": "3902866288e8f7f5b9650c8dd07d71cc338d9a02e1aaee9e20a46ea93e5edca0",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "9052f9ddb18e9886cc33c3f34000ba55a5c38ae4e070ddb79adcf48b2570b795"
+      },
+      {
+        "task": "SP560-RegCases",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "evals/contracts/cases.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "5ff9159c9fc83448f2519f384221afb13cf6f599af3efebfdf5db538b1dc055e",
+        "local_receipt_sha256": "d58c42c5e117ab293c5ed637b1d3b694a38233e9b9b7d04c028356214e5fbe9f",
+        "candidate_sha256": "b750eb334176a8b381f7820f67fa938c1c2b0ea14ca3cd98d6f3134abaa1896e",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "c7e4fb513be1fc0b5b393ebf6eb2e9bcf6800565dd86fbaa5105082e0462da45"
+      },
+      {
+        "task": "SP560-RegContracts",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "contracts/reviewed-transport-contracts.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "a13bb6d9f8cfdb800ac0b33d9f3a5115142cb1c9f415bbb09a7378c2bed0e83d",
+        "local_receipt_sha256": "ec7ec8a830fa0e1fad876ff3c22071037ac88fc60a776c472fccccc8fa2f5496",
+        "candidate_sha256": "1470c0157da5fdfbdce3e94b6b0152ac071f075995cca2992c6e436e8d1296bb",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "a8ca831910ecbc9cbf92c088fd56662d4ef363351b9cb93e40972a16a637ac7b"
+      },
+      {
+        "task": "SP560-RegDoc",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "6e476e03fb65d056945f919314f58cb12e60afb58ee8bc81a199999748f0cd26",
+        "local_receipt_sha256": "1e6707bdeece0c0f8011ac42150b4d6fdc679c5973ef98c44dcd2c2168b15a1c",
+        "candidate_sha256": "16d3e67552d463145ce57265f0f457d6cf0c4fe38c3f112928b4ecedc49b4da0",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "fe8b9e18113933c5d35d6372fe7f8493ff5d9d1c79dc1b05a519bec1d46fac36"
+      },
+      {
+        "task": "SP560-RegIssues",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "contracts/source-issues.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "f86bc1b526e86b3aac26ad79cdb0463fc0ae030385fb9966f5a747ac403c1d6a",
+        "local_receipt_sha256": "5482081b760476d54665afd0450040b2b3b98a9551e15eb98e780fcb5551673d",
+        "candidate_sha256": "c32b4123f04accac0251661e7ec6c4bdb7b0730bf0b99e613725b4ef565009bd",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "dc0d0977c3fa38fbe359e3d206fee9bf72fdf18de467277f2290e15ccb6e2aa9"
+      },
+      {
+        "task": "SP560-RegMutation",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "tests/test_harness_motion_area_expectations.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "059232925d02c8611bfeab6bbcb2bacf1635ec7c5b3360489620b7310a8a5c32",
+        "local_receipt_sha256": "29dcde2bb59bed15561ca515f314bcb07ec577289ceb8138e5bc0a192b39a4b1",
+        "candidate_sha256": "fb9edbe0da0cfe78b4597dbc35d97dea697939238cc3d9b0e3ed101bae478223",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "ee2b02ee6c8c6453985aaace53b31ab201ebd5e1be8969f852e658614b6f43fb"
+      },
+      {
+        "task": "SP560-RegOracle",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "harness/wire_eval.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "df3924e7abbf3eea76cb89a048408335e1c4d4c09843e5efe75f9adf587e060a",
+        "local_receipt_sha256": "f1f7a137fa0cce0dbb9b62e510050cce04c0b34ea88f09c462a3987afdd1de2a",
+        "candidate_sha256": "18a814591b9e56d7d631939c261af48d88397f9212d244c73fb7e0d38ca45ccd",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "22628447b7ee8bb02fc8f6b7977bf23050273e02851b26704eed56bab0001ef8"
+      },
+      {
+        "task": "SP560-RegPrivate",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "src/ezviz_unified/_diagnostic_registry.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "d41d97cdf6b25e593b8aa0d2871c624c5af10e85a3eb74882e2b1a4553785656",
+        "local_receipt_sha256": "cf2cb189a80141054a76accf50dc1320b9ff2811ff64f473e1079126c73b9e65",
+        "candidate_sha256": "b24d30ed65a96d5b5f9bee7e32b1ad330a36b9b453c62deb28bb73a64ad28b06",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "c9d310dfc973ba0e392a907dcacd300dc5a82618390da06dcc5840d9b9973066"
+      },
+      {
+        "task": "SP560-RegPublic",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "docs/diagnostics-v1-coverage.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "95bab4cbdb19ff6ac665bb95f784e630acdee3871f9a5292be40fb59827e3d5a",
+        "local_receipt_sha256": "fdcdda61e95ebef8a46a46c2da6475fa2bc142d7a7eecee6130a141edde0c843",
+        "candidate_sha256": "b24d30ed65a96d5b5f9bee7e32b1ad330a36b9b453c62deb28bb73a64ad28b06",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "6a9bca611907ed22cd490e921bea1212cf5dc94f72cc8bbdf1c8f16caf3b8bcd"
+      },
+      {
+        "task": "SP560-RegSummary",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "contracts/coverage.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "1068e8907cacac40e93c0efe0c14f489d67cc9f0f69926af2be5dc6c35cd1995",
+        "local_receipt_sha256": "d8def5e207efeb36015737f6e07816a61086d060b457a7c25f8f45828d3fedae",
+        "candidate_sha256": "b1f2b6582c551e7faddee455c1cce831f915b4632c195313cb278514aa7c3379",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "b0df76d2315de7d60830e0371aacbc474c3110c30a7b4b7b891153cc4d751114"
+      },
+      {
+        "task": "SP560-RegTestCount",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "tests/test_harness_diagnostic_coverage.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "08a4bb7d66a49072652fd48863c3f034c6eb84e768f455bc56c5341f2151ac52",
+        "local_receipt_sha256": "83a5f404ae836c989068e446aa618a8defde88d2cf6e7a900d2478a48ca91c34",
+        "candidate_sha256": "5637ed785665a12fa03695f2e0c42c755f572b1eb495a0b700302f7214a1f0e7",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "8620a949d56ff836cecd0568dd8608885247368f8dc206eb6cfb93bf8aa26667"
+      },
+      {
+        "task": "SP560-SdkCli",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "examples/a1_detector_rename.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "101d14ee216f4f708325ae14fc4ffdb99c4a3700c61e45eaec0fc3bf21ae670c",
+        "local_receipt_sha256": "d86a583c664a6d1896f23e93bd7afa4f11e98c42451263ed2dcd4d26fc5f0616",
+        "candidate_sha256": "949b2196d7158b012e05610fba0dd3a1c215640a2727cb60764acfe23150ae47",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "c5d5d7e20079333d61cfd320b9b4a487e34a9ba0f65a7cd422f196fd754015b2"
+      },
+      {
+        "task": "SP560-SdkCore",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "src/ezviz_unified/detectors.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "f324f72f40b94776b58bfd9a0a997350d8d768c9eb49b99cccaac33662205e11",
+        "local_receipt_sha256": "487596dc693c0baf5a77893cbbbec25a4c949bcb2ff082ddc58fa803ddfded6e",
+        "candidate_sha256": "0ba53da9aaa02a34c0e8e9ec85124ad13b57b1a4d4f8b2aad34953b1ddb3124c",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "d9f3ec174e5ddec9fb149755fb63833123cdbc99ead6b7f8ce4503b8fa99b152"
+      },
+      {
+        "task": "SP560-SdkGuideR1",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "README.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "6562450f99b9c120bff5de04f4d763c8cee363a2dd4030e5ae0efd718b628190",
+        "local_receipt_sha256": "5a22831df5f891356e5d41437bb540e6fdbb9101d31068a16fe120cd82f70b0f",
+        "candidate_sha256": "3b2614dfa09b4b56a98a6d59812dbfbdc510c403f62f0c2b7e7646df81209742",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "2d30e50f6821fc8219b737d99732ba2487e587834b17900a0e28e53d3f19f1fb"
+      },
+      {
+        "task": "SP560-SdkModel",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "src/ezviz_unified/models.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "7f353331177b98ec76f72f2c1f8e140d98b39c976f685666d28eab8899ef1615",
+        "local_receipt_sha256": "fff66bf9e5b3c905b3ee89bd2247f34b3e8be08634dd756b22ef5543aa6acf72",
+        "candidate_sha256": "a7028e3fc36ca0eb63c6ba98f4fcf79288587f13d9a361aabce96b86bb7b98ee",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "200c56796898adcaa06e92542a23587b0fb0e0550522d9d77a84c52c69f55791"
+      },
+      {
+        "task": "SP560-SdkProjectionR1",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "src/ezviz_unified/response.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "7ab7cde211661d16b4ed25bcf3c25cf09d3f6eba5d87a6bc7051859b3822f99d",
+        "local_receipt_sha256": "12c7a20f90af0378403f88e841c427b7c2d2cf29a2554c7a9d5ad85f787f67dc",
+        "candidate_sha256": "c42c1738cedc44f2659506ae8eb1187c91d091243d8f655cdb2d8d510a8d8e20",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "973e1d5b80cc6cbaf940970ed0833ff8304c0fe3cce1fdd58cc039784de49986"
+      },
+      {
+        "task": "SP560-TestCLIFieldOrder",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "tests/test_example_a1_detector_rename.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "3d1da22f108420ca078115f30d3dc0cf6b6d3e0ff874cafbd36cc3323f937cc0",
+        "local_receipt_sha256": "280593c34a6e63afc76bd80dc4177480140ba67db6386f7fa577f25739a133f6",
+        "candidate_sha256": "199a273689fb2fb884355f600019374fe72f502b582b1d71d78887d173ae9436",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "4d4dd25bc958ae1750e3a0f7f8e4b04294b88686f7968fe2828c463bda68a0f3"
+      },
+      {
+        "task": "SP560-TestCLIWire",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "tests/test_example_a1_detector_rename.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "38729d515fa232fb81805f1495b3436b7124aa3975ae138888a83a5e94936bbe",
+        "local_receipt_sha256": "c4d137284834c0785d2a2b7f9de1b4a05afa42a70deea1c84740a27a2488017d",
+        "candidate_sha256": "212d07ee21c2d534abbe9739f1edb9d3972a90d93ee0c0f879bec49649b25d9a",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "69277713a7089dbd41a2de210728204a9d31f2227c1f60a11f60f1f34bd90f1b"
+      },
+      {
+        "task": "SP560-TestSDKPolicy",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "tests/test_sdk_overseas_a1_detector_rename.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "0af9de6ecae1e6bf5609ead28059f22dfda3f201013923190475443cca7c6387",
+        "local_receipt_sha256": "97fed85fad5bef76f7af371cf3dd29fd4e41319fdba8336f67f37b4dd6407556",
+        "candidate_sha256": "d3e25ef9dcc0ab7e4ec2a0c0b1d7825937fc4758a88e90b88206898ad52c89a0",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "7c4fd6066e4c929a732fd6a24cea6a18033b8f819d071de2997fd632f8921302"
+      },
+      {
+        "task": "SP560-TestSDKURLCodes",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "tests/test_sdk_overseas_a1_detector_rename.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "3c59bbff8265b4e01ee35e8b858b2f2e56151ca48b5c9dfb8bc75acc9ae196d7",
+        "local_receipt_sha256": "35a62049b9001bac1086c984c7aeec3bda65142c4de87e26c9514726a22eb21f",
+        "candidate_sha256": "4856583d6d2e18d3865591cc735f88b37cca171aaae46859920ca7618611bc62",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "856c9ccf8d16a1b34fa84245290fd41216beae653631d5addc0a9f90ec898433"
+      },
+      {
+        "task": "SP560-TestSDKUnicode",
+        "input_commit": "079809b03d8c7084ed3f8e6dfc4ac475a78245a3",
+        "write_scope": [
+          "tests/test_sdk_overseas_a1_detector_rename.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "f1f995fcb66361c07daa79fd5fe006f61b65194ddb0a42b222c504386706832b",
+        "local_receipt_sha256": "01ba8badf4b5b43f9a16b824e4a800e337d233a9bd1f046244cd2bb54917f008",
+        "candidate_sha256": "dc74ff0e3268a1beb3663f0999d660e631dcc5f51626f60129ed105cc9859ba7",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "03fc1eb1fcf81c8c45c83436e08114a0b9c25cb9415ca2563047112714a07130"
+      }
+    ],
+    "validation_index_candidate_sha256": "6400982a0d92aa2c17f70eb1d6292e8d31897954705f18eae2026854616e9232",
+    "validation_index_candidate_execution_sha256": "43670541aa504692291ad8ec4eedb1a3d565c1a8bb722b20e8d108dcbe20c775",
+    "sdk_provenance_sha256": "b007a66f28db4cab60bf39415d9016468dadc51321b2ee109344162ff337135c",
+    "test_provenance_sha256": "1a8b112e36a8a97b9c4dae0907c0809668bfb08b3cac1a9f29adc82114f96667",
+    "deterministic_integration": [],
+    "rejected_candidates": [
+      {
+        "task": "SP560-SdkGuide",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "b984f38c8473860a289410a6b1d1bc2fbf92f98e4765ef2bc60d4f5a2a19f82b"
+      },
+      {
+        "task": "SP560-SdkProjection",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "69a84319868e226aff0e1cc00f2bab9e91c3ff8cf504085b805176f621269111"
+      },
+      {
+        "task": "SP560-TestSDKNames",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "011a80fa5b3b445fff8bea8475d7c126171c5b740cd5be634dac15ed20683954"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_overseas_a1_detector_rename.py tests/test_example_a1_detector_rename.py",
+      "summary": "271 passed in 1.19s",
+      "local_receipt_sha256": "25d5e380ccabb3a4d42f2f18d7f53914264909cb0dc7affba6bb147c4a193200",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "15314 passed, 35 subtests passed in 90.46s (0:01:30)",
+      "local_receipt_sha256": "c3752443712e0376fa42ac41a665912ada8a3acf113cf9d330879c1af2368cc7",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "311 registered contracts, 2520/2520 offline wire checks passed",
+      "local_receipt_sha256": "d4eba2b95808757a533c2f9322daf5572cf0746e1109b5d221fa05b1fc38f8f8",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "311 registered bindings, 622 sync/async symbols checked",
+      "local_receipt_sha256": "71bd457b5d5bce10645db955dd1a27de173a1786f5445d3151df77147e05a8ff",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 65 source files",
+      "local_receipt_sha256": "143432bb78d08f9057657bf006a0cd345e45165be6c15a60a36e38e4b4e5dd37",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check --no-cache src/ezviz_unified harness examples tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_examples*.py tests/test_example_*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py tools/documents/http_candidates.py tools/documents/endpoint_inventory.py tests/test_document_http_candidates*.py tests/test_document_endpoint_inventory*.py tests/test_live_diagnostics.py tools/live/verify_diagnostics.py tools/live/verify_diagnostics_async.py tests/test_live_diagnostics_async.py tools/live/_cli_transport.py tools/live/verify_example_clis.py tests/test_live_example_cli*.py tools/live/verify_traffic_usage.py tests/test_live_traffic_usage.py tools/documents/normalize_sdk_reference.py tests/test_document_sdk_reference.py tests/test_document_inventory_output.py tools/live/verify_cloud_files.py tests/test_live_cloud_files*.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "c09266398cf8ce3f08208f8b4210d11575cc621437055481af27b52435d8389e",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check --no-cache src/ezviz_unified harness examples tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_examples*.py tests/test_example_*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py tools/documents/http_candidates.py tools/documents/endpoint_inventory.py tests/test_document_http_candidates*.py tests/test_document_endpoint_inventory*.py tests/test_live_diagnostics.py tools/live/verify_diagnostics.py tools/live/verify_diagnostics_async.py tests/test_live_diagnostics_async.py tools/live/_cli_transport.py tools/live/verify_example_clis.py tests/test_live_example_cli*.py tools/live/verify_traffic_usage.py tests/test_live_traffic_usage.py tools/documents/normalize_sdk_reference.py tests/test_document_sdk_reference.py tests/test_document_inventory_output.py tools/live/verify_cloud_files.py tests/test_live_cloud_files*.py",
+      "summary": "361 files already formatted",
+      "local_receipt_sha256": "f13e389fe771123d7e96d19a1d48eeda6d17f9e15b0e7c5d77def1808c103b39",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_harness_diagnostic_coverage.py",
+      "summary": "480 passed in 1.58s",
+      "local_receipt_sha256": "6ee8fd01571a6cf14a56a76742f2e78d5978bbcfc5a146b20ad3c17ee241a955",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "本批仅以合成传输验证 481 §1.7 关联探测器改名。真实权限、可接受名称和变更恢复待实测。§1.2 涉及远程停用安防探测器，保留在待审清单，本批不交付相应操作。"
+}
