@@ -95,6 +95,7 @@ _REDACTED_MESSAGE_OPERATION_IDS = frozenset(
         "cn.settings.set_intelligent_detection_switch",
         "cn.settings.select_alarm_detection_mode",
         "cn.settings.get_alarm_detection_mode",
+        "global.detectors.rename",
         "cn.settings.get_working_mode_plans",
         "cn.settings.set_huashu_4g_working_mode_plan",
         "cn.recordings.by_time",

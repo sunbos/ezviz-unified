@@ -87,6 +87,8 @@ class ResponsePolicy:
     # raw successful data is left untouched.
     redact_device_add_details: bool = False
     redact_oauth_details: bool = False
+    # Optional tuple of business codes this policy may expose; None preserves existing policy defaults.
+    exposed_business_codes: tuple[ScalarCode, ...] | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "envelope_paths", _normalize_envelope_paths(self.envelope_paths))
@@ -110,6 +112,12 @@ class ResponsePolicy:
             "device_success_values",
             _normalize_success_values("device_success_values", self.device_success_values),
         )
+        if self.exposed_business_codes is not None:
+            object.__setattr__(
+                self,
+                "exposed_business_codes",
+                _normalize_success_values("exposed_business_codes", self.exposed_business_codes),
+            )
         if not isinstance(self.require_device_code, bool):
             raise ValueError("require_device_code must be a bool")
         if not isinstance(self.redact_message_urls, bool):

@@ -23069,6 +23069,84 @@
       },
       "source_content_sha256": "25838a0d74f9ba3c97a18272407b96b22aa9665a3d12954d7e90e95550a2ecdf",
       "read_only": true
+    },
+    {
+      "operation_id": "global.detectors.rename",
+      "region": "overseas",
+      "source_doc_id": "481",
+      "source_url": "https://open.ys7.com/help/en/481",
+      "method": "POST",
+      "path": "/api/lapp/detector/name/change",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "encoding": "application/x-www-form-urlencoded",
+          "required": true,
+          "evidence": "E799"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "encoding": "application/x-www-form-urlencoded",
+          "required": true,
+          "evidence": "E799"
+        },
+        {
+          "name": "detectorSerial",
+          "type": "String",
+          "location": "body",
+          "encoding": "application/x-www-form-urlencoded",
+          "required": true,
+          "evidence": "E799"
+        },
+        {
+          "name": "newName",
+          "type": "String",
+          "location": "body",
+          "encoding": "application/x-www-form-urlencoded",
+          "required": true,
+          "evidence": "E799"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E832;E835"
+      },
+      "constraints": [
+        {
+          "fact": "海外接口通过表单 POST 提交 accessToken、父设备 deviceSerial、子探测器 detectorSerial 和 newName。设备对必须已关联且调用方已授权，但未说明所需的最低子账号权限。",
+          "evidence": "E799;E829;E835"
+        },
+        {
+          "fact": "示例仅返回根级字符串 code 和 msg，未包含 data。ACK不能证明显示名称何时变更生效，SDK仅使用此写操作，无查询、重放或恢复机制。",
+          "evidence": "E832;E835"
+        }
+      ],
+      "uncertainties": [
+        "newName 长度单位及特殊字符清单未定义。列表 location 为自定义名称，现场生效时间和最小权限待核。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/detector/name/change",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E792;E796;E799;E829"
+      },
+      "source_content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -23278,6 +23356,10 @@
     {
       "review": "docs/coordination/domestic-intelligent-detection/admission.json",
       "note": "国内 726/727 的智能检测开关与 1724/1725 的报警检测模式分别登记。选择模式即启用，v3 源文未给出关闭字段。"
+    },
+    {
+      "review": "docs/coordination/overseas-a1-detector-rename/admission.json",
+      "note": "仅新增海外文档 481 第 1.7 节探测器显示名称修改。页面的其他小节沿用各自原有审核状态。"
     }
   ]
 }
