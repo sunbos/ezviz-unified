@@ -10019,108 +10019,120 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:722:d0",
+      "capability_selector": "settings.set_motion_tracking",
       "capability_ids": [
         "candidate:domestic:722:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.settings.set_motion_tracking"
+      ],
+      "scope_revision": "2026-11-21-r63-domestic-tracking-switches",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
+      "account_role_permissions": "子账户最小 Config，Cam 资源限定到设备和通道。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "合成鉴权及业务传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“设置设备移动跟踪开关”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确分组、请求位置、数据层级和原值。",
+        "write": "仅合成传输；不重放。",
+        "physical": "硬件效果另行实测。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/10"
+        "docs/coordination/SP088/scenario-input.json#/entries/10",
+        "docs/coordination/domestic-tracking-switches/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/722.source.json"
       ],
       "pending_questions": [
-        "移动跟踪与candidate:domestic:728:d0/candidate:domestic:729:d0人形追踪是不同能力还是同一能力不同表述待核。",
-        "生效前提（云台能力、跟踪模式）待核。"
+        "722 E14 enable 为字符串，E54 示例展示 1。与 723 E50 合并认定 0/1 的含义。未说明省略 channelNo 的通道选择。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-723-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:723:d0",
+      "capability_selector": "settings.get_motion_tracking",
       "capability_ids": [
         "candidate:domestic:723:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.settings.get_motion_tracking"
+      ],
+      "scope_revision": "2026-11-21-r63-domestic-tracking-switches",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
+      "account_role_permissions": "子账户最小 Get，Cam 资源限定到设备和通道。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "合成鉴权及业务传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询设备移动跟踪开关状态”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确分组、请求位置、数据层级和原值。",
+        "write": "仅合成传输；不重放。",
+        "physical": "硬件效果另行实测。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/11"
+        "docs/coordination/SP088/scenario-input.json#/entries/11",
+        "docs/coordination/domestic-tracking-switches/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/723.source.json"
       ],
       "pending_questions": [
-        "与candidate:domestic:722:d0设置接口是否同一开关属性待核。",
-        "与candidate:domestic:728:d0人形追踪状态查询的能力边界待核。"
+        "723 E3 使用设置字样；标题、Get 权限、路径及 E46 响应共同支持读取。请求不含通道。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-725-D0-OFFLINE-001",
@@ -10304,108 +10316,120 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:728:d0",
+      "capability_selector": "settings.get_human_tracking",
       "capability_ids": [
         "candidate:domestic:728:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.settings.get_human_tracking"
+      ],
+      "scope_revision": "2026-11-21-r63-domestic-tracking-switches",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
+      "account_role_permissions": "国内应用凭据；本页未给出子账户权限。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "合成鉴权及业务传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“查询设备人形追踪开关状态”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确分组、请求位置、数据层级和原值。",
+        "write": "仅合成传输；不重放。",
+        "physical": "硬件效果另行实测。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/15"
+        "docs/coordination/SP088/scenario-input.json#/entries/15",
+        "docs/coordination/domestic-tracking-switches/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/728.source.json"
       ],
       "pending_questions": [
-        "人形追踪与candidate:domestic:722:d0/candidate:domestic:723:d0移动跟踪是否同一能力待核。",
-        "开关状态作用范围与设备前提待核。"
+        "728 E14 将 Content-Type 列为必填，E42 示例省略。按参数表发送，不设正文。未给出能力位、最低权限或机型。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-729-D0-OFFLINE-001",
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:729:d0",
+      "capability_selector": "settings.set_human_tracking",
       "capability_ids": [
         "candidate:domestic:729:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.settings.set_human_tracking"
+      ],
+      "scope_revision": "2026-11-21-r63-domestic-tracking-switches",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
+      "account_role_permissions": "国内应用凭据；本页未给出子账户权限。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "合成鉴权及业务传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“配置设备人形追踪开关状态”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "read": "精确分组、请求位置、数据层级和原值。",
+        "write": "仅合成传输；不重放。",
+        "physical": "硬件效果另行实测。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/16"
+        "docs/coordination/SP088/scenario-input.json#/entries/16",
+        "docs/coordination/domestic-tracking-switches/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/729.source.json"
       ],
       "pending_questions": [
-        "与candidate:domestic:728:d0状态查询是否同一开关属性待核。",
-        "生效时机与设备前提（云台/算法依赖）待核。"
+        "729 的空 data 只表示接口应答。设备生效、能力前提及可恢复性待另行核验。"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
+      "result": "pending_execution",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "待离线执行。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
-      ]
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      }
     },
     {
       "case_id": "ACC-CANDIDATE-CN-730-D0-OFFLINE-001",
@@ -36906,6 +36930,202 @@
       ],
       "limitations": [
         "E62 将 meta.moreInfo 记为对象，将 activatedTime、reserve 记为字符串，E58 这些字段可为 null；状态值/时间语义、线上账户权限及中间层对 GET 正文的支持未实测。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-722-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_tracking_switches",
+      "capability_selector": "settings.set_motion_tracking",
+      "capability_ids": [
+        "candidate:domestic:722:d0"
+      ],
+      "operation_ids": [
+        "cn.settings.set_motion_tracking"
+      ],
+      "scope_revision": "2026-11-21-r63-domestic-tracking-switches",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "子账户最小 Config，Cam 资源限定到设备和通道。",
+      "device_requirements": "需要支持该项开关的设备。原文明确要求 support_intelligent_track=1。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "先确认具体账户、设备及请求上限。冻结目标、当前值、影响范围与恢复方案。"
+      ],
+      "expected_evidence": {
+        "read": "仅保存授权的状态及形态。",
+        "write": "设置与恢复分别留回执。",
+        "physical": "设备设置生效情况单独检验。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "未经原值及恢复方案核验不执行。",
+      "source_refs": [
+        "docs/coordination/domestic-tracking-switches/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/722.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "待确认具体资源和权限。"
+      ],
+      "limitations": [
+        "722 E14 enable 为字符串，E54 示例展示 1。与 723 E50 合并认定 0/1 的含义。未说明省略 channelNo 的通道选择。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-723-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_tracking_switches",
+      "capability_selector": "settings.get_motion_tracking",
+      "capability_ids": [
+        "candidate:domestic:723:d0"
+      ],
+      "operation_ids": [
+        "cn.settings.get_motion_tracking"
+      ],
+      "scope_revision": "2026-11-21-r63-domestic-tracking-switches",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "子账户最小 Get，Cam 资源限定到设备和通道。",
+      "device_requirements": "需要支持该项开关的设备。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "先确认具体账户、设备及请求上限。"
+      ],
+      "expected_evidence": {
+        "read": "仅保存授权的状态及形态。",
+        "write": "只读。",
+        "physical": "设备设置生效情况单独检验。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读。",
+      "source_refs": [
+        "docs/coordination/domestic-tracking-switches/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/723.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待确认具体资源和权限。"
+      ],
+      "limitations": [
+        "723 E3 使用设置字样；标题、Get 权限、路径及 E46 响应共同支持读取。请求不含通道。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-728-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_tracking_switches",
+      "capability_selector": "settings.get_human_tracking",
+      "capability_ids": [
+        "candidate:domestic:728:d0"
+      ],
+      "operation_ids": [
+        "cn.settings.get_human_tracking"
+      ],
+      "scope_revision": "2026-11-21-r63-domestic-tracking-switches",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内应用凭据；本页未给出子账户权限。",
+      "device_requirements": "需要支持该项开关的设备。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "先确认具体账户、设备及请求上限。"
+      ],
+      "expected_evidence": {
+        "read": "仅保存授权的状态及形态。",
+        "write": "只读。",
+        "physical": "设备设置生效情况单独检验。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只读。",
+      "source_refs": [
+        "docs/coordination/domestic-tracking-switches/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/728.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待确认具体资源和权限。"
+      ],
+      "limitations": [
+        "728 E14 将 Content-Type 列为必填，E42 示例省略。按参数表发送，不设正文。未给出能力位、最低权限或机型。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-729-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_tracking_switches",
+      "capability_selector": "settings.set_human_tracking",
+      "capability_ids": [
+        "candidate:domestic:729:d0"
+      ],
+      "operation_ids": [
+        "cn.settings.set_human_tracking"
+      ],
+      "scope_revision": "2026-11-21-r63-domestic-tracking-switches",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内应用凭据；本页未给出子账户权限。",
+      "device_requirements": "需要支持该项开关的设备。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "先确认具体账户、设备及请求上限。冻结目标、当前值、影响范围与恢复方案。"
+      ],
+      "expected_evidence": {
+        "read": "仅保存授权的状态及形态。",
+        "write": "设置与恢复分别留回执。",
+        "physical": "设备设置生效情况单独检验。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "未经原值及恢复方案核验不执行。",
+      "source_refs": [
+        "docs/coordination/domestic-tracking-switches/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/729.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "待确认具体资源和权限。"
+      ],
+      "limitations": [
+        "729 的空 data 只表示接口应答。设备生效、能力前提及可恢复性待另行核验。"
       ]
     }
   ],
