@@ -7,8 +7,8 @@ from urllib.parse import parse_qsl, urlencode
 
 import httpx
 import pytest
-from tools.live._detection_read_guard import DetectionReadGuard
 
+from tools.live._detection_read_guard import DetectionReadGuard
 from tools.live.verify_detection_reads import verify
 from tools.live.verify_diagnostics import _BoundaryRejection
 
