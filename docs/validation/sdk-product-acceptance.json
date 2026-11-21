@@ -37861,7 +37861,7 @@
       "scope_revision": "2026-11-21-r73-domestic-cloud-task-files",
       "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "risk": "offline_only",
       "surface": [
         "sync",
@@ -37885,20 +37885,31 @@
       "authorization_status": "n/a",
       "recovery_plan": "离线。",
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
       },
       "source_refs": [
         "docs/coordination/domestic-cloud-task-files/admission.json",
         "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1373.source.json"
       ],
-      "code_artifact_evidence_refs": [],
-      "blockers": [
-        "待本次实现和离线验证。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_recording_v1.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_cloud_task_files.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_cloud_task_files.py",
+        "examples/cloud_task_files.py",
+        "README.md"
       ],
+      "blockers": [],
       "pending_questions": [
         "可选响应字段的必返性和空值形式、下载地址有效期及服务权限未明确。元数据查询的成功不证明文件可取回。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "9c586c3d430108fcb15900ca173cf40aefeb5b58",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-cloud-task-files/offline.json"
       ]
     },
     {

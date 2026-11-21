@@ -4255,7 +4255,7 @@
         "AsyncCloudRecordingV1.task_files"
       ],
       "public_entry": "cloud_recording_v1.task_files",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
