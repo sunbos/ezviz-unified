@@ -50,4 +50,4 @@ jobs:
           python tools/release/check_artifacts.py
           python -m twine check dist/*
       - name: Verify clean wheel and sdist installations
-        run: python tools/release/verify_installations.py --installer pip
+        run: python tools/release/verify_installations.py --installer pip --show-stages
