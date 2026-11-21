@@ -4203,7 +4203,7 @@
         "AsyncSettings.get_advanced_alarm_detection_type"
       ],
       "public_entry": "settings.get_advanced_alarm_detection_type",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
