@@ -17,6 +17,11 @@
 
 认证和首页首台选择已完成，同步计划查询返回 SDK 错误。首次失败即停，异步未执行。未记录计划内容、业务码或原始异常，无法据此判定权限、设备状态或型号支持。 本次获准上限为 5 次 HTTP，实际放行 3 次。本项仍待通过。[脱敏回执](live/2026-11-20-singapore-first-device-working-mode-plan/receipt.json)
 
+## 国内智能检测开关及人形／PIR 模式验收
+
+国内 726/727 为智能检测开关的查询（`settings.get_intelligent_detection_switch`）与设置（`settings.set_intelligent_detection_switch`），`detection_type` 可选 302/304，省略时表示画面变化检测，开关实际生效受设备布撤防与互斥状态影响。独立的 1724/1725 为 AI 人形/PIR 模式的选择启用（`settings.select_alarm_detection_mode`）与嵌套状态读取（`settings.get_alarm_detection_mode`），该模式不能用 `enable` 参数关闭。同步与异步签名均通过合成传输验证，本批未改变真实设备状态，也未确认检测效果。
+[冻结契约](../coordination/domestic-intelligent-detection/admission.json) · [离线回执](2026-11-21-domestic-intelligent-detection/offline.json)
+
 ## 国内移动跟踪和人形追踪开关验收
 
 四项国内追踪开关分别覆盖移动跟踪和人形追踪的查询与设置，移动跟踪接口采用字符串成功码判定结果，人形追踪接口采用整数业务码判定结果，特写追踪 type 701 属于独立契约不在本批范围内，同步与异步实现的本批验证均通过合成传输完成，未读取真实设备，未实际开启追踪，也未确认任何物理效果。[冻结契约](../coordination/domestic-tracking-switches/admission.json) · [离线回执](2026-11-21-domestic-tracking-switches/offline.json)

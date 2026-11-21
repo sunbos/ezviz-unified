@@ -7313,6 +7313,102 @@
         "enable": 1
       },
       "data": null
+    },
+    {
+      "operation_id": "cn.settings.get_intelligent_detection_switch",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "detection_type": "304"
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "type": "304"
+      },
+      "data": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": 1,
+        "enable": 1,
+        "extra": {
+          "synthetic": true
+        }
+      }
+    },
+    {
+      "operation_id": "cn.settings.set_intelligent_detection_switch",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "enabled": false,
+        "detection_type": "302",
+        "channel_no": "01"
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "enable": "0",
+        "type": "302",
+        "channelNo": "01"
+      },
+      "data": {
+        "extra": {
+          "synthetic": true
+        }
+      }
+    },
+    {
+      "operation_id": "cn.settings.select_alarm_detection_mode",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "detection_type": "5"
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "type": "5"
+      },
+      "data": null
+    },
+    {
+      "operation_id": "cn.settings.get_alarm_detection_mode",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        }
+      },
+      "data": {
+        "valueInfo": {
+          "type": 5,
+          "extra": {
+            "synthetic": true
+          }
+        },
+        "extra": {
+          "synthetic": true
+        }
+      }
     }
   ]
 }

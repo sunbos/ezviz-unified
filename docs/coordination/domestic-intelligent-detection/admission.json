@@ -1,0 +1,320 @@
+{
+  "schema_version": 1,
+  "public_document_recheck": {
+    "status": "anonymous_public_document_comparison",
+    "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+    "checked_at_utc": "2026-11-21T01:27:42.744641+00:00",
+    "docs": {
+      "726": {
+        "http_status": 200,
+        "document_id": "726",
+        "source_url": "https://open.ys7.com/help/726",
+        "html_sha256": "a89b63174b4e1299668e61a94cfacf0124b9cb4f418922a9434a59d6f0bb88ca",
+        "archived_html_sha256": "a89b63174b4e1299668e61a94cfacf0124b9cb4f418922a9434a59d6f0bb88ca",
+        "matches_archive": true
+      },
+      "727": {
+        "http_status": 200,
+        "document_id": "727",
+        "source_url": "https://open.ys7.com/help/727",
+        "html_sha256": "d3513160c55976f21e2d58144b0299e3a503784c0e1c6232b2cdf7fa26a2d2f2",
+        "archived_html_sha256": "d3513160c55976f21e2d58144b0299e3a503784c0e1c6232b2cdf7fa26a2d2f2",
+        "matches_archive": true
+      },
+      "1724": {
+        "http_status": 200,
+        "document_id": "1724",
+        "source_url": "https://open.ys7.com/help/1724",
+        "html_sha256": "cbebab4d10d46247a8ca76bbcc1d29302d4e385a2f9731c59367159b66f1b370",
+        "archived_html_sha256": "cbebab4d10d46247a8ca76bbcc1d29302d4e385a2f9731c59367159b66f1b370",
+        "matches_archive": true
+      },
+      "1725": {
+        "http_status": 200,
+        "document_id": "1725",
+        "source_url": "https://open.ys7.com/help/1725",
+        "html_sha256": "25838a0d74f9ba3c97a18272407b96b22aa9665a3d12954d7e90e95550a2ecdf",
+        "archived_html_sha256": "25838a0d74f9ba3c97a18272407b96b22aa9665a3d12954d7e90e95550a2ecdf",
+        "matches_archive": true
+      }
+    },
+    "credential_cookie_or_browser_used": false,
+    "device_or_account_queries": 0,
+    "live_device_writes": 0
+  },
+  "baseline_commit": "3423cfc227b2f5e8123cc9cb6375763a548fcf8a",
+  "scope_revision": "2026-11-21-r64-domestic-intelligent-detection",
+  "cohort_id": "DOMESTIC-INTELLIGENT-DETECTION-001",
+  "operations": [
+    {
+      "operation_id": "cn.settings.get_intelligent_detection_switch",
+      "capability_id": "candidate:domestic:726:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-726-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-726-D0-LIVE-001"
+      ],
+      "entry": "settings.get_intelligent_detection_switch",
+      "name": "get_intelligent_detection_switch",
+      "doc_id": "726",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/lapp/device/intelligence/detection/switch/status",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/726",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/726.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/726.structure.json",
+      "html_sha256": "a89b63174b4e1299668e61a94cfacf0124b9cb4f418922a9434a59d6f0bb88ca",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "type",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 49,
+        "example": 53,
+        "fields": 57,
+        "errors": 90
+      },
+      "signatures": {
+        "Settings": "def get_intelligent_detection_switch(self, device_serial: str, *, detection_type: str | None = None) -> ApiResponse",
+        "AsyncSettings": "async def get_intelligent_detection_switch(self, device_serial: str, *, detection_type: str | None = None) -> ApiResponse"
+      },
+      "permission": "子账户最小 Get，Cam 资源限定到设备和通道。",
+      "prerequisites": "设备支持智能检测且使用适用的布撤防状态。",
+      "unknown": "可选 type 的含义依赖布撤防状态与互斥选择。官方未给出支持机型清单。"
+    },
+    {
+      "operation_id": "cn.settings.set_intelligent_detection_switch",
+      "capability_id": "candidate:domestic:727:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-727-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-727-D0-LIVE-001"
+      ],
+      "entry": "settings.set_intelligent_detection_switch",
+      "name": "set_intelligent_detection_switch",
+      "doc_id": "727",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/lapp/device/intelligence/detection/switch/set",
+      "read_only": false,
+      "source_url": "https://open.ys7.com/help/727",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/727.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/727.structure.json",
+      "html_sha256": "d3513160c55976f21e2d58144b0299e3a503784c0e1c6232b2cdf7fa26a2d2f2",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "enable",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "type",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 61,
+        "example": 65,
+        "fields": 69,
+        "errors": 86
+      },
+      "signatures": {
+        "Settings": "def set_intelligent_detection_switch(self, device_serial: str, *, enabled: bool, detection_type: str | None = None, channel_no: str | None = None) -> ApiResponse",
+        "AsyncSettings": "async def set_intelligent_detection_switch(self, device_serial: str, *, enabled: bool, detection_type: str | None = None, channel_no: str | None = None) -> ApiResponse"
+      },
+      "permission": "子账户最小 Config，Cam 资源限定到设备和通道。",
+      "prerequisites": "设备支持智能检测且使用适用的布撤防状态。",
+      "unknown": "可能影响整组互斥设置。省略 channelNo 表示设备本身，线上改变前需核定目标及完整恢复方案。"
+    },
+    {
+      "operation_id": "cn.settings.select_alarm_detection_mode",
+      "capability_id": "candidate:domestic:1724:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1724-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1724-D0-LIVE-001"
+      ],
+      "entry": "settings.select_alarm_detection_mode",
+      "name": "select_alarm_detection_mode",
+      "doc_id": "1724",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/v3/device/alarm/detect/switch/set",
+      "read_only": false,
+      "source_url": "https://open.ys7.com/help/1724",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1724.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1724.structure.json",
+      "html_sha256": "cbebab4d10d46247a8ca76bbcc1d29302d4e385a2f9731c59367159b66f1b370",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "type",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 42,
+        "example": 46,
+        "fields": 50,
+        "errors": 66
+      },
+      "signatures": {
+        "Settings": "def select_alarm_detection_mode(self, device_serial: str, *, detection_type: str) -> ApiResponse",
+        "AsyncSettings": "async def select_alarm_detection_mode(self, device_serial: str, *, detection_type: str) -> ApiResponse"
+      },
+      "permission": "国内应用凭据；本页未给出子账户权限。",
+      "prerequisites": "设备支持对应人形/PIR检测模式。文档未提供能力位。",
+      "unknown": "仅有选择并开启 1/5 的源契约。原状态未知、不受支持或无法恢复时没有真实写入前提。"
+    },
+    {
+      "operation_id": "cn.settings.get_alarm_detection_mode",
+      "capability_id": "candidate:domestic:1725:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1725-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1725-D0-LIVE-001"
+      ],
+      "entry": "settings.get_alarm_detection_mode",
+      "name": "get_alarm_detection_mode",
+      "doc_id": "1725",
+      "region": "domestic",
+      "method": "GET",
+      "path": "/api/v3/device/alarm/detect/switch/get",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/1725",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1725.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1725.structure.json",
+      "html_sha256": "25838a0d74f9ba3c97a18272407b96b22aa9665a3d12954d7e90e95550a2ecdf",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 36,
+        "example": 40,
+        "fields": 44,
+        "errors": 72
+      },
+      "signatures": {
+        "Settings": "def get_alarm_detection_mode(self, device_serial: str) -> ApiResponse",
+        "AsyncSettings": "async def get_alarm_detection_mode(self, device_serial: str) -> ApiResponse"
+      },
+      "permission": "国内应用凭据；本页未给出子账户权限。",
+      "prerequisites": "设备支持对应人形/PIR检测模式。文档未提供能力位。",
+      "unknown": "查询嵌套 data.valueInfo.type。两份 v3 文档只列成功码，未给出最低角色或持久性承诺。"
+    }
+  ],
+  "sdk_choices": [
+    "分别提供智能检测开关与人形/PIR 检测模式两组国内配置方法。布撤防、追踪、区域与灵敏度继续通过各自的既有契约处理。只读取或设置平台配置，不涉及图像、告警内容或检测处理。",
+    "726/727 在表单中放入 token、设备序列号及可选 detection_type。允许字符串 302 或 304，省略原字段选择画面变化检测。两页说明各类型互斥且依赖布撤防。SDK 不隐式更改布撤防、探测开关或查询设备能力，不尝试把互斥检测映射成可并行打开的多个状态。",
+    "两项 LAPP 请求带表单 Content-Type 和符合国内大写规则的非空设备序列号。727 必须使用真 bool，编码为表单字符串 0 或 1。可选 channel_no 使用非空 UTF-8 文本原值，不传则省略，表示设备本身。726 不接受通道。其 data.enable 必须是真整数，设备序列号/通道号在返回时各自为字符串/真整数，保留未知值和结构扩展。",
+    "1724 为选择并启用一种检测模式。参数 detection_type 只能是字符串 1（AI人形）或 5（PIR）。header 传 accessToken 与 deviceSerial，表单仅含 type，沿用 curl 的 Content-Type。1725 为 GET，使用同一鉴权位置，无正文、查询字符串、通道或显式 Content-Type。两项 v3 使用标准安全请求头校验，保留大小写。查询 data.valueInfo.type 为真整数，保留其他数字和扩展字段。不提供虚构的 disable 或 enable 参数。",
+    "四项均使用根字符串 code=200 和 msg，返回原 ApiResponse。两项写入接受无 data、null 或扩展的成功应答。沿用现有严格错误展示与诊断，拒绝海外先于验证或获取 token。两项逻辑读取在令牌失效时至多刷新一次；两项配置各只发一次业务请求。两套 type 的值不可互换，灵敏度 3/4 和通用特写开关 701 不能代入。",
+    "示例 python -m examples.intelligent_detection --mode sync|async --action read-scene-switch|read-body-switch|read-face-switch|read-mode|write-demo。四种读选择均仅执行一个 SDK 查询。前三种只返回 enabled 布尔值或 null，最后一种只返回 mode 值 human、pir 或 null。write-demo 仅合成认证与业务 MockTransport，独立调用两个设置，输出 simulated、intelligent_write、mode_write 三个 true。输入不得重复、不得从未知 CLI 选项读取秘密，意外 RuntimeError 保持传播，成功/失败/取消退出 0/1/130。",
+    "真机验收按行单独授权。727 恢复需覆盖受互斥影响的全部原始开关及布撤防前置状态。1724 只能选择已知的原模式，原状态无法用已文档化操作恢复时，不进入真实写验收。查询和写入均不产生物理检测效果声明。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/settings.py",
+    "src/ezviz_unified/alarms.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批仅合成传输。此前设备检查授权仅涵盖约定的设备检查。"
+}

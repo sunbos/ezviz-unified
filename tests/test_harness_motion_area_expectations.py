@@ -36,6 +36,10 @@ REDACTED_OPERATION_IDS = (
     "cn.settings.get_motion_tracking",
     "cn.settings.get_human_tracking",
     "cn.settings.set_human_tracking",
+    "cn.settings.get_intelligent_detection_switch",
+    "cn.settings.set_intelligent_detection_switch",
+    "cn.settings.select_alarm_detection_mode",
+    "cn.settings.get_alarm_detection_mode",
 )
 
 FACADES = {
@@ -58,6 +62,10 @@ FACADES = {
     "cn.settings.get_motion_tracking": (Settings, "get_motion_tracking"),
     "cn.settings.get_human_tracking": (Settings, "get_human_tracking"),
     "cn.settings.set_human_tracking": (Settings, "set_human_tracking"),
+    "cn.settings.get_intelligent_detection_switch": (Settings, "get_intelligent_detection_switch"),
+    "cn.settings.set_intelligent_detection_switch": (Settings, "set_intelligent_detection_switch"),
+    "cn.settings.select_alarm_detection_mode": (Settings, "select_alarm_detection_mode"),
+    "cn.settings.get_alarm_detection_mode": (Settings, "get_alarm_detection_mode"),
 }
 
 READ_ONLY_OPERATION_IDS = {
@@ -73,6 +81,8 @@ READ_ONLY_OPERATION_IDS = {
     "cn.third_party_protocols.list_gb_licenses",
     "cn.settings.get_motion_tracking",
     "cn.settings.get_human_tracking",
+    "cn.settings.get_intelligent_detection_switch",
+    "cn.settings.get_alarm_detection_mode",
 }
 
 MUTATIONS = {

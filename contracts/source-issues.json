@@ -2779,6 +2779,66 @@
         "E52;E56;E80",
         "docs/coordination/domestic-tracking-switches/admission.json"
       ]
+    },
+    {
+      "id": "cn.settings.get_intelligent_detection_switch.arming_and_exclusive_detection_types",
+      "region": "domestic",
+      "source_doc_id": "726",
+      "source_url": "https://open.ys7.com/help/726",
+      "source_content_sha256": "a89b63174b4e1299668e61a94cfacf0124b9cb4f418922a9434a59d6f0bb88ca",
+      "description": "子账号需要 Cam 资源的 Get 权限，表单提交 accessToken、设备序列号 deviceSerial 与可选 type，type 取值 302 表示人体检测、304 表示人脸抠图，省略时表示画面变化检测，检测类型之间互斥，开关依赖布撤防状态，该读取接口不接受通道号参数。成功响应包含根层字符串 code 和 msg。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 方法 get_intelligent_detection_switch 将设备序列号与可选检测类型透传至该接口，不提供通道号入参，返回 ApiResponse。",
+      "evidence": [
+        "E3;E14;E49",
+        "E53;E57;E90",
+        "docs/coordination/domestic-intelligent-detection/admission.json"
+      ]
+    },
+    {
+      "id": "cn.settings.set_intelligent_detection_switch.channel_scope_and_rollback",
+      "region": "domestic",
+      "source_doc_id": "727",
+      "source_url": "https://open.ys7.com/help/727",
+      "source_content_sha256": "d3513160c55976f21e2d58144b0299e3a503784c0e1c6232b2cdf7fa26a2d2f2",
+      "description": "子账号需要 Cam 资源的 Config 权限，表单提交 accessToken、设备序列号 deviceSerial、必填字符串 enable（取值 0 或 1）与可选 channelNo、type，channelNo 缺省表示作用于设备本身。因检测类型互斥，修改可能影响整个互斥组，文档未承诺可任意组合或回滚。成功响应包含根层字符串 code 和 msg。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 方法 set_intelligent_detection_switch 把布尔 enabled 转换为字符串 0 或 1 作为 enable 提交，可选附带 channel_no，返回 ApiResponse。",
+      "evidence": [
+        "E3;E14;E61",
+        "E65;E69;E86",
+        "docs/coordination/domestic-intelligent-detection/admission.json"
+      ]
+    },
+    {
+      "id": "cn.settings.select_alarm_detection_mode.select_only_and_restore_limits",
+      "region": "domestic",
+      "source_doc_id": "1724",
+      "source_url": "https://open.ys7.com/help/1724",
+      "source_content_sha256": "cbebab4d10d46247a8ca76bbcc1d29302d4e385a2f9731c59367159b66f1b370",
+      "description": "该接口用于选择并启用报警检测模式，表单仅需字符串 type，取值 1 为 AI 人形、5 为 PIR，accessToken 与 deviceSerial 经请求头传递，不存在任何启停开关字段，也不要求回读或写重试。当前模式可由同文档族接口读取，但若设备原模式未知或超出可选范围，文档未提供恢复命令。该页错误表只列 200，成功示例返回根层字符串 code 和 msg，账号权限、适配机型与物理效果未经验证。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 方法 select_alarm_detection_mode 仅将 detection_type 作为 type 提交以选择并启用模式，不附带启停标志、不做回读或重试，返回 ApiResponse。",
+      "evidence": [
+        "E3;E14;E42",
+        "E46;E50;E66",
+        "docs/coordination/domestic-intelligent-detection/admission.json"
+      ]
+    },
+    {
+      "id": "cn.settings.get_alarm_detection_mode.nested_type_and_device_scope",
+      "region": "domestic",
+      "source_doc_id": "1725",
+      "source_url": "https://open.ys7.com/help/1725",
+      "source_content_sha256": "25838a0d74f9ba3c97a18272407b96b22aa9665a3d12954d7e90e95550a2ecdf",
+      "description": "该接口读取设备当前报警检测模式，E40/E44 文档明确给出 data.valueInfo.type 的整数映射：1 为 AI 人形、5 为 PIR，其余真实整数与扩展取值原样保留，不能借用其他接口的 3、4 或 701 解释这些值。该页错误表只列 200，成功示例返回根层字符串 code 和 msg，账号权限、适配机型与物理效果未经验证。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 方法 get_alarm_detection_mode 调用该读取接口并返回 ApiResponse，其中 data.valueInfo.type 为服务端原样返回的整数，SDK 保留未知整数及扩展。",
+      "evidence": [
+        "E3;E14;E36",
+        "E40;E44;E72",
+        "docs/coordination/domestic-intelligent-detection/admission.json"
+      ]
     }
   ]
 }
