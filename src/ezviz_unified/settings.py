@@ -102,6 +102,46 @@ _SET_MOTION_TRACKING = Operation(
     policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
 )
 
+_GET_INTELLIGENT_DETECTION_SWITCH = Operation(
+    name="settings.get_intelligent_detection_switch",
+    method="POST",
+    path="/api/lapp/device/intelligence/detection/switch/status",
+    regions=frozenset({_DOMESTIC}),
+    token_location="form",
+    read_only=True,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
+_SET_INTELLIGENT_DETECTION_SWITCH = Operation(
+    name="settings.set_intelligent_detection_switch",
+    method="POST",
+    path="/api/lapp/device/intelligence/detection/switch/set",
+    regions=frozenset({_DOMESTIC}),
+    token_location="form",
+    read_only=False,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
+_SELECT_ALARM_DETECTION_MODE = Operation(
+    name="settings.select_alarm_detection_mode",
+    method="POST",
+    path="/api/v3/device/alarm/detect/switch/set",
+    regions=frozenset({_DOMESTIC}),
+    token_location="header",
+    read_only=False,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
+_GET_ALARM_DETECTION_MODE = Operation(
+    name="settings.get_alarm_detection_mode",
+    method="GET",
+    path="/api/v3/device/alarm/detect/switch/get",
+    regions=frozenset({_DOMESTIC}),
+    token_location="header",
+    read_only=True,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
 _GET_MOTION_TRACKING = Operation(
     name="settings.get_motion_tracking",
     method="POST",
@@ -706,7 +746,40 @@ def _motion_area_value(area: str) -> str:
     return text
 
 
-def _tracking_switch_response(response: ApiResponse) -> ApiResponse:
+def _intelligent_detection_form(
+    device_serial: str, detection_type: str | None
+) -> dict[str, str | int]:
+    form: dict[str, str | int] = {
+        "deviceSerial": _check_serial(_check_text(device_serial, "device_serial"), domestic=True),
+    }
+    if detection_type is not None:
+        if type(detection_type) is not str or detection_type not in ("302", "304"):
+            raise ValueError("detection_type must be '302' or '304'")
+        form["type"] = detection_type
+    return form
+
+
+def _alarm_detection_mode_response(response: ApiResponse) -> ApiResponse:
+    data = response.data
+    if not isinstance(data, dict):
+        raise ProtocolError(
+            "invalid alarm detection mode response",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    value_info = data.get("valueInfo")
+    if not isinstance(value_info, dict) or type(value_info.get("type")) is not int:
+        raise ProtocolError(
+            "invalid alarm detection mode response",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
+
+
+def _tracking_switch_response(
+    response: ApiResponse, *, message: str = "invalid tracking switch response"
+) -> ApiResponse:
     data = response.data
     if (
         type(data) is not dict
@@ -715,7 +788,7 @@ def _tracking_switch_response(response: ApiResponse) -> ApiResponse:
         or ("channelNo" in data and type(data["channelNo"]) is not int)
     ):
         raise ProtocolError(
-            "invalid tracking switch response",
+            message,
             operation=response.operation,
             http_status=response.http_status,
         ) from None
@@ -1109,6 +1182,70 @@ class Settings:
         with _diagnostic_scope(self._client, entrypoint="settings.set_switch", mode="sync"):
             op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
             return self._client.request(op, data=data)
+
+    def get_intelligent_detection_switch(
+        self, device_serial: str, *, detection_type: str | None = None
+    ) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_intelligent_detection_switch", mode="sync"
+        ):
+            _require_domestic(self._client.region.scope)
+            form = _intelligent_detection_form(device_serial, detection_type)
+            response = self._client.request(
+                _GET_INTELLIGENT_DETECTION_SWITCH, data=form, headers=_TRACKING_FORM_HEADERS
+            )
+            return _tracking_switch_response(
+                response, message="invalid intelligent detection switch response"
+            )
+
+    def set_intelligent_detection_switch(
+        self,
+        device_serial: str,
+        *,
+        enabled: bool,
+        detection_type: str | None = None,
+        channel_no: str | None = None,
+    ) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.set_intelligent_detection_switch", mode="sync"
+        ):
+            _require_domestic(self._client.region.scope)
+            form = _intelligent_detection_form(device_serial, detection_type)
+            form["enable"] = _enable_value(_check_enabled(enabled), as_string=True)
+            if channel_no is not None:
+                form["channelNo"] = _check_text(channel_no, "channel_no")
+            return self._client.request(
+                _SET_INTELLIGENT_DETECTION_SWITCH, data=form, headers=_TRACKING_FORM_HEADERS
+            )
+
+    def select_alarm_detection_mode(
+        self, device_serial: str, *, detection_type: str
+    ) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.select_alarm_detection_mode", mode="sync"
+        ):
+            _require_domestic(self._client.region.scope)
+            if type(detection_type) is not str or detection_type not in ("1", "5"):
+                raise ValueError("detection_type must be '1' or '5'")
+            return self._client.request(
+                _SELECT_ALARM_DETECTION_MODE,
+                headers={
+                    "deviceSerial": _header("device_serial", device_serial),
+                    "Content-Type": _FORM_CONTENT_TYPE,
+                },
+                data={"type": detection_type},
+            )
+
+    def get_alarm_detection_mode(self, device_serial: str) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_alarm_detection_mode", mode="sync"
+        ):
+            _require_domestic(self._client.region.scope)
+            response = self._client.request(
+                _GET_ALARM_DETECTION_MODE,
+                headers={"deviceSerial": _header("device_serial", device_serial)},
+            )
+            return _alarm_detection_mode_response(response)
 
     def set_motion_tracking(
         self, device_serial: str, *, enabled: bool, channel_no: str | None = None
@@ -1686,6 +1823,70 @@ class AsyncSettings:
         with _diagnostic_scope(self._client, entrypoint="settings.set_switch", mode="async"):
             op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
             return await self._client.request(op, data=data)
+
+    async def get_intelligent_detection_switch(
+        self, device_serial: str, *, detection_type: str | None = None
+    ) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_intelligent_detection_switch", mode="async"
+        ):
+            _require_domestic(self._client.region.scope)
+            form = _intelligent_detection_form(device_serial, detection_type)
+            response = await self._client.request(
+                _GET_INTELLIGENT_DETECTION_SWITCH, data=form, headers=_TRACKING_FORM_HEADERS
+            )
+            return _tracking_switch_response(
+                response, message="invalid intelligent detection switch response"
+            )
+
+    async def set_intelligent_detection_switch(
+        self,
+        device_serial: str,
+        *,
+        enabled: bool,
+        detection_type: str | None = None,
+        channel_no: str | None = None,
+    ) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.set_intelligent_detection_switch", mode="async"
+        ):
+            _require_domestic(self._client.region.scope)
+            form = _intelligent_detection_form(device_serial, detection_type)
+            form["enable"] = _enable_value(_check_enabled(enabled), as_string=True)
+            if channel_no is not None:
+                form["channelNo"] = _check_text(channel_no, "channel_no")
+            return await self._client.request(
+                _SET_INTELLIGENT_DETECTION_SWITCH, data=form, headers=_TRACKING_FORM_HEADERS
+            )
+
+    async def select_alarm_detection_mode(
+        self, device_serial: str, *, detection_type: str
+    ) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.select_alarm_detection_mode", mode="async"
+        ):
+            _require_domestic(self._client.region.scope)
+            if type(detection_type) is not str or detection_type not in ("1", "5"):
+                raise ValueError("detection_type must be '1' or '5'")
+            return await self._client.request(
+                _SELECT_ALARM_DETECTION_MODE,
+                headers={
+                    "deviceSerial": _header("device_serial", device_serial),
+                    "Content-Type": _FORM_CONTENT_TYPE,
+                },
+                data={"type": detection_type},
+            )
+
+    async def get_alarm_detection_mode(self, device_serial: str) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_alarm_detection_mode", mode="async"
+        ):
+            _require_domestic(self._client.region.scope)
+            response = await self._client.request(
+                _GET_ALARM_DETECTION_MODE,
+                headers={"deviceSerial": _header("device_serial", device_serial)},
+            )
+            return _alarm_detection_mode_response(response)
 
     async def set_motion_tracking(
         self, device_serial: str, *, enabled: bool, channel_no: str | None = None

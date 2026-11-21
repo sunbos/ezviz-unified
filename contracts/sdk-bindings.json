@@ -4127,6 +4127,58 @@
       "public_entry": "settings.set_human_tracking",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.settings.get_intelligent_detection_switch",
+      "region": "domestic",
+      "source_doc_id": "726",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.get_intelligent_detection_switch",
+        "AsyncSettings.get_intelligent_detection_switch"
+      ],
+      "public_entry": "settings.get_intelligent_detection_switch",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.settings.set_intelligent_detection_switch",
+      "region": "domestic",
+      "source_doc_id": "727",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.set_intelligent_detection_switch",
+        "AsyncSettings.set_intelligent_detection_switch"
+      ],
+      "public_entry": "settings.set_intelligent_detection_switch",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.settings.select_alarm_detection_mode",
+      "region": "domestic",
+      "source_doc_id": "1724",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.select_alarm_detection_mode",
+        "AsyncSettings.select_alarm_detection_mode"
+      ],
+      "public_entry": "settings.select_alarm_detection_mode",
+      "offline_status": "pending",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.settings.get_alarm_detection_mode",
+      "region": "domestic",
+      "source_doc_id": "1725",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.get_alarm_detection_mode",
+        "AsyncSettings.get_alarm_detection_mode"
+      ],
+      "public_entry": "settings.get_alarm_detection_mode",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }

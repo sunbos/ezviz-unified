@@ -22790,6 +22790,285 @@
       },
       "source_content_sha256": "b3bfe5b6ab2597f3170c11629d136105cf464c23a50d12b9f63695fa1f523223",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.settings.get_intelligent_detection_switch",
+      "region": "domestic",
+      "source_doc_id": "726",
+      "source_url": "https://open.ys7.com/help/726",
+      "method": "POST",
+      "path": "/api/lapp/device/intelligence/detection/switch/status",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "type",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E53;E57;E90"
+      },
+      "constraints": [
+        {
+          "fact": "该开关依赖布撤防状态，子账户最低需要 Get 权限，Cam 资源限定到设备和通道。",
+          "evidence": "E3"
+        },
+        {
+          "fact": "该接口为只读 POST 表单，其中 type 可以省略，302 表示人体检测，304 表示人脸抠图，省略时表示选择画面变化，请求不含 channelNo，响应中 data.enable 是整数。",
+          "evidence": "E14;E49;E53;E57"
+        }
+      ],
+      "uncertainties": [
+        "可选 type 的含义依赖布撤防状态与互斥选择。官方未给出支持机型清单。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/device/intelligence/detection/switch/status",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E49"
+      },
+      "source_content_sha256": "a89b63174b4e1299668e61a94cfacf0124b9cb4f418922a9434a59d6f0bb88ca",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.settings.set_intelligent_detection_switch",
+      "region": "domestic",
+      "source_doc_id": "727",
+      "source_url": "https://open.ys7.com/help/727",
+      "method": "POST",
+      "path": "/api/lapp/device/intelligence/detection/switch/set",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "enable",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "type",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E65;E69;E86"
+      },
+      "constraints": [
+        {
+          "fact": "子账户必须具备 Cam Config 权限，布撤防状态和互斥开关会影响整体状态，因此不能仅凭关闭或开启独立推断实际效果。",
+          "evidence": "E3"
+        },
+        {
+          "fact": "表单中 enable 是必填的 0/1 字符串，channelNo 和 type 均可省略，省略通道时表示作用于设备本身。",
+          "evidence": "E14;E61"
+        }
+      ],
+      "uncertainties": [
+        "可能影响整组互斥设置。省略 channelNo 表示设备本身，线上改变前需核定目标及完整恢复方案。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/device/intelligence/detection/switch/set",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E61"
+      },
+      "source_content_sha256": "d3513160c55976f21e2d58144b0299e3a503784c0e1c6232b2cdf7fa26a2d2f2",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.settings.select_alarm_detection_mode",
+      "region": "domestic",
+      "source_doc_id": "1724",
+      "source_url": "https://open.ys7.com/help/1724",
+      "method": "POST",
+      "path": "/api/v3/device/alarm/detect/switch/set",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "type",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E46;E50;E66"
+      },
+      "constraints": [
+        {
+          "fact": "该接口在请求头中发送令牌和设备序列号，POST 表单中仅有必填字符串 type。",
+          "evidence": "E14;E42"
+        },
+        {
+          "fact": "该接口用于选择并开启 1（AI 人形）或 5（PIR）检测模式，未提供关闭开关或 enable 字段，收到 ACK 不证明实际生效。",
+          "evidence": "E3;E14;E46;E50"
+        }
+      ],
+      "uncertainties": [
+        "仅有选择并开启 1/5 的源契约。原状态未知、不受支持或无法恢复时没有真实写入前提。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/v3/device/alarm/detect/switch/set",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E42"
+      },
+      "source_content_sha256": "cbebab4d10d46247a8ca76bbcc1d29302d4e385a2f9731c59367159b66f1b370",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.settings.get_alarm_detection_mode",
+      "region": "domestic",
+      "source_doc_id": "1725",
+      "source_url": "https://open.ys7.com/help/1725",
+      "method": "GET",
+      "path": "/api/v3/device/alarm/detect/switch/get",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E40;E44;E72"
+      },
+      "constraints": [
+        {
+          "fact": "该 GET 请求仅在请求头中携带令牌和设备序列号，没有 query 或 body 参数。",
+          "evidence": "E14;E36"
+        },
+        {
+          "fact": "响应根 code 是字符串，data.valueInfo.type 为真正的整数，1 表示 AI 人形，5 表示 PIR。SDK 保留其他整数和扩展。",
+          "evidence": "E40;E44;E72"
+        }
+      ],
+      "uncertainties": [
+        "查询嵌套 data.valueInfo.type。两份 v3 文档只列成功码，未给出最低角色或持久性承诺。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/device/alarm/detect/switch/get",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E36"
+      },
+      "source_content_sha256": "25838a0d74f9ba3c97a18272407b96b22aa9665a3d12954d7e90e95550a2ecdf",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -22995,6 +23274,10 @@
     {
       "review": "docs/coordination/domestic-tracking-switches/admission.json",
       "note": "分别核对国内移动跟踪 722/723 与人形追踪 728/729。4376/4377 的特写追踪 selector 701 有单独的能力条件和既有契约。"
+    },
+    {
+      "review": "docs/coordination/domestic-intelligent-detection/admission.json",
+      "note": "国内 726/727 的智能检测开关与 1724/1725 的报警检测模式分别登记。选择模式即启用，v3 源文未给出关闭字段。"
     }
   ]
 }
