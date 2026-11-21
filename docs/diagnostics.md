@@ -61,7 +61,8 @@ text = recorder.to_json()      # 仅返回 str
 
 自动覆盖明细以冻结清单 `docs/diagnostics-v1-coverage.json` 为准：
 
-- 239 个公共业务入口的同步/异步方法体（共 478 处，含设备管理继承方法、云录制计划继承方法与 `ptz.cruise`）：kind=`call`，记 `started` 与终态；作用域在 docstring 之后、首条校验之前，不改签名、不重复包装继承方法。`components.call` 在 `operation_id` 查找前进入作用域，未知 operation 记 `other`。新增的 `settings.list_areas`（公开国家/地区目录，GET `/api/lapp/area/list`）与其余入口相同，地区校验失败在子 scope 之前发生。云录制 1.0 的 `cloud_recording_v1.unfreeze_file`/`file_info`/`download_urls` 与云点播 `vod.files`/`create_remux_task`/`task`/`tasks`/`recording_urls` 八个国内入口同等计入，facade scope 覆盖各自的校验、认证、传输与业务终态。云抓图 `cloud_capture.create_interval_task`/`create_timing_task`/`task`、消息订阅 `message_subscriptions.create_consumer`/`consume` 与 HUB 子设备 `hubs.list_subdevices`/`subdevice_info`/`channels` 八个国内入口同样计入。
+- 240 个公共业务入口的同步/异步方法体（共 480 处，含设备管理继承方法、云录制计划继承方法与 `ptz.cruise`）：kind=`call`，记 `started` 与终态；作用域在 docstring 之后、首条校验之前，不改签名、不重复包装继承方法。`components.call` 在 `operation_id` 查找前进入作用域，未知 operation 记 `other`。新增的 `settings.list_areas`（公开国家/地区目录，GET `/api/lapp/area/list`）与其余入口相同，地区校验失败在子 scope 之前发生。云录制 1.0 的 `cloud_recording_v1.unfreeze_file`/`file_info`/`download_urls` 与云点播 `vod.files`/`create_remux_task`/`task`/`tasks`/`recording_urls` 八个国内入口同等计入，facade scope 覆盖各自的校验、认证、传输与业务终态。云抓图 `cloud_capture.create_interval_task`/`create_timing_task`/`task`、消息订阅 `message_subscriptions.create_consumer`/`consume` 与 HUB 子设备 `hubs.list_subdevices`/`subdevice_info`/`channels` 八个国内入口同样计入。
+- 国内通道灯光联动查询：同步与异步诊断共用固定名称 `settings.get_channel_light_linkage`，省略令牌、设备标识、通道、查询类型与上游自由文本。
 - `settings.get_advanced_alarm_detection_type`：国内高级告警侦测类型查询的同步与异步诊断均使用固定入口名，省略访问令牌、设备序列号、上游自由文本及实际侦测类型。
 - `detectors.rename`：海外 A1 探测器改名在同步与异步诊断中均使用固定入口名，诊断报告省略访问令牌、父子设备序列号、新名称、上游自由文本及业务码。
 - 同步与异步诊断统一使用固定名称 `settings.get_intelligent_detection_switch`、`settings.set_intelligent_detection_switch`（国内智能检测开关）以及 `settings.select_alarm_detection_mode`、`settings.get_alarm_detection_mode`（人形/PIR 模式）。诊断报告省略令牌、设备序列号、通道、检测选择和上游自由文本。

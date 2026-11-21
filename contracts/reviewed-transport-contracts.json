@@ -23207,6 +23207,80 @@
       },
       "source_content_sha256": "757d9f4517dafbcb9a935e8b9791c5422a6b944ab7d9fb9f8085ab1d477884fc",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.settings.get_channel_light_linkage",
+      "region": "domestic",
+      "source_doc_id": "1741",
+      "source_url": "https://open.ys7.com/help/1741",
+      "method": "GET",
+      "path": "/api/v3/device/switchStatus/get",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "type",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E52;E56;E76"
+      },
+      "constraints": [
+        {
+          "fact": "国内 GET 请求中 accessToken、deviceSerial、channelNo 均为必填请求头，query 只传必填字符串 type（301 移动侦测，305 PIR），无请求正文，也不设置 Content-Type。",
+          "evidence": "E14;E48"
+        },
+        {
+          "fact": "根 code 为字符串 \"200\" 时视为成功，data.type 是整数，data.enable 是布尔值，可选 subSerial 为字符串，SDK 保留未知整数与扩展字段。",
+          "evidence": "E52;E56;E76"
+        }
+      ],
+      "uncertainties": [
+        "E14 要求 channelNo，E48 示例省略。示例按参数表发送。查询权限、设备支持、实际响应和未知选择器的含义尚待核验。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/device/switchStatus/get",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E48"
+      },
+      "source_content_sha256": "1b1aa0ae8913a2b7699fe9625c9c0d5ccb1b1f627b5a2587c0e0d19aa7ecf701",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -23424,6 +23498,10 @@
     {
       "review": "docs/coordination/domestic-advanced-detection-type/admission.json",
       "note": "国内文档 1742 的单项高级告警侦测类型查询，按根层字符串成功码和嵌套整数登记。"
+    },
+    {
+      "review": "docs/coordination/domestic-channel-light-linkage/admission.json",
+      "note": "国内文档 1741 按通道查询灯光联动，依 E14 提交通道请求头，以根层字符串成功码判定国内返回。"
     }
   ]
 }

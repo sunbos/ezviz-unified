@@ -7462,6 +7462,33 @@
           "synthetic": true
         }
       }
+    },
+    {
+      "operation_id": "cn.settings.get_channel_light_linkage",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "channel_no": "007",
+        "linkage_type": "305"
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": "007",
+        "type": "305"
+      },
+      "data": {
+        "type": 999,
+        "enable": false,
+        "subSerial": "SYNTHETIC-SUB",
+        "extra": {
+          "synthetic": true
+        }
+      }
     }
   ]
 }
