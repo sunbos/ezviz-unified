@@ -17,6 +17,10 @@
 
 认证和首页首台选择已完成，同步计划查询返回 SDK 错误。首次失败即停，异步未执行。未记录计划内容、业务码或原始异常，无法据此判定权限、设备状态或型号支持。 本次获准上限为 5 次 HTTP，实际放行 3 次。本项仍待通过。[脱敏回执](live/2026-11-20-singapore-first-device-working-mode-plan/receipt.json)
 
+## 国内 OTAP 图像翻转验收
+
+国内 5289 图像翻转复用 `otap.set_property` 发送配置。参数表 E16 使用 `enable`，请求示例 E77 使用 `enabled`，本示例按 E77 发送。整数 `meta.code` 等于 200 表明请求已受理。同步和异步示例均使用合成传输，服务端接受的拼写、实际机型、Config 权限与画面效果仍待实测。[冻结记录](../coordination/domestic-otap-image-flip/admission.json) · [离线回执](2026-11-21-domestic-otap-image-flip/offline.json)
+
 ## 国内高级告警侦测类型只读验收
 
 国内 1742 接口读取当前设备的高级告警侦测类型。成功时根层 code 为字符串 “200”。data.valueInfo.type 是单个整数。0 表示关闭。4 表示活动侦测。8 表示人形检测。SDK 原样保留未知整数。此项独立于 1725 模式和 726 开关。本次使用合成传输验证同步和异步接口。实际机型、权限与检测效果仍待实测。

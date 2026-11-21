@@ -13275,19 +13275,29 @@
       "pending_questions": [
         "E16 写 enable，E77 示例写 enabled。按 E77 的裸 JSON 仅作本地可复现示范；服务端接受的字段名称、具体设备生效及恢复须分别验证。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待示例和合成验收。"
+      "code_artifact_evidence_refs": [
+        "README.md",
+        "examples/otap_image_flip.py",
+        "tests/test_example_otap_image_flip.py",
+        "src/ezviz_unified/otap.py",
+        "tests/test_sdk_otap.py",
+        "docs/diagnostics-v1-coverage.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "1c0d159538dba8bdae03a6dcf6d9101b0c024ae0",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-otap-image-flip/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-983-D0-OFFLINE-001",
