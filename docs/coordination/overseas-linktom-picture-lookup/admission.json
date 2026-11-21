@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "1532670abd67496a8344adcd076d59ec9a92cdd6",
+  "scope_revision": "2026-11-21-r71-overseas-linktom-picture-lookup",
+  "cohort_id": "OVERSEAS-LINKTOM-PICTURE-LOOKUP-001",
+  "operations": [
+    {
+      "operation_id": "global.snapshots.get_by_uuid",
+      "capability_id": "candidate:overseas:476:1.4",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-476-1-4-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-476-1-4-LIVE-001"
+      ],
+      "name": "get_by_uuid",
+      "entry": "snapshots.get_by_uuid",
+      "doc_id": "476",
+      "section": "1.4",
+      "region": "overseas",
+      "method": "POST",
+      "path": "/api/lapp/device/uuid/picture",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/en/476",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/476.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/476.structure.json",
+      "html_sha256": "82a0152058592e8c4b5e11f4f968edce7a4e39d5e16b527db606d5957bf8f858",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E454/E479"
+        },
+        {
+          "name": "uuid",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E454/E479"
+        },
+        {
+          "name": "size",
+          "type": "int",
+          "location": "body",
+          "required": true,
+          "evidence": "E454/E479"
+        }
+      ],
+      "elements": {
+        "heading": 437,
+        "description": 443,
+        "route": 447,
+        "method": 451,
+        "parameters": 454,
+        "request": 479,
+        "example": 482,
+        "fields": 485,
+        "errors": 498
+      },
+      "signatures": {
+        "Snapshots": "def get_by_uuid(self, capture_uuid: str, *, size: int) -> ApiResponse",
+        "AsyncSnapshots": "async def get_by_uuid(self, capture_uuid: str, *, size: int) -> ApiResponse"
+      },
+      "permission": "海外应用所属集群有权查询该资源。该节未给出托管或子账号最低角色。",
+      "prerequisites": "适用 Linktom 设备，调用者需持有其设备 SDK 在已授权抓拍后生成的 UUID。",
+      "unknown": "官方未说明 UUID 语法、有效期、size=0 的特殊含义或图片引用的可访问性。设备连接、资源权限和可能的服务用量待实测。",
+      "envelope_paths": [
+        ""
+      ]
+    }
+  ],
+  "sdk_choices": [
+    "在现有 Snapshots 和 AsyncSnapshots 增加按捕获 UUID 查询既有图片引用的方法。只使用调用方显式提供的授权设备 SDK 抓拍结果。本方法不枚举 UUID，不调用 capture、capture_to_space 或设备清单，不产生新抓拍，不跟随或下载引用。",
+    "区域在诊断作用域内先于参数和认证校验。按 E454 及 E479 在所属海外业务 origin 使用表单，令牌由客户端注入。只传 accessToken、uuid、size。capture_uuid 为非空可编码 UTF-8 文本，按原字符串发送，不要求 RFC 版本、固定长度或十六进制。size 为整数且排除 bool，0 到 1280 含两端，该参数显式必传。仅在已有策略允许的失效令牌场景刷新一次并重发同一查询。",
+    "根层 code 必须为字符串 200，读取对象 data 中的字符串 picUrl。该字段可为路径，SDK 不解析主机、文件类型或有效期，不作可达性检查；其原值和未知成功扩展对显式调用者保留。旧 capture 接口仍只发单次写请求。",
+    "复用响应严格展示、媒体地址脱敏与可见业务码机制。只允许 E498 的 200、10001、10002、10005、20301、20302、20303、49999 以及通用 400/403/404/500/10031 的字符串或整数展示。其他码保持异常语义并屏蔽未知值。标准 HTTPX INFO 中 SDK 自有、选择了严格展示且媒体脱敏的请求，保留标准 HTTP 版本，非标准的服务端版本用固定 HTTP 标志处理，与既有 OAuth 的白名单一致。不得安装额外的全局钩子或更改非 SDK 请求日志。回执及示例不得包含 UUID、图片引用、令牌、原始响应和服务器自由文本。",
+    "示例 python -m examples.linktom_picture --mode sync|async，只使用进程内 MockTransport 和合成静态令牌，以合成的显式 UUID 和固定 size=640 调用真实 facade 一次。输出仅为 simulated、picture_ref_present 两个布尔值；后者表示非空字符串引用，不能证明媒体可访问。不读环境、凭据或真实资源；不用任何图片数据。usage 固定，异常为 error: Linktom picture lookup example failed，取消返回130，未预期 RuntimeError 保持传播。",
+    "线下型式验证与真实样本分开。真实验收必须有可查询的既有 Linktom 资源和有界只读额度，事先核清设备 SDK UUID 和访问范围，真实 UUID 与图片位置不入回执。不为验收补拍，不访问实际媒体。"
+  ],
+  "page_request_crosswalk": [
+    {
+      "section": "1.1",
+      "doc_heading": 40,
+      "route_element": 49,
+      "method_element": 53,
+      "parameters_element": 56,
+      "example_element": 83,
+      "method": "POST",
+      "path": "/api/lapp/device/list",
+      "formal_parameter_names": [
+        "accessToken",
+        "pageStart",
+        "pageSize"
+      ],
+      "reviewed_id": "global.devices.list",
+      "ordinal": 0,
+      "response_element": 86,
+      "fields_element": 89,
+      "errors_element": 140,
+      "response_shape": "data array and root page"
+    },
+    {
+      "section": "1.2",
+      "doc_heading": 167,
+      "route_element": 176,
+      "method_element": 180,
+      "parameters_element": 183,
+      "example_element": 203,
+      "method": "POST",
+      "path": "/api/lapp/device/info",
+      "formal_parameter_names": [
+        "accessToken",
+        "deviceSerial"
+      ],
+      "reviewed_id": "global.devices.get",
+      "ordinal": 1,
+      "response_element": 206,
+      "fields_element": 209,
+      "errors_element": 255,
+      "response_shape": "data object"
+    },
+    {
+      "section": "1.3",
+      "doc_heading": 294,
+      "route_element": 303,
+      "method_element": 307,
+      "parameters_element": 310,
+      "example_element": 337,
+      "method": "POST",
+      "path": "/api/lapp/camera/list",
+      "formal_parameter_names": [
+        "accessToken",
+        "pageStart",
+        "pageSize"
+      ],
+      "reviewed_id": "global.devices.cameras",
+      "ordinal": 2,
+      "response_element": 340,
+      "fields_element": 343,
+      "errors_element": 398,
+      "response_shape": "data array and root page"
+    },
+    {
+      "section": "1.4",
+      "doc_heading": 437,
+      "route_element": 447,
+      "method_element": 451,
+      "parameters_element": 454,
+      "example_element": 479,
+      "method": "POST",
+      "path": "/api/lapp/device/uuid/picture",
+      "formal_parameter_names": [
+        "accessToken",
+        "uuid",
+        "size"
+      ],
+      "reviewed_id": null
+    },
+    {
+      "section": "1.5",
+      "doc_heading": 537,
+      "route_element": 546,
+      "method_element": 550,
+      "parameters_element": 558,
+      "example_element": 583,
+      "method": "POST",
+      "path": "/api/lapp/device/status/get",
+      "formal_parameter_names": [
+        "accessToken",
+        "deviceSerial",
+        "channel"
+      ],
+      "reviewed_id": "global.device.status",
+      "ordinal": 4,
+      "response_element": 587,
+      "fields_element": 591,
+      "errors_element": 640,
+      "response_shape": "data object"
+    },
+    {
+      "section": "1.6",
+      "doc_heading": 679,
+      "route_element": 688,
+      "method_element": 692,
+      "parameters_element": 695,
+      "example_element": 715,
+      "method": "POST",
+      "path": "/api/lapp/device/camera/list",
+      "formal_parameter_names": [
+        "accessToken",
+        "deviceSerial"
+      ],
+      "reviewed_id": "global.devices.channels",
+      "ordinal": 5,
+      "response_element": 719,
+      "fields_element": 723,
+      "errors_element": 783,
+      "response_shape": "data array"
+    }
+  ],
+  "existing_semantic_limits": [
+    "已有 overseas.476.existing-conflict 保留。在线枚举在 E89/E209/E343/E723 的描述有冲突。",
+    "E89 的 deviceVersion 在字段表为 int，E86 样例为 string。E343 的 channelNo 在表为 String，E340 样例为 int。",
+    "E343/E723 的 isShared 方向用语不同，不能据此推导访问权限。NVR 关联信息取决于设备上报。",
+    "原始 ledger 中示例为 example_only，审核层可将其链接到精确的同节声明，但不改写采集器输出。"
+  ],
+  "public_document_recheck": {
+    "doc_id": "476",
+    "public_reference": "https://open.ys7.com/help/en/476",
+    "http_status": 200,
+    "checked_at_utc": "2026-11-21T04:06:36.183656+00:00",
+    "html_sha256": "82a0152058592e8c4b5e11f4f968edce7a4e39d5e16b527db606d5957bf8f858",
+    "account_requests": 0,
+    "device_requests": 0,
+    "media_requests": 0
+  },
+  "reuse": [
+    "src/ezviz_unified/snapshots.py",
+    "src/ezviz_unified/response.py",
+    "src/ezviz_unified/transport.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批仅使用合成传输。"
+}
