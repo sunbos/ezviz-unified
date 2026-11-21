@@ -1,0 +1,859 @@
+{
+  "schema_version": 1,
+  "scope_ref": "docs/coordination/native-harmony-sdk-build/scope.json",
+  "guide_ref": "docs/official-mobile-sdk.md",
+  "sources": {
+    "4189": {
+      "doc_id": "4189",
+      "source_ref": "portal-2026-11-17:domestic:4189",
+      "source_url": "https://open.ys7.com/help/4189",
+      "html_sha256": "73cbfefc664c58b7740d3d5cae5fc0380a05f88d09b5da2b2aa139916ae7a8c6",
+      "structure_sha256": "c853b615cf4f3c2da9ae1187f980b312b62a621a2120de7f7586e43db6524d16",
+      "menu_path": [
+        "SDK及示例",
+        "Harmony SDK",
+        "Harmony 集成",
+        "下载安装"
+      ],
+      "public_document_check": {
+        "status": 200,
+        "checked_at_utc": "2026-11-20T23:41:50.721207+00:00",
+        "fresh_this_batch": true,
+        "matches_frozen_html": true
+      },
+      "assessment": "正文 E13/E17 指向应用模块 entry/libs/EZOpenSDK.har 本地依赖，E20 与 E23 分别设置 enableOverride 和 useNormalizedOHMUrl，但仅凭这些静态说明无法判断最终 HAP 实际选择了哪个同名 ELF。",
+      "remaining": [
+        "构建真实 HAP 后核对打包产中同名 ELF 的实际来源与版本。"
+      ],
+      "element_pointers": {
+        "official_catalog_link": 3,
+        "local_har_in_entry_libs": 13,
+        "entry_local_dependency": 17,
+        "native_library_filter": 20,
+        "normalized_ohm_url": 23
+      },
+      "documented_local_dependency": {
+        "name": "@ezviz/ezopensdk",
+        "specifier": "file:./libs/EZOpenSDK.har"
+      },
+      "documented_build_options": {
+        "nativeLib.filter.enableOverride": true,
+        "strictMode.useNormalizedOHMUrl": true
+      },
+      "dependency_source": "本地 HAR 的相对 file 依赖，不以同名远程包替代。"
+    },
+    "4190": {
+      "doc_id": "4190",
+      "source_ref": "portal-2026-11-17:domestic:4190",
+      "source_url": "https://open.ys7.com/help/4190",
+      "html_sha256": "3f1cdceeeac624f287f888af047fe28f85fc7e09cd991cac3531b137656f8b72",
+      "structure_sha256": "b800e040f7e56d85e22f59753e2564c7f76c216e032c85ff14d9ef5109bcaefb",
+      "menu_path": [
+        "SDK及示例",
+        "Harmony SDK",
+        "Harmony 集成",
+        "权限配置"
+      ],
+      "public_document_check": {
+        "status": 200,
+        "checked_at_utc": "2026-11-20T23:41:50.537520+00:00",
+        "fresh_this_batch": true,
+        "matches_frozen_html": true
+      },
+      "assessment": "正文 E5/E9/E13/E17/E21 只列出七个权限名称，按持久化存储、相册、麦克风、相机和配网分类。并非每层清单都声明它们，顶级 HAR 自身无请求权限，嵌套 EZPlay 声明三项，Demo 清单有十一项，实际授权视平台与功能而定仍待实机核对。",
+      "remaining": [
+        "在具备授权的目标设备上，按系统版本和实际使用功能核对授权请求与授予结果。"
+      ],
+      "element_pointers": {
+        "persistence": 5,
+        "photo_library": 9,
+        "microphone": 13,
+        "camera": 17,
+        "network_setup": 21
+      },
+      "permission_groups_by_element": {
+        "5": [
+          "ohos.permission.STORE_PERSISTENT_DATA"
+        ],
+        "9": [
+          "ohos.permission.WRITE_IMAGEVIDEO",
+          "ohos.permission.READ_IMAGEVIDEO"
+        ],
+        "13": [
+          "ohos.permission.MICROPHONE"
+        ],
+        "17": [
+          "ohos.permission.CAMERA"
+        ],
+        "21": [
+          "ohos.permission.SET_WIFI_INFO",
+          "ohos.permission.GET_NETWORK_INFO"
+        ]
+      }
+    },
+    "4191": {
+      "doc_id": "4191",
+      "source_ref": "portal-2026-11-17:domestic:4191",
+      "source_url": "https://open.ys7.com/help/4191",
+      "html_sha256": "1e749d259c66dda20f1fbb34b4c5b70d9682e07a956cda6224e26ec048e0b687",
+      "structure_sha256": "2d16ea8e4f1d86e60d28cd8f6789fd03e2dff04a5767565856b0b8f8c972d94d",
+      "menu_path": [
+        "SDK及示例",
+        "Harmony SDK",
+        "Harmony 集成",
+        "SDK初始化"
+      ],
+      "public_document_check": {
+        "status": 200,
+        "checked_at_utc": "2026-11-20T22:07:39.258699+00:00",
+        "fresh_this_batch": false,
+        "matches_frozen_html": true
+      },
+      "assessment": "E22 的 setAccessToken 为 await 调用，E25 的 getDeviceList 使用回调。E15 为 AccessToken 与受限 TKToken 二选一，受限 TKToken 需后端参与，不应将此具体要求推广到所有模式。E108 称重新初始化却写 setAccessToken，与 E109 重新授权的用法重合，版本化行为待核。",
+      "remaining": [
+        "实机验证 E108 与 E109 场景下调用的差异及版本化行为。"
+      ],
+      "element_pointers": {
+        "authorization_modes": 15,
+        "access_token_example": 22,
+        "get_device_list_example": 25,
+        "limited_token_reference": 99,
+        "logout_and_switch_steps": [
+          107,
+          108,
+          109
+        ],
+        "debug_example": 116
+      },
+      "existing_candidate_examples": {
+        "setAccessToken": [
+          {
+            "element_index": 22,
+            "normalized_call_form": "await EZOpenSDK.setAccessToken(accessToken)",
+            "candidate_id": "candidate:domestic:native-ref:setAccessToken",
+            "evidence_kind": "documented_call_example"
+          }
+        ],
+        "getDeviceList": [
+          {
+            "element_index": 25,
+            "normalized_call_form": "EZOpenSDK.getDeviceList(pageStart, pageSize, (deviceList, totalCount, error) => { … })",
+            "candidate_id": "candidate:domestic:native-ref:getDeviceList",
+            "evidence_kind": "documented_call_example"
+          }
+        ]
+      },
+      "authorization_modes": {
+        "element_index": 15,
+        "options": [
+          "AccessToken",
+          "TKToken"
+        ],
+        "mutually_exclusive": true,
+        "restricted_token_scope": "function_and_channel_limited",
+        "backend_issuance_required": true,
+        "token_table_element": 46,
+        "documented_types": [
+          "httpToken",
+          "deviceToken",
+          "deviceGlobalToken",
+          "deviceVideoToken",
+          "previewStreamToken",
+          "playbackStreamToken",
+          "talkStreamToken"
+        ],
+        "further_reference": {
+          "element_index": 99,
+          "doc_id": "4334"
+        },
+        "sdk_release_pinned_by_page": false
+      },
+      "prior_document_review": {
+        "ref": "docs/validation/2026-11-21-native-ios-initialization/source-review.json",
+        "html_sha256": "1e749d259c66dda20f1fbb34b4c5b70d9682e07a956cda6224e26ec048e0b687",
+        "fresh_request_this_batch": false
+      }
+    },
+    "4217": {
+      "doc_id": "4217",
+      "source_ref": "portal-2026-11-17:domestic:4217",
+      "source_url": "https://open.ys7.com/help/4217",
+      "html_sha256": "f8cbd25e5ab6b51eb794c414fab06dd4062e02f500d97b394286abffac579b77",
+      "structure_sha256": "25692293d1a60dbcd5e1388a010e6b721427fcab598238295d3e2cdb9662b1d3",
+      "menu_path": [
+        "SDK及示例",
+        "Harmony SDK",
+        "Harmony SDK概述"
+      ],
+      "public_document_check": {
+        "status": 200,
+        "checked_at_utc": "2026-11-20T23:41:50.511063+00:00",
+        "fresh_this_batch": true,
+        "matches_frozen_html": true
+      },
+      "assessment": "E9 是官方文档给出的最低版本 HarmonyOS 5.0.0(12)，E48/E89/E119 分别介绍功能、隐私用途和权限。该页面只是静态说明，不能证明集成正确、HAP 打包成功或实际运行。",
+      "remaining": [
+        "在持有有效许可的 API12 工具环境中生成并检查消费方 HAP。",
+        "另用获准的签名真机核对最低系统兼容性和实际操作。"
+      ],
+      "element_pointers": {
+        "minimum_system": 9,
+        "feature_table": 48,
+        "privacy_and_purposes": 89,
+        "permissions_by_feature": 119
+      },
+      "documented_minimum_system": "5.0.0(12)",
+      "table_roles": [
+        "功能介绍",
+        "隐私声明及收集目的",
+        "按功能说明权限用途"
+      ]
+    }
+  },
+  "release": {
+    "catalog": "https://open.ys7.com/cn/s/download",
+    "zip_url": "https://izhstatic.ys7.com/vasp-openweb/1794553309630_harmony_EZOpenSDK_v1.9.0_build20261113.zip",
+    "version": "1.9.0",
+    "zip_sha256": "715937e3f57655dd5275a4eb291c987bc1079db1d409da098dcf7e19daac43d3",
+    "zip_bytes": 47262658,
+    "root_har_members": [
+      "harmony_EZOpenSDK_v1.9.0_build20261113/EZOpenSDK_harmony_v1.9.0/entry/libs/EZOpenSDK.har",
+      "harmony_EZOpenSDK_v1.9.0_build20261113/EZOpenSDK.har"
+    ],
+    "root_har_bytes": 22352200,
+    "root_har_sha256": "9d079629f26690773ce23ea97c097277493ce080b606c59a8247ef5df150e4ea",
+    "published_har_md5": "71ca2e75699a5f1c6471a7586360ea51",
+    "root_package": "@ezviz/ezopensdk",
+    "compatible_sdk": 12
+  },
+  "license_evidence": {
+    "member": "package/LICENSE",
+    "bytes": 2221,
+    "sha256": "3bdcc213b42d0e58c8c4857c86f907d3de3987081cb875e1f755090b2b1b1a63",
+    "line_numbers": [
+      7,
+      10,
+      22
+    ],
+    "integration_condition": "集成方须与权利方签署有效的商业主协议，并在主协议下取得该 SDK 的使用权。公开下载和哈希核对只证明可以获取并识别发布材料。",
+    "commercial_agreement_confirmed": false,
+    "huawei_tool_terms": "DevEco、OHPM/Hvigor 及相应工具分发另受华为条款约束，应由获授权的操作者核定。",
+    "huawei_tool_terms_confirmed": false,
+    "accepted_terms_this_review": false
+  },
+  "package_graph": {
+    "unique_packages": 7,
+    "unique_edges": 8,
+    "physical_hars": 9,
+    "packages": {
+      "9d079629f26690773ce23ea97c097277493ce080b606c59a8247ef5df150e4ea": {
+        "name": "@ezviz/ezopensdk",
+        "version": "1.9.0",
+        "root_package_metadata_sha256": "e0b1eebc8a011160270621ff33c34786ca3abdbd6cca3122c828667360a43d46",
+        "type_entry": "Index.d.ets",
+        "compatibleSdkVersion": 12,
+        "module_sha256": "03c6cfccb326117b2fe6cea2432378bf3dbb5514bd1b02a8d275f63fd7140d61",
+        "declared_dependency_names": [
+          "ezplay",
+          "ezwificonfig"
+        ],
+        "permissions": [],
+        "elf_library_count": 0,
+        "native_abi_dirs": []
+      },
+      "e6cf338587d29d361a5d175b7a0740f6fd1526dd513945e248c8a4f377093635": {
+        "name": "ezplay",
+        "version": "1.0.0",
+        "root_package_metadata_sha256": "129094176c5a6d97fb11af12c33c0966847e3ba0ecab3575bbd1f03fe5dfb6b0",
+        "type_entry": "Index.d.ets",
+        "compatibleSdkVersion": 12,
+        "module_sha256": "df50e4bc41538a1b7ce00bba4549ac700ac2a56d2276cca099f32773e84b6042",
+        "declared_dependency_names": [
+          "ezauth",
+          "ezbase",
+          "ezplayersdk",
+          "libstunclient_napi.so"
+        ],
+        "permissions": [
+          "ohos.permission.INTERNET",
+          "ohos.permission.GET_WIFI_INFO",
+          "ohos.permission.GET_NETWORK_INFO"
+        ],
+        "elf_library_count": 3,
+        "native_abi_dirs": [
+          "arm64-v8a"
+        ]
+      },
+      "b9cae29bf43e4539fbcd91ddea788e4c4663924ff26e3cef923d070285a14c31": {
+        "name": "ezauth",
+        "version": "1.0.0",
+        "root_package_metadata_sha256": "ba712b8091e23d6b5aa60b708138769c6b9948d3fd8658af0f399c02e265fc20",
+        "type_entry": "Index.d.ets",
+        "compatibleSdkVersion": 12,
+        "module_sha256": "b9ebd4e86d6611d1dba12c2d4c2bb558c09a772dff2ef929132b77be6e134924",
+        "declared_dependency_names": [
+          "ezbase"
+        ],
+        "permissions": [],
+        "elf_library_count": 0,
+        "native_abi_dirs": []
+      },
+      "5f3a6a823fcc20ce2801397cdc69421051e491d22afa90152413ff632c5f4abd": {
+        "name": "ezbase",
+        "version": "1.0.0",
+        "root_package_metadata_sha256": "7d8e16b230870178d68bc940ce29cee157298f979d260bb063de9e756f56ab20",
+        "type_entry": "Index.d.ts",
+        "compatibleSdkVersion": 12,
+        "module_sha256": "09f3112d172c987dd2a81df140d2688f6c910a6e6cb84876f45161714dc3ad23",
+        "declared_dependency_names": [],
+        "permissions": [],
+        "elf_library_count": 0,
+        "native_abi_dirs": []
+      },
+      "9189dab3cce8968c7cc686a2b4f6bad6a238126da5809d53e83e9df6af59a86c": {
+        "name": "ezplayersdk",
+        "version": "6.4.3",
+        "root_package_metadata_sha256": "bd9a09c93de2a78e3ede8ab74c7f55748c7db3a7c1d53c36ef0d89f624e3a52a",
+        "type_entry": "src/index.d.ets",
+        "compatibleSdkVersion": 12,
+        "module_sha256": "8685839b46968107399266c9395e42452fbaafb7d527929bc60dcfa95f6cf656",
+        "declared_dependency_names": [
+          "libezplayersdk.so"
+        ],
+        "permissions": [],
+        "elf_library_count": 30,
+        "native_abi_dirs": [
+          "arm64-v8a"
+        ]
+      },
+      "77858ba9b841abfb3e718e0d8ee4e4eef4fb0ec53ce76ce4b8c7c4ed2cb04f4a": {
+        "name": "ezwificonfig",
+        "version": "1.0.0",
+        "root_package_metadata_sha256": "397ee1f29a8836b94e5746bb56c77fb47c6b07781f1d50a519efa0567c9ec6ae",
+        "type_entry": "Index.d.ets",
+        "compatibleSdkVersion": 12,
+        "module_sha256": "352bace75449c706ec115d5a13887d7ff71fe876f21256aa57c7c17b0c1db6b2",
+        "declared_dependency_names": [
+          "ezbase",
+          "hcnetsdk_oh"
+        ],
+        "permissions": [],
+        "elf_library_count": 0,
+        "native_abi_dirs": []
+      },
+      "72c4f93181c46f71bda201c5fedfe98d73ff48bf32707ee9ab0c7b63ae89831a": {
+        "name": "hcnetsdk_oh",
+        "version": "1.0.0",
+        "root_package_metadata_sha256": "610b0b30eeffc78307161f44a185d1fcc1c53868d7dc96277de7c8f8f35e0358",
+        "type_entry": null,
+        "compatibleSdkVersion": null,
+        "module_sha256": "523a585c9560447eb0eca25d87cb96a6cb48cd2e2c420b8a29db519dd8f1bb7f",
+        "declared_dependency_names": [
+          "libhcnetsdk_oh.so"
+        ],
+        "permissions": [],
+        "elf_library_count": 21,
+        "native_abi_dirs": [
+          "arm64-v8a"
+        ]
+      }
+    },
+    "nested_edges": [
+      {
+        "parent_sha256": "9d079629f26690773ce23ea97c097277493ce080b606c59a8247ef5df150e4ea",
+        "path": "package/libs/EZPlay.har",
+        "child_sha256": "e6cf338587d29d361a5d175b7a0740f6fd1526dd513945e248c8a4f377093635",
+        "bytes": 14733562
+      },
+      {
+        "parent_sha256": "e6cf338587d29d361a5d175b7a0740f6fd1526dd513945e248c8a4f377093635",
+        "path": "package/libs/EZAuth.har",
+        "child_sha256": "b9cae29bf43e4539fbcd91ddea788e4c4663924ff26e3cef923d070285a14c31",
+        "bytes": 53468
+      },
+      {
+        "parent_sha256": "b9cae29bf43e4539fbcd91ddea788e4c4663924ff26e3cef923d070285a14c31",
+        "path": "package/libs/EZBase.har",
+        "child_sha256": "5f3a6a823fcc20ce2801397cdc69421051e491d22afa90152413ff632c5f4abd",
+        "bytes": 33950
+      },
+      {
+        "parent_sha256": "e6cf338587d29d361a5d175b7a0740f6fd1526dd513945e248c8a4f377093635",
+        "path": "package/libs/EZBase.har",
+        "child_sha256": "5f3a6a823fcc20ce2801397cdc69421051e491d22afa90152413ff632c5f4abd",
+        "bytes": 33950
+      },
+      {
+        "parent_sha256": "e6cf338587d29d361a5d175b7a0740f6fd1526dd513945e248c8a4f377093635",
+        "path": "package/libs/ezplayersdk.har",
+        "child_sha256": "9189dab3cce8968c7cc686a2b4f6bad6a238126da5809d53e83e9df6af59a86c",
+        "bytes": 14064392
+      },
+      {
+        "parent_sha256": "9d079629f26690773ce23ea97c097277493ce080b606c59a8247ef5df150e4ea",
+        "path": "package/libs/EZWifiConfig.har",
+        "child_sha256": "77858ba9b841abfb3e718e0d8ee4e4eef4fb0ec53ce76ce4b8c7c4ed2cb04f4a",
+        "bytes": 7596410
+      },
+      {
+        "parent_sha256": "77858ba9b841abfb3e718e0d8ee4e4eef4fb0ec53ce76ce4b8c7c4ed2cb04f4a",
+        "path": "package/libs/EZBase.har",
+        "child_sha256": "5f3a6a823fcc20ce2801397cdc69421051e491d22afa90152413ff632c5f4abd",
+        "bytes": 33950
+      },
+      {
+        "parent_sha256": "77858ba9b841abfb3e718e0d8ee4e4eef4fb0ec53ce76ce4b8c7c4ed2cb04f4a",
+        "path": "package/libs/HCNetSDK_OH.har",
+        "child_sha256": "72c4f93181c46f71bda201c5fedfe98d73ff48bf32707ee9ab0c7b63ae89831a",
+        "bytes": 7603817
+      }
+    ],
+    "physical_locations": {
+      "EZOpenSDK.har": {
+        "package": "@ezviz/ezopensdk",
+        "sha256": "9d079629f26690773ce23ea97c097277493ce080b606c59a8247ef5df150e4ea",
+        "version": "1.9.0",
+        "requested_permissions": []
+      },
+      "EZOpenSDK.har!package/libs/EZPlay.har": {
+        "package": "ezplay",
+        "sha256": "e6cf338587d29d361a5d175b7a0740f6fd1526dd513945e248c8a4f377093635",
+        "version": "1.0.0",
+        "requested_permissions": [
+          "ohos.permission.INTERNET",
+          "ohos.permission.GET_WIFI_INFO",
+          "ohos.permission.GET_NETWORK_INFO"
+        ]
+      },
+      "EZOpenSDK.har!package/libs/EZPlay.har!package/libs/EZAuth.har": {
+        "package": "ezauth",
+        "sha256": "b9cae29bf43e4539fbcd91ddea788e4c4663924ff26e3cef923d070285a14c31",
+        "version": "1.0.0",
+        "requested_permissions": []
+      },
+      "EZOpenSDK.har!package/libs/EZPlay.har!package/libs/EZAuth.har!package/libs/EZBase.har": {
+        "package": "ezbase",
+        "sha256": "5f3a6a823fcc20ce2801397cdc69421051e491d22afa90152413ff632c5f4abd",
+        "version": "1.0.0",
+        "requested_permissions": []
+      },
+      "EZOpenSDK.har!package/libs/EZPlay.har!package/libs/EZBase.har": {
+        "package": "ezbase",
+        "sha256": "5f3a6a823fcc20ce2801397cdc69421051e491d22afa90152413ff632c5f4abd",
+        "version": "1.0.0",
+        "requested_permissions": []
+      },
+      "EZOpenSDK.har!package/libs/EZPlay.har!package/libs/ezplayersdk.har": {
+        "package": "ezplayersdk",
+        "sha256": "9189dab3cce8968c7cc686a2b4f6bad6a238126da5809d53e83e9df6af59a86c",
+        "version": "6.4.3",
+        "requested_permissions": []
+      },
+      "EZOpenSDK.har!package/libs/EZWifiConfig.har": {
+        "package": "ezwificonfig",
+        "sha256": "77858ba9b841abfb3e718e0d8ee4e4eef4fb0ec53ce76ce4b8c7c4ed2cb04f4a",
+        "version": "1.0.0",
+        "requested_permissions": []
+      },
+      "EZOpenSDK.har!package/libs/EZWifiConfig.har!package/libs/EZBase.har": {
+        "package": "ezbase",
+        "sha256": "5f3a6a823fcc20ce2801397cdc69421051e491d22afa90152413ff632c5f4abd",
+        "version": "1.0.0",
+        "requested_permissions": []
+      },
+      "EZOpenSDK.har!package/libs/EZWifiConfig.har!package/libs/HCNetSDK_OH.har": {
+        "package": "hcnetsdk_oh",
+        "sha256": "72c4f93181c46f71bda201c5fedfe98d73ff48bf32707ee9ab0c7b63ae89831a",
+        "version": "1.0.0",
+        "requested_permissions": []
+      }
+    },
+    "count_basis": "从发行物中的一份根 HAR 递归计算；两个相同的外层副本不使依赖树加倍。",
+    "shipped_abc_per_physical_har": {
+      "EZOpenSDK.har": 1,
+      "EZOpenSDK.har!package/libs/EZPlay.har": 1,
+      "EZOpenSDK.har!package/libs/EZPlay.har!package/libs/EZAuth.har": 1,
+      "EZOpenSDK.har!package/libs/EZPlay.har!package/libs/EZAuth.har!package/libs/EZBase.har": 1,
+      "EZOpenSDK.har!package/libs/EZPlay.har!package/libs/EZBase.har": 1,
+      "EZOpenSDK.har!package/libs/EZPlay.har!package/libs/ezplayersdk.har": 1,
+      "EZOpenSDK.har!package/libs/EZWifiConfig.har": 1,
+      "EZOpenSDK.har!package/libs/EZWifiConfig.har!package/libs/EZBase.har": 1,
+      "EZOpenSDK.har!package/libs/EZWifiConfig.har!package/libs/HCNetSDK_OH.har": 0
+    },
+    "shipped_abc_physical_occurrences": 8,
+    "shipped_abc_unique_packages": 6,
+    "precompiled_abc_scope": "发行包已有的预编译模块，与本仓库消费者是否编译成功分别记证。"
+  },
+  "demo": {
+    "app_version_name": "1.9.0",
+    "app_version_code": 1,
+    "project_model_version": "5.0.0",
+    "project_ohpm_version": "1.0.0",
+    "entry_ohpm_version": "1.0.0",
+    "entry_dependencies": {
+      "@ezviz/ezopensdk": "file:./libs/EZOpenSDK.har",
+      "@ohos/pulltorefresh": "^2.0.5",
+      "eziotbluetoothsdk": "file:./libs/eziotbluetoothsdk-1.0.4.har"
+    },
+    "demo_only_local_hars": [
+      {
+        "name": "eziotbluetoothsdk",
+        "version": "1.0.4",
+        "har_member": "entry/libs/eziotbluetoothsdk-1.0.4.har",
+        "bytes": 1318486,
+        "sha256": "a4828d663574d41392f5740ef7ec6c584a6f976236c0cdd4ad399f47504f903b"
+      }
+    ],
+    "build_compatible_sdk": "5.0.0(12)",
+    "build_target_sdk": "5.0.0(12)",
+    "runtime_os": "HarmonyOS",
+    "signing_config_name_referenced": true,
+    "signing_configs_count": 0,
+    "signing_material_members": 0,
+    "prebuilt_hap_members": 0,
+    "local_dependency_abi_override": true,
+    "normalized_url": true
+  },
+  "public_types": {
+    "reexports": {
+      "@ezviz/ezopensdk": {
+        "file": "package/Index.d.ets",
+        "sha256": "16dece57b34a5a8124c1fd0eb0c3cf123c0b582874693d33ef892aacbf79a5cc",
+        "links": [
+          {
+            "line": 3,
+            "kind": "import",
+            "symbols": [
+              "EZOpenSDK"
+            ],
+            "from": "./src/main/ets/PublicHeader/EZOpenSDK"
+          },
+          {
+            "line": 5,
+            "kind": "import",
+            "symbols": [
+              "EZPlayer",
+              "EZPlaybackRate"
+            ],
+            "from": "ezplay"
+          },
+          {
+            "line": 6,
+            "kind": "export",
+            "symbols": [
+              "EZOpenSDK",
+              "EZPlayer",
+              "EZPlaybackRate"
+            ],
+            "from": null
+          }
+        ]
+      },
+      "ezplay": {
+        "file": "package/Index.d.ets",
+        "sha256": "d940a08769ae0eddd00738b4f47d724a88b4912c0cf8a4ca8ee381d6643cdd5a",
+        "links": [
+          {
+            "line": 6,
+            "kind": "import",
+            "symbols": [
+              "EZPlayer"
+            ],
+            "from": "./src/main/ets/EZPlayer/EZPlayer"
+          },
+          {
+            "line": 38,
+            "kind": "import",
+            "symbols": [
+              "EZPlaybackRate"
+            ],
+            "from": "./src/main/ets/EZPlayer/EZPlayerInternal"
+          },
+          {
+            "line": 39,
+            "kind": "export",
+            "symbols": [
+              "EZPlayer",
+              "EZPlaybackRate"
+            ],
+            "from": null
+          }
+        ]
+      }
+    },
+    "declarations": [
+      {
+        "package_sha256": "9d079629f26690773ce23ea97c097277493ce080b606c59a8247ef5df150e4ea",
+        "package_name": "@ezviz/ezopensdk",
+        "file": "package/src/main/ets/PublicHeader/EZOpenSDK.d.ets",
+        "file_sha256": "3adb1034306eeab29545f76d6ebe52aeedb1efe00a4c47363b2256e062fbac00",
+        "line": 55,
+        "symbol": "setAccessToken",
+        "declaration": "static setAccessToken(n5: string): Promise<void>;"
+      },
+      {
+        "package_sha256": "9d079629f26690773ce23ea97c097277493ce080b606c59a8247ef5df150e4ea",
+        "package_name": "@ezviz/ezopensdk",
+        "file": "package/src/main/ets/PublicHeader/EZOpenSDK.d.ets",
+        "file_sha256": "3adb1034306eeab29545f76d6ebe52aeedb1efe00a4c47363b2256e062fbac00",
+        "line": 208,
+        "symbol": "getDeviceList",
+        "declaration": "static getDeviceList(s3: number, t3: number, u3: (deviceList: Array<EZDeviceInfo>, totalCount: number, error: EZError) => void): void;"
+      },
+      {
+        "package_sha256": "e6cf338587d29d361a5d175b7a0740f6fd1526dd513945e248c8a4f377093635",
+        "package_name": "ezplay",
+        "file": "package/src/main/ets/EZPlayer/EZPlayer.d.ets",
+        "file_sha256": "918521536c914df384d904eb76de3494d393109eafb7e5397b1a074d885260a6",
+        "line": 66,
+        "symbol": "setPlayVerifyCode",
+        "declaration": "setPlayVerifyCode(f4: string): void;"
+      },
+      {
+        "package_sha256": "e6cf338587d29d361a5d175b7a0740f6fd1526dd513945e248c8a4f377093635",
+        "package_name": "ezplay",
+        "file": "package/src/main/ets/EZPlayer/EZPlayer.d.ets",
+        "file_sha256": "918521536c914df384d904eb76de3494d393109eafb7e5397b1a074d885260a6",
+        "line": 154,
+        "symbol": "seekPlayback",
+        "declaration": "seekPlayback(v3: Date): Promise<void>;"
+      },
+      {
+        "package_sha256": "e6cf338587d29d361a5d175b7a0740f6fd1526dd513945e248c8a4f377093635",
+        "package_name": "ezplay",
+        "file": "package/src/main/ets/EZPlayer/EZPlayer.d.ets",
+        "file_sha256": "918521536c914df384d904eb76de3494d393109eafb7e5397b1a074d885260a6",
+        "line": 181,
+        "symbol": "setPlaybackRate",
+        "declaration": "setPlaybackRate(t3: EZPlaybackRate, u3: number): Promise<boolean>;"
+      }
+    ],
+    "not_located": [
+      "setServerUrl",
+      "setSurfaceHold"
+    ],
+    "declaration_files_scanned": 176,
+    "absence_scope": "在该 SDK HAR 及其传递依赖的声明文件中，两个精确拼写未找到。此结论不覆盖其他命名、版本或宿主。"
+  },
+  "permissions": {
+    "root": [],
+    "nested_by_package": {
+      "ezplay": [
+        "ohos.permission.INTERNET",
+        "ohos.permission.GET_WIFI_INFO",
+        "ohos.permission.GET_NETWORK_INFO"
+      ],
+      "ezauth": [],
+      "ezbase": [],
+      "ezplayersdk": [],
+      "ezwificonfig": [],
+      "hcnetsdk_oh": []
+    },
+    "demo": [
+      "ohos.permission.INTERNET",
+      "ohos.permission.CAMERA",
+      "ohos.permission.MICROPHONE",
+      "ohos.permission.SET_WIFI_INFO",
+      "ohos.permission.GET_NETWORK_INFO",
+      "ohos.permission.GET_WIFI_INFO",
+      "ohos.permission.STORE_PERSISTENT_DATA",
+      "ohos.permission.WRITE_IMAGEVIDEO",
+      "ohos.permission.READ_IMAGEVIDEO",
+      "ohos.permission.ACCESS_BLUETOOTH",
+      "ohos.permission.APPROXIMATELY_LOCATION"
+    ],
+    "documented_4190": [
+      "ohos.permission.CAMERA",
+      "ohos.permission.GET_NETWORK_INFO",
+      "ohos.permission.MICROPHONE",
+      "ohos.permission.READ_IMAGEVIDEO",
+      "ohos.permission.SET_WIFI_INFO",
+      "ohos.permission.STORE_PERSISTENT_DATA",
+      "ohos.permission.WRITE_IMAGEVIDEO"
+    ],
+    "additional_demo_vs_4190": [
+      "ohos.permission.ACCESS_BLUETOOTH",
+      "ohos.permission.APPROXIMATELY_LOCATION",
+      "ohos.permission.GET_WIFI_INFO",
+      "ohos.permission.INTERNET"
+    ],
+    "commented_only_demo_names": [
+      "ohos.permission.READ_MEDIA",
+      "ohos.permission.WRITE_MEDIA"
+    ],
+    "runtime_grants_verified": false
+  },
+  "native_libraries": {
+    "plain_so": {
+      "occurrences": 50,
+      "unique_names": 45,
+      "unique_contents": 49
+    },
+    "all_elf": {
+      "occurrences": 54,
+      "unique_names": 49,
+      "unique_contents": 51
+    },
+    "same_name_conflicts": [
+      "libSystemTransform.so",
+      "libc++_shared.so",
+      "libhpr.so"
+    ],
+    "same_name_identical": [
+      "libstunclient.so"
+    ],
+    "same_name_variants": {
+      "libSystemTransform.so": [
+        {
+          "package": "ezplayersdk",
+          "package_sha256": "9189dab3cce8968c7cc686a2b4f6bad6a238126da5809d53e83e9df6af59a86c",
+          "physical_har": "EZOpenSDK.har!package/libs/EZPlay.har!package/libs/ezplayersdk.har",
+          "path": "package/libs/arm64-v8a/libSystemTransform.so",
+          "basename": "libSystemTransform.so",
+          "bytes": 1780616,
+          "sha256": "c8ff0a64480013b40b0fa4c843876bb33bd8f6cf2289096171c8f2ab15f80239",
+          "elf_class": 2,
+          "machine": 183
+        },
+        {
+          "package": "hcnetsdk_oh",
+          "package_sha256": "72c4f93181c46f71bda201c5fedfe98d73ff48bf32707ee9ab0c7b63ae89831a",
+          "physical_har": "EZOpenSDK.har!package/libs/EZWifiConfig.har!package/libs/HCNetSDK_OH.har",
+          "path": "package/libs/arm64-v8a/libSystemTransform.so",
+          "basename": "libSystemTransform.so",
+          "bytes": 1896832,
+          "sha256": "9e7d86dcdd52e62d9b52107adfbce6c93064b588e2275e2104be382affde478d",
+          "elf_class": 2,
+          "machine": 183
+        }
+      ],
+      "libc++_shared.so": [
+        {
+          "package": "ezplay",
+          "package_sha256": "e6cf338587d29d361a5d175b7a0740f6fd1526dd513945e248c8a4f377093635",
+          "physical_har": "EZOpenSDK.har!package/libs/EZPlay.har",
+          "path": "package/libs/arm64-v8a/libc++_shared.so",
+          "basename": "libc++_shared.so",
+          "bytes": 1262248,
+          "sha256": "cf2ea887af365557f4ad258c62631a4f92f902b4b79203a2185dba10efe19e62",
+          "elf_class": 2,
+          "machine": 183
+        },
+        {
+          "package": "ezplayersdk",
+          "package_sha256": "9189dab3cce8968c7cc686a2b4f6bad6a238126da5809d53e83e9df6af59a86c",
+          "physical_har": "EZOpenSDK.har!package/libs/EZPlay.har!package/libs/ezplayersdk.har",
+          "path": "package/libs/arm64-v8a/libc++_shared.so",
+          "basename": "libc++_shared.so",
+          "bytes": 1262184,
+          "sha256": "899545c5e6c43134f20d611dc5b72f329f8e143c75a7cb3ec69f66df77ddc6b6",
+          "elf_class": 2,
+          "machine": 183
+        },
+        {
+          "package": "hcnetsdk_oh",
+          "package_sha256": "72c4f93181c46f71bda201c5fedfe98d73ff48bf32707ee9ab0c7b63ae89831a",
+          "physical_har": "EZOpenSDK.har!package/libs/EZWifiConfig.har!package/libs/HCNetSDK_OH.har",
+          "path": "package/libs/arm64-v8a/libc++_shared.so",
+          "basename": "libc++_shared.so",
+          "bytes": 1260824,
+          "sha256": "a3c0284e6243e9fab22bf98d8c25b52bd4a1017a24f7b153cfa0e70ad9c6a1e7",
+          "elf_class": 2,
+          "machine": 183
+        }
+      ],
+      "libhpr.so": [
+        {
+          "package": "ezplayersdk",
+          "package_sha256": "9189dab3cce8968c7cc686a2b4f6bad6a238126da5809d53e83e9df6af59a86c",
+          "physical_har": "EZOpenSDK.har!package/libs/EZPlay.har!package/libs/ezplayersdk.har",
+          "path": "package/libs/arm64-v8a/libhpr.so",
+          "basename": "libhpr.so",
+          "bytes": 324360,
+          "sha256": "58869e4bae8de0e215b5ba5d3c398967699cdb2498695d10cc08092bb72cde89",
+          "elf_class": 2,
+          "machine": 183
+        },
+        {
+          "package": "hcnetsdk_oh",
+          "package_sha256": "72c4f93181c46f71bda201c5fedfe98d73ff48bf32707ee9ab0c7b63ae89831a",
+          "physical_har": "EZOpenSDK.har!package/libs/EZWifiConfig.har!package/libs/HCNetSDK_OH.har",
+          "path": "package/libs/arm64-v8a/libhpr.so",
+          "basename": "libhpr.so",
+          "bytes": 2026488,
+          "sha256": "bbce8f6c69d9773d63a46190e9ff55917b4a489bb5985ec1a7fb55a9f9fb7728",
+          "elf_class": 2,
+          "machine": 183
+        }
+      ],
+      "libstunclient.so": [
+        {
+          "package": "ezplay",
+          "package_sha256": "e6cf338587d29d361a5d175b7a0740f6fd1526dd513945e248c8a4f377093635",
+          "physical_har": "EZOpenSDK.har!package/libs/EZPlay.har",
+          "path": "package/libs/arm64-v8a/libstunclient.so",
+          "basename": "libstunclient.so",
+          "bytes": 192584,
+          "sha256": "20665d32212a485d3ff9e483e3fd37dc8431ebf46dadb4623d136b4e31aea182",
+          "elf_class": 2,
+          "machine": 183
+        },
+        {
+          "package": "ezplayersdk",
+          "package_sha256": "9189dab3cce8968c7cc686a2b4f6bad6a238126da5809d53e83e9df6af59a86c",
+          "physical_har": "EZOpenSDK.har!package/libs/EZPlay.har!package/libs/ezplayersdk.har",
+          "path": "package/libs/arm64-v8a/libstunclient.so",
+          "basename": "libstunclient.so",
+          "bytes": 192584,
+          "sha256": "20665d32212a485d3ff9e483e3fd37dc8431ebf46dadb4623d136b4e31aea182",
+          "elf_class": 2,
+          "machine": 183
+        }
+      ]
+    },
+    "version_suffix_files": [
+      "libcrypto.so.3",
+      "libssl.so.3",
+      "libuuid.so.1",
+      "libz.so.1"
+    ],
+    "final_hap_selection_verified": false
+  },
+  "runtime_evidence": {
+    "consumer_compiled": false,
+    "assembled_hap": false,
+    "signed": false,
+    "installed": false,
+    "executed": false,
+    "device_requests": 0,
+    "media_requests": 0,
+    "ezcontrol_executions": 0
+  },
+  "toolchain_evidence": {
+    "requirement": {
+      "api": "HarmonyOS 5.0.0(12)",
+      "project_model": "5.0.0",
+      "reviewed_linux_cli": "5.0.3.906",
+      "associated_hvigor": "5.8.9",
+      "associated_ohpm": "5.0.8",
+      "signed_or_authenticated_operation": false,
+      "commercial_agreement_state": "not_confirmed",
+      "huaweidev_tool_terms_state": "not_confirmed",
+      "local_tools_available": false,
+      "alternative": "已授权的 API12 本地/组织构建机，或已获准使用的 CodeArts Build 5.0.0 API12 环境。"
+    },
+    "public_reference_urls": [
+      "https://repo.huaweicloud.com/harmonyos/ohpm/5.0.3/",
+      "https://support.huaweicloud.com/productdesc-mirrors/mirrors_pdtd_0000.html",
+      "https://www.huaweicloud.com/declaration/tsa-mirrors.html",
+      "https://developer.huawei.com/consumer/cn/doc/doccenter-release-notes/deveco-studio-new-features-500-release/",
+      "https://developer.huawei.com/consumer/en/doc/harmonyos-guides-V5/ide-command-line-building-app-V5/",
+      "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-v5/ide-software-install-V5/",
+      "https://developer.huawei.com/consumer/cn/download/command-line-tools-for-hmos",
+      "https://docs.github.com/en/actions/reference/runners/github-hosted-runners"
+    ],
+    "installed_or_downloaded_by_this_review": false,
+    "public_docs_verified": true
+  },
+  "checks_ref": "docs/validation/2026-11-21-native-harmony-sdk/checks.json"
+}
