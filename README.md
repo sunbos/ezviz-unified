@@ -299,6 +299,17 @@ python -m examples.ddns --mode sync --query get
 
 旧版云录制1.0文件操作单列为`client.cloud_recording_v1`，仅国内：`unfreeze_file(project_id, file_id)`触发归档解冻（写操作，不自动重放；仅HTTP成功且业务meta.code=200的响应证明触发已被受理，不证明解冻完成——HTTP 200本身可能携带业务失败，不能单独据此推导）、`file_info(project_id, file_id)`查询单个文件详情、`download_urls(project_id, file_id, content_type=..., expire_seconds=...)`获取官方下载/播放地址（不下载媒体）。云点播文件列表单列为`client.vod`，`files(file_node_ids=None, space_id=..., space_name=...)`至少需一个选择条件，仅国内。两套接口的`projectId`/`fileId`/`fileNodeId`互不相同，不做映射；详见[云录制1.0与VOD说明](docs/research/2026-11-18-cloud-recording-v1-and-vod.md)，本批接口均未做真实调用验证。
 
+### 按云录制任务查询文件
+
+`client.cloud_recording_v1.task_files(task_id, page_number=..., page_size=...)` 读取国内云录制 1.0 既有任务的一页文件元数据，异步客户端用 `await` 调用同名方法。调用者须有权查询该任务。`page_number` 从 0 开始，`page_size` 取 1 至 50。可选的 `sort_field` 由服务默认取 `createTime`，`sort_rule` 可取 `asc` 或 `desc`。省略 `has_url` 时服务默认为 `false`，显式传 `True` 会请求文件地址引用。方法返回 `ApiResponse`，`data` 可以是空列表，也会保留每行的扩展字段。文档未规定总页数，SDK 不自动翻页或访问媒体。
+
+命令行示例使用国内显式配置，从 `EZVIZ_TASK_ID` 读取任务标识，只请求第 0 页（`page_size=1`、`has_url=False`），仅输出当前页的 `items` 计数。文档 685 的 E67 将“文件列表”误链到删除文件的文档 1378。按任务查询文件应使用 1373，1370 查询的是任务摘要。该入口仅经合成传输验证，最低权限与文件引用有效期仍待核实。[国内文档 1373](https://open.ys7.com/help/1373)。
+
+```sh
+python -m examples.cloud_task_files --mode sync
+python -m examples.cloud_task_files --mode async
+```
+
 `client.vod`另提供四个仅国内的转封装与查询入口，同步/异步共用同名方法：`create_remux_task`（官方明确非幂等的异步任务创建，不自动重放，仅返回`ApiResponse`，不变成任务句柄）、`task`与`tasks`（只读的单任务查询与任务分页列表，不自动翻页或轮询）以及`recording_urls`（按设备、通道与时段签发录像地址；其`read_only=False`是SDK为禁自动重放的选择，来源未明确无副作用，非官方写/非幂等结论）。官方声明的范围/权限边界包括：`create_remux_task`限企业用户、不支持托管/子账号且需已有对应时段云录像；`recording_urls`要求设备开通云存储且对应时段有录像、同样不支持托管/子账号；两个查询接口的来源仅明确accessToken，额外账号或套餐权限未声明，由服务端判定；SDK不把这些前提互相移植。全部参数校验、Header字符串规则与时间边界见[云点播转封装说明](docs/research/2026-11-18-vod-remux.md)；任务状态编码、地址字段名与`fileNodeId`/`taskId`各自独立，SDK不发明映射或完成判据。本批四个入口仍未做真实调用验证；各能力的验收状态见[产品能力登记](docs/capabilities/README.md)与[验收登记](docs/validation/sdk-product-acceptance.json)中对应`candidate:domestic:*`行，登记数量不代表覆盖率或产品级验收通过。
 
 ## 海外 FLV 预览

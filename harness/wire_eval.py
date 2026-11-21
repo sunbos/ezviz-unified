@@ -100,6 +100,7 @@ _REDACTED_MESSAGE_OPERATION_IDS = frozenset(
         "global.detectors.rename",
         "global.snapshots.get_by_uuid",
         "cn.devices.generate_wifi_qr",
+        "cn.cloud_recording_v1.task_files",
         "cn.settings.get_working_mode_plans",
         "cn.settings.set_huashu_4g_working_mode_plan",
         "cn.recordings.by_time",

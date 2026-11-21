@@ -1,13 +1,13 @@
 """Cloud Recording 1.0 file operations for the unified client (sync and async).
 
-All three operations are documented for the domestic region only and share the
+All operations are documented for the domestic region only and share the
 ``meta.code``/``meta.message``/``data`` response policy with ``success_values=(200,)``.
 Every method returns the ``ApiResponse`` untouched: the SDK performs no
 automatic polling, no unfreeze/download orchestration, and no media download.
 ``unfreeze_file`` is a write operation and is never auto-replayed even though
-the source marks it idempotent; the two read operations follow the existing
-single invalid-token refresh-and-replay rule. The three ``cloud_recording_v1``
-methods are independent file operations (docs 5341/1380, 1375, 1377). No 1.0
+the source marks it idempotent; read operations follow the existing
+single invalid-token refresh-and-replay rule. The ``cloud_recording_v1``
+methods are independent file operations (docs 5341/1380, 1373, 1375, 1377). No 1.0
 ``projectId``/``fileId`` is ever mapped onto unified-storage ``fileNodeId``
 semantics.
 
@@ -18,12 +18,14 @@ messages carry the parameter name and rule only, never the rejected value.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import TYPE_CHECKING
 
 from .diagnostic_report import _diagnostic_scope
+from .errors import ProtocolError
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
+from .settings import _check_text
 from .storage_models import _integer, _text
 
 if TYPE_CHECKING:
@@ -50,6 +52,36 @@ _OP_UNFREEZE = Operation(
     read_only=False,
     policy=_POLICY_META,
 )
+_TASK_FILE_CODES = (200, 400, 403, 404, 500, 10002, 10031)
+_TASK_FILE_TYPES = {
+    "projectId": str,
+    "fileId": str,
+    "expireTime": str,
+    "taskId": str,
+    "fileType": int,
+    "status": int,
+    "fileSize": int,
+    "duration": int,
+    "storageType": int,
+    "resultSpaceId": int,
+    "downloadUrls": list,
+}
+
+_OP_TASK_FILES = Operation(
+    "cloud_recording_v1.task_files",
+    "GET",
+    "/api/v3/open/cloud/task/files",
+    regions=frozenset({_DOMESTIC}),
+    token_location="query",
+    read_only=True,
+    policy=replace(
+        _POLICY_META,
+        redact_device_add_details=True,
+        redact_media_urls=True,
+        exposed_business_codes=tuple(v for code in _TASK_FILE_CODES for v in (code, str(code))),
+    ),
+)
+
 _OP_FILE_INFO = Operation(
     "cloud_recording_v1.file_info",
     "GET",
@@ -164,6 +196,65 @@ def _expire_seconds(value: object) -> int:
     return seconds
 
 
+def _task_files_request(
+    scope: str,
+    task_id: str,
+    *,
+    page_number: int,
+    page_size: int,
+    sort_field: str | None,
+    sort_rule: str | None,
+    has_url: bool | None,
+) -> _Request:
+    _require_domestic(scope, "task_files")
+    task_id = _check_text(task_id, "task_id")
+    page_number = _integer("page_number", page_number)
+    page_size = _integer("page_size", page_size)
+    if page_number < 0:
+        raise ValueError("page_number must be >= 0")
+    if not 1 <= page_size <= 50:
+        raise ValueError("page_size must be in range 1..50")
+    params: dict[str, str | int] = {
+        "taskId": task_id,
+        "pageNumber": page_number,
+        "pageSize": page_size,
+    }
+    if sort_field is not None:
+        params["sortField"] = _check_text(sort_field, "sort_field")
+    if sort_rule is not None:
+        if type(sort_rule) is not str or sort_rule not in ("asc", "desc"):
+            raise ValueError("sort_rule must be 'asc' or 'desc'")
+        params["sortRule"] = sort_rule
+    if has_url is not None:
+        if type(has_url) is not bool:
+            raise ValueError("has_url must be a bool")
+        params["hasUrl"] = "true" if has_url else "false"
+    return _Request(_OP_TASK_FILES, params, None, {})
+
+
+def _task_file_row_valid(row: object) -> bool:
+    if not isinstance(row, dict):
+        return False
+    for field, expected in _TASK_FILE_TYPES.items():
+        value = row.get(field)
+        if value is None:
+            continue
+        if type(value) is not expected:
+            return False
+    return True
+
+
+def _check_task_files(response: ApiResponse) -> ApiResponse:
+    rows = response.data
+    if not isinstance(rows, list) or not all(_task_file_row_valid(row) for row in rows):
+        raise ProtocolError(
+            "unexpected cloud_recording_v1.task_files response shape",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
+
+
 def _unfreeze_request(scope: str, project_id: object, file_id: object) -> _Request:
     _require_domestic(scope, "unfreeze_file")
     data: dict[str, str | int] = {
@@ -225,6 +316,32 @@ class CloudRecordingV1:
         ):
             return self._call(_unfreeze_request(self._client.region.scope, project_id, file_id))
 
+    def task_files(
+        self,
+        task_id: str,
+        *,
+        page_number: int,
+        page_size: int,
+        sort_field: str | None = None,
+        sort_rule: str | None = None,
+        has_url: bool | None = None,
+    ) -> ApiResponse:
+        """Read one page of files produced by an existing domestic task."""
+        with _diagnostic_scope(
+            self._client, entrypoint="cloud_recording_v1.task_files", mode="sync"
+        ):
+            request = _task_files_request(
+                self._client.region.scope,
+                task_id,
+                page_number=page_number,
+                page_size=page_size,
+                sort_field=sort_field,
+                sort_rule=sort_rule,
+                has_url=has_url,
+            )
+            response = self._call(request)
+            return _check_task_files(response)
+
     def file_info(self, project_id: str, file_id: str) -> ApiResponse:
         """Query one file's details; the raw ``data``/unknown fields pass through (doc 1375)."""
         with _diagnostic_scope(
@@ -278,6 +395,32 @@ class AsyncCloudRecordingV1:
             return await self._call(
                 _unfreeze_request(self._client.region.scope, project_id, file_id)
             )
+
+    async def task_files(
+        self,
+        task_id: str,
+        *,
+        page_number: int,
+        page_size: int,
+        sort_field: str | None = None,
+        sort_rule: str | None = None,
+        has_url: bool | None = None,
+    ) -> ApiResponse:
+        """Read one page of files produced by an existing domestic task."""
+        with _diagnostic_scope(
+            self._client, entrypoint="cloud_recording_v1.task_files", mode="async"
+        ):
+            request = _task_files_request(
+                self._client.region.scope,
+                task_id,
+                page_number=page_number,
+                page_size=page_size,
+                sort_field=sort_field,
+                sort_rule=sort_rule,
+                has_url=has_url,
+            )
+            response = await self._call(request)
+            return _check_task_files(response)
 
     async def file_info(self, project_id: str, file_id: str) -> ApiResponse:
         """Query one file's details; the raw ``data``/unknown fields pass through (doc 1375)."""

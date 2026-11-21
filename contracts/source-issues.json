@@ -2914,6 +2914,21 @@
         "E101;E117;E120",
         "docs/coordination/domestic-wifi-qr/admission.json"
       ]
+    },
+    {
+      "id": "cn.cloud_recording_v1.task_files.panorama_mislink_and_file_metadata",
+      "region": "domestic",
+      "source_doc_id": "1373",
+      "source_url": "https://open.ys7.com/help/1373",
+      "source_content_sha256": "c309810398bb6f5578f18a2b5214ed0583cac42da50647f9bf5d3152de8c949a",
+      "description": "问题 685 中 E67 的“查找文件”一词被错误链接到文档 1378；1378 文档仍然存在，但其内容描述的是删除文件操作，并非查找文件。文档 1373 用于按现有任务查询一页云录制 1.0 的文件元数据；文档 1370 描述任务状态；文档 3964 属于云点播范畴。E100 与 E158 并未承诺每一项字段必定返回，所引用内容的时效性以及真实权限仍待验证。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 仅按现有任务读取一页云录制 1.0 的文件元数据，不使用上述错误链接作为回退，也不访问任何媒体内容。",
+      "evidence": [
+        "1373:E10;E37;E97;E100;E158;E161",
+        "685:E67",
+        "docs/coordination/domestic-cloud-task-files/admission.json"
+      ]
     }
   ]
 }

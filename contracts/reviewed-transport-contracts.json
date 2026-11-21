@@ -23419,6 +23419,105 @@
       },
       "source_content_sha256": "2b4a75b0d7a9d57fde42d973c31ebe822e1a44e8e8eca3599bdbfa0256dbe92d",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.task_files",
+      "region": "domestic",
+      "source_doc_id": "1373",
+      "source_url": "https://open.ys7.com/help/1373",
+      "method": "GET",
+      "path": "/api/v3/open/cloud/task/files",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E37"
+        },
+        {
+          "name": "taskId",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E37"
+        },
+        {
+          "name": "pageNumber",
+          "type": "Int",
+          "location": "query",
+          "required": true,
+          "evidence": "E37"
+        },
+        {
+          "name": "pageSize",
+          "type": "Int",
+          "location": "query",
+          "required": true,
+          "evidence": "E37"
+        },
+        {
+          "name": "sortField",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        },
+        {
+          "name": "sortRule",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        },
+        {
+          "name": "hasUrl",
+          "type": "Boolean",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E100;E158;E161"
+      },
+      "constraints": [
+        {
+          "fact": "国内 GET 请求将 accessToken、taskId、pageNumber、pageSize 全部放在 query 参数中。请求没有请求体也不设置 Content-Type。",
+          "evidence": "E10;E19;E23;E37;E97"
+        },
+        {
+          "fact": "页码从 0 开始。页长取值 1 至 50。sortField、sortRule、hasUrl 仅在参数为 None 时省略。显式布尔值以小写 true 或 false 发送。",
+          "evidence": "E37;E97;E184"
+        },
+        {
+          "fact": "响应根 meta.code 必须是整数 200。data 是文件对象列表。SDK 保留空值和扩展字段并且只查询一页。",
+          "evidence": "E100;E158;E161"
+        }
+      ],
+      "uncertainties": [
+        "可选响应字段的必返性和空值形式、下载地址有效期及服务权限未明确。元数据查询的成功不证明文件可取回。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/open/cloud/task/files",
+        "encoding": "none",
+        "evidence": "E10;E19;E23;E37;E97"
+      },
+      "source_content_sha256": "c309810398bb6f5578f18a2b5214ed0583cac42da50647f9bf5d3152de8c949a",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -23648,6 +23747,10 @@
     {
       "review": "docs/coordination/domestic-wifi-qr/admission.json",
       "note": "国内文档 663 的 Wi-Fi 配网二维码生成，按三字段表单及字符串 imageData 登记。"
+    },
+    {
+      "review": "docs/coordination/domestic-cloud-task-files/admission.json",
+      "note": "国内文档 1373 按既有云录制 1.0 任务查询一页文件元数据，以根 meta.code 整数及对象数组登记。"
     }
   ]
 }
