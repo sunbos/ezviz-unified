@@ -50,6 +50,11 @@ _SUMMARY = re.compile(
 )
 
 
+def _show_stage(enabled: bool, artifact: str, stage: str) -> None:
+    if enabled:
+        print(f"verify-install artifact={artifact} stage={stage}", file=sys.stderr, flush=True)
+
+
 def _venv_python(venv_dir: Path) -> Path:
     if os.name == "nt":
         return venv_dir / "Scripts" / "python.exe"
@@ -137,17 +142,20 @@ def verify_installations(
     installer: str = "pip",
     offline: bool = False,
     source_tests: bool = True,
+    show_stages: bool = False,
 ) -> dict[str, object]:
     if installer not in ("pip", "uv"):
         raise ValueError("unsupported installer")
     if offline and installer != "uv":
         raise ValueError("offline installs are only supported with uv")
+    _show_stage(show_stages, "all", "artifacts")
     checked = check_artifacts.check_artifacts(Path(dist), Path(pyproject))
     smoke = Path(__file__).resolve().parent / "smoke_installed.py"
     if not smoke.is_file():
         raise ValueError("smoke_installed.py not found")
     env = _child_env()
     results: list[dict[str, object]] = []
+    _show_stage(show_stages, "all", "snapshot")
     with tempfile.TemporaryDirectory(prefix="verify-install-") as tmp:
         work = Path(tmp)
         frozen = work / "artifacts"
@@ -168,13 +176,16 @@ def verify_installations(
             meta = next(a for a in checked["artifacts"] if a["kind"] == kind)
             artifact = frozen / str(meta["filename"])
             venv_dir = work / f"venv-{kind}"
+            _show_stage(show_stages, kind, "venv")
             _run([sys.executable, "-m", "venv", str(venv_dir)], work, env)
             python = _venv_python(venv_dir)
             if not python.is_file():
                 raise ValueError("virtual environment python missing")
             run_dir = work / f"run-{kind}"
             run_dir.mkdir()
+            _show_stage(show_stages, kind, "install")
             _install(python, artifact, kind, source_tests, installer, offline, run_dir, env)
+            _show_stage(show_stages, kind, "smoke")
             done = _run([str(python), "-I", str(smoke)], run_dir, env)
             if _SMOKE_SUCCESS not in done.stdout.splitlines():
                 raise ValueError("smoke completion marker missing")
@@ -187,6 +198,7 @@ def verify_installations(
                 "smoke": _SMOKE_SUCCESS,
             }
             if kind == "sdist" and source_tests:
+                _show_stage(show_stages, "sdist", "source_tests")
                 entry["source_archive_tests"] = _source_tests(artifact, python, run_dir, env)
             results.append(entry)
     return {
@@ -236,6 +248,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--installer", choices=("pip", "uv"), default="pip")
     parser.add_argument("--offline", action="store_true", help="uv cache-only installs")
     parser.add_argument("--skip-source-tests", action="store_true")
+    parser.add_argument(
+        "--show-stages", action="store_true", help="print verification stages to stderr"
+    )
     parser.add_argument("--output", type=Path, default=None, help="JSON report path")
     args = parser.parse_args(argv)
     try:  # KeyboardInterrupt is a BaseException and propagates unchanged.
@@ -254,7 +269,9 @@ def main(argv: list[str] | None = None) -> int:
             installer=args.installer,
             offline=args.offline,
             source_tests=not args.skip_source_tests,
+            show_stages=args.show_stages,
         )
+        _show_stage(args.show_stages, "all", "report")
         if args.output is None:
             json.dump(report, sys.stdout, indent=2, sort_keys=True)
             sys.stdout.write("\n")

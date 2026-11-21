@@ -32,6 +32,14 @@ python tools/release/verify_installations.py --installer uv --offline --output r
 
 工具验证并固定发行文件快照，分别安装wheel/sdist、运行mock smoke，并默认运行sdist中的SDK测试。--skip-source-tests可显式省略最后一项，报告不会将省略内容标记为通过。子进程不继承常见模型/EZVIZ凭据和安装目标覆盖设置，正常网络配置可通过环境传入；这不是运行不可信代码的安全沙箱。
 
+`--show-stages` 会让脚本在每个已开始的步骤前把固定标记写到 stderr，读者可用两个确切例子区分制品，即 `verify-install artifact=wheel stage=install` 与 `verify-install artifact=sdist stage=source_tests`。默认不打印阶段，启用后成功报告仍保留原 JSON 格式，未传 `--output` 就写 stdout，传 `--output` 则写指定文件。失败时末行仍为 `installation verification failed`。
+
+```sh
+python tools/release/verify_installations.py --installer pip --show-stages
+```
+
+此前 Python 3.15 主分支的干净安装失败过一次，同一提交重跑该作业后通过，首次失败原因未知。[首次失败的 CI 记录](https://github.com/sunbos/ezviz-unified/actions/runs/44867042460/attempts/1)
+
 分别创建干净环境安装wheel与sdist，再运行：
 
 ```sh
