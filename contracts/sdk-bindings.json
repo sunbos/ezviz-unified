@@ -4242,7 +4242,7 @@
         "AsyncDevices.generate_wifi_qr"
       ],
       "public_entry": "devices.generate_wifi_qr",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

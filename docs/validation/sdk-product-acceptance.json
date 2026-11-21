@@ -14660,19 +14660,30 @@
       "pending_questions": [
         "E54 将 imageData 定义为字符串；E117 与 E120 仅展示 Base64/JPG 使用方式。固定 MIME、实际像素、设备能否扫描并成功入网待核。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线验收。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/devices.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_wifi_qr.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_wifi_qr.py",
+        "examples/wifi_qr.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "0f6efcb81a18d236a4f8f14d8376af78a4d4d186",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-wifi-qr/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-671-D0-OFFLINE-001",
