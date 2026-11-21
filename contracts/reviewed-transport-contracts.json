@@ -23281,6 +23281,73 @@
       },
       "source_content_sha256": "1b1aa0ae8913a2b7699fe9625c9c0d5ccb1b1f627b5a2587c0e0d19aa7ecf701",
       "read_only": true
+    },
+    {
+      "operation_id": "global.snapshots.get_by_uuid",
+      "region": "overseas",
+      "source_doc_id": "476",
+      "source_url": "https://open.ys7.com/help/en/476",
+      "method": "POST",
+      "path": "/api/lapp/device/uuid/picture",
+      "base_url": "{areaDomain}",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E454/E479"
+        },
+        {
+          "name": "uuid",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E454/E479"
+        },
+        {
+          "name": "size",
+          "type": "int",
+          "location": "body",
+          "required": true,
+          "evidence": "E454/E479"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E482;E485;E498"
+      },
+      "constraints": [
+        {
+          "fact": "海外 Linktom 调用方已取得授权设备 SDK 生成的抓拍 UUID，该 POST 只读取既有图片引用，accessToken、uuid 和 size 是三个必填表单字段，size 是 0 到 1280 的整数。",
+          "evidence": "E443;E454;E479"
+        },
+        {
+          "fact": "成功时根字符串 code 为 \"200\"，data.picUrl 是字符串，可为路径，SDK 保留原值及扩展。",
+          "evidence": "E482;E485;E498"
+        }
+      ],
+      "uncertainties": [
+        "官方未说明 UUID 语法、有效期、size=0 的特殊含义或图片引用的可访问性。设备连接、资源权限和可能的服务用量待实测。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "{areaDomain}/api/lapp/device/uuid/picture",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E437;E443;E447;E451;E454;E479"
+      },
+      "source_content_sha256": "82a0152058592e8c4b5e11f4f968edce7a4e39d5e16b527db606d5957bf8f858",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -23502,6 +23569,10 @@
     {
       "review": "docs/coordination/domestic-channel-light-linkage/admission.json",
       "note": "国内文档 1741 按通道查询灯光联动，依 E14 提交通道请求头，以根层字符串成功码判定国内返回。"
+    },
+    {
+      "review": "docs/coordination/overseas-linktom-picture-lookup/admission.json",
+      "note": "海外文档 476 第 1.4 节按已有 Linktom 抓拍 UUID 查询图片引用。同页五个已登记契约及其未决语义保留。"
     }
   ]
 }

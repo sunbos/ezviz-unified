@@ -9,6 +9,7 @@ from ezviz_unified.detectors import Detectors
 from ezviz_unified.devices import Devices
 from ezviz_unified.recordings import Recordings
 from ezviz_unified.settings import Settings
+from ezviz_unified.snapshots import Snapshots
 from ezviz_unified.third_party_protocols import ThirdPartyProtocols
 from ezviz_unified.video import Video
 from harness.wire_eval import evaluate
@@ -44,6 +45,7 @@ REDACTED_OPERATION_IDS = (
     "global.detectors.rename",
     "cn.settings.get_advanced_alarm_detection_type",
     "cn.settings.get_channel_light_linkage",
+    "global.snapshots.get_by_uuid",
 )
 
 FACADES = {
@@ -76,6 +78,7 @@ FACADES = {
         "get_advanced_alarm_detection_type",
     ),
     "cn.settings.get_channel_light_linkage": (Settings, "get_channel_light_linkage"),
+    "global.snapshots.get_by_uuid": (Snapshots, "get_by_uuid"),
 }
 
 READ_ONLY_OPERATION_IDS = {
@@ -95,6 +98,7 @@ READ_ONLY_OPERATION_IDS = {
     "cn.settings.get_alarm_detection_mode",
     "cn.settings.get_advanced_alarm_detection_type",
     "cn.settings.get_channel_light_linkage",
+    "global.snapshots.get_by_uuid",
 }
 
 MUTATIONS = {

@@ -127,14 +127,17 @@ class _SdkRedactionFilter(logging.Filter):
                 # preserved; the server-controlled reason phrase is free text
                 # and is blanked outright.
                 http_version = args[2]
-                if redaction.mask_oauth_details and http_version not in (
+                if (
+                    redaction.mask_oauth_details
+                    or (redaction.mask_device_add_details and redaction.mask_media_urls)
+                ) and http_version not in (
                     "HTTP/1.0",
                     "HTTP/1.1",
                     "HTTP/2",
                     "HTTP/3",
                 ):
-                    # OAuth only: an unrecognised server-reported HTTP version
-                    # is normalised to a fixed token rather than logged raw.
+                    # Some protected responses can carry sensitive server-supplied text
+                    # in this field. Only display a recognized HTTP version.
                     http_version = "HTTP"
                 record.args = (
                     args[0],

@@ -2884,6 +2884,21 @@
         "E52;E56;E76",
         "docs/coordination/domestic-channel-light-linkage/admission.json"
       ]
+    },
+    {
+      "id": "global.snapshots.get_by_uuid.uuid_size_and_picture_reference_semantics",
+      "region": "overseas",
+      "source_doc_id": "476",
+      "source_url": "https://open.ys7.com/help/en/476",
+      "source_content_sha256": "82a0152058592e8c4b5e11f4f968edce7a4e39d5e16b527db606d5957bf8f858",
+      "description": "海外 476 第 1.4 节未说明 UUID 的格式与有效期。未说明 size 为 0 的特殊含义。未说明返回的引用是否可访问。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 按 E454 与 E479 提交给所属海外集群。按 E482 与 E485 读取字符串 picUrl。picUrl 可为路径。SDK 不补拍也不访问媒体。未知权限或可用性仍待实测。同页其它语义问题保持原记录。",
+      "evidence": [
+        "E437;E443;E447;E451;E454;E479",
+        "E482;E485;E498",
+        "docs/coordination/overseas-linktom-picture-lookup/admission.json"
+      ]
     }
   ]
 }

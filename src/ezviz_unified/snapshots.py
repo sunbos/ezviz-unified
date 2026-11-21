@@ -3,19 +3,23 @@
 Covers the reviewed capture operations: the shared lapp capture endpoint
 used by both the domestic and overseas regions, and the domestic-only
 variant that stores the picture into a developer-managed result space.
-All endpoints carry the accessToken in the form, issue a brand-new
+Both capture operations carry the accessToken in the form, issue a brand-new
 capture command (read_only=False, possibly billed), and return the raw
 ApiResponse payload — picUrl / fileNodeId are exposed verbatim and are
-never fetched, followed, or retried by the SDK.
+never fetched or followed. The overseas Linktom lookup retrieves an existing
+picture reference by its device SDK capture UUID.
 """
 
 from __future__ import annotations
 
+from dataclasses import replace
 from typing import TYPE_CHECKING
 
 from .diagnostic_report import _diagnostic_scope
+from .errors import ProtocolError
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
+from .settings import _check_text, _require_overseas
 
 if TYPE_CHECKING:
     from .client import AsyncClient, Client
@@ -38,6 +42,39 @@ _SPACE_POLICY = ResponsePolicy(
     message_path="meta.message",
     data_path="data",
     success_values=(200,),
+)
+
+_PICTURE_LOOKUP_CODES = (
+    200,
+    400,
+    403,
+    404,
+    500,
+    10001,
+    10002,
+    10005,
+    10031,
+    20301,
+    20302,
+    20303,
+    49999,
+)
+
+_PICTURE_LOOKUP_OP = Operation(
+    "snapshots.get_by_uuid",
+    "POST",
+    "/api/lapp/device/uuid/picture",
+    token_location="form",
+    regions=frozenset({_OVERSEAS}),
+    read_only=True,
+    policy=replace(
+        _LAPP_POLICY,
+        redact_device_add_details=True,
+        redact_media_urls=True,
+        exposed_business_codes=tuple(
+            value for code in _PICTURE_LOOKUP_CODES for value in (code, str(code))
+        ),
+    ),
 )
 
 _CAPTURE_OP = Operation(
@@ -79,6 +116,25 @@ def _check_quality(value: object) -> int:
     return value
 
 
+def _picture_lookup_form(capture_uuid: str, size: int) -> dict[str, str | int]:
+    uid = _check_text(capture_uuid, "capture_uuid")
+    value = _check_int(size, "size")
+    if not 0 <= value <= 1280:
+        raise ValueError("size must be within 0..1280")
+    return {"uuid": uid, "size": value}
+
+
+def _picture_lookup_response(response: ApiResponse) -> ApiResponse:
+    data = response.data
+    if not isinstance(data, dict) or not isinstance(data.get("picUrl"), str):
+        raise ProtocolError(
+            "unexpected snapshots.get_by_uuid response shape",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
+
+
 def _capture_call(
     serial: object, channel: object, quality: object, scope: str
 ) -> tuple[Operation, dict[str, str | int]]:
@@ -113,12 +169,22 @@ def _capture_to_space_call(
 
 
 class Snapshots:
-    """Synchronous facade over the reviewed device capture operations."""
+    """Synchronous facade over the reviewed device capture and reference lookup operations."""
 
     __slots__ = ("_client",)
 
     def __init__(self, client: Client) -> None:
         self._client = client
+
+    def get_by_uuid(self, capture_uuid: str, *, size: int) -> ApiResponse:
+        """Return the picture reference for an existing authorized Linktom device SDK capture."""
+        with _diagnostic_scope(self._client, entrypoint="snapshots.get_by_uuid", mode="sync"):
+            _require_overseas(self._client.region.scope)
+            response = self._client.request(
+                _PICTURE_LOOKUP_OP,
+                data=_picture_lookup_form(capture_uuid, size),
+            )
+            return _picture_lookup_response(response)
 
     def capture(
         self, device_serial: str, *, channel: int, quality: int | None = None
@@ -138,12 +204,22 @@ class Snapshots:
 
 
 class AsyncSnapshots:
-    """Asynchronous facade over the reviewed device capture operations."""
+    """Asynchronous facade over the reviewed device capture and reference lookup operations."""
 
     __slots__ = ("_client",)
 
     def __init__(self, client: AsyncClient) -> None:
         self._client = client
+
+    async def get_by_uuid(self, capture_uuid: str, *, size: int) -> ApiResponse:
+        """Return the picture reference for an existing authorized Linktom device SDK capture."""
+        with _diagnostic_scope(self._client, entrypoint="snapshots.get_by_uuid", mode="async"):
+            _require_overseas(self._client.region.scope)
+            response = await self._client.request(
+                _PICTURE_LOOKUP_OP,
+                data=_picture_lookup_form(capture_uuid, size),
+            )
+            return _picture_lookup_response(response)
 
     async def capture(
         self, device_serial: str, *, channel: int, quality: int | None = None

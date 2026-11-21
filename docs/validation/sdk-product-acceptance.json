@@ -28033,52 +28033,69 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:476:1.4",
+      "capability_selector": "snapshots.get_by_uuid",
       "capability_ids": [
         "candidate:overseas:476:1.4"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.snapshots.get_by_uuid"
+      ],
+      "scope_revision": "2026-11-21-r71-overseas-linktom-picture-lookup",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
+      "account_role_permissions": "海外应用所属集群有权查询该资源。该节未给出托管或子账号最低角色。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "合成认证、既有抓拍引用及业务传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“按UUID查询已捕获图片”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "read": "按已给 UUID 查询、表单字段、大小范围、单次刷新、响应及脱敏，未加载图片。",
+        "physical": "资源权属与设备连接另验。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/36"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/36",
+        "docs/coordination/overseas-linktom-picture-lookup/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/476.source.json"
       ],
       "pending_questions": [
-        "the UUID precondition is specific to a Linktom device producing the value through the device-SDK capture path — do not generalize to any capture UUID from other sources"
+        "官方未说明 UUID 语法、有效期、size=0 的特殊含义或图片引用的可访问性。设备连接、资源权限和可能的服务用量待实测。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/snapshots.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_overseas_linktom_picture_lookup.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_linktom_picture.py",
+        "examples/linktom_picture.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "b12c3bd601f54bb68d67ed901c130d8ac75a5043",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-overseas-linktom-picture-lookup/offline.json"
       ]
     },
     {
@@ -37716,6 +37733,54 @@
       ],
       "limitations": [
         "E14 要求 channelNo，E48 示例省略。示例按参数表发送。查询权限、设备支持、实际响应和未知选择器的含义尚待核验。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-476-1-4-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_linktom_picture_lookup",
+      "capability_selector": "snapshots.get_by_uuid",
+      "capability_ids": [
+        "candidate:overseas:476:1.4"
+      ],
+      "operation_ids": [
+        "global.snapshots.get_by_uuid"
+      ],
+      "scope_revision": "2026-11-21-r71-overseas-linktom-picture-lookup",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas",
+      "account_role_permissions": "海外应用所属集群有权查询该资源。该节未给出托管或子账号最低角色。",
+      "device_requirements": "适用 Linktom 设备，调用者需持有其设备 SDK 在已授权抓拍后生成的 UUID。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "须确认已授权 Linktom 设备、可查的既有 SDK 抓拍引用、服务用量与查询预算。"
+      ],
+      "expected_evidence": {
+        "read": "仅保留是否取得合规引用与响应结构，不保留路径及其内容。",
+        "physical": "图片内容及可达性不在查询判据内。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "只查既有资源，不主动抓拍或下载。",
+      "source_refs": [
+        "docs/coordination/overseas-linktom-picture-lookup/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/476.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待确认专用设备、可查资源与查询范围。"
+      ],
+      "limitations": [
+        "官方未说明 UUID 语法、有效期、size=0 的特殊含义或图片引用的可访问性。设备连接、资源权限和可能的服务用量待实测。"
       ]
     }
   ],

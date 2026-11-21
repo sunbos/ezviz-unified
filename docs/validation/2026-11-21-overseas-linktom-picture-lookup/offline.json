@@ -1,0 +1,466 @@
+{
+  "schema_version": 1,
+  "public_document_recheck": {
+    "doc_id": "476",
+    "public_reference": "https://open.ys7.com/help/en/476",
+    "http_status": 200,
+    "checked_at_utc": "2026-11-21T04:06:36.183656+00:00",
+    "html_sha256": "82a0152058592e8c4b5e11f4f968edce7a4e39d5e16b527db606d5957bf8f858",
+    "account_requests": 0,
+    "device_requests": 0,
+    "media_requests": 0
+  },
+  "focused_wire": {
+    "cells": [
+      {
+        "operation_id": "global.snapshots.get_by_uuid",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.snapshots.get_by_uuid",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.snapshots.get_by_uuid",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.snapshots.get_by_uuid",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.snapshots.get_by_uuid",
+        "mode": "async",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.snapshots.get_by_uuid",
+        "mode": "async",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.snapshots.get_by_uuid",
+        "mode": "async",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "global.snapshots.get_by_uuid",
+        "mode": "async",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      }
+    ],
+    "oracle_mutation_tests": 81,
+    "real_api_used": false,
+    "sdk_sha256": "084e248806090ebc0d02bc9847f118e933dbf50fa5310f019a74610f90e039c5",
+    "transport_sha256": "c4bd58d046d38c5efb2c456744c712e0f28cebb03afef3ee9cb7210e3d50f87d",
+    "execution_sha256": "8a0aadf0e34b243f3b6eb611d36ff4fdeb9b061b7aa006be3289f327eacaf070",
+    "full_cases_sha256": "4c3e43186a671eeefc9bd88fde5264e87b4d55378a97e94e2965fa1ce2984480"
+  },
+  "scope": "overseas_linktom_picture_lookup_offline",
+  "code_commit": "b12c3bd601f54bb68d67ed901c130d8ac75a5043",
+  "bindings_sha256_at_code_commit": "181ac36cd8ec51895da9d557fcba28541391a675fbe87c979881782bb473cfd0",
+  "source_test_sha256": {
+    "src/ezviz_unified/snapshots.py": "084e248806090ebc0d02bc9847f118e933dbf50fa5310f019a74610f90e039c5",
+    "src/ezviz_unified/_diagnostic_registry.py": "f53c026fec70057ac138774a7c6790d7f8b7ef736d289c8c30671d591394086e",
+    "docs/diagnostics-v1-coverage.json": "b3313b47504c4d55cc39abd0b626981e191e37cdc9de7433fc2286dc37b005b4",
+    "docs/diagnostics.md": "986a7939ec37fff081f4fa04585e9ad6cf345467e75c970735323bfdb881f4d6",
+    "tests/test_harness_diagnostic_coverage.py": "6fc90a81709b05be800e8503087aded3a96d8cebcaf34fc088bf8f86de465fc2",
+    "tests/test_sdk_overseas_linktom_picture_lookup.py": "0aaee7a35a15e35c9cac34c7688b248906e4e26bc41ec8864cfa67a7967d527c",
+    "tests/test_example_linktom_picture.py": "3a4c7c583502bfdfcdd33cf8acbb14afa4e47510491e468d8a6d0192948a06e5",
+    "examples/linktom_picture.py": "9a10c629924165101f328fa54c4a8d776acec28b6f87333d9b565c58ae0a2cf8",
+    "README.md": "44337b44758c04957feb18281174d3bf244413d6fa1255c6d22bf7c0605e684d",
+    "contracts/reviewed-transport-contracts.json": "a756c4e786fcb5c8ecd61bb38b49bfd6cc4e52bec1d74aea62bb69072a0ccc26",
+    "contracts/source-issues.json": "56e8507cebb368dca7decd6f6ca0dfa504b9a4b5f1653ef21021f439fd2adb68",
+    "evals/contracts/cases.json": "4c3e43186a671eeefc9bd88fde5264e87b4d55378a97e94e2965fa1ce2984480",
+    "docs/coordination/overseas-linktom-picture-lookup/admission.json": "a6bfd0e80caeba15661bde71883fd3010d5aa41c181ac69018de786e95893cda",
+    "contracts/coverage.json": "68523b16ee9ccb9bf9c1a06219f2a4613dc8fb4db74355e78dbe986b1d238fd1",
+    "harness/wire_eval.py": "0e81d4b5516209f7b461c19b164465e237a031de539eeedbdbce586af0db68a7",
+    "tests/test_harness_motion_area_expectations.py": "3ff62d646f01d146a1ce99fb382ac98c0859efaa80e7cd865cc12ea53ced5a0c",
+    "src/ezviz_unified/transport.py": "c4bd58d046d38c5efb2c456744c712e0f28cebb03afef3ee9cb7210e3d50f87d"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP577-RegBindings",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "contracts/sdk-bindings.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "5572e3aadd6f8c17f9b6c15ecadcc5cc1d35d4a3aedc23bc42e9663e501a80af",
+        "local_receipt_sha256": "e04b2b3e25758fdf40240a0562aab544816ec57072f21b1feab3ce54962d187c",
+        "candidate_sha256": "619e53e1f9ea4cededa95c31b3ea27e957e0f382510767e6471329da44b3e3d8",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "90d66bc1074ecc74bb5f0f626dd45167fb6ef3b3df21c7dd8cb9150b9ce85815"
+      },
+      {
+        "task": "SP577-RegCases",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "evals/contracts/cases.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "6a08519b2d533354a246636d310e05135c1667910f7e608c68597739880c1faf",
+        "local_receipt_sha256": "af40c3cc4092ad0a3628ec0c17718ca06377133995c553e0e660a9275f60ff05",
+        "candidate_sha256": "9849ae468349162fdf6bb55bc211daf67b9bf74accec6f776b91df3fcd4ba9a2",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "504adfb97bc4fb1a6ab72f9fb0149efa96b213b67249cfeb1d2519100b15ad37"
+      },
+      {
+        "task": "SP577-RegContracts",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "contracts/reviewed-transport-contracts.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "f6dde9ebf15540c472e056f8074572d2f51aa09c71bb76bb1ad46b8efc104066",
+        "local_receipt_sha256": "363a8d78dc32b299dcbd9bb09c38767e2ba34497c0e9afd7a19e8412ad7f8685",
+        "candidate_sha256": "9cfb92bdf2bef21c2bdb0763992ecb97f50caf39d13c99a02320b1f10fda66ad",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "fe62abb03ec16bb04d0030fc697ffce829e36f5d071327e96e9aa43ded8c48be"
+      },
+      {
+        "task": "SP577-RegDocR1",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "93ac6d14bec180e4a3a97ff4d457de9cfccdac06eb207bfc82d86c097ca970aa",
+        "local_receipt_sha256": "e11889a8bbeef9a23ada4ca9067b1f987e77d47e9db1a655b83deef74021ca79",
+        "candidate_sha256": "f14cf85dfb8ca18b8d3331b2a36527a7108b8e010d477bc9b97195ed73a43ba3",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "a8442863226b345ffcc90e806093639301e4ea272c87cde8d029bcf61d1825bf"
+      },
+      {
+        "task": "SP577-RegIssues",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "contracts/source-issues.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "d9c012c73617fb2685702b081ff0b578d14d4a8d622f1cdbc80cc86c9bb86778",
+        "local_receipt_sha256": "0bd4ac7e815954884eed7076a2f39e744b0d43347722b24936d3115062883ffb",
+        "candidate_sha256": "bd0e16d8245508b69191163d6aea73d2a28b52311b678a616e8613629b1c905d",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "a0c47523172fdf38ce02a3c7adff0d55755eacb3b22144d1d11501416ca0936a"
+      },
+      {
+        "task": "SP577-RegMutation",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "tests/test_harness_motion_area_expectations.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "d27369e4dd27978365b22f36351809171865b122d5e463531dec2becd7501092",
+        "local_receipt_sha256": "a3b34e69ed590f2d13364c3e4e54f35c4d6b89e0c16d2badce0fa6125cc2c8a6",
+        "candidate_sha256": "535dcbd1971c5be1624a5d88ac31f79f571da4e542cb328e677d21308ebed267",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "26919064b7e0fcb70f8f159e33f280debec6849340b6674f42dc11f68fa45d8a"
+      },
+      {
+        "task": "SP577-RegOracle",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "harness/wire_eval.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "dfc88096a2b7bf67e7bd2a74d34a9e100e87f1654e7e9a5a7da928880af46b09",
+        "local_receipt_sha256": "bfdb528a44710b3a6792e7fd1c8f9647c6d3207d8ab3a2dfed7a60fbace8ba15",
+        "candidate_sha256": "1bb82d782b6fcf4b0eaf6a309d1b38bd2b03cd2ceda4ec48e0a9b54c06e8f268",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "402f9125423d5d8eefd7c1a896ce049e7e7f5af5d75d991352639ffdcc903ae6"
+      },
+      {
+        "task": "SP577-RegPrivate",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "src/ezviz_unified/_diagnostic_registry.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "54e73012a9815b70f5a2f422a3ae07a2f571a4b32662aaa364d7c49fd2db975c",
+        "local_receipt_sha256": "7bc43c889df7cfaa8a83ab8eed86d4aad2f9c38e115908096b529e05f9f36664",
+        "candidate_sha256": "948e4feaa42e5290485fd1aec8f78496d32c7ae7d3ac1d1a8c8a3731d618e951",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "1a898f80e84a168ef1629617bcae2cfef70334438f3ef4813a51139ec1109a02"
+      },
+      {
+        "task": "SP577-RegPublic",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "docs/diagnostics-v1-coverage.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "26f51a9fd0165ccbb48869e3442ae1863c16c210c296dcb752bd6ffe75384517",
+        "local_receipt_sha256": "22649f6b5466de3bc92e90b2749f2543278dee9c83c58493cc7858212beeb95e",
+        "candidate_sha256": "948e4feaa42e5290485fd1aec8f78496d32c7ae7d3ac1d1a8c8a3731d618e951",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "3d2e3959699b5a0e05bf7650b798249df01e1e7bc7a7179df42f527a17aa02ed"
+      },
+      {
+        "task": "SP577-RegSummary",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "contracts/coverage.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "5e77fd7b2f53c76056c0e66c80c33fbd68fac97c58abedae26782a62a0a7f688",
+        "local_receipt_sha256": "e1df5d8ab5f3856e67104f72355c26ab23fecab2e515ebaa7512c8d5d50aab79",
+        "candidate_sha256": "1fdfbf0e924befcded9feabaebc203c1f54cdf07fdca9c244ee69959ebdad8b8",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "e997691c913d24c9f97a8c81c42d9422f85ed57062c2f6d8c8b18ac9506f541d"
+      },
+      {
+        "task": "SP577-RegTestCount",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "tests/test_harness_diagnostic_coverage.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "6e2fb3457e0c599169ab2da662b15ed7ca8437053c0393379e1acaa82fc79c1f",
+        "local_receipt_sha256": "027eedda3bad8507745bfb89fc7176f9c794a56860462aaa28bb51eeec0d29eb",
+        "candidate_sha256": "67b8d73b09e00894276063a47834efad1aa32d6f55b5e32f2e0f662a0b615d3c",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "7de8f0bb04ea9beed8da3ddee1f5c001f4469781e38aecd6abbd57dfab8e0640"
+      },
+      {
+        "task": "SP577-SdkCli",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "examples/linktom_picture.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "a79728da678df84daba2d63cc5a703ec2d49bf5be8687221e290a9f257b9bcb5",
+        "local_receipt_sha256": "21301d395d1fafcfe0765ca0f392fd1231032c074d843e189ba96b1894e5c9cb",
+        "candidate_sha256": "ad3195c28b5346487b7641bc64a718eb70a024266d7232333f8cd80d465c0be1",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "f28baf66f24472d1cca39486b3ccb95c4296ec691c8716a00c131c4ecc976150"
+      },
+      {
+        "task": "SP577-SdkCore",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "src/ezviz_unified/snapshots.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "bb5bdbaa68b02c2d85897933c93e3907078c97d8660dc9f8b5ac7a106b99761d",
+        "local_receipt_sha256": "856093c8b63ff84caf08e50dab09f3beb837a583fbeeaf0fc4308f1b1619d952",
+        "candidate_sha256": "cc896db76fd50991052aaed80ac9701d1302abf36ee406c564bda94252325942",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "0d595b0ddba3a7f8f237aa4bfe66fd135d46679eb11ed7e015005079a0cdb4e9"
+      },
+      {
+        "task": "SP577-SdkGuideR1",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "README.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "c5bd1bd674f10b4fd0dddde07b4188e327239b09624bacc97a307754c6afe1dc",
+        "local_receipt_sha256": "f9e5feca41aeed99aa34f4caa2fd34310867bce85d2c2bf0b20c23fda36fc231",
+        "candidate_sha256": "39a65c4e288f493ce3609b90197659c90608280ccec5182888b3d1ed83e004d2",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "5679c03d1fe2a276df18ca41cc2905cc872e051f863ebc91aa021586613af636"
+      },
+      {
+        "task": "SP577-SdkTransport",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "src/ezviz_unified/transport.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "60117380a1529165d4283e4539a3c0c15847bbd12c92a0dfe00ef4c925e2a7b7",
+        "local_receipt_sha256": "672a8c10210d5665232f3478c873f084112bde4baab03e56c703d3239ca301ba",
+        "candidate_sha256": "058bb4a9505a3a475e8724212b3808dab99a6767ccccf575ac598f0e65178437",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "4cb821a3dfddeecb696987a9396dbff10901586ba026c963bb1f4fbfd5ee152a"
+      },
+      {
+        "task": "SP577-TestCLIStatic",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "tests/test_example_linktom_picture.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "0bdd75a4b041468b8a2642a702a5a98673471bc8431a81f7eae435d03465f860",
+        "local_receipt_sha256": "43bffc357b30b3fc2fed590a07647050d3958547875ca7d8100c8d45ca948bfb",
+        "candidate_sha256": "6227c1e060ebf3a78a505e9b277674182e4786f64767369b93096d19f2b4874e",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "25ddd73219da784748055b8e43f87d63cabae5cdbcf8d088faca9754d6967e5a"
+      },
+      {
+        "task": "SP577-TestCLIWire",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "tests/test_example_linktom_picture.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "b419b1c63b5e28fafc9efd87ea75e8b5b1d19ed697245a0ebc97076c5a71374d",
+        "local_receipt_sha256": "58b6f391199548a1fe20904a5362c4d82b3ca806f909d6760d08f897c7ed810b",
+        "candidate_sha256": "192aa97f96c4d8a1960e06ce9c33322eb1e32ede542fad7276b61e0ae6282a15",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "e63d05db9753caf9a6ba493ba444b160ee59f175e9a1de688115c071eb1250c4"
+      },
+      {
+        "task": "SP577-TestSDKFields",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "tests/test_sdk_overseas_linktom_picture_lookup.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "9c9ccc914019f58d058f32807c710d8a98951f33c7d4732f429d99c2447eedea",
+        "local_receipt_sha256": "81b66d2435d298f1cffcaed63c593d2aed75dcf7cf63f8cc23892a3e8d2957d5",
+        "candidate_sha256": "0b01c1d2e3ba48626eeb20e191e31b9c0f4ba172100433e07c1b3529f1fee9f1",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "3ef3b645f7e0608a9227ed56f7d9107039aed15db972ccc3c0a32e55e05ac11e"
+      },
+      {
+        "task": "SP577-TestSDKLogName",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "tests/test_sdk_overseas_linktom_picture_lookup.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "195be9465e9373ba9c31875bbe5ed843c597bf3dd81d5a3045a107c7a6aa0103",
+        "local_receipt_sha256": "851290f2dc033579e2e616fed970dfb05891f470002496a1043fd64891ee7adb",
+        "candidate_sha256": "ef9f968ec372b755d880bbcbcdc2f6096c89064e1e350dbde606454abd61d6f4",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "91f5ed9fef24ed1a93d1fae6adc031d62f3195861235fb8dd9c61e2a1e1ecd25"
+      },
+      {
+        "task": "SP577-TestSDKTypedExpiry",
+        "input_commit": "5b3469881af21f80503669bbd19b5f62164a1d44",
+        "write_scope": [
+          "tests/test_sdk_overseas_linktom_picture_lookup.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "464a776c3ba6db94b30d3abc7d36bb2bb02e7c1b3c3276af4c784c8f39e737cc",
+        "local_receipt_sha256": "c3d96dfc1e1e8cdff1e59a48d999045335e477a01c4c21b35c49608f2a7be318",
+        "candidate_sha256": "e96a1ad1f9952f3888933af04b7dadd7a085f8e8c906eeeb443fa224a70c95f6",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "d04459b0ef92661d21d1697f2c0654875c7af5923e93329436dda51526582dad"
+      }
+    ],
+    "validation_index_candidate_sha256": "7fbb9f92c2188b1ba51a0b04fc9dab51b226af650273f39bca23bceeac30970b",
+    "validation_index_candidate_execution_sha256": "99f539b385ade61befc43d9c454e4cc3df2c1671d29618f0c0dd121dfd2167c6",
+    "sdk_provenance_sha256": "4bdc846cd5fd8b31a6adeab70dea833726a6957517f42461644d524350818572",
+    "test_provenance_sha256": "e19cff31c5742b06f8847e86a9cdcd2cc22d3d0c0acb2100fa4e26929677affc",
+    "deterministic_integration": [],
+    "rejected_candidates": [
+      {
+        "task": "SP577-RegDoc",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "8f20839a78c3f569e60de64ed070a79ee83c607cf683c0cc03bd9f5ba9a34a1b"
+      },
+      {
+        "task": "SP577-SdkGuide",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "02cba17fc6c06363e3d504d7575e7a4183ec1fcd21a1e29cb13d39839d72f282"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_overseas_linktom_picture_lookup.py tests/test_example_linktom_picture.py tests/test_sdk_snapshots.py",
+      "summary": "230 passed in 1.34s",
+      "local_receipt_sha256": "30919d611007db00bf74bf6466c712c397c3540c3fd2632a88488b957ff1cb39",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "16074 passed, 35 subtests passed in 96.57s (0:01:36)",
+      "local_receipt_sha256": "56e4c9fec9181e2356a4b173e99ba8f6fe69ff608a69e4ea041dd322e99d33e8",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "314 registered contracts, 2544/2544 offline wire checks passed",
+      "local_receipt_sha256": "c05e955127c49c079a24bbf4e23debe5ab3609ca489d9a2c6086aefca6589da2",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "314 registered bindings, 628 sync/async symbols checked",
+      "local_receipt_sha256": "8bc577c7aaaa4b2e842d056a4a43b601820b63f145778e239453c78c5b7b04c2",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 65 source files",
+      "local_receipt_sha256": "02f94934042c1a02e2a36fa63828e8b95f0d9359b089c08c748a4548278a65c7",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check --no-cache src/ezviz_unified harness examples tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_examples*.py tests/test_example_*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py tools/documents/http_candidates.py tools/documents/endpoint_inventory.py tests/test_document_http_candidates*.py tests/test_document_endpoint_inventory*.py tests/test_live_diagnostics.py tools/live/verify_diagnostics.py tools/live/verify_diagnostics_async.py tests/test_live_diagnostics_async.py tools/live/_cli_transport.py tools/live/verify_example_clis.py tests/test_live_example_cli*.py tools/live/verify_traffic_usage.py tests/test_live_traffic_usage.py tools/documents/normalize_sdk_reference.py tests/test_document_sdk_reference.py tests/test_document_inventory_output.py tools/live/verify_cloud_files.py tests/test_live_cloud_files*.py tools/live/_detection_read_guard.py tools/live/verify_detection_reads.py tests/test_live_detection_reads.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "fe32e22e59958201b529f8f218c0ce30aa24401f42b80eaee663a873d4b9b8d6",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check --no-cache src/ezviz_unified harness examples tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_examples*.py tests/test_example_*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py tools/documents/http_candidates.py tools/documents/endpoint_inventory.py tests/test_document_http_candidates*.py tests/test_document_endpoint_inventory*.py tests/test_live_diagnostics.py tools/live/verify_diagnostics.py tools/live/verify_diagnostics_async.py tests/test_live_diagnostics_async.py tools/live/_cli_transport.py tools/live/verify_example_clis.py tests/test_live_example_cli*.py tools/live/verify_traffic_usage.py tests/test_live_traffic_usage.py tools/documents/normalize_sdk_reference.py tests/test_document_sdk_reference.py tests/test_document_inventory_output.py tools/live/verify_cloud_files.py tests/test_live_cloud_files*.py tools/live/_detection_read_guard.py tools/live/verify_detection_reads.py tests/test_live_detection_reads.py",
+      "summary": "371 files already formatted",
+      "local_receipt_sha256": "4eeda26bb68d329f3431a470515472f6613d4a529a61acb5ee9b6a16bb133665",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_harness_diagnostic_coverage.py",
+      "summary": "486 passed in 1.35s",
+      "local_receipt_sha256": "09b50ae00cf2a2207ccd5b57537795cb17a61a1584551e9d0634d96d678ca8a4",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "本批仅以合成传输查询指定 Linktom 抓拍 UUID 对应的图片引用。未生成抓拍、读取真实 UUID、访问或下载图片。实际设备连接、权限、服务用量及媒体可达性没有实测。"
+}
