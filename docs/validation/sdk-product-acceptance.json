@@ -37846,6 +37846,108 @@
       "limitations": [
         "E54 将 imageData 定义为字符串；E117 与 E120 仅展示 Base64/JPG 使用方式。固定 MIME、实际像素、设备能否扫描并成功入网待核。"
       ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1373-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "domestic_cloud_task_files",
+      "capability_selector": "cloud_recording_v1.task_files",
+      "capability_ids": [
+        "candidate:domestic:1373:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.task_files"
+      ],
+      "scope_revision": "2026-11-21-r73-domestic-cloud-task-files",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "result": "pending_execution",
+      "risk": "offline_only",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "account_role_permissions": "国内云录制 1.0 账户能够查询该既有任务。1373 没有指定最低角色或子账户范围。",
+      "device_requirements": "调用方已持有获准查询的既有云端任务 ID，无需设备或通道标识。",
+      "preconditions": [
+        "合成任务与文件元数据。"
+      ],
+      "expected_evidence": {
+        "read": "一页只读查询，query 型别、敏感信息、诊断、返回结构与 CLI 分别验收。",
+        "physical": "不验证真实云任务或文件。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线。",
+      "criterion_assessment": {
+        "CONTRACT": "pending",
+        "SDK-DIAGNOSTICS": "pending",
+        "USAGE": "pending"
+      },
+      "source_refs": [
+        "docs/coordination/domestic-cloud-task-files/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1373.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "blockers": [
+        "待本次实现和离线验证。"
+      ],
+      "pending_questions": [
+        "可选响应字段的必返性和空值形式、下载地址有效期及服务权限未明确。元数据查询的成功不证明文件可取回。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1373-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_cloud_task_files",
+      "capability_selector": "cloud_recording_v1.task_files",
+      "capability_ids": [
+        "candidate:domestic:1373:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.task_files"
+      ],
+      "scope_revision": "2026-11-21-r73-domestic-cloud-task-files",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内云录制 1.0 账户能够查询该既有任务。1373 没有指定最低角色或子账户范围。",
+      "device_requirements": "调用方已持有获准查询的既有云端任务 ID，无需设备或通道标识。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "preconditions": [
+        "确认已有授权任务、只读页参数与上限，优先禁用地址返回。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录查询结果、页内条数或结构；不保留 ID、文件元数据或媒体地址。",
+        "physical": "不下载媒体，不触发任务或解冻。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "单页只读。",
+      "source_refs": [
+        "docs/coordination/domestic-cloud-task-files/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1373.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待可查的云录制既有任务和具体查询范围。"
+      ],
+      "limitations": [
+        "可选响应字段的必返性和空值形式、下载地址有效期及服务权限未明确。元数据查询的成功不证明文件可取回。"
+      ]
     }
   ],
   "release_gates": [

@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "d9cd7d737e582cd1bb88a9d24362f42c2e2e48a5",
+  "scope_revision": "2026-11-21-r73-domestic-cloud-task-files",
+  "cohort_id": "DOMESTIC-CLOUD-TASK-FILES-001",
+  "operations": [
+    {
+      "operation_id": "cn.cloud_recording_v1.task_files",
+      "capability_id": "candidate:domestic:1373:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1373-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1373-D0-LIVE-001"
+      ],
+      "entry": "cloud_recording_v1.task_files",
+      "name": "task_files",
+      "doc_id": "1373",
+      "region": "domestic",
+      "method": "GET",
+      "path": "/api/v3/open/cloud/task/files",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/1373",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1373.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1373.structure.json",
+      "html_sha256": "c309810398bb6f5578f18a2b5214ed0583cac42da50647f9bf5d3152de8c949a",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E37"
+        },
+        {
+          "name": "taskId",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E37"
+        },
+        {
+          "name": "pageNumber",
+          "type": "Int",
+          "location": "query",
+          "required": true,
+          "evidence": "E37"
+        },
+        {
+          "name": "pageSize",
+          "type": "Int",
+          "location": "query",
+          "required": true,
+          "evidence": "E37"
+        },
+        {
+          "name": "sortField",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        },
+        {
+          "name": "sortRule",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        },
+        {
+          "name": "hasUrl",
+          "type": "Boolean",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        }
+      ],
+      "elements": {
+        "operation_table": 10,
+        "route": 23,
+        "method": 19,
+        "parameters": 37,
+        "request": 97,
+        "example": 158,
+        "fields": 100,
+        "errors": 161,
+        "limits": 184
+      },
+      "signatures": {
+        "CloudRecordingV1": "def task_files(self, task_id: str, *, page_number: int, page_size: int, sort_field: str | None = None, sort_rule: str | None = None, has_url: bool | None = None) -> ApiResponse",
+        "AsyncCloudRecordingV1": "async def task_files(self, task_id: str, *, page_number: int, page_size: int, sort_field: str | None = None, sort_rule: str | None = None, has_url: bool | None = None) -> ApiResponse"
+      },
+      "permission": "国内云录制 1.0 账户能够查询该既有任务。1373 没有指定最低角色或子账户范围。",
+      "prerequisites": "调用方已持有获准查询的既有云端任务 ID，无需设备或通道标识。",
+      "unknown": "可选响应字段的必返性和空值形式、下载地址有效期及服务权限未明确。元数据查询的成功不证明文件可取回。",
+      "envelope_paths": [
+        ""
+      ]
+    }
+  ],
+  "source_reconciliation": {
+    "ledger_declaration": "portal-2026-11-17:domestic:1373:declaration:0",
+    "ledger_example": "portal-2026-11-17:domestic:1373:example:0",
+    "existing_task_status": "cn.cloud_capture.task",
+    "related_sources": {
+      "1373": {
+        "http_status": 200,
+        "html_sha256": "c309810398bb6f5578f18a2b5214ed0583cac42da50647f9bf5d3152de8c949a",
+        "public_reference": "https://open.ys7.com/help/1373",
+        "matches_archive": true,
+        "observed_utc": "2026-11-21T05:24:07.836355+00:00"
+      },
+      "1370": {
+        "http_status": 200,
+        "html_sha256": "a959d13932c20a7dc41b5f16b049031bf31283bf40427fd6f27df42b2c016dc4",
+        "public_reference": "https://open.ys7.com/help/1370",
+        "matches_archive": true,
+        "observed_utc": "2026-11-21T05:24:10.939462+00:00"
+      },
+      "1391": {
+        "http_status": 200,
+        "html_sha256": "0b9eeb7b16d3e77c9a6b90839dfdb1d235559257f238225d4c6e9667f5416bf2",
+        "public_reference": "https://open.ys7.com/help/1391",
+        "matches_archive": true,
+        "observed_utc": "2026-11-21T05:24:12.576354+00:00"
+      },
+      "1378": {
+        "http_status": 200,
+        "html_sha256": "e81296a0984d24d958ab544d3743e53616edbf4f82b1efa6edc984f2bd14ebf2",
+        "public_reference": "https://open.ys7.com/help/1378",
+        "matches_archive": true,
+        "observed_utc": "2026-11-21T05:24:14.538798+00:00"
+      },
+      "3964": {
+        "http_status": 200,
+        "html_sha256": "496116b4dec7826d7b8b15e2a337c91e01f936730b3e7d32d72ca42d601b7310",
+        "public_reference": "https://open.ys7.com/help/3964",
+        "matches_archive": true,
+        "observed_utc": "2026-11-21T05:24:15.995439+00:00"
+      }
+    },
+    "panorama_source": {
+      "doc_id": "685",
+      "public_reference": "https://open.ys7.com/help/685",
+      "html_sha256": "a4d6b5f58c13f21707bec1b9c36b0a894cdb48cc8d1606ff211343df0ee58b1f"
+    },
+    "review": {
+      "685": "E66 lists notification or cloud recording lookup; E67 labels a lookup yet links to 1378, a delete operation. E126 describes the panoramic_capture notification.",
+      "1391": "Same panorama composition route; E153 describes the task reference for status lookup.",
+      "1370": "E7 and E66/E100 document prior task and type 5 for panoramic collection, with no new capture.",
+      "1373": "Independent read-only cloud recording 1.0 task-file list, no existing registered route.",
+      "3964": "Distinct VOD service, rights and response. No cross-service fallback.",
+      "live": "No business calls, account access or media access."
+    },
+    "prior_case_refs": [
+      "ACC-CANDIDATE-CN-1370-D0-OFFLINE-001",
+      "ACC-CANDIDATE-CN-685-D0-OFFLINE-001"
+    ],
+    "scope_boundary": "仅 1373 入本批契约及验收。1391 为另源对照，3964 为不同产品接口，1378 不可作为只读回退。旧工作流仍保持既有真实验收状态。"
+  },
+  "public_document_recheck": {
+    "public_reference": "https://open.ys7.com/help/1373",
+    "http_status": 200,
+    "checked_at_utc": "2026-11-21T05:24:07.836355+00:00",
+    "html_sha256": "c309810398bb6f5578f18a2b5214ed0583cac42da50647f9bf5d3152de8c949a",
+    "device_requests": 0,
+    "account_requests": 0
+  },
+  "sdk_choices": [
+    "在 CloudRecordingV1、AsyncCloudRecordingV1 增加 task_files，独立读取调用者显式提供的既有任务的一页文件元数据。它区别于 1370 的任务状态、1375 的单文件详情、1374 的按项目与时间查找、统一存储的文件节点以及 3964 的云点播任务文件列表。不会创建任务、补抓拍、查询其他页、取回归档或访问媒体。",
+    "国内 GET，所有业务输入与认证均在 query，无正文、Content-Type、设备或项目标识。必须提供 task_id、page_number、page_size。task_id 为非空可编码 UTF-8 文本，保留原值，不将另一接口的 ASCII 长度规则移植到这里。page_number 为从 0 起的整数，page_size 为 1–50 整数，排除 bool。读取沿用现有最多一次令牌失效刷新，重发时参数、所在页及账户不变。",
+    "三个可选参数 None 时均省略，sort_field 是非空可编码 UTF-8 文本而非固定枚举，文档给出的服务默认字段为 createTime。sort_rule 只接受 asc 或 desc。has_url 必须为真布尔，显式序列化为 true 或 false，缺省按服务默认 false。显式 true 请求返回相关引用，SDK 从不访问这些地址。E97 中的 0、10 和 true 是示例，不能当作请求缺省。",
+    "根 meta.code 必须为真整数 200，meta.message 为业务消息，data 是文件对象列表。支持空列表与扩展字段，保持原 ApiResponse。各行字段没有必返承诺，缺省与 null 均保留；出现非空已知字段时，projectId/fileId/expireTime/taskId 是字符串，fileType/status/fileSize/duration/storageType/resultSpaceId 是整数（拒 bool），downloadUrls 是数组。其元素在 E158 示例为字符串，SDK 不假设每个版本都只有一种元素结构。保留未知枚举、长 E1 文件标识及原列表顺序；不据字段推断总页数、下载成功或设备完成任务。",
+    "对该新操作使用既有严格消息、媒体脱敏和固定业务码集合（E161 的 200、400、403、404、500，及通用 10002/10031，int/str 原型）。SDK 自有标准 HTTPX 日志不保留 query、异常 reason、非标准版本或资源标识；报告及 CLI 不含任务 ID、文件 ID 或媒体地址。调用方显式访问 data 或 raw 时可取得原值。",
+    "示例 python -m examples.cloud_task_files --mode sync|async 使用显式国内配置和 EZVIZ_TASK_ID，固定 page_number=0、page_size=1、has_url=False，仅查询一页并输出 items 整数。示例不打印配置、文件内容、任务 ID 或链接。固定错误 error: cloud task files example failed，取消返回 130，未预期 RuntimeError 保持传播。验收只注入合成配置与 MockTransport。",
+    "685 E67 的文件列表文字错指 1378 删除文件，不能当作读取入口。正确的 1373 是独立 GET，1373 E190 可反向关联 1370；1391 与 685 的任务 ID 有全景状态查询的交叉证据。本批不调用或实现任何生成、删除、设备控制、自动轮询或媒体行为。真实验收另需获准查询的云录制任务和请求上限。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/cloud_recording_v1.py",
+    "src/ezviz_unified/settings.py",
+    "src/ezviz_unified/cloud_capture.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批仅合成验证。"
+}
