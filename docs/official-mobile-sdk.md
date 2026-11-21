@@ -85,6 +85,45 @@ AAR 内含厂商提供的 Activity 类。只有当应用使用其网页登录或
 )
 ```
 
+## Harmony 1.9.0 的 HAR 接入
+
+### 商业许可与发行材料
+
+顶级商业 HAR 随包 LICENSE 明确要求，集成前必须已签署有效的商业主协议，并依据该协议取得 SDK 使用权。公开读取下载页或校验值只证明可以获取该材料。华为的 DevEco、OHPM 和 Hvigor 工具另有使用条款，须与商业 HAR 的使用权分别核实。本批未确认上述授权，也未接受这些条款。
+
+安装页 4189 说明如何导入本地 HAR。本批固定的官方发行版本为 `@ezviz/ezopensdk` 1.9.0。顶级 HAR 的 SHA-256 为 `9d079629f26690773ce23ea97c097277493ce080b606c59a8247ef5df150e4ea`。目标平台为 HarmonyOS 5.0.0 API12。根 HAR 的直接依赖为 `EZPlay.har` 与 `EZWifiConfig.har`。Demo 工程另加本地蓝牙包。应按所用功能选择权限。顶级清单没有申请权限，EZPlay 清单申请 3 项，Demo 清单实际申请 11 项。
+
+[安装说明](https://open.ys7.com/help/4189)、[权限说明](https://open.ys7.com/help/4190)、[初始化](https://open.ys7.com/help/4191)、[Harmony 概述](https://open.ys7.com/help/4217)。仓库内材料见 [冻结输入](coordination/native-harmony-sdk-build/scope.json) 与 [验收记录](validation/2026-11-21-native-harmony-sdk/checks.json)。
+
+### 静态核验与无包模板
+
+在仓库根目录运行下列命令，读取合法持有的 ZIP。
+
+```sh
+: "${HARMONY_RELEASE_ZIP:?请指定合法持有的 Harmony 1.9.0 官方发行 ZIP}"
+python3 tools/native/verify_harmony_release.py --repo . --release-zip "$HARMONY_RELEASE_ZIP"
+python3 tools/native/verify_harmony_release.py --repo . --release-zip "$HARMONY_RELEASE_ZIP" --self-test
+```
+
+模板命令要求输出目录尚不存在。它只写本仓库的 Stage 工程与 ArkTS 探针，`entry/libs/` 保持为空。
+
+```sh
+HARMONY_WORK="$(mktemp -d "${TMPDIR:-/tmp}/ezviz-harmony.XXXXXX")"
+python3 tools/native/stage_harmony_consumer.py --repo . --output "$HARMONY_WORK/consumer"
+```
+
+发行包的顶层公开声明包含 `EZOpenSDK.setAccessToken` 和 `EZOpenSDK.getDeviceList`，并从 ezplay 重导出 `EZPlayer.setPlayVerifyCode`、`EZPlayer.seekPlayback` 和 `EZPlayer.setPlaybackRate`。在本发行版声明中未找到精确拼写 setServerUrl 和 setSurfaceHold。
+
+libc++_shared.so、libhpr.so、libSystemTransform.so 在不同来源中同名但对应不同内容。libstunclient.so 同名且内容相同。仅依赖 enableOverride 不足以判断实际选择了哪一份。
+
+### 获准环境的正式构建
+
+仅限具备上述许可及工具授权的操作者。把合法取得的 HAR 放到新 Stage 工程的 entry/libs/EZOpenSDK.har。在工程根目录执行 `ohpm install`，再调用获准工具包中的 `hvigorw`。模板未附该工具，也未配置签名。未来获准主机可使用 `hvigorw assembleHap --mode module -p module=entry@default -p product=default -p buildMode=debug --no-daemon`。该命令在本批未执行。
+
+验收必须以本次无签名 HAP 为证，包括 module.json、消费者 ABC 及 5 处调用引用、资源和重名 ELF 的精确字节，并加上对实际错误方法的编译拒绝。签名、安装、真机授权运行、媒体和 EZControl 属于独立实测。
+
+本批没有消费方 HAP，没有签名真机或 EZControl 的运行记录。
+
 ## iOS 5.34 的 Swift Package Manager 集成
 
 集成环境需要 Xcode 15 或更高版本，包清单采用 Swift tools 5.9。清单声明的最低系统版本为 iOS 12.0，而 5.34 实际二进制框架的最低要求为 iOS 13.0，本批接入工程采用 iOS 13.0 部署目标。发行包只有 iphoneos arm64 真机切片，未提供模拟器切片。
@@ -124,4 +163,4 @@ setServerUrl 与 setSurfaceHold 未出现在这批 iOS 公开头文件中，不�
 
 ## 仍待确认
 
-4148 涉及的官方 Demo 仍需分别固定工程版本并验证签名产物。上节补充了 iOS SDK 5.34 发布物的公开声明。Android 5.34 的发布物与核验入口见上文。Harmony 的精确 SDK 版本、三端受限令牌和真机行为仍待核实。上一批只检查共享文档，未连接真机、收集日志或提交工单。[共享资料审查记录](validation/2026-11-21-mobile-sdk-shared-references/review.json)另有 6 个 iOS、Harmony 菜单项指向 Android 菜单下的 3 篇共享页面，读者在各受支持平台均可参考这些页面。
+4148 涉及的官方 Demo 仍需分别固定工程版本并验证签名产物。上节补充了 iOS SDK 5.34 发布物的公开声明。Android 5.34 的发布物与核验入口见上文。Harmony 1.9.0 的公开声明与依赖见上文。三端受限令牌及真机行为仍待单独核实。上一批只检查共享文档，未连接真机、收集日志或提交工单。[共享资料审查记录](validation/2026-11-21-mobile-sdk-shared-references/review.json)另有 6 个 iOS、Harmony 菜单项指向 Android 菜单下的 3 篇共享页面，读者在各受支持平台均可参考这些页面。

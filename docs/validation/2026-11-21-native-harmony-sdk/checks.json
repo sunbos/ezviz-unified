@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "scope": "harmony_190_release_and_consumer_template_only",
+  "baseline_commit": "08e6217ea43cd5de96ef4eb062b1f495a6b151cf",
+  "verified_artifact_commit": "f740d44252f5f7b1e228cf42eb04279a72727a4e",
+  "source_test_sha256": {
+    "docs/coordination/native-harmony-sdk-build/scope.json": "9bac01979998898ca46c789c2530cf03938b205a49a84a653f27b58edd285342",
+    "docs/validation/2026-11-21-native-harmony-sdk/source-review.json": "4b477bc3dbc7144548c9525f60b60b7486a351343f42adb00799217571774aaa",
+    "docs/official-mobile-sdk.md": "3eda00bc0c572ac02bbea4576a292adeb1e2ae7c80e15b9439f54850a173b285",
+    "tools/native/verify_harmony_release.py": "edffe3485b70cd8cb0cb9b1f05d3cf44d4e93f9b42d2c3d9fb587e72495ffa16",
+    "examples/harmony_sdk_build/ProbeAbility.ets": "aababa3712b194682d5e19f132d4b44a99a7a58258300a06d8087ab6d3983b59",
+    "tools/native/stage_harmony_consumer.py": "63abd6f910493a21242a0641539d10c7a50686242ca73441a08528032e51d295",
+    "tests/test_native_harmony_template.py": "98ffd47e4c2c24b5bda71cc1d8f4be53ab4d589b6e94dbc5a54c3c7bb3357cdc"
+  },
+  "checks": {
+    "static_input_verified": true,
+    "template_checked": true,
+    "hap_built": false,
+    "native_calls": 0,
+    "root_har_sha256": "9d079629f26690773ce23ea97c097277493ce080b606c59a8247ef5df150e4ea",
+    "unique_packages": 7,
+    "all_elf_occurrences": 54,
+    "official_archive_check": {
+      "all_elf": {
+        "occurrences": 54,
+        "unique_contents": 51,
+        "unique_names": 49
+      },
+      "app_runs": 0,
+      "commercial_terms_accepted": false,
+      "declaration_files": 176,
+      "declarations": [
+        "setAccessToken",
+        "getDeviceList",
+        "setPlayVerifyCode",
+        "seekPlayback",
+        "setPlaybackRate"
+      ],
+      "demo_permission_count": 11,
+      "dependencies": [
+        [
+          "ezwificonfig",
+          "package/libs/EZBase.har",
+          "ezbase"
+        ],
+        [
+          "ezwificonfig",
+          "package/libs/HCNetSDK_OH.har",
+          "hcnetsdk_oh"
+        ],
+        [
+          "@ezviz/ezopensdk",
+          "package/libs/EZPlay.har",
+          "ezplay"
+        ],
+        [
+          "@ezviz/ezopensdk",
+          "package/libs/EZWifiConfig.har",
+          "ezwificonfig"
+        ],
+        [
+          "ezauth",
+          "package/libs/EZBase.har",
+          "ezbase"
+        ],
+        [
+          "ezplay",
+          "package/libs/EZAuth.har",
+          "ezauth"
+        ],
+        [
+          "ezplay",
+          "package/libs/EZBase.har",
+          "ezbase"
+        ],
+        [
+          "ezplay",
+          "package/libs/ezplayersdk.har",
+          "ezplayersdk"
+        ]
+      ],
+      "dependency_edges": 8,
+      "device_calls": 0,
+      "final_hap_library_selection_verified": false,
+      "hap_verified": false,
+      "identical_duplicate_names": [
+        "libstunclient.so"
+      ],
+      "native_builds": 0,
+      "native_conflicts": [
+        "libSystemTransform.so",
+        "libc++_shared.so",
+        "libhpr.so"
+      ],
+      "not_located": [
+        "setServerUrl",
+        "setSurfaceHold"
+      ],
+      "packages": [
+        "@ezviz/ezopensdk",
+        "ezauth",
+        "ezbase",
+        "ezplay",
+        "ezplayersdk",
+        "ezwificonfig",
+        "hcnetsdk_oh"
+      ],
+      "passed": true,
+      "physical_hars": 9,
+      "plain_so": {
+        "occurrences": 50,
+        "unique_contents": 49,
+        "unique_names": 45
+      },
+      "release_sha256": "715937e3f57655dd5275a4eb291c987bc1079db1d409da098dcf7e19daac43d3",
+      "root_har_sha256": "9d079629f26690773ce23ea97c097277493ce080b606c59a8247ef5df150e4ea",
+      "shipped_abc_physical_occurrences": 8,
+      "shipped_abc_unique_packages": 6,
+      "version": "1.9.0"
+    },
+    "static_negative_controls": [
+      {
+        "mutation": "unsafe.path",
+        "rejected_by": "archive.path"
+      },
+      {
+        "mutation": "symlink.entry",
+        "rejected_by": "archive.entry"
+      },
+      {
+        "mutation": "sparse.entry",
+        "rejected_by": "archive.sparse"
+      },
+      {
+        "mutation": "edge.pin",
+        "rejected_by": "graph.edge"
+      },
+      {
+        "mutation": "decl.line",
+        "rejected_by": "declarations.line"
+      },
+      {
+        "mutation": "elf.count",
+        "rejected_by": "native.counts.all_elf"
+      },
+      {
+        "mutation": "runtime.flag",
+        "rejected_by": "review.runtime"
+      }
+    ],
+    "project_template_check": {
+      "generated_project_only": true,
+      "commercial_package_copied": false,
+      "semantics": "binary_free_stage_template",
+      "subprocess_regressions_passed": 3,
+      "arkts_compiled": false
+    },
+    "entitlement": {
+      "commercial_main_agreement_confirmed": false,
+      "huawei_tool_use_confirmed": false,
+      "agreements_accepted_by_agent": false,
+      "license_pointer": "package/LICENSE L7, L10, L22",
+      "har_license_sha256": "3bdcc213b42d0e58c8c4857c86f907d3de3987081cb875e1f755090b2b1b1a63",
+      "real_authorized_host_confirmed": false
+    },
+    "public_sources": [
+      {
+        "doc_id": "4189",
+        "status": 200,
+        "html_sha256": "73cbfefc664c58b7740d3d5cae5fc0380a05f88d09b5da2b2aa139916ae7a8c6",
+        "reference": "https://open.ys7.com/help/4189"
+      },
+      {
+        "doc_id": "4190",
+        "status": 200,
+        "html_sha256": "3f1cdceeeac624f287f888af047fe28f85fc7e09cd991cac3531b137656f8b72",
+        "reference": "https://open.ys7.com/help/4190"
+      },
+      {
+        "doc_id": "4217",
+        "status": 200,
+        "html_sha256": "f8cbd25e5ab6b51eb794c414fab06dd4062e02f500d97b394286abffac579b77",
+        "reference": "https://open.ys7.com/help/4217"
+      },
+      {
+        "doc_id": "4191",
+        "status": 200,
+        "html_sha256": "1e749d259c66dda20f1fbb34b4c5b70d9682e07a956cda6224e26ec048e0b687",
+        "reference": "https://open.ys7.com/help/4191"
+      }
+    ],
+    "checked_source_sha256": {
+      "docs/official-mobile-sdk.md": "3eda00bc0c572ac02bbea4576a292adeb1e2ae7c80e15b9439f54850a173b285",
+      "docs/validation/2026-11-21-native-harmony-sdk/source-review.json": "4b477bc3dbc7144548c9525f60b60b7486a351343f42adb00799217571774aaa",
+      "examples/harmony_sdk_build/ProbeAbility.ets": "aababa3712b194682d5e19f132d4b44a99a7a58258300a06d8087ab6d3983b59",
+      "tests/test_native_harmony_template.py": "98ffd47e4c2c24b5bda71cc1d8f4be53ab4d589b6e94dbc5a54c3c7bb3357cdc",
+      "tools/native/stage_harmony_consumer.py": "63abd6f910493a21242a0641539d10c7a50686242ca73441a08528032e51d295",
+      "tools/native/verify_harmony_release.py": "edffe3485b70cd8cb0cb9b1f05d3cf44d4e93f9b42d2c3d9fb587e72495ffa16"
+    },
+    "delegation": {
+      "model": "devin/swe-2",
+      "effort": "max",
+      "checks": [
+        {
+          "task": "SP544-VerifyNormal",
+          "local_execution_sha256": "a6520bd09981e1b03375710b3e77dd147dd3be2fdcc458c1af4791c4a31576cf",
+          "result_reported_by": "Bash"
+        },
+        {
+          "task": "SP544-VerifySelfTest",
+          "local_execution_sha256": "005c764b79bbe422f00d0d700d1632da3cd67bfeb62532e324ee19a4478ce1bc",
+          "result_reported_by": "Bash"
+        },
+        {
+          "task": "SP544-VerifyFinalLint",
+          "local_execution_sha256": "2bb119eae8c97da78fae81123d2abd9edfdfc078cbc2423b9d4ccccf73f24da3",
+          "result_reported_by": "Bash"
+        },
+        {
+          "task": "SP544-VerifyFinalFormat",
+          "local_execution_sha256": "d352fdc4c03638f21fa4df3643fc1d9c1be96cc9aaab1c99d88e8b5c4a14d271",
+          "result_reported_by": "Bash"
+        },
+        {
+          "task": "SP544-TemplateRun",
+          "local_execution_sha256": "560a021247049ef5f3749618a61ca21cdb8f617cf8f0b2ec695b9e6e5d0c668f",
+          "result_reported_by": "Bash"
+        },
+        {
+          "task": "SP544-TemplateRuff",
+          "local_execution_sha256": "00d5de5a263c75a38aa5d69d6c4e35476bf40e174b5cf56a7c9637dcac726896",
+          "result_reported_by": "Bash"
+        },
+        {
+          "task": "SP544-TemplateFormat",
+          "local_execution_sha256": "e68707c58e82ea16178519fc61cc3308366683b43db917411c7ef0e89b46945d",
+          "result_reported_by": "Bash"
+        },
+        {
+          "task": "SP544-TemplateRegressionPytest",
+          "local_execution_sha256": "c2610b06a05adc5e459806cb2fadb5b4b5739c741fcaaea1cf245de1f044ad48",
+          "result_reported_by": "Bash"
+        },
+        {
+          "task": "SP544-TemplateRegressionRuff",
+          "local_execution_sha256": "286031a02fab09da48e24f29369d374ff4f10cacbb893d6115dbfeb7ea4925a2",
+          "result_reported_by": "Bash"
+        },
+        {
+          "task": "SP544-TemplateRegressionFormat",
+          "local_execution_sha256": "42353f1d30ec3c521d1e091c3799047df68cb110c0aa80dbea3f50eec9f36da1",
+          "result_reported_by": "Bash"
+        }
+      ],
+      "private_receipt_sha256": {
+        "SP544-TemplateReceipt": "25343e27cef3894363b5dbc12757007542a3af75252c242d74079b8eca86e313",
+        "SP544-TemplateRegressionReceipt": "acf2288132a69bd28adee0bf230256bf5c683571296f28f6ed2f6fef4295bc75",
+        "SP544-SourceReceipt": "85674bfc91faa41ba9b332215c2ee8094c419cdd521384bcfd4037f20f246bc1",
+        "SP544-VerifyReceipt": "3cb1b26f9b19f2fb90f2d02b4662131118cde35a5b0ace8fc3d24e8100bfecb1",
+        "SP544-tool-preflight": "3950218895ed39181b4f5629d67ba2eabfc97d73f982b3c8454fb7f4e568aaf6",
+        "SP544-public-review": "9f5fee77dfe7d775108e60c50d82b2f9c3a1418582d53138d24536e5e312c6a6",
+        "SP544-source-package": "a9a210b31ab437a707dcb1c24d6c695390a0fa310fbaf22e63f0e8032b4c6459",
+        "SP545-AcceptanceDocR1-execution": "c913dd3b7b172d073379d19b1bd623f04dcdf2903d2ce5a625fe5c87226ecacd",
+        "SP545-RoadmapDoc-execution": "d862a83a71d02e5d76f255beb7ea8b8572074e8964b0cdc300f0b537073ba790"
+      }
+    }
+  },
+  "required_hap_case": {
+    "case_id": "ACC-HARMONY-190-UNSIGNED-HAP-001",
+    "result": "awaiting_resource_confirmation",
+    "execution_outcome": "not_verified",
+    "criteria": {
+      "RELEASE_INPUT": "met",
+      "ARKTS_CONSUMER": "pending",
+      "HVIGOR_BUILD": "pending",
+      "HAP_CONTENT": "pending",
+      "BUILD_NEGATIVES": "pending"
+    },
+    "blockers": [
+      "萤石商业 HAR 主协议及其适用构建主体未获确认；尚无本次任务可用且已获授权的 API12 构建环境。"
+    ]
+  },
+  "real_device_case": {
+    "case_id": "ACC-HARMONY-190-SIGNED-DEVICE-001",
+    "result": "awaiting_resource_confirmation"
+  },
+  "limits": "静态 HAR 证据、公开声明与模板结构检查均不证明成功编译 HAP。没有接受协议、使用商业 HAR 集成、签名、安装、启动、账号调用或媒体访问。"
+}

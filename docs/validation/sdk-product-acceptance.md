@@ -17,6 +17,10 @@
 
 认证和首页首台选择已完成，同步计划查询返回 SDK 错误。首次失败即停，异步未执行。未记录计划内容、业务码或原始异常，无法据此判定权限、设备状态或型号支持。 本次获准上限为 5 次 HTTP，实际放行 3 次。本项仍待通过。[脱敏回执](live/2026-11-20-singapore-first-device-working-mode-plan/receipt.json)
 
+## 鸿蒙原生 SDK 1.9.0 产品验收
+
+本批在 1.9.0 中核对了 5 个公开 ArkTS 方法声明，它们分在两个公开声明文件中。静态档案与仅含本仓库代码的无 HAR 工程模板分别可验证。集成前须已签署有效的商业主协议并从中取得使用权，所用华为工具须独立具备相应授权。本批没有生成、签名或运行消费方 HAP；真机和 EZControl 行为仍待验证。[接入指南](../official-mobile-sdk.md) · [验收记录](2026-11-21-native-harmony-sdk/checks.json)
+
 ## Android SDK 5.34 未签名 release APK 验收核对
 
 本次验收核对针对 Android SDK 5.34 的未签名 release APK，逐项检查消费工程调用的七个方法名、九个 DEX 方法描述符，以及 armeabi-v7a 与 arm64-v8a 两种 ABI 的 JNI 本地库和资源是否齐备一致。Gradle 离线重建已通过，最终 APK 中的九个调用、74 个原生库和 58 个 assets 均已核对。签名、安装、真实设备授权与运行仍为独立待核项，不在本次核对覆盖范围之内。[接入指南](../official-mobile-sdk.md) · [验收记录](2026-11-21-native-android-build/checks.json)
