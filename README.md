@@ -625,6 +625,18 @@ python -m examples.talk_speaker_volume --mode sync
 
 `examples/public_areas`为无凭据示例，固定使用`https://open.ezvizlife.com`，stdout只输出顶层数组条数（`status=ok`、`items=<len>`），非数组顶层返回固定`unexpected_data_type`/`items=null`并以1退出；不输出字段级验收、原始值或未知key，无env读取、无凭据、无文件写入。该示例CLI本身的固定数量输出与上述验收证据相互独立；验收走独立origin构造与有界回执，不借CLI输出充当证据。
 
+### 国内移动跟踪与人形追踪开关
+
+移动跟踪按文档 722 与 723 区分读写权限。722 明确将能力位 `support_intelligent_track=1` 列为写入（Config）前置条件。723 仅声明读取侧 Get 权限，未就该能力位单独表态。异步客户端的方法同名，调用时加 `await`。读取用 `client.settings.get_motion_tracking(device_serial)`，写入用 `client.settings.set_motion_tracking(device_serial, enabled=False, channel_no=channel_no)`。可选 `channel_no` 仅在写入时传字符串，子账号写入需按 Cam 设备和通道授予 Config，读取需同范围授予 Get。`VideoSwitch.FEATURE_TRACKING=701` 是另有文档的特写追踪能力，SDK 不会把它作为回退检查。任何实际改动须先获授权、知晓原状态并备好恢复方案，setter 只发一次业务调用且不重试。[移动跟踪设置 722](https://open.ys7.com/help/722) 与 [移动跟踪读取 723](https://open.ys7.com/help/723)。
+
+人形追踪对应 `client.settings.get_human_tracking(device_serial)` 和 `client.settings.set_human_tracking(device_serial, enabled=False)`，异步同样同名加 await。接口在请求头携带 token 和设备序列号，请求中没有通道参数，文档也未说明最低授权或托管账号要求，其中 728 的 GET 即使无请求体也按文档发送表单 content-type。命令行 `read-motion` 和 `read-human` 需要当前已授权的国内配置及 `EZVIZ_DEVICE_SERIAL`，只输出启用状态，0 和 1 分别打印 false 和 true，未知打印 null。`write-demo` 使用合成的认证与业务传输层，两次写入均不依赖真实环境、凭证或设备，相关校验全部为合成验证。详见平台文档 [728](https://open.ys7.com/help/728) 与 [729](https://open.ys7.com/help/729)。
+
+```sh
+python -m examples.tracking_switches --mode sync --action read-motion
+python -m examples.tracking_switches --action read-human --mode async
+python -m examples.tracking_switches --mode sync --action write-demo
+```
+
 ## 视频配置
 
 `client.video`提供清晰度、预览编码、音视频codec、视频类开关的设置，以及本地录像编码和开关查询，仅国内。预览参数使用`PreviewEncoding`，分辨率/帧率是官方枚举代码；本地录像查询不视为预览设置的逆操作。`VideoSwitch`包含隐私遮蔽、休眠、人脸开锁、特写追踪和LOGO；设置不自动重放。JSON/form位置、权限、参数省略规则和源码缺项见[视频说明](docs/research/2026-11-14-video-configuration.md)，真实效果仍未验证。

@@ -17,6 +17,10 @@
 
 认证和首页首台选择已完成，同步计划查询返回 SDK 错误。首次失败即停，异步未执行。未记录计划内容、业务码或原始异常，无法据此判定权限、设备状态或型号支持。 本次获准上限为 5 次 HTTP，实际放行 3 次。本项仍待通过。[脱敏回执](live/2026-11-20-singapore-first-device-working-mode-plan/receipt.json)
 
+## 国内移动跟踪和人形追踪开关验收
+
+四项国内追踪开关分别覆盖移动跟踪和人形追踪的查询与设置，移动跟踪接口采用字符串成功码判定结果，人形追踪接口采用整数业务码判定结果，特写追踪 type 701 属于独立契约不在本批范围内，同步与异步实现的本批验证均通过合成传输完成，未读取真实设备，未实际开启追踪，也未确认任何物理效果。[冻结契约](../coordination/domestic-tracking-switches/admission.json) · [离线回执](2026-11-21-domestic-tracking-switches/offline.json)
+
 ## 国内 671 国标 License 元数据查询验收
 
 国内 671 接口按显式项目编码读取一页国标 License 元数据，GET 请求使用表单正文提交参数，并与 5369 分页设备列表分别登记。SDK 与 CLI 的同步和异步验证仅使用合成传输，示例只报告返回条数，不输出令牌、项目或设备条目。本批未查询真实业务账号和项目，实际授权与网关兼容性待核。[冻结契约](../coordination/domestic-gb-license-list/admission.json) · [离线回执](2026-11-21-domestic-gb-license-list/offline.json)

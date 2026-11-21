@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "a8ed6c81e8f1a5f23260b2f2f011a6299fa92f57",
+  "scope_revision": "2026-11-21-r63-domestic-tracking-switches",
+  "cohort_id": "DOMESTIC-TRACKING-SWITCHES-001",
+  "operations": [
+    {
+      "operation_id": "cn.settings.set_motion_tracking",
+      "capability_id": "candidate:domestic:722:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-722-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-722-D0-LIVE-001"
+      ],
+      "entry": "settings.set_motion_tracking",
+      "name": "set_motion_tracking",
+      "doc_id": "722",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/lapp/device/mobile/status/set",
+      "read_only": false,
+      "source_url": "https://open.ys7.com/help/722",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/722.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/722.structure.json",
+      "html_sha256": "1186da0532fe69545c427fbc979ac519700fa68cce182cf64d6cfc46d57fa5f0",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "enable",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 54,
+        "example": 58,
+        "fields": 62,
+        "errors": 78
+      },
+      "signatures": {
+        "Settings": "def set_motion_tracking(self, device_serial: str, *, enabled: bool, channel_no: str | None = None) -> ApiResponse",
+        "AsyncSettings": "async def set_motion_tracking(self, device_serial: str, *, enabled: bool, channel_no: str | None = None) -> ApiResponse"
+      },
+      "permission": "子账户最小 Config，Cam 资源限定到设备和通道。",
+      "prerequisites": "需要支持该项开关的设备。原文明确要求 support_intelligent_track=1。",
+      "unknown": "722 E14 enable 为字符串，E54 示例展示 1。与 723 E50 合并认定 0/1 的含义。未说明省略 channelNo 的通道选择。"
+    },
+    {
+      "operation_id": "cn.settings.get_motion_tracking",
+      "capability_id": "candidate:domestic:723:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-723-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-723-D0-LIVE-001"
+      ],
+      "entry": "settings.get_motion_tracking",
+      "name": "get_motion_tracking",
+      "doc_id": "723",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/lapp/device/mobile/status/get",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/723",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/723.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/723.structure.json",
+      "html_sha256": "4f11b19412f3a11140d211def8389f355b573522a797a20b44bc2db699297cf4",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 42,
+        "example": 46,
+        "fields": 50,
+        "errors": 82
+      },
+      "signatures": {
+        "Settings": "def get_motion_tracking(self, device_serial: str) -> ApiResponse",
+        "AsyncSettings": "async def get_motion_tracking(self, device_serial: str) -> ApiResponse"
+      },
+      "permission": "子账户最小 Get，Cam 资源限定到设备和通道。",
+      "prerequisites": "需要支持该项开关的设备。",
+      "unknown": "723 E3 使用设置字样；标题、Get 权限、路径及 E46 响应共同支持读取。请求不含通道。"
+    },
+    {
+      "operation_id": "cn.settings.get_human_tracking",
+      "capability_id": "candidate:domestic:728:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-728-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-728-D0-LIVE-001"
+      ],
+      "entry": "settings.get_human_tracking",
+      "name": "get_human_tracking",
+      "doc_id": "728",
+      "region": "domestic",
+      "method": "GET",
+      "path": "/api/v3/device/switch/human/track",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/728",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/728.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/728.structure.json",
+      "html_sha256": "101f9602c5a0c416406c9e88ca53110a5a62966980d37c5f80492aa6e1e87fef",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 42,
+        "example": 46,
+        "fields": 50,
+        "errors": 90
+      },
+      "signatures": {
+        "Settings": "def get_human_tracking(self, device_serial: str) -> ApiResponse",
+        "AsyncSettings": "async def get_human_tracking(self, device_serial: str) -> ApiResponse"
+      },
+      "permission": "国内应用凭据；本页未给出子账户权限。",
+      "prerequisites": "需要支持该项开关的设备。",
+      "unknown": "728 E14 将 Content-Type 列为必填，E42 示例省略。按参数表发送，不设正文。未给出能力位、最低权限或机型。"
+    },
+    {
+      "operation_id": "cn.settings.set_human_tracking",
+      "capability_id": "candidate:domestic:729:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-729-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-729-D0-LIVE-001"
+      ],
+      "entry": "settings.set_human_tracking",
+      "name": "set_human_tracking",
+      "doc_id": "729",
+      "region": "domestic",
+      "method": "PUT",
+      "path": "/api/v3/device/switch/human/track",
+      "read_only": false,
+      "source_url": "https://open.ys7.com/help/729",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/729.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/729.structure.json",
+      "html_sha256": "b3bfe5b6ab2597f3170c11629d136105cf464c23a50d12b9f63695fa1f523223",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "enable",
+          "type": "Int",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 48,
+        "example": 52,
+        "fields": 56,
+        "errors": 80
+      },
+      "signatures": {
+        "Settings": "def set_human_tracking(self, device_serial: str, *, enabled: bool) -> ApiResponse",
+        "AsyncSettings": "async def set_human_tracking(self, device_serial: str, *, enabled: bool) -> ApiResponse"
+      },
+      "permission": "国内应用凭据；本页未给出子账户权限。",
+      "prerequisites": "需要支持该项开关的设备。",
+      "unknown": "729 的空 data 只表示接口应答。设备生效、能力前提及可恢复性待另行核验。"
+    }
+  ],
+  "sdk_choices": [
+    "移动跟踪和人形追踪分别提供独立的国内 Settings 和 AsyncSettings 方法。既有 VideoSwitch.FEATURE_TRACKING=701 是特写追踪，其 support_feature_track 与 722 support_intelligent_track 不同。无回退或别名。",
+    "四个方法在诊断作用域内先检查国内区域，随后在认证前检查输入。722/723 使用非空文本及国内大写字母序列号规则。728/729 采用安全请求头字段的打印 ASCII 校验，保留大小写。移动跟踪仅设置支持可选非空 UTF-8 字符串 channel_no，保留前导零，缺省省略。",
+    "两项写入仅接受真 bool。722 表单 enable 使用字符串 0 或 1，其开关含义据 722 E54 与 723 E50。729 enable 是整数语义，按普通表单编码。两项写入各只发单次业务请求，不重放，不自动查询能力、状态或恢复值。两项读取按既有只读策略至多刷新一次失效令牌。",
+    "四个接口发送表单 Content-Type。728 GET 参数表要求该头而 curl 示例省略，采用正式表格，正文为空。移动跟踪根层 code 为字符串 200，用 msg。人形追踪根 meta.code 为整数 200，用 meta.message。严检成功码类型。错误展示复用脱敏策略，不包含原始请求、设备与上游消息。",
+    "读取返回原始 ApiResponse，data 须为对象且 enable 为真正整数。deviceSerial 和 channelNo 如出现则要求字符串和真正整数。保留未知整数、附加字段及原始成功 data/raw。写入 ACK 接受无 data、null 或扩展数据。无隐式通道默认值。",
+    "示例 python -m examples.tracking_switches --mode sync|async --action read-motion|read-human|write-demo。读取使用当前显式国内配置和 EZVIZ_DEVICE_SERIAL，每次仅调用选中的读取。输出仅 enabled，0/1 对应 false/true，其他返回 null。write-demo 不接触真实配置，仅合成认证和业务 MockTransport，各调用一次两个设置，输出 simulated、motion_write、human_write 三个 true。usage 和 error 文本固定，退出码 0、1 或中断 130，意外 RuntimeError 传播。",
+    "未执行真实读写。硬件型号/固件兼容、真实权限和设置生效均须单独核验。写入须事先明确授权、原状态、影响范围和恢复方案。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/settings.py",
+    "src/ezviz_unified/video.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本批仅合成传输。此前设备检查授权仅涵盖约定的设备检查。"
+}

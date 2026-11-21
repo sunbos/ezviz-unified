@@ -85,6 +85,53 @@ _MOTION_AREA_OVERSEAS_POLICY = replace(
     redact_device_add_details=True,
 )
 
+_HUMAN_TRACKING_POLICY = replace(
+    _DOMESTIC_DEVICE_SETTINGS_POLICY,
+    code_path="meta.code",
+    message_path="meta.message",
+    success_values=(200,),
+)
+
+_SET_MOTION_TRACKING = Operation(
+    name="settings.set_motion_tracking",
+    method="POST",
+    path="/api/lapp/device/mobile/status/set",
+    regions=frozenset({_DOMESTIC}),
+    token_location="form",
+    read_only=False,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
+_GET_MOTION_TRACKING = Operation(
+    name="settings.get_motion_tracking",
+    method="POST",
+    path="/api/lapp/device/mobile/status/get",
+    regions=frozenset({_DOMESTIC}),
+    token_location="form",
+    read_only=True,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
+_GET_HUMAN_TRACKING = Operation(
+    name="settings.get_human_tracking",
+    method="GET",
+    path="/api/v3/device/switch/human/track",
+    regions=frozenset({_DOMESTIC}),
+    token_location="header",
+    read_only=True,
+    policy=_HUMAN_TRACKING_POLICY,
+)
+
+_SET_HUMAN_TRACKING = Operation(
+    name="settings.set_human_tracking",
+    method="PUT",
+    path="/api/v3/device/switch/human/track",
+    regions=frozenset({_DOMESTIC}),
+    token_location="header",
+    read_only=False,
+    policy=_HUMAN_TRACKING_POLICY,
+)
+
 _GET_MOTION_SENSITIVITY = Operation(
     name="settings.get_motion_sensitivity",
     method="POST",
@@ -246,6 +293,7 @@ _SET_TIMING_PLAN = Operation(
 )
 
 _FORM_CONTENT_TYPE = "application/x-www-form-urlencoded"
+_TRACKING_FORM_HEADERS = {"Content-Type": _FORM_CONTENT_TYPE}
 
 # Domestic talk speaker volume pair (docs 1718/1719): GET reads the value
 # the device last reported, POST writes the speaker percentage. Both share
@@ -658,6 +706,22 @@ def _motion_area_value(area: str) -> str:
     return text
 
 
+def _tracking_switch_response(response: ApiResponse) -> ApiResponse:
+    data = response.data
+    if (
+        type(data) is not dict
+        or type(data.get("enable")) is not int
+        or ("deviceSerial" in data and type(data["deviceSerial"]) is not str)
+        or ("channelNo" in data and type(data["channelNo"]) is not int)
+    ):
+        raise ProtocolError(
+            "invalid tracking switch response",
+            operation=response.operation,
+            http_status=response.http_status,
+        ) from None
+    return response
+
+
 def _motion_area_response(response: ApiResponse) -> ApiResponse:
     """Return the response when the motion area payload shape is valid."""
     data = response.data
@@ -1045,6 +1109,64 @@ class Settings:
         with _diagnostic_scope(self._client, entrypoint="settings.set_switch", mode="sync"):
             op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
             return self._client.request(op, data=data)
+
+    def set_motion_tracking(
+        self, device_serial: str, *, enabled: bool, channel_no: str | None = None
+    ) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.set_motion_tracking", mode="sync"
+        ):
+            _require_domestic(self._client.region.scope)
+            form: dict[str, str | int] = {
+                "deviceSerial": _check_serial(
+                    _check_text(device_serial, "device_serial"), domestic=True
+                ),
+                "enable": _enable_value(_check_enabled(enabled), as_string=True),
+            }
+            if channel_no is not None:
+                form["channelNo"] = _check_text(channel_no, "channel_no")
+            return self._client.request(
+                _SET_MOTION_TRACKING, data=form, headers=_TRACKING_FORM_HEADERS
+            )
+
+    def get_motion_tracking(self, device_serial: str) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_motion_tracking", mode="sync"
+        ):
+            _require_domestic(self._client.region.scope)
+            form: dict[str, str] = {
+                "deviceSerial": _check_serial(
+                    _check_text(device_serial, "device_serial"), domestic=True
+                )
+            }
+            response = self._client.request(
+                _GET_MOTION_TRACKING, data=form, headers=_TRACKING_FORM_HEADERS
+            )
+            return _tracking_switch_response(response)
+
+    def get_human_tracking(self, device_serial: str) -> ApiResponse:
+        with _diagnostic_scope(self._client, entrypoint="settings.get_human_tracking", mode="sync"):
+            _require_domestic(self._client.region.scope)
+            response = self._client.request(
+                _GET_HUMAN_TRACKING,
+                headers={
+                    "Content-Type": _FORM_CONTENT_TYPE,
+                    "deviceSerial": _header("device_serial", device_serial),
+                },
+            )
+            return _tracking_switch_response(response)
+
+    def set_human_tracking(self, device_serial: str, *, enabled: bool) -> ApiResponse:
+        with _diagnostic_scope(self._client, entrypoint="settings.set_human_tracking", mode="sync"):
+            _require_domestic(self._client.region.scope)
+            return self._client.request(
+                _SET_HUMAN_TRACKING,
+                data={"enable": _enable_value(_check_enabled(enabled), as_string=False)},
+                headers={
+                    "Content-Type": _FORM_CONTENT_TYPE,
+                    "deviceSerial": _header("device_serial", device_serial),
+                },
+            )
 
     def get_motion_sensitivity(self, device_serial: str) -> ApiResponse:
         """Return the motion detection sensitivity of a domestic device."""
@@ -1564,6 +1686,68 @@ class AsyncSettings:
         with _diagnostic_scope(self._client, entrypoint="settings.set_switch", mode="async"):
             op, data = _set_data(switch, device_serial, enabled, channel, self._client.region.scope)
             return await self._client.request(op, data=data)
+
+    async def set_motion_tracking(
+        self, device_serial: str, *, enabled: bool, channel_no: str | None = None
+    ) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.set_motion_tracking", mode="async"
+        ):
+            _require_domestic(self._client.region.scope)
+            form: dict[str, str | int] = {
+                "deviceSerial": _check_serial(
+                    _check_text(device_serial, "device_serial"), domestic=True
+                ),
+                "enable": _enable_value(_check_enabled(enabled), as_string=True),
+            }
+            if channel_no is not None:
+                form["channelNo"] = _check_text(channel_no, "channel_no")
+            return await self._client.request(
+                _SET_MOTION_TRACKING, data=form, headers=_TRACKING_FORM_HEADERS
+            )
+
+    async def get_motion_tracking(self, device_serial: str) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_motion_tracking", mode="async"
+        ):
+            _require_domestic(self._client.region.scope)
+            form: dict[str, str] = {
+                "deviceSerial": _check_serial(
+                    _check_text(device_serial, "device_serial"), domestic=True
+                )
+            }
+            response = await self._client.request(
+                _GET_MOTION_TRACKING, data=form, headers=_TRACKING_FORM_HEADERS
+            )
+            return _tracking_switch_response(response)
+
+    async def get_human_tracking(self, device_serial: str) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_human_tracking", mode="async"
+        ):
+            _require_domestic(self._client.region.scope)
+            response = await self._client.request(
+                _GET_HUMAN_TRACKING,
+                headers={
+                    "Content-Type": _FORM_CONTENT_TYPE,
+                    "deviceSerial": _header("device_serial", device_serial),
+                },
+            )
+            return _tracking_switch_response(response)
+
+    async def set_human_tracking(self, device_serial: str, *, enabled: bool) -> ApiResponse:
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.set_human_tracking", mode="async"
+        ):
+            _require_domestic(self._client.region.scope)
+            return await self._client.request(
+                _SET_HUMAN_TRACKING,
+                data={"enable": _enable_value(_check_enabled(enabled), as_string=False)},
+                headers={
+                    "Content-Type": _FORM_CONTENT_TYPE,
+                    "deviceSerial": _header("device_serial", device_serial),
+                },
+            )
 
     async def get_motion_sensitivity(self, device_serial: str) -> ApiResponse:
         """Return the motion detection sensitivity of a domestic device."""
