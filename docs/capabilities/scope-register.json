@@ -579,7 +579,7 @@
     "harmony_native_build_admission": {
       "path": "docs/coordination/native-harmony-sdk-build/scope.json",
       "schema": 1,
-      "sha256": "e0b1300723b2091e38b287e74987788901ad0f6e6b877927aaccc60c8f0b2290"
+      "sha256": "9bac01979998898ca46c789c2530cf03938b205a49a84a653f27b58edd285342"
     }
   },
   "scope_state": {

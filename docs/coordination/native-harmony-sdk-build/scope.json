@@ -231,7 +231,24 @@
     "not_located": [
       "setServerUrl",
       "setSurfaceHold"
-    ]
+    ],
+    "native_merge_observations": {
+      "unversioned_so_occurrences": 50,
+      "unversioned_so_basenames": 45,
+      "unversioned_so_content_digests": 49,
+      "all_elf_occurrences": 54,
+      "all_elf_basenames": 49,
+      "all_elf_content_digests": 51,
+      "conflicting_unversioned_names": [
+        "libSystemTransform.so",
+        "libc++_shared.so",
+        "libhpr.so"
+      ],
+      "same_content_duplicate_unversioned_names": [
+        "libstunclient.so"
+      ],
+      "selected_output_sources": "unknown_until_real_hvigor_build"
+    }
   },
   "sources": [
     {
