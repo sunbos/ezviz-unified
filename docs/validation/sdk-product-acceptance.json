@@ -12258,19 +12258,30 @@
       "pending_questions": [
         "E14 要求 channelNo，E48 示例省略。示例按参数表发送。查询权限、设备支持、实际响应和未知选择器的含义尚待核验。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_channel_light_linkage.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_light_linkage.py",
+        "examples/light_linkage.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "284f90e2c82c7da523f84152836b29b7649b6aaf",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-channel-light-linkage/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1742-D0-OFFLINE-001",

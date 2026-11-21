@@ -4216,7 +4216,7 @@
         "AsyncSettings.get_channel_light_linkage"
       ],
       "public_entry": "settings.get_channel_light_linkage",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
