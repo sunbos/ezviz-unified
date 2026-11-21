@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "911fcca1d3ee1d8aacef1b0cceef0b418274d979",
+  "scope_revision": "2026-11-21-r66-domestic-advanced-detection-type",
+  "cohort_id": "DOMESTIC-ADVANCED-DETECTION-TYPE-001",
+  "operations": [
+    {
+      "operation_id": "cn.settings.get_advanced_alarm_detection_type",
+      "capability_id": "candidate:domestic:1742:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1742-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1742-D0-LIVE-001"
+      ],
+      "entry": "settings.get_advanced_alarm_detection_type",
+      "name": "get_advanced_alarm_detection_type",
+      "doc_id": "1742",
+      "region": "domestic",
+      "method": "GET",
+      "path": "/api/v3/das/device/detect/switch/get",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/1742",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/1742.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/1742.structure.json",
+      "html_sha256": "757d9f4517dafbcb9a935e8b9791c5422a6b944ab7d9fb9f8085ab1d477884fc",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 36,
+        "example": 40,
+        "fields": 44,
+        "errors": 60
+      },
+      "signatures": {
+        "Settings": "def get_advanced_alarm_detection_type(self, device_serial: str) -> ApiResponse",
+        "AsyncSettings": "async def get_advanced_alarm_detection_type(self, device_serial: str) -> ApiResponse"
+      },
+      "permission": "国内账户可查询已授权设备。本页未声明最低角色、托管权限、套餐或能力位。",
+      "prerequisites": "支持高级告警侦测类型查询的设备，适用型号与固件待实测。",
+      "unknown": "文档返回单个整数类型。E60 只列成功码，错误枚举及真实设备适用范围仍待核定。",
+      "envelope_paths": [
+        ""
+      ]
+    }
+  ],
+  "public_document_recheck": {
+    "public_reference": "https://open.ys7.com/help/1742",
+    "http_status": 200,
+    "checked_at_utc": "2026-11-21T02:34:30.364316+00:00",
+    "html_sha256": "757d9f4517dafbcb9a935e8b9791c5422a6b944ab7d9fb9f8085ab1d477884fc",
+    "device_api_requests": 0,
+    "account_api_requests": 0
+  },
+  "sdk_choices": [
+    "仅查询设备报告的高级告警侦测类型。1742 的 valueInfo.type 在 E44 以单个 Int 定义，0 表示关闭、4 表示活动侦测、8 表示人形检测。SDK 保留未知整数供调用方判断，不推导设备支持的类型列表。1725 的人形/PIR 模式和 726 的智能检测开关各有不同的路径与类型，继续使用各自入口。",
+    "同步与异步方法在同名诊断作用域内先检查国内区域，然后使用现有 _header 验证序列号。GET 请求仅带官方指定的 accessToken、deviceSerial 两项业务请求头，不传通道、type、Content-Type、查询参数或正文。令牌由已有认证处理。收到令牌失效且满足既有条件时只刷新重试一次，不探测能力、读取其它模式或变更设备。",
+    "按 E40 认定根层 code 必须为字符串 200，原始 ApiResponse.data 与 raw 保留，data.valueInfo.type 必须为真整数，拒绝 bool、string、list 和错层结构。复用已有 1725 响应形状校验及国内严格脱敏策略，保留旧入口的固定错误文本和行为。上游自由文本、HTTP reason、设备标识及请求内容不进入诊断与示例输出。",
+    "复用 examples.intelligent_detection，增加一个动作 read-advanced-type。沿用 --mode sync|async 和现有国内显式配置，查询一次指定设备，stdout 只保留 JSON 对象的 type 字段，0/4/8 映射 off/motion/human，其他整数返回 null。其它读动作及原合成 write-demo 的请求、输出、取消和错误语义保持。把动作清单更新为 read-scene-switch|read-body-switch|read-face-switch|read-mode|read-advanced-type|write-demo。",
+    "本次执行全部使用合成传输，未读硬件、告警或媒体。真实读取需另行确认国内账户、设备、请求预算及访问范围，仅留匿名结果与形态。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/settings.py",
+    "examples/intelligent_detection.py",
+    "docs/coordination/domestic-intelligent-detection/admission.json",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "本次仅合成执行，未提交真实高级告警检测查询。"
+}

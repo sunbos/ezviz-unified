@@ -142,6 +142,16 @@ _GET_ALARM_DETECTION_MODE = Operation(
     policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
 )
 
+_GET_ADVANCED_ALARM_DETECTION_TYPE = Operation(
+    name="settings.get_advanced_alarm_detection_type",
+    method="GET",
+    path="/api/v3/das/device/detect/switch/get",
+    regions=frozenset({_DOMESTIC}),
+    token_location="header",
+    read_only=True,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
 _GET_MOTION_TRACKING = Operation(
     name="settings.get_motion_tracking",
     method="POST",
@@ -1247,6 +1257,18 @@ class Settings:
             )
             return _alarm_detection_mode_response(response)
 
+    def get_advanced_alarm_detection_type(self, device_serial: str) -> ApiResponse:
+        """Return the single reported advanced alarm detection type (domestic only)."""
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_advanced_alarm_detection_type", mode="sync"
+        ):
+            _require_domestic(self._client.region.scope)
+            response = self._client.request(
+                _GET_ADVANCED_ALARM_DETECTION_TYPE,
+                headers={"deviceSerial": _header("device_serial", device_serial)},
+            )
+            return _alarm_detection_mode_response(response)
+
     def set_motion_tracking(
         self, device_serial: str, *, enabled: bool, channel_no: str | None = None
     ) -> ApiResponse:
@@ -1884,6 +1906,18 @@ class AsyncSettings:
             _require_domestic(self._client.region.scope)
             response = await self._client.request(
                 _GET_ALARM_DETECTION_MODE,
+                headers={"deviceSerial": _header("device_serial", device_serial)},
+            )
+            return _alarm_detection_mode_response(response)
+
+    async def get_advanced_alarm_detection_type(self, device_serial: str) -> ApiResponse:
+        """Return the single reported advanced alarm detection type (domestic only)."""
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_advanced_alarm_detection_type", mode="async"
+        ):
+            _require_domestic(self._client.region.scope)
+            response = await self._client.request(
+                _GET_ADVANCED_ALARM_DETECTION_TYPE,
                 headers={"deviceSerial": _header("device_serial", device_serial)},
             )
             return _alarm_detection_mode_response(response)

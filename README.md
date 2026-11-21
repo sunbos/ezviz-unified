@@ -636,15 +636,20 @@ python -m examples.talk_speaker_volume --mode sync
 
 `examples/public_areas`为无凭据示例，固定使用`https://open.ezvizlife.com`，stdout只输出顶层数组条数（`status=ok`、`items=<len>`），非数组顶层返回固定`unexpected_data_type`/`items=null`并以1退出；不输出字段级验收、原始值或未知key，无env读取、无凭据、无文件写入。该示例CLI本身的固定数量输出与上述验收证据相互独立；验收走独立origin构造与有界回执，不借CLI输出充当证据。
 
-### 国内智能检测开关与人形/PIR 模式
+### 国内智能检测开关、人形/PIR 模式与高级告警侦测类型
 
 `client.settings.get_intelligent_detection_switch(device_serial, detection_type="302")` 读取、`client.settings.set_intelligent_detection_switch(device_serial, enabled=True, detection_type="302", channel_no=channel_no)` 写入智能检测开关，异步客户端以 `await` 调用同名方法。字符串 `"302"` 表示人体检测，`"304"` 表示人脸抠图，省略 `detection_type` 时为画面变化检测。可选字符串 `channel_no` 仅 727 写接口接受，省略时作用于设备级。资料表明智能检测依赖布防且各检测类型互斥。SDK 仅查询或配置指定开关，绝不隐式读取或修改布撤防状态。子账号对 Cam 设备/通道至少需要 726 的 Get 与 727 的 Config 权限，见 [726](https://open.ys7.com/help/726) 与 [727](https://open.ys7.com/help/727)。
 
 `client.settings.get_alarm_detection_mode(device_serial)` 读取当前告警检测模式，`client.settings.select_alarm_detection_mode(device_serial, detection_type="5")` 在 `"1"` AI 人形与 `"5"` PIR 之间选择并即时启用，接口无布尔关闭，读取端解析原始整数 `response.data['valueInfo']['type']`，灵敏度数字编码与布防、移动侦测开关均不可复用。1724/1725 文档未标注最低授权或能力标志，见 [1724](https://open.ys7.com/help/1724) 与 [1725](https://open.ys7.com/help/1725)。CLI 只读模式沿用现有国内显式配置与 `EZVIZ_DEVICE_SERIAL`，3 个开关读取动作仅输出 `enabled`。mode 读取仅输出 `mode`（human/pir）。未知整数枚举返回 `null`。写演示完全在内存中运行，使用合成鉴权与两次合成写入，不读环境变量也不触达真实设备。真实改动需所有者单独授权并具备恢复手段，SDK 不做自动化撤防、抓图或媒体操作。
 
+同步客户端调用 `client.settings.get_advanced_alarm_detection_type(device_serial)`，异步客户端使用 `await` 调用同名方法，用于国内账号读取设备当前上报的单一高级告警侦测类型。SDK 保留 1742 返回的整数 `data.valueInfo.type`，0 表示关闭，4 表示活动侦测，8 表示人形检测，未知整数原样保留，而 CLI 的 `read-advanced-type` 只输出 JSON 字段 `type`，0、4、8 分别映射为字符串 `off`、`motion`、`human`，其余值输出 `null`。
+
+该读数不同于1725 中以 1 和 5 区分人形与 PIR 的口径，也不同于 726 的独立开关接口，文档未提供可支持的类型清单，此处不做推断。1742 页面未说明所需最低角色或权限，适用机型与固件范围亦无记录，本次仅使用合成传输验证。详见 [1742](https://open.ys7.com/help/1742)。
+
 ```sh
 python -m examples.intelligent_detection --mode sync --action read-scene-switch
 python -m examples.intelligent_detection --action read-mode --mode async
+python -m examples.intelligent_detection --mode sync --action read-advanced-type
 python -m examples.intelligent_detection --mode sync --action write-demo
 ```
 

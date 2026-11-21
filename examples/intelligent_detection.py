@@ -13,7 +13,7 @@ from ezviz_unified import ApiResponse, AsyncClient, Client, EzvizError, RegionCo
 from ezviz_unified.settings import _check_serial, _check_text
 from ezviz_unified.vod import _header
 
-_USAGE = "usage: python -m examples.intelligent_detection --mode sync|async --action read-scene-switch|read-body-switch|read-face-switch|read-mode|write-demo"
+_USAGE = "usage: python -m examples.intelligent_detection --mode sync|async --action read-scene-switch|read-body-switch|read-face-switch|read-mode|read-advanced-type|write-demo"
 _ERROR = "error: intelligent detection example failed"
 _APP_KEY = "demo-app-key"
 _APP_SECRET = "demo-app-secret"
@@ -114,6 +114,7 @@ def main(argv: list[str] | None = None) -> int:
             "read-body-switch",
             "read-face-switch",
             "read-mode",
+            "read-advanced-type",
             "write-demo",
         )
     ):
@@ -150,6 +151,8 @@ def main(argv: list[str] | None = None) -> int:
                     response = client.settings.get_intelligent_detection_switch(
                         serial, detection_type=_SWITCH_TYPES[action]
                     )
+                elif action == "read-advanced-type":
+                    response = client.settings.get_advanced_alarm_detection_type(serial)
                 else:
                     response = client.settings.get_alarm_detection_mode(serial)
         else:
@@ -164,21 +167,31 @@ def main(argv: list[str] | None = None) -> int:
                         return await client.settings.get_intelligent_detection_switch(
                             serial, detection_type=_SWITCH_TYPES[action]
                         )
+                    if action == "read-advanced-type":
+                        return await client.settings.get_advanced_alarm_detection_type(serial)
                     return await client.settings.get_alarm_detection_mode(serial)
 
             response = asyncio.run(call_async())
         data = getattr(response, "data", None)
         if not isinstance(data, dict):
             raise ValueError(_ERROR)
-        if action == "read-mode":
+        if action in {"read-mode", "read-advanced-type"}:
             value_info = data.get("valueInfo")
             if not isinstance(value_info, dict):
                 raise ValueError(_ERROR)
             mode_type = value_info.get("type")
             if isinstance(mode_type, bool) or not isinstance(mode_type, int):
                 raise ValueError(_ERROR)
-            mode = "human" if mode_type == 1 else "pir" if mode_type == 5 else None
-            print(json.dumps({"mode": mode}, separators=(",", ":")))
+            if action == "read-advanced-type":
+                print(
+                    json.dumps(
+                        {"type": {0: "off", 4: "motion", 8: "human"}.get(mode_type)},
+                        separators=(",", ":"),
+                    )
+                )
+            else:
+                mode = "human" if mode_type == 1 else "pir" if mode_type == 5 else None
+                print(json.dumps({"mode": mode}, separators=(",", ":")))
         elif action in ("read-scene-switch", "read-body-switch", "read-face-switch"):
             enable = data.get("enable")
             if isinstance(enable, bool) or not isinstance(enable, int):
