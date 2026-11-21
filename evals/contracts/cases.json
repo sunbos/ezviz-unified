@@ -7409,6 +7409,34 @@
           "synthetic": true
         }
       }
+    },
+    {
+      "operation_id": "global.detectors.rename",
+      "args": [
+        {
+          "$ref": "device_serial"
+        },
+        {
+          "$ref": "other_serial"
+        }
+      ],
+      "kwargs": {
+        "new_name": "  模拟名称 A  "
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "detectorSerial": {
+          "$ref": "other_serial"
+        },
+        "newName": "  模拟名称 A  "
+      },
+      "data": {
+        "extra": {
+          "synthetic": true
+        }
+      }
     }
   ]
 }

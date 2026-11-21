@@ -2839,6 +2839,21 @@
         "E40;E44;E72",
         "docs/coordination/domestic-intelligent-detection/admission.json"
       ]
+    },
+    {
+      "id": "global.detectors.rename.name_constraints_and_bare_acknowledgement",
+      "region": "overseas",
+      "source_doc_id": "481",
+      "source_url": "https://open.ys7.com/help/en/481",
+      "source_content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+      "description": "第 1.7 节描述探测器重命名接口。E795 标注请求方法为 POST。E798 重复写作方法标题，随后 E799 给出参数表。E829 的表单示例包含两个序列号、令牌和新名称。E832 的根层字符串 code 与 msg 只确认请求被接受，未说明新显示名何时生效。文档要求新名少于 50 个字符，但未定义长度单位，也未给出特殊字符的完整清单。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 按 Unicode 码点计算长度并校验控制字符，正常文本保留原样不做裁剪。每次调用只发起一笔写入，不自动重试也不回查结果。E835 中本节已知码与 SDK 通用码之外的 int 或 str 返回值均被遮盖，异常分类按原始码决定，成功响应的原始 data 或 raw 仅供调用方显式访问。",
+      "evidence": [
+        "E783;E792;E795;E798;E799",
+        "E829;E832;E835",
+        "docs/coordination/overseas-a1-detector-rename/admission.json"
+      ]
     }
   ]
 }

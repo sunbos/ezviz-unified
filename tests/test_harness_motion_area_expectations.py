@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 
+from ezviz_unified.detectors import Detectors
 from ezviz_unified.devices import Devices
 from ezviz_unified.recordings import Recordings
 from ezviz_unified.settings import Settings
@@ -40,6 +41,7 @@ REDACTED_OPERATION_IDS = (
     "cn.settings.set_intelligent_detection_switch",
     "cn.settings.select_alarm_detection_mode",
     "cn.settings.get_alarm_detection_mode",
+    "global.detectors.rename",
 )
 
 FACADES = {
@@ -66,6 +68,7 @@ FACADES = {
     "cn.settings.set_intelligent_detection_switch": (Settings, "set_intelligent_detection_switch"),
     "cn.settings.select_alarm_detection_mode": (Settings, "select_alarm_detection_mode"),
     "cn.settings.get_alarm_detection_mode": (Settings, "get_alarm_detection_mode"),
+    "global.detectors.rename": (Detectors, "rename"),
 }
 
 READ_ONLY_OPERATION_IDS = {

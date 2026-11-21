@@ -102,6 +102,17 @@ python -m examples.a1_detectors --mode async --query bindable
 python -m examples.a1_detectors --mode sync --query linked
 ```
 
+### 海外 A1 探测器改名
+
+`client.detectors.rename(a1_serial, detector_serial, new_name=name)` 用于在已授权的海外环境修改探测器的自定义显示名，AsyncClient 的对应方法需以 `await` 调用。调用方需显式提供已关联的父设备 A1 序列号与探测器序列号，新名称在探测器列表中对应 `location`，设备类型仍由 `detectorTypeName` 表示。
+
+SDK 在本地校验 `new_name` 必须为含非空白字符的 UTF-8 字符串且少于 50 个 Unicode 码位，拒绝 ASCII 控制字符与 DEL，合法的原始空白与大小写保持不变，其中码位计数方式与被拒绝的控制字符范围属于本地实现选择，来源文档并未完整定义「特殊字符」的含义或长度单位。该操作仅向海外区域端点发起一次 POST，不做重放、列表查询或回读，根层业务码为字符串 `"200"` 表示平台接受请求，设备端生效须另外核实。CLI 为离线模拟，使用两个 mock transport，无需配置，仅返回 `simulated` 与 `renamed`。真实变更需另行授权，并提前准备原名称与恢复方案，所需最小子账号权限与生效时间尚未核实。[海外文档 481 §1.7](https://open.ys7.com/help/en/481)
+
+```sh
+python -m examples.a1_detector_rename --mode sync
+python -m examples.a1_detector_rename --mode async
+```
+
 ### 海外移动侦测联动灯光
 
 `client.settings.get_light_linkage(serial)` 查询移动侦测联动灯光状态，`client.settings.set_light_linkage(serial, enabled=True)` 提交一次写入，异步版本均通过 `await` 调用。两个接口支持托管和子账号，读取要求 `Get` 权限，写入要求 `Config` 权限。请求发往令牌指定并经地区校验的业务域 `areaDomain`，`accessToken` 与 `deviceSerial` 放在请求头。GET 的查询字符串只有 `type=301`，POST 的查询字符串恰好是 `type=301` 与 `enable=1` 或 `enable=0`，`enabled` 仅接受布尔值。两个请求都没有业务正文和 `Content-Type`，海外接口未声明 `channelNo` 或验证码参数，SDK 一律不发送。[海外文档 3722](https://open.ys7.com/help/en/3722) [海外文档 3723](https://open.ys7.com/help/en/3723)

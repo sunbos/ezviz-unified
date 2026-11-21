@@ -28482,53 +28482,69 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "existing_overseas_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:overseas:481:1.7",
+      "capability_selector": "detectors.rename",
       "capability_ids": [
         "candidate:overseas:481:1.7"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r6-overseas-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "global.detectors.rename"
+      ],
+      "scope_revision": "2026-11-21-r65-overseas-a1-detector-rename",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "overseas:cluster_not_frozen",
-      "account_role_permissions": "按该候选来源声明核定身份、授权与集群；本离线案例仅合成值。",
+      "account_role_permissions": "所属海外区域账户有权配置已关联的 A1 与该探测器；本小节未给出最小子账户权限。",
       "device_requirements": "本离线案例不连接真实设备；适用型号与设备前提仍待核。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定来源事实与SDK设计选择、现有实现映射和公共接口，处理该候选未决项。",
-        "冻结具体输入、输出、错误、认证与诊断边界；浏览器授权、消息协议不能强制套用HTTP wire模型。",
-        "纯离线网络隔离；真实请求和真实业务操作均为零。"
+        "合成认证和业务传输。"
       ],
       "expected_evidence": {
-        "read": "围绕“重命名探测器”，按该候选已审来源与设计边界冻结具体离线断言；复核其输入/输出、身份与错误处理及适用的同步异步行为。",
-        "write": "仅使用合成fixture验证协议或集成逻辑；不执行真实授权、远程开锁、绑定解绑、删除、消息投递或其它远端操作。",
-        "physical": "离线案例不证明真实设备状态、消息端到端投递、媒体播放或完整OAuth登录成功；适用真实场景须另行冻结与验收。"
+        "write": "独立父子序列与正式业务字段、单发、严格 ACK、脱敏与 CLI。",
+        "physical": "线下模拟不能证明硬件生效。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "真实外部请求/业务操作预算；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "本案无真实状态变更；后续真实写入按具体授权和恢复方案执行。",
       "source_refs": [
-        "docs/capabilities/overseas-review-candidates.json#/capabilities/18"
+        "docs/capabilities/overseas-review-candidates.json#/capabilities/18",
+        "docs/coordination/overseas-a1-detector-rename/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/481.source.json"
       ],
       "pending_questions": [
-        "the current multiple_methods parse flag is a parser artifact: e798 mislabels the parameter table title as a second 'Request Method'; e795/e829 confirm POST — do not treat this as a missing-method source gap",
-        "packet covers only the selected table rows; request_schema_status stays partial_pending_full_contract_review — full contract review still required"
+        "newName 长度单位及特殊字符清单未定义。列表 location 为自定义名称，现场生效时间和最小权限待核。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "候选合同、接口和精确离线断言未冻结；无新增G1准入或执行证据。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/detectors.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_overseas_a1_detector_rename.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_a1_detector_rename.py",
+        "examples/a1_detector_rename.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "SDK提案、消息纯解析助手或URL构造助手不等于完整官方流程接入验收。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "4c6d2d12a61d2f8175847730c3516b49a209cfca",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-overseas-a1-detector-rename/offline.json"
       ]
     },
     {
@@ -37431,6 +37447,54 @@
       ],
       "limitations": [
         "查询嵌套 data.valueInfo.type。两份 v3 文档只列成功码，未给出最低角色或持久性承诺。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-7-LIVE-001",
+      "tier": "required",
+      "case_origin": "overseas_a1_detector_rename",
+      "capability_selector": "detectors.rename",
+      "capability_ids": [
+        "candidate:overseas:481:1.7"
+      ],
+      "operation_ids": [
+        "global.detectors.rename"
+      ],
+      "scope_revision": "2026-11-21-r65-overseas-a1-detector-rename",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "overseas",
+      "account_role_permissions": "所属海外区域账户有权配置已关联的 A1 与该探测器；本小节未给出最小子账户权限。",
+      "device_requirements": "已关联的海外 A1 父设备与指定探测器。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "核定账户、关联设备和本次影响范围，取得写入与恢复授权。"
+      ],
+      "expected_evidence": {
+        "write": "受限变更及恢复分别验证，只留脱敏结果。",
+        "physical": "硬件效果单独核实。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "核实原显示名称可合法恢复，回执不保存名称。",
+      "source_refs": [
+        "docs/coordination/overseas-a1-detector-rename/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/481.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "待关联资源、写入范围及恢复授权。"
+      ],
+      "limitations": [
+        "newName 长度单位及特殊字符清单未定义。列表 location 为自定义名称，现场生效时间和最小权限待核。"
       ]
     }
   ],

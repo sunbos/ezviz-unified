@@ -145,15 +145,20 @@ def _present_message(
 def _resolve_code(
     code: ScalarCode | None, policy: ResponsePolicy, secrets: tuple[str, ...]
 ) -> ScalarCode | None:
-    """Sanitize a string code containing a URL when opted in; classification
-    always uses the original scalar, so int codes pass through unchanged."""
+    """Project a business code for display under the configured redaction policies."""
+    if (
+        code is not None
+        and policy.exposed_business_codes is not None
+        and code not in policy.exposed_business_codes
+    ):
+        return REDACTED
     if policy.redact_oauth_details and code is not None:
         if code in _OAUTH_BUSINESS_CODES:
             return code
         return REDACTED
     if not isinstance(code, str):
         return code
-    if policy.redact_device_add_details:
+    if policy.exposed_business_codes is None and policy.redact_device_add_details:
         return code if code in {"200", "400", "403", "404", "500", "10002", "10031"} else REDACTED
     matcher = _MEDIA_URL_RE if policy.redact_media_urls else _HTTP_URL_RE
     if (policy.redact_media_urls or policy.redact_message_urls) and matcher.search(code):
@@ -330,7 +335,11 @@ def decode_response(
         http_status=http_status,
         code=rendered_code
         if rendered_code is not None
-        and (policy.redact_oauth_details or policy.redact_device_add_details)
+        and (
+            policy.redact_oauth_details
+            or policy.redact_device_add_details
+            or policy.exposed_business_codes is not None
+        )
         else code,
         operation=operation,
         message=message,
