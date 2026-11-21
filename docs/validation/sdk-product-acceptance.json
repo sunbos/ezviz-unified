@@ -554,11 +554,14 @@
         "HEVC-SOFT-LOCAL": "met",
         "OVERSEAS-FLV-H264-LOCAL": "met",
         "IOS-534-UNSIGNED-CONSUMER-BUILD": "met",
-        "ANDROID-534-UNSIGNED-APK-BUILD": "met"
+        "ANDROID-534-UNSIGNED-APK-BUILD": "met",
+        "HARMONY-190-RELEASE-INPUT": "met",
+        "HARMONY-190-UNSIGNED-HAP": "pending"
       },
       "execution_evidence_refs": [
         "docs/validation/2026-11-21-native-ios-initialization/checks.json",
-        "docs/validation/2026-11-21-native-android-build/checks.json"
+        "docs/validation/2026-11-21-native-android-build/checks.json",
+        "docs/validation/2026-11-21-native-harmony-sdk/checks.json"
       ]
     },
     {
@@ -36762,10 +36765,18 @@
       "source_refs": [
         "docs/coordination/native-harmony-sdk-build/scope.json"
       ],
-      "code_artifact_evidence_refs": [],
+      "code_artifact_evidence_refs": [
+        "docs/coordination/native-harmony-sdk-build/scope.json",
+        "docs/validation/2026-11-21-native-harmony-sdk/source-review.json",
+        "docs/official-mobile-sdk.md",
+        "tools/native/verify_harmony_release.py",
+        "examples/harmony_sdk_build/ProbeAbility.ets",
+        "tools/native/stage_harmony_consumer.py",
+        "tests/test_native_harmony_template.py"
+      ],
       "result": "awaiting_resource_confirmation",
       "criterion_assessment": {
-        "RELEASE_INPUT": "pending",
+        "RELEASE_INPUT": "met",
         "ARKTS_CONSUMER": "pending",
         "HVIGOR_BUILD": "pending",
         "HAP_CONTENT": "pending",
@@ -36775,8 +36786,14 @@
         "不将预编发行物或其他平台的成功继承为 HAP 通过。"
       ],
       "blockers": [
-        "本次商业集成授权及合规的 API12 构建环境待确认。"
-      ]
+        "萤石商业 HAR 主协议及其适用构建主体未获确认；尚无本次任务可用且已获授权的 API12 构建环境。"
+      ],
+      "verified_artifact_commit": "f740d44252f5f7b1e228cf42eb04279a72727a4e",
+      "execution_outcome": "not_verified",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-native-harmony-sdk/checks.json"
+      ],
+      "resource_state": "vendor_agreement_and_authorized_api12_toolchain_unconfirmed"
     },
     {
       "case_id": "ACC-HARMONY-190-SIGNED-DEVICE-001",
