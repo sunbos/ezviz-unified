@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "input_commit": "d358032f6dcd2c5224531b4233a7b2419d9804f4",
+  "source_incident": {
+    "main_ci": "https://github.com/sunbos/ezviz-unified/actions/runs/44867042460",
+    "attempt_1": "Python 3.15 的 Verify clean wheel and sdist installations 步骤失败。日志仅有固定末行，未给出失败子步骤。",
+    "attempt_2": "在同一 SHA 重跑失败作业后成功。没有依据将首次失败归因于具体安装器、包、网络或 SDK。"
+  },
+  "interface": {
+    "tool": "tools/release/verify_installations.py",
+    "cli_flag": "--show-stages",
+    "function": "verify_installations(dist, pyproject, *, installer=\"pip\", offline=False, source_tests=True, show_stages=False)",
+    "default": "保持当前返回值、成功 JSON、错误处理和默认 stderr。",
+    "opt_in": "在执行对应阶段前向 stderr 写一行固定格式 verify-install artifact=<kind> stage=<step> 并刷新。CLI 成功时 stdout 仍是同一 JSON，失败末行保持 installation verification failed。"
+  },
+  "events": [
+    [
+      "all",
+      "artifacts"
+    ],
+    [
+      "all",
+      "snapshot"
+    ],
+    [
+      "wheel",
+      "venv"
+    ],
+    [
+      "wheel",
+      "install"
+    ],
+    [
+      "wheel",
+      "smoke"
+    ],
+    [
+      "sdist",
+      "venv"
+    ],
+    [
+      "sdist",
+      "install"
+    ],
+    [
+      "sdist",
+      "smoke"
+    ],
+    [
+      "sdist",
+      "source_tests"
+    ],
+    [
+      "all",
+      "report"
+    ]
+  ],
+  "conditions": [
+    "sdist/source_tests 仅在真正运行源码测试时出现。all/report 仅由 CLI 在 verify_installations 成功后、输出或写入报告前发出。",
+    "既有顺序、命令、300 秒超时、进程返回码判据、隔离环境和制品校验均保持。任一步失败不启动后续步骤，不自动再试。",
+    "固定标签来自验证器，绝不从文件名、路径、命令参数、环境变量、子进程输出或异常文本生成标签。"
+  ],
+  "write_scope": {
+    "tool": [
+      "tools/release/verify_installations.py"
+    ],
+    "tests": [
+      "tests/test_release_installations.py"
+    ],
+    "ci_and_guide": [
+      ".github/workflows/ci.yml",
+      "docs/releasing.md"
+    ]
+  },
+  "acceptance": [
+    "用已有 isolated_commands 夹具对完整成功的有/无阶段提示、跳过源测及 wheel 与 sdist 各子步骤失败逐项验收；保持原失败断言。",
+    "使用合成哨兵证明 stderr 仅有阶段枚举和固定报错，stdout 成功结构和失败时既有输出不变；子进程输出、路径和异常文本不泄露。",
+    "工作流只在现有干净安装步骤添加显式 flag。精确 PR 与 main 四个 Python 版本均须验证安装成功。这个改动不创建发行版本、不访问设备、不上传 PyPI。"
+  ]
+}
