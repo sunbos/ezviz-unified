@@ -1,0 +1,265 @@
+{
+  "schema_version": 1,
+  "scope": "domestic_otap_image_flip_offline",
+  "code_commit": "1c0d159538dba8bdae03a6dcf6d9101b0c024ae0",
+  "freeze_commit": "e93d196a7b0288400ff19d2492def31c7d4952a1",
+  "source_test_sha256": {
+    "README.md": "714d3f6b5bd68f3d5d532e1fad86859657959d9486755e62ea4e3aa9805d746e",
+    "examples/otap_image_flip.py": "4b615d5dd370150a7636039f2cb43f53a9caa57dc4329ac4cf0c6f4fc8d3b135",
+    "tests/test_example_otap_image_flip.py": "9bb731907520854e8e359ab4c09a91377ab4a21dc05642e59989107857ec6ed9",
+    "tests/test_sdk_otap.py": "415e54ec1b67f87c9e5a0b63989e5e606872b4e201bbc848339f4372612e53df",
+    "src/ezviz_unified/otap.py": "3742ebabb58cab972d87296a536ed46b3ee4958a44380d2b0036eddb736f89ed",
+    "contracts/reviewed-transport-contracts.json": "851f59e0dca6589ee4cc7fdc4b64f53b8ab64eb9faba66a16127b7c49aac739c",
+    "contracts/sdk-bindings.json": "30ccd810f2b1b177d8e6aebf10757011295a54ef69399f9837414a51b429563d",
+    "contracts/source-issues.json": "f0c99d4a8669dcf86a7a3795aaae77bfeee5a33a6be4ff406333a2412c83e46f",
+    "contracts/coverage.json": "d2d8bab6596f641f2333b49a3175b9807f01bfc6a8c8b2343175c1167bcf7370",
+    "evals/contracts/cases.json": "3ec54bdaea39d6f7e3cc4eda57e28fc9de664ec9dbf85599b9ad32976d4e46c0",
+    "harness/wire_eval.py": "c6f48a9fbffb5545e96ce0e9bd45320f0dda270afd95e51466d361200376ce8a",
+    "harness/contract_eval.py": "59115fa78107f7cefa0e2da61cacc8c0b0aed8efef447adb3cec85ed0396a2ed",
+    "src/ezviz_unified/_diagnostic_registry.py": "b6bca241e60a17041ce7e02af38d54e3cff3024f74cf1ab2660d445dd01f29b6",
+    "docs/diagnostics-v1-coverage.json": "b370e265e63196b2487309299be5526f2155c196ca8ca5a6e5b42f431558a246",
+    "docs/diagnostics.md": "2b5fcfb84fe15f404a06202545c1cc819fab0e0582443c59e89c19f43076d47c",
+    "docs/coordination/domestic-otap-image-flip/admission.json": "a625e3dd78277e1432715c96be5370ad77c066683e05408fb42e61bbb7a794d0"
+  },
+  "existing_generic_binding": {
+    "operation_id": "cn.otap.set_property",
+    "region": "domestic",
+    "source_doc_id": "1513",
+    "module": "src/ezviz_unified/otap.py",
+    "symbols": [
+      "Otap.set_property",
+      "AsyncOtap.set_property"
+    ],
+    "public_entry": "otap.set_property",
+    "offline_status": "passed",
+    "live_status": "not_verified"
+  },
+  "registry_snapshot": {
+    "contracts": 312,
+    "bindings": 312,
+    "symbols": 624,
+    "expected_full_wire_executions": 2528,
+    "new_wire_cells": 0,
+    "new_contracts": 0,
+    "new_diagnostic_entries": 0
+  },
+  "scenario_validation": {
+    "modes": [
+      "sync",
+      "async"
+    ],
+    "styles": [
+      "LEFTRIGHT",
+      "UPDOWN",
+      "CENTER",
+      "AUTO"
+    ],
+    "enabled": [
+      true,
+      false
+    ],
+    "synthetic_combinations": 16,
+    "expected_requests_per_invocation": 1,
+    "request_method": "PUT",
+    "headers": {
+      "resourceCategory": "Video",
+      "domainIdentifier": "VideoAdjustment",
+      "propIdentifier": "ImageFlip",
+      "Content-Type": "application/json"
+    },
+    "payload_fields": [
+      "enabled",
+      "imageFlipStyle"
+    ],
+    "response_code_path": "meta.code",
+    "success_code": 200,
+    "smoke_receipt_sha256": "933b5cb7f7439323b876f4b82c4ec19b4ceefbce36cb8294c6b7d8d6a0fabf2e",
+    "new_global_wire_cells": 0,
+    "real_api_used": false
+  },
+  "checks": [
+    {
+      "task": "SP567-TestJointPytest",
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_otap.py tests/test_example_otap_image_flip.py",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "actual_result": "141 passed in 0.91s",
+      "tool_use_id": "dv_QmFzaDowI2JjOWRkZGVmOWExYzQxYWFhM2RmZWM4MWI3ZDhmOGI4",
+      "local_receipt_sha256": "f398786f5cb4442e0f29335860a545f808b80128af7eb27953084154fa249fb0"
+    },
+    {
+      "task": "SP567-TestJointRuff",
+      "command": ".venv/bin/python -m ruff check --no-cache tests/test_sdk_otap.py tests/test_example_otap_image_flip.py",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "actual_result": "All checks passed!",
+      "tool_use_id": "dv_QmFzaDowIzYxYjU4MjcwNmMwNTRkZmY4N2YzYmI1OWQ3Y2UwZDk2",
+      "local_receipt_sha256": "1ade05909760ca83c9b7e274ba43b07771bdc5e1b2d9ef07beb85851e5296fe9"
+    },
+    {
+      "task": "SP567-TestJointFormatCheck",
+      "command": ".venv/bin/python -m ruff format --no-cache --check tests/test_sdk_otap.py tests/test_example_otap_image_flip.py",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "actual_result": "2 files already formatted",
+      "tool_use_id": "dv_QmFzaDowIzY4NDJkYmU0NDM1YjQ4ODg4ZGMyZTMxY2JiZGZjNmUw",
+      "local_receipt_sha256": "12789070dcd75fa60456904578f8abe4d65a19f131f857b80928542757165e61"
+    },
+    {
+      "task": "SP567-SdkRuff",
+      "command": ".venv/bin/python -m ruff check --no-cache examples/otap_image_flip.py",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "actual_result": "All checks passed!",
+      "tool_use_id": "dv_QmFzaDowI2YyZGVmMWRkZDdjYjQ5M2ViMDA4ZjM2N2E1OGQ1NGJk",
+      "local_receipt_sha256": "43f4e8458c230b2a6fad232f1dc147a8b9a15615e3220c4d682eb07cdcba9ef0"
+    },
+    {
+      "task": "SP567-SdkFormat",
+      "command": ".venv/bin/python -m ruff format --no-cache --check examples/otap_image_flip.py",
+      "model": "devin/swe-2",
+      "effort": "max",
+      "actual_result": "1 file already formatted",
+      "tool_use_id": "dv_QmFzaDowI2MzOGEwZjdhMGMzMTQ5Njg4MmM2YjcxOTU2ZmE5ZTc5",
+      "local_receipt_sha256": "f30685861c345aad53b020f63309550ebb416a0de9202b90c16d05550322a679"
+    }
+  ],
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "lane_receipts_sha256": {
+      "SP567-DocReceipt.json": "a880479baa2b0057071aa726432eb6018d68be020b07f61300492eee209f6d12",
+      "SP567-Test-final.json": "a1bd5c20e1144c207ffb2a50f6eb8811d9191a46492b9866f4779dfdba4f29b3",
+      "SP567-SdkReceipt.json": "d95b2c10b1073d324f9e3ff3e83e53830c2adaddce6dbab14c9ed8ae9bc70925"
+    },
+    "assignments": {
+      "SP567-SdkCliR1": {
+        "lane": "example",
+        "role": "accepted",
+        "execution_sha256": "77edabc40886bfd8289885ff61765a1fc7754ea23cc2a7b0500ba2079ceb2dc2",
+        "spec_sha256": "92dc86954c643a43f2a67a79a233f012a411e4ab1b134ca7fd6e509f9126a97a",
+        "prompt_sha256": "17c76575e2ea6332da4c55d06c030793c245d2e2f374acc9d67fefd50b1e27ad",
+        "source_file": "examples/otap_image_flip.py",
+        "candidate_sha256": "da0013ab0edc9fee930366676d8fae25b2f75bd364140867ff399165c91f5b81"
+      },
+      "SP567-TestCLIOrder": {
+        "lane": "tests",
+        "role": "applied",
+        "execution_sha256": "b26b89fca0974fd982e2889beade3683e7ab91409d2c37a2efe6b3bb78ac88a3",
+        "spec_sha256": "c57a9b1582be9c48a5248672ee734e6cfabd738d61d051166e30eca4b3ba5766",
+        "prompt_sha256": "616d29e9a975f99a8a2e3cf1786030b7a6600bfdcd2246f9689982f59602efda",
+        "source_file": "tests/test_example_otap_image_flip.py",
+        "candidate_sha256": "51f7311ed865fa0930bd4ddae074c303d0d41fb7f7202d1a934555e1969db7c8"
+      },
+      "SP567-TestFailureCases": {
+        "lane": "tests",
+        "role": "applied",
+        "execution_sha256": "8247830e654e767a05b3bd75d55cd13d8a9f88954714a07a1011026cfa4207eb",
+        "spec_sha256": "cf879e3bfd00bf18a66707b6d9a839bf0419961c3e76ff2d9afdea77bf84b295",
+        "prompt_sha256": "1a75c2c2702e4b1cb54646b86c83d169f49f728d4176277c0fb87c349e56e769",
+        "source_file": "tests/test_example_otap_image_flip.py",
+        "candidate_sha256": "d9f3576436ee9af4562086601707e6e8b30f24ea394d876acf33a83a4aaaa115"
+      },
+      "SP567-TestWire": {
+        "lane": "tests",
+        "role": "applied",
+        "execution_sha256": "44319ff30affa0cd40a02878e578becbbd9fbe1fd9db5452060a3af87ff02936",
+        "spec_sha256": "066e64b402e047b9b3c0d42257c4576b3fe2b535e2e0feccb60ce1fe749cd42d",
+        "prompt_sha256": "76608fe3c9939b73eac0960724aee812d62cf103199d9a431e043fe03ffb6782",
+        "source_file": "tests/test_example_otap_image_flip.py",
+        "candidate_sha256": "2354e3e87f72e6d85d47566961f5eb4d7a1cb74313bfaebb41c3454757cf82ad"
+      },
+      "SP567-Readme": {
+        "lane": "docs",
+        "role": "superseded_incomplete_diagnostic_scope_and_generic_field_semantics",
+        "execution_sha256": "d1a762bf8e960c185088005c732e7780bb854e66baa23d890d7b2114856cf3e6",
+        "spec_sha256": "6fdcd4a8ab970cefe87c08a181784e46eb710b00494275b6eb098df1a8a2cf8d",
+        "prompt_sha256": "337cf7b02d3654f720120fb8d0e3cef27e03b766e25904c97b7801b795869114",
+        "source_file": "README.md",
+        "candidate_sha256": "27d05cf92f0f7d6931a40feca8f1acbbc841fe823263ded9aaf1f12fed03753a"
+      },
+      "SP567-ReadmeR1": {
+        "lane": "docs",
+        "role": "integrated_section",
+        "execution_sha256": "e230847ed4808d99ae0470b35626961950953d85af31f95ee95852a7b2f4ca0d",
+        "spec_sha256": "95f48eb4147b8d6e0509163b43ae73b8cdeaa3f21313cd5b5736791ade4ecd2f",
+        "prompt_sha256": "d830823963e289cfa756f3b83560e1ab8dbee309ecdb90cb7965f08c151fab8a",
+        "source_file": "README.md",
+        "candidate_sha256": "64efbdd89e9e7bb00f2228543b8ebc06cee121f178364b05c546f5cd57f1e55f"
+      },
+      "SP567-ReadmeR2": {
+        "lane": "docs",
+        "role": "integrated_diagnostic_sentence",
+        "execution_sha256": "c17b5de614ea8350470587e7d99f4319493247355009d2d7dcefaed40034660e",
+        "spec_sha256": "28b90b4a358cc3a35a38ecd657db243bd19e8495c3c91d4c268763542bbff168",
+        "prompt_sha256": "9fc1ddb19eee96aaa933d368ac2bbc30c1c0f1c300100526c8dc012c92bdc58b",
+        "source_file": "README.md",
+        "candidate_sha256": "d2f8076f08ca91d3c136e3f4f67f24c19a94c4861dec1412c5f7f5549a821dbe"
+      },
+      "SP568-AcceptanceDoc": {
+        "lane": "docs",
+        "role": "superseded_readability",
+        "execution_sha256": "d81d63f5965176f0e240e7879e3fcb6923826472e81b202eb7ebdb090e814820",
+        "spec_sha256": "243040d5737931d8fc58351217c902c5bdbbc79f8e0a234bab92b32ecaf6b27d",
+        "prompt_sha256": "89d3f2c2b10f811b4a8772a3960503207402433da9e4910ba1fb837e15c109f1",
+        "source_file": "docs/validation/sdk-product-acceptance.md",
+        "candidate_sha256": "5a4bd2c4887c148a7ba1dc257e846e763f9cbe07b03b1fb7b7f93d0ade164b57"
+      },
+      "SP568-AcceptanceDocR1": {
+        "lane": "docs",
+        "role": "superseded_sentence_punctuation",
+        "execution_sha256": "1ce6f0c66804af13e250d15873681b37347cff77c8874a01746f0a6056d70e32",
+        "spec_sha256": "2aec78aea1ea78dfb13bd98ccfa9b15505f8dd2ea7620be356113a34af84bcc3",
+        "prompt_sha256": "caf6a4abeef5cde6205f8361cbf6aebc0a40649eaceba8cd60f9611214f33eac",
+        "source_file": "docs/validation/sdk-product-acceptance.md",
+        "candidate_sha256": "7ea4b029bcee0d4df102d3c8b9524b5fb7e34664048d61fbd7d544e7bd78bd6e"
+      },
+      "SP568-AcceptanceDocR3": {
+        "lane": "docs",
+        "role": "approved_by_lane_candidate_for_index",
+        "execution_sha256": "8eb5178449b020507ceb014a3ae1af90b425eafbbd31e9c93bb7c16dab997d5c",
+        "spec_sha256": "a5eb6ba776b0d6494cc7095c40b4f4e66121a9a63f85d5dc0a8631e01c4b30d8",
+        "prompt_sha256": "626467f9748738fcf7c99799ae223bc21a14535fc3dcb9cb0668535f4847805e",
+        "source_file": "docs/validation/sdk-product-acceptance.md",
+        "candidate_sha256": "b99c5d4bfb8cb6931464193a74db5ccc420cd79656ad85043eeda6e765c15f53"
+      },
+      "SP567-ReadmeR3": {
+        "lane": "docs",
+        "role": "applied_exact_two_editorial_changes",
+        "execution_sha256": "326db73d7e6a620b5c7c61a85469c7b54ea33d586823f86746e00cf244d06f05",
+        "spec_sha256": "270b2077faedaa1092afb4c409cab620894c3e5839d6ceca392d9445516dbfad",
+        "prompt_sha256": "b22322ed6399868a3d3273faff7d46bf7235652e32d4ba8954ce9d60a2fa6d1a",
+        "source_file": "README.md",
+        "candidate_sha256": "3487fd19286e5430bc2ffc30ee3a2e55a58b08a40a0c2672c42132f5e0927196"
+      },
+      "SP568-AcceptanceDocR2": {
+        "lane": "docs",
+        "role": "quarantined_no_accepted_text",
+        "execution_sha256": "501bae7e595c5cc4ef2af83ae41e35416f2ea8209da9fcc523b2ca124c951b38",
+        "spec_sha256": "edad3caf2d9412ad353a25837b0714303faa0768322bee678d7ab495d4c7a4df",
+        "prompt_sha256": "38fd97d204f6362753937acce4c89b31481a8343cd00f887e9d519c6c164feb6",
+        "source_file": "docs/validation/sdk-product-acceptance.md"
+      },
+      "SP567-SdkCli": {
+        "lane": "example",
+        "role": "quarantined",
+        "execution_sha256": "c0cd1f49c2e43c191bfefb544c47692ab1126fcee1146cfa040ecaba651306ab"
+      }
+    },
+    "validation_index_candidate": "SP568-AcceptanceDocR3",
+    "validation_index_candidate_sha256": "b99c5d4bfb8cb6931464193a74db5ccc420cd79656ad85043eeda6e765c15f53",
+    "validation_index_candidate_execution_sha256": "8eb5178449b020507ceb014a3ae1af90b425eafbbd31e9c93bb7c16dab997d5c"
+  },
+  "public_document_recheck": {
+    "source_url": "https://open.ys7.com/help/5289",
+    "http_status": 200,
+    "html_sha256": "93ac8ec82d2c2cf27bd058cbc5b10fc435f20a4f7fe7808e747cc38f7824748c",
+    "credentials_used": false,
+    "device_requests": 0
+  },
+  "source_uncertainties": [
+    "E16 写 enable，E77 示例写 enabled。按 E77 的裸 JSON 仅作本地可复现示范；服务端接受的字段名称、具体设备生效及恢复须分别验证。"
+  ],
+  "live_executed": false,
+  "limits": "本次使用合成传输验证示例及通用 SDK 调用。服务端接受的字段拼写、目标设备和固件、实际权限、画面变化与恢复仍待核实。"
+}

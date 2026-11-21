@@ -13235,54 +13235,68 @@
       "tier": "required",
       "template_case_id": "ACC-DOMAIN-OFFLINE-PER-NEW-001",
       "case_origin": "reviewed_scenario_pending_contract_and_interface",
-      "capability_selector": "candidate:domestic:5289:d0",
+      "capability_selector": "otap.set_property",
       "capability_ids": [
         "candidate:domestic:5289:d0"
       ],
-      "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
-      "freeze_state": "awaiting_contract_and_interface",
+      "operation_ids": [
+        "cn.otap.set_property"
+      ],
+      "scope_revision": "2026-11-21-r68-domestic-otap-image-flip",
+      "freeze_state": "frozen_for_implementation",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
+      "account_role_permissions": "国内托管或子账户 Token 至少需要目标设备的 Config 权限（dev 资源）。",
       "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
       "surface": [
         "sync",
-        "async"
+        "async",
+        "cli_example"
       ],
       "risk": "offline_only",
       "preconditions": [
-        "核定该候选的协议、SDK映射和接口，明确与既有同路由操作的区别。",
-        "解决下列场景问题并冻结精确输入、请求、返回、错误及诊断断言；本草案尚不可作为通过证据。",
-        "离线网络隔离；仅使用合成fixture，真实请求和真实业务操作均为零。"
+        "仅使用合成传输和测试数据。"
       ],
       "expected_evidence": {
-        "read": "围绕“请求经OTAP属性通道修改物模型设备镜像模式”，依据冻结后的合同验证目标与输入、请求位置/层级、返回数据或状态、输入/认证/权限/业务/传输错误，以及同步异步一致性。",
-        "write": "仅在合成传输中核对已冻结的请求与重试语义；补齐该入口诊断白名单、隐私和取消/关闭边界，不执行远端写操作。",
-        "physical": "本离线案例不证明真实设备或服务效果，也不证明媒体可播放或消息已真实接入；各适用层另行冻结验收。"
+        "write": "固定标识和请求头、裸 JSON、精确类型和字段、根层受理、不重放、原有诊断。",
+        "physical": "真实画面生效与恢复另行验证。"
       },
       "bounded": {
         "max_requests": 0,
         "max_operations": 0,
-        "freeze_required": true,
-        "bound_definition": "两项上限均指真实外部请求或业务操作；合成测试规模待合同确定。"
+        "freeze_required": false
       },
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/60"
+        "docs/coordination/SP088/scenario-input.json#/entries/60",
+        "docs/coordination/domestic-otap-image-flip/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5289.source.json"
       ],
       "pending_questions": [
-        "镜像模式的属性标识与可选模式集合待核",
-        "与candidate:domestic:5089:d0同通道区别是否仅属性标识待核",
-        "镜像模式与图像翻转类配置的关系待核"
+        "E16 写 enable，E77 示例写 enabled。按 E77 的裸 JSON 仅作本地可复现示范；服务端接受的字段名称、具体设备生效及恢复须分别验证。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "awaiting_design",
-      "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+      "code_artifact_evidence_refs": [
+        "README.md",
+        "examples/otap_image_flip.py",
+        "tests/test_example_otap_image_flip.py",
+        "src/ezviz_unified/otap.py",
+        "tests/test_sdk_otap.py",
+        "docs/diagnostics-v1-coverage.json"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "1c0d159538dba8bdae03a6dcf6d9101b0c024ae0",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-otap-image-flip/offline.json"
       ]
     },
     {
@@ -37562,6 +37576,54 @@
       ],
       "limitations": [
         "文档返回单个整数类型。E60 只列成功码，错误枚举及真实设备适用范围仍待核定。"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5289-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_otap_image_flip",
+      "capability_selector": "otap.set_property",
+      "capability_ids": [
+        "candidate:domestic:5289:d0"
+      ],
+      "operation_ids": [
+        "cn.otap.set_property"
+      ],
+      "scope_revision": "2026-11-21-r68-domestic-otap-image-flip",
+      "freeze_state": "awaiting_resource_scope_and_authorization",
+      "region_cluster": "domestic",
+      "account_role_permissions": "国内托管或子账户 Token 至少需要目标设备的 Config 权限（dev 资源）。",
+      "device_requirements": "官方列举 CS-H6c-V200-1R4WFL、CS-H9c-V100-8H33WKFL、CS-C6c-V220-1Q8WFL。本页未给固件范围或能力位。",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "write_bounded",
+      "preconditions": [
+        "冻结型号、资源序号、Config 权限、目标值、原值与恢复授权。"
+      ],
+      "expected_evidence": {
+        "write": "一次有界变更与明确复原分别记录，仅留脱敏状态。",
+        "physical": "显示结果和受理回执分开验证。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "先确定可恢复的原镜像模式和启用值，明确现场核验及复原授权。",
+      "source_refs": [
+        "docs/coordination/domestic-otap-image-flip/admission.json",
+        "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/5289.source.json"
+      ],
+      "code_artifact_evidence_refs": [],
+      "result": "awaiting_authorization",
+      "blockers": [
+        "待指定设备及明确的写入和恢复授权。"
+      ],
+      "limitations": [
+        "E16 写 enable，E77 示例写 enabled。按 E77 的裸 JSON 仅作本地可复现示范；服务端接受的字段名称、具体设备生效及恢复须分别验证。"
       ]
     }
   ],
