@@ -4138,7 +4138,7 @@
         "AsyncSettings.get_intelligent_detection_switch"
       ],
       "public_entry": "settings.get_intelligent_detection_switch",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -4151,7 +4151,7 @@
         "AsyncSettings.set_intelligent_detection_switch"
       ],
       "public_entry": "settings.set_intelligent_detection_switch",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -4164,7 +4164,7 @@
         "AsyncSettings.select_alarm_detection_mode"
       ],
       "public_entry": "settings.select_alarm_detection_mode",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -4177,7 +4177,7 @@
         "AsyncSettings.get_alarm_detection_mode"
       ],
       "public_entry": "settings.get_alarm_detection_mode",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

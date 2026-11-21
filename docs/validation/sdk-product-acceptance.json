@@ -10270,19 +10270,30 @@
       "pending_questions": [
         "可选 type 的含义依赖布撤防状态与互斥选择。官方未给出支持机型清单。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_intelligent_detection.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_intelligent_detection.py",
+        "examples/intelligent_detection.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "e966a3d31d966c9a068dce3ff350ee5d294797b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-intelligent-detection/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-727-D0-OFFLINE-001",
@@ -10330,19 +10341,30 @@
       "pending_questions": [
         "可能影响整组互斥设置。省略 channelNo 表示设备本身，线上改变前需核定目标及完整恢复方案。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_intelligent_detection.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_intelligent_detection.py",
+        "examples/intelligent_detection.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "e966a3d31d966c9a068dce3ff350ee5d294797b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-intelligent-detection/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-728-D0-OFFLINE-001",
@@ -11451,19 +11473,30 @@
       "pending_questions": [
         "仅有选择并开启 1/5 的源契约。原状态未知、不受支持或无法恢复时没有真实写入前提。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_intelligent_detection.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_intelligent_detection.py",
+        "examples/intelligent_detection.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "e966a3d31d966c9a068dce3ff350ee5d294797b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-intelligent-detection/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1725-D0-OFFLINE-001",
@@ -11511,19 +11544,30 @@
       "pending_questions": [
         "查询嵌套 data.valueInfo.type。两份 v3 文档只列成功码，未给出最低角色或持久性承诺。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_intelligent_detection.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_intelligent_detection.py",
+        "examples/intelligent_detection.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "e966a3d31d966c9a068dce3ff350ee5d294797b7",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-intelligent-detection/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-1727-D0-OFFLINE-001",
