@@ -1,0 +1,390 @@
+{
+  "schema_version": 1,
+  "public_document_recheck": {
+    "document": "671",
+    "at_utc": "2026-11-21T00:14:57.282495+00:00",
+    "html_sha256": "ff7c34b90d6c749a6e5d89f6027b004f2863685e0ce18db7853bee20ca4a423e",
+    "matches_frozen": true,
+    "status": 200,
+    "credentials_used": false
+  },
+  "focused_wire": {
+    "cells": [
+      {
+        "operation_id": "cn.third_party_protocols.list_gb_licenses",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.third_party_protocols.list_gb_licenses",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.third_party_protocols.list_gb_licenses",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.third_party_protocols.list_gb_licenses",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.third_party_protocols.list_gb_licenses",
+        "mode": "async",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.third_party_protocols.list_gb_licenses",
+        "mode": "async",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.third_party_protocols.list_gb_licenses",
+        "mode": "async",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.third_party_protocols.list_gb_licenses",
+        "mode": "async",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      }
+    ],
+    "oracle_mutation_tests": 45,
+    "real_api_used": false,
+    "sdk_sha256": "9f71f23f472babf07530c4f7b691be508c7a37107f55c8c38d58920645e46f1b",
+    "execution_sha256": "64c5e204fd02c89701a252204de40ca6e61effa6ecce967e719a52a7ea04630e",
+    "full_cases_sha256": "e3f0004bd679818eaf406cfa1092e47965b3bb20d2dd2165368e2916cce3a87f"
+  },
+  "scope": "domestic_gb_license_list_offline",
+  "code_commit": "029eb3b2ee57eef9a2034766d60db2b5484fb994",
+  "bindings_sha256_at_code_commit": "8ea4c8413ab0e0cbdd5204581f72e4e3927b9e86dc70b2f5c8bef904bd179aca",
+  "source_test_sha256": {
+    "src/ezviz_unified/third_party_protocols.py": "9f71f23f472babf07530c4f7b691be508c7a37107f55c8c38d58920645e46f1b",
+    "src/ezviz_unified/_diagnostic_registry.py": "f909161c16d3397e5bb628ee468730637380e3a3f84eab43eb092c990197b746",
+    "docs/diagnostics-v1-coverage.json": "062da3e6820d8170d45070e1b88b8430b4d754f1474dc716778ef6c5ed2cc642",
+    "docs/diagnostics.md": "76b5600bad829d62751422c3f8ef79c5ac202fefb4f95906349ba5ec982d420e",
+    "tests/test_harness_diagnostic_coverage.py": "40bff748245897f372508e3622ebeb3686b9ac7d29b59b7f4ede7ee898057ce5",
+    "tests/test_sdk_gb_license_list.py": "8f54913a9a9075faf444d8b9040054f730ad3967cc9192e37c1f52af18105f7f",
+    "tests/test_example_gb_license_list.py": "fcbb1d189082c60ad5c88674afee2d5f56828893e41f1ea2696187c9fc845b76",
+    "examples/gb_license_list.py": "ae56665afb8d1510cdd1420a70e54a442524861e039f5ff0157222232414c2f9",
+    "README.md": "51e66ee449d71aa5bf93ed536b598f1b065d959357a4dd2b0e0fff392820e3ab",
+    "contracts/reviewed-transport-contracts.json": "86f4e94cc0f6dc0e5479d5e19cee487a517181216319fdb51d9dbdadc082124c",
+    "contracts/source-issues.json": "0b1d88446ffb4f50a76b52d78aac368b4651d933412d7f3d0cab5f3890652f79",
+    "evals/contracts/cases.json": "e3f0004bd679818eaf406cfa1092e47965b3bb20d2dd2165368e2916cce3a87f",
+    "docs/coordination/domestic-gb-license-list/admission.json": "d58e3d5051d05a9a19069ee4d6906c6787bc44afa4f757c55bf8f8f6eb8532fa",
+    "contracts/coverage.json": "f8a1f307bbc7078af65774290c08e6706185dab13f05893b60a11bbad749bb7a",
+    "harness/wire_eval.py": "cd9c3ef931154ed0c4cd1144e4bd967b6a964d0531d665f69d1ad68cd36a9941",
+    "tests/test_harness_motion_area_expectations.py": "9463f30e691055b2a0b63aa215b8afe65f5eeaac6029a064cc2eaeda77f5b1b8"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP547-RegCases",
+        "input_commit": "2941484ffc18bca1e1b692d55ab60f6973a40001",
+        "write_scope": [
+          "evals/contracts/cases.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "0b44990f7e504c32f8f46ab9ecb8291a4aa3758bfc58d8c990cf73f449ce4376",
+        "local_receipt_sha256": "772fee201906f9424dddc0cded8aea2e402bca8b49e4f84ee7f10136cb3e5298",
+        "candidate_sha256": "1d074e470f81b6aa61a2c3c6a6072c58be212ca23f686637231d836f21053552",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "f676adc090af23b737000b638127abcd20e93c59089a50d956020c11aa4b96a4"
+      },
+      {
+        "task": "SP547-RegDoc",
+        "input_commit": "2941484ffc18bca1e1b692d55ab60f6973a40001",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "a990015c48a608e19559789fa91c09f411e92858175708d14e9c5302ff2ca9d4",
+        "local_receipt_sha256": "f3d0672e814de074ac79c90126a34ef47fefbb72a4bab4bb4fb76df5e027c835",
+        "candidate_sha256": "63d9b0ea1f5ee16c732667091f9bdae08284ae04be54067c6a892852f9ba27b2",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "f9ab143aeb2fbbfbfda87a9092dbde332ae6a11de52b1fc432c366ec27fca067"
+      },
+      {
+        "task": "SP547-RegIssues",
+        "input_commit": "2941484ffc18bca1e1b692d55ab60f6973a40001",
+        "write_scope": [
+          "contracts/source-issues.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "c6d690ea0c3b50f077a4d4c38b6f9df77df5388130b269e59db6a90ab45c9573",
+        "local_receipt_sha256": "351370ea498569fff8622cfe457b53fe83a1f01b6efb9de2c3c9a4d8ae3c5804",
+        "candidate_sha256": "a61276d5fbe70de867c170cf8d552432abe23582d1bc0549bc2d45b319508630",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "839910a8e784af31185742093d0391668a1eaa0750ef9e25de26ae074ffbfb91"
+      },
+      {
+        "task": "SP547-RegMutation",
+        "input_commit": "2941484ffc18bca1e1b692d55ab60f6973a40001",
+        "write_scope": [
+          "tests/test_harness_motion_area_expectations.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "7f4140bc834a0f8c23d985746ca0b7cccc929290fe22e44c36d4de60f8abebd8",
+        "local_receipt_sha256": "941c0d356b02d31502b409659272d493c23a47790001d0a257cc9b628cdb170b",
+        "candidate_sha256": "f41ec331c130719d424021e13867d280bd494625a3dd6d6ead570d9861b51db6",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "a36ed5dac6d31b29daa61b4e4df417b777cd32faa56a2c9c007f4a8e6062b12f"
+      },
+      {
+        "task": "SP547-SdkCli",
+        "input_commit": "2941484ffc18bca1e1b692d55ab60f6973a40001",
+        "write_scope": [
+          "examples/gb_license_list.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "beb74ff0361cd048c8edeb289e24e9118dcaa13cad78e768896248b364fc1d79",
+        "local_receipt_sha256": "a111d9ab3553e85a6c616e266881aa4fe408bd990ed37c298a5c79d029dae5fb",
+        "candidate_sha256": "db87e4f7317e00dce8965392a2c026597fa81f6b2df1f9d61ec8b6ffd6ecae65",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "7de8e012004c88be24261aaabce53c95a6a1f1a42d20438ec683e1ee76d407b0"
+      },
+      {
+        "task": "SP547-SdkCore",
+        "input_commit": "2941484ffc18bca1e1b692d55ab60f6973a40001",
+        "write_scope": [
+          "src/ezviz_unified/third_party_protocols.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "0e64a8df32031b48f8648700e6db612ddeb9a6a17ac2b094f89af50929326664",
+        "local_receipt_sha256": "072862730d007900e77708219b7a87d4a924208d7d836d49c2d6cd74bc2923ce",
+        "candidate_sha256": "8c6181a5d05a34ec768541e1f7e23fc8a138bcb9e15a6b040329dc37aede1d4b",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "ed71d12bb838f624a2a1ed76d3a069ea99f9d462b5546e1a65320b1337f31884"
+      },
+      {
+        "task": "SP547-SdkGuideR3",
+        "input_commit": "2941484ffc18bca1e1b692d55ab60f6973a40001",
+        "write_scope": [
+          "README.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "69d523b4d85d4f0f064b6074039393559367633ce936d412b27290fa902e8113",
+        "local_receipt_sha256": "3ebb63e369378fe1b77de0cf46eb2e79509971170eb85017eadd652e3f1e5dc9",
+        "candidate_sha256": "983ff4d115d74c0608caf7544153cb6dfe0c50dd2b8cc125cc8fff2d339557ec",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "efaaca25fb58910221d4f70f7b073bff556e2514fdbc5e61efd78b81c4a938e6"
+      },
+      {
+        "task": "SP547-TestCLIConfig",
+        "input_commit": "2941484ffc18bca1e1b692d55ab60f6973a40001",
+        "write_scope": [
+          "tests/test_example_gb_license_list.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "9abadd9d6dfb1a1c6ecdac11320ca9f819427332be1089a8bed9d9199f10bf56",
+        "local_receipt_sha256": "370e08bc7e1d613ea8aeeb641ccc937eb5c97901509a609ebbca611856e8d0de",
+        "candidate_sha256": "5a7abb8e1f29a82db8770b03e433ac5cf754d5ba091da8755bf973654094f039",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "10370efafd0474cdf2fb656d9bf9338c2385bbc75a35a611444c0aadfc592225"
+      },
+      {
+        "task": "SP547-TestSDKBounds",
+        "input_commit": "2941484ffc18bca1e1b692d55ab60f6973a40001",
+        "write_scope": [
+          "tests/test_sdk_gb_license_list.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "f94fcb93051796b49e5ba27a1c9c4a3ace3826ba902ab528c81bd9b08db91083",
+        "local_receipt_sha256": "03b52b511d453fb14e45f7efdc992a0cd1fe14ed8358b004eae633a50786ad78",
+        "candidate_sha256": "b3e58e70c9fc3ed5f3c5040c487bd942a4a9f0094d9be7676554596037cd926d",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "30331251ea837a9931efbb161b241584916f4ae3aa4e39d8f62f381e4f401bf3"
+      },
+      {
+        "task": "SP547-TestSDKWireExact",
+        "input_commit": "2941484ffc18bca1e1b692d55ab60f6973a40001",
+        "write_scope": [
+          "tests/test_sdk_gb_license_list.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "1f14175c73db24baf321afde2ceb6509a4cbb43585a5121ac94fb1c15148e50b",
+        "local_receipt_sha256": "1b7dbc31e3263b2d6b478542f78ccdba33456b597b03eaa543aa2d8d27314ae4",
+        "candidate_sha256": "b2b1fb09eb1353db148873cad28cb0336530216c921d3f38a050133b1ab90574",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "a03764c446ea196ad2f0b2f61cdef25cac938ea457b1f12a8895cb6c32503790"
+      }
+    ],
+    "validation_index_candidate_sha256": "3cdf9c1cbf594d0209ac8da0903eeaf2caefe43fca1ceb784d9810057e47a87b",
+    "validation_index_candidate_execution_sha256": "c68616b1ea137faab1ef7481f585604dffbb8053fdda74fb5c85a4bb092bfec2",
+    "sdk_provenance_sha256": "23af19a521e06a81aefad5859915a6d8170a1ccf5efbc630576952b498a93a11",
+    "test_provenance_sha256": "e977258be9d9a23ac18e4b8c5f93a8b02643698086add4ff9700b651013b73f2",
+    "deterministic_integration": [
+      {
+        "task": "SP547-RegContracts",
+        "write_scope": [
+          "contracts/reviewed-transport-contracts.json"
+        ],
+        "integration_receipt_sha256": "ce2c6e97216fa2c8b4d74ed5d8cf71dc2f12f9d6d7321398d54f52fefc79e7c8"
+      },
+      {
+        "task": "SP547-RegBindings",
+        "write_scope": [
+          "contracts/sdk-bindings.json"
+        ],
+        "integration_receipt_sha256": "ce8b3387b31cc93b1caaf4f67be8a49afa7c809fa48acf0ed9c5e20ac1be132c"
+      },
+      {
+        "task": "SP547-RegPublic",
+        "write_scope": [
+          "docs/diagnostics-v1-coverage.json"
+        ],
+        "integration_receipt_sha256": "909c950ad98b6bc385657e3e3eb19b1e5fe53860f5d8d8e72d7a7e6ca198dcca"
+      },
+      {
+        "task": "SP547-RegPrivate",
+        "write_scope": [
+          "src/ezviz_unified/_diagnostic_registry.py"
+        ],
+        "integration_receipt_sha256": "46d3f7a28ddc598a04455ce5ed1b9bfcdde0d5aac42694cafc9e831476786e0b"
+      },
+      {
+        "task": "SP547-RegTestCount",
+        "write_scope": [
+          "tests/test_harness_diagnostic_coverage.py"
+        ],
+        "integration_receipt_sha256": "b20c8250cb8eec9e020a817a4a32782a3824cfc3344dc9144834e453e7ce3abb"
+      },
+      {
+        "task": "SP547-RegOracle",
+        "write_scope": [
+          "harness/wire_eval.py"
+        ],
+        "integration_receipt_sha256": "2976fbb86dabc912ab878205378cadce082cad48eabf0c6f16c05245d5de5e39"
+      },
+      {
+        "task": "SP547-RegSummary",
+        "write_scope": [
+          "contracts/coverage.json"
+        ],
+        "integration_receipt_sha256": "fa4bc56f4d5925722655f68b71499837dc2d0b53f009d35639805d29fe07b60e"
+      }
+    ],
+    "rejected_candidates": [
+      {
+        "task": "SP547-SdkGuide",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "0e7e1ceb0f2ff8045cf8eaff347cb6f7430f6c0b9d4a699de37ca7e0fa3ef96f"
+      },
+      {
+        "task": "SP547-SdkGuideR1",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "d9135ca67a659031519f1e4eda2e8d199be5e2a03dced088523c771389078f7e"
+      },
+      {
+        "task": "SP547-SdkGuideR2",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "7a32f9497f34a25a9b5626a5d0eb4af6e5ff97ff7031b1563877e01edc14c091"
+      },
+      {
+        "task": "SP547-TestCLI",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "484b048cd636708215099ebe1bd799fe5523491c1f056ecad5b67d31e7c741b6"
+      },
+      {
+        "task": "SP547-TestSDKWire",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "5ad2553a2876b3a0ca258f60cd06b6a761d1e848b7c171e520f2f66b26bd5989"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_gb_license_list.py tests/test_example_gb_license_list.py",
+      "summary": "148 passed in 0.89s",
+      "local_receipt_sha256": "a5eb508fbe54a09c961f015892eeae03100cd23044665bd0a2f9c5d704da51b3",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "13954 passed, 35 subtests passed in 83.01s (0:01:23)",
+      "local_receipt_sha256": "456f3ff4dd8751338ab232e0d37d0323ae912926127203f4098348c2a2a92524",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "302 registered contracts, 2448/2448 offline wire checks passed",
+      "local_receipt_sha256": "12b533960a7f1c487de842f0f5e8c4ee8d01cfc928b455d14e69e860b949571a",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "302 registered bindings, 604 sync/async symbols checked",
+      "local_receipt_sha256": "0c09b23550282ed435126cecc3af66f38b362902b2d6876a46cde4b4524a2cc8",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 65 source files",
+      "local_receipt_sha256": "ba64a0d9be6bea2cd177fe5569e77c9d6d993d5cdaacbced73341641475b7d43",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check --no-cache src/ezviz_unified harness examples tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_examples*.py tests/test_example_*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py tools/documents/http_candidates.py tools/documents/endpoint_inventory.py tests/test_document_http_candidates*.py tests/test_document_endpoint_inventory*.py tests/test_live_diagnostics.py tools/live/verify_diagnostics.py tools/live/verify_diagnostics_async.py tests/test_live_diagnostics_async.py tools/live/_cli_transport.py tools/live/verify_example_clis.py tests/test_live_example_cli*.py tools/live/verify_traffic_usage.py tests/test_live_traffic_usage.py tools/documents/normalize_sdk_reference.py tests/test_document_sdk_reference.py tests/test_document_inventory_output.py tools/live/verify_cloud_files.py tests/test_live_cloud_files*.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "ebdda3fb9f060940bfc0045abc4fbf79625bd931b4e6c77bc8af066470ff7a86",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check --no-cache src/ezviz_unified harness examples tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_examples*.py tests/test_example_*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py tools/documents/http_candidates.py tools/documents/endpoint_inventory.py tests/test_document_http_candidates*.py tests/test_document_endpoint_inventory*.py tests/test_live_diagnostics.py tools/live/verify_diagnostics.py tools/live/verify_diagnostics_async.py tests/test_live_diagnostics_async.py tools/live/_cli_transport.py tools/live/verify_example_clis.py tests/test_live_example_cli*.py tools/live/verify_traffic_usage.py tests/test_live_traffic_usage.py tools/documents/normalize_sdk_reference.py tests/test_document_sdk_reference.py tests/test_document_inventory_output.py tools/live/verify_cloud_files.py tests/test_live_cloud_files*.py",
+      "summary": "352 files already formatted",
+      "local_receipt_sha256": "ce2f251b94320d4bcedff7816d7f3539cb062e9c182e540c4647c5a7c9ecc816",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_harness_diagnostic_coverage.py",
+      "summary": "462 passed in 1.19s",
+      "local_receipt_sha256": "3cae67d6e173ad9e6850194afc7316bbc2fbf159a08d87be15b0b7adef31d652",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "本批仅在合成传输上验证一个项目和一页数据。未访问真实账户或设备 License；线上权限、套餐与中间层对 GET 表单的实际接受情况仍待独立核实。"
+}
