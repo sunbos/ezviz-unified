@@ -17,6 +17,10 @@
 
 认证和首页首台选择已完成，同步计划查询返回 SDK 错误。首次失败即停，异步未执行。未记录计划内容、业务码或原始异常，无法据此判定权限、设备状态或型号支持。 本次获准上限为 5 次 HTTP，实际放行 3 次。本项仍待通过。[脱敏回执](live/2026-11-20-singapore-first-device-working-mode-plan/receipt.json)
 
+## 国内 671 国标 License 元数据查询验收
+
+国内 671 接口按显式项目编码读取一页国标 License 元数据，GET 请求使用表单正文提交参数，并与 5369 分页设备列表分别登记。SDK 与 CLI 的同步和异步验证仅使用合成传输，示例只报告返回条数，不输出令牌、项目或设备条目。本批未查询真实业务账号和项目，实际授权与网关兼容性待核。[冻结契约](../coordination/domestic-gb-license-list/admission.json) · [离线回执](2026-11-21-domestic-gb-license-list/offline.json)
+
 ## 鸿蒙原生 SDK 1.9.0 产品验收
 
 本批在 1.9.0 中核对了 5 个公开 ArkTS 方法声明，它们分在两个公开声明文件中。静态档案与仅含本仓库代码的无 HAR 工程模板分别可验证。集成前须已签署有效的商业主协议并从中取得使用权，所用华为工具须独立具备相应授权。本批没有生成、签名或运行消费方 HAP；真机和 EZControl 行为仍待验证。[接入指南](../official-mobile-sdk.md) · [验收记录](2026-11-21-native-harmony-sdk/checks.json)

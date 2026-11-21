@@ -8,6 +8,7 @@ import pytest
 from ezviz_unified.devices import Devices
 from ezviz_unified.recordings import Recordings
 from ezviz_unified.settings import Settings
+from ezviz_unified.third_party_protocols import ThirdPartyProtocols
 from ezviz_unified.video import Video
 from harness.wire_eval import evaluate
 
@@ -30,6 +31,7 @@ REDACTED_OPERATION_IDS = (
     "cn.recordings.by_text_time",
     "cn.settings.get_working_mode_plans",
     "cn.settings.set_huashu_4g_working_mode_plan",
+    "cn.third_party_protocols.list_gb_licenses",
 )
 
 FACADES = {
@@ -47,6 +49,7 @@ FACADES = {
     "cn.recordings.by_text_time": (Recordings, "by_text_time"),
     "cn.settings.get_working_mode_plans": (Settings, "get_working_mode_plans"),
     "cn.settings.set_huashu_4g_working_mode_plan": (Settings, "set_huashu_4g_working_mode_plan"),
+    "cn.third_party_protocols.list_gb_licenses": (ThirdPartyProtocols, "list_gb_licenses"),
 }
 
 READ_ONLY_OPERATION_IDS = {
@@ -59,6 +62,7 @@ READ_ONLY_OPERATION_IDS = {
     "cn.recordings.by_time",
     "cn.recordings.by_text_time",
     "cn.settings.get_working_mode_plans",
+    "cn.third_party_protocols.list_gb_licenses",
 }
 
 MUTATIONS = {

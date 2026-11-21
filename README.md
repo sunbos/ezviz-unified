@@ -409,6 +409,17 @@ CLI 查询一页（`pageSize=1`），输出的 JSON 仅含区域、模式、查�
 
 本批离线验收使用合成响应，真实开发者权限、签发及记录可见性仍待核验。[签发接口](https://open.ys7.com/help/2846) · [添加记录](https://open.ys7.com/help/2847) · [已签发链接](https://open.ys7.com/help/2848)
 
+## 国内国标 License 列表
+
+调用 `client.third_party_protocols.list_gb_licenses(product_key, page_index=0, page_size=1)` 分页查询国内设备的国标 License 列表，`AsyncClient` 提供同名方法，以 `await` 调用，一次调用只返回一页数据。底层是 GET 请求，请求体按 `application/x-www-form-urlencoded` 编码，必带 `accessToken` 与 `productKey`，可选的 `pageIndex` 和 `pageSize` 省略时服务端分别按默认值 0 和 10 处理，`pageIndex` 须为非负整数，`pageSize` 取值范围 1–50。响应字段、错误码与完整示例见 [国内文档 671](https://open.ys7.com/help/671)。
+
+SDK 直接接收 `product_key`，无需环境变量，仅 CLI 在已获授权的境内配置下读取 `EZVIZ_PRODUCT_KEY`，不涉及设备序列号。671 没有文档载明最低授权要求，企业版、子账号或托管前提均未确认，也不能从四个独立协议端点推断。CLI 以第零页、页大小一发起请求，仅打印 `returned_items` 为 0 或 1，因为原始行可能含设备 License 与标识符。现有证据仅为合成离线数据。
+
+```sh
+python -m examples.gb_license_list --mode sync
+python -m examples.gb_license_list --mode async
+```
+
 ## 国内企业第三方协议接入
 
 官方快速入门要求国内账号已购买企业版。每个账号按协议开通项目。同步客户端使用 `client.third_party_protocols`，异步客户端使用 `await async_client.third_party_protocols.…`。协议类型为 `dhreg`、`tiandy`、`huawei` 或 `jt808`。完整签名、参数和资料差异见[冻结契约](docs/coordination/domestic-third-party-protocols/admission.json)及[官方快速入门](https://open.ys7.com/help/5322)。

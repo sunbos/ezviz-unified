@@ -7196,6 +7196,33 @@
           "synthetic": true
         }
       }
+    },
+    {
+      "operation_id": "cn.third_party_protocols.list_gb_licenses",
+      "args": [
+        "  示例项目 +&  "
+      ],
+      "kwargs": {
+        "page_index": 0,
+        "page_size": 1
+      },
+      "fields": {
+        "productKey": "  示例项目 +&  ",
+        "pageIndex": 0,
+        "pageSize": 1
+      },
+      "data": [
+        {
+          "deviceLicense": "[synthetic-license]",
+          "deviceId": "[synthetic-device]",
+          "activatedTime": null,
+          "reserve": null,
+          "activatedStatus": "synthetic-state",
+          "extra": {
+            "fixture": true
+          }
+        }
+      ]
     }
   ]
 }
