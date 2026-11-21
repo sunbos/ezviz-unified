@@ -4244,6 +4244,19 @@
       "public_entry": "devices.generate_wifi_qr",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.task_files",
+      "region": "domestic",
+      "source_doc_id": "1373",
+      "module": "src/ezviz_unified/cloud_recording_v1.py",
+      "symbols": [
+        "CloudRecordingV1.task_files",
+        "AsyncCloudRecordingV1.task_files"
+      ],
+      "public_entry": "cloud_recording_v1.task_files",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

@@ -7527,6 +7527,40 @@
           "synthetic": true
         }
       }
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.task_files",
+      "args": [
+        "synthetic-task"
+      ],
+      "kwargs": {
+        "page_number": 0,
+        "page_size": 2,
+        "sort_field": "createTime",
+        "sort_rule": "desc",
+        "has_url": false
+      },
+      "fields": {
+        "taskId": "synthetic-task",
+        "pageNumber": 0,
+        "pageSize": 2,
+        "sortField": "createTime",
+        "sortRule": "desc",
+        "hasUrl": "false"
+      },
+      "data": [
+        {
+          "fileId": "synthetic-file",
+          "fileType": 999,
+          "downloadUrls": [],
+          "extra": {
+            "synthetic": true
+          }
+        },
+        {
+          "status": null
+        }
+      ]
     }
   ]
 }
