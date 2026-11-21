@@ -572,6 +572,17 @@ rows = await async_client.traffic.day_details(page_size=1)
 
 `client.playback.create(serial, PlaybackOptions(...))`按地区创建播放地址；`invalidate(serial, url_id=...)`显式失效地址。`client.snapshots.capture(serial, channel=...)`支持两地普通抓拍，国内另有`capture_to_space`。这些操作不自动重放，也不下载或播放媒体；返回URL与密码应按凭证处理。协议/时间/存储差异和未解决项见[媒体说明](docs/research/2026-11-14-media-access.md)，尚未进行真实媒体请求。
 
+### 海外 Linktom 既有抓拍图片查询
+
+海外 Linktom 设备可用 `client.snapshots.get_by_uuid(capture_uuid, size=size)` 查询既有图片引用，异步客户端用 `await` 调用同名方法。`capture_uuid` 须来自已获授权的设备 SDK 抓拍。显式整数参数 `size` 的范围为 0 至 1280，文档未说明 0 的特殊含义。SDK 返回完整的 `ApiResponse`。`response.data["picUrl"]` 是图片引用字符串，也可以是相对路径。`data`、`raw` 及未知扩展字段均保留原值。UUID 和图片引用均应按敏感信息处理。这项查询不会触发新抓拍、枚举资源或请求媒体。
+
+CLI 仅使用合成传输，成功时输出 `simulated` 和 `picture_ref_present`。后者仅表示返回了非空字符串。实际设备支持、账号权限及图片可达性仍待验证。[海外文档 476 §1.4](https://open.ys7.com/help/en/476)
+
+```sh
+python -m examples.linktom_picture --mode sync
+python -m examples.linktom_picture --mode async
+```
+
 ## 本地录像查询
 
 `client.recordings.local(device_serial, start_time=..., end_time=..., channel=...)`支持同步/异步调用，返回ApiResponse。国内要求同一显式时区、同一天的aware datetime，按文档数值示例转换为秒；海外时间可分别省略，传入时须为naive datetime，以服务器wall time格式发送，不猜测时区。

@@ -7489,6 +7489,25 @@
           "synthetic": true
         }
       }
+    },
+    {
+      "operation_id": "global.snapshots.get_by_uuid",
+      "args": [
+        "synthetic-capture-lookup"
+      ],
+      "kwargs": {
+        "size": 640
+      },
+      "fields": {
+        "uuid": "synthetic-capture-lookup",
+        "size": 640
+      },
+      "data": {
+        "picUrl": "synthetic/lookup-reference",
+        "extra": {
+          "synthetic": true
+        }
+      }
     }
   ]
 }

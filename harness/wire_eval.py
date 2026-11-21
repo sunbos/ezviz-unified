@@ -98,6 +98,7 @@ _REDACTED_MESSAGE_OPERATION_IDS = frozenset(
         "cn.settings.get_alarm_detection_mode",
         "cn.settings.get_channel_light_linkage",
         "global.detectors.rename",
+        "global.snapshots.get_by_uuid",
         "cn.settings.get_working_mode_plans",
         "cn.settings.set_huashu_4g_working_mode_plan",
         "cn.recordings.by_time",

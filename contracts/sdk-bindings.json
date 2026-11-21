@@ -4218,6 +4218,19 @@
       "public_entry": "settings.get_channel_light_linkage",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "global.snapshots.get_by_uuid",
+      "region": "overseas",
+      "source_doc_id": "476",
+      "module": "src/ezviz_unified/snapshots.py",
+      "symbols": [
+        "Snapshots.get_by_uuid",
+        "AsyncSnapshots.get_by_uuid"
+      ],
+      "public_entry": "snapshots.get_by_uuid",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }
