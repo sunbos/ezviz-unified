@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "61c232c92d949ff757b32a8d97c8b10368ac8293",
+  "scope_revision": "2026-11-21-r72-domestic-wifi-qr",
+  "cohort_id": "DOMESTIC-WIFI-QR-001",
+  "operations": [
+    {
+      "operation_id": "cn.devices.generate_wifi_qr",
+      "capability_id": "candidate:domestic:663:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-663-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-663-D0-LIVE-001"
+      ],
+      "entry": "devices.generate_wifi_qr",
+      "name": "generate_wifi_qr",
+      "doc_id": "663",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/lapp/device/wifi/qrcode",
+      "read_only": false,
+      "source_url": "https://open.ys7.com/help/663",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/663.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/663.structure.json",
+      "html_sha256": "2b4a75b0d7a9d57fde42d973c31ebe822e1a44e8e8eca3599bdbfa0256dbe92d",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E21/E46"
+        },
+        {
+          "name": "ssid",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E21/E46"
+        },
+        {
+          "name": "password",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E21/E46"
+        }
+      ],
+      "elements": {
+        "description": 5,
+        "route": 9,
+        "method": 13,
+        "permission": [
+          17,
+          18
+        ],
+        "parameters": 21,
+        "request": 46,
+        "example": 50,
+        "fields": 54,
+        "errors": 67,
+        "models": 101,
+        "usage_examples": [
+          117,
+          120
+        ]
+      },
+      "signatures": {
+        "Devices": "def generate_wifi_qr(self, ssid: str, *, password: str) -> ApiResponse",
+        "AsyncDevices": "async def generate_wifi_qr(self, ssid: str, *, password: str) -> ApiResponse"
+      },
+      "permission": "国内子账号至少需要 Config 权限，范围为 Cam 设备及通道。权限描述中的序列、通道不是本请求的字段。",
+      "prerequisites": "E101 列出 CS-C2C-31WFR-B、CS-C2miniS-52WFR、CS-C2W-31WPFR、CS-C6T-32WMFR、CS-F2-31WFSRT，未列固件版本。",
+      "unknown": "E54 将 imageData 定义为字符串；E117 与 E120 仅展示 Base64/JPG 使用方式。固定 MIME、实际像素、设备能否扫描并成功入网待核。",
+      "envelope_paths": [
+        ""
+      ],
+      "listed_models": [
+        "CS-C2C-31WFR-B",
+        "CS-C2miniS-52WFR",
+        "CS-C2W-31WPFR",
+        "CS-C6T-32WMFR",
+        "CS-F2-31WFSRT"
+      ]
+    }
+  ],
+  "public_document_recheck": {
+    "public_reference": "https://open.ys7.com/help/663",
+    "http_status": 200,
+    "checked_at_utc": "2026-11-21T04:27:30.736070+00:00",
+    "html_sha256": "2b4a75b0d7a9d57fde42d973c31ebe822e1a44e8e8eca3599bdbfa0256dbe92d",
+    "device_requests": 0,
+    "account_requests": 0
+  },
+  "sdk_choices": [
+    "Devices 与 AsyncDevices 提供 generate_wifi_qr(ssid, *, password)。仅由调用方明确发起生成。国内 HTTPS，认证令牌由现有客户端注入，POST 表单仅有 accessToken、ssid、password。显式调用将提供的无线网络资料发往国内官方服务。SDK 不读取系统网络配置，不联系设备，不把生成动作当成绑定或入网。",
+    "诊断作用域内先判断地区，随后校验 SSID 和口令是非空可编码 UTF-8 字符串。保留大小写和所有前后空白；非空的纯空白也不改写。不规定长度、安全类型或字符集。中文 SSID 是文档建议避免，而不是 SDK 禁令。无效输入只报固定字段错误，Unicode 编码异常不得在错误上下文或显示信息中带回输入。",
+    "生成不是纯查找，认证错误、超时和业务拒绝均不重放。根层 code 必须为字符串 200，data 为对象且 imageData 为字符串；成功的原始字符串、空字符串和扩展字段保持。只在调用者显式读取 ApiResponse.data/raw 时提供原值。SDK 不自动解码、生成文件、渲染图像、上送报告或连接 Wi-Fi。",
+    "复用现有严格响应策略、敏感键和媒体展示保护。不添加全局 HTTPX 改动。E67 中的 200/10001/10002/10005/10017/49999 和通用 400/403/404/500/10031 可按原 int/str 类型展示，其余错误码遮盖。上游 message/reason、非标准 HTTP 版本、SSID、口令、imageData、token 不进入 SDK 受管日志、异常展示、诊断及 CLI 输出。主动打印 data/raw 仍由调用方负责。",
+    "示例 python -m examples.wifi_qr --mode sync|async 仅使用合成静态令牌、合成网络参数、MockTransport 与不可扫码的合成数据。只调用一次真实 facade，输出 JSON 布尔字段 simulated、image_data_present，未生成或展示可用二维码。usage 固定，失败为 error: Wi-Fi QR example failed，取消退出 130，未预期的 RuntimeError 传播。文档解释应用如需展示可显式在内存中按官方 Base64 示例转换，展示目标 300×300，不默认保存文件。禁止从真实账户、真实路由器或外部图片取得样例。",
+    "需区分生成响应、应用显示与兼容设备实际入网。真实验收仅限另行明确的隔离测试网络、权限、设备型号、请求上限、扫码与恢复方案。本批无实际账号或无线网络请求。"
+  ],
+  "component_review": {
+    "native_docs": [
+      "4097",
+      "4172",
+      "4212",
+      "523"
+    ],
+    "conclusion": "这些材料描述原生配网流程、设备标签或小程序入口。所审资料未发现与 663 具有相同请求和 imageData 应答的组件，不推断所有二进制的能力。"
+  },
+  "reuse": [
+    "src/ezviz_unified/devices.py",
+    "src/ezviz_unified/response.py",
+    "src/ezviz_unified/errors.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "仅合成验证，不生成真实配网材料。"
+}
