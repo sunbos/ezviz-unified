@@ -2718,6 +2718,67 @@
         "国内 5369 E14",
         "docs/coordination/domestic-gb-license-list/admission.json"
       ]
+    },
+    {
+      "id": "cn.settings.set_motion_tracking.switch_encoding_and_channel_scope",
+      "region": "domestic",
+      "source_doc_id": "722",
+      "source_url": "https://open.ys7.com/help/722",
+      "source_content_sha256": "1186da0532fe69545c427fbc979ac519700fa68cce182cf64d6cfc46d57fa5f0",
+      "description": "E14 将写入参数 enable 列为 String，E54 展示字符串“1”。0/1 的开关含义参考 723 E50 的读取字段。E3 要求设备 support_intelligent_track=1，子账户需 Config 权限且作用域限定为 Cam 设备/通道。4376/4377 对应特写 VideoSwitch.FEATURE_TRACKING 701，使用不同的 support_feature_track 能力键。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 将 enabled 序列化为字符串 \"0\"/\"1\" 发送，不使用整数。channelNo 保持 String 类型，为 None 时省略该字段且不假设默认值。",
+      "evidence": [
+        "E3;E14;E54",
+        "国内 723 E50",
+        "国内 4376/4377 E3;E14",
+        "docs/coordination/domestic-tracking-switches/admission.json"
+      ]
+    },
+    {
+      "id": "cn.settings.get_motion_tracking.read_semantics_and_channel",
+      "region": "domestic",
+      "source_doc_id": "723",
+      "source_url": "https://open.ys7.com/help/723",
+      "source_content_sha256": "4f11b19412f3a11140d211def8389f355b573522a797a20b44bc2db699297cf4",
+      "description": "E3 措辞为\"设置\"，与标题、路径、读取语义及 E46 相冲突。实际为只读 POST 接口，无通道输入。E50 响应中 enable 为 Int，0/1 分别表示关闭与开启。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 以 POST 发起只读查询且不携带 channelNo。原样保留整数 enable 及未知取值和扩展字段。读取遇到 10002 可按已有策略刷新一次并重试。",
+      "evidence": [
+        "E3;E7;E11;E14",
+        "E42;E46;E50;E82",
+        "docs/coordination/domestic-tracking-switches/admission.json"
+      ]
+    },
+    {
+      "id": "cn.settings.get_human_tracking.required_content_type_and_capability",
+      "region": "domestic",
+      "source_doc_id": "728",
+      "source_url": "https://open.ys7.com/help/728",
+      "source_content_sha256": "101f9602c5a0c416406c9e88ca53110a5a62966980d37c5f80492aa6e1e87fef",
+      "description": "E14 声明需要 Content-Type 但 E42 请求示例未包含。GET 请求在 header 携带 accessToken 与 deviceSerial，body 为空。响应 meta.code 为真正的整数 200，data 对象中 enable 为 Int。E50 的 moreInfo 类型为 string，而 E46 中为 null。错误表列出 10031/20018/60020，但未指明最低权限、能力键、机型或固件要求。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 以 GET 读取，header 传 accessToken 与 deviceSerial 并发送空 body。按 meta.code 整数 200 判定成功并解析 data.enable 整数。保留未知字段，不假设能力键或权限前提。",
+      "evidence": [
+        "E14;E42",
+        "E46;E50;E90",
+        "docs/coordination/domestic-tracking-switches/admission.json"
+      ]
+    },
+    {
+      "id": "cn.settings.set_human_tracking.acknowledgement_and_device_effect",
+      "region": "domestic",
+      "source_doc_id": "729",
+      "source_url": "https://open.ys7.com/help/729",
+      "source_content_sha256": "b3bfe5b6ab2597f3170c11629d136105cf464c23a50d12b9f63695fa1f523223",
+      "description": "E14 表单中 enable 为 INT 类型，取值 0/1，E48 为占位说明。E52 响应以 meta.code 整数 200 且 data 为 null 作为 ACK。错误表列出 10031/20018/60020，未指明最低权限、能力键、机型或固件要求。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 在请求头传 accessToken 和 deviceSerial，以表单提交整数语义的 enable。成功应答不证明设备实际生效。每次写入只发一个业务请求，不做自动重试或回读。",
+      "evidence": [
+        "E14;E48",
+        "E52;E56;E80",
+        "docs/coordination/domestic-tracking-switches/admission.json"
+      ]
     }
   ]
 }

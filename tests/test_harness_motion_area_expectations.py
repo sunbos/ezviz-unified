@@ -32,6 +32,10 @@ REDACTED_OPERATION_IDS = (
     "cn.settings.get_working_mode_plans",
     "cn.settings.set_huashu_4g_working_mode_plan",
     "cn.third_party_protocols.list_gb_licenses",
+    "cn.settings.set_motion_tracking",
+    "cn.settings.get_motion_tracking",
+    "cn.settings.get_human_tracking",
+    "cn.settings.set_human_tracking",
 )
 
 FACADES = {
@@ -50,6 +54,10 @@ FACADES = {
     "cn.settings.get_working_mode_plans": (Settings, "get_working_mode_plans"),
     "cn.settings.set_huashu_4g_working_mode_plan": (Settings, "set_huashu_4g_working_mode_plan"),
     "cn.third_party_protocols.list_gb_licenses": (ThirdPartyProtocols, "list_gb_licenses"),
+    "cn.settings.set_motion_tracking": (Settings, "set_motion_tracking"),
+    "cn.settings.get_motion_tracking": (Settings, "get_motion_tracking"),
+    "cn.settings.get_human_tracking": (Settings, "get_human_tracking"),
+    "cn.settings.set_human_tracking": (Settings, "set_human_tracking"),
 }
 
 READ_ONLY_OPERATION_IDS = {
@@ -63,6 +71,8 @@ READ_ONLY_OPERATION_IDS = {
     "cn.recordings.by_text_time",
     "cn.settings.get_working_mode_plans",
     "cn.third_party_protocols.list_gb_licenses",
+    "cn.settings.get_motion_tracking",
+    "cn.settings.get_human_tracking",
 }
 
 MUTATIONS = {

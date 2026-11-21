@@ -7223,6 +7223,96 @@
           }
         }
       ]
+    },
+    {
+      "operation_id": "cn.settings.set_motion_tracking",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "enabled": false,
+        "channel_no": "01"
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "enable": "0",
+        "channelNo": "01"
+      },
+      "data": {
+        "extension": {
+          "synthetic": true
+        }
+      }
+    },
+    {
+      "operation_id": "cn.settings.get_motion_tracking",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        }
+      },
+      "data": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": 1,
+        "enable": 1,
+        "extension": {
+          "synthetic": true
+        }
+      }
+    },
+    {
+      "operation_id": "cn.settings.get_human_tracking",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        }
+      },
+      "data": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "channelNo": 2,
+        "enable": 0,
+        "extension": {
+          "synthetic": true
+        }
+      }
+    },
+    {
+      "operation_id": "cn.settings.set_human_tracking",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {
+        "enabled": true
+      },
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        },
+        "enable": 1
+      },
+      "data": null
     }
   ]
 }

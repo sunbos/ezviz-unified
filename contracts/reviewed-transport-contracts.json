@@ -22509,6 +22509,287 @@
       },
       "source_content_sha256": "ff7c34b90d6c749a6e5d89f6027b004f2863685e0ce18db7853bee20ca4a423e",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.settings.set_motion_tracking",
+      "region": "domestic",
+      "source_doc_id": "722",
+      "source_url": "https://open.ys7.com/help/722",
+      "method": "POST",
+      "path": "/api/lapp/device/mobile/status/set",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "enable",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "channelNo",
+          "type": "String",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E58;E62;E78"
+      },
+      "constraints": [
+        {
+          "fact": "设备须支持能力 support_intelligent_track=1，且子账号须持有按设备与通道粒度限定的 Config 类 Cam 资源权限。",
+          "evidence": "E3"
+        },
+        {
+          "fact": "本写接口中 enable 为 String 类型，需发送 \"0\" 或 \"1\" 字符串分别表示关与开，可选 channelNo 亦为 String，其缺省值未知。",
+          "evidence": "E14;E54;国内 723 E50"
+        }
+      ],
+      "uncertainties": [
+        "722 E14 enable 为字符串，E54 示例展示 1。与 723 E50 合并认定 0/1 的含义。未说明省略 channelNo 的通道选择。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/device/mobile/status/set",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E54"
+      },
+      "source_content_sha256": "1186da0532fe69545c427fbc979ac519700fa68cce182cf64d6cfc46d57fa5f0",
+      "read_only": false
+    },
+    {
+      "operation_id": "cn.settings.get_motion_tracking",
+      "region": "domestic",
+      "source_doc_id": "723",
+      "source_url": "https://open.ys7.com/help/723",
+      "method": "POST",
+      "path": "/api/lapp/device/mobile/status/get",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "evidence": "E46;E50;E82"
+      },
+      "constraints": [
+        {
+          "fact": "该读接口需具备相应授权并以 POST 方式请求，文档记为对 Cam 资源的 Get 操作，表单仅含 accessToken 与 deviceSerial 两个字段。",
+          "evidence": "E3;E7;E11;E14"
+        },
+        {
+          "fact": "响应根字段 code 为字符串，data 对象中包含整数 enable，取值 0 表示关、1 表示开。",
+          "evidence": "E46;E50"
+        }
+      ],
+      "uncertainties": [
+        "723 E3 使用设置字样；标题、Get 权限、路径及 E46 响应共同支持读取。请求不含通道。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/device/mobile/status/get",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E42"
+      },
+      "source_content_sha256": "4f11b19412f3a11140d211def8389f355b573522a797a20b44bc2db699297cf4",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.settings.get_human_tracking",
+      "region": "domestic",
+      "source_doc_id": "728",
+      "source_url": "https://open.ys7.com/help/728",
+      "method": "GET",
+      "path": "/api/v3/device/switch/human/track",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E46;E50;E90"
+      },
+      "constraints": [
+        {
+          "fact": "该接口以 GET 方式调用，accessToken 与 deviceSerial 经请求头发送，并须携带 x-www-form-urlencoded 的 Content-Type 头，无请求体。",
+          "evidence": "E14;E42"
+        },
+        {
+          "fact": "响应根对象 meta.code 为整数，data.enable 为整数表示开关状态，示例中 meta.moreInfo 为 null，所需最低授权与能力键未知。",
+          "evidence": "E46;E50;E90"
+        }
+      ],
+      "uncertainties": [
+        "728 E14 将 Content-Type 列为必填，E42 示例省略。按参数表发送，不设正文。未给出能力位、最低权限或机型。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/device/switch/human/track",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E42"
+      },
+      "source_content_sha256": "101f9602c5a0c416406c9e88ca53110a5a62966980d37c5f80492aa6e1e87fef",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.settings.set_human_tracking",
+      "region": "domestic",
+      "source_doc_id": "729",
+      "source_url": "https://open.ys7.com/help/729",
+      "method": "PUT",
+      "path": "/api/v3/device/switch/human/track",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "enable",
+          "type": "Int",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E52;E56;E80"
+      },
+      "constraints": [
+        {
+          "fact": "该接口以 PUT 方式调用，accessToken 与 deviceSerial 置于请求头并须携带表单 Content-Type 头，请求体中 enable 为整数，0 表示关、1 表示开。",
+          "evidence": "E14;E48"
+        },
+        {
+          "fact": "示例响应中根对象 meta.code 为整数且 data 为 null，仅确认请求被受理，不得断言每次成功响应都含 data 键或证明设备已实际生效。",
+          "evidence": "E52;E56;E80"
+        }
+      ],
+      "uncertainties": [
+        "729 的空 data 只表示接口应答。设备生效、能力前提及可恢复性待另行核验。"
+      ],
+      "transport_evidence": {
+        "method": "PUT",
+        "path": "https://open.ys7.com/api/v3/device/switch/human/track",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E48"
+      },
+      "source_content_sha256": "b3bfe5b6ab2597f3170c11629d136105cf464c23a50d12b9f63695fa1f523223",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -22710,6 +22991,10 @@
     {
       "review": "docs/coordination/domestic-gb-license-list/admission.json",
       "note": "国内 671 以 GET 表单查询指定项目的一页国标 License。5369 的协议设备页及相邻写操作均为独立契约。"
+    },
+    {
+      "review": "docs/coordination/domestic-tracking-switches/admission.json",
+      "note": "分别核对国内移动跟踪 722/723 与人形追踪 728/729。4376/4377 的特写追踪 selector 701 有单独的能力条件和既有契约。"
     }
   ]
 }
