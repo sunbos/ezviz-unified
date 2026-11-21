@@ -37322,7 +37322,7 @@
         "max_operations": 2,
         "freeze_required": false
       },
-      "authorization_status": "authorized_bounded_read_only",
+      "authorization_status": "bounded_single_run_concluded",
       "recovery_plan": "只读。",
       "source_refs": [
         "docs/coordination/domestic-intelligent-detection/admission.json",
@@ -37330,14 +37330,22 @@
         "docs/coordination/domestic-detection-read-live/admission.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
+      "result": "recorded_evidence",
       "blockers": [
-        "等待有界执行及可核验回执。"
+        "单轮授权已执行，首次失败即停，不能据部分响应通过。"
       ],
       "limitations": [
-        "可选 type 的含义依赖布撤防状态与互斥选择。官方未给出支持机型清单。"
+        "可选 type 的含义依赖布撤防状态与互斥选择。官方未给出支持机型清单。",
+        "仅本次固定设备、读取选项和响应结构；不能据此验证其他选择器、其他机型或实际侦测效果。"
       ],
-      "shared_request_budget_ref": "docs/coordination/domestic-detection-read-live/admission.json"
+      "shared_request_budget_ref": "docs/coordination/domestic-detection-read-live/admission.json",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-21-domestic-detection-read/execution.json",
+        "docs/validation/live/2026-11-21-domestic-detection-read/receipt.json"
+      ],
+      "execution_outcome": "not_verified",
+      "attempted_code_commit": "468d6738475cdfa9faa67129df8fbb96b6bd7273",
+      "execution_note": "本次尝试的两模式组合未取得完整成功回执，详见逐项记录。"
     },
     {
       "case_id": "ACC-CANDIDATE-CN-727-D0-LIVE-001",
@@ -37471,7 +37479,7 @@
         "max_operations": 2,
         "freeze_required": false
       },
-      "authorization_status": "authorized_bounded_read_only",
+      "authorization_status": "bounded_single_run_concluded",
       "recovery_plan": "只读。",
       "source_refs": [
         "docs/coordination/domestic-intelligent-detection/admission.json",
@@ -37479,14 +37487,20 @@
         "docs/coordination/domestic-detection-read-live/admission.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
+      "result": "awaiting_resource_confirmation",
       "blockers": [
-        "等待有界执行及可核验回执。"
+        "未取得本项硬件响应；本次单轮预算已关闭。"
       ],
       "limitations": [
-        "查询嵌套 data.valueInfo.type。两份 v3 文档只列成功码，未给出最低角色或持久性承诺。"
+        "查询嵌套 data.valueInfo.type。两份 v3 文档只列成功码，未给出最低角色或持久性承诺。",
+        "仅本次固定设备、读取选项和响应结构；不能据此验证其他选择器、其他机型或实际侦测效果。"
       ],
-      "shared_request_budget_ref": "docs/coordination/domestic-detection-read-live/admission.json"
+      "shared_request_budget_ref": "docs/coordination/domestic-detection-read-live/admission.json",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-21-domestic-detection-read/execution.json",
+        "docs/validation/live/2026-11-21-domestic-detection-read/receipt.json"
+      ],
+      "execution_note": "单轮核验在本项之前已停止，本项没有发出请求。"
     },
     {
       "case_id": "ACC-CANDIDATE-OVERSEAS-481-1-7-LIVE-001",
@@ -37569,7 +37583,7 @@
         "max_operations": 2,
         "freeze_required": false
       },
-      "authorization_status": "authorized_bounded_read_only",
+      "authorization_status": "bounded_single_run_concluded",
       "recovery_plan": "只读。",
       "source_refs": [
         "docs/coordination/domestic-advanced-detection-type/admission.json",
@@ -37577,14 +37591,20 @@
         "docs/coordination/domestic-detection-read-live/admission.json"
       ],
       "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
+      "result": "awaiting_resource_confirmation",
       "blockers": [
-        "等待有界执行及可核验回执。"
+        "未取得本项硬件响应；本次单轮预算已关闭。"
       ],
       "limitations": [
-        "文档返回单个整数类型。E60 只列成功码，错误枚举及真实设备适用范围仍待核定。"
+        "文档返回单个整数类型。E60 只列成功码，错误枚举及真实设备适用范围仍待核定。",
+        "仅本次固定设备、读取选项和响应结构；不能据此验证其他选择器、其他机型或实际侦测效果。"
       ],
-      "shared_request_budget_ref": "docs/coordination/domestic-detection-read-live/admission.json"
+      "shared_request_budget_ref": "docs/coordination/domestic-detection-read-live/admission.json",
+      "execution_evidence_refs": [
+        "docs/validation/live/2026-11-21-domestic-detection-read/execution.json",
+        "docs/validation/live/2026-11-21-domestic-detection-read/receipt.json"
+      ],
+      "execution_note": "单轮核验在本项之前已停止，本项没有发出请求。"
     },
     {
       "case_id": "ACC-CANDIDATE-CN-5289-D0-LIVE-001",
