@@ -1,0 +1,722 @@
+{
+  "schema_version": 1,
+  "public_document_recheck": {
+    "public_docs_only": true,
+    "credentials_used": false,
+    "device_api_requests": 0,
+    "media_requests": 0,
+    "source_batch": "2026-11-17-sdk-product-main",
+    "checked_at_utc": "2026-11-21T01:00:28.718713+00:00",
+    "documents": [
+      {
+        "region": "domestic",
+        "doc_id": "722",
+        "reference": "https://open.ys7.com/help/722",
+        "status": 200,
+        "html_sha256": "1186da0532fe69545c427fbc979ac519700fa68cce182cf64d6cfc46d57fa5f0",
+        "matches_frozen_html": true
+      },
+      {
+        "region": "domestic",
+        "doc_id": "723",
+        "reference": "https://open.ys7.com/help/723",
+        "status": 200,
+        "html_sha256": "4f11b19412f3a11140d211def8389f355b573522a797a20b44bc2db699297cf4",
+        "matches_frozen_html": true
+      },
+      {
+        "region": "domestic",
+        "doc_id": "728",
+        "reference": "https://open.ys7.com/help/728",
+        "status": 200,
+        "html_sha256": "101f9602c5a0c416406c9e88ca53110a5a62966980d37c5f80492aa6e1e87fef",
+        "matches_frozen_html": true
+      },
+      {
+        "region": "domestic",
+        "doc_id": "729",
+        "reference": "https://open.ys7.com/help/729",
+        "status": 200,
+        "html_sha256": "b3bfe5b6ab2597f3170c11629d136105cf464c23a50d12b9f63695fa1f523223",
+        "matches_frozen_html": true
+      }
+    ]
+  },
+  "focused_wire": {
+    "cells": [
+      {
+        "operation_id": "cn.settings.set_motion_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_motion_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_motion_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_motion_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_motion_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_motion_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_motion_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_motion_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_motion_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_motion_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_motion_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_motion_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_motion_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_motion_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_motion_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_motion_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_human_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_human_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_human_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_human_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_human_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_human_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_human_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.get_human_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_human_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_human_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_human_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_human_tracking",
+        "mode": "sync",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_human_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "success",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_human_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "auth_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_human_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "permission_fault",
+        "passed": true,
+        "problem": null
+      },
+      {
+        "operation_id": "cn.settings.set_human_tracking",
+        "mode": "async",
+        "layout": "",
+        "scenario": "http_fault",
+        "passed": true,
+        "problem": null
+      }
+    ],
+    "oracle_mutation_tests": 57,
+    "real_api_used": false,
+    "sdk_sha256": "b5f4e54e1909f1ba5eabfa51fbca9ad244cf7e116f7cd273b61f82a05fd10708",
+    "execution_sha256": "9fb02a504632ef27514018d047bbdabb16d610f89d5ead8482db62fa0126de03",
+    "full_cases_sha256": "e19a2d0095250ba244c61b4ad4396ba73b481551d9161901190079583aa477c5"
+  },
+  "scope": "domestic_tracking_switches_offline",
+  "code_commit": "e5a8e5c59f906028ae548f49e89de4e9bbb0af79",
+  "bindings_sha256_at_code_commit": "68eede3fb2607c94b6c54dd5ddb8f2b7f96e6e29026531ccde185578162406f5",
+  "source_test_sha256": {
+    "src/ezviz_unified/settings.py": "b5f4e54e1909f1ba5eabfa51fbca9ad244cf7e116f7cd273b61f82a05fd10708",
+    "src/ezviz_unified/_diagnostic_registry.py": "392d79c91c5d463a1c49af0778c58361550e76ee5986488e1f72e091d28d7342",
+    "docs/diagnostics-v1-coverage.json": "65024f1aab029f7eb495d258f6e01eb60f7470346871175d211131b5c06b5e05",
+    "docs/diagnostics.md": "fbd3f793caab0c4c33d066959feac7fc5f49ec24fcddb4b6bec298bbd76baf2e",
+    "tests/test_harness_diagnostic_coverage.py": "c7c924684d4c24321871778ecc46c0eab0aa50ef97d5d1786bf2c95b8d6c435d",
+    "tests/test_sdk_domestic_tracking_switches.py": "5a1734dd775091ad34eedc50f145c0a6471d2f0c13ba29e8c52bd6b5f1c70271",
+    "tests/test_example_tracking_switches.py": "591e3964407fe3cf4c836f03607bbb714efb9fb808d0752af51351b5e66513bb",
+    "examples/tracking_switches.py": "c2e8853209ee127a5c3426265a49c591c442f3d9c4d5cb81f973915e83b789d0",
+    "README.md": "616a4b7f1f50bf6041e651487c61dadbd995d101ebdafb5b94525ecf6646465e",
+    "contracts/reviewed-transport-contracts.json": "7faaf09b79dc9f1119e11aa5438d9f960e441fd96dd6e1c9e817243bc442e738",
+    "contracts/source-issues.json": "f5bfd04e9c4c01c4801f4315f3fce2c22a5aa4e8297098dbec62a8ce5cfa3e6b",
+    "evals/contracts/cases.json": "e19a2d0095250ba244c61b4ad4396ba73b481551d9161901190079583aa477c5",
+    "docs/coordination/domestic-tracking-switches/admission.json": "2109f47564844b181c04dbe20bf417f18088c12a24f2eb52444d19e07cc00e6c",
+    "contracts/coverage.json": "d15247e9dc48c77855f7dcae63f7ec0e7de6230c098b3f69f61bf59166206190",
+    "harness/wire_eval.py": "12edcce47747830a73314fc34eda6b597600a130344aefb0f7cdc8a6d3b82945",
+    "tests/test_harness_motion_area_expectations.py": "4d9bce00613793a39df06ae6413c72c7c8e8a24bd7edf93a665b65673bb8f788"
+  },
+  "delegation": {
+    "model": "devin/swe-2",
+    "effort": "max",
+    "assignments": [
+      {
+        "task": "SP550-RegBindings",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "contracts/sdk-bindings.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "e051068643bbb61ee834345aa75735bfa34e8e3dff19bbb9b86a18665612f62a",
+        "local_receipt_sha256": "5f3fe9259b69409f0645445dba6dd5655ba24ba52880ddfb242c66192c70bbd9",
+        "candidate_sha256": "52c0a30a05732e69e5c9715652631ba934350a5e64e73e5d724c330f361d7531",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "54873a0ecae5fc90e3f596a8bfd2a914c29f1cedc546c08b347362b23df54be4"
+      },
+      {
+        "task": "SP550-RegCases",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "evals/contracts/cases.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "bc21b1a2b2c9dd7ae77357ae098e3f6d4462946aaa0390ac1d9339a7d80ddb16",
+        "local_receipt_sha256": "86bf14a501fcf4494ba4b977f8e0b746ee95aa21e4ef114d8172c6f8b8534788",
+        "candidate_sha256": "1ced23c22f4cf8b8185caf759d9296747a23576bd730709bdc4a75968a776942",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "d74fe047cf911908dcaa72889c6ff677d979a5c2c552fa833cd99b4490ee0ed0"
+      },
+      {
+        "task": "SP550-RegContractsR1",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "contracts/reviewed-transport-contracts.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "5b77f730fa54b7619be6cbad265cff071c85d5285d78faff8880aad6f9fa1d22",
+        "local_receipt_sha256": "4636b9cf014f3e0c89fb288ebbbd27394bd2a48a81d61f040b958a6a62b14a44",
+        "candidate_sha256": "ee6148885c5227ee9fa62851e041a50cd91f54601dd418749d4cabd40dc60db8",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "54042d1543f2207387c426a8494f6f9d25ed5bf1d5d9c38c4708b42c32181add"
+      },
+      {
+        "task": "SP550-RegDocR1",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "docs/diagnostics.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "ecfc5adb89adb159d578e3a456cfc1ccba7a89161e6b404ea655aa1d2a8b8021",
+        "local_receipt_sha256": "f88ab32401bbce7c229d1cd5caa5321893540d14a2a3658e3a0febde1f0f960b",
+        "candidate_sha256": "63cb122c0c2395828e90253712a3bd644f636ad7df1b189d91102d52263a55ed",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "b15419e7c755c635660bc922cf2bde794d1b29773fb98b4c12f9555cf49be467"
+      },
+      {
+        "task": "SP550-RegIssuesR1",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "contracts/source-issues.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "000db74add14e81e4de610a0b7c3476b69dc3c573f3154052951662394cec804",
+        "local_receipt_sha256": "9010da2c91491a6b3e851d710081fea1950742423bbea12f062b6bed121476e3",
+        "candidate_sha256": "649bed25cb05415ed231eebe2452c63553c4b272ed3945174e702c419086dc45",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "cf226fa0f73dc8a7069e40c8f1beeecd020b84d94610af263aa37f303c9a6f51"
+      },
+      {
+        "task": "SP550-RegMutation",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "tests/test_harness_motion_area_expectations.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "66bcf63785f331b93c55e3d6a247cbb4d083eee91d5abcda02bf190e07a17b13",
+        "local_receipt_sha256": "ea14605600a4a536a95cbbf3df957b73ddba3479a5f5247e9b61cb31766709d8",
+        "candidate_sha256": "e33069f13cdf434e3ef2a6d1c1ed9b2d5b25b98fd9fbe208181e99d9ab61384a",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "e5378222f948898add105fb45bb66ea702365f2ebdbcf63f39a70da962cf2657"
+      },
+      {
+        "task": "SP550-RegOracle",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "harness/wire_eval.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "620a08bb950cbb4a31fa57df401f98a8db43d9e708ba2394a4817e9b3881e189",
+        "local_receipt_sha256": "fcaec0e3d3370d820f45334e586254ebb6688f6a67630956819ff73974a362b8",
+        "candidate_sha256": "7b7ec8523f8491b6113c4bb4b8f545da80e31f060e6f6106e45046b983099e5a",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "273e5e89aafe7c03f1f68f7bbbcbfa018086422312dfb028c055c84d4f3e203a"
+      },
+      {
+        "task": "SP550-RegPrivate",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "src/ezviz_unified/_diagnostic_registry.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "60342346ecb9af84155fe82e4fa654c6f3e81f38cd9356fccfdc059039ceb302",
+        "local_receipt_sha256": "5d0f5b3274d97bc3eb42eb6942e7efcbb475399b2bbe28c837c570f71a8a1982",
+        "candidate_sha256": "3830c19cf1f9d3e5e0888e07908078581aba208ce7633389d5201b6346972b5b",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "22d8c9403dd29d61e4aa5cb7879362ad6fea8822adc69d228f9ccb90bdb218ee"
+      },
+      {
+        "task": "SP550-RegPublic",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "docs/diagnostics-v1-coverage.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "7b039ca07e1b64f6087ba385710cf69d2508bba1a2aeb33c91db49e6d5e84692",
+        "local_receipt_sha256": "317d86053b1ad5862088fb656e3aaf73ff225b421f30fd5b00122d5e12f04efd",
+        "candidate_sha256": "3830c19cf1f9d3e5e0888e07908078581aba208ce7633389d5201b6346972b5b",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "f99e7f23ee22ec0f733c29c7d9bc2cb62b77b9fc5bff283515264fd5e2f95eaf"
+      },
+      {
+        "task": "SP550-RegSummary",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "contracts/coverage.json"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "5e05082b3382527f2a607d2604df757200306bc2a2532ccd8bb9150d5655021d",
+        "local_receipt_sha256": "ed1b284398441023f38799b5f896f3b812fdef58ab653eb3c35a206f286e0888",
+        "candidate_sha256": "b8b214113730ffaf43ee4d4efc01a001ff7c7827f6552fa41aca0b97bb18b3c4",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "c8da656902bcb6642562e44038a0476b67a5762294f009b3a6627d1743a153d1"
+      },
+      {
+        "task": "SP550-RegTestCount",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "tests/test_harness_diagnostic_coverage.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "b1675b24c3350b57d8f231f0e7c565d506c42c66a3812646788d4cd9718fac8d",
+        "local_receipt_sha256": "f0bd92705d85410ea3ed1961ffff950df47ba662e04643f4a00d9b2b6abd483e",
+        "candidate_sha256": "b2733507e851d731623b7bd323e8894444aa2d550faec300cd9a1b8995039c7d",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "d481ebc8670c855a39cc175e9755b076a09462e3fcd7eeb099b56a7a8f7ac837"
+      },
+      {
+        "task": "SP550-SdkCliR1",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "examples/tracking_switches.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "a17860e3f0edb9da5450673345dba18a0d674a3bc9407b750a5f5b9c4dffd91c",
+        "local_receipt_sha256": "b38d8378eb8bf89eb8eb52b08b4cd96c52166624ce5f10619c3f3be6af5b6a1b",
+        "candidate_sha256": "31fa8d28482fcbb9451effcafe499a0c160b448b25ee5eb6a0ab7d58de4efb97",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "0373aff142a04d5bf162cf796d59bbb08122e703fc3e66982db744f8a98d80f6"
+      },
+      {
+        "task": "SP550-SdkCore",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "src/ezviz_unified/settings.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "33e0b6fd4f8c5812bc89dc4b78db1b7728b5983e9566c043a01edbcfe08cd366",
+        "local_receipt_sha256": "7090d0bc2f9d366274052b0cdba3687bfe93aee85ec81dae4ec1f2cbdb903074",
+        "candidate_sha256": "83bc8429302f045b8904ca5692df1425430dcbd2232319392b0eaca30f25b2e2",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "9866ccf824f697453e7b5f2edd31b971fcc86b645daf3ecff4ec82cda4914269"
+      },
+      {
+        "task": "SP550-SdkGuideR1",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "README.md"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "52870d5c82db7511f6ab44cad77daf4bca11c851aef37f4c55f6862b0451231b",
+        "local_receipt_sha256": "ed41a39a0e9dff23107b6458a1fc90aa254f0f36c9ce09dbced254df2722a100",
+        "candidate_sha256": "7edf5ef0a80502a88ef28d2166c616d5253e685a5618310f14df190fcdb30de3",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "6e2a20f1534bb3df29eb378a9ad60075648e51987a086ff418a3f9f3b0bf9074"
+      },
+      {
+        "task": "SP550-TestCLIDemo",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "tests/test_example_tracking_switches.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "27f2d92388e9c7bf4c321deff943e86a605876811c10365118ef8f67adc16fa0",
+        "local_receipt_sha256": "8e70fb56f8e85d2382bc2060660bf175d7ed8440aff8338a444972a270e2acce",
+        "candidate_sha256": "082f1b0a5c32afea274544b6f17497bb1a0d739a201cdccb65d0b67c94b298ac",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "fd9d8e13c61d56e6908e274f2e3f7aae13c8e0a8a75ef18508ec75e86f946e7b"
+      },
+      {
+        "task": "SP550-TestCLIIsolation",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "tests/test_example_tracking_switches.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "4e176d059cf4fc2afec9a35eddfca40e5c40a36568aed4a7bf838b2f97fb908f",
+        "local_receipt_sha256": "227d9bdb015c2790661632968e5bac5d5ccf60fe51f6c940d0edbad4ad61b93d",
+        "candidate_sha256": "1ac510cf21bef562245f76736b295fb8fc7587438f52778e1e69e5c06a39a48c",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "eaca034c4bc9987c5ca65ad29f03e36e1b1bc7f0ef541b39ecb0978ff890649c"
+      },
+      {
+        "task": "SP550-TestCLIRead",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "tests/test_example_tracking_switches.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "0116c8a6fd1b1810535447957e9e24fd6f8c22bcf3e271b7787a91227167a8fd",
+        "local_receipt_sha256": "5dac660af5a8576fceb0b0305695cafc1fd22c10dc148d573307c94d559409ad",
+        "candidate_sha256": "38b7044ae7574f9b91282ca330dadc492b42932d3690c1881ec2643d08bfa90c",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "ca45249ebf8677c8a980f8351202386347b13af0ec5d3deefb3aedb714b86863"
+      },
+      {
+        "task": "SP550-TestSDKCodeVisible",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "tests/test_sdk_domestic_tracking_switches.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "b2bb290bed3ed8dbb6bef8a7b39a924868bfb62b9458cd051d9219ebfd574f1a",
+        "local_receipt_sha256": "ff6cf2ae413cd8e939ce49a5c955c0c7ab998a9590537c10271fcfdabf5ee75a",
+        "candidate_sha256": "6b61dbc0ba4f370ecfd72eac9cc7b9d33d0a23d3334eb14e1cf7d476e44699ef",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "8004e40a79fdc0660d8c1c6a548399cf3ceec327bf7dbf603595dd31a3509dea"
+      },
+      {
+        "task": "SP550-TestSDKTokens",
+        "input_commit": "908a78be0f67ac9498e34d1e2422c2736b709b8c",
+        "write_scope": [
+          "tests/test_sdk_domestic_tracking_switches.py"
+        ],
+        "execution_mode": "tool_free_candidate",
+        "shell_commands": [],
+        "dispatch_sha256": "213eae6da7ea8420f57ae05ae1efc3a03032cf21dbeec78eb21bada80d1b9844",
+        "local_receipt_sha256": "79ebfbc4bee90528491ceb7f46b2c8df9e6693b2fb4ec5fcb6dcd540b7423ff1",
+        "candidate_sha256": "1f121fb449083294517769208a6caa11b414824b766f120395a58e51e1e73bc0",
+        "disposition": "integrated_candidate",
+        "integration_receipt_sha256": "690285c1bd6a802a8b1ef8cfe9f8607f8ecc3b10fad94941b423dc9e5eee15dd"
+      }
+    ],
+    "validation_index_candidate_sha256": "87e76d22fa9d5327b0f801e0c4634995e264b27d6b4ef2731cc57e24450e42c4",
+    "validation_index_candidate_execution_sha256": "73b719296fc7ffc5ceca61254ab9b71c364ca6bab24febb7a48a8134ae901daa",
+    "sdk_provenance_sha256": "ac6b0af2def9f62e9fb141b9607602059ed55f12721ebf9625b459e60a141894",
+    "test_provenance_sha256": "2c58a6de263105f6bfd9707269e36cf6ec454ab93ee26eff057d3b1567bfa73a",
+    "deterministic_integration": [],
+    "rejected_candidates": [
+      {
+        "task": "SP550-RegContracts",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "41710f9c170c70937bc8d62d5d036be5d218c46620e267df44ce6c435615f13d"
+      },
+      {
+        "task": "SP550-RegDoc",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "ef206dfa09b9d34881a7149cf738ca6c0a575ea8dfccc759aa7070d9faafbf87"
+      },
+      {
+        "task": "SP550-RegIssues",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "ac95ef7177896c6db3f990bc7f5c36f811eba4cc9f9a7cfdafb323811bb82188"
+      },
+      {
+        "task": "SP550-SdkCli",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "c6858d05b53cfc4ba7cae25a14d0d098808cb6b957b4ce1fd3e14bcbbcd94928"
+      },
+      {
+        "task": "SP550-SdkGuide",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "a080ef848949193487ec6288d3f872dd7b04aa4302ffa1958bcbc7d683d77c6f"
+      },
+      {
+        "task": "SP550-TestSDKBounds",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "7609ecd42a3be88c58b0ebdf3fcb07abb9592507b74bb88b0dc0221b38c1e91d"
+      },
+      {
+        "task": "SP550-TestSDKErrorCode",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "187321a15ab604ce7f66ef9ee1f62629f3c5b6e7fc3b91246b09e9fc300f7948"
+      },
+      {
+        "task": "SP550-TestSDKReplay",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "0865ce5576543221487029df7c166f62dc3fe09f5a36359dd065ad7bddc30e80"
+      },
+      {
+        "task": "SP550-TestSDKResponses",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "6b8f0c7a750cfd65ce5093efb1d9a8cb14f749d9b10a333900de019dc5a9d888"
+      },
+      {
+        "task": "SP550-TestSDKWire",
+        "disposition": "not_integrated",
+        "reason": "原候选未独立集成，作为后续短卡复核输入或留档。",
+        "local_receipt_sha256": "18b07d85f54c2aa02ab8004b4a28170b048a1035bd2316657c9ce783740f3c60"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_sdk_domestic_tracking_switches.py tests/test_example_tracking_switches.py",
+      "summary": "485 passed in 1.88s",
+      "local_receipt_sha256": "0bb4189a1110db48d010fc05724477d9fcf059d2ede3973b982e6891f6e4cfa5",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short",
+      "summary": "14459 passed, 35 subtests passed in 85.96s (0:01:25)",
+      "local_receipt_sha256": "d414600f03e3b93f33b7f0e77946103db73b9918c77727f15212b34188ba1d73",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.contract_eval --repo . --require-all",
+      "summary": "306 registered contracts, 2480/2480 offline wire checks passed",
+      "local_receipt_sha256": "18de5f4780c8ebeabaedcdb726d6fafd56bcbbf8239bcc48f2c69dea8247bb0b",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m harness.audit --repo . --check-summary",
+      "summary": "306 registered bindings, 612 sync/async symbols checked",
+      "local_receipt_sha256": "13706acf03b48b797b4906222e92460939738e79b9a83b067255ec022916acc6",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m mypy src/ezviz_unified",
+      "summary": "Success: no issues found in 65 source files",
+      "local_receipt_sha256": "cb5f6899a92dfd997cd5a8d266d31a0a919e033e62303aed8aff73e33b332248",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff check --no-cache src/ezviz_unified harness examples tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_examples*.py tests/test_example_*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py tools/documents/http_candidates.py tools/documents/endpoint_inventory.py tests/test_document_http_candidates*.py tests/test_document_endpoint_inventory*.py tests/test_live_diagnostics.py tools/live/verify_diagnostics.py tools/live/verify_diagnostics_async.py tests/test_live_diagnostics_async.py tools/live/_cli_transport.py tools/live/verify_example_clis.py tests/test_live_example_cli*.py tools/live/verify_traffic_usage.py tests/test_live_traffic_usage.py tools/documents/normalize_sdk_reference.py tests/test_document_sdk_reference.py tests/test_document_inventory_output.py tools/live/verify_cloud_files.py tests/test_live_cloud_files*.py",
+      "summary": "All checks passed!",
+      "local_receipt_sha256": "69c71019f15a4a2da3931f8789953e4974bb5def8bac1fc1c1c5c6d3329f597a",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m ruff format --check --no-cache src/ezviz_unified harness examples tools/release tests/test_sdk*.py tests/test_harness*.py tests/test_release*.py tests/test_examples*.py tests/test_example_*.py tests/test_live_verifier.py tools/live/verify_devices.py tests/conftest.py tests/test_offline_policy.py tools/documents/http_candidates.py tools/documents/endpoint_inventory.py tests/test_document_http_candidates*.py tests/test_document_endpoint_inventory*.py tests/test_live_diagnostics.py tools/live/verify_diagnostics.py tools/live/verify_diagnostics_async.py tests/test_live_diagnostics_async.py tools/live/_cli_transport.py tools/live/verify_example_clis.py tests/test_live_example_cli*.py tools/live/verify_traffic_usage.py tests/test_live_traffic_usage.py tools/documents/normalize_sdk_reference.py tests/test_document_sdk_reference.py tests/test_document_inventory_output.py tools/live/verify_cloud_files.py tests/test_live_cloud_files*.py",
+      "summary": "355 files already formatted",
+      "local_receipt_sha256": "7a7e9c7119a4f5683c87998f4e166b5055c0d092397b24349e6fd4b0b221100c",
+      "tool_error": false
+    },
+    {
+      "command": ".venv/bin/python -m pytest -q --tb=short tests/test_harness_diagnostic_coverage.py",
+      "summary": "470 passed in 1.21s",
+      "local_receipt_sha256": "63aa85891499710b0401bfee9cb452ba7e6621da58edaf6196e9d729d6463d4f",
+      "tool_error": false
+    }
+  ],
+  "live_executed": false,
+  "limits": "本批合成验证两个开关的四个读写接口。真实设备权限、机型和固件兼容、设置生效与可恢复性待单独验收。"
+}

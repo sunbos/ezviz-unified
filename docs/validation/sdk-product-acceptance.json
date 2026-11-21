@@ -10060,19 +10060,30 @@
       "pending_questions": [
         "722 E14 enable 为字符串，E54 示例展示 1。与 723 E50 合并认定 0/1 的含义。未说明省略 channelNo 的通道选择。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_tracking_switches.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_tracking_switches.py",
+        "examples/tracking_switches.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "e5a8e5c59f906028ae548f49e89de4e9bbb0af79",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-tracking-switches/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-723-D0-OFFLINE-001",
@@ -10120,19 +10131,30 @@
       "pending_questions": [
         "723 E3 使用设置字样；标题、Get 权限、路径及 E46 响应共同支持读取。请求不含通道。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_tracking_switches.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_tracking_switches.py",
+        "examples/tracking_switches.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "e5a8e5c59f906028ae548f49e89de4e9bbb0af79",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-tracking-switches/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-725-D0-OFFLINE-001",
@@ -10357,19 +10379,30 @@
       "pending_questions": [
         "728 E14 将 Content-Type 列为必填，E42 示例省略。按参数表发送，不设正文。未给出能力位、最低权限或机型。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_tracking_switches.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_tracking_switches.py",
+        "examples/tracking_switches.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "e5a8e5c59f906028ae548f49e89de4e9bbb0af79",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-tracking-switches/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-729-D0-OFFLINE-001",
@@ -10417,19 +10450,30 @@
       "pending_questions": [
         "729 的空 data 只表示接口应答。设备生效、能力前提及可恢复性待另行核验。"
       ],
-      "code_artifact_evidence_refs": [],
-      "result": "pending_execution",
-      "blockers": [
-        "待离线执行。"
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/settings.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_domestic_tracking_switches.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_tracking_switches.py",
+        "examples/tracking_switches.py",
+        "README.md"
       ],
+      "result": "recorded_evidence",
+      "blockers": [],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
       ],
       "criterion_assessment": {
-        "CONTRACT": "pending",
-        "SDK-DIAGNOSTICS": "pending",
-        "USAGE": "pending"
-      }
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "execution_outcome": "passed",
+      "verified_code_commit": "e5a8e5c59f906028ae548f49e89de4e9bbb0af79",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-21-domestic-tracking-switches/offline.json"
+      ]
     },
     {
       "case_id": "ACC-CANDIDATE-CN-730-D0-OFFLINE-001",

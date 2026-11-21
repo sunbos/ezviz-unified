@@ -4086,7 +4086,7 @@
         "AsyncSettings.set_motion_tracking"
       ],
       "public_entry": "settings.set_motion_tracking",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -4099,7 +4099,7 @@
         "AsyncSettings.get_motion_tracking"
       ],
       "public_entry": "settings.get_motion_tracking",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -4112,7 +4112,7 @@
         "AsyncSettings.get_human_tracking"
       ],
       "public_entry": "settings.get_human_tracking",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     },
     {
@@ -4125,7 +4125,7 @@
         "AsyncSettings.set_human_tracking"
       ],
       "public_entry": "settings.set_human_tracking",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]
