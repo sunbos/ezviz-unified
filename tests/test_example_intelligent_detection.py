@@ -10,7 +10,7 @@ from test_example_night_vision import _Rig
 import examples.intelligent_detection as cli
 from ezviz_unified.settings import AsyncSettings, Settings
 
-USAGE = "usage: python -m examples.intelligent_detection --mode sync|async --action read-scene-switch|read-body-switch|read-face-switch|read-mode|write-demo\n"
+USAGE = "usage: python -m examples.intelligent_detection --mode sync|async --action read-scene-switch|read-body-switch|read-face-switch|read-mode|read-advanced-type|write-demo\n"
 ERRMSG = "error: intelligent detection example failed\n"
 ENV = {
     "EZVIZ_REGION": "domestic",
@@ -340,3 +340,84 @@ def test_read(rig, capsys, monkeypatch, mode, action, selector, state, expected)
         assert target.headers.get_list("accessToken") == ["TOK1"]
         assert target.headers.get_list("deviceSerial") == [serial]
         assert target.headers.get_list("channelNo") == []
+
+
+@pytest.mark.parametrize("mode", ["sync", "async"])
+@pytest.mark.parametrize(
+    "value,expected",
+    [
+        (0, "off"),
+        (4, "motion"),
+        (8, "human"),
+        (1, None),
+        (5, None),
+        (-9, None),
+    ],
+)
+def test_read_advanced_type(rig, capsys, monkeypatch, mode, value, expected):
+    monkeypatch.setenv("EZVIZ_DEVICE_SERIAL", "MiXeD-Unit9")
+    body = {
+        "code": "200",
+        "msg": "PRIVATE_BACKEND",
+        "data": {
+            "valueInfo": {
+                "type": value,
+                "futurePrivate": "PRIVATE_FUTURE",
+            }
+        },
+    }
+    rig.biz_hook = lambda request: httpx.Response(200, json=body)
+
+    exit_code = cli.main(["--mode", mode, "--action", "read-advanced-type"])
+
+    assert exit_code == 0
+    captured = capsys.readouterr()
+    assert captured.err == ""
+    lines = captured.out.splitlines()
+    assert len(lines) == 1
+    assert json.loads(lines[0]) == {"type": expected}
+
+    assert len(rig.auth_requests) == 1
+    assert len(rig.biz_requests) == 1
+    request = rig.biz_requests[0]
+    assert request.method == "GET"
+    assert request.url.path == "/api/v3/das/device/detect/switch/get"
+    assert request.url.query == b""
+    assert request.content == b""
+    assert request.headers.get("content-type") is None
+    assert request.headers["accessToken"] == "TOK1"
+    assert request.headers["deviceSerial"] == "MiXeD-Unit9"
+    assert "channelNo" not in request.headers
+
+
+@pytest.mark.parametrize(
+    "mode,exc", [("sync", KeyboardInterrupt()), ("async", asyncio.CancelledError())]
+)
+def test_advanced_interrupt(rig, capsys, mode, exc):
+    def cancel(request):
+        raise exc
+
+    rig.biz_hook = cancel
+    assert cli.main(["--mode", mode, "--action", "read-advanced-type"]) == 130
+    out = capsys.readouterr()
+    assert (out.out, out.err) == ("", ERRMSG)
+    assert len(rig.auth_requests) == 1 and len(rig.biz_requests) == 1
+
+
+@pytest.mark.parametrize("mode", ["sync", "async"])
+@pytest.mark.parametrize(
+    "body",
+    [
+        {"code": "10031", "msg": "PRIVATE_DENIED"},
+        {"code": "200", "data": {"valueInfo": {"type": True}}},
+    ],
+)
+def test_advanced_failure(rig, capsys, mode, body):
+    rig.biz_hook = lambda request: httpx.Response(200, json=body)
+    assert cli.main(["--mode", mode, "--action", "read-advanced-type"]) == 1
+    out = capsys.readouterr()
+    assert (
+        (out.out, out.err) == ("", ERRMSG)
+        and len(rig.auth_requests) == 1
+        and len(rig.biz_requests) == 1
+    )

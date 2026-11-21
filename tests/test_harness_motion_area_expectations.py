@@ -42,6 +42,7 @@ REDACTED_OPERATION_IDS = (
     "cn.settings.select_alarm_detection_mode",
     "cn.settings.get_alarm_detection_mode",
     "global.detectors.rename",
+    "cn.settings.get_advanced_alarm_detection_type",
 )
 
 FACADES = {
@@ -69,6 +70,10 @@ FACADES = {
     "cn.settings.select_alarm_detection_mode": (Settings, "select_alarm_detection_mode"),
     "cn.settings.get_alarm_detection_mode": (Settings, "get_alarm_detection_mode"),
     "global.detectors.rename": (Detectors, "rename"),
+    "cn.settings.get_advanced_alarm_detection_type": (
+        Settings,
+        "get_advanced_alarm_detection_type",
+    ),
 }
 
 READ_ONLY_OPERATION_IDS = {
@@ -86,6 +91,7 @@ READ_ONLY_OPERATION_IDS = {
     "cn.settings.get_human_tracking",
     "cn.settings.get_intelligent_detection_switch",
     "cn.settings.get_alarm_detection_mode",
+    "cn.settings.get_advanced_alarm_detection_type",
 }
 
 MUTATIONS = {

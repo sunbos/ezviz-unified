@@ -94,6 +94,7 @@ _REDACTED_MESSAGE_OPERATION_IDS = frozenset(
         "cn.settings.get_intelligent_detection_switch",
         "cn.settings.set_intelligent_detection_switch",
         "cn.settings.select_alarm_detection_mode",
+        "cn.settings.get_advanced_alarm_detection_type",
         "cn.settings.get_alarm_detection_mode",
         "global.detectors.rename",
         "cn.settings.get_working_mode_plans",

@@ -4192,6 +4192,19 @@
       "public_entry": "detectors.rename",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.settings.get_advanced_alarm_detection_type",
+      "region": "domestic",
+      "source_doc_id": "1742",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.get_advanced_alarm_detection_type",
+        "AsyncSettings.get_advanced_alarm_detection_type"
+      ],
+      "public_entry": "settings.get_advanced_alarm_detection_type",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }

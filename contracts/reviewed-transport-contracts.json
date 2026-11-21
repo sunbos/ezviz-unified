@@ -23147,6 +23147,66 @@
       },
       "source_content_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.settings.get_advanced_alarm_detection_type",
+      "region": "domestic",
+      "source_doc_id": "1742",
+      "source_url": "https://open.ys7.com/help/1742",
+      "method": "GET",
+      "path": "/api/v3/das/device/detect/switch/get",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E40;E44;E60"
+      },
+      "constraints": [
+        {
+          "fact": "1742 国内 GET 仅携带请求头令牌与设备序列号，无通道、query、正文和 Content-Type。",
+          "evidence": "E14;E36"
+        },
+        {
+          "fact": "根字符串 code 成功仅为 \"200\"，data.valueInfo.type 是当前设备的一个整数，0 关闭、4 活动侦测、8 人形检测，未知整数与响应扩展原样保留。",
+          "evidence": "E40;E44;E60"
+        }
+      ],
+      "uncertainties": [
+        "文档返回单个整数类型。E60 只列成功码，错误枚举及真实设备适用范围仍待核定。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/das/device/detect/switch/get",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E36"
+      },
+      "source_content_sha256": "757d9f4517dafbcb9a935e8b9791c5422a6b944ab7d9fb9f8085ab1d477884fc",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -23360,6 +23420,10 @@
     {
       "review": "docs/coordination/overseas-a1-detector-rename/admission.json",
       "note": "仅新增海外文档 481 第 1.7 节探测器显示名称修改。页面的其他小节沿用各自原有审核状态。"
+    },
+    {
+      "review": "docs/coordination/domestic-advanced-detection-type/admission.json",
+      "note": "国内文档 1742 的单项高级告警侦测类型查询，按根层字符串成功码和嵌套整数登记。"
     }
   ]
 }

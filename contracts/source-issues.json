@@ -2854,6 +2854,21 @@
         "E829;E832;E835",
         "docs/coordination/overseas-a1-detector-rename/admission.json"
       ]
+    },
+    {
+      "id": "cn.settings.get_advanced_alarm_detection_type.single_type_and_device_scope",
+      "region": "domestic",
+      "source_doc_id": "1742",
+      "source_url": "https://open.ys7.com/help/1742",
+      "source_content_sha256": "757d9f4517dafbcb9a935e8b9791c5422a6b944ab7d9fb9f8085ab1d477884fc",
+      "description": "文档 1742 的 E40/E44 返回单个整数 data.valueInfo.type，取值 0、4、8 分别表示关闭、活动侦测、人形检测；E60 仅列出成功响应。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 保留未知整数值并透传扩展字段，1725 与 726 分别使用独立入口；实际机型固件、最低权限和错误码仍待实测。",
+      "evidence": [
+        "E7;E11;E14;E36",
+        "E40;E44;E60",
+        "docs/coordination/domestic-advanced-detection-type/admission.json"
+      ]
     }
   ]
 }

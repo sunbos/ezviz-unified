@@ -7437,6 +7437,31 @@
           "synthetic": true
         }
       }
+    },
+    {
+      "operation_id": "cn.settings.get_advanced_alarm_detection_type",
+      "args": [
+        {
+          "$ref": "device_serial"
+        }
+      ],
+      "kwargs": {},
+      "fields": {
+        "deviceSerial": {
+          "$ref": "device_serial"
+        }
+      },
+      "data": {
+        "valueInfo": {
+          "type": 12345,
+          "extra": {
+            "synthetic": true
+          }
+        },
+        "extra": {
+          "synthetic": true
+        }
+      }
     }
   ]
 }
