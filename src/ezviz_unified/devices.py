@@ -1,4 +1,4 @@
-"""Device query facade for the unified EZVIZ client (sync and async)."""
+"""Device queries and domestic Wi-Fi QR generation for the unified EZVIZ client."""
 
 from __future__ import annotations
 
@@ -10,6 +10,7 @@ from .errors import ProtocolError
 from .management import AsyncDeviceManagement, DeviceManagement
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
+from .ram_models import _check_encodable
 from .settings import _check_text, _require_domestic, _require_overseas
 from .vod import _header
 
@@ -22,6 +23,25 @@ _MIN_PAGE_SIZE = 1
 _MAX_PAGE_SIZE = 50
 
 _POLICY = ResponsePolicy(success_values=("200",))
+
+_WIFI_QR_CODES = (200, 400, 403, 404, 500, 10001, 10002, 10005, 10017, 10031, 49999)
+
+_OP_GENERATE_WIFI_QR = Operation(
+    "devices.generate_wifi_qr",
+    "POST",
+    "/api/lapp/device/wifi/qrcode",
+    regions=frozenset({_DOMESTIC}),
+    token_location="form",
+    read_only=False,
+    policy=replace(
+        _POLICY,
+        redact_device_add_details=True,
+        redact_media_urls=True,
+        exposed_business_codes=tuple(
+            value for code in _WIFI_QR_CODES for value in (code, str(code))
+        ),
+    ),
+)
 
 _OP_LIST_BY_ID = Operation(
     "devices.list_by_id",
@@ -36,6 +56,26 @@ _OP_LIST_BY_ID = Operation(
         redact_message_urls=True,
     ),
 )
+
+
+def _wifi_qr_field(name: str, value: object) -> str:
+    """Validate a single Wi-Fi QR form field."""
+    if not isinstance(value, str) or value == "":
+        raise ValueError(f"{name} must be a non-empty string")
+    _check_encodable(name, value)
+    return value
+
+
+def _wifi_qr_response(response: ApiResponse) -> ApiResponse:
+    """Validate the devices.generate_wifi_qr response payload."""
+    data = response.data
+    if not isinstance(data, dict) or not isinstance(data.get("imageData"), str):
+        raise ProtocolError(
+            "unexpected devices.generate_wifi_qr response shape",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
 
 
 def _valid_device_cursor(value: object) -> bool:
@@ -224,7 +264,7 @@ def _check_charging_status_response(response: ApiResponse) -> ApiResponse:
 
 
 class Devices(DeviceManagement):
-    """Synchronous facade over the reviewed device query operations."""
+    """Synchronous facade over device queries and Wi-Fi QR generation."""
 
     __slots__ = ("_client",)
 
@@ -233,6 +273,21 @@ class Devices(DeviceManagement):
 
     def _domestic(self) -> bool:
         return self._client.region.scope == _DOMESTIC
+
+    def generate_wifi_qr(self, ssid: str, *, password: str) -> ApiResponse:
+        """Send Wi-Fi credentials to the domestic official QR service."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="devices.generate_wifi_qr",
+            mode="sync",
+        ):
+            _require_domestic(self._client.region.scope)
+            form = {
+                "ssid": _wifi_qr_field("ssid", ssid),
+                "password": _wifi_qr_field("password", password),
+            }
+            response = self._client.request(_OP_GENERATE_WIFI_QR, data=form)
+            return _wifi_qr_response(response)
 
     def list(self, page_start: int = 0, page_size: int = 10) -> ApiResponse:
         with _diagnostic_scope(self._client, entrypoint="devices.list", mode="sync"):
@@ -309,7 +364,7 @@ class Devices(DeviceManagement):
 
 
 class AsyncDevices(AsyncDeviceManagement):
-    """Asynchronous facade over the reviewed device query operations."""
+    """Asynchronous facade over device queries and Wi-Fi QR generation."""
 
     __slots__ = ("_client",)
 
@@ -318,6 +373,21 @@ class AsyncDevices(AsyncDeviceManagement):
 
     def _domestic(self) -> bool:
         return self._client.region.scope == _DOMESTIC
+
+    async def generate_wifi_qr(self, ssid: str, *, password: str) -> ApiResponse:
+        """Send Wi-Fi credentials to the domestic official QR service."""
+        with _diagnostic_scope(
+            self._client,
+            entrypoint="devices.generate_wifi_qr",
+            mode="async",
+        ):
+            _require_domestic(self._client.region.scope)
+            form = {
+                "ssid": _wifi_qr_field("ssid", ssid),
+                "password": _wifi_qr_field("password", password),
+            }
+            response = await self._client.request(_OP_GENERATE_WIFI_QR, data=form)
+            return _wifi_qr_response(response)
 
     async def list(self, page_start: int = 0, page_size: int = 10) -> ApiResponse:
         with _diagnostic_scope(self._client, entrypoint="devices.list", mode="async"):

@@ -17,6 +17,10 @@
 
 认证和首页首台选择已完成，同步计划查询返回 SDK 错误。首次失败即停，异步未执行。未记录计划内容、业务码或原始异常，无法据此判定权限、设备状态或型号支持。 本次获准上限为 5 次 HTTP，实际放行 3 次。本项仍待通过。[脱敏回执](live/2026-11-20-singapore-first-device-working-mode-plan/receipt.json)
 
+## 国内 Wi-Fi 配网二维码数据生成验收
+
+国内 663 接口将调用者提供的 SSID 和口令随表单发送至国内官方服务，一次生成动作不会重放。成功响应中 data.imageData 为字符串，SDK 允许显式读取并保留扩展且不自动显示。国内子账号至少需要 Cam 资源的 Config 权限。本轮以不可扫码的合成文本验证同步、异步与始终模拟的 CLI，真实生成、展示与扫码入网待分项核验，模拟仅限 CLI 与本轮测试而不限制真实 SDK 能力。[冻结记录](../coordination/domestic-wifi-qr/admission.json) · [离线回执](2026-11-21-domestic-wifi-qr/offline.json)
+
 ## 海外 Linktom 既有图片引用查询验收
 
 海外 Linktom 凭已授权设备 SDK 抓拍生成的 UUID 查询既有图片引用，size 取值范围为 0 至 1280。查询成功时根 code 为字符串 "200"，data.picUrl 为字符串，内容可能为图片路径。CLI 及本轮同步、异步验收均使用合成传输，不补拍也不访问图片，真实资源权限和引用有效性待核。[冻结记录](../coordination/overseas-linktom-picture-lookup/admission.json) · [离线回执](2026-11-21-overseas-linktom-picture-lookup/offline.json)

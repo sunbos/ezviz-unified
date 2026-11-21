@@ -4231,6 +4231,19 @@
       "public_entry": "snapshots.get_by_uuid",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.devices.generate_wifi_qr",
+      "region": "domestic",
+      "source_doc_id": "663",
+      "module": "src/ezviz_unified/devices.py",
+      "symbols": [
+        "Devices.generate_wifi_qr",
+        "AsyncDevices.generate_wifi_qr"
+      ],
+      "public_entry": "devices.generate_wifi_qr",
+      "offline_status": "passed",
+      "live_status": "not_verified"
     }
   ]
 }

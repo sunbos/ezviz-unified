@@ -23348,6 +23348,77 @@
       },
       "source_content_sha256": "82a0152058592e8c4b5e11f4f968edce7a4e39d5e16b527db606d5957bf8f858",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.devices.generate_wifi_qr",
+      "region": "domestic",
+      "source_doc_id": "663",
+      "source_url": "https://open.ys7.com/help/663",
+      "method": "POST",
+      "path": "/api/lapp/device/wifi/qrcode",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E21/E46"
+        },
+        {
+          "name": "ssid",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E21/E46"
+        },
+        {
+          "name": "password",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E21/E46"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E50;E54;E67"
+      },
+      "constraints": [
+        {
+          "fact": "国内 POST 请求携带三个必填表单字段 accessToken、ssid、password，每次生成请求独立提交，不重放先前请求。",
+          "evidence": "E9;E13;E21;E46"
+        },
+        {
+          "fact": "E17/E18 国内子账号所需最低权限为 Config，资源范围覆盖 Cam 设备及通道，权限描述不增加序列号或通道请求字段。",
+          "evidence": "E17;E18;E21"
+        },
+        {
+          "fact": "根 code 为字符串 \"200\" 时表示成功，data.imageData 为字符串，SDK 保留原值与扩展，不自动解码或显示。",
+          "evidence": "E50;E54;E67"
+        }
+      ],
+      "uncertainties": [
+        "E54 将 imageData 定义为字符串；E117 与 E120 仅展示 Base64/JPG 使用方式。固定 MIME、实际像素、设备能否扫描并成功入网待核。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/lapp/device/wifi/qrcode",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E5;E9;E13;E21;E46"
+      },
+      "source_content_sha256": "2b4a75b0d7a9d57fde42d973c31ebe822e1a44e8e8eca3599bdbfa0256dbe92d",
+      "read_only": false
     }
   ],
   "reviews": [
@@ -23573,6 +23644,10 @@
     {
       "review": "docs/coordination/overseas-linktom-picture-lookup/admission.json",
       "note": "海外文档 476 第 1.4 节按已有 Linktom 抓拍 UUID 查询图片引用。同页五个已登记契约及其未决语义保留。"
+    },
+    {
+      "review": "docs/coordination/domestic-wifi-qr/admission.json",
+      "note": "国内文档 663 的 Wi-Fi 配网二维码生成，按三字段表单及字符串 imageData 登记。"
     }
   ]
 }

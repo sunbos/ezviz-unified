@@ -46,6 +46,7 @@ REDACTED_OPERATION_IDS = (
     "cn.settings.get_advanced_alarm_detection_type",
     "cn.settings.get_channel_light_linkage",
     "global.snapshots.get_by_uuid",
+    "cn.devices.generate_wifi_qr",
 )
 
 FACADES = {
@@ -79,6 +80,7 @@ FACADES = {
     ),
     "cn.settings.get_channel_light_linkage": (Settings, "get_channel_light_linkage"),
     "global.snapshots.get_by_uuid": (Snapshots, "get_by_uuid"),
+    "cn.devices.generate_wifi_qr": (Devices, "generate_wifi_qr"),
 }
 
 READ_ONLY_OPERATION_IDS = {
