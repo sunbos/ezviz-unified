@@ -718,6 +718,45 @@ python -m examples.video_codec --stream 2 --mode async
 
 `client.otap`目前仅国内提供四个物模型入口：`get_property`与`latest_property`为只读查询（平台缓存值、`data.desired`/`data.reported`），`set_property`与`invoke_action`把调用方给定的裸JSON对象下发到设备；业务标识与令牌均置于Header，两个GET无请求体。服务调用为同步接口，平台等待上限16秒，需要完整等待请显式设置更大的`Client(timeout=...)`；写入后不自动再查询、不轮询，`desired`/`reported`中的`null`与`false`原样保留。`latest_property`按来源校验`local_index`（`0`或非零开头、不超过10位）与标识符长度<255，旧v3接口仅要求非空白。
 
+### OTAP 图像翻转
+
+命令行示例始终使用进程内合成传输，无需账号或硬件即可运行。
+
+```bash
+python -m examples.otap_image_flip --mode sync --style UPDOWN --enabled true
+```
+
+它返回的确认只代表合成链路成功，并不能证明真实设备发生了物理图像变化。
+
+真实写入复用现有 `otap.set_property` 入口，同步与异步两种模式共享同一份 payload 和选择器。现有的同步和异步诊断共用 `otap.set_property` 这个入口名来设置 OTAP 图像翻转属性。下面两个函数任选其一，这段代码只定义备选写法，不会执行任何调用。
+
+```python
+payload = {"enabled": True, "imageFlipStyle": "UPDOWN"}
+
+
+def make_selector(local_index):
+    return {
+        "resource_category": "Video",
+        "local_index": local_index,
+        "domain_identifier": "VideoAdjustment",
+        "property_identifier": "ImageFlip",
+    }
+
+
+def write_sync(client, device_serial, local_index):
+    return client.otap.set_property(device_serial, payload, **make_selector(local_index))
+
+
+async def write_async(async_client, device_serial, local_index):
+    return await async_client.otap.set_property(device_serial, payload, **make_selector(local_index))
+```
+
+实际调用需要已初始化的国内 `Client` 或 `AsyncClient`。`device_serial` 是已授权的目标设备，`local_index` 是该设备上实际授权资源的序号字符串。示例中的资源序号只用于合成传输。用真实客户端调用任一函数会写入所选设备，国内托管或子账户场景最低需要 dev Config 权限。
+
+`enabled` 传 JSON 布尔值。5289 E16 写作 `enable`，E77 写作 `enabled`，本 CLI 只使用 `enabled`，不发送也不重试 `enable`，服务是否接受这两种拼写尚未验证。E81 应答中 `meta.code` 为整数 200 表示确认。`imageFlipStyle` 可选 `LEFTRIGHT`、`UPDOWN`、`CENTER`、`AUTO`，文档记录的型号有 CS-H6c-V200-1R4WFL、CS-H9c-V100-8H33WKFL、CS-C6c-V220-1Q8WFL。
+
+### 企业托管
+
 `client.delegation`仅国内提供五个B1/B2托管入口：B2端`apply_code`，B1端`authorize_account`、`list_resources`（只读，`page_size`不超过文档最大20）、`authorize_device`、`relieve_device`。授权与解绑凭证不对称是合同事实：授权使用授权码`sign`，解绑使用B2的`appKey`与必填`state`；`state`无已声明枚举，SDK不设默认值。每个方法各发一次请求，官方文档未规定完整调用顺序；SDK不交换或缓存对方凭据、不从一方身份推导对方appKey、不代激活该付费能力，`sign`按敏感数据处理。
 
 ```python
