@@ -2899,6 +2899,21 @@
         "E482;E485;E498",
         "docs/coordination/overseas-linktom-picture-lookup/admission.json"
       ]
+    },
+    {
+      "id": "cn.devices.generate_wifi_qr.image_representation_and_onboarding_confirmation",
+      "region": "domestic",
+      "source_doc_id": "663",
+      "source_url": "https://open.ys7.com/help/663",
+      "source_content_sha256": "2b4a75b0d7a9d57fde42d973c31ebe822e1a44e8e8eca3599bdbfa0256dbe92d",
+      "description": "E54 将 imageData 定义为字符串，E117 与 E120 给出的 Base64/JPG 示例并未保证固定 MIME 类型或实际像素内容，且 E101 型号未列出对应固件版本。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 原样保留该字符串（含空串）及其扩展字段，生成请求时不会重放数据，也不会读取本机网络或自动解码、保存、显示图像；设备扫码入网流程仍待独立验收。",
+      "evidence": [
+        "E50;E54;E67",
+        "E101;E117;E120",
+        "docs/coordination/domestic-wifi-qr/admission.json"
+      ]
     }
   ]
 }

@@ -7508,6 +7508,25 @@
           "synthetic": true
         }
       }
+    },
+    {
+      "operation_id": "cn.devices.generate_wifi_qr",
+      "args": [
+        "  SYNTHETIC NETWORK ONLY  "
+      ],
+      "kwargs": {
+        "password": "  SYNTHETIC INPUT ONLY  "
+      },
+      "fields": {
+        "ssid": "  SYNTHETIC NETWORK ONLY  ",
+        "password": "  SYNTHETIC INPUT ONLY  "
+      },
+      "data": {
+        "imageData": "[synthetic placeholder only; no image]",
+        "extra": {
+          "synthetic": true
+        }
+      }
     }
   ]
 }

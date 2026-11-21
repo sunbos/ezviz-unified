@@ -41,6 +41,17 @@ with Client(
 
 `inspect_device(client, device_serial, channel=1)` 与 `inspect_device_async` 按固定顺序组合设备信息、通道、状态、能力、版本五次只读调用，逐项返回 `InspectionResult`，并提供不含序列号、通道、载荷或异常原文的 `public_summary()`；认证级错误立即中断。示例 `examples.inspection_sync`/`inspection_async` 用 `EZVIZ_DEVICE_SERIAL` 与 `EZVIZ_CHANNEL` 显式指定一台已知设备，不枚举账号设备，退出码 0/2/1 分别对应全部成功、部分失败、配置或 SDK 级失败；用法与输出契约见[接入指南的单设备检查节](docs/getting-started.md#单设备检查)。
 
+### 国内设备配网二维码
+
+调用 `client.devices.generate_wifi_qr(ssid, password=password)` 时，SDK 会将所提供的 Wi-Fi 名称（SSID）与密码发送至萤石国内官方服务。异步客户端用 `await` 调用同名方法。SSID 与密码为非空 UTF-8 字符串，空白字符按原样保留。官方建议避免使用中文 SSID，SDK 接受中文。国内子账号至少需要 Cam 设备及通道范围内的 `Config` 权限。型号表 E101 列出五款支持扫码配网的设备，未注明固件版本。
+
+方法返回完整的 `ApiResponse`。`response.data["imageData"]` 为字符串，`response.raw` 保留原始响应及未知字段。`imageData` 与二维码应按 Wi-Fi 凭据保护，不应写入日志或共享报告。应用需要展示时，可参照官方 Base64/JPG 示例在内存中转换，以 300×300 像素显示。字段表未承诺固定的图像格式。SDK 不会自动解码或保存图片。设备扫码和实际入网须单独验证。离线 CLI 使用不可扫码的合成数据，只输出 `simulated` 与 `image_data_present` 两个布尔值。[国内文档 663](https://open.ys7.com/help/663)。
+
+```sh
+python -m examples.wifi_qr --mode sync
+python -m examples.wifi_qr --mode async
+```
+
 ### 国内设备列表游标分页
 
 同步客户端可调用 `client.devices.list_by_id(page_size=1)`，异步客户端则使用 `await async_client.devices.list_by_id(cursor=cursor, page_size=1)`，二者都只发送单页请求且仅支持国内区域。翻页游标取自 `response.raw["page"]["nextId"]`，`response.data` 为服务端返回的原始行记录，当 nextId 为 None 或空字符串时即表示已到末页，应停止翻页。仅当 nextId 非空时，调用方才可在后续显式调用中将其作为 cursor 传入，SDK 不会自动翻页。可选参数 cursor、page_start、page_size 为 None 时一律不下发，page_start 取值 0 至 100 属于 SDK 侧的本地解释，page_size 允许 1 至 50 而服务端默认每页 10 条。若 id 与 pageStart 同时传入，二者的排序与优先级尚未经过实际验证，更多背景见 [国内文档 3947](https://open.ys7.com/help/3947)。
