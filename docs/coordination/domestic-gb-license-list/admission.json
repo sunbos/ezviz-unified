@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "e9f325809a94dfaf93b552255cd10cc7c969d767",
+  "scope_revision": "2026-11-21-r62-domestic-gb-license-list",
+  "cohort_id": "DOMESTIC-GB-LICENSE-LIST-001",
+  "operations": [
+    {
+      "doc_id": "671",
+      "source_url": "https://open.ys7.com/help/671",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/domestic/671.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/domestic/671.structure.json",
+      "html_sha256": "ff7c34b90d6c749a6e5d89f6027b004f2863685e0ce18db7853bee20ca4a423e",
+      "region": "domestic",
+      "operation_id": "cn.third_party_protocols.list_gb_licenses",
+      "capability_id": "candidate:domestic:671:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-671-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-671-D0-LIVE-001"
+      ],
+      "entry": "third_party_protocols.list_gb_licenses",
+      "name": "list_gb_licenses",
+      "method": "GET",
+      "path": "/api/v3/device/register/gb/license/list",
+      "read_only": true,
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "productKey",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageIndex",
+          "type": "Integer",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageSize",
+          "type": "Integer",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "elements": {
+        "route": 7,
+        "method": 11,
+        "parameters": 14,
+        "request": 54,
+        "example": 58,
+        "fields": 62,
+        "errors": 134
+      },
+      "signatures": {
+        "ThirdPartyProtocols": "def list_gb_licenses(self, product_key: str, *, page_index: int | None = None, page_size: int | None = None) -> ApiResponse",
+        "AsyncThirdPartyProtocols": "async def list_gb_licenses(self, product_key: str, *, page_index: int | None = None, page_size: int | None = None) -> ApiResponse"
+      },
+      "permission": "国内应用凭据，调用方明确提供有权查询的国标项目编码。671 未说明最低权限名称、子账户、托管或具体套餐要求。",
+      "unknown": "E62 将 meta.moreInfo 记为对象，将 activatedTime、reserve 记为字符串，E58 这些字段可为 null；状态值/时间语义、线上账户权限及中间层对 GET 正文的支持未实测。"
+    }
+  ],
+  "existing_operations": [
+    {
+      "operation_id": "cn.third_party_protocols.apply_batch",
+      "doc_id": "5367",
+      "path": "/api/service/thirdproto/{protocolType}/licenses/apply",
+      "method": "POST"
+    },
+    {
+      "operation_id": "cn.third_party_protocols.get_task",
+      "doc_id": "5368",
+      "path": "/api/service/thirdproto/{protocolType}/licenses/task",
+      "method": "GET"
+    },
+    {
+      "operation_id": "cn.third_party_protocols.list_devices",
+      "doc_id": "5369",
+      "path": "/api/service/thirdproto/{protocolType}/devices/page",
+      "method": "GET"
+    },
+    {
+      "operation_id": "cn.third_party_protocols.edit_device",
+      "doc_id": "5370",
+      "path": "/api/service/thirdproto/{protocolType}/licenses/edit",
+      "method": "POST"
+    }
+  ],
+  "public_document_recheck": {
+    "document": "671",
+    "at_utc": "2026-11-21T00:14:57.282495+00:00",
+    "html_sha256": "ff7c34b90d6c749a6e5d89f6027b004f2863685e0ce18db7853bee20ca4a423e",
+    "matches_frozen": true,
+    "status": 200,
+    "credentials_used": false
+  },
+  "sdk_choices": [
+    "ThirdPartyProtocols/AsyncThirdPartyProtocols 增加项目级单页国标 License 查询；不通过现有 protocol_for/_send 分派，不改变原四协议、申请/编辑或分页设备的语义。先进入固定诊断作用域，再检查国内地区，然后校验参数；不探测设备、项目、套餐或其他地区，不申请、购买、激活或修改 License。",
+    "product_key 是必填非空白且可编码 UTF-8 的字符串，保持原字节含义，不裁剪前后空格、不限定字母数字，不当作 AppKey 或设备序号。page_index/page_size 可独立省略；传入时必须为非 bool 整数。page_index 按页码语义 >=0，无文档最大值；page_size 1..50。None 不上报，服务端默认 0/10。明确携带 Content-Type: application/x-www-form-urlencoded。仅在 GET 正文中传 token 和字段，不发送 query、额外认证头、备用 POST 或第二页。",
+    "根层 meta.code 只接受整数 200，meta.message 与 data 位于各自原层。data 必须是对象数组，允许空、缺少非必选行字段、扩展、合法 null，保留所有行的顺序和原值，SDK 不推断状态字符串枚举或时区。协议错误使用现有异常类型，已知错误按已有分类；沿用只读 10002 单次刷新并重发原表单，不把该 SDK 通则写成 671 错误表的内容。",
+    "调用者显式访问 ApiResponse.data/raw 可得敏感原始资料。该 operation 复用已有严格展示与注册字段脱敏（只为本操作选择策略），屏蔽 HTTPX INFO 原因文本、上游自由文本和未知字符串码；异常、repr、诊断不透露令牌/项目编码/设备 License/标识/状态或任何任意行内容；不改变全局 HTTPX 和其他方法。",
+    "CLI python -m examples.gb_license_list --mode sync|async，复用 examples._common.load_config，仅国内。本机环境 EZVIZ_PRODUCT_KEY 必填，验证非空白和 UTF-8 后建立客户端；不接受项目编码 argv、无需设备序号。只调用 list_gb_licenses(product_key,page_index=0,page_size=1)。仅输出一行 JSON returned_items=0 或 1；多于1行固定失败，不截断、打印或自动翻页。usage: python -m examples.gb_license_list --mode sync|async，固定错误 error: GB license list query failed；0/1/130，非预期异常传播。帮助/无效参数不接触配置；验收全用合成项目与传输。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/third_party_protocols.py",
+    "src/ezviz_unified/third_party_models.py",
+    "src/ezviz_unified/device_algorithms.py",
+    "examples/_common.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "需要已获授权的国内 GB 项目，用实际账户验证时独立确认页面和 HTTP 上限。本轮不读取真实项目或设备 License。"
+}
