@@ -4229,7 +4229,7 @@
         "AsyncSnapshots.get_by_uuid"
       ],
       "public_entry": "snapshots.get_by_uuid",
-      "offline_status": "pending",
+      "offline_status": "passed",
       "live_status": "not_verified"
     }
   ]

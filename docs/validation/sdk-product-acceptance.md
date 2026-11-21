@@ -17,6 +17,10 @@
 
 认证和首页首台选择已完成，同步计划查询返回 SDK 错误。首次失败即停，异步未执行。未记录计划内容、业务码或原始异常，无法据此判定权限、设备状态或型号支持。 本次获准上限为 5 次 HTTP，实际放行 3 次。本项仍待通过。[脱敏回执](live/2026-11-20-singapore-first-device-working-mode-plan/receipt.json)
 
+## 海外 Linktom 既有图片引用查询验收
+
+海外 Linktom 凭已授权设备 SDK 抓拍生成的 UUID 查询既有图片引用，size 取值范围为 0 至 1280。查询成功时根 code 为字符串 "200"，data.picUrl 为字符串，内容可能为图片路径。CLI 及本轮同步、异步验收均使用合成传输，不补拍也不访问图片，真实资源权限和引用有效性待核。[冻结记录](../coordination/overseas-linktom-picture-lookup/admission.json) · [离线回执](2026-11-21-overseas-linktom-picture-lookup/offline.json)
+
 ## 国内通道灯光联动状态只读验收
 
 国内 1741 按指定通道查询灯光联动，字符串 301 和 305 分别表示移动侦测与 PIR。E14 要求携带通道请求头，E48 示例省略，SDK 遵循 E14。国内成功响应的根 code 为字符串、enable 为布尔值，海外 3722 固定 301、无通道且启用值为整数。本次同步与异步使用合成传输，真实权限、机型与灯光效果仍待实测。[冻结记录](../coordination/domestic-channel-light-linkage/admission.json) · [离线回执](2026-11-21-domestic-channel-light-linkage/offline.json)。
