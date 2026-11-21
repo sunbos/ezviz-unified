@@ -2869,6 +2869,21 @@
         "E40;E44;E60",
         "docs/coordination/domestic-advanced-detection-type/admission.json"
       ]
+    },
+    {
+      "id": "cn.settings.get_channel_light_linkage.required_channel_header_and_regional_shapes",
+      "region": "domestic",
+      "source_doc_id": "1741",
+      "source_url": "https://open.ys7.com/help/1741",
+      "source_content_sha256": "1b1aa0ae8913a2b7699fe9625c9c0d5ccb1b1f627b5a2587c0e0d19aa7ecf701",
+      "description": "官方文档 1741 的参数表 E14 要求 channelNo 请求头。E48 请求示例漏写了这个头。type 接受字符串 301 或 305。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 按 E14 发送三个必填头和一个 query 参数。按 E52 的根字符串 code 和布尔 enable 读取响应。海外 3722 的整数 enable 保持单独处理。实际适用的设备型号与最低权限待核。",
+      "evidence": [
+        "E7;E11;E14;E48",
+        "E52;E56;E76",
+        "docs/coordination/domestic-channel-light-linkage/admission.json"
+      ]
     }
   ]
 }

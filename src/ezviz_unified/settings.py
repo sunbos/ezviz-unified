@@ -292,6 +292,16 @@ _GET_LIGHT_LINKAGE = Operation(
     policy=_BODY_META_POLICY,
 )
 
+_GET_CHANNEL_LIGHT_LINKAGE = Operation(
+    name="settings.get_channel_light_linkage",
+    method="GET",
+    path="/api/v3/device/switchStatus/get",
+    regions=frozenset({_DOMESTIC}),
+    token_location="header",
+    read_only=True,
+    policy=_DOMESTIC_DEVICE_SETTINGS_POLICY,
+)
+
 _SET_LIGHT_LINKAGE = Operation(
     name="settings.set_light_linkage",
     method="POST",
@@ -847,17 +857,32 @@ def _pir_area_set_request(
     return _overseas_op("set_pir_area", "/api/lapp/device/pir/set", read_only=False), data
 
 
-def _light_linkage_response(response: ApiResponse) -> ApiResponse:
+def _channel_light_linkage_request(
+    device_serial: str, channel_no: str, linkage_type: str
+) -> tuple[dict[str, str], dict[str, str]]:
+    if type(linkage_type) is not str or linkage_type not in ("301", "305"):
+        raise ValueError("linkage_type must be '301' or '305'")
+    headers = {
+        "deviceSerial": _header("device_serial", device_serial),
+        "channelNo": _header("channel_no", channel_no),
+    }
+    params = {"type": linkage_type}
+    return headers, params
+
+
+def _light_linkage_response(response: ApiResponse, *, domestic: bool = False) -> ApiResponse:
     """Return the response when the light linkage payload shape is valid."""
     data = response.data
     if (
         not isinstance(data, dict)
         or type(data.get("type")) is not int
-        or type(data.get("enable")) is not int
+        or type(data.get("enable")) is not (bool if domestic else int)
         or ("subSerial" in data and not isinstance(data["subSerial"], str))
     ):
         raise ProtocolError(
-            "unexpected settings.get_light_linkage response shape",
+            "unexpected settings.get_channel_light_linkage response shape"
+            if domestic
+            else "unexpected settings.get_light_linkage response shape",
             operation=response.operation,
             http_status=response.http_status,
         )
@@ -1501,6 +1526,22 @@ class Settings:
                 params={"type": "301"},
             )
             return _light_linkage_response(response)
+
+    def get_channel_light_linkage(
+        self, device_serial: str, *, channel_no: str, linkage_type: str
+    ) -> ApiResponse:
+        """Query the domestic per-channel light linkage state."""
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_channel_light_linkage", mode="sync"
+        ):
+            _require_domestic(self._client.region.scope)
+            headers, params = _channel_light_linkage_request(
+                device_serial, channel_no, linkage_type
+            )
+            response = self._client.request(
+                _GET_CHANNEL_LIGHT_LINKAGE, headers=headers, params=params
+            )
+            return _light_linkage_response(response, domestic=True)
 
     def set_light_linkage(self, device_serial: str, enabled: bool) -> ApiResponse:
         """Set the motion-linked light status for an overseas device."""
@@ -2158,6 +2199,22 @@ class AsyncSettings:
                 params={"type": "301"},
             )
             return _light_linkage_response(response)
+
+    async def get_channel_light_linkage(
+        self, device_serial: str, *, channel_no: str, linkage_type: str
+    ) -> ApiResponse:
+        """Query the domestic per-channel light linkage state."""
+        with _diagnostic_scope(
+            self._client, entrypoint="settings.get_channel_light_linkage", mode="async"
+        ):
+            _require_domestic(self._client.region.scope)
+            headers, params = _channel_light_linkage_request(
+                device_serial, channel_no, linkage_type
+            )
+            response = await self._client.request(
+                _GET_CHANNEL_LIGHT_LINKAGE, headers=headers, params=params
+            )
+            return _light_linkage_response(response, domestic=True)
 
     async def set_light_linkage(self, device_serial: str, enabled: bool) -> ApiResponse:
         """Set the motion-linked light status for an overseas device."""

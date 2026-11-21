@@ -113,6 +113,17 @@ python -m examples.a1_detector_rename --mode sync
 python -m examples.a1_detector_rename --mode async
 ```
 
+### 国内通道灯光联动状态
+
+`client.settings.get_channel_light_linkage(device_serial, channel_no=channel_no, linkage_type="301")` 读取国内指定通道的灯光联动状态，异步客户端用 `await` 调用同名方法。`channel_no` 为保留前导零的 ASCII 字符串，`"301"` 表示移动侦测灯光联动，`"305"` 表示 PIR 灯光联动。参数表 E14 将 `channelNo` 列为必填请求头。curl 示例 E48 漏写了该头，SDK 每次都按参数表传入通道号。
+
+国内成功响应的根层 `code` 为字符串 `"200"`，`data.type` 为整数，`data.enable` 为布尔值。海外 3722 固定查询 301，省略通道，`body.data.enable` 为整数。国内示例须指定 `--type`、`EZVIZ_DEVICE_SERIAL` 与 `EZVIZ_CHANNEL_NO`。返回类型与所选类型不符时，输出的 `state` 为 `unknown`。海外示例只传 `--mode`。国内文档未列最低角色、适用型号或固件。本次仅做了离线传输验证。[1741](https://open.ys7.com/help/1741)。
+
+```sh
+python -m examples.light_linkage --mode sync --type 301
+python -m examples.light_linkage --type 305 --mode async
+```
+
 ### 海外移动侦测联动灯光
 
 `client.settings.get_light_linkage(serial)` 查询移动侦测联动灯光状态，`client.settings.set_light_linkage(serial, enabled=True)` 提交一次写入，异步版本均通过 `await` 调用。两个接口支持托管和子账号，读取要求 `Get` 权限，写入要求 `Config` 权限。请求发往令牌指定并经地区校验的业务域 `areaDomain`，`accessToken` 与 `deviceSerial` 放在请求头。GET 的查询字符串只有 `type=301`，POST 的查询字符串恰好是 `type=301` 与 `enable=1` 或 `enable=0`，`enabled` 仅接受布尔值。两个请求都没有业务正文和 `Content-Type`，海外接口未声明 `channelNo` 或验证码参数，SDK 一律不发送。[海外文档 3722](https://open.ys7.com/help/en/3722) [海外文档 3723](https://open.ys7.com/help/en/3723)

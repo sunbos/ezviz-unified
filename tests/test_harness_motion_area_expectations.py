@@ -43,6 +43,7 @@ REDACTED_OPERATION_IDS = (
     "cn.settings.get_alarm_detection_mode",
     "global.detectors.rename",
     "cn.settings.get_advanced_alarm_detection_type",
+    "cn.settings.get_channel_light_linkage",
 )
 
 FACADES = {
@@ -74,6 +75,7 @@ FACADES = {
         Settings,
         "get_advanced_alarm_detection_type",
     ),
+    "cn.settings.get_channel_light_linkage": (Settings, "get_channel_light_linkage"),
 }
 
 READ_ONLY_OPERATION_IDS = {
@@ -92,6 +94,7 @@ READ_ONLY_OPERATION_IDS = {
     "cn.settings.get_intelligent_detection_switch",
     "cn.settings.get_alarm_detection_mode",
     "cn.settings.get_advanced_alarm_detection_type",
+    "cn.settings.get_channel_light_linkage",
 }
 
 MUTATIONS = {

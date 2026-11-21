@@ -11,7 +11,7 @@ from ezviz_unified import RegionConfig
 
 SERIAL = "MiXeD A-1"
 ERROR = "error: light linkage query failed\n"
-USAGE = "usage: python -m examples.light_linkage --mode sync|async\n"
+USAGE = "usage: python -m examples.light_linkage --mode sync|async [--type 301|305]\n"
 
 
 @pytest.fixture
@@ -190,3 +190,217 @@ def test_cli_load_config_failure(h, capsys, monkeypatch, mode, exc, expected):
     assert code == expected and cap.out == "" and cap.err == ERROR
     assert "SYNTH_PRIVATE" not in cap.err
     assert h.built == []
+
+
+@pytest.mark.parametrize(
+    "mode,selector,returned,enable,match,state",
+    [
+        (mode, selector, returned, enable, match, state)
+        for mode in ("sync", "async")
+        for selector, returned, enable, match, state in [
+            ("301", 301, True, True, "on"),
+            ("301", 301, False, True, "off"),
+            ("305", 305, True, True, "on"),
+            ("305", 305, False, True, "off"),
+            ("301", 305, True, False, "unknown"),
+            ("305", 301, False, False, "unknown"),
+            ("301", -9, True, False, "unknown"),
+        ]
+    ],
+)
+@pytest.mark.usefixtures("domestic_auth_reply")
+def test_domestic_channel_query(
+    h, capsys, monkeypatch, mode, selector, returned, enable, match, state
+):
+    h.config.region = "domestic"
+    h.config.region_config = RegionConfig.china()
+    monkeypatch.setenv("EZVIZ_CHANNEL_NO", "0007")
+    h.payload = {
+        "code": "200",
+        "msg": "PRIVATE_UPSTREAM",
+        "data": {
+            "type": returned,
+            "enable": enable,
+            "subSerial": "SUB_PRIVATE",
+            "future": "EXT_PRIVATE",
+        },
+    }
+
+    if mode == "async":
+        argv = ["--type", selector, "--mode", mode]
+    else:
+        argv = ["--mode", mode, "--type", selector]
+    assert example.main(argv) == 0
+
+    captured = capsys.readouterr()
+    assert "PRIVATE" not in captured.out
+    result = json.loads(captured.out)
+    assert result == {
+        "region": "domestic",
+        "mode": mode,
+        "status": "ok",
+        "selector_matches": match,
+        "state": state,
+    }
+    assert result["selector_matches"] is match
+    combined = captured.out + captured.err
+    for secret in (
+        TOKEN,
+        SERIAL,
+        h.config.app_secret,
+        "SUB_PRIVATE",
+        "EXT_PRIVATE",
+        "PRIVATE_UPSTREAM",
+    ):
+        assert secret not in combined
+
+    assert h.loads == [1]
+    assert h.built == [mode]
+
+    assert len(h.seen["auth"]) == 1
+    assert len(h.seen["biz"]) == 1
+    auth = h.seen["auth"][0]
+    biz = h.seen["biz"][0]
+    assert auth.url.scheme == "https"
+    assert auth.url.host == "open.ys7.com"
+    assert biz.url.scheme == "https"
+    assert biz.url.host == "open.ys7.com"
+    assert biz.method == "GET"
+    assert biz.url.path == "/api/v3/device/switchStatus/get"
+    assert list(biz.url.params.multi_items()) == [("type", selector)]
+    assert biz.content == b""
+    assert "content-type" not in biz.headers
+    assert biz.headers["accessToken"] == TOKEN
+    assert biz.headers["deviceSerial"] == SERIAL
+    assert biz.headers["channelNo"] == "0007"
+
+
+@pytest.mark.parametrize(
+    "argv",
+    [
+        ["--mode", "sync", "--type"],
+        ["--mode", "sync", "--type", "302"],
+        ["--mode", "sync", "--type", "0305"],
+        ["--mode", "sync", "--type", "305", "--type", "305"],
+        ["--type", "305", "--mode", "sync", "--mode", "sync"],
+        ["--mode", "sync", "--type", "305", "unexpected"],
+        ["--mode", "sync", "--type", "305", "--serial", SERIAL],
+    ],
+    ids=[
+        "type-missing-value",
+        "type-unsupported-302",
+        "type-leading-zero",
+        "type-repeated",
+        "mode-repeated",
+        "extra-argument",
+        "extra-credential-option",
+    ],
+)
+@pytest.mark.usefixtures("domestic_auth_reply")
+def test_domestic_selector_usage(h, capsys, argv):
+    h.config.region = "domestic"
+    h.config.region_config = RegionConfig.china()
+
+    assert example.main(argv) == 1
+
+    assert capsys.readouterr() == ("", USAGE)
+    assert h.loads == h.built == []
+    assert h.seen == {"auth": [], "biz": []}
+
+
+@pytest.mark.parametrize("mode", ["sync", "async"])
+@pytest.mark.parametrize(
+    "region,channel,serial",
+    [
+        ("overseas", "0007", SERIAL),
+        ("domestic", None, SERIAL),
+        ("domestic", "0007", None),
+    ],
+    ids=["overseas-valid", "domestic-missing-channel", "domestic-missing-serial"],
+)
+@pytest.mark.usefixtures("domestic_auth_reply")
+def test_domestic_config_error(h, capsys, monkeypatch, mode, region, channel, serial):
+    h.config.region = region
+    h.config.region_config = {
+        "domestic": RegionConfig.china(),
+        "overseas": RegionConfig.overseas(),
+    }[region]
+
+    if channel is None:
+        monkeypatch.delenv("EZVIZ_CHANNEL_NO", raising=False)
+    else:
+        monkeypatch.setenv("EZVIZ_CHANNEL_NO", channel)
+    if serial is None:
+        monkeypatch.delenv("EZVIZ_DEVICE_SERIAL", raising=False)
+    else:
+        monkeypatch.setenv("EZVIZ_DEVICE_SERIAL", serial)
+
+    assert example.main(["--type", "305", "--mode", mode]) == 1
+
+    assert capsys.readouterr() == ("", ERROR)
+    assert h.seen == {"auth": [], "biz": []}
+
+
+@pytest.mark.parametrize("mode", ["sync", "async"])
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"code": "10031", "msg": "PRIVATE_DENIED"},
+        {"code": "200", "data": {"type": 301, "enable": 1}},
+        {"body": {"meta": {"code": 200}, "data": {"type": 301, "enable": True}}},
+    ],
+)
+@pytest.mark.usefixtures("domestic_auth_reply")
+def test_domestic_cli_failed_response(h, capsys, monkeypatch, mode, payload):
+    h.config.region = "domestic"
+    h.config.region_config = RegionConfig.china()
+    monkeypatch.setenv("EZVIZ_CHANNEL_NO", "0007")
+    h.payload = payload
+    assert example.main(["--mode", mode, "--type", "301"]) == 1
+    out = capsys.readouterr()
+    assert out.out == "" and out.err == ERROR
+    assert h.built == [mode] and len(h.seen["biz"]) == 1
+
+
+@pytest.mark.parametrize(
+    ("mode", "exc"),
+    [("sync", KeyboardInterrupt()), ("async", asyncio.CancelledError())],
+)
+@pytest.mark.usefixtures("domestic_auth_reply")
+def test_domestic_interrupt(h, capsys, monkeypatch, mode, exc):
+    h.config.region = "domestic"
+    h.config.region_config = RegionConfig.china()
+    monkeypatch.setenv("EZVIZ_CHANNEL_NO", "0007")
+
+    def business(req):
+        raise exc
+
+    def make(key, secret, *, region):
+        client, _, h.seen = _client(mode, biz=business, region=region)
+        return client
+
+    monkeypatch.setattr(example, "Client" if mode == "sync" else "AsyncClient", make)
+
+    assert example.main(["--mode", mode, "--type", "305"]) == 130
+    captured = capsys.readouterr()
+    assert (captured.out, captured.err) == ("", ERROR)
+    assert len(h.seen["auth"]) == len(h.seen["biz"]) == 1
+
+
+@pytest.fixture
+def domestic_auth_reply(monkeypatch):
+    def auth_ok(request):
+        assert request.url.host == "open.ys7.com"
+        return httpx.Response(
+            200,
+            json={
+                "code": "200",
+                "data": {
+                    "accessToken": TOKEN,
+                    "expireTime": 9999999999999,
+                    "areaDomain": "https://open.ys7.com",
+                },
+            },
+        )
+
+    monkeypatch.setattr("test_sdk_device_utc._auth_ok", auth_ok)

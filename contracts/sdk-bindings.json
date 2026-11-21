@@ -4205,6 +4205,19 @@
       "public_entry": "settings.get_advanced_alarm_detection_type",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.settings.get_channel_light_linkage",
+      "region": "domestic",
+      "source_doc_id": "1741",
+      "module": "src/ezviz_unified/settings.py",
+      "symbols": [
+        "Settings.get_channel_light_linkage",
+        "AsyncSettings.get_channel_light_linkage"
+      ],
+      "public_entry": "settings.get_channel_light_linkage",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }
