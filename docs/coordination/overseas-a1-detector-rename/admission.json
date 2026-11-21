@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "a06122c7af88eace8eabaad07aca7523c619acc2",
+  "scope_revision": "2026-11-21-r65-overseas-a1-detector-rename",
+  "cohort_id": "OVERSEAS-A1-DETECTOR-RENAME-001",
+  "operations": [
+    {
+      "operation_id": "global.detectors.rename",
+      "capability_id": "candidate:overseas:481:1.7",
+      "case_ids": [
+        "ACC-CANDIDATE-OVERSEAS-481-1-7-OFFLINE-001",
+        "ACC-CANDIDATE-OVERSEAS-481-1-7-LIVE-001"
+      ],
+      "entry": "detectors.rename",
+      "name": "rename",
+      "doc_id": "481",
+      "section": "1.7",
+      "region": "overseas",
+      "method": "POST",
+      "path": "/api/lapp/detector/name/change",
+      "read_only": false,
+      "source_url": "https://open.ys7.com/help/en/481",
+      "source": "data/official-docs/2026-11-17-sdk-product-main/pages/overseas/481.source.json",
+      "structure": "data/official-docs/2026-11-17-sdk-product-main/derived/overseas/481.structure.json",
+      "html_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "encoding": "application/x-www-form-urlencoded",
+          "required": true,
+          "evidence": "E799"
+        },
+        {
+          "name": "deviceSerial",
+          "type": "String",
+          "location": "body",
+          "encoding": "application/x-www-form-urlencoded",
+          "required": true,
+          "evidence": "E799"
+        },
+        {
+          "name": "detectorSerial",
+          "type": "String",
+          "location": "body",
+          "encoding": "application/x-www-form-urlencoded",
+          "required": true,
+          "evidence": "E799"
+        },
+        {
+          "name": "newName",
+          "type": "String",
+          "location": "body",
+          "encoding": "application/x-www-form-urlencoded",
+          "required": true,
+          "evidence": "E799"
+        }
+      ],
+      "elements": {
+        "heading": 783,
+        "route": 792,
+        "method": 796,
+        "parameters": 799,
+        "request": 829,
+        "example": 832,
+        "errors": 835
+      },
+      "signatures": {
+        "Detectors": "def rename(self, a1_serial: str, detector_serial: str, *, new_name: str) -> ApiResponse",
+        "AsyncDetectors": "async def rename(self, a1_serial: str, detector_serial: str, *, new_name: str) -> ApiResponse"
+      },
+      "permission": "所属海外区域账户有权配置已关联的 A1 与该探测器；本小节未给出最小子账户权限。",
+      "prerequisites": "已关联的海外 A1 父设备与指定探测器。",
+      "unknown": "newName 长度单位及特殊字符清单未定义。列表 location 为自定义名称，现场生效时间和最小权限待核。",
+      "envelope_paths": [
+        ""
+      ],
+      "documented_codes": [
+        "200",
+        "10001",
+        "10002",
+        "10005",
+        "20002",
+        "20006",
+        "20007",
+        "20008",
+        "20014",
+        "20018",
+        "49999"
+      ]
+    }
+  ],
+  "public_document_recheck": {
+    "status": "anonymous_public_document_comparison",
+    "public_reference": "https://open.ys7.com/help/en/481",
+    "doc_id": "481",
+    "http_status": 200,
+    "checked_at_utc": "2026-11-21T01:45:45.925358+00:00",
+    "html_sha256": "bb70564c6b53b9c3bb7731bf60bde784d5952e3de7b9930e0530bc198b4cdc5e",
+    "matches_archive": true,
+    "sections": [
+      "1.2",
+      "1.7"
+    ],
+    "device_api_requests": 0,
+    "account_api_requests": 0,
+    "credentials_used": false
+  },
+  "sdk_choices": [
+    "复用 Detectors 与 AsyncDetectors，新增 rename(a1_serial, detector_serial, *, new_name)。它修改探测器的自定义显示名称，列表中对应 location。父设备和探测器的序列号均由调用方显式给定，不隐式读取设备或列表。",
+    "在诊断作用域内先拒绝国内，再检查两个标识和名称。复用非空 UTF-8 文本校验，保留输入的大小写、空格及正常 Unicode，不自动 trim 或转写。new_name 少于 50 个 Unicode 码点，拦截 ASCII 控制字符与 DEL。码点计数及控制字符校验是 SDK 选择，官方没有给出长度单位或“特殊字符”的完整列表，其余标点能否使用由平台判断。",
+    "仅向已认证海外账户返回的业务 origin 发出一次表单 POST。表单的四项是 accessToken、deviceSerial、detectorSerial 和 newName。保留既有认证流程与区域边界。令牌错误、业务拒绝或传输超时不重放，不预读、恢复、枚举或联动设备。",
+    "根层 code 必须为字符串 200。成功返回原 ApiResponse，允许无 data、空 data 及扩展字段；调用方显式读取的 data/raw 保持原值。正常与异常的 repr、str、受管 HTTPX INFO、命令行和诊断都不包含父子序列、名称、令牌、上游消息或 HTTP reason。",
+    "新增可选的尾部 ResponsePolicy.exposed_business_codes，缺省为 None。显式指定时按现有标量校验形成非空不可变元组，在本操作的严格展示策略下，仅公开本节 E835 已记录的错误码和既有通用码 200/400/403/404/500/10002/10031，保留已知 int/str 原类型。其他字符串和整数都归入 REDACTED。缺失的码保持 None。错误类别取原值，旧三项查询和所有默认策略的展示行为不变，诊断报告不增加业务码字段。",
+    "示例 python -m examples.a1_detector_rename --mode sync|async。使用独立合成的鉴权 origin 和业务 MockTransport，固定合成的父子标识和显示名称，各模式只调用一次 rename，不读环境或配置。输出仅为 simulated 和 renamed 两个 true，固定 error: A1 detector rename example failed，取消返回 130，意外 RuntimeError 传播。",
+    "本次冻结只处置 481 的 1.7 节；1.2、1.3、1.6、1.8 和 1.9 仍按各自原有条目继续审核。真实验收的父子设备、区域、令牌权限、允许的新显示名称、有效原名、恢复与确认方式以及请求上限须单独核定。此轮没有真实请求。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/detectors.py",
+    "src/ezviz_unified/response.py",
+    "src/ezviz_unified/models.py",
+    "docs/coordination/overseas-a1-detector-queries/admission.json",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "remaining_source_sections": [
+    "1.2",
+    "1.3",
+    "1.6",
+    "1.8",
+    "1.9"
+  ],
+  "live": "仅合成传输；真实写入须另行核验资源与恢复授权。"
+}
