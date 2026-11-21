@@ -5,17 +5,23 @@ opening protocol projects, applying device licences, polling batch licence
 tasks, paging registered devices, and editing licence fields. Writes submit
 ``application/x-www-form-urlencoded`` bodies and always set the form
 Content-Type header explicitly, even when the request body is empty.
+The separate GB license endpoint reads one page of rows for a single product key
+through a GET form request.
 """
 
 from __future__ import annotations
 
 from collections.abc import Sequence
+from dataclasses import replace
 from typing import TYPE_CHECKING
 
 from . import third_party_models as _models
 from .diagnostic_report import _diagnostic_scope
+from .live_limits import _wire_int
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
+from .settings import _check_text, _require_domestic
+from .storage_models import _integer
 
 if TYPE_CHECKING:
     from .client import AsyncClient, Client
@@ -38,6 +44,16 @@ _OP_OPEN_PROJECT = Operation(
     read_only=False,
     policy=_POLICY,
 )
+_OP_LIST_GB_LICENSES = Operation(
+    "third_party_protocols.list_gb_licenses",
+    "GET",
+    "/api/v3/device/register/gb/license/list",
+    token_location="form",
+    regions=frozenset({"domestic"}),
+    read_only=True,
+    policy=replace(_POLICY, redact_device_add_details=True),
+)
+
 _OP_GET_PROJECT = Operation(
     "third_party_protocols.get_project",
     "GET",
@@ -92,6 +108,29 @@ _OP_EDIT_DEVICE = Operation(
     read_only=False,
     policy=_POLICY,
 )
+
+
+def _gb_license_form(
+    product_key: str, page_index: int | None, page_size: int | None
+) -> dict[str, str]:
+    fields = {"productKey": _check_text(product_key, "product_key")}
+    if page_index is not None:
+        index = _integer("page_index", page_index)
+        if index < 0:
+            raise ValueError("page_index must be greater than or equal to 0")
+        fields["pageIndex"] = _wire_int("page_index", index)
+    if page_size is not None:
+        size = _integer("page_size", page_size)
+        if size < 1 or size > 50:
+            raise ValueError("page_size must be between 1 and 50")
+        fields["pageSize"] = _wire_int("page_size", size)
+    return fields
+
+
+def _gb_license_response(response: ApiResponse) -> ApiResponse:
+    if isinstance(response.data, list) and all(isinstance(row, dict) for row in response.data):
+        return response
+    raise _models._shape(response)
 
 
 class ThirdPartyProtocols:
@@ -196,6 +235,22 @@ class ThirdPartyProtocols:
             selected = _models.protocol_for(self._client.region.scope, protocol)
             fields = _models.fields_get_task(selected, task_id)
             return self._send(_OP_GET_TASK, selected, fields)
+
+    def list_gb_licenses(
+        self, product_key: str, *, page_index: int | None = None, page_size: int | None = None
+    ) -> ApiResponse:
+        """Read one page of GB license rows for a product key."""
+        with _diagnostic_scope(
+            self._client, entrypoint="third_party_protocols.list_gb_licenses", mode="sync"
+        ):
+            _require_domestic(self._client.region.scope)
+            fields = _gb_license_form(product_key, page_index, page_size)
+            response = self._client.request(
+                _OP_LIST_GB_LICENSES,
+                data=fields,
+                headers={"Content-Type": "application/x-www-form-urlencoded"},
+            )
+            return _gb_license_response(response)
 
     def list_devices(
         self,
@@ -366,6 +421,22 @@ class AsyncThirdPartyProtocols:
             selected = _models.protocol_for(self._client.region.scope, protocol)
             fields = _models.fields_get_task(selected, task_id)
             return await self._send(_OP_GET_TASK, selected, fields)
+
+    async def list_gb_licenses(
+        self, product_key: str, *, page_index: int | None = None, page_size: int | None = None
+    ) -> ApiResponse:
+        """Read one page of GB license rows for a product key."""
+        with _diagnostic_scope(
+            self._client, entrypoint="third_party_protocols.list_gb_licenses", mode="async"
+        ):
+            _require_domestic(self._client.region.scope)
+            fields = _gb_license_form(product_key, page_index, page_size)
+            response = await self._client.request(
+                _OP_LIST_GB_LICENSES,
+                data=fields,
+                headers={"Content-Type": "application/x-www-form-urlencoded"},
+            )
+            return _gb_license_response(response)
 
     async def list_devices(
         self,

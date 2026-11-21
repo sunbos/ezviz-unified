@@ -2702,6 +2702,22 @@
         "海外 3725 E2;E30",
         "docs/coordination/domestic-working-mode-plans/admission.json"
       ]
+    },
+    {
+      "id": "cn.third_party_protocols.list_gb_licenses.nullable_fields_and_project_scope",
+      "region": "domestic",
+      "source_doc_id": "671",
+      "source_url": "https://open.ys7.com/help/671",
+      "source_content_sha256": "ff7c34b90d6c749a6e5d89f6027b004f2863685e0ce18db7853bee20ca4a423e",
+      "description": "671 E62 将 meta.moreInfo 标为对象，将 activatedTime、reserve 标为字符串。E58 示例中这三个字段均为 null。E134 只列出成功码，未写明最低权限名、子账号或托管范围。该页仅有 meta 和 data 行数组，未给出 total 或游标。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "SDK 保留原始可空字段、扩展字段和字符串状态，不做归一化或补全分页信息。显式访问 data/raw 属敏感操作。展示、日志和诊断须隐藏令牌、项目与设备条目及上游自由文本。5369 分页设备查询是另一协议，5367/5370 写入参数的 deviceLicense 语义不能推定与此只读字段等价。",
+      "evidence": [
+        "E3;E7;E11;E14;E54",
+        "E58;E62;E134",
+        "国内 5369 E14",
+        "docs/coordination/domestic-gb-license-list/admission.json"
+      ]
     }
   ]
 }

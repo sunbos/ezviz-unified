@@ -86,6 +86,7 @@ _REDACTED_MESSAGE_OPERATION_IDS = frozenset(
         "cn.settings.set_motion_sensitivity",
         "cn.settings.get_detection_sensitivity",
         "cn.settings.set_detection_sensitivity",
+        "cn.third_party_protocols.list_gb_licenses",
         "cn.settings.get_working_mode_plans",
         "cn.settings.set_huashu_4g_working_mode_plan",
         "cn.recordings.by_time",

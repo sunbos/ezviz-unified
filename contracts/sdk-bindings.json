@@ -4062,6 +4062,19 @@
       "public_entry": "settings.set_huashu_4g_working_mode_plan",
       "offline_status": "passed",
       "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.third_party_protocols.list_gb_licenses",
+      "region": "domestic",
+      "source_doc_id": "671",
+      "module": "src/ezviz_unified/third_party_protocols.py",
+      "symbols": [
+        "ThirdPartyProtocols.list_gb_licenses",
+        "AsyncThirdPartyProtocols.list_gb_licenses"
+      ],
+      "public_entry": "third_party_protocols.list_gb_licenses",
+      "offline_status": "pending",
+      "live_status": "not_verified"
     }
   ]
 }

@@ -1,6 +1,6 @@
 """A04 proof: every frozen business entrypoint is really entered.
 
-All 228 public paths run through their real method bodies (sync and async)
+All 229 public paths run through their real method bodies (sync and async)
 with decoded synthetic wire-case arguments while ``client.request`` is
 replaced by a no-network stub returning ``ApiResponse``. Assertions use
 recorded diagnostic events only - never source inspection.
@@ -95,8 +95,8 @@ def _field(event, name, default="none"):
 
 
 def test_registry_covers_frozen_lists():
-    assert len(ENTRIES) == 228
-    assert len(set(ENTRIES)) == 228
+    assert len(ENTRIES) == 229
+    assert len(set(ENTRIES)) == 229
     assert frozenset(ENTRIES) | frozenset(ADDITIONAL) == ENTRYPOINTS
     assert frozenset(COVERAGE["operation_names"]) == OPERATIONS
 

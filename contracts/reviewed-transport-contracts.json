@@ -22426,6 +22426,89 @@
       },
       "source_content_sha256": "c4e8c721f23192284bc1f3d28a4364254f94a796889a1d2c6b66eaef383b9379",
       "read_only": false
+    },
+    {
+      "operation_id": "cn.third_party_protocols.list_gb_licenses",
+      "region": "domestic",
+      "source_doc_id": "671",
+      "source_url": "https://open.ys7.com/help/671",
+      "method": "GET",
+      "path": "/api/v3/device/register/gb/license/list",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "form_urlencoded",
+      "token_location": "form",
+      "parameters": [
+        {
+          "name": "Content-Type",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14",
+          "constant": "application/x-www-form-urlencoded"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "productKey",
+          "type": "String",
+          "location": "body",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageIndex",
+          "type": "Integer",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageSize",
+          "type": "Integer",
+          "location": "body",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "evidence": "E58;E62;E134"
+      },
+      "constraints": [
+        {
+          "fact": "调用者提供项目编码和访问令牌。资料未列出子账号、托管设备或套餐权限。",
+          "evidence": "E14;E134"
+        },
+        {
+          "fact": "GET 请求使用 application/x-www-form-urlencoded。accessToken 和 productKey 为必填表单字段。pageIndex 与 pageSize 可选，默认分别为 0 和 10，分页大小上限为 50。",
+          "evidence": "E7;E11;E14;E54"
+        },
+        {
+          "fact": "成功响应以根层 meta.code 整数 200 确认，data 为对象数组。SDK 保留可空和扩展字段。项目编码、设备许可及原始条目只在调用者显式访问时可见。",
+          "evidence": "E58;E62;E134"
+        }
+      ],
+      "uncertainties": [
+        "E62 将 meta.moreInfo 记为对象，将 activatedTime、reserve 记为字符串，E58 这些字段可为 null；状态值/时间语义、线上账户权限及中间层对 GET 正文的支持未实测。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/device/register/gb/license/list",
+        "encoding": "application/x-www-form-urlencoded",
+        "evidence": "E7;E11;E14;E54"
+      },
+      "source_content_sha256": "ff7c34b90d6c749a6e5d89f6027b004f2863685e0ce18db7853bee20ca4a423e",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -22623,6 +22706,10 @@
     {
       "review": "docs/coordination/domestic-working-mode-plans/admission.json",
       "note": "国内 1723 计划查询与 1720 华数 4G 专用设置分别登记。海外 3724/3725 的业务响应层级、权限和写入工作模式继续采用已审核的海外契约。"
+    },
+    {
+      "review": "docs/coordination/domestic-gb-license-list/admission.json",
+      "note": "国内 671 以 GET 表单查询指定项目的一页国标 License。5369 的协议设备页及相邻写操作均为独立契约。"
     }
   ]
 }
