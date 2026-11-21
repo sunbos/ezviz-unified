@@ -48,6 +48,20 @@
 
 2026-11-21（北京时间）真实案例 ACC-CN-ASYNC-READONLY-001 在七次允许的 HTTP 请求中发出三次，只有认证与首页列表成功，首个列表设备详情已请求但未收到成功回执，此后未再发送请求且客户端已关闭，本次实网尝试为 not_verified，未记录根因，不自动重跑，[真实回执](../../docs/validation/live/2026-11-21-domestic-async-first-device/receipt.json) 与 [离线验收记录](../../docs/validation/2026-11-19-domestic-async-read/offline.json) 可核对，当前状态以 [验收矩阵](../../docs/validation/sdk-product-acceptance.json) 为准。
 
+2026-11-21（北京时间），第二次独立授权的异步首台设备检查发出 3/7 次 HTTP 请求。认证与首页列表成功，首台设备详情未取得成功回执。随后客户端已关闭，无后续请求，结果记为 `not_verified`，未记录根因，也未自动重跑。 [第二次执行记录](../../docs/validation/live/2026-11-21-domestic-async-first-device-second/execution.json)
+
+## 国内三项检测配置的只读验证
+
+本组对国内普通设备首页的首台设备依次查询画面变化检测开关（`scene_switch`）、告警检测模式（`alarm_mode`）和高级告警侦测类型（`advanced_type`）。`verify_detection_reads.verify(..., *, sync_factory, async_factory)` 要求调用方显式传入同步、异步传输工厂，默认不会选择真实传输。上一轮结束并取得本组独立授权后，仅执行一次。同步阶段最多 5 次请求（认证、首页列表、三项读取），异步阶段最多 4 次（认证、三项读取），遇到首次失败即停止。
+
+2026-11-21 本组实际发出 3/9 次 HTTP 请求。同步认证和首页列表成功，`scene_switch` 未获得符合契约的结果，其余两项查询及整个异步阶段均未发出请求。同步客户端已关闭（`sync_closed=true`），异步客户端未经创建，回执未记录根因。隔离进程在本次执行中禁用了日志和 TLS 密钥日志，回执只保留固定的查询标签、结果、形态和计数等信息，不含实际设置值。 [本组执行记录](../../docs/validation/live/2026-11-21-domestic-detection-read/execution.json) · [脱敏回执](../../docs/validation/live/2026-11-21-domestic-detection-read/receipt.json)
+
+在仓库根目录运行离线回归。
+
+```sh
+PYTHONPATH=src:. .venv/bin/python -m pytest -q --tb=short tests/test_live_detection_reads.py
+```
+
 ## 示例 CLI 的实机只读验证
 
 在仓库根目录运行以下命令。

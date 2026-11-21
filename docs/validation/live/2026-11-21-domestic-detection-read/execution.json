@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "authorization_ref": "docs/coordination/domestic-detection-read-live/admission.json",
+  "previous_run_ref": "docs/validation/live/2026-11-21-domestic-async-first-device-second/execution.json",
+  "sdk_commit": "468d6738475cdfa9faa67129df8fbb96b6bd7273",
+  "baseline_sdk_commit": "6ea16b74a8c16b0caf2498379fe5e5ec267ef221",
+  "started_at_utc": "2026-11-21T03:45:45.892334+00:00",
+  "finished_at_utc": "2026-11-21T03:45:50.014423+00:00",
+  "run_outcome": "failed",
+  "max_http_requests": 9,
+  "admitted_http_requests": 3,
+  "receipt_ref": "docs/validation/live/2026-11-21-domestic-detection-read/receipt.json",
+  "receipt_sha256": "f219c07171e144350f0eaacf9bd364465be42e8848ef884bf08344bb2effc254",
+  "offline_validation": {
+    "command": "PYTHONPATH=src:. .venv/bin/python -m pytest -q --tb=short tests/test_live_detection_reads.py",
+    "summary": "53 passed in 0.58s",
+    "execution_sha256": "d4abf8dba0ff39e67db1ff920a2706daeeb13294a0fa9c2dc513e41db5799c56",
+    "file_sha256": {
+      "tools/live/_detection_read_guard.py": "e6a29051124dfaeaab67ecb9bafbad8092a1c57d7c955745f9611b9bbe7c6ad1",
+      "tools/live/verify_detection_reads.py": "13c98cedccc32b616ce9c5badb05dfda766252a3feed74285ae3e871efeef918",
+      "tests/test_live_detection_reads.py": "1fb71b7143d4526ad21aa3ac4eec5d6dd9f62139ef90cfad6d13c1ef15e7139b"
+    }
+  },
+  "case_outcomes": {
+    "ACC-CANDIDATE-CN-726-D0-LIVE-001": {
+      "status": "not_verified",
+      "admitted_modes": [
+        "sync"
+      ]
+    },
+    "ACC-CANDIDATE-CN-1725-D0-LIVE-001": {
+      "status": "not_attempted",
+      "admitted_modes": []
+    },
+    "ACC-CANDIDATE-CN-1742-D0-LIVE-001": {
+      "status": "not_attempted",
+      "admitted_modes": []
+    }
+  },
+  "non_scope": "仅保留固定查询名称、同步/异步、成功与否、响应结构、次数及关闭状态。没有保存设备标识、实际设置值或业务错误原文。"
+}

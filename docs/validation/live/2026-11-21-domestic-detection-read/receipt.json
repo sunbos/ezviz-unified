@@ -1,0 +1,16 @@
+{
+  "scope": "domestic_detection_reads",
+  "schema_version": 1,
+  "outcome": "failed",
+  "http_requests": 3,
+  "sync_closed": true,
+  "async_closed": false,
+  "profiles": [
+    {
+      "mode": "sync",
+      "operation": "scene_switch",
+      "outcome": "failed",
+      "shape": "unverified"
+    }
+  ]
+}

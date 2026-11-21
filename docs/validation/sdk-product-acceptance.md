@@ -92,9 +92,15 @@
 
 海外 SDK 通过合成 HTTP 响应取得回环预览地址，随后在 Chromium 143.0.7499.4 中运行官方 ezuikit-flv 2.1.2-beta.2。三色正例实际解码 19 帧，媒体时间推进 2000 毫秒，分辨率为 320×180。单色反例仍可解码，在颜色检查处被拒绝。显式停止、离页和自然结束均在浏览器上下文仍存活时观察到相应 Worker 退出。真实云端签发与设备播放单列为待授权案例。[使用指南](../official-flv-preview.md) · [验收回执](2026-11-21-overseas-flv-preview/checks.json)
 
+## 国内检测状态只读验收
+
+本次获准在同步与异步两种模式下分别查询首台设备的画面变化检测开关（726）、人形/PIR 检测模式（1725）和高级告警侦测类型（1742）。实际放行 3/9 次 HTTP 请求。同步模式下认证及首页列表成功，首项画面变化检测开关（726）的查询未取得可验证结果即停止。其余两项（1725 与 1742）以及整个异步阶段均未执行。根因未知，期间未更改设备配置，也未访问任何媒体数据。 [执行记录](live/2026-11-21-domestic-detection-read/execution.json) · [脱敏回执](live/2026-11-21-domestic-detection-read/receipt.json)
+
 ## 国内异步设备只读验收
 
-使用国内主分支 SDK 和真实本机 TTY 的隐藏输入。认证与首页列表成功，在首页首台设备的详情步骤未取得成功回执。额外的进程内传输守卫检查此前诊断失败并拒绝进一步外发；通道、状态、能力与版本请求均未发出。未记录平台业务码或原始错误，不能断定失败原因。 本次放行 3/7 次 HTTP，客户端已关闭，诊断完整。该案例仍待通过。[执行记录](live/2026-11-21-domestic-async-first-device/execution.json) · [脱敏回执](live/2026-11-21-domestic-async-first-device/receipt.json)
+首次执行使用国内主分支 SDK 和真实本机 TTY 的隐藏输入。认证与首页列表成功，在首页首台设备的详情步骤未取得成功回执。额外的进程内传输守卫检查此前诊断失败并拒绝进一步外发；通道、状态、能力与版本请求均未发出。未记录平台业务码或原始错误，不能断定失败原因。本次放行 3/7 次 HTTP，客户端已关闭，诊断完整。该案例仍待通过。[首次执行记录](live/2026-11-21-domestic-async-first-device/execution.json) · [首次脱敏回执](live/2026-11-21-domestic-async-first-device/receipt.json)
+
+第二次独立检查放行 3/7 次 HTTP 请求。认证及首页列表成功，首台设备详情未取得成功回执。后续通道、状态、能力与版本请求均未发出。客户端已关闭，诊断信息完整，失败原因未知，该案例仍待通过。 [第二次执行记录](live/2026-11-21-domestic-async-first-device-second/execution.json) · [最新真实回执](live/2026-11-21-domestic-async-first-device-second/receipt.json)
 
 ## 海外告警音模式与试音
 
@@ -224,7 +230,7 @@
 ## 待设计/待资源（不算完成）
 
 - 云录制 1.0 文件与 VOD 元数据（既有批 `b251b11`，已随 PR #16 合并入 main `254ea73`，历史结论保留）：四条 **OFFLINE** required（`ACC-CANDIDATE-CN-5341/1375/1377/5342-D0-OFFLINE-001`）已 `recorded_evidence`+`passed`，证据 [checks.json](2026-11-18-cloud-files/checks.json)；对应四条 **LIVE** required（`5341`/`1375`/`1377`/`5342` 的 `-D0-LIVE-001`）仍 `awaiting_authorization`/`awaiting_resource_confirmation`，`freeze_state=awaiting_resource_scope_and_authorization`、真实资源/权限/请求上限未冻结，`max_requests=null` 不可运行；截至当时的已核离线/历史记录中这些 case 未发真实云请求。scenario `ACC-CN-VOD-RESOURCE-DISCOVERY-001` `result=pending_execution`，仅离线安全判据 `met`；其 SP166 国内只读资源发现窗口实际**超时关闭**、无报告、`execution_outcome=not_verified`、实际 HTTP 数 `null`（不可声称 0 或账号无资源），见 [live/2026-11-18-vod-resource-discovery/attempt.json](live/2026-11-18-vod-resource-discovery/attempt.json)。**新增 VOD remux/任务批 `fce298b`**：四条 OFFLINE（`3971`/`3972`/`4941`/`3973`）已 `recorded_evidence`+`passed`（见文末当前批次），四条 LIVE 未执行/未授权或资源未齐。
-- `ACC-CN-ASYNC-READONLY-001`：异步执行器随 [PR #19](https://github.com/sunbos/ezviz-unified/pull/19) 合并。当前国内真实核验已完成认证和首页列表，设备详情及后续步骤仍待通过。[最新真实回执](live/2026-11-21-domestic-async-first-device/receipt.json)。
+- `ACC-CN-ASYNC-READONLY-001`：异步执行器随 [PR #19](https://github.com/sunbos/ezviz-unified/pull/19) 合并。已开展两次独立的国内异步只读检查。最新一轮放行 3/7 次 HTTP 请求，设备详情核验仍未完成。 [最新真实回执](live/2026-11-21-domestic-async-first-device-second/receipt.json)
 - `ACC-CN-CLI-EXAMPLE-001`：CLI 联网验收范围已冻结为六个既有 CLI 主入口，上限 20 次 HTTP / 14 次业务调用；其中空首页的四个列表类 CLI 共 8 次 HTTP，另跳过两个 inspection 入口；冻结上限见 [admission.json](../coordination/domestic-cli-read/admission.json)；当前无真实运行，`result=pending_execution`，等待真实 CLI 回执，未实测不得报 passed。
 - `ACC-OS-DEVICE-READONLY-001` 的完整设备检查仍待验收。另行授权的同步场景已验证首台设备的型号、列表在线状态与通道清单；通道状态接口、设备能力和版本均未调用。[基础读取回执](live/2026-11-19-singapore-first-device/receipt.json)
 - `ACC-DOMAIN-OFFLINE-PER-NEW-001`：各新增业务域逐项要求 offline contract + error path + diagnostics 覆盖，先行于任何 live 声明；`max_operations=null` 且 `freeze_required=true`。本通配行仅为政策占位——每个准入矩阵的具体能力都必须派生自己的具体验收行（具体 selector、地区/集群、bounded 请求/操作数、授权状态、判据）并先冻结后执行；`needs_review`/`blocked_source` 项不算准入也不算完成。

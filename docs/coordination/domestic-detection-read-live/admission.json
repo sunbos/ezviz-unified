@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "scope_revision": "2026-11-21-r69-domestic-detection-read-live",
+  "baseline_commit": "2e8a83c5e8fe564ef23b83655418db5b45dcaeab",
+  "sdk_input_commit": "6ea16b74a8c16b0caf2498379fe5e5ec267ef221",
+  "case_ids": [
+    "ACC-CANDIDATE-CN-1725-D0-LIVE-001",
+    "ACC-CANDIDATE-CN-1742-D0-LIVE-001",
+    "ACC-CANDIDATE-CN-726-D0-LIVE-001"
+  ],
+  "authorized": true,
+  "mode": "owner_approved_single_run",
+  "previous_seven_http_run_ref": "docs/validation/live/2026-11-21-domestic-async-first-device-second/execution.json",
+  "requirements": [
+    "先完成原七次上限的独立窗口，并通过执行器离线负例、边界检查与代码指纹核验。",
+    "国内 HTTPS 固定服务源，首页第一页一条普通设备；首行缺失、不唯一或不可用于这三种查询，立即停止且不更换目标。",
+    "同步：一次认证，一次首页列表，再各读一次画面变化检测开关、人形／PIR 模式、高级告警侦测类型。同步资源正常关闭后，异步独立认证且复用同一个目标，各读一次。",
+    "认证使用 SDK TokenManager/AsyncTokenManager，业务使用已验证的同区域静态令牌以控制预算。每阶段固定同一目标与本阶段令牌，禁止重放、切换主机、设定设备、取告警和媒体。",
+    "最多九次 HTTP：两次认证、一次列表及六次配置读取，首次失败即停。回执仅保留固定标签、是否成功、数据结构、计数和关闭状态，绝不写入实际设置值或标识。"
+  ],
+  "case_acceptance": "逐案要求同一目标在两模式对应查询均成功、收到预期真整数结构且相关资源确认关闭。一个阶段的成功、未尝试的后续项或设备能力推断均不得算作该案通过。",
+  "request_budget": {
+    "max_http": 9,
+    "max_auth": 2,
+    "max_list": 1,
+    "max_queries": 6
+  },
+  "profiles": [
+    {
+      "label": "scene_switch",
+      "case_id": "ACC-CANDIDATE-CN-726-D0-LIVE-001",
+      "entry": "settings.get_intelligent_detection_switch"
+    },
+    {
+      "label": "alarm_mode",
+      "case_id": "ACC-CANDIDATE-CN-1725-D0-LIVE-001",
+      "entry": "settings.get_alarm_detection_mode"
+    },
+    {
+      "label": "advanced_type",
+      "case_id": "ACC-CANDIDATE-CN-1742-D0-LIVE-001",
+      "entry": "settings.get_advanced_alarm_detection_type"
+    }
+  ],
+  "live_status": "not_executed_at_freeze"
+}
