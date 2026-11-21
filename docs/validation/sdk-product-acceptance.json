@@ -12485,11 +12485,11 @@
         "candidate:domestic:4478:d0"
       ],
       "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
+      "scope_revision": "2026-11-21-r67-home-position-source-review",
       "freeze_state": "awaiting_contract_and_interface",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "支持托管和子账号，文档要求 Config 权限。",
+      "device_requirements": "设备需具备 support_ptz_homing_point 能力。实际机型和固件仍待验证。",
       "surface": [
         "sync",
         "async"
@@ -12514,16 +12514,18 @@
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/47"
+        "docs/coordination/SP088/scenario-input.json#/entries/47",
+        "docs/coordination/domestic-home-position-queries/source-review.md"
       ],
       "pending_questions": [
-        "该通用通道中归位点模式的操作标识与取值集合待核",
-        "与自定义归位点（candidate:domestic:4480:d0/candidate:domestic:4481:d0）的语义关系待核"
+        "E14 要求 accessToken 和固定 key 位于正文，E36 仅给出 token 请求头并省略 key。完整鉴权位置、固定选择键的承载方式和正文编码待核。",
+        "E44 标 valueInfo 为字符串；E40 为对象，字符串的内容与编码未获说明。",
+        "真实网关、设备和固件尚未执行只读验收。"
       ],
       "code_artifact_evidence_refs": [],
       "result": "awaiting_design",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "参数表与请求示例不一致，SDK 请求编码和响应兼容行为仍待核定。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
@@ -12593,11 +12595,11 @@
         "candidate:domestic:4480:d0"
       ],
       "operation_ids": [],
-      "scope_revision": "2026-11-18-r4-domestic-scenario-intake",
+      "scope_revision": "2026-11-21-r67-home-position-source-review",
       "freeze_state": "awaiting_contract_and_interface",
       "region_cluster": "domestic",
-      "account_role_permissions": "真实权限边界待核；离线仅使用合成凭据。",
-      "device_requirements": "设备适用条件待核；本离线案例不连接真实设备。",
+      "account_role_permissions": "支持托管和子账号，文档要求 Config 权限。4480 明确为通道级鉴权。",
+      "device_requirements": "设备需具备 support_ptz_homing_point 能力。实际机型和固件仍待验证。",
       "surface": [
         "sync",
         "async"
@@ -12622,16 +12624,18 @@
       "authorization_status": "n/a",
       "recovery_plan": "离线不改变远端状态；后续真实写入另需具体授权与恢复边界。",
       "source_refs": [
-        "docs/coordination/SP088/scenario-input.json#/entries/49"
+        "docs/coordination/SP088/scenario-input.json#/entries/49",
+        "docs/coordination/domestic-home-position-queries/source-review.md"
       ],
       "pending_questions": [
-        "“设置状态”指配置是否已写入还是启用状态待核",
-        "与归位点模式（candidate:domestic:4478:d0/candidate:domestic:4479:d0）的状态口径区别待核"
+        "E14 要求 accessToken 和固定 key 位于正文，E36 仅给出 token 请求头并省略 key。完整鉴权位置、固定选择键的承载方式和正文编码待核。",
+        "E44 标 valueInfo 为字符串；E40 为对象，字符串的内容与编码未获说明。",
+        "真实网关、设备和固件尚未执行只读验收。"
       ],
       "code_artifact_evidence_refs": [],
       "result": "awaiting_design",
       "blockers": [
-        "合同、SDK映射和精确断言尚未冻结；本记录不批准G1或执行。"
+        "参数表与请求示例不一致，SDK 请求编码和响应兼容行为仍待核定。"
       ],
       "limitations": [
         "不继承其它场景的离线或实测成功状态。"
