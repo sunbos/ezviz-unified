@@ -54,13 +54,17 @@ python -m harness.audit --repo . --check-summary
 
 已修复早期缺失的来源哈希和read_only标记，并规范form token位置。报告记录三份官方登记输入和实际解析源码的哈希。live_evidence只检查文件引用存在，实测内容和HTTP语义仍需独立验收；工具不会将空列表、失败、未验证合并为成功，也不是发布许可。
 
-[coverage.json](../contracts/coverage.json) 由登记生成。变更登记后，在仓库根目录运行以下命令。审计成功后再替换摘要，生成失败时保留原文件。
+[coverage.json](../contracts/coverage.json) 由登记生成。变更登记后，在仓库根目录运行以下命令。审计成功后再替换摘要，并沿用已有文件的权限。生成失败时保留原文件。
 
 ```sh
 (
   set -e
-  summary=$(mktemp contracts/.coverage.XXXXXXXX)
-  trap 'rm -f "$summary"' EXIT
+  work=$(mktemp -d contracts/.coverage.XXXXXXXX)
+  summary="$work/coverage.json"
+  trap 'rm -f "$summary"; rmdir "$work"' EXIT
+  if [ -f contracts/coverage.json ]; then
+    cp -p contracts/coverage.json "$summary"
+  fi
   python -m harness.audit --repo . --summary-only > "$summary"
   mv "$summary" contracts/coverage.json
   python -m harness.audit --repo . --check-summary
