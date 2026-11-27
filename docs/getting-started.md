@@ -1,11 +1,33 @@
 # 快速开始：设备列表只读示例
 
-SDK 尚未发布 PyPI，请在仓库根目录用 Python 3.12+ 从源码安装：
+SDK 发行名 `ezviz-unified`，导入名 `ezviz_unified`，要求 Python 3.12+。尚未发布到 PyPI，不要执行 `pip install ezviz-unified`。安装过程中，依赖 `httpx` 仍可能从当前配置的包索引下载。
+
+若已持有可信的本地 wheel，请在新的虚拟环境中安装该文件。将下面的 `WHEEL` 换成实际文件名或路径：
+
+```bash
+python3.12 -m venv .venv
+WHEEL="./ezviz_unified-<版本>-py3-none-any.whl"
+.venv/bin/python -m pip install "$WHEEL"
+```
+
+仅在仓库根目录做开发（修改源码或运行本指南后续示例）时，使用可编辑安装：
 
 ```bash
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -e .
 ```
+
+安装后，在项目目录之外核验导入与版本；此核验不使用凭据，也不发起网络请求。请使用该虚拟环境中 python 的绝对路径：可先在创建 `.venv` 的目录给 `VENV_PY` 赋值，再切换到仓库外目录。
+
+```bash
+VENV_PY="$PWD/.venv/bin/python"
+cd "$HOME"
+"$VENV_PY" -I -c "import ezviz_unified as m; from importlib.metadata import version; print(m.__version__); print(version('ezviz-unified')); print(m.__file__)"
+```
+
+两种安装方式打印的两项版本都应一致。安装 wheel 时，`__file__` 应位于该虚拟环境的 `site-packages` 下；使用 `pip install -e .` 时，SDK 从检出的源码加载，通常显示仓库中 `src/ezviz_unified/` 下的路径，不要求位于 `site-packages`。
+
+wheel 不提供命令行入口，也不能使用 `python -m ezviz_unified`。下文示例均在仓库根目录、基于源码检出运行。
 
 ## 环境变量
 
