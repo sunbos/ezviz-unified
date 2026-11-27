@@ -1,0 +1,370 @@
+{
+  "schema_version": 1,
+  "scope": "国内云录制项目、任务、文件，VOD 与 AI 云存储目录；SDK 和示例离线验收。",
+  "baseline_commit": "4146f1a3775cc925a1b83872113bfd08582d2096",
+  "verified_code_commit": "cf424639cec821abb4a423e8d541c5fd35cc7750",
+  "source_recheck": {
+    "date": "2026-11-28",
+    "transport": "公开文档中心 GET，未提供平台凭据。逐篇比对官方当前 HTML 正文与 2026-11-17 国内门户存档。",
+    "documents": [
+      {
+        "doc_id": "1363",
+        "url": "https://open.ys7.com/help/1363",
+        "http_status": 200,
+        "html_sha256": "0dee5c868994fa0861a11d5fd64864fb2d034a38794115d8e3f04440ddccb867"
+      },
+      {
+        "doc_id": "1364",
+        "url": "https://open.ys7.com/help/1364",
+        "http_status": 200,
+        "html_sha256": "70ce6f2b199b29a9904ea5abe3d4a807f2aac2a7846f37c17c0586227aa29529"
+      },
+      {
+        "doc_id": "1371",
+        "url": "https://open.ys7.com/help/1371",
+        "http_status": 200,
+        "html_sha256": "c76a5628eddcd722ebc7726bfbe6b198666a6b7d60b5485b6ff3b16abadc1291"
+      },
+      {
+        "doc_id": "1374",
+        "url": "https://open.ys7.com/help/1374",
+        "http_status": 200,
+        "html_sha256": "d88da68c53748d251932057075f89a158398c6faf0ca94b0830024d5b388fa86"
+      },
+      {
+        "doc_id": "3717",
+        "url": "https://open.ys7.com/help/3717",
+        "http_status": 200,
+        "html_sha256": "0e9e8875b849329b0ba454fdaaa7ce7a39f937c39b1f8cdfabbc0ddf6a1728e3"
+      },
+      {
+        "doc_id": "3964",
+        "url": "https://open.ys7.com/help/3964",
+        "http_status": 200,
+        "html_sha256": "496116b4dec7826d7b8b15e2a337c91e01f936730b3e7d32d72ca42d601b7310"
+      },
+      {
+        "doc_id": "3966",
+        "url": "https://open.ys7.com/help/3966",
+        "http_status": 200,
+        "html_sha256": "ecdbb50f383063b5eea12ea6c24e4f17e446d6e6d3541354db10aaf57c0b0d33"
+      },
+      {
+        "doc_id": "4473",
+        "url": "https://open.ys7.com/help/4473",
+        "http_status": 200,
+        "html_sha256": "6b9c0072a4e1eb37ecf836ebc907f487687329b592efb5c26442be21bf8fab77"
+      },
+      {
+        "doc_id": "5149",
+        "url": "https://open.ys7.com/help/5149",
+        "http_status": 200,
+        "html_sha256": "3a2231c415701e26451103e6a84e30f95fd0084c2c58f0e07aed016768468ec5"
+      }
+    ]
+  },
+  "case_results": [
+    {
+      "case_id": "ACC-CANDIDATE-CN-1374-D0-OFFLINE-001",
+      "operation_id": "cn.cloud_recording_v1.project_files",
+      "modes": [
+        "async",
+        "sync"
+      ],
+      "scenarios": [
+        "auth_fault",
+        "http_fault",
+        "permission_fault",
+        "success"
+      ],
+      "passed_executions": 8
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-3964-D0-OFFLINE-001",
+      "operation_id": "cn.vod.task_files",
+      "modes": [
+        "async",
+        "sync"
+      ],
+      "scenarios": [
+        "auth_fault",
+        "http_fault",
+        "permission_fault",
+        "success"
+      ],
+      "passed_executions": 8
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4473-D0-OFFLINE-001",
+      "operation_id": "cn.vod.space_list",
+      "modes": [
+        "async",
+        "sync"
+      ],
+      "scenarios": [
+        "auth_fault",
+        "http_fault",
+        "permission_fault",
+        "success"
+      ],
+      "passed_executions": 8
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1364-D0-OFFLINE-001",
+      "operation_id": "cn.cloud_recording_v1.projects",
+      "modes": [
+        "async",
+        "sync"
+      ],
+      "scenarios": [
+        "auth_fault",
+        "http_fault",
+        "permission_fault",
+        "success"
+      ],
+      "passed_executions": 8
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1371-D0-OFFLINE-001",
+      "operation_id": "cn.cloud_recording_v1.tasks",
+      "modes": [
+        "async",
+        "sync"
+      ],
+      "scenarios": [
+        "auth_fault",
+        "http_fault",
+        "permission_fault",
+        "success"
+      ],
+      "passed_executions": 8
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1363-D0-OFFLINE-001",
+      "operation_id": "cn.cloud_recording_v1.project",
+      "modes": [
+        "async",
+        "sync"
+      ],
+      "scenarios": [
+        "auth_fault",
+        "http_fault",
+        "permission_fault",
+        "success"
+      ],
+      "passed_executions": 8
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5149-D0-OFFLINE-001",
+      "operation_id": "cn.cloud_storage.ai_models",
+      "modes": [
+        "async",
+        "sync"
+      ],
+      "scenarios": [
+        "auth_fault",
+        "http_fault",
+        "permission_fault",
+        "success"
+      ],
+      "passed_executions": 8
+    }
+  ],
+  "registry": {
+    "contracts": 323,
+    "bindings": 323,
+    "source_documents": 264,
+    "source_issues": 223
+  },
+  "audit": {
+    "bindings_checked": 323,
+    "symbols_checked": 646
+  },
+  "wire": {
+    "contracts": 323,
+    "cases": 323,
+    "executions": 2616,
+    "passed_executions": 2616,
+    "failed_executions": 0
+  },
+  "focused_executions": 56,
+  "conflicting_vod_shapes": [
+    {
+      "source": "3964_capture",
+      "mode": "sync",
+      "business_mock_calls": 1,
+      "outcome": "list_preserved",
+      "expected": true
+    },
+    {
+      "source": "3717_clip",
+      "mode": "sync",
+      "business_mock_calls": 1,
+      "outcome": "ProtocolError",
+      "expected": true
+    },
+    {
+      "source": "3964_capture",
+      "mode": "async",
+      "business_mock_calls": 1,
+      "outcome": "list_preserved",
+      "expected": true
+    },
+    {
+      "source": "3717_clip",
+      "mode": "async",
+      "business_mock_calls": 1,
+      "outcome": "ProtocolError",
+      "expected": true
+    }
+  ],
+  "checks": {
+    "python": "3.12.13",
+    "pytest": "18122 passed, 35 subtests passed in 217.31s (0:03:37)",
+    "mypy": {
+      "files": 65,
+      "result": "passed"
+    },
+    "ruff": {
+      "scope": ".github/workflows/ci.yml",
+      "check": "passed",
+      "format": "passed",
+      "formatted_files": 398
+    },
+    "cli": {
+      "invocation": "python -m examples.<module> --mode <mode>",
+      "modules": [
+        "cloud_project",
+        "cloud_project_files",
+        "cloud_projects",
+        "cloud_storage_ai_models",
+        "cloud_tasks",
+        "vod_space_list",
+        "vod_task_files"
+      ],
+      "modes": [
+        "sync",
+        "async"
+      ],
+      "successful_invocations": 14,
+      "expected_stdout": {
+        "items": 1
+      },
+      "expected_stderr": ""
+    }
+  },
+  "distribution": {
+    "version": "0.1.0a1",
+    "clean_install_results": [
+      {
+        "artifact_sha256": "f74845179cd546f48bab4af930a85a7e21b721a417aea3fcdcf846bfa81063ec",
+        "clean_install": true,
+        "filename": "ezviz_unified-0.1.0a1-py3-none-any.whl",
+        "install_offline": true,
+        "kind": "wheel",
+        "smoke": "Installed SDK sync/async mock smoke passed"
+      },
+      {
+        "artifact_sha256": "6b5fc7bdb5c91f624f805f6d358248522e6bfea4233f6f33044c87dacee5aea1",
+        "clean_install": true,
+        "filename": "ezviz_unified-0.1.0a1.tar.gz",
+        "install_offline": true,
+        "kind": "sdist",
+        "smoke": "Installed SDK sync/async mock smoke passed",
+        "source_archive_tests": "13485 passed in 64.72s (0:01:04)"
+      }
+    ],
+    "metadata_and_layout": "通过 twine check 和 tools/release/check_artifacts.py",
+    "scans": {
+      "wheel": {
+        "sha256": "f74845179cd546f48bab4af930a85a7e21b721a417aea3fcdcf846bfa81063ec",
+        "members": 71,
+        "detectors": 27,
+        "scanner": "detect-secrets 1.5.0",
+        "network": "denied",
+        "raw_findings": 0,
+        "rules": {},
+        "positive_control": true,
+        "new_locations": 0,
+        "removed_locations": 0,
+        "public_mock_findings": []
+      },
+      "sdist": {
+        "sha256": "6b5fc7bdb5c91f624f805f6d358248522e6bfea4233f6f33044c87dacee5aea1",
+        "members": 205,
+        "detectors": 27,
+        "scanner": "detect-secrets 1.5.0",
+        "network": "denied",
+        "raw_findings": 48,
+        "rules": {
+          "Secret Keyword": 35,
+          "Basic Auth Credentials": 4,
+          "Base64 High Entropy String": 4,
+          "Hex High Entropy String": 5
+        },
+        "positive_control": true,
+        "new_locations": 0,
+        "removed_locations": 0,
+        "public_mock_findings": [
+          {
+            "file": "tests/test_sdk_cloud_project.py",
+            "line": 29,
+            "rule": "Secret Keyword",
+            "test_module_sha256": "58abf8832a3cb4a0b75c12d455238b58f9d911bdf98f61b2a3bef47e9ce7e8f9"
+          },
+          {
+            "file": "tests/test_sdk_cloud_storage_ai_models.py",
+            "line": 32,
+            "rule": "Secret Keyword",
+            "test_module_sha256": "9dc75c2fe287db510a7bd5e136278f8a50dfac9beb0b4afe2a8fbac876c9b6a4"
+          }
+        ]
+      }
+    },
+    "release_review": "本轮两个新增测试模块各有一条 Secret Keyword 命中。比对命中位置、公开模拟值与模块哈希，确认两条均来自本轮新建的测试值。33 条继承自主线的历史命中另行复核；本回执不授予发行许可。"
+  },
+  "verification_inputs_sha256": {
+    "contracts/coverage.json": "0c8197635f77aaf9402b49088455bb43433ec8de4e60679993c729e5ed2507a6",
+    "contracts/reviewed-transport-contracts.json": "d61c94d7bd4c53547117016e9f352481c15e85f23fcdaa1279a0d71ad00e6e5a",
+    "contracts/sdk-bindings.json": "d41928bfd295c3190e485f77bb525386e69c0ca2ada78a17de97ce02d1409ea6",
+    "contracts/source-issues.json": "ef21b0bf7d679490a2630587f03149cee9a833233f2891ae42aac2fd1ea924dd",
+    "evals/contracts/cases.json": "c08e887616529ba3f0710842239000b003b6be182365a7c8809ccd5a3982c01a",
+    "examples/cloud_project.py": "4319273f5512303878592e503d43f19cc8e053c330280f7163ef01dde29cf132",
+    "examples/cloud_project_files.py": "77c9b0edb82f01d44c7c2974ab54cace2b2228b348b706c985d5b9f74d2eabc1",
+    "examples/cloud_projects.py": "19e35f4bd6460ba5586e8f012df5c6b7a814cec1640bb25df033a8d3385e461d",
+    "examples/cloud_storage_ai_models.py": "c7c945e8b70eafbca8ab4ec1a74cd0e4b57c9da51e06a8a3d8a7cfe3c65ff5a5",
+    "examples/cloud_tasks.py": "e477067096eb8201db1c535ac7d00a43faf164c64aa7eee2177833aa1c193037",
+    "examples/vod_space_list.py": "137a033329ccabbadfc4ca0aad1543b39a4c804f9f341d834e4e90bcf020fb3f",
+    "examples/vod_task_files.py": "c19dfa57f67161eec0860c7e873fba9184a920ca1073cee2fae8e369b78e2b88",
+    "harness/wire_eval.py": "156fa23f63d46a217c0b0e89699138508063b3a16521dc712a32d072b2345b90",
+    "src/ezviz_unified/_diagnostic_registry.py": "5ebcb125b024852abbb33dea47dc82489042ec39da35571238005721d0193a53",
+    "src/ezviz_unified/cloud_recording_v1.py": "34ca487e22be3a1948e0b24d949f49d6428c4944e18e6b015c1c1b8048c32752",
+    "src/ezviz_unified/cloud_storage.py": "d6f4a6bccabb5510101335c79534f3f6a5943e39b19b4347be70d88eaa4826cc",
+    "src/ezviz_unified/errors.py": "356d2888938d84e8bdb90b1ee348ed3520a3abe642bac52326c2fb5260fa22e8",
+    "src/ezviz_unified/transport.py": "2b4477caa363a1700167f6089f0905c0dce4dfbd9ecc2eb29216e297d84ba6f8",
+    "src/ezviz_unified/vod.py": "6324f6695ce5e471e308b9b1a7823c8e98e36f05cf3e7fcf5e32e3aace01d945",
+    "tests/test_example_cloud_project.py": "196424d8dcc693bfd437cbdf311994bbef5fb27f1010de9560bd9917bd37191a",
+    "tests/test_example_cloud_project_files.py": "1cd85250b0ca733f3acc73a536993e0ce7e2478659a107d6d3bec3550bbe39e6",
+    "tests/test_example_cloud_projects.py": "a51760baa728065e16ee1a4a5b7e8ed08c4c3db15e06f03d49ba4f7d66514945",
+    "tests/test_example_cloud_storage_ai_models.py": "1c34c99f9e787df167ff628f0a3c172f148b5ef3cbb7c044860dfe1cbd72be3d",
+    "tests/test_example_cloud_tasks.py": "00e7a60b2e35db689f22bc655a92189c50821c146db15dd0481a0ffbdab9202c",
+    "tests/test_example_vod_space_list.py": "4722ccc9608dfee17d899b1a11042773111ea10c6ad91c9edfeac8d084b69bf5",
+    "tests/test_example_vod_task_files.py": "050d5500d746ba0fb6960408e56587facba284c889c2e6670f7e28542ba51090",
+    "tests/test_harness_diagnostic_coverage.py": "0fb08e473328ba2bb68379add40e02e70cc0ea69a411392cae4a770d8c00b95c",
+    "tests/test_harness_motion_area_expectations.py": "43a60c3a9edbda414032c1694a5f2b1346c22faf4f8e8022622e2f4839bfc746",
+    "tests/test_sdk_cloud_project.py": "58abf8832a3cb4a0b75c12d455238b58f9d911bdf98f61b2a3bef47e9ce7e8f9",
+    "tests/test_sdk_cloud_project_files.py": "615d846a7eb6f64dfc33f32fa170450a372d983d04e14298209b63ec7d0269b9",
+    "tests/test_sdk_cloud_projects.py": "f2b8b433269690c35bc7290ad4ae6b42f15b712a132c2777f46ff005557fa7e5",
+    "tests/test_sdk_cloud_storage_ai_models.py": "9dc75c2fe287db510a7bd5e136278f8a50dfac9beb0b4afe2a8fbac876c9b6a4",
+    "tests/test_sdk_cloud_tasks.py": "bd73f6a07aa2eee3cdd4dc839c2f0503dc34ad7064de2f98fa6c95a12e3416c9",
+    "tests/test_sdk_vod_space_list.py": "400158c0c6f905010c2eaa4a6b9a77f0bb005c32bb00169bd8845ddf6010e0a6",
+    "tests/test_sdk_vod_task_files.py": "303bc443f2a9a99958f2edac2f58f7025174992b27a1c04f8abfabcc6dab4b8d"
+  },
+  "live": {
+    "business_api_requests": 0,
+    "account_requests": 0,
+    "device_requests": 0,
+    "media_requests": 0,
+    "seven_live_cases": "awaiting_resource_confirmation"
+  }
+}

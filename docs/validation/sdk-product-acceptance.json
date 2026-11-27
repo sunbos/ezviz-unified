@@ -37959,6 +37959,798 @@
       "limitations": [
         "可选响应字段的必返性和空值形式、下载地址有效期及服务权限未明确。元数据查询的成功不证明文件可取回。"
       ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1374-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "domestic_cloud_project_files",
+      "capability_selector": "cloud_recording_v1.project_files",
+      "capability_ids": [
+        "candidate:domestic:1374:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.project_files"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "result": "recorded_evidence",
+      "risk": "offline_only",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "account_role_permissions": "国内云录制 1.0 账户能够查询该既有项目；1374 未声明最低角色或子账户范围。",
+      "device_requirements": "调用方已持有获准查询的既有项目 ID，无需设备或通道标识。",
+      "preconditions": [
+        "合成项目与文件元数据。"
+      ],
+      "expected_evidence": {
+        "read": "一页只读查询，query 型别、敏感信息、诊断、返回结构与 CLI 分别验收。",
+        "physical": "不验证真实云项目或文件。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线。",
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "source_refs": [
+        "docs/coordination/domestic-cloud-project-files/admission.json",
+        "https://open.ys7.com/help/1374"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_recording_v1.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_cloud_project_files.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_cloud_project_files.py",
+        "examples/cloud_project_files.py",
+        "README.md"
+      ],
+      "blockers": [],
+      "pending_questions": [
+        "可选响应字段的必返性与空值形式、服务端时区、精确限流阈值与单边界组合结果未明确；项目不存在映射为 404。元数据查询成功不证明文件可取回或媒体可访问。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "cf424639cec821abb4a423e8d541c5fd35cc7750",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-28-domestic-readonly-cloud/offline.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1374-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_cloud_project_files",
+      "capability_selector": "cloud_recording_v1.project_files",
+      "capability_ids": [
+        "candidate:domestic:1374:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.project_files"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "account_role_permissions": "国内云录制 1.0 账户能够查询该既有项目；1374 未声明最低角色或子账户范围。",
+      "device_requirements": "调用方已持有获准查询的既有项目 ID，无需设备或通道标识。",
+      "preconditions": [
+        "确认已有授权项目、只读页参数与上限。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录查询结果、页内条数或结构；不保留 ID、文件元数据或媒体地址。",
+        "physical": "不下载媒体，不触发任务或解冻。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "单页只读。",
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待可查的云录制既有项目和具体查询范围。"
+      ],
+      "pending_questions": [],
+      "source_refs": [
+        "docs/coordination/domestic-cloud-project-files/admission.json",
+        "https://open.ys7.com/help/1374"
+      ],
+      "code_artifact_evidence_refs": []
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-3964-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "domestic_vod_task_files",
+      "capability_selector": "vod.task_files",
+      "capability_ids": [
+        "candidate:domestic:3964:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.task_files"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "result": "recorded_evidence",
+      "risk": "offline_only",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "account_role_permissions": "国内 VOD 服务账户可查询该既有任务；页首声明不支持托管子账号。",
+      "device_requirements": "调用方已持有获准查询的既有 VOD 任务 ID，无需设备或通道标识。",
+      "preconditions": [
+        "合成任务与文件元数据。"
+      ],
+      "expected_evidence": {
+        "read": "一次只读查询，路径参数、header 令牌位置、敏感信息、诊断、返回结构与 CLI 分别验收；data 非对象数组时拒收。",
+        "physical": "不验证真实 VOD 任务或文件。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线。",
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "source_refs": [
+        "docs/coordination/domestic-vod-task-files/admission.json",
+        "https://open.ys7.com/help/3964"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/vod.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_vod_task_files.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_vod_task_files.py",
+        "examples/vod_task_files.py",
+        "README.md"
+      ],
+      "blockers": [],
+      "pending_questions": [
+        "E34 与 E93 的 fileName 类型冲突按原文保留；E96 错误表无 404。元数据查询成功不证明文件可取回。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "cf424639cec821abb4a423e8d541c5fd35cc7750",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-28-domestic-readonly-cloud/offline.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-3964-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_vod_task_files",
+      "capability_selector": "vod.task_files",
+      "capability_ids": [
+        "candidate:domestic:3964:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.task_files"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "account_role_permissions": "国内 VOD 服务账户可查询该既有任务；页首声明不支持托管子账号。",
+      "device_requirements": "调用方已持有获准查询的既有 VOD 任务 ID，无需设备或通道标识。",
+      "preconditions": [
+        "确认已有授权 VOD 任务与调用上限。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录查询结果条数或结构；不保留任务 ID、文件标识或媒体地址。",
+        "physical": "不下载媒体，不触发任务。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "单页只读。",
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待可查的既有 VOD 任务与授权范围。"
+      ],
+      "pending_questions": [],
+      "source_refs": [
+        "docs/coordination/domestic-vod-task-files/admission.json",
+        "https://open.ys7.com/help/3964"
+      ],
+      "code_artifact_evidence_refs": []
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4473-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "domestic_vod_space_list",
+      "capability_selector": "vod.space_list",
+      "capability_ids": [
+        "candidate:domestic:4473:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.space_list"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "result": "recorded_evidence",
+      "risk": "offline_only",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "account_role_permissions": "国内 VOD 服务账户可分页查询录像空间；页首声明不支持托管/子账号。",
+      "device_requirements": "无设备或通道标识要求；账户需有可用 VOD 空间资源。",
+      "preconditions": [
+        "合成录像空间元数据。"
+      ],
+      "expected_evidence": {
+        "read": "一页只读查询，query 型别、敏感信息、诊断、data.result 嵌套结构与 CLI 分别验收；data 非对象或缺 result 时拒收。",
+        "physical": "不验证真实空间资源。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线。",
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "source_refs": [
+        "docs/coordination/domestic-vod-space-list/admission.json",
+        "https://open.ys7.com/help/4473"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/vod.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_vod_space_list.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_vod_space_list.py",
+        "examples/vod_space_list.py",
+        "README.md"
+      ],
+      "blockers": [],
+      "pending_questions": [
+        "pageStart 必填与“默认0”冲突保留；E163 错误表无 404/406；result 行字段无必返承诺。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "cf424639cec821abb4a423e8d541c5fd35cc7750",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-28-domestic-readonly-cloud/offline.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-4473-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_vod_space_list",
+      "capability_selector": "vod.space_list",
+      "capability_ids": [
+        "candidate:domestic:4473:d0"
+      ],
+      "operation_ids": [
+        "cn.vod.space_list"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "account_role_permissions": "国内 VOD 服务账户可分页查询录像空间；页首声明不支持托管/子账号。",
+      "device_requirements": "无设备或通道标识要求；账户需有可用 VOD 空间资源。",
+      "preconditions": [
+        "确认授权账户、只读页参数与上限。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录页内条数或结构；不保留空间标识、名称或上游自由文本。",
+        "physical": "不创建空间，不访问媒体。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "单页只读。",
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待授权账户与可用 VOD 空间资源。"
+      ],
+      "pending_questions": [],
+      "source_refs": [
+        "docs/coordination/domestic-vod-space-list/admission.json",
+        "https://open.ys7.com/help/4473"
+      ],
+      "code_artifact_evidence_refs": []
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1364-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "domestic_cloud_projects",
+      "capability_selector": "cloud_recording_v1.projects",
+      "capability_ids": [
+        "candidate:domestic:1364:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.projects"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "result": "recorded_evidence",
+      "risk": "offline_only",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "account_role_permissions": "国内云录制 1.0 账户；1364 未声明最低角色或子账户范围。",
+      "device_requirements": "调用方持有有效 token，无需设备或项目标识。",
+      "preconditions": [
+        "合成项目元数据。"
+      ],
+      "expected_evidence": {
+        "read": "一页只读查询，query 型别、敏感信息、诊断、返回结构与 CLI 分别验收。",
+        "physical": "不验证真实云项目或文件。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线。",
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "source_refs": [
+        "docs/coordination/domestic-cloud-projects/admission.json",
+        "https://open.ys7.com/help/1364"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_recording_v1.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_cloud_projects.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_cloud_projects.py",
+        "examples/cloud_projects.py",
+        "README.md"
+      ],
+      "blockers": [],
+      "pending_questions": [
+        "E50 各字段的必返性与空值形式未明确；项目不存在映射为 404。元数据查询成功不证明文件可取回或媒体可访问。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "cf424639cec821abb4a423e8d541c5fd35cc7750",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-28-domestic-readonly-cloud/offline.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1364-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_cloud_projects",
+      "capability_selector": "cloud_recording_v1.projects",
+      "capability_ids": [
+        "candidate:domestic:1364:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.projects"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "account_role_permissions": "国内云录制 1.0 账户；1364 未声明最低角色或子账户范围。",
+      "device_requirements": "调用方持有有效 token，无需设备或项目标识。",
+      "preconditions": [
+        "确认已有授权账户与只读页参数上限。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录查询结果、页内条数或结构；不保留 ID、文件元数据或媒体地址。",
+        "physical": "不下载媒体，不触发任务或解冻。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "单页只读。",
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待可查的云录制 1.0 账户与项目分页范围。"
+      ],
+      "pending_questions": [],
+      "source_refs": [
+        "docs/coordination/domestic-cloud-projects/admission.json",
+        "https://open.ys7.com/help/1364"
+      ],
+      "code_artifact_evidence_refs": []
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1371-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "domestic_cloud_tasks",
+      "capability_selector": "cloud_recording_v1.tasks",
+      "capability_ids": [
+        "candidate:domestic:1371:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.tasks"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "result": "recorded_evidence",
+      "risk": "offline_only",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "account_role_permissions": "国内云录制 1.0 账户；1371 未声明最低角色或子账户范围。",
+      "device_requirements": "调用方持有有效 token，无需设备或任务标识。",
+      "preconditions": [
+        "合成任务元数据。"
+      ],
+      "expected_evidence": {
+        "read": "一页只读查询，query 型别、同日窗口、敏感信息、诊断、返回结构与 CLI 分别验收。",
+        "physical": "不验证真实云项目或文件。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线。",
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "source_refs": [
+        "docs/coordination/domestic-cloud-tasks/admission.json",
+        "https://open.ys7.com/help/1371"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_recording_v1.py",
+        "tests/test_harness_diagnostic_coverage.py",
+        "tests/test_sdk_cloud_tasks.py",
+        "evals/contracts/cases.json",
+        "tests/test_example_cloud_tasks.py",
+        "examples/cloud_tasks.py",
+        "README.md"
+      ],
+      "blockers": [],
+      "pending_questions": [
+        "E88 各字段的必返性与空值形式未明确；pageSize 上限源未证明，不得借自 1373(50)/1374(20)；服务端时区未明确。元数据查询成功不证明文件可取回或媒体可访问。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "cf424639cec821abb4a423e8d541c5fd35cc7750",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-28-domestic-readonly-cloud/offline.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1371-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_cloud_tasks",
+      "capability_selector": "cloud_recording_v1.tasks",
+      "capability_ids": [
+        "candidate:domestic:1371:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.tasks"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "account_role_permissions": "国内云录制 1.0 账户；1371 未声明最低角色或子账户范围。",
+      "device_requirements": "调用方持有有效 token，无需设备或任务标识。",
+      "preconditions": [
+        "确认已有授权账户、同日窗口与页参数。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录查询结果、页内条数或结构；不保留 ID、文件元数据或媒体地址。",
+        "physical": "不下载媒体，不触发任务或解冻。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "单页只读。",
+      "result": "awaiting_resource_confirmation",
+      "blockers": [
+        "待可查的云录制 1.0 账户与任务分页范围；pageSize 上限待来源证明。"
+      ],
+      "pending_questions": [],
+      "source_refs": [
+        "docs/coordination/domestic-cloud-tasks/admission.json",
+        "https://open.ys7.com/help/1371"
+      ],
+      "code_artifact_evidence_refs": []
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1363-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "domestic_cloud_project",
+      "capability_selector": "cloud_recording_v1.project",
+      "capability_ids": [
+        "candidate:domestic:1363:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.project"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "result": "recorded_evidence",
+      "risk": "offline_only",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "account_role_permissions": "国内云录制账户；1363 未声明最低角色或子账户范围。",
+      "device_requirements": "调用方持有有效 token 与合成 projectId。",
+      "preconditions": [
+        "合成 projectId 与项目元数据。",
+        "鉴权与业务两跳均由 MockTransport 承接。"
+      ],
+      "expected_evidence": {
+        "read": "MockTransport 断言一次 GET /api/open/cloud/v1/project/{projectId}：projectId 路径段仅 [A-Za-z0-9_]{1,32}，query 仅注入 accessToken，无正文；覆盖非法/超长/含其他字符 projectId 与非 domestic 区域的零传输拒绝；meta.code 严格为真整数 200 且 data 为 dict；字段型别沿用 1364 行约定（providerType:string），缺失/null/未知扩展字段原样保留；业务(400/403/404/500)与 HTTP 错误分类、至多一次令牌失效刷新重放分别验收；data/raw 原值可取；自有诊断不泄露 projectId、凭据或上游原文；CLI sync|async 模拟仅打印 items 整数。",
+        "physical": "不访问真实账户、项目、文件或媒体。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线。",
+      "source_refs": [
+        "docs/coordination/domestic-cloud-project/admission.json",
+        "https://open.ys7.com/help/1363"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_recording_v1.py",
+        "tests/test_sdk_cloud_project.py",
+        "examples/cloud_project.py",
+        "tests/test_example_cloud_project.py",
+        "evals/contracts/cases.json",
+        "tests/test_harness_diagnostic_coverage.py",
+        "README.md"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "blockers": [],
+      "pending_questions": [
+        "最低角色与子账户范围未声明。",
+        "可选字段必返性与频率上限未验证。",
+        "已授权现存项目未确认。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "cf424639cec821abb4a423e8d541c5fd35cc7750",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-28-domestic-readonly-cloud/offline.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-1363-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_cloud_project",
+      "capability_selector": "cloud_recording_v1.project",
+      "capability_ids": [
+        "candidate:domestic:1363:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_recording_v1.project"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "account_role_permissions": "国内云录制账户；1363 未声明最低角色或子账户范围。",
+      "device_requirements": "调用方持有有效 token 与已存在的 projectId。",
+      "preconditions": [
+        "已授权且存在可查项目的国内云录制账户。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录一次单条只读查询的 meta.code 与 data 结构；不留存 projectId、项目名称、文件或媒体地址。",
+        "physical": "不下载媒体、不触发任务、不留存标识。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "单次只读查询，不翻页。",
+      "result": "awaiting_resource_confirmation",
+      "source_refs": [
+        "docs/coordination/domestic-cloud-project/admission.json",
+        "https://open.ys7.com/help/1363"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "resources_and_permission_confirmed": "pending",
+        "bounded_current_commit_execution": "pending",
+        "privacy_whitelisted_evidence": "pending"
+      },
+      "blockers": [
+        "待授权账户与现存 projectId；角色与频率上限未知。"
+      ],
+      "pending_questions": []
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5149-D0-OFFLINE-001",
+      "tier": "required",
+      "case_origin": "domestic_cloud_storage_ai_models",
+      "capability_selector": "cloud_storage.ai_models",
+      "capability_ids": [
+        "candidate:domestic:5149:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_storage.ai_models"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "result": "recorded_evidence",
+      "risk": "offline_only",
+      "surface": [
+        "sync",
+        "async",
+        "cli_example"
+      ],
+      "account_role_permissions": "国内账户，可能需开通 AI 云存储；5149 未声明最低角色或子账户范围。",
+      "device_requirements": "调用方持有有效 token；无设备或参数要求。",
+      "preconditions": [
+        "合成模型列表行与 MockTransport。"
+      ],
+      "expected_evidence": {
+        "read": "MockTransport 断言一次 POST /api/service/cloud/storage/service/intelligent/list：accessToken 仅注入 header，无 path/query/form/JSON 正文；非 domestic 区域零传输拒绝；code 严格为字符串 \"200\"；data 为对象数组，覆盖空数组、空对象、缺失/null/未知扩展字段；出现且非 null 的 intelligentId/intelligentName/description 须为 string，错误型别逐项验收；业务错误（含 10002）走共享鉴权分类、至多一次令牌刷新；data/raw 原值可取；自有诊断不泄露账户、凭据或上游原文；CLI sync|async 模拟仅打印 items 整数。",
+        "physical": "不访问真实账户、项目、文件或媒体。"
+      },
+      "bounded": {
+        "max_requests": 0,
+        "max_operations": 0,
+        "freeze_required": false
+      },
+      "authorization_status": "n/a",
+      "recovery_plan": "离线。",
+      "source_refs": [
+        "docs/coordination/domestic-cloud-storage-ai-models/admission.json",
+        "https://open.ys7.com/help/5149"
+      ],
+      "code_artifact_evidence_refs": [
+        "src/ezviz_unified/cloud_storage.py",
+        "tests/test_sdk_cloud_storage_ai_models.py",
+        "examples/cloud_storage_ai_models.py",
+        "tests/test_example_cloud_storage_ai_models.py",
+        "evals/contracts/cases.json",
+        "tests/test_harness_diagnostic_coverage.py",
+        "README.md"
+      ],
+      "criterion_assessment": {
+        "CONTRACT": "met",
+        "SDK-DIAGNOSTICS": "met",
+        "USAGE": "met"
+      },
+      "blockers": [],
+      "pending_questions": [
+        "账户可能需开通 AI 云存储。",
+        "列表条目不证明模型可用性或额度。",
+        "最低角色、可选字段必返性与频率上限未验证。"
+      ],
+      "execution_outcome": "passed",
+      "verified_code_commit": "cf424639cec821abb4a423e8d541c5fd35cc7750",
+      "execution_evidence_refs": [
+        "docs/validation/2026-11-28-domestic-readonly-cloud/offline.json"
+      ]
+    },
+    {
+      "case_id": "ACC-CANDIDATE-CN-5149-D0-LIVE-001",
+      "tier": "required",
+      "case_origin": "domestic_cloud_storage_ai_models",
+      "capability_selector": "cloud_storage.ai_models",
+      "capability_ids": [
+        "candidate:domestic:5149:d0"
+      ],
+      "operation_ids": [
+        "cn.cloud_storage.ai_models"
+      ],
+      "scope_revision": "2026-11-28-domestic-readonly-cloud",
+      "freeze_state": "frozen_for_implementation",
+      "region_cluster": "domestic",
+      "surface": [
+        "sync",
+        "async"
+      ],
+      "risk": "read_only",
+      "account_role_permissions": "国内账户，可能需开通 AI 云存储；5149 未声明最低角色或子账户范围。",
+      "device_requirements": "调用方持有有效 token；无设备或参数要求。",
+      "preconditions": [
+        "已授权且开通 AI 云存储的国内账户。"
+      ],
+      "expected_evidence": {
+        "read": "仅记录一次只读列表查询的 code 与 data 结构及条目数；不留存模型标识、描述或账户信息。",
+        "physical": "不下载媒体、不触发任务、不留存标识。"
+      },
+      "bounded": {
+        "max_requests": null,
+        "max_operations": null,
+        "freeze_required": true
+      },
+      "authorization_status": "not_authorized",
+      "recovery_plan": "单次只读列表查询。",
+      "result": "awaiting_resource_confirmation",
+      "source_refs": [
+        "docs/coordination/domestic-cloud-storage-ai-models/admission.json",
+        "https://open.ys7.com/help/5149"
+      ],
+      "code_artifact_evidence_refs": [],
+      "criterion_assessment": {
+        "resources_and_permission_confirmed": "pending",
+        "bounded_current_commit_execution": "pending",
+        "privacy_whitelisted_evidence": "pending"
+      },
+      "blockers": [
+        "待授权账户开通 AI 云存储；模型可用性与额度不保证。"
+      ],
+      "pending_questions": []
     }
   ],
   "release_gates": [

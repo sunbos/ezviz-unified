@@ -76,16 +76,18 @@
       },
       "finding": "3717 与 3964 共享同一国内需鉴权路由（method 与 path 相同）且请求形状一致，但成功时 data 对象不兼容：一为剪辑（clip）元数据对象，一为截图文件数组；当前无请求判别字段或互相替代的证据。",
       "resolution": "3964 保持既有受限行为、协议状态、案例与历史结果不变；3717 源及两条观察行维持 in_review，等待更权威证据，不创建绑定/能力/用例，亦不判重；语义不确定性保留。",
-      "recorded_in_scope_revision": "2026-11-22-domestic-cloud-project-ai-models",
+      "recorded_in_scope_revision": "2026-11-28-domestic-readonly-cloud",
       "cover_image_practice": {
         "source_ref": "portal-2026-11-17:domestic:3966",
         "source_url": "https://open.ys7.com/help/3966",
         "html_sha256": "ecdbb50f383063b5eea12ea6c24e4f17e446d6e6d3541354db10aaf57c0b0d33",
         "source_node": "E23"
       },
-      "prior_synthetic_check": {
-        "parent_code_commit": "3cf62b8feaef6e1c5200774dc1ef9bd25b500871",
+      "source_issue_id": "cn.vod.task_files.clip_and_capture_response_shapes",
+      "synthetic_check": {
+        "verified_code_commit": "cf424639cec821abb4a423e8d541c5fd35cc7750",
         "live_account_used": false,
+        "evidence": "docs/validation/2026-11-28-domestic-readonly-cloud/offline.json",
         "results": [
           {
             "source": "3964_capture",
@@ -116,8 +118,7 @@
             "expected": true
           }
         ]
-      },
-      "source_issue_id": "cn.vod.task_files.clip_and_capture_response_shapes"
+      }
     }
   },
   "public_document_recheck": {
