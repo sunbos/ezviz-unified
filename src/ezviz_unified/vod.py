@@ -1,7 +1,7 @@
 """Cloud VOD metadata queries and remux/playback-address calls for the EZVIZ client.
 
-Documented for the domestic region only (docs 5342/4187/3971/3972/4941/3973/4751/4757).
-``files``, ``task`` and ``tasks`` are read-only queries; under the existing
+Documented for the domestic region only (docs 5342/4187/3971/3972/4941/3973/4751/4757/3964).
+``files``, ``task``, ``tasks`` and ``task_files`` are read-only queries; under the existing
 invalid-token policy their ``GET`` may be replayed at most once.
 ``create_remux_task`` is declared non-idempotent task creation by its spec
 (doc 3971). ``recording_urls`` (doc 3973) is described as idempotent for the
@@ -32,6 +32,22 @@ four-digit year; no timezone is inferred or converted. ``tasks`` optional
 ``start_time``/``end_time`` are opaque UTF-8 strings passed verbatim, not
 parsed as datetimes and not required as a pair. All validation happens before
 any authentication or network access.
+
+``task_files`` (doc 3964) is a separate endpoint from ``task`` (doc 3972) and
+from ``cloud_recording_v1.task_files`` (doc 1373): ``taskId`` is one path
+segment, the token rides in the ``accessToken`` request header, and the request
+has no query, no body and no pagination. The facade validates only that
+``task_id`` is a non-blank UTF-8 string; single-segment rules, the one-time
+percent-encoding and ``.``/``..`` rejection come from the shared path template
+binder — no other endpoint's length or charset cap is carried over. The source
+declares the call unsupported for managed sub-accounts; the SDK records that
+constraint but never guesses the caller's account role. On success ``data``
+must be a list of file objects: a missing or non-list ``data`` is a protocol
+violation. ``fileName`` may arrive as a string or an object (the page's field
+table and its example disagree); both shapes, absent fields and unknown
+extensions pass through untouched. Returned ``fileUrl``, ``coverPicUrl`` and
+``folderNode`` values are inert metadata: they never trigger a second request,
+a signature parse or a media fetch.
 """
 
 from __future__ import annotations
@@ -91,6 +107,26 @@ _OP_TASK = Operation(
     read_only=True,
     policy=_POLICY_META,
 )
+# Doc 3964 returns file download/cover URLs and node ids in ``data``; the
+# upstream message may echo them, so rendered errors mask the whole upstream
+# message and any media URLs (same treatment as cloud_recording_v1.task_files).
+# E96 documents 200/500/400/406; 403/404 and the auth (10002) and permission
+# (10031) codes are also exposed verbatim, anything else renders as ``***``.
+_TASK_FILES_CODES = (200, 400, 403, 404, 406, 500, 10002, 10031)
+_OP_TASK_FILES = Operation(
+    "vod.task_files",
+    "GET",
+    "/api/service/open/cloud/vod/task/files/{taskId}",
+    token_location="header",
+    regions=frozenset({_DOMESTIC}),
+    read_only=True,
+    policy=replace(
+        _POLICY_META,
+        redact_device_add_details=True,
+        redact_media_urls=True,
+        exposed_business_codes=tuple(v for code in _TASK_FILES_CODES for v in (code, str(code))),
+    ),
+)
 _OP_TASKS = Operation(
     "vod.tasks",
     "GET",
@@ -127,6 +163,37 @@ _OP_STREAM_INDEX_FILE = Operation(
     read_only=True,
     policy=_POLICY_META_REDACT_URLS,
 )
+# Doc 4473 lists spaces of the VOD business: token in the header, paged by
+# pageStart/pageSize. ``data`` is an object holding ``result[]`` plus
+# total/pageStart/pageSize — it is never flattened into a bare array. The
+# caller's ``spaceIdName`` selector and returned ``spaceName`` values may be
+# echoed by the upstream message, so rendered errors mask the whole upstream
+# message; E163 documents 200/500/400 and the auth/permission codes are also
+# exposed verbatim.
+_SPACE_LIST_CODES = (200, 400, 403, 404, 500, 10002, 10031)
+_OP_SPACE_LIST = Operation(
+    "vod.space_list",
+    "GET",
+    "/api/service/open/vod/space/list",
+    token_location="header",
+    regions=frozenset({_DOMESTIC}),
+    read_only=True,
+    policy=replace(
+        _POLICY_META,
+        redact_device_add_details=True,
+        # Media-URL masking also arms the controlled-log http-version
+        # normalizer: a server-controlled non-standard ``http_version`` on the
+        # httpx INFO record is rendered as ``HTTP`` instead of passing through
+        # (the reason phrase is already blanked and the query stripped).
+        redact_media_urls=True,
+        # Opt in to encoded-identifier masking for query selectors: once the
+        # shared identifier table covers ``spaceIdName``, its raw and encoded
+        # forms are collected into the request's redaction secrets without a
+        # further policy change here.
+        redact_query_identifiers=True,
+        exposed_business_codes=tuple(v for code in _SPACE_LIST_CODES for v in (code, str(code))),
+    ),
+)
 
 
 @dataclass(frozen=True)
@@ -147,6 +214,12 @@ def _utf8(name: str, value: str) -> str:
     try:
         value.encode("utf-8")
     except UnicodeEncodeError:
+        encodable = False
+    else:
+        encodable = True
+    # Raised outside the except block so no UnicodeEncodeError (which embeds
+    # the offending value) is left on the new exception's __context__.
+    if not encodable:
         raise ValueError(f"{name} must be encodable as UTF-8") from None
     return value
 
@@ -255,6 +328,106 @@ def _task_request(scope: str, task_id: str) -> _Request:
     _require_domestic(scope, "task")
     params: dict[str, str | int] = {"taskId": _utf8("task_id", _text("task_id", task_id))}
     return _Request(_OP_TASK, params, None, {})
+
+
+def _task_files_request(scope: str, task_id: str) -> str:
+    """Validate region and facade-level ``task_id``; the path binder does the rest.
+
+    ``taskId`` is one path segment on this endpoint, not a query parameter and
+    not a 1373-style paged task file list. ``_utf8``/``_text`` guarantee a
+    non-blank UTF-8 string before authentication; ``render_path`` then rejects
+    ``/``, ``\\``, control characters and lone ``.``/``..`` and percent-encodes
+    the segment exactly once, registering the raw and encoded forms as secrets.
+    No other endpoint's task-id length or charset cap is reused here.
+    """
+    _require_domestic(scope, "task_files")
+    return _utf8("task_id", _text("task_id", task_id))
+
+
+def _check_task_files(response: ApiResponse) -> ApiResponse:
+    """Require ``data`` to be a list of file objects; keep every shape as-is.
+
+    Doc 3964 types ``fileName`` as ``object`` while its own example carries a
+    string literal — both forms, missing fields and unknown row or envelope
+    extensions pass through untouched. Only the container level is checked.
+    """
+    rows = response.data
+    if not isinstance(rows, list) or not all(isinstance(row, dict) for row in rows):
+        raise ProtocolError(
+            "unexpected vod.task_files response shape",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
+
+
+_SPACE_LIST_SORT_FIELDS = ("createTime",)
+_SPACE_LIST_SORT_RULES = ("asc", "desc")
+
+
+def _space_list_request(
+    scope: str,
+    *,
+    page_start: int,
+    page_size: int,
+    sort_field: str | None,
+    sort_rule: str | None,
+    space_id_name: str | None,
+) -> _Request:
+    """Build the VOD space-list query (doc 4473); token stays in the header.
+
+    ``pageStart``/``pageSize`` are documented required ints — the page
+    documents ``pageStart`` as "页码,默认0", so a negative start or a
+    non-positive size is refused before authentication along with non-ints
+    and bools. ``spaceIdName`` matches one space by id or name.
+    """
+    _require_domestic(scope, "space_list")
+    start = _integer("page_start", page_start)
+    if start < 0:
+        raise ValueError("page_start must be a non-negative integer")
+    size = _integer("page_size", page_size)
+    if size <= 0:
+        raise ValueError("page_size must be a positive integer")
+    params: dict[str, str | int] = {
+        "pageStart": start,
+        "pageSize": size,
+    }
+    if sort_field is not None:
+        if not isinstance(sort_field, str) or sort_field not in _SPACE_LIST_SORT_FIELDS:
+            raise ValueError("sort_field must be createTime")
+        params["sortField"] = sort_field
+    if sort_rule is not None:
+        if not isinstance(sort_rule, str) or sort_rule not in _SPACE_LIST_SORT_RULES:
+            raise ValueError("sort_rule must be asc or desc")
+        params["sortRule"] = sort_rule
+    if space_id_name is not None:
+        params["spaceIdName"] = _utf8("space_id_name", _text("space_id_name", space_id_name))
+    return _Request(_OP_SPACE_LIST, params, None, {})
+
+
+def _check_space_list(response: ApiResponse) -> ApiResponse:
+    """Require ``data`` to be an object whose ``result`` is a list of objects.
+
+    Doc 4473 (E71) types ``result`` as ``array<object>`` nested alongside
+    ``total``/``pageStart``/``pageSize``; a missing ``data``, a non-list
+    ``result`` or a non-object row is a protocol violation. Empty rows,
+    missing optional fields and unknown extensions pass through untouched.
+    """
+    data = response.data
+    if not isinstance(data, dict):
+        raise ProtocolError(
+            "unexpected vod.space_list response shape",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    rows = data.get("result")
+    if not isinstance(rows, list) or not all(isinstance(row, dict) for row in rows):
+        raise ProtocolError(
+            "unexpected vod.space_list response shape",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
 
 
 def _tasks_request(
@@ -535,6 +708,54 @@ class Vod:
                 headers=request.headers,
             )
 
+    def task_files(self, task_id: str) -> ApiResponse:
+        """List the files of one VOD task by path-segment id (read-only, doc 3964).
+
+        ``taskId`` is a single URL path segment and the token is sent in the
+        ``accessToken`` header; the request has no query, body or pagination.
+        Returned ``fileUrl``/``coverPicUrl``/``folderNode`` values are metadata
+        only — the SDK never issues a follow-up request or opens a media URL.
+        """
+        with _diagnostic_scope(self._client, entrypoint="vod.task_files", mode="sync"):
+            bound = _task_files_request(self._client.region.scope, task_id)
+            response = self._client.request(
+                _OP_TASK_FILES,
+                path_params={"taskId": bound},
+            )
+            return _check_task_files(response)
+
+    def space_list(
+        self,
+        *,
+        page_start: int,
+        page_size: int,
+        sort_field: Literal["createTime"] | None = None,
+        sort_rule: Literal["asc", "desc"] | None = None,
+        space_id_name: str | None = None,
+    ) -> ApiResponse:
+        """List VOD recording spaces one page at a time (read-only, doc 4473).
+
+        Token is sent in the ``accessToken`` header; ``pageStart``/``pageSize``
+        are required. ``data`` is returned as the documented object containing
+        ``result``/``total``/``pageStart``/``pageSize`` — never flattened.
+        """
+        with _diagnostic_scope(self._client, entrypoint="vod.space_list", mode="sync"):
+            request = _space_list_request(
+                self._client.region.scope,
+                page_start=page_start,
+                page_size=page_size,
+                sort_field=sort_field,
+                sort_rule=sort_rule,
+                space_id_name=space_id_name,
+            )
+            response = self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+            return _check_space_list(response)
+
     def recording_urls(
         self,
         device_serial: str,
@@ -734,6 +955,54 @@ class AsyncVod:
                 data=request.data,
                 headers=request.headers,
             )
+
+    async def task_files(self, task_id: str) -> ApiResponse:
+        """List the files of one VOD task by path-segment id (read-only, doc 3964).
+
+        ``taskId`` is a single URL path segment and the token is sent in the
+        ``accessToken`` header; the request has no query, body or pagination.
+        Returned ``fileUrl``/``coverPicUrl``/``folderNode`` values are metadata
+        only — the SDK never issues a follow-up request or opens a media URL.
+        """
+        with _diagnostic_scope(self._client, entrypoint="vod.task_files", mode="async"):
+            bound = _task_files_request(self._client.region.scope, task_id)
+            response = await self._client.request(
+                _OP_TASK_FILES,
+                path_params={"taskId": bound},
+            )
+            return _check_task_files(response)
+
+    async def space_list(
+        self,
+        *,
+        page_start: int,
+        page_size: int,
+        sort_field: Literal["createTime"] | None = None,
+        sort_rule: Literal["asc", "desc"] | None = None,
+        space_id_name: str | None = None,
+    ) -> ApiResponse:
+        """List VOD recording spaces one page at a time (read-only, doc 4473).
+
+        Token is sent in the ``accessToken`` header; ``pageStart``/``pageSize``
+        are required. ``data`` is returned as the documented object containing
+        ``result``/``total``/``pageStart``/``pageSize`` — never flattened.
+        """
+        with _diagnostic_scope(self._client, entrypoint="vod.space_list", mode="async"):
+            request = _space_list_request(
+                self._client.region.scope,
+                page_start=page_start,
+                page_size=page_size,
+                sort_field=sort_field,
+                sort_rule=sort_rule,
+                space_id_name=space_id_name,
+            )
+            response = await self._client.request(
+                request.operation,
+                params=request.params,
+                data=request.data,
+                headers=request.headers,
+            )
+            return _check_space_list(response)
 
     async def recording_urls(
         self,

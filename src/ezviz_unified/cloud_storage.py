@@ -4,29 +4,32 @@ Covers the reviewed cloud-storage operations: card-password activation
 (domestic 1402, overseas 482), balance/quota/resource-pack service opening
 (1400), enable/pause upload (1403), device storage info v2 (1404), supported
 storage types (1405), trial activation (1406), cross-device transfer (1407),
-storage info v1 (1409), and opening-in-progress status (1410).
+storage info v1 (1409), opening-in-progress status (1410), and the
+domestic AI intelligent-model list (5149).
 
-All reviewed endpoints are POST ``application/x-www-form-urlencoded`` calls that
-carry the access token in the form body and answer with the legacy
+All reviewed endpoints are POST calls answering with the legacy
 ``code``/``msg``/``data`` envelope where only the string ``"200"`` marks
-success. Facade methods return the :class:`~ezviz_unified.models.ApiResponse`
+success. Every operation except ``ai_models`` sends
+``application/x-www-form-urlencoded`` with the access token in the form body;
+``ai_models`` sends an empty body with the token in the ``accessToken`` header. Facade methods return the :class:`~ezviz_unified.models.ApiResponse`
 with ``data`` preserved verbatim: prices retain their original units and values, timestamps keep
 the platform's own values (the v1 page describes seconds yet shows 13-digit
 examples, so no conversion is applied), and ``isOpening`` keeps its raw
 integer. This facade performs no implicit purchases, polling, retries, pre-queries,
 or messaging; the
 wrappers do not grant permission, and platform errors surface unchanged.
-Only the three query operations are marked read-only; even where the docs
+Only the query operations are marked read-only; even where the docs
 note requestId idempotency, write operations remain ineligible for automatic replay.
 """
 
 from __future__ import annotations
 
 from collections.abc import Mapping
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import TYPE_CHECKING, NamedTuple
 
 from .diagnostic_report import _diagnostic_scope
+from .errors import ProtocolError
 from .models import ApiResponse, ResponsePolicy
 from .operations import Operation
 
@@ -52,6 +55,30 @@ _INFO_PATHS = {
 }
 _SUPPORT_PAYMENTS = frozenset({1, 2})
 _ORDER_PAYMENTS = frozenset({1, 2, 10})
+
+_AI_MODEL_LIST_CODES = (200, 10002, 10031)
+_AI_MODEL_ROW_TYPES = {
+    "intelligentId": str,
+    "intelligentName": str,
+    "description": str,
+}
+_AI_MODELS_POLICY = replace(
+    _LAPP_POLICY,
+    redact_device_add_details=True,
+    redact_media_urls=True,
+    exposed_business_codes=tuple(
+        value for code in _AI_MODEL_LIST_CODES for value in (code, str(code))
+    ),
+)
+_OP_AI_MODELS = Operation(
+    "cloud_storage.ai_models",
+    "POST",
+    "/api/service/cloud/storage/service/intelligent/list",
+    token_location="header",
+    regions=frozenset({_DOMESTIC}),
+    read_only=True,
+    policy=_AI_MODELS_POLICY,
+)
 
 
 def _check_serial(value: object, name: str = "device_serial") -> str:
@@ -375,6 +402,29 @@ def _transfer_plan(
     )
 
 
+def _ai_model_row_valid(row: object) -> bool:
+    if not isinstance(row, dict):
+        return False
+    for key, expected in _AI_MODEL_ROW_TYPES.items():
+        value = row.get(key)
+        if value is None:
+            continue
+        if type(value) is not expected:
+            return False
+    return True
+
+
+def _check_ai_models(response: ApiResponse) -> ApiResponse:
+    rows = response.data
+    if not isinstance(rows, list) or not all(_ai_model_row_valid(row) for row in rows):
+        raise ProtocolError(
+            "unexpected cloud_storage.ai_models response shape",
+            operation=response.operation,
+            http_status=response.http_status,
+        )
+    return response
+
+
 def _send(client: Client, plan: _Plan) -> ApiResponse:
     return client.request(plan.operation, data=plan.data)
 
@@ -431,6 +481,22 @@ class CloudStorage:
         ):
             plan = _available_types_plan(device_serial, channel, payment, self._client.region.scope)
             return _send(self._client, plan)
+
+    def ai_models(self) -> ApiResponse:
+        """List domestic AI cloud-storage intelligent models (5149, read-only).
+
+        Raises :class:`ValueError` for non-domestic regions before any token
+        or transport work. Sends ``POST`` with an empty body and the access
+        token in the ``accessToken`` header. ``data`` must be a list of
+        objects; present non-null ``intelligentId``/``intelligentName``/
+        ``description`` values must be ``str`` while missing/null fields,
+        empty rows and unknown additive entries are preserved verbatim in
+        ``data``/``raw``. A stale-token ``10002`` triggers at most one token
+        refresh and replay; nothing else retries, polls or infers.
+        """
+        with _diagnostic_scope(self._client, entrypoint="cloud_storage.ai_models", mode="sync"):
+            _require_domestic(self._client.region.scope)
+            return _check_ai_models(self._client.request(_OP_AI_MODELS))
 
     def opening_status(self, device_serial: str, *, channel: int | None = None) -> ApiResponse:
         """Report whether a service-open is still in flight; ``isOpening`` stays raw."""
@@ -571,6 +637,12 @@ class AsyncCloudStorage:
         ):
             plan = _available_types_plan(device_serial, channel, payment, self._client.region.scope)
             return await _asend(self._client, plan)
+
+    async def ai_models(self) -> ApiResponse:
+        """Async variant of :meth:`CloudStorage.ai_models` (domestic 5149)."""
+        with _diagnostic_scope(self._client, entrypoint="cloud_storage.ai_models", mode="async"):
+            _require_domestic(self._client.region.scope)
+            return _check_ai_models(await self._client.request(_OP_AI_MODELS))
 
     async def opening_status(
         self, device_serial: str, *, channel: int | None = None

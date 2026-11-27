@@ -65,6 +65,7 @@ _SENSITIVE_KEYS = (
     "spaceId",
     "spaceIds",
     "spaceName",
+    "spaceIdName",
     "fileNodeId",
     "fileNodeIds",
     "tagId",

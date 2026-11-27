@@ -95,8 +95,8 @@ def _field(event, name, default="none"):
 
 
 def test_registry_covers_frozen_lists():
-    assert len(ENTRIES) == 243
-    assert len(set(ENTRIES)) == 243
+    assert len(ENTRIES) == 250
+    assert len(set(ENTRIES)) == 250
     assert frozenset(ENTRIES) | frozenset(ADDITIONAL) == ENTRYPOINTS
     assert frozenset(COVERAGE["operation_names"]) == OPERATIONS
 
