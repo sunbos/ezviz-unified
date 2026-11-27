@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "4146f1a3775cc925a1b83872113bfd08582d2096",
+  "scope_revision": "2026-11-28-domestic-readonly-cloud",
+  "cohort_id": "DOMESTIC-CLOUD-STORAGE-AI-MODELS-001",
+  "operations": [
+    {
+      "operation_id": "cn.cloud_storage.ai_models",
+      "capability_id": "candidate:domestic:5149:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-5149-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-5149-D0-LIVE-001"
+      ],
+      "entry": "cloud_storage.ai_models",
+      "name": "ai_models",
+      "doc_id": "5149",
+      "region": "domestic",
+      "method": "POST",
+      "path": "/api/service/cloud/storage/service/intelligent/list",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/5149",
+      "html_sha256": "3a2231c415701e26451103e6a84e30f95fd0084c2c58f0e07aed016768468ec5",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E22"
+        }
+      ]
+    }
+  ],
+  "source_reconciliation": {
+    "ledger_declaration": "portal-2026-11-17:domestic:5149:declaration:0",
+    "ledger_example": "portal-2026-11-17:domestic:5149:example:0",
+    "scope_boundary": "仅 5149 入本批：查询国内账户可用的 AI 云存储智能模型列表元数据。无参数、无正文、无分页；不执行模型推理、评估或调用，条目不证明模型可用性或额度。"
+  },
+  "public_document_recheck": {
+    "public_reference": "https://open.ys7.com/help/5149",
+    "html_sha256": "3a2231c415701e26451103e6a84e30f95fd0084c2c58f0e07aed016768468ec5",
+    "note": "本轮按 portal-2026-11-17:domestic:5149 离线复核了归档 HTML 正文的 SHA-256。",
+    "source_pins": {
+      "raw_transport_sha256": "9dbfdf53e0e11ede8b01ef30b1b6d3eb05d1d8cdf7c72aa9dc90771f17587134",
+      "normalized_sha256": "804e4142e528a57c9a7ac02a25655cf9bd61e6c8d7aa5ccb71afa5f6c8f51f3d",
+      "html_sha256": "3a2231c415701e26451103e6a84e30f95fd0084c2c58f0e07aed016768468ec5",
+      "structure_sha256": "6e07bda177b2b1f5ba97a8ca4d961eb604ad832a22a8d4c50cc2171890ae2a11"
+    },
+    "source_date": "2026.03.27"
+  },
+  "sdk_choices": [
+    "在 CloudStorage、AsyncCloudStorage 增加 ai_models，读取国内账户 AI 云存储智能模型列表。区别于云存储文件/截图/录像类接口；仅元数据，不执行模型、不做推理或评估。",
+    "国内 POST，accessToken 注入 header；无 path/query/form/JSON 正文，禁止附加任何参数。非 domestic 区域在鉴权与业务传输前拒绝。",
+    "根 code 必须为字符串 \"200\"，msg 为消息字段；data 必须为对象数组并允许空数组与空对象。出现且非 null 的 intelligentId、intelligentName、description 须为 string；缺失、null 与未知扩展字段原样保留。",
+    "业务错误沿用共享鉴权分类（含来源 10002），只读操作至多一次令牌失效刷新，无其他重试；不臆造频率、角色或权益保证。自有诊断不含账户标识、凭据或上游原文。",
+    "示例 python -m examples.cloud_storage_ai_models --mode sync|async 默认模拟：内置合成身份，鉴权与业务均经 MockTransport，不读取本机配置或环境变量，仅打印 items 整数。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/cloud_storage.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "真实验收需要已开通 AI 云存储、获准查询模型目录的账户。",
+  "offline_evidence": "docs/validation/2026-11-28-domestic-readonly-cloud/offline.json"
+}

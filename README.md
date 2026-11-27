@@ -291,13 +291,23 @@ python -m examples.ddns --mode sync --query get
 
 统一存储入口为`client.storage`，提供空间列表/创建/更新/删除、文件搜索/保留期修改及签名下载地址查询，目前仅国内。文件查询使用`StorageFileQuery`，保留官方选择器优先级；`None`不发送，更新不注入创建默认值。统一存储永久保留使用`-1`，与旧云录制空间的`0`不同。下载地址仅返回，不获取媒体；[完整规则与来源限制](docs/research/2026-11-14-unified-storage.md)列明单位、编码推导及权限，全部新能力仍为离线验证。
 
+<!-- scope_revision:2026-11-28-domestic-readonly-cloud -->
+### 查询 AI 云存储模型目录
+
+`client.cloud_storage.ai_models()` 查询国内账户可用的模型元数据，异步客户端提供同名方法。真实查询需要开通 AI 云存储。返回的项目仅说明模型出现在目录中，使用额度仍须向平台确认。[国内文档 5149](https://open.ys7.com/help/5149)
+
+```sh
+python -m examples.cloud_storage_ai_models --mode sync
+python -m examples.cloud_storage_ai_models --mode async
+```
+
 ## 云录制2.0
 
 云录制2.0单列为`client.cloud_recording`，提供空间/一次性计划/任务查询、录像日历、片段与HLS信息、模板列表等10个只读入口，另有一次性计划创建/更新/停止/删除与即时计划创建共5个写入口，目前仅国内。时间使用整秒naive datetime；不自动翻页、下载、轮询或串联写操作；写接口需显式调用，可能创建真实录制并消耗套餐。详见[云录制约束](docs/research/2026-11-14-cloud-recording.md)与[计划管理写接口](docs/research/2026-11-15-cloud-recording-plans.md)，不等同于设备云存储套餐或本地录像。
 
 ## 云录制1.0与云点播
 
-旧版云录制1.0文件操作单列为`client.cloud_recording_v1`，仅国内：`unfreeze_file(project_id, file_id)`触发归档解冻（写操作，不自动重放；仅HTTP成功且业务meta.code=200的响应证明触发已被受理，不证明解冻完成——HTTP 200本身可能携带业务失败，不能单独据此推导）、`file_info(project_id, file_id)`查询单个文件详情、`download_urls(project_id, file_id, content_type=..., expire_seconds=...)`获取官方下载/播放地址（不下载媒体）。云点播文件列表单列为`client.vod`，`files(file_node_ids=None, space_id=..., space_name=...)`至少需一个选择条件，仅国内。两套接口的`projectId`/`fileId`/`fileNodeId`互不相同，不做映射；详见[云录制1.0与VOD说明](docs/research/2026-11-18-cloud-recording-v1-and-vod.md)，本批接口均未做真实调用验证。
+旧版云录制1.0文件操作单列为`client.cloud_recording_v1`，仅国内：`unfreeze_file(project_id, file_id)`触发归档解冻（写操作，不自动重放；仅HTTP成功且业务meta.code=200的响应证明触发已被受理，不证明解冻完成——HTTP 200本身可能携带业务失败，不能单独据此推导）、`file_info(project_id, file_id)`查询单个文件详情、`project_files(project_id, start_time=..., end_time=..., page_number=..., page_size=...)`分页查询项目文件、`projects(page_number=..., page_size=...)`分页查询项目列表、`tasks(start_time=..., end_time=..., page_number=..., page_size=...)`分页查询任务列表、`download_urls(project_id, file_id, content_type=..., expire_seconds=...)`获取官方下载/播放地址（不下载媒体）。云点播文件列表单列为`client.vod`，`files(file_node_ids=None, space_id=..., space_name=...)`至少需一个选择条件，仅国内。两套接口的`projectId`/`fileId`/`fileNodeId`互不相同，不做映射；详见[云录制1.0与VOD说明](docs/research/2026-11-18-cloud-recording-v1-and-vod.md)，本批接口均未做真实调用验证。
 
 ### 按云录制任务查询文件
 
@@ -310,7 +320,66 @@ python -m examples.cloud_task_files --mode sync
 python -m examples.cloud_task_files --mode async
 ```
 
+### 分页查询项目文件（云录制1.0）
+
+`client.cloud_recording_v1.project_files(project_id, *, start_time=..., end_time=..., page_number=..., page_size=...)` 分页读取国内云录制 1.0 单个项目的文件元数据，异步客户端用 `await` 调用同名方法。调用者须有权查询该项目。`start_time`/`end_time` 取 14 位 `yyyyMMddHHmmss` 日历时间，两端都显式给出时必须落在同一天；缺省交由平台，本机不补时区。`page_number` 从 0 开始，`page_size` 取 1 至 20（与 1373 的 50 上限不同）。方法返回 `ApiResponse`，`data` 可以是空列表并保留每行扩展字段与 E1 长 `fileId`。该接口默认不返回下载链接，SDK 不自动翻页或访问媒体；元数据查询成功不证明文件可取回。
+
+命令行示例默认走模拟并内置合成身份与合成项目 ID，鉴权与业务均经 MockTransport，不读取本机配置或环境变量，只请求第 0 页（`page_size=1`），仅输出当前页的 `items` 计数。该入口仅经合成传输验证，项目存在性（404）与字段必返性仍待核实。[国内文档 1374](https://open.ys7.com/help/1374)。
+
+```sh
+python -m examples.cloud_project_files --mode sync
+python -m examples.cloud_project_files --mode async
+```
+
+### 查询单个云录制项目
+
+`client.cloud_recording_v1.project(project_id)` 读取国内云录制 1.0 项目的元数据。异步客户端提供同名方法。项目 ID 由 1 至 32 个 ASCII 字母、数字或下划线组成。[国内文档 1363](https://open.ys7.com/help/1363)
+
+```sh
+python -m examples.cloud_project --mode sync
+python -m examples.cloud_project --mode async
+```
+
+### 分页查询项目列表（云录制1.0）
+
+`client.cloud_recording_v1.projects(*, page_number=..., page_size=...)` 分页读取国内云录制 1.0 项目列表，异步客户端用 `await` 调用同名方法。`page_number` 从 0 开始，`page_size` 取 1 至 20（平台默认 0/10）。方法返回 `ApiResponse`，`data` 是项目对象数组、可以为空并保留每行扩展字段。SDK 不自动翻页或访问媒体；元数据查询成功不证明文件可取回。
+
+命令行示例默认走模拟并内置合成身份，鉴权与业务均经 MockTransport，不读取本机配置或环境变量，只请求第 0 页（`page_size=1`），仅输出当前页的 `items` 计数。该入口仅经合成传输验证，项目存在性（404）与字段必返性仍待核实。[国内文档 1364](https://open.ys7.com/help/1364)。
+
+```sh
+python -m examples.cloud_projects --mode sync
+python -m examples.cloud_projects --mode async
+```
+
+### 分页查询任务列表（云录制1.0）
+
+`client.cloud_recording_v1.tasks(*, start_time=..., end_time=..., page_number=..., page_size=...)` 分页读取国内云录制 1.0 任务列表，异步客户端用 `await` 调用同名方法。`start_time`/`end_time` 取 14 位 `yyyyMMddHHmmss` 日历时间，两端都显式给出时必须落在同一天；缺省交由平台，本机不补时区。`page_number` 从 0 开始，`page_size` 默认 10（**源未证明上限**，SDK 仅校验类型与 >=1）。方法返回 `ApiResponse`，`data` 是任务对象数组、可以为空并保留每行扩展字段。SDK 不自动翻页或访问媒体；元数据查询成功不证明文件可取回。
+
+命令行示例默认走模拟并内置合成身份，鉴权与业务均经 MockTransport，不读取本机配置或环境变量，只请求第 0 页（`page_size=1`），仅输出当前页的 `items` 计数。该入口仅经合成传输验证，字段必返性仍待核实。[国内文档 1371](https://open.ys7.com/help/1371)。
+
+```sh
+python -m examples.cloud_tasks --mode sync
+python -m examples.cloud_tasks --mode async
+```
+
+### 按任务ID查询VOD文件与录像空间列表
+
+`client.vod.task_files(task_id)`（doc 3964）按路径段任务标识读取国内 VOD 既有任务的文件列表，`accessToken` 走请求头，无正文、query 或分页；官方注明不支持托管子账号。返回 `ApiResponse`，`data` 为文件对象数组（可空），`fileName` 字符串与对象两形态及未知扩展原样透传；`fileUrl`/`coverPicUrl`/`folderNode` 仅为元数据，SDK 不发起第二次请求或访问媒体。3717 的剪辑任务文档为同一请求给出了对象形状的成功响应。此处的 `task_files` 采用 3964 的文件数组契约，收到剪辑对象时抛出 `ProtocolError`。[国内文档 3964](https://open.ys7.com/help/3964) · [国内文档 3717](https://open.ys7.com/help/3717)
+
+`client.vod.space_list(*, page_start, page_size, sort_field=None, sort_rule=None, space_id_name=None)`（doc 4473）分页读取国内 VOD 录像空间列表，`accessToken` 走请求头；`page_start`/`page_size` 必填，`sort_field` 仅 `createTime`、`sort_rule` 仅 `asc`/`desc`。`data` 是含 `result`/`total`/`pageStart`/`pageSize` 的对象，不扁平化；官方注明不支持托管/子账号。两个入口仅经合成传输验证。[国内文档 4473](https://open.ys7.com/help/4473)
+
+命令行示例默认走模拟：`vod_task_files`/`vod_space_list` 全程经内置 MockTransport 合成响应运行（`vod_task_files` 内置合成任务 ID、`vod_space_list` 固定 `page_start=0`/`page_size=10`），不读环境变量、不触达真实配置，均仅输出 `items` 计数。`vod.space_list` 的 `space_id_name`（`spaceIdName`）已登记为敏感字段，其原文与 URL 编码回显在受控日志与异常文本中遮蔽。
+
+```sh
+python -m examples.vod_task_files --mode sync
+python -m examples.vod_task_files --mode async
+python -m examples.vod_space_list --mode sync
+python -m examples.vod_space_list --mode async
+```
+
 `client.vod`另提供四个仅国内的转封装与查询入口，同步/异步共用同名方法：`create_remux_task`（官方明确非幂等的异步任务创建，不自动重放，仅返回`ApiResponse`，不变成任务句柄）、`task`与`tasks`（只读的单任务查询与任务分页列表，不自动翻页或轮询）以及`recording_urls`（按设备、通道与时段签发录像地址；其`read_only=False`是SDK为禁自动重放的选择，来源未明确无副作用，非官方写/非幂等结论）。官方声明的范围/权限边界包括：`create_remux_task`限企业用户、不支持托管/子账号且需已有对应时段云录像；`recording_urls`要求设备开通云存储且对应时段有录像、同样不支持托管/子账号；两个查询接口的来源仅明确accessToken，额外账号或套餐权限未声明，由服务端判定；SDK不把这些前提互相移植。全部参数校验、Header字符串规则与时间边界见[云点播转封装说明](docs/research/2026-11-18-vod-remux.md)；任务状态编码、地址字段名与`fileNodeId`/`taskId`各自独立，SDK不发明映射或完成判据。本批四个入口仍未做真实调用验证；各能力的验收状态见[产品能力登记](docs/capabilities/README.md)与[验收登记](docs/validation/sdk-product-acceptance.json)中对应`candidate:domestic:*`行，登记数量不代表覆盖率或产品级验收通过。
+
+本批七个查询示例以 MockTransport 模拟鉴权和业务请求，仅打印返回条数。SDK 的真实账户权限与资源适用性仍待验证。[七个查询入口的离线验收记录](docs/validation/2026-11-28-domestic-readonly-cloud/offline.json)
 
 ## 海外 FLV 预览
 

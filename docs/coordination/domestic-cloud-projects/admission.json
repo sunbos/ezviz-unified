@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "4146f1a3775cc925a1b83872113bfd08582d2096",
+  "scope_revision": "2026-11-28-domestic-readonly-cloud",
+  "cohort_id": "DOMESTIC-CLOUD-PROJECTS-001",
+  "operations": [
+    {
+      "operation_id": "cn.cloud_recording_v1.projects",
+      "capability_id": "candidate:domestic:1364:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-1364-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-1364-D0-LIVE-001"
+      ],
+      "entry": "cloud_recording_v1.projects",
+      "name": "projects",
+      "doc_id": "1364",
+      "region": "domestic",
+      "method": "GET",
+      "path": "/api/open/cloud/v1/projects",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/1364",
+      "html_sha256": "70ce6f2b199b29a9904ea5abe3d4a807f2aac2a7846f37c17c0586227aa29529",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageNumber",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageSize",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        }
+      ]
+    }
+  ],
+  "source_reconciliation": {
+    "ledger_declaration": "portal-2026-11-17:domestic:1364:declaration:0",
+    "ledger_example": "portal-2026-11-17:domestic:1364:example:0",
+    "existing_task_status": "cn.cloud_recording_v1.tasks",
+    "scope_boundary": "仅 1364 入本批契约及验收。分页查询云录制 1.0 项目列表本身，与 1374 的按项目 ID 查文件、1371 的按任务分页相区分；无 projectId、无路径段、无 hasUrl；不访问媒体。"
+  },
+  "public_document_recheck": {
+    "public_reference": "https://open.ys7.com/help/1364",
+    "http_status": 200,
+    "html_sha256": "70ce6f2b199b29a9904ea5abe3d4a807f2aac2a7846f37c17c0586227aa29529",
+    "device_requests": 0,
+    "account_requests": 0,
+    "note": "本轮按 portal-2026-11-17:domestic:1364 离线复核了归档 HTML 正文的 SHA-256。HTTP 状态取自该批次采集回执。"
+  },
+  "sdk_choices": [
+    "在 CloudRecordingV1、AsyncCloudRecordingV1 增加 projects，分页读取国内云录制 1.0 项目列表。区别于 1374 的按项目 ID 查文件、1371 的任务列表、3964 的 VOD 任务文件。不创建项目、不取其他页、不访问媒体。",
+    "国内 GET，accessToken 与可选 pageNumber/pageSize 全部在 query，无正文、设备或项目标识。page_number 为从 0 起整数（>=0）、page_size 为 [1,20] 整数（来源明确上限），均排除 bool；None 不序列化。读取沿用现有最多一次令牌失效刷新。",
+    "根 meta.code 必须为真整数 200，data 是项目对象数组、允许为空，行保留 E50 声明字段与扩展字段；各字段无必返承诺，null 与缺省均保留。项目不存在映射为 404（E118 错误表含 400/403/404/500）。",
+    "对该操作使用既有脱敏与业务码集合（200、400、403、404、500 与通用 10002/10031，int/str 原型），上游消息整体遮蔽为 ***；报告及 CLI 不含项目标识、名称或查询时间。调用方显式访问 data 或 raw 时可取得原值。",
+    "示例 python -m examples.cloud_projects --mode sync|async 默认走模拟并内置合成身份，鉴权与业务均经 MockTransport，不读取本机配置或环境变量，固定 page_number=0、page_size=1，仅查询一页并输出 items 整数，不打印配置或项目内容。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/cloud_recording_v1.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "真实验收需要获准查询项目列表的账户。",
+  "offline_evidence": "docs/validation/2026-11-28-domestic-readonly-cloud/offline.json"
+}

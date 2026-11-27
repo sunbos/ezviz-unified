@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "4146f1a3775cc925a1b83872113bfd08582d2096",
+  "scope_revision": "2026-11-28-domestic-readonly-cloud",
+  "cohort_id": "DOMESTIC-VOD-TASK-FILES-001",
+  "operations": [
+    {
+      "operation_id": "cn.vod.task_files",
+      "capability_id": "candidate:domestic:3964:d0",
+      "case_ids": [
+        "ACC-CANDIDATE-CN-3964-D0-OFFLINE-001",
+        "ACC-CANDIDATE-CN-3964-D0-LIVE-001"
+      ],
+      "entry": "vod.task_files",
+      "name": "task_files",
+      "doc_id": "3964",
+      "region": "domestic",
+      "method": "GET",
+      "path": "/api/service/open/cloud/vod/task/files/{taskId}",
+      "read_only": true,
+      "source_url": "https://open.ys7.com/help/3964",
+      "html_sha256": "496116b4dec7826d7b8b15e2a337c91e01f936730b3e7d32d72ca42d601b7310",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E8"
+        },
+        {
+          "name": "taskId",
+          "type": "String",
+          "location": "path",
+          "required": true,
+          "evidence": "E5/E7"
+        }
+      ]
+    }
+  ],
+  "source_reconciliation": {
+    "ledger_declaration": "portal-2026-11-17:domestic:3964:declaration:0",
+    "scope_boundary": "仅 3964 入本批契约及验收。VOD 服务的按任务 ID 查文件接口，taskId 是路径段、token 在 Header，与云录制 1.0 的 1373/1374 不同产品、不同权限与响应形态，无跨服务回退。页首声明不支持托管子账号——只记录约束，SDK 不猜账号角色。",
+    "route_shape_overlap_3717": {
+      "status": "in_review",
+      "sources": [
+        {
+          "source_ref": "portal-2026-11-17:domestic:3717",
+          "public_source": "https://open.ys7.com/help/3717",
+          "pins": {
+            "raw_transport_sha256": "552d426272549db3d607db26805002fc11ecdd341002ef712652c1104a3815dd",
+            "normalized_sha256": "11bc46f43925df92b723bc628d8ea7ae285dba4b497627fc031545d216be4835",
+            "html_sha256": "0e9e8875b849329b0ba454fdaaa7ce7a39f937c39b1f8cdfabbc0ddf6a1728e3",
+            "structure_sha256": "9cdb68e3ae7f233e63256a148f57dd7c4535c605ea28cdf5ddbe7dcd30b589c7"
+          }
+        },
+        {
+          "source_ref": "portal-2026-11-17:domestic:3964",
+          "public_source": "https://open.ys7.com/help/3964",
+          "pins": {
+            "raw_transport_sha256": "948d6adeda993e1ff28b81274d0b6202ad43fa44aac299841be0b6c0000c2fbf",
+            "normalized_sha256": "4a2192760d1509ce9dda1a9c2d84cb4bb2a2786a29185f9deee2e92f95375b46",
+            "html_sha256": "496116b4dec7826d7b8b15e2a337c91e01f936730b3e7d32d72ca42d601b7310",
+            "structure_sha256": "4d212999a19e079016fcc1a74bca875bac992058b50fd1eb758a11a0dddae326"
+          }
+        }
+      ],
+      "observation_refs": {
+        "3717": [
+          "portal-2026-11-17:domestic:3717:declaration:0",
+          "portal-2026-11-17:domestic:3717:example:0"
+        ],
+        "3964": [
+          "portal-2026-11-17:domestic:3964:declaration:0"
+        ]
+      },
+      "finding": "3717 与 3964 共享同一国内需鉴权路由（method 与 path 相同）且请求形状一致，但成功时 data 对象不兼容：一为剪辑（clip）元数据对象，一为截图文件数组；当前无请求判别字段或互相替代的证据。",
+      "resolution": "3964 保持既有受限行为、协议状态、案例与历史结果不变；3717 源及两条观察行维持 in_review，等待更权威证据，不创建绑定/能力/用例，亦不判重；语义不确定性保留。",
+      "recorded_in_scope_revision": "2026-11-22-domestic-cloud-project-ai-models",
+      "cover_image_practice": {
+        "source_ref": "portal-2026-11-17:domestic:3966",
+        "source_url": "https://open.ys7.com/help/3966",
+        "html_sha256": "ecdbb50f383063b5eea12ea6c24e4f17e446d6e6d3541354db10aaf57c0b0d33",
+        "source_node": "E23"
+      },
+      "prior_synthetic_check": {
+        "parent_code_commit": "3cf62b8feaef6e1c5200774dc1ef9bd25b500871",
+        "live_account_used": false,
+        "results": [
+          {
+            "source": "3964_capture",
+            "mode": "sync",
+            "business_mock_calls": 1,
+            "outcome": "list_preserved",
+            "expected": true
+          },
+          {
+            "source": "3717_clip",
+            "mode": "sync",
+            "business_mock_calls": 1,
+            "outcome": "ProtocolError",
+            "expected": true
+          },
+          {
+            "source": "3964_capture",
+            "mode": "async",
+            "business_mock_calls": 1,
+            "outcome": "list_preserved",
+            "expected": true
+          },
+          {
+            "source": "3717_clip",
+            "mode": "async",
+            "business_mock_calls": 1,
+            "outcome": "ProtocolError",
+            "expected": true
+          }
+        ]
+      },
+      "source_issue_id": "cn.vod.task_files.clip_and_capture_response_shapes"
+    }
+  },
+  "public_document_recheck": {
+    "public_reference": "https://open.ys7.com/help/3964",
+    "http_status": 200,
+    "html_sha256": "496116b4dec7826d7b8b15e2a337c91e01f936730b3e7d32d72ca42d601b7310",
+    "device_requests": 0,
+    "account_requests": 0,
+    "note": "本轮按 portal-2026-11-17:domestic:3964 离线复核了归档 HTML 正文的 SHA-256。HTTP 状态取自该批次采集回执。"
+  },
+  "sdk_choices": [
+    "在 Vod、AsyncVod 增加 task_files，独立读取调用者显式提供的既有 VOD 任务的文件列表。不会创建 remux 任务、查询其他任务、取回归档或访问媒体；返回的 fileUrl/coverPicUrl/folderNode 不触发第二次请求。",
+    "国内 GET，taskId 是路径段、token 在 Header，无正文、分页与 query。task_id 为非空可编码 UTF-8 文本，保留原值。读取沿用现有最多一次令牌失效刷新，重发时路径与账户不变。",
+    "根 meta.code 必须为真整数 200，meta.message 为业务消息，data 必须是对象数组，缺失或非数组抛 ProtocolError。fileName 的字符串与对象两形态按原文冲突保留透传（E34 对象 vs E93 字符串字面量），不推断线上唯一类型。各行字段没有必返承诺，缺省与 null 均保留。",
+    "E96 错误表为 200/500/400/406，本表无 404；错误分类沿用 SDK 默认（HTTP 403/10031→PermissionDeniedError、10002→AuthenticationError，只读至多重发一次）。对该操作使用严格消息、媒体脱敏和固定业务码集合（200、400、403、404、406、500 与通用 10002/10031，int/str 原型），上游消息整体遮蔽为 ***；报告及 CLI 不含任务 ID、文件标识或媒体地址。",
+    "示例 python -m examples.vod_task_files --mode sync|async 默认走模拟：内置合成任务 ID 与 MockTransport 合成响应，不读环境变量、不触达真实配置，仅查询一次并输出 items 整数；不打印配置、任务 ID 或链接。验收只注入合成配置与 MockTransport。"
+  ],
+  "reuse": [
+    "src/ezviz_unified/vod.py",
+    "docs/research/2026-11-15-official-ecosystem-reuse.md"
+  ],
+  "live": "真实验收需要获准查询的现有 VOD 抓图任务。",
+  "offline_evidence": "docs/validation/2026-11-28-domestic-readonly-cloud/offline.json"
+}
