@@ -25,7 +25,9 @@ cd "$HOME"
 "$VENV_PY" -I -c "import ezviz_unified as m; from importlib.metadata import version; print(m.__version__); print(version('ezviz-unified')); print(m.__file__)"
 ```
 
-两项版本应一致，且 `__file__` 位于该虚拟环境的 `site-packages` 下。wheel 不提供命令行入口，也不能使用 `python -m ezviz_unified`。下文示例均在仓库根目录、基于源码检出运行。
+两种安装方式打印的两项版本都应一致。安装 wheel 时，`__file__` 应位于该虚拟环境的 `site-packages` 下；使用 `pip install -e .` 时，SDK 从检出的源码加载，通常显示仓库中 `src/ezviz_unified/` 下的路径，不要求位于 `site-packages`。
+
+wheel 不提供命令行入口，也不能使用 `python -m ezviz_unified`。下文示例均在仓库根目录、基于源码检出运行。
 
 ## 环境变量
 
