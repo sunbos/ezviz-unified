@@ -32,7 +32,15 @@ SDK代码位于 `src/ezviz_unified/`；`examples/` 提供同步/异步只读接�
 - `rg --files --hidden -g '!.git' -g '!data/**' -g '!**/__pycache__/**'`：查看源码与文档清单，避免输出整套采集数据。
 - 使用 `git diff --check` 检查未暂存改动；暂存后用 `git diff --cached --check` 检查待提交内容的空白问题。
 
+本地复现 CI 的 Ruff 检查时，分别运行 [SDK 工作流](.github/workflows/ci.yml) 中的 `ruff check` 和 `ruff format --check`，两步的文件范围以工作流为准。
+
 引入技术栈时，应在同一 PR 中添加依赖清单、适用的锁文件及 README，记录环境要求、安装、运行、测试与格式检查命令。新增面向使用者的功能需在 README 记录入口、地区范围与验证边界。
+
+## 新增 SDK 传输接口
+
+- 在 [contracts](contracts/) 登记已核对的接口契约，并在 `sdk-bindings.json` 中将 `operation_id` 关联到同步和异步公开入口。来源有冲突时记录在 `source-issues.json`。从契约编写[离线案例](evals/contracts/README.md)的预期报文，再按 [harness 说明](harness/README.md)重新生成并核对覆盖摘要。
+- 同步与异步实现共用 `Operation` 声明和字段校验。向客户端新增业务域时，在 `Client` 和 `AsyncClient` 的构造函数中分别直接赋值，让静态审计能从两个客户端解析到公开方法。
+- 新增诊断入口或操作名时，同步更新[诊断白名单](src/ezviz_unified/_diagnostic_registry.py)和[诊断覆盖清单](docs/diagnostics-v1-coverage.json)，运行[诊断覆盖测试](tests/test_harness_diagnostic_coverage.py)核对名称和实际事件。
 
 ## 独立产品边界
 
@@ -59,6 +67,8 @@ Codex 负责架构、派单、关键判断和最终验收；重复性执行优�
 SDK使用pytest；文档工具的unittest也由pytest收集，未设覆盖率阈值。新增逻辑时覆盖正常路径、错误响应及边界输入；修复缺陷时添加有针对性的回归测试。
 
 测试文件使用 `test_<module>.py`，并与被测模块对应。涉及外部 API 时，默认断网并使用 mock 或脱敏 fixture；真实接口测试应显式启用，并单独说明所需配置。
+
+`tests/test_sdk*.py` 随 sdist 分发，须能在只装了 SDK 和测试依赖的环境中运行。依赖 `harness/`、`tools/`、`examples/` 或仓库契约资料的用例应放在对应的仓库测试文件中。见[打包清单](MANIFEST.in)和[独立安装验证](docs/releasing.md)。
 
 ## Commit 与 Pull Request
 
