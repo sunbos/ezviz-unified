@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from ezviz_unified.cloud_recording_v1 import CloudRecordingV1
+from ezviz_unified.cloud_storage import CloudStorage
 from ezviz_unified.detectors import Detectors
 from ezviz_unified.devices import Devices
 from ezviz_unified.recordings import Recordings
@@ -13,6 +14,7 @@ from ezviz_unified.settings import Settings
 from ezviz_unified.snapshots import Snapshots
 from ezviz_unified.third_party_protocols import ThirdPartyProtocols
 from ezviz_unified.video import Video
+from ezviz_unified.vod import Vod
 from harness.wire_eval import evaluate
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -49,6 +51,13 @@ REDACTED_OPERATION_IDS = (
     "global.snapshots.get_by_uuid",
     "cn.devices.generate_wifi_qr",
     "cn.cloud_recording_v1.task_files",
+    "cn.cloud_recording_v1.project_files",
+    "cn.cloud_recording_v1.project",
+    "cn.cloud_storage.ai_models",
+    "cn.cloud_recording_v1.projects",
+    "cn.cloud_recording_v1.tasks",
+    "cn.vod.task_files",
+    "cn.vod.space_list",
 )
 
 FACADES = {
@@ -84,6 +93,13 @@ FACADES = {
     "global.snapshots.get_by_uuid": (Snapshots, "get_by_uuid"),
     "cn.devices.generate_wifi_qr": (Devices, "generate_wifi_qr"),
     "cn.cloud_recording_v1.task_files": (CloudRecordingV1, "task_files"),
+    "cn.cloud_recording_v1.project_files": (CloudRecordingV1, "project_files"),
+    "cn.cloud_recording_v1.project": (CloudRecordingV1, "project"),
+    "cn.cloud_storage.ai_models": (CloudStorage, "ai_models"),
+    "cn.cloud_recording_v1.projects": (CloudRecordingV1, "projects"),
+    "cn.cloud_recording_v1.tasks": (CloudRecordingV1, "tasks"),
+    "cn.vod.task_files": (Vod, "task_files"),
+    "cn.vod.space_list": (Vod, "space_list"),
 }
 
 READ_ONLY_OPERATION_IDS = {
@@ -105,6 +121,13 @@ READ_ONLY_OPERATION_IDS = {
     "cn.settings.get_channel_light_linkage",
     "global.snapshots.get_by_uuid",
     "cn.cloud_recording_v1.task_files",
+    "cn.cloud_recording_v1.project_files",
+    "cn.cloud_recording_v1.project",
+    "cn.cloud_storage.ai_models",
+    "cn.cloud_recording_v1.projects",
+    "cn.cloud_recording_v1.tasks",
+    "cn.vod.task_files",
+    "cn.vod.space_list",
 }
 
 MUTATIONS = {

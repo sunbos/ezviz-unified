@@ -81,7 +81,7 @@ _SDK_REDACTION: ContextVar[_SdkRedactionContext | None] = ContextVar(
 
 # Private stream identifiers whose standard query encodings are only
 # collected for requests that explicitly opt in via redact_query_identifiers.
-_QUERY_IDENTIFIER_KEYS = frozenset({"streamid", "recordspaceid"})
+_QUERY_IDENTIFIER_KEYS = frozenset({"streamid", "recordspaceid", "spaceidname"})
 
 
 class _SdkRedactionFilter(logging.Filter):

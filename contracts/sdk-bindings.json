@@ -2881,6 +2881,19 @@
       "live_status": "not_verified"
     },
     {
+      "operation_id": "cn.vod.task_files",
+      "region": "domestic",
+      "source_doc_id": "3964",
+      "module": "src/ezviz_unified/vod.py",
+      "symbols": [
+        "Vod.task_files",
+        "AsyncVod.task_files"
+      ],
+      "public_entry": "vod.task_files",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
       "operation_id": "cn.vod.tasks",
       "region": "domestic",
       "source_doc_id": "4941",
@@ -2903,6 +2916,19 @@
         "AsyncVod.recording_urls"
       ],
       "public_entry": "vod.recording_urls",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.vod.space_list",
+      "region": "domestic",
+      "source_doc_id": "4473",
+      "module": "src/ezviz_unified/vod.py",
+      "symbols": [
+        "Vod.space_list",
+        "AsyncVod.space_list"
+      ],
+      "public_entry": "vod.space_list",
       "offline_status": "passed",
       "live_status": "not_verified"
     },
@@ -4255,6 +4281,71 @@
         "AsyncCloudRecordingV1.task_files"
       ],
       "public_entry": "cloud_recording_v1.task_files",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.project_files",
+      "region": "domestic",
+      "source_doc_id": "1374",
+      "module": "src/ezviz_unified/cloud_recording_v1.py",
+      "symbols": [
+        "CloudRecordingV1.project_files",
+        "AsyncCloudRecordingV1.project_files"
+      ],
+      "public_entry": "cloud_recording_v1.project_files",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.projects",
+      "region": "domestic",
+      "source_doc_id": "1364",
+      "module": "src/ezviz_unified/cloud_recording_v1.py",
+      "symbols": [
+        "CloudRecordingV1.projects",
+        "AsyncCloudRecordingV1.projects"
+      ],
+      "public_entry": "cloud_recording_v1.projects",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.tasks",
+      "region": "domestic",
+      "source_doc_id": "1371",
+      "module": "src/ezviz_unified/cloud_recording_v1.py",
+      "symbols": [
+        "CloudRecordingV1.tasks",
+        "AsyncCloudRecordingV1.tasks"
+      ],
+      "public_entry": "cloud_recording_v1.tasks",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.project",
+      "region": "domestic",
+      "source_doc_id": "1363",
+      "module": "src/ezviz_unified/cloud_recording_v1.py",
+      "symbols": [
+        "CloudRecordingV1.project",
+        "AsyncCloudRecordingV1.project"
+      ],
+      "public_entry": "cloud_recording_v1.project",
+      "offline_status": "passed",
+      "live_status": "not_verified"
+    },
+    {
+      "operation_id": "cn.cloud_storage.ai_models",
+      "region": "domestic",
+      "source_doc_id": "5149",
+      "module": "src/ezviz_unified/cloud_storage.py",
+      "symbols": [
+        "CloudStorage.ai_models",
+        "AsyncCloudStorage.ai_models"
+      ],
+      "public_entry": "cloud_storage.ai_models",
       "offline_status": "passed",
       "live_status": "not_verified"
     }

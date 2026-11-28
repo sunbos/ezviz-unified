@@ -300,3 +300,17 @@ scope 推进至 `2026-11-19-r17-capture-messaging-hubs-offline-acceptance`。三
 - 本机观察（该 code commit 上）：全量 pytest **7220 + 35 subtests**（62.34 s）、lint/format/mypy、wire 220 contracts/1792 executions、构建/Twine/干净 wheel+sdist 安装均过；sdist **4827 tests**（18.70 s）。`0.1.0a1` 为开发构建、未冻结最终发行、未上传 PyPI；安装依赖走网络但 `real_api_used=false`。
 - 限制沿用 checks.json `limitations`：真实抽帧任务、真实消息投递与提交、HUB 与实际子设备的对应关系尚待有界联调；账号套餐、设备型号覆盖、收费、媒体可用性与 PyPI 发布均未由本批离线结果验证。后续国内 async 为复用既有 SDK 的只读验收，不是本批新增实现。
 - 本批已随 [PR #18](https://github.com/sunbos/ezviz-unified/pull/18) 合并入 main，其 Python 3.12–3.15 四版本 CI 已通过（[run 44372920559](https://github.com/sunbos/ezviz-unified/actions/runs/44372920559)）；该事实仅对既有三域本批代码有效，不覆盖 `tools/live/verify_diagnostics_async.py` 等新文件的本工具新 CI（尚待跑）。`product_complete`/`required_acceptance_complete`/`all_semantics_dispositioned` 仍 `false`；上述 OFFLINE 通过不等于 cohort 或产品完成。
+
+## 国内云录制、云点播与 AI 云存储只读查询验收
+
+| 官方文档 | SDK 入口 | 查询对象 |
+| --- | --- | --- |
+| 1363 | `cloud_recording_v1.project` | 一个既有云录制项目 |
+| 1364 | `cloud_recording_v1.projects` | 一页云录制项目 |
+| 1371 | `cloud_recording_v1.tasks` | 一页云录制任务 |
+| 1374 | `cloud_recording_v1.project_files` | 一个既有云录制项目的文件元数据 |
+| 3964 | `vod.task_files` | 一个既有云点播抓图任务的文件元数据 |
+| 4473 | `vod.space_list` | 一页云点播空间 |
+| 5149 | `cloud_storage.ai_models` | 账户可见的智能模型目录 |
+
+七项离线案例覆盖同步、异步及默认模拟示例。对应的七项 LIVE 案例保持 `awaiting_resource_confirmation`，执行范围、账号权限和资源仍待确认。文件可取回性、模型可用性及额度均待真实环境核验。[七项离线验收记录](2026-11-28-domestic-readonly-cloud/offline.json)

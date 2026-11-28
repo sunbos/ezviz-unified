@@ -14887,6 +14887,70 @@
       ]
     },
     {
+      "operation_id": "cn.vod.task_files",
+      "region": "domestic",
+      "source_doc_id": "3964",
+      "source_url": "https://open.ys7.com/help/3964",
+      "method": "GET",
+      "path": "/api/service/open/cloud/vod/task/files/{taskId}",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E8"
+        },
+        {
+          "name": "taskId",
+          "type": "String",
+          "location": "path",
+          "required": true,
+          "evidence": "E5;E7"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E34;E93"
+      },
+      "constraints": [
+        {
+          "fact": "taskId 是单个 URL 路径段，accessToken 放在请求头；无正文、query 或分页参数。",
+          "evidence": "E5;E7;E8;E23;E24"
+        },
+        {
+          "fact": "页首声明本接口不支持托管子账号——只记录约束，SDK 不猜测账号角色。",
+          "evidence": "页首"
+        },
+        {
+          "fact": "响应根 meta.code 必须是整数 200。data 必须是文件对象数组，缺失或非数组为协议违反。fileName 的字符串形态（E93 示例）与 object 形态（E34 字段表）以及未知扩展均原样透传。返回的 fileUrl、coverPicUrl、folderNode 仅为元数据，SDK 不发起第二次请求。",
+          "evidence": "E34;E93"
+        }
+      ],
+      "uncertainties": [
+        "E96 错误表为 200/500/400/406，本表无 404；错误分类沿用 SDK 默认（HTTP 403 或 10031→PermissionDeniedError，10002→AuthenticationError，只读至多重发一次）。fileName 线上唯一类型未定；folderNode 的跨接口命名空间与媒体引用可达性待核。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/service/open/cloud/vod/task/files/{taskId}",
+        "encoding": "none",
+        "evidence": "E5;E7;E8;E23;E24"
+      },
+      "source_content_sha256": "496116b4dec7826d7b8b15e2a337c91e01f936730b3e7d32d72ca42d601b7310",
+      "read_only": true
+    },
+    {
       "operation_id": "cn.vod.tasks",
       "region": "domestic",
       "source_doc_id": "4941",
@@ -15101,6 +15165,98 @@
         "completed remux task as prerequisite not explicit; no taskId/fileNode binding",
         "business code vs HTTP status layer mapping undeclared"
       ]
+    },
+    {
+      "operation_id": "cn.vod.space_list",
+      "region": "domestic",
+      "source_doc_id": "4473",
+      "source_url": "https://open.ys7.com/help/4473",
+      "method": "GET",
+      "path": "/api/service/open/vod/space/list",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageSize",
+          "type": "Int",
+          "location": "query",
+          "required": true,
+          "evidence": "E30"
+        },
+        {
+          "name": "pageStart",
+          "type": "Int",
+          "location": "query",
+          "required": true,
+          "evidence": "E30"
+        },
+        {
+          "name": "sortField",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E30"
+        },
+        {
+          "name": "sortRule",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E30"
+        },
+        {
+          "name": "spaceIdName",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E30"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E71;E160"
+      },
+      "constraints": [
+        {
+          "fact": "accessToken 放在请求头；pageSize 与 pageStart 是必填 Int query 参数（原文注 pageStart 默认0，与必填标志并存——SDK 按必填处理、不补默认）。sortField、sortRule、spaceIdName 可选，None 时不序列化。",
+          "evidence": "E14;E30"
+        },
+        {
+          "fact": "页首声明本接口不支持托管或子账号——只记录约束，SDK 不猜测账号角色。",
+          "evidence": "页首"
+        },
+        {
+          "fact": "响应根 meta.code 必须是整数 200。data 是对象，含 result 数组与 total/pageStart/pageSize——不得当数组扁平化；data.result 非数组为协议违反。sortField 文档值仅 createTime，sortRule 仅 asc/desc。",
+          "evidence": "E71;E160"
+        }
+      ],
+      "uncertainties": [
+        "E163 错误表为 200/500/400（无 404/406）；pageStart 必填标志与“默认0”措辞的冲突保留；result 行可缺字段与未知扩展透传。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/service/open/vod/space/list",
+        "encoding": "none",
+        "evidence": "E14;E30"
+      },
+      "source_content_sha256": "6b9c0072a4e1eb37ecf836ebc907f487687329b592efb5c26442be21bf8fab77",
+      "read_only": true
     },
     {
       "operation_id": "cn.cloud_capture.create_interval_task",
@@ -23518,6 +23674,394 @@
       },
       "source_content_sha256": "c309810398bb6f5578f18a2b5214ed0583cac42da50647f9bf5d3152de8c949a",
       "read_only": true
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.project_files",
+      "region": "domestic",
+      "source_doc_id": "1374",
+      "source_url": "https://open.ys7.com/help/1374",
+      "method": "GET",
+      "path": "/api/open/cloud/v1/files",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E37"
+        },
+        {
+          "name": "projectId",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E37"
+        },
+        {
+          "name": "startTime",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        },
+        {
+          "name": "endTime",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        },
+        {
+          "name": "pageNumber",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        },
+        {
+          "name": "pageSize",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E145"
+      },
+      "constraints": [
+        {
+          "fact": "国内 GET 请求将 accessToken 与 projectId 放在 query。可选 startTime、endTime、pageNumber、pageSize 也走 query；没有请求体也不设置 Content-Type。",
+          "evidence": "E10;E37;E92"
+        },
+        {
+          "fact": "startTime/endTime 为 14 位 yyyyMMddHHmmss ASCII 日历时间；两端都显式给出且日期不同，本机在认证前拒绝，不拆页不补时区。pageNumber 从 0 起，pageSize 取值 1 至 20。可选参数为 None 时不序列化。",
+          "evidence": "E37;E172;E173;E174;E175;E176;E184"
+        },
+        {
+          "fact": "响应根 meta.code 必须是整数 200。data 是文件对象列表、允许为空。SDK 保留空值、扩展字段与 E1 长 fileId，只查询一页；本接口默认不返回下载链接。",
+          "evidence": "E145;E184"
+        }
+      ],
+      "uncertainties": [
+        "可选响应字段的必返性与空值形式、服务端时区、精确限流阈值与单边界组合结果未明确；项目不存在映射为 404。元数据查询成功不证明文件可取回或媒体可访问。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/open/cloud/v1/files",
+        "encoding": "none",
+        "evidence": "E10;E37;E92"
+      },
+      "source_content_sha256": "d88da68c53748d251932057075f89a158398c6faf0ca94b0830024d5b388fa86",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.projects",
+      "region": "domestic",
+      "source_doc_id": "1364",
+      "source_url": "https://open.ys7.com/help/1364",
+      "method": "GET",
+      "path": "/api/open/cloud/v1/projects",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageNumber",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        },
+        {
+          "name": "pageSize",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E46"
+      },
+      "constraints": [
+        {
+          "fact": "国内 GET 请求将 accessToken 与可选 pageNumber/pageSize 放在 query；没有请求体也不设置 Content-Type。",
+          "evidence": "E14"
+        },
+        {
+          "fact": "pageNumber 从 0 起默认 0，pageSize 取值 [1,20] 默认 10；可选参数为 None 时不序列化。",
+          "evidence": "E14"
+        },
+        {
+          "fact": "响应根 meta.code 必须是整数 200。data 是项目对象数组、允许为空，行保留 E50 声明字段与扩展字段。",
+          "evidence": "E46;E50"
+        }
+      ],
+      "uncertainties": [
+        "E50 各字段的必返性与空值形式未明确；项目不存在映射为 404。元数据查询成功不证明文件可取回或媒体可访问。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/open/cloud/v1/projects",
+        "encoding": "none",
+        "evidence": "E14"
+      },
+      "source_content_sha256": "70ce6f2b199b29a9904ea5abe3d4a807f2aac2a7846f37c17c0586227aa29529",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.tasks",
+      "region": "domestic",
+      "source_doc_id": "1371",
+      "source_url": "https://open.ys7.com/help/1371",
+      "method": "GET",
+      "path": "/api/v3/open/cloud/tasks",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E37"
+        },
+        {
+          "name": "pageNumber",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        },
+        {
+          "name": "pageSize",
+          "type": "Int",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        },
+        {
+          "name": "startTime",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        },
+        {
+          "name": "endTime",
+          "type": "String",
+          "location": "query",
+          "required": false,
+          "evidence": "E37"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E148"
+      },
+      "constraints": [
+        {
+          "fact": "国内 GET 请求将 accessToken 与可选 pageNumber/pageSize/startTime/endTime 放在 query；没有请求体也不设置 Content-Type。",
+          "evidence": "E37"
+        },
+        {
+          "fact": "startTime/endTime 为 14 位 yyyyMMddHHmmss ASCII 日历时间；两端都显式给出且日期不同，本机在认证前拒绝（沿用 1374 同日裁决，FAQ '两个时间须是同一天'）。pageNumber 从 0 起默认 0，pageSize 默认 10；源未证明上限，仅校验类型与 >=1。可选参数为 None 时不序列化。",
+          "evidence": "E37;FAQ"
+        },
+        {
+          "fact": "响应根 meta.code 必须是整数 200。data 是任务对象数组、允许为空，行保留 E88 声明字段（含 taskDetail.frameModel）与扩展字段。",
+          "evidence": "E88;E148"
+        }
+      ],
+      "uncertainties": [
+        "E88 各字段的必返性与空值形式未明确；pageSize 上限源未证明，不得借自 1373(50)/1374(20)；服务端时区未明确。元数据查询成功不证明文件可取回或媒体可访问。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/v3/open/cloud/tasks",
+        "encoding": "none",
+        "evidence": "E37"
+      },
+      "source_content_sha256": "c76a5628eddcd722ebc7726bfbe6b198666a6b7d60b5485b6ff3b16abadc1291",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.project",
+      "region": "domestic",
+      "source_doc_id": "1363",
+      "source_url": "https://open.ys7.com/help/1363",
+      "method": "GET",
+      "path": "/api/open/cloud/v1/project/{projectId}",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "query",
+      "source_nodes": [
+        7,
+        11,
+        14,
+        36,
+        40,
+        44,
+        112
+      ],
+      "parameters": [
+        {
+          "name": "projectId",
+          "type": "String",
+          "location": "path",
+          "required": true,
+          "evidence": "E14"
+        },
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "query",
+          "required": true,
+          "evidence": "E14"
+        }
+      ],
+      "success": {
+        "code_path": "meta.code",
+        "message_path": "meta.message",
+        "data_path": "data",
+        "values": [
+          200
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E40;E44"
+      },
+      "constraints": [
+        {
+          "fact": "国内 GET 请求将 accessToken 放在 query；projectId 为必填路径段，限字母数字下划线、最长 32，绑定单个已校验段；无请求体也不设置 Content-Type。",
+          "evidence": "E7;E11;E14;E36；SDK 对来源未规定的实现选择见 docs/coordination/domestic-cloud-project/admission.json"
+        },
+        {
+          "fact": "响应根 meta.code 必须是整数 200；data 校验为单个项目对象，沿用 1364 已批准行字段类型（含 providerType 字符串），可选或 null 字段与未知扩展字段原样保留。",
+          "evidence": "E40;E44；SDK 对来源未规定的实现选择见 docs/coordination/domestic-cloud-project/admission.json"
+        },
+        {
+          "fact": "错误码范围限来源表 400/403/404/500；除最多一次 accessToken 刷新外不新增重试或新错误码，保留通用鉴权/权限分类与本地 project/路径保护。",
+          "evidence": "E112；SDK 对来源未规定的实现选择见 docs/coordination/domestic-cloud-project/admission.json"
+        }
+      ],
+      "uncertainties": [
+        "最小角色、子账号可用性、可选字段必返性与空值形式、速率限制及真实授权项目存在性均未验证；元数据查询成功不证明文件可取回或媒体可访问。"
+      ],
+      "transport_evidence": {
+        "method": "GET",
+        "path": "https://open.ys7.com/api/open/cloud/v1/project/{projectId}",
+        "encoding": "none",
+        "evidence": "E7;E11;E14;E36"
+      },
+      "source_content_sha256": "0dee5c868994fa0861a11d5fd64864fb2d034a38794115d8e3f04440ddccb867",
+      "read_only": true
+    },
+    {
+      "operation_id": "cn.cloud_storage.ai_models",
+      "region": "domestic",
+      "source_doc_id": "5149",
+      "source_url": "https://open.ys7.com/help/5149",
+      "method": "POST",
+      "path": "/api/service/cloud/storage/service/intelligent/list",
+      "base_url": "https://open.ys7.com",
+      "body_encoding": "unknown",
+      "token_location": "header",
+      "source_nodes": [
+        4,
+        13,
+        17,
+        22,
+        38,
+        41,
+        69,
+        72
+      ],
+      "parameters": [
+        {
+          "name": "accessToken",
+          "type": "String",
+          "location": "header",
+          "required": true,
+          "evidence": "E22"
+        }
+      ],
+      "success": {
+        "code_path": "code",
+        "message_path": "msg",
+        "data_path": "data",
+        "values": [
+          "200"
+        ],
+        "envelope_paths": [
+          ""
+        ],
+        "evidence": "E41;E69"
+      },
+      "constraints": [
+        {
+          "fact": "国内 POST 仅在 header 携带 accessToken；无 path 参数、query、form 或 JSON 请求体，不设置 Content-Type。",
+          "evidence": "E4;E13;E17;E22;E38；SDK 对来源未规定的实现选择见 docs/coordination/domestic-cloud-storage-ai-models/admission.json"
+        },
+        {
+          "fact": "成功判定为根 code 等于字符串 \"200\"，消息取 msg；data 必须是对象数组，允许空数组、空行、缺失或 null 的可选字段，存在且非 null 的 intelligentId/intelligentName/description 校验为字符串，未知附加字段原样保留。",
+          "evidence": "E41;E69；SDK 对来源未规定的实现选择见 docs/coordination/domestic-cloud-storage-ai-models/admission.json"
+        },
+        {
+          "fact": "来源错误码 10002；只读操作仅允许最多一次 accessToken 刷新，使用共享鉴权分类，不承诺速率或角色。",
+          "evidence": "E72；SDK 对来源未规定的实现选择见 docs/coordination/domestic-cloud-storage-ai-models/admission.json"
+        }
+      ],
+      "uncertainties": [
+        "账号可能需开通 AI 云存储；列表数量不保证模型可用性或授权；本操作不执行任何模型推理/评估；最小角色、可选字段必返性与提供方速率上限均未验证。"
+      ],
+      "transport_evidence": {
+        "method": "POST",
+        "path": "https://open.ys7.com/api/service/cloud/storage/service/intelligent/list",
+        "encoding": "none",
+        "evidence": "E4;E13;E17;E22;E38"
+      },
+      "source_content_sha256": "3a2231c415701e26451103e6a84e30f95fd0084c2c58f0e07aed016768468ec5",
+      "read_only": true
     }
   ],
   "reviews": [
@@ -23751,6 +24295,14 @@
     {
       "review": "docs/coordination/domestic-cloud-task-files/admission.json",
       "note": "国内文档 1373 按既有云录制 1.0 任务查询一页文件元数据，以根 meta.code 整数及对象数组登记。"
+    },
+    {
+      "review": "docs/coordination/domestic-cloud-project/admission.json",
+      "note": "GET 单项目查询：token 在 query、projectId 为路径段、无请求体；meta.code 须为整数 200，成功不证明文件可取回，最小角色与速率限制未知。"
+    },
+    {
+      "review": "docs/coordination/domestic-cloud-storage-ai-models/admission.json",
+      "note": "POST 仅 header 携带 accessToken、无任何参数与请求体；成功码为字符串 \"200\"、data 为对象数组；模型可用性、所需开通状态与最小角色未知。"
     }
   ]
 }

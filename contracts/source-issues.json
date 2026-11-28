@@ -2929,6 +2929,23 @@
         "685:E67",
         "docs/coordination/domestic-cloud-task-files/admission.json"
       ]
+    },
+    {
+      "id": "cn.vod.task_files.clip_and_capture_response_shapes",
+      "region": "domestic",
+      "source_doc_id": "3964",
+      "source_url": "https://open.ys7.com/help/3964",
+      "source_content_sha256": "496116b4dec7826d7b8b15e2a337c91e01f936730b3e7d32d72ca42d601b7310",
+      "description": "文档 3717 和 3964 均使用 GET /api/service/open/cloud/vod/task/files/{taskId}，accessToken 经请求头传入。3717 的示例返回剪辑文件对象，3964 的示例返回文件对象数组。两页均未给出可区分这两种响应的请求字段。文档 3966 在查询视频封面图任务详情时引用 3964。",
+      "status": "unresolved_source_semantics",
+      "sdk_handling": "vod.task_files 按 3964 校验文件对象数组。收到 3717 的对象形状时抛出 ProtocolError。剪辑场景保留待审，SDK 仅读取响应元数据。",
+      "evidence": [
+        "https://open.ys7.com/help/3717",
+        "https://open.ys7.com/help/3966",
+        "portal-2026-11-17:domestic:3717:example:0",
+        "portal-2026-11-17:domestic:3964:declaration:0",
+        "docs/coordination/domestic-vod-task-files/admission.json"
+      ]
     }
   ]
 }

@@ -61,8 +61,13 @@ text = recorder.to_json()      # 仅返回 str
 
 自动覆盖明细以冻结清单 `docs/diagnostics-v1-coverage.json` 为准：
 
-- 243 个公共业务入口的同步/异步方法体（共 486 处，含设备管理继承方法、云录制计划继承方法与 `ptz.cruise`）：kind=`call`，记 `started` 与终态；作用域在 docstring 之后、首条校验之前，不改签名、不重复包装继承方法。`components.call` 在 `operation_id` 查找前进入作用域，未知 operation 记 `other`。新增的 `settings.list_areas`（公开国家/地区目录，GET `/api/lapp/area/list`）与其余入口相同，地区校验失败在子 scope 之前发生。云录制 1.0 的 `cloud_recording_v1.unfreeze_file`/`file_info`/`download_urls` 与云点播 `vod.files`/`create_remux_task`/`task`/`tasks`/`recording_urls` 八个国内入口同等计入，facade scope 覆盖各自的校验、认证、传输与业务终态。云抓图 `cloud_capture.create_interval_task`/`create_timing_task`/`task`、消息订阅 `message_subscriptions.create_consumer`/`consume` 与 HUB 子设备 `hubs.list_subdevices`/`subdevice_info`/`channels` 八个国内入口同样计入。
+- 248 个公共业务入口的同步/异步方法体（共 496 处，含设备管理继承方法、云录制计划继承方法与 `ptz.cruise`）：kind=`call`，记 `started` 与终态；作用域在 docstring 之后、首条校验之前，不改签名、不重复包装继承方法。`components.call` 在 `operation_id` 查找前进入作用域，未知 operation 记 `other`。新增的 `settings.list_areas`（公开国家/地区目录，GET `/api/lapp/area/list`）与其余入口相同，地区校验失败在子 scope 之前发生。云录制 1.0 的 `cloud_recording_v1.unfreeze_file`/`file_info`/`download_urls`/`project_files`/`projects`/`tasks` 与云点播 `vod.files`/`create_remux_task`/`task`/`task_files`/`tasks`/`recording_urls`/`space_list` 十三个国内入口同等计入，facade scope 覆盖各自的校验、认证、传输与业务终态。云抓图 `cloud_capture.create_interval_task`/`create_timing_task`/`task`、消息订阅 `message_subscriptions.create_consumer`/`consume` 与 HUB 子设备 `hubs.list_subdevices`/`subdevice_info`/`channels` 八个国内入口同样计入。
 - 同步与异步国内任务文件列表查询共用固定诊断入口 `cloud_recording_v1.task_files`，诊断会省略令牌、任务标识、文件标识、媒体地址和上游自由文本。
+- 国内云录制 1.0 项目文件分页查询的同步与异步诊断共用固定入口名 `cloud_recording_v1.project_files`，报告省略令牌、项目标识、文件标识、查询时间与上游自由文本。
+- 国内云录制 1.0 项目列表与任务列表分页查询的同步与异步诊断分别使用固定入口名 `cloud_recording_v1.projects` 与 `cloud_recording_v1.tasks`，报告省略令牌、项目标识、任务标识、设备序列号、查询时间与上游自由文本。
+- 运行时入口 cloud_recording_v1.project（CloudRecordingV1.project / AsyncCloudRecordingV1.project，文档 1363 单条查询项目）
+- 运行时入口 cloud_storage.ai_models（CloudStorage.ai_models / AsyncCloudStorage.ai_models，文档 5149 AI 云存储模型列表）
+- 国内 VOD 任务文件列表与录像空间分页查询的同步与异步诊断分别使用固定入口名 `vod.task_files` 与 `vod.space_list`，报告省略令牌、任务标识、空间标识或名称、文件与媒体地址及上游自由文本。
 - 同步与异步生成 Wi-Fi 配网二维码数据时共用固定诊断名 `devices.generate_wifi_qr`，报告省略令牌、SSID、口令、imageData 与上游自由文本。
 - docs/diagnostics.md 冻结 5b3469881af21f80503669bbd19b5f62164a1d44，原文件 SHA 55feb8a3ea7302f8e455560eb912ecd54b5adc6b881c58f11543fc03961a5031，同步与异步的海外 Linktom 已有图片查询共用固定诊断入口 `snapshots.get_by_uuid`，报告省略访问令牌、UUID、图片引用以及上游自由文本。
 - 国内通道灯光联动查询：同步与异步诊断共用固定名称 `settings.get_channel_light_linkage`，省略令牌、设备标识、通道、查询类型与上游自由文本。

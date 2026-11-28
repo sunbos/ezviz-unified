@@ -5049,6 +5049,35 @@
       }
     },
     {
+      "operation_id": "cn.vod.task_files",
+      "args": [
+        "synthetic-vod-task"
+      ],
+      "kwargs": {},
+      "path_fields": {
+        "taskId": "synthetic-vod-task"
+      },
+      "fields": {},
+      "data": [
+        {
+          "folderNode": "synthetic-folder-node",
+          "fileName": "synthetic-file-name.mp4",
+          "fileUrl": "synthetic-file-url",
+          "coverPicUrl": "synthetic-cover-url",
+          "fileSize": 999,
+          "extra": {
+            "synthetic": true
+          }
+        },
+        {
+          "fileName": {
+            "synthetic": "object-form"
+          },
+          "status": null
+        }
+      ]
+    },
+    {
       "operation_id": "cn.vod.tasks",
       "args": [
         8
@@ -5127,6 +5156,43 @@
           "format": "MP4"
         }
       ]
+    },
+    {
+      "operation_id": "cn.vod.space_list",
+      "args": [],
+      "kwargs": {
+        "page_start": 0,
+        "page_size": 2,
+        "sort_field": "createTime",
+        "sort_rule": "desc",
+        "space_id_name": "synthetic-space"
+      },
+      "fields": {
+        "pageStart": 0,
+        "pageSize": 2,
+        "sortField": "createTime",
+        "sortRule": "desc",
+        "spaceIdName": "synthetic-space"
+      },
+      "data": {
+        "result": [
+          {
+            "spaceId": 999001,
+            "totalSize": 999,
+            "spaceName": "synthetic-space",
+            "storageType": 1,
+            "extra": {
+              "synthetic": true
+            }
+          },
+          {
+            "spaceName": null
+          }
+        ],
+        "total": 2,
+        "pageStart": 0,
+        "pageSize": 2
+      }
     },
     {
       "operation_id": "cn.cloud_capture.create_interval_task",
@@ -7559,6 +7625,143 @@
         },
         {
           "status": null
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.project_files",
+      "args": [
+        "synthetic-project"
+      ],
+      "kwargs": {
+        "start_time": "20261118000000",
+        "end_time": "20261118235959",
+        "page_number": 0,
+        "page_size": 2
+      },
+      "fields": {
+        "projectId": "synthetic-project",
+        "startTime": "20261118000000",
+        "endTime": "20261118235959",
+        "pageNumber": 0,
+        "pageSize": 2
+      },
+      "data": [
+        {
+          "projectId": "synthetic-project",
+          "fileId": "synthetic-file",
+          "fileType": 999,
+          "status": 1,
+          "createTime": "synthetic-create-time",
+          "extra": {
+            "synthetic": true
+          }
+        },
+        {
+          "status": null
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.projects",
+      "args": [],
+      "kwargs": {
+        "page_number": 0,
+        "page_size": 2
+      },
+      "fields": {
+        "pageNumber": 0,
+        "pageSize": 2
+      },
+      "data": [
+        {
+          "projectId": "synthetic-project",
+          "projectName": "synthetic-name",
+          "expireDays": 30,
+          "storageType": 1,
+          "permission": 7,
+          "extra": {
+            "synthetic": true
+          }
+        },
+        {
+          "permission": null
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.tasks",
+      "args": [],
+      "kwargs": {
+        "start_time": "20261118000000",
+        "end_time": "20261118235959",
+        "page_number": 0,
+        "page_size": 2
+      },
+      "fields": {
+        "startTime": "20261118000000",
+        "endTime": "20261118235959",
+        "pageNumber": 0,
+        "pageSize": 2
+      },
+      "data": [
+        {
+          "taskId": "synthetic-task",
+          "projectId": "synthetic-project",
+          "deviceSerial": "synthetic-serial",
+          "taskType": 1,
+          "taskStatus": 2,
+          "taskDetail": {"frameModel": 0},
+          "fileNum": 5,
+          "totalSize": 4096,
+          "createTime": "synthetic-create-time",
+          "extra": {
+            "synthetic": true
+          }
+        },
+        {
+          "taskStatus": null
+        }
+      ]
+    },
+    {
+      "operation_id": "cn.cloud_recording_v1.project",
+      "args": [
+        "SYNTHETIC_PROJECT"
+      ],
+      "kwargs": {},
+      "fields": {},
+      "data": {
+        "projectId": "SYNTHETIC_PROJECT",
+        "projectName": "synthetic-name",
+        "providerType": "synthetic-provider",
+        "expireDays": 30,
+        "storageType": 1,
+        "permission": 7,
+        "extra": {
+          "synthetic": true
+        }
+      },
+      "path_fields": {
+        "projectId": "SYNTHETIC_PROJECT"
+      }
+    },
+    {
+      "operation_id": "cn.cloud_storage.ai_models",
+      "args": [],
+      "kwargs": {},
+      "fields": {},
+      "data": [
+        {
+          "intelligentId": "synthetic-model-id",
+          "intelligentName": "synthetic-model",
+          "description": "synthetic description",
+          "extra": {
+            "synthetic": true
+          }
+        },
+        {
+          "description": null
         }
       ]
     }
