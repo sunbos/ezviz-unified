@@ -507,6 +507,11 @@ def _task_row_valid(row: object) -> bool:
             continue
         if type(value) is not expected:
             return False
+    task_detail = row.get("taskDetail")
+    if isinstance(task_detail, dict):
+        frame_model = task_detail.get("frameModel")
+        if frame_model is not None and type(frame_model) is not int:
+            return False
     return True
 
 

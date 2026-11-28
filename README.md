@@ -353,7 +353,7 @@ python -m examples.cloud_projects --mode async
 
 ### 分页查询任务列表（云录制1.0）
 
-`client.cloud_recording_v1.tasks(*, start_time=..., end_time=..., page_number=..., page_size=...)` 分页读取国内云录制 1.0 任务列表，异步客户端用 `await` 调用同名方法。`start_time`/`end_time` 取 14 位 `yyyyMMddHHmmss` 日历时间，两端都显式给出时必须落在同一天；缺省交由平台，本机不补时区。`page_number` 从 0 开始，`page_size` 默认 10（**源未证明上限**，SDK 仅校验类型与 >=1）。方法返回 `ApiResponse`，`data` 是任务对象数组、可以为空并保留每行扩展字段。SDK 不自动翻页或访问媒体；元数据查询成功不证明文件可取回。
+`client.cloud_recording_v1.tasks(*, start_time=..., end_time=..., page_number=..., page_size=...)` 分页读取国内云录制 1.0 任务列表，异步客户端用 `await` 调用同名方法。`start_time`/`end_time` 取 14 位 `yyyyMMddHHmmss` 日历时间，两端都显式给出时必须落在同一天；缺省交由平台，本机不补时区。`page_number` 从 0 开始，`page_size` 默认 10（**源未证明上限**，SDK 仅校验类型与 >=1）。方法返回 `ApiResponse`，`data` 是可为空的任务对象数组。可选字段 `taskDetail.frameModel` 的非空值必须为整数，未知整数和扩展字段按原值返回。SDK 不自动翻页或访问媒体；元数据查询成功不证明文件可取回。
 
 命令行示例默认走模拟并内置合成身份，鉴权与业务均经 MockTransport，不读取本机配置或环境变量，只请求第 0 页（`page_size=1`），仅输出当前页的 `items` 计数。该入口仅经合成传输验证，字段必返性仍待核实。[国内文档 1371](https://open.ys7.com/help/1371)。
 

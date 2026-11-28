@@ -63,6 +63,9 @@ ROWS = [
     },
     {},
     NULL_ROW,
+    {"taskDetail": {}},
+    {"taskDetail": {"frameModel": None}},
+    {"taskDetail": {"frameModel": 17, "extension": {"frameModel": "opaque"}}},
     {"taskId": "last", "future": {"remainder": None}},
 ]
 MISS = object()
@@ -314,6 +317,7 @@ INVALID_ROWS = [
     *([{field: bad}] for field in STRING_FIELDS for bad in (True, 12, {}, [])),
     *([{field: bad}] for field in INT_FIELDS for bad in (True, 0.5, "12", {}, [])),
     *([{"taskDetail": bad}] for bad in (True, "x", [], 1)),
+    *([{"taskDetail": {"frameModel": bad}}] for bad in (True, "1", 1.0, {}, [])),
 ]
 
 
